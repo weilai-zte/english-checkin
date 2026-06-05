@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>词汇学习</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: #f0f4ff; min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; }
+  .card { background: white; border-radius: 20px; padding: 28px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 16px; }
+  .word { font-size: 48px; text-align: center; margin-bottom: 8px; color: #333; }
+  .pron { text-align: center; font-size: 18px; color: #888; margin-bottom: 4px; }
+  .cn { text-align: center; font-size: 22px; color: #667eea; font-weight: bold; margin-bottom: 16px; }
+  .hidden-hint { font-size: 22px; color: #ccc; font-weight: bold; margin-bottom: 16px; letter-spacing: 2px; }
+  .memory { background: #fff9e6; border-radius: 12px; padding: 14px; margin-bottom: 12px;
+             font-size: 14px; color: #856404; }
+  .memory-label { font-weight: bold; margin-bottom: 4px; }
+  .example { background: #f0f4ff; border-radius: 12px; padding: 16px; margin-bottom: 8px; }
+  .example-en { color: #333; font-size: 16px; font-style: italic; }
+  .example-cn { color: #888; font-size: 14px; margin-top: 6px; }
+  .btn { display: block; width: 100%; padding: 16px; border: none; border-radius: 14px;
+         font-size: 17px; font-weight: bold; cursor: pointer; text-align: center;
+         background: linear-gradient(135deg, #667eea, #764ba2); color: white;
+         text-decoration: none; margin-top: 12px; }
+  .progress { text-align: center; font-size: 14px; color: #888; margin-bottom: 12px; }
+  .topic-tag { display: inline-block; padding: 4px 12px; border-radius: 20px;
+               background: #eef; color: #667eea; font-size: 12px; }
+  .hint-label { text-align: center; font-size: 13px; color: #aaa; margin-top: 4px; margin-bottom: 12px; }
+  .speaker-btn { background: none; border: none; cursor: pointer; font-size: 32px; padding: 4px 8px; vertical-align: middle; }
+</style>
+<script>
+// ─── TTS: 使用 macOS say 命令服务端发音（/tts 端点） ───────────────────
+function speakWord(word) {
+  if (!word) return;
+  const clean = word.trim().replace(/[\.\!\?\,]+$/, '');
+  const audio = new Audio('/tts?word=' + encodeURIComponent(clean));
+  audio.play().catch(() => {});
+}
+
+// ─── 兼容旧版浏览器：如果 /tts 失败，尝试 Web Speech API ───────────────
+function speakWordFallback(word) {
+  if (!window.speechSynthesis || !word) return;
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(word.trim());
+  utter.lang = 'en-US';
+  utter.rate = 0.85;
+  utter.pitch = 1.1;
+  window.speechSynthesis.speak(utter);
+}
+
+// ─── voicechanged 事件：确保语音列表加载后再尝试 Web Speech ──────────
+if (window.speechSynthesis) {
+  window.speechSynthesis.onvoiceschanged = () => {
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length === 0) {
+      window.speechSynthesis = null;
+    }
+  };
+}
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="progress">词汇 {{ idx+1 }} / {{ total }}</div>
+
+  <div class="card">
+    <span class="topic-tag">{{ word.topic }}</span>
+
+    {% if word.hide == 'word' %}
+    <!-- 隐藏英文，只显示中文 -->
+    <div class="cn" style="margin-top:12px;">{{ word.cn }}</div>
+    <div class="hidden-hint">______</div>
+    <div class="hint-label">猜猜这个单词是什么？
+      <button class="speaker-btn" onclick="speakWord('{{ word.word }}')">🔊</button>
+    </div>
+    {% else %}
+    <!-- 隐藏中文，只显示英文 -->
+    <div class="word">{{ word.word }}
+      <button class="speaker-btn" onclick="speakWord('{{ word.word }}')">🔊</button>
+    </div>
+    <div class="pron">{{ word.pron }}</div>
+    <div class="hidden-hint">???</div>
+    <div class="hint-label">猜猜是什么意思？</div>
+    {% endif %}
+
+    {% if word.memory %}
+    <div class="memory">
+      <div class="memory-label">🧠 记忆法</div>
+      {{ word.memory }}
+    </div>
+    {% endif %}
+
+    <div class="example">
+      <div class="example-en">{{ word.example }}</div>
+      <div class="example-cn">例句</div>
+    </div>
+
+    <form method="post">
+      <button type="submit" class="btn">
+        {% if idx < total - 1 %}下一个词 →
+        {% else %}完成词汇学习 ✨{% endif %}
+      </button>
+    </form>
+  </div>
+
+  <div style="text-align:center; margin-top:12px;">
+    <a href="/grammar" style="color:#667eea; text-decoration:none; font-size:14px;">
+      跳过 → 去做语法练习
+    </a>
+  </div>
+</div>
+</body>
+</html>

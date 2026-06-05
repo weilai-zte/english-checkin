@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test preposition dataset bug</title></head>
+<body>
+<!--
+  Bug: preposition.html line 75 uses:
+    btn.dataset.q   ← undefined! should be:
+    container.dataset.question
+
+  When undefined, selected[qid] = undefined (always falsy)
+  → submitAll() shows "unanswered" alert even after selecting all.
+-->
+<script>
+const questions = ["q1", "q2"];
+const selected = {};
+const container = { dataset: { question: "0" } };
+const btn = { dataset: {} }; // BUG: dataset.q is undefined
+
+// Wrong (current):
+// btn.addEventListener('click', () => {
+//   const container = btn.closest('.options');
+//   const qid = parseInt(btn.dataset.q);  // NaN! because q is undefined
+// });
+
+// Fixed version:
+function fixedSelectOption(btn, container) {
+  const qid = parseInt(container.dataset.question);
+  console.assert(!isNaN(qid), "qid should not be NaN");
+  selected[qid] = btn.dataset.val;
+}
+
+// Test
+const qid = parseInt(container.dataset.question);
+console.assert(qid === 0, "qid should be 0, got: " + qid);
+
+// Buggy version:
+// const buggyQid = parseInt(btn.dataset.q);
+// console.assert(!isNaN(buggyQid), "buggyQid should be NaN: " + buggyQid);
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>闪卡复习</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+         min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; position: relative; }
+  h1 { color: white; font-size: 22px; text-align: center; margin-bottom: 16px; }
+  .progress { text-align: center; color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 12px; }
+  .flashcard { width: 100%; height: 320px; perspective: 1000px; cursor: pointer; margin-bottom: 16px; }
+  .card-inner { width: 100%; height: 100%; position: relative;
+                transform-style: preserve-3d; transition: transform 0.6s; }
+  .card-inner.flipped { transform: rotateY(180deg); }
+  .card-face { position: absolute; width: 100%; height: 100%;
+               backface-visibility: hidden; border-radius: 20px;
+               display: flex; flex-direction: column; align-items: center;
+               justify-content: center; padding: 24px; }
+  .card-front { background: white; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+  .card-back { background: linear-gradient(135deg, #667eea, #764ba2);
+               transform: rotateY(180deg); color: white; text-align: center; }
+  .word-en { font-size: 42px; font-weight: bold; color: #1a1a2e; }
+  .word-pron { font-size: 18px; color: #888; margin: 8px 0; }
+  .word-cn { font-size: 28px; color: #667eea; font-weight: bold; }
+  .word-hidden { font-size: 42px; color: #ccc; font-weight: bold; letter-spacing: 4px; }
+  .memory { font-size: 14px; color: rgba(255,255,255,0.8); margin-top: 12px; }
+  .example { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 8px; font-style: italic; }
+  .tap-hint { text-align: center; color: rgba(255,255,255,0.4); font-size: 13px; margin-bottom: 12px; }
+  .nav { display: flex; gap: 12px; }
+  .nav-btn { flex: 1; padding: 14px; border: none; border-radius: 14px; font-size: 16px;
+             font-weight: bold; cursor: pointer; text-align: center; }
+  .nav-btn:active { transform: scale(0.97); }
+  .btn-again { background: #ff6b6b; color: white; }
+  .btn-good { background: #feca57; color: #333; }
+  .btn-easy { background: #48dbfb; color: #333; }
+  .dones { text-align: center; font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 8px; }
+  .speaker-btn { background: none; border: none; cursor: pointer; font-size: 26px;
+                 padding: 4px; vertical-align: middle; flex-shrink: 0; }
+  .speaker-btn-float {
+    display: none;                    /* 默认隐藏，翻到背面才显示 */
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    font-size: 22px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .speaker-btn-float:hover { background: white; }
+  .speaker-btn-float:active { transform: scale(0.95); }
+  a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🃏 闪卡复习（中文猜英文）</h1>
+  <div class="progress" id="progress-text">0 / {{ words|length }}</div>
+
+  <div class="flashcard" onclick="flip()">
+    <div class="card-inner" id="card-inner">
+      <!-- 正面：只显示英文或中文 -->
+      <div class="card-face card-front">
+        <div class="word-en" id="word-en"></div>
+        <div class="word-pron" id="word-pron"></div>
+        <div class="word-cn" id="word-cn" style="margin-top:12px; font-size:16px; color:#888;"></div>
+        <div class="word-hidden" id="word-hidden" style="display:none;"></div>
+        <div id="front-hint" style="position:absolute; bottom:20px; font-size:12px; color:#ccc;"></div>
+      </div>
+      <!-- 反面：揭示答案 -->
+      <div class="card-face card-back">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+          <div class="word-en" id="back-en" style="color:white;"></div>
+        </div>
+        <div class="word-cn" id="back-cn" style="font-size:24px; font-weight:bold; margin-top:8px;"></div>
+        <div class="memory" id="back-memory"></div>
+        <div class="example" id="back-example"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔊 发音按钮：绝对定位在卡片右上角，完全在 flashcard 外部 -->
+  <button id="back-speaker" class="speaker-btn-float" onclick="speakWord(currentWord)" title="听发音">🔊</button>
+
+  <div class="tap-hint">👆 点击卡片翻转查看答案</div>
+
+  <div class="nav" id="nav-area" style="display:none;">
+    <button class="nav-btn btn-again" onclick="rate(0)">忘了 😢</button>
+    <button class="nav-btn btn-good" onclick="rate(1)">记得 😐</button>
+    <button class="nav-btn btn-easy" onclick="rate(2)">太简单 😎</button>
+  </div>
+
+  <div class="dones" id="dones-text"></div>
+
+  <div style="text-align:center; margin-top:16px;">
+    <a href="/">← 返回首页</a>
+  </div>
+</div>
+
+<script>
+const words = {{ words|tojson }};
+let idx = 0, flipped = false, done = 0;
+let currentWord = "";
+
+// ─── TTS: 使用 macOS say 命令服务端发音（/tts 端点） ───────────────────
+function speakWord(word) {
+  if (!word) return;
+  const clean = word.trim().replace(/[\.\!\?\,]+$/, '');
+  const audio = new Audio('/tts?word=' + encodeURIComponent(clean));
+  audio.play().catch(() => {});
+}
+
+function showCard() {
+  const w = words[idx];
+  currentWord = w.word;  // 记住当前单词，用于背面发音
+  document.getElementById("word-en").textContent = "";
+  document.getElementById("word-pron").textContent = "";
+  document.getElementById("word-cn").textContent = "";
+  document.getElementById("word-hidden").style.display = "none";
+  document.getElementById("front-hint").textContent = "";
+
+  if (w.hide === "cn") {
+    // 正面只显示英文，隐藏中文
+    document.getElementById("word-en").textContent = w.word;
+    document.getElementById("word-pron").textContent = w.pron;
+    document.getElementById("word-cn").textContent = "";
+    document.getElementById("front-hint").textContent = "猜猜是什么意思？";
+  } else {
+    // 正面只显示中文，隐藏英文
+    document.getElementById("word-en").textContent = w.cn;
+    document.getElementById("word-pron").textContent = "";
+    document.getElementById("word-cn").textContent = "";
+    document.getElementById("front-hint").textContent = "猜猜这个单词是什么？";
+  }
+
+  // 背面：揭示答案
+  document.getElementById("back-en").textContent = w.word + "  " + w.pron;
+  document.getElementById("back-cn").textContent = w.cn;
+  document.getElementById("back-memory").textContent = "🧠 " + (w["记忆"] || "");
+  document.getElementById("back-example").textContent = w["例句"] || "";
+  document.getElementById("progress-text").textContent = (idx+1) + " / " + words.length;
+  document.getElementById("card-inner").classList.remove("flipped");
+  document.getElementById("nav-area").style.display = "none";
+  document.getElementById("back-speaker").style.display = "none";  // 重置时隐藏发音按钮
+  flipped = false;
+}
+
+function flip() {
+  document.getElementById("card-inner").classList.toggle("flipped");
+  flipped = !flipped;
+  if (flipped) {
+    document.getElementById("nav-area").style.display = "flex";
+    document.getElementById("back-speaker").style.display = "block";  // 显示发音按钮
+  } else {
+    document.getElementById("nav-area").style.display = "none";
+    document.getElementById("back-speaker").style.display = "none";   // 隐藏发音按钮
+  }
+}
+
+function rate(r) {
+  // POST 评分到服务器
+  fetch("/flashcard/rate", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({word: currentWord, rating: r})
+  }).catch(() => {});
+
+  done++;
+  document.getElementById("dones-text").textContent = "已复习 " + done + " 张";
+  idx = (idx + 1) % words.length;
+  showCard();
+}
+
+showCard();
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今日打卡 - 初一英语</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+         min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; }
+  .card { background: white; border-radius: 20px; padding: 28px; margin-bottom: 16px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  h1 { color: white; font-size: 24px; text-align: center; margin-bottom: 20px; }
+  .topic-tag { display: inline-block; padding: 6px 16px; border-radius: 20px;
+               background: #eef; color: #667eea; font-size: 14px; margin-bottom: 16px; }
+  h2 { font-size: 20px; color: #1a1a2e; margin: 20px 0 8px; }
+  .word-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .word-card { background: #f8f9ff; border-radius: 14px; padding: 16px; text-align: center;
+               text-decoration: none; color: inherit; transition: transform 0.1s, box-shadow 0.1s; }
+  .word-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .word-en { font-size: 18px; font-weight: bold; color: #333; }
+  .word-pron { font-size: 12px; color: #888; margin: 4px 0; }
+  .word-cn { font-size: 14px; color: #667eea; }
+  .grammars { margin-top: 16px; }
+  .rule-box { background: #fff9e6; border-radius: 12px; padding: 14px; margin-bottom: 12px;
+              font-size: 14px; color: #666; border-left: 4px solid #f0ad4e; }
+  .example { background: #f0f4ff; border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+  .example-en { color: #333; font-size: 15px; }
+  .example-cn { color: #888; font-size: 13px; margin-top: 4px; }
+  .btn { display: block; width: 100%; padding: 16px; border: none; border-radius: 14px;
+         font-size: 17px; font-weight: bold; cursor: pointer; text-align: center;
+         text-decoration: none; transition: transform 0.1s; margin-top: 12px; }
+  .btn:active { transform: scale(0.97); }
+  .btn-grammar { background: linear-gradient(135deg, #f093fb, #f5576c);
+                  color: white; text-decoration: none; }
+  .step { display: inline-block; width: 28px; height: 28px; border-radius: 50%;
+          background: #667eea; color: white; text-align: center; line-height: 28px;
+          font-size: 14px; margin-right: 8px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📚 今日学习任务</h1>
+
+  <div class="card">
+    <div class="topic-tag">{{ task.topic }}</div>
+
+    <h2><span class="step">1</span>词汇学习</h2>
+    <div class="word-grid">
+      {% for w in task.vocab %}
+      <a href="/vocab/{{ loop.index0 }}" class="word-card">
+        <div class="word-en">{{ w.word }}</div>
+        <div class="word-pron">{{ w.pron }}</div>
+        <div class="word-cn">{{ w.cn }}</div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <h2 style="margin-top:20px;"><span class="step">2</span>语法学习</h2>
+    <div class="grammars">
+      <div class="rule-box">📖 规则：{{ task.grammar.rule }}</div>
+      {% for ex in task.grammar.examples %}
+      <div class="example">
+        <div class="example-en">💬 {{ ex.句 }}</div>
+        <div class="example-cn">{{ ex.翻译 }}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <a href="/grammar" class="btn btn-grammar">✍️ 开始语法练习</a>
+  </div>
+
+  <div style="text-align:center; margin-top:16px;">
+    <a href="/" style="color:white; text-decoration:none; font-size:14px;">← 返回首页</a>
+  </div>
+</div>
+</body>
+</html>

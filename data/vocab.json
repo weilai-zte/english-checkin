@@ -1,0 +1,2350 @@
+{
+  "school": {
+    "topic": "School 学校",
+    "words": [
+      {
+        "word": "student",
+        "pron": "/ˈstjuːdənt/",
+        "cn": "学生",
+        "记忆": "study学习→student学习的人",
+        "例句": "I am a student in Grade 7."
+      },
+      {
+        "word": "teacher",
+        "pron": "/ˈtiːtʃə/",
+        "cn": "教师",
+        "记忆": "teach教+er人",
+        "例句": "My teacher is very kind."
+      },
+      {
+        "word": "classmate",
+        "pron": "/ˈklɑːsmeɪt/",
+        "cn": "同班同学",
+        "记忆": "class班+mate伙伴",
+        "例句": "All my classmates are friendly."
+      },
+      {
+        "word": "textbook",
+        "pron": "/ˈtekstbʊk/",
+        "cn": "教科书",
+        "记忆": "text文本+book书",
+        "例句": "Open your textbooks, please."
+      },
+      {
+        "word": "notebook",
+        "pron": "/ˈnəʊtbʊk/",
+        "cn": "笔记本",
+        "记忆": "note笔记+book书",
+        "例句": "I wrote the new words in my notebook."
+      },
+      {
+        "word": "dictionary",
+        "pron": "/ˈdɪkʃəneri/",
+        "cn": "词典",
+        "记忆": "dict说→diction措辞+ary物品",
+        "例句": "This dictionary is very useful."
+      },
+      {
+        "word": "homework",
+        "pron": "/ˈhəʊmwɜːk/",
+        "cn": "作业",
+        "记忆": "home家+work工作",
+        "例句": "I have a lot of homework today."
+      },
+      {
+        "word": "subject",
+        "pron": "/ˈsʌbdʒɪkt/",
+        "cn": "学科",
+        "记忆": "subject主题/科目",
+        "例句": "What's your favorite subject?"
+      },
+      {
+        "word": "P.E.",
+        "pron": "/piː ˈiː/",
+        "cn": "体育课",
+        "记忆": "Physical Education",
+        "例句": "We have P.E. on Tuesday."
+      },
+      {
+        "word": "science",
+        "pron": "/ˈsaɪəns/",
+        "cn": "科学",
+        "记忆": "sci知道+ence学问",
+        "例句": "Science is my favorite subject."
+      },
+      {
+        "word": "lesson",
+        "pron": "/ˈlesən/",
+        "cn": "课",
+        "记忆": "lesson课",
+        "例句": "We have four lessons every morning."
+      },
+      {
+        "word": "exam",
+        "pron": "/ɪɡˈzæm/",
+        "cn": "考试",
+        "记忆": "exam考试",
+        "例句": "We have an English exam next week."
+      },
+      {
+        "word": "score",
+        "pron": "/skɔː/",
+        "cn": "分数",
+        "记忆": "score分数",
+        "例句": "I got a high score in the test."
+      },
+      {
+        "word": "listen",
+        "pron": "/ˈlɪsən/",
+        "cn": "听",
+        "记忆": "list听+en",
+        "例句": "I listen to the teacher carefully."
+      },
+      {
+        "word": "read",
+        "pron": "/riːd/",
+        "cn": "读",
+        "记忆": "read读",
+        "例句": "I read English every morning."
+      }
+    ]
+  },
+  "family": {
+    "topic": "Family 家庭",
+    "words": [
+      {
+        "word": "family",
+        "pron": "/ˈfæməli/",
+        "cn": "家庭",
+        "记忆": "family家庭",
+        "例句": "I have a happy family."
+      },
+      {
+        "word": "mother",
+        "pron": "/ˈmʌðə/",
+        "cn": "母亲",
+        "记忆": "moth妈妈+er",
+        "例句": "My mother cooks dinner for us."
+      },
+      {
+        "word": "father",
+        "pron": "/ˈfɑːðə/",
+        "cn": "父亲",
+        "记忆": "fath爸爸+er",
+        "例句": "My father works in a hospital."
+      },
+      {
+        "word": "parent",
+        "pron": "/ˈpeərənt/",
+        "cn": "父母",
+        "记忆": "par生育+ent人",
+        "例句": "My parents are very busy."
+      },
+      {
+        "word": "brother",
+        "pron": "/ˈbrʌðə/",
+        "cn": "兄弟",
+        "记忆": "broth兄弟+er",
+        "例句": "I have an older brother."
+      },
+      {
+        "word": "sister",
+        "pron": "/ˈsɪstə/",
+        "cn": "姐妹",
+        "记忆": "sist姐妹+er",
+        "例句": "My sister is in high school."
+      },
+      {
+        "word": "grandmother",
+        "pron": "/ˈɡrænmʌðə/",
+        "cn": "祖母",
+        "记忆": "grand大+mother母亲",
+        "例句": "My grandmother tells me stories."
+      },
+      {
+        "word": "grandfather",
+        "pron": "/ˈɡrænfɑːðə/",
+        "cn": "祖父",
+        "记忆": "grand大+father父亲",
+        "例句": "My grandfather is 70 years old."
+      },
+      {
+        "word": "uncle",
+        "pron": "/ˈʌŋkl/",
+        "cn": "叔/舅/姑父",
+        "记忆": "uncle叔叔",
+        "例句": "My uncle lives in Beijing."
+      },
+      {
+        "word": "aunt",
+        "pron": "/ɑːnt/",
+        "cn": "姑/姨/婶",
+        "记忆": "aunt阿姨",
+        "例句": "My aunt is a doctor."
+      },
+      {
+        "word": "cousin",
+        "pron": "/ˈkʌzən/",
+        "cn": "堂/表兄弟姐妹",
+        "记忆": "cousin表亲",
+        "例句": "My cousin is my age."
+      },
+      {
+        "word": "baby",
+        "pron": "/ˈbeɪbi/",
+        "cn": "婴儿",
+        "记忆": "ba宝+by",
+        "例句": "The baby is sleeping."
+      }
+    ]
+  },
+  "time": {
+    "topic": "Time & Days 时间与日期",
+    "words": [
+      {
+        "word": "today",
+        "pron": "/təˈdeɪ/",
+        "cn": "今天",
+        "记忆": "to到+day天",
+        "例句": "Today is Monday."
+      },
+      {
+        "word": "tomorrow",
+        "pron": "/təˈmɒrəʊ/",
+        "cn": "明天",
+        "记忆": "to到+morrow早晨",
+        "例句": "Tomorrow is my birthday."
+      },
+      {
+        "word": "yesterday",
+        "pron": "/ˈjestədeɪ/",
+        "cn": "昨天",
+        "记忆": "yester昨天+day天",
+        "例句": "Yesterday was Sunday."
+      },
+      {
+        "word": "morning",
+        "pron": "/ˈmɔːnɪŋ/",
+        "cn": "早晨",
+        "记忆": "mor早晨+ning",
+        "例句": "I exercise every morning."
+      },
+      {
+        "word": "afternoon",
+        "pron": "/ˌɑːftəˈnuːn/",
+        "cn": "下午",
+        "记忆": "after后+noon中午",
+        "例句": "I have class this afternoon."
+      },
+      {
+        "word": "evening",
+        "pron": "/ˈiːvnɪŋ/",
+        "cn": "傍晚/晚上",
+        "记忆": "eve傍晚+ning",
+        "例句": "Good evening!"
+      },
+      {
+        "word": "night",
+        "pron": "/naɪt/",
+        "cn": "夜晚",
+        "记忆": "night夜",
+        "例句": "I go to bed at 9 at night."
+      },
+      {
+        "word": "Monday",
+        "pron": "/ˈmʌndeɪ/",
+        "cn": "星期一",
+        "记忆": "Moon day月亮日",
+        "例句": "Monday is the first school day."
+      },
+      {
+        "word": "Tuesday",
+        "pron": "/ˈtjuːzdeɪ/",
+        "cn": "星期二",
+        "记忆": "Tyr战神日",
+        "例句": "We have P.E. on Tuesday."
+      },
+      {
+        "word": "Wednesday",
+        "pron": "/ˈwenzdeɪ/",
+        "cn": "星期三",
+        "记忆": "Woden神日",
+        "例句": "Wednesday comes after Tuesday."
+      },
+      {
+        "word": "Thursday",
+        "pron": "/ˈθɜːzdeɪ/",
+        "cn": "星期四",
+        "记忆": "Thor雷神日",
+        "例句": "Thursday is my favorite day."
+      },
+      {
+        "word": "Friday",
+        "pron": "/ˈfraɪdeɪ/",
+        "cn": "星期五",
+        "记忆": "Fri女神日",
+        "例句": "Friday is the last school day."
+      },
+      {
+        "word": "Saturday",
+        "pron": "/ˈsætədeɪ/",
+        "cn": "星期六",
+        "记忆": "Saturn土星日",
+        "例句": "I play football on Saturday."
+      },
+      {
+        "word": "Sunday",
+        "pron": "/ˈsʌndeɪ/",
+        "cn": "星期日",
+        "记忆": "Sun day太阳日",
+        "例句": "Sunday is a holiday."
+      },
+      {
+        "word": "January",
+        "pron": "/ˈdʒænjuəri/",
+        "cn": "一月",
+        "记忆": "Jan一月",
+        "例句": "New Year's Day is in January."
+      },
+      {
+        "word": "February",
+        "pron": "/ˈfebruəri/",
+        "cn": "二月",
+        "记忆": "Feb二月",
+        "例句": "The Spring Festival is in February."
+      },
+      {
+        "word": "March",
+        "pron": "/mɑːtʃ/",
+        "cn": "三月",
+        "记忆": "Mar三月",
+        "例句": "March is the third month."
+      },
+      {
+        "word": "April",
+        "pron": "/ˈeɪprəl/",
+        "cn": "四月",
+        "记忆": "Apr四月",
+        "例句": "April is a beautiful month."
+      },
+      {
+        "word": "May",
+        "pron": "/meɪ/",
+        "cn": "五月",
+        "记忆": "May五月",
+        "例句": "May is the fifth month."
+      },
+      {
+        "word": "June",
+        "pron": "/dʒuːn/",
+        "cn": "六月",
+        "记忆": "Jun六月",
+        "例句": "Children's Day is in June."
+      },
+      {
+        "word": "July",
+        "pron": "/dʒuˈlaɪ/",
+        "cn": "七月",
+        "记忆": "Jul七月",
+        "例句": "July is very hot."
+      },
+      {
+        "word": "August",
+        "pron": "/ˈɔːɡəst/",
+        "cn": "八月",
+        "记忆": "Aug八月",
+        "例句": "August is the summer vacation."
+      },
+      {
+        "word": "September",
+        "pron": "/sepˈtembə/",
+        "cn": "九月",
+        "记忆": "Sep九月",
+        "例句": "School starts in September."
+      },
+      {
+        "word": "October",
+        "pron": "/ɒkˈtəʊbə/",
+        "cn": "十月",
+        "记忆": "Oct十月",
+        "例句": "National Day is in October."
+      },
+      {
+        "word": "November",
+        "pron": "/nəʊˈvembə/",
+        "cn": "十一月",
+        "记忆": "Nov十一月",
+        "例句": "November is the eleventh month."
+      },
+      {
+        "word": "December",
+        "pron": "/dɪˈsembə/",
+        "cn": "十二月",
+        "记忆": "Dec十二月",
+        "例句": "Christmas is in December."
+      }
+    ]
+  },
+  "weather": {
+    "topic": "Weather 天气",
+    "words": [
+      {
+        "word": "weather",
+        "pron": "/ˈweðə/",
+        "cn": "天气",
+        "记忆": "wea天气+ther",
+        "例句": "What's the weather like today?"
+      },
+      {
+        "word": "sunny",
+        "pron": "/ˈsʌni/",
+        "cn": "晴朗的",
+        "记忆": "sun太阳+y的",
+        "例句": "It's sunny today."
+      },
+      {
+        "word": "rainy",
+        "pron": "/ˈreɪni/",
+        "cn": "下雨的",
+        "记忆": "rain雨+y的",
+        "例句": "It's rainy in summer."
+      },
+      {
+        "word": "cloudy",
+        "pron": "/ˈklaʊdi/",
+        "cn": "多云的",
+        "记忆": "cloud云+y的",
+        "例句": "It's cloudy today."
+      },
+      {
+        "word": "windy",
+        "pron": "/ˈwɪndi/",
+        "cn": "有风的",
+        "记忆": "wind风+y的",
+        "例句": "It's windy in spring."
+      },
+      {
+        "word": "snowy",
+        "pron": "/ˈsnəʊi/",
+        "cn": "下雪的",
+        "记忆": "snow雪+y的",
+        "例句": "It's snowy in winter."
+      },
+      {
+        "word": "cold",
+        "pron": "/kəʊld/",
+        "cn": "冷的",
+        "记忆": "cold冷",
+        "例句": "It's very cold in winter."
+      },
+      {
+        "word": "hot",
+        "pron": "/hɒt/",
+        "cn": "热的",
+        "记忆": "hot热",
+        "例句": "It's hot in summer."
+      },
+      {
+        "word": "warm",
+        "pron": "/wɔːm/",
+        "cn": "温暖的",
+        "记忆": "warm温暖",
+        "例句": "Spring is warm and nice."
+      },
+      {
+        "word": "cool",
+        "pron": "/kuːl/",
+        "cn": "凉爽的",
+        "记忆": "cool凉爽",
+        "例句": "It's cool in the evening."
+      },
+      {
+        "word": "temperature",
+        "pron": "/ˈtemprətʃə/",
+        "cn": "温度",
+        "记忆": "temper温度+ature",
+        "例句": "The temperature is 25 degrees."
+      },
+      {
+        "word": "degree",
+        "pron": "/dɪˈɡriː/",
+        "cn": "度",
+        "记忆": "degree度",
+        "例句": "Today is 30 degrees."
+      }
+    ]
+  },
+  "food": {
+    "topic": "Food & Drink 饮食",
+    "words": [
+      {
+        "word": "breakfast",
+        "pron": "/ˈbrekfəst/",
+        "cn": "早餐",
+        "记忆": "break打断+fast斋戒→breakfast",
+        "例句": "I have breakfast at 7 o'clock."
+      },
+      {
+        "word": "lunch",
+        "pron": "/lʌntʃ/",
+        "cn": "午餐",
+        "记忆": "lunch午餐",
+        "例句": "I eat lunch at school."
+      },
+      {
+        "word": "dinner",
+        "pron": "/ˈdɪnə/",
+        "cn": "晚餐/正餐",
+        "记忆": "dinner晚餐",
+        "例句": "We have dinner together."
+      },
+      {
+        "word": "rice",
+        "pron": "/raɪs/",
+        "cn": "米饭",
+        "记忆": "rice米饭",
+        "例句": "I like eating rice."
+      },
+      {
+        "word": "noodle",
+        "pron": "/ˈnuːdl/",
+        "cn": "面条",
+        "记忆": "noodle面条",
+        "例句": "I often eat noodles for lunch."
+      },
+      {
+        "word": "bread",
+        "pron": "/bred/",
+        "cn": "面包",
+        "记忆": "bread面包",
+        "例句": "I eat bread for breakfast."
+      },
+      {
+        "word": "egg",
+        "pron": "/eɡ/",
+        "cn": "鸡蛋",
+        "记忆": "egg鸡蛋",
+        "例句": "I want an egg."
+      },
+      {
+        "word": "meat",
+        "pron": "/miːt/",
+        "cn": "肉",
+        "记忆": "meat肉",
+        "例句": "I don't eat meat."
+      },
+      {
+        "word": "fish",
+        "pron": "/fɪʃ/",
+        "cn": "鱼",
+        "记忆": "fish鱼",
+        "例句": "My mother cooks fish on Fridays."
+      },
+      {
+        "word": "vegetable",
+        "pron": "/ˈvedʒtəbl/",
+        "cn": "蔬菜",
+        "记忆": "veget蔬菜+able能…的",
+        "例句": "Eat more vegetables!"
+      },
+      {
+        "word": "fruit",
+        "pron": "/fruːt/",
+        "cn": "水果",
+        "记忆": "fruit水果",
+        "例句": "I eat fruit every day. It is good for my health."
+      },
+      {
+        "word": "apple",
+        "pron": "/ˈæpl/",
+        "cn": "苹果",
+        "记忆": "apple苹果",
+        "例句": "I like eating apples."
+      },
+      {
+        "word": "banana",
+        "pron": "/bəˈnɑːnə/",
+        "cn": "香蕉",
+        "记忆": "banana香蕉",
+        "例句": "Bananas are yellow."
+      },
+      {
+        "word": "orange",
+        "pron": "/ˈɒrɪndʒ/",
+        "cn": "橙子/橙色",
+        "记忆": "orange橙子",
+        "例句": "I have an orange."
+      },
+      {
+        "word": "water",
+        "pron": "/ˈwɔːtə/",
+        "cn": "水",
+        "记忆": "water水",
+        "例句": "I drink 8 glasses of water a day."
+      },
+      {
+        "word": "milk",
+        "pron": "/mɪlk/",
+        "cn": "牛奶",
+        "记忆": "milk牛奶",
+        "例句": "I drink milk every morning."
+      },
+      {
+        "word": "tea",
+        "pron": "/tiː/",
+        "cn": "茶",
+        "记忆": "tea茶",
+        "例句": "My grandfather likes drinking tea."
+      },
+      {
+        "word": "juice",
+        "pron": "/dʒuːs/",
+        "cn": "果汁",
+        "记忆": "juice果汁",
+        "例句": "I would like some orange juice."
+      },
+      {
+        "word": "chicken",
+        "pron": "/ˈtʃɪkɪn/",
+        "cn": "鸡肉",
+        "记忆": "chick小鸡+en",
+        "例句": "I like chicken wings."
+      },
+      {
+        "word": "potato",
+        "pron": "/pəˈteɪtəʊ/",
+        "cn": "土豆",
+        "记忆": "potato土豆",
+        "例句": "I like French fries (potatoes)."
+      },
+      {
+        "word": "delicious",
+        "pron": "/dɪˈlɪʃəs/",
+        "cn": "美味的",
+        "记忆": "delight快乐+ious→快乐的味觉",
+        "例句": "The food at the restaurant is delicious."
+      },
+      {
+        "word": "spicy",
+        "pron": "/ˈspaɪsi/",
+        "cn": "辣的",
+        "记忆": "spice香料+y",
+        "例句": "Sichuan food is very spicy."
+      },
+      {
+        "word": "sour",
+        "pron": "/ˈsaʊə/",
+        "cn": "酸的",
+        "记忆": "sour酸",
+        "例句": "Lemons taste sour."
+      },
+      {
+        "word": "bitter",
+        "pron": "/ˈbɪtə/",
+        "cn": "苦的",
+        "记忆": "bitter苦",
+        "例句": "Medicine usually tastes bitter."
+      },
+      {
+        "word": "salty",
+        "pron": "/ˈsɔːlti/",
+        "cn": "咸的",
+        "记忆": "salt盐+y",
+        "例句": "This soup is too salty."
+      },
+      {
+        "word": "sweet",
+        "pron": "/swiːt/",
+        "cn": "甜的",
+        "记忆": "sweet甜",
+        "例句": "I prefer sweet food to spicy food."
+      },
+      {
+        "word": "greasy",
+        "pron": "/ˈɡriːsi/",
+        "cn": "油腻的",
+        "记忆": "grease油脂+y",
+        "例句": "Fast food is usually greasy."
+      },
+      {
+        "word": "pepper",
+        "pron": "/ˈpepə/",
+        "cn": "胡椒/辣椒",
+        "记忆": "pepper胡椒",
+        "例句": "Please pass the pepper."
+      },
+      {
+        "word": "garlic",
+        "pron": "/ˈɡɑːlɪk/",
+        "cn": "大蒜",
+        "记忆": "garlic大蒜",
+        "例句": "Garlic is good for your health."
+      },
+      {
+        "word": "cinnamon",
+        "pron": "/ˈsɪnəmən/",
+        "cn": "肉桂",
+        "记忆": "cinnamon肉桂",
+        "例句": "Cinnamon is used in many desserts."
+      },
+      {
+        "word": "cookie",
+        "pron": "/ˈkʊki/",
+        "cn": "饼干/曲奇",
+        "记忆": "cook烹饪+ie→小烘饼",
+        "例句": "I ate some cookies after school."
+      },
+      {
+        "word": "chocolate",
+        "pron": "/ˈtʃɒklət/",
+        "cn": "巧克力",
+        "记忆": "chocolate巧克力",
+        "例句": "Dark chocolate is good for your heart."
+      },
+      {
+        "word": "recipe",
+        "pron": "/ˈresɪpi/",
+        "cn": "食谱/配方",
+        "记忆": "re再+cipe拿→反复拿取的经验",
+        "例句": "Can you share the recipe for this dish?"
+      },
+      {
+        "word": "ingredient",
+        "pron": "/ɪnˈɡriːdiənt/",
+        "cn": "原料/成分",
+        "记忆": "in内+gredient步骤→放入的步骤",
+        "例句": "What are the main ingredients of this soup?"
+      },
+      {
+        "word": "flour",
+        "pron": "/ˈflaʊə/",
+        "cn": "面粉",
+        "记忆": "flower花→磨碎的谷物",
+        "例句": "Flour is used to make bread."
+      }
+    ]
+  },
+  "colors": {
+    "topic": "Colors 颜色",
+    "words": [
+      {
+        "word": "red",
+        "pron": "/red/",
+        "cn": "红色",
+        "记忆": "red红",
+        "例句": "The apple is red."
+      },
+      {
+        "word": "blue",
+        "pron": "/bluː/",
+        "cn": "蓝色",
+        "记忆": "blue蓝",
+        "例句": "The sky is blue."
+      },
+      {
+        "word": "yellow",
+        "pron": "/ˈjeləʊ/",
+        "cn": "黄色",
+        "记忆": "yellow黄",
+        "例句": "The banana is yellow."
+      },
+      {
+        "word": "green",
+        "pron": "/ɡriːn/",
+        "cn": "绿色",
+        "记忆": "green绿",
+        "例句": "Grass is green."
+      },
+      {
+        "word": "black",
+        "pron": "/blæk/",
+        "cn": "黑色",
+        "记忆": "black黑",
+        "例句": "The board is black."
+      },
+      {
+        "word": "white",
+        "pron": "/waɪt/",
+        "cn": "白色",
+        "记忆": "white白",
+        "例句": "Snow is white."
+      },
+      {
+        "word": "purple",
+        "pron": "/ˈpɜːpl/",
+        "cn": "紫色",
+        "记忆": "purple紫",
+        "例句": "Grapes are purple."
+      },
+      {
+        "word": "pink",
+        "pron": "/pɪŋk/",
+        "cn": "粉色",
+        "记忆": "pink粉",
+        "例句": "I like pink dresses."
+      },
+      {
+        "word": "brown",
+        "pron": "/braʊn/",
+        "cn": "棕色",
+        "记忆": "brown棕",
+        "例句": "My shoes are brown."
+      },
+      {
+        "word": "orange",
+        "pron": "/ˈɒrɪndʒ/",
+        "cn": "橙色",
+        "记忆": "orange橙",
+        "例句": "The orange is orange."
+      }
+    ]
+  },
+  "animals": {
+    "topic": "Animals 动物",
+    "words": [
+      {
+        "word": "cat",
+        "pron": "/kæt/",
+        "cn": "猫",
+        "记忆": "cat猫",
+        "例句": "I have a cute cat."
+      },
+      {
+        "word": "dog",
+        "pron": "/dɒɡ/",
+        "cn": "狗",
+        "记忆": "dog狗",
+        "例句": "Dogs are our friends."
+      },
+      {
+        "word": "bird",
+        "pron": "/bɜːd/",
+        "cn": "鸟",
+        "记忆": "bird鸟",
+        "例句": "A bird is singing in the tree."
+      },
+      {
+        "word": "rabbit",
+        "pron": "/ˈræbɪt/",
+        "cn": "兔子",
+        "记忆": "rabbit兔子",
+        "例句": "The rabbit runs fast."
+      },
+      {
+        "word": "elephant",
+        "pron": "/ˈelɪfənt/",
+        "cn": "大象",
+        "记忆": "ele大+phant兽",
+        "例句": "The elephant has a long nose."
+      },
+      {
+        "word": "monkey",
+        "pron": "/ˈmʌŋki/",
+        "cn": "猴子",
+        "记忆": "monkey猴子",
+        "例句": "The monkey likes bananas."
+      },
+      {
+        "word": "panda",
+        "pron": "/ˈpændə/",
+        "cn": "熊猫",
+        "记忆": "panda熊猫",
+        "例句": "Pandas are from China."
+      },
+      {
+        "word": "tiger",
+        "pron": "/ˈtaɪɡə/",
+        "cn": "老虎",
+        "记忆": "tiger老虎",
+        "例句": "The tiger is dangerous."
+      },
+      {
+        "word": "zebra",
+        "pron": "/ˈzebrə/",
+        "cn": "斑马",
+        "记忆": "zebra斑马",
+        "例句": "A zebra has black and white stripes."
+      },
+      {
+        "word": "lion",
+        "pron": "/ˈlaɪən/",
+        "cn": "狮子",
+        "记忆": "lion狮子",
+        "例句": "The lion is the king of animals."
+      },
+      {
+        "word": "horse",
+        "pron": "/hɔːs/",
+        "cn": "马",
+        "记忆": "horse马",
+        "例句": "I can ride a horse."
+      }
+    ]
+  },
+  "body": {
+    "topic": "Body Parts 身体部位",
+    "words": [
+      {
+        "word": "head",
+        "pron": "/hed/",
+        "cn": "头",
+        "记忆": "head头",
+        "例句": "She shook her head when she heard the news."
+      },
+      {
+        "word": "face",
+        "pron": "/feɪs/",
+        "cn": "脸",
+        "记忆": "face脸",
+        "例句": "Wash your face."
+      },
+      {
+        "word": "eye",
+        "pron": "/aɪ/",
+        "cn": "眼睛",
+        "记忆": "eye眼睛",
+        "例句": "She has big eyes."
+      },
+      {
+        "word": "ear",
+        "pron": "/ɪə/",
+        "cn": "耳朵",
+        "记忆": "ear耳朵",
+        "例句": "I can hear with my ears."
+      },
+      {
+        "word": "nose",
+        "pron": "/nəʊz/",
+        "cn": "鼻子",
+        "记忆": "nose鼻子",
+        "例句": "The dog has a wet nose."
+      },
+      {
+        "word": "mouth",
+        "pron": "/maʊθ/",
+        "cn": "嘴",
+        "记忆": "mouth嘴",
+        "例句": "Open your mouth."
+      },
+      {
+        "word": "hand",
+        "pron": "/hænd/",
+        "cn": "手",
+        "记忆": "hand手",
+        "例句": "Raise your hand."
+      },
+      {
+        "word": "foot",
+        "pron": "/fʊt/",
+        "cn": "脚",
+        "记忆": "foot脚",
+        "例句": "I hurt my foot."
+      },
+      {
+        "word": "arm",
+        "pron": "/ɑːm/",
+        "cn": "手臂",
+        "记忆": "arm手臂",
+        "例句": "I carry a bag with my arm."
+      },
+      {
+        "word": "leg",
+        "pron": "/leɡ/",
+        "cn": "腿",
+        "记忆": "leg腿",
+        "例句": "The table has four legs."
+      },
+      {
+        "word": "hair",
+        "pron": "/heə/",
+        "cn": "头发",
+        "记忆": "hair头发",
+        "例句": "She has long black hair."
+      },
+      {
+        "word": "neck",
+        "pron": "/nek/",
+        "cn": "脖子",
+        "记忆": "neck脖子",
+        "例句": "The giraffe has a long neck."
+      }
+    ]
+  },
+  "places": {
+    "topic": "Places 地点",
+    "words": [
+      {
+        "word": "school",
+        "pron": "/skuːl/",
+        "cn": "学校",
+        "记忆": "school学校",
+        "例句": "I go to school every day."
+      },
+      {
+        "word": "home",
+        "pron": "/həʊm/",
+        "cn": "家",
+        "记忆": "home家",
+        "例句": "I go home after school."
+      },
+      {
+        "word": "park",
+        "pron": "/pɑːk/",
+        "cn": "公园",
+        "记忆": "park公园",
+        "例句": "Children play in the park."
+      },
+      {
+        "word": "library",
+        "pron": "/ˈlaɪbrəri/",
+        "cn": "图书馆",
+        "记忆": "libr书+ary地方",
+        "例句": "I read books in the library."
+      },
+      {
+        "word": "hospital",
+        "pron": "/ˈhɒspɪtl/",
+        "cn": "医院",
+        "记忆": "hospital医院",
+        "例句": "My mother works in a hospital."
+      },
+      {
+        "word": "restaurant",
+        "pron": "/ˈrestrɒnt/",
+        "cn": "餐馆",
+        "记忆": "rest休息+aurant",
+        "例句": "We eat at a restaurant on Sundays."
+      },
+      {
+        "word": "supermarket",
+        "pron": "/ˈsuːpəmɑːkɪt/",
+        "cn": "超市",
+        "记忆": "super超级+market市场",
+        "例句": "I go to the supermarket with my mother."
+      },
+      {
+        "word": "zoo",
+        "pron": "/zuː/",
+        "cn": "动物园",
+        "记忆": "zoo动物园",
+        "例句": "The zoo has many animals."
+      },
+      {
+        "word": "museum",
+        "pron": "/mjuˈziːəm/",
+        "cn": "博物馆",
+        "记忆": "muse缪斯+um馆",
+        "例句": "We visited the science museum."
+      },
+      {
+        "word": "post office",
+        "pron": "/pəʊst ˈɒfɪs/",
+        "cn": "邮局",
+        "记忆": "post邮政+office办公室",
+        "例句": "I need to go to the post office."
+      },
+      {
+        "word": "garden",
+        "pron": "/ˈɡɑːdn/",
+        "cn": "花园",
+        "记忆": "garden花园",
+        "例句": "I water the flowers in the garden."
+      },
+      {
+        "word": "office",
+        "pron": "/ˈɒfɪs/",
+        "cn": "办公室",
+        "记忆": "office办公室",
+        "例句": "My father works in an office."
+      }
+    ]
+  },
+  "transport": {
+    "topic": "Transportation 交通",
+    "words": [
+      {
+        "word": "bus",
+        "pron": "/bʌs/",
+        "cn": "公共汽车",
+        "记忆": "bus公交车",
+        "例句": "I take the bus to school."
+      },
+      {
+        "word": "car",
+        "pron": "/kɑː/",
+        "cn": "汽车",
+        "记忆": "car汽车",
+        "例句": "My father drives a car."
+      },
+      {
+        "word": "bike",
+        "pron": "/baɪk/",
+        "cn": "自行车",
+        "记忆": "bi两+ke车",
+        "例句": "I ride a bike to school."
+      },
+      {
+        "word": "train",
+        "pron": "/treɪn/",
+        "cn": "火车",
+        "记忆": "train火车",
+        "例句": "We go to Beijing by train."
+      },
+      {
+        "word": "ship",
+        "pron": "/ʃɪp/",
+        "cn": "船",
+        "记忆": "ship船",
+        "例句": "The ship is big."
+      },
+      {
+        "word": "subway",
+        "pron": "/ˈsʌbweɪ/",
+        "cn": "地铁",
+        "记忆": "sub下面+way路",
+        "例句": "The subway is fast."
+      },
+      {
+        "word": "walk",
+        "pron": "/wɔːk/",
+        "cn": "走路",
+        "记忆": "walk走",
+        "例句": "I walk to school every day."
+      },
+      {
+        "word": "ride",
+        "pron": "/raɪd/",
+        "cn": "骑/乘",
+        "记忆": "ride骑/乘",
+        "例句": "I ride my bike every morning."
+      },
+      {
+        "word": "drive",
+        "pron": "/draɪv/",
+        "cn": "驾驶",
+        "记忆": "drive驾驶",
+        "例句": "My mother can drive a car."
+      },
+      {
+        "word": "stop",
+        "pron": "/stɒp/",
+        "cn": "停下/车站",
+        "记忆": "stop停下",
+        "例句": "The bus stop is near my home."
+      }
+    ]
+  },
+  "clothes": {
+    "topic": "Clothes 服装",
+    "words": [
+      {
+        "word": "shirt",
+        "pron": "/ʃɜːt/",
+        "cn": "衬衫",
+        "记忆": "shirt衬衫",
+        "例句": "He is wearing a blue shirt."
+      },
+      {
+        "word": "coat",
+        "pron": "/kəʊt/",
+        "cn": "外套",
+        "记忆": "coat外套",
+        "例句": "It's cold. Put on your coat."
+      },
+      {
+        "word": "dress",
+        "pron": "/dres/",
+        "cn": "连衣裙",
+        "记忆": "dress连衣裙",
+        "例句": "She wears a beautiful dress."
+      },
+      {
+        "word": "shoe",
+        "pron": "/ʃuː/",
+        "cn": "鞋子",
+        "记忆": "shoe鞋",
+        "例句": "I have new shoes."
+      },
+      {
+        "word": "sock",
+        "pron": "/sɒk/",
+        "cn": "袜子",
+        "记忆": "sock袜子",
+        "例句": "I lost a sock."
+      },
+      {
+        "word": "cap",
+        "pron": "/kæp/",
+        "cn": "帽子（棒球帽）",
+        "记忆": "cap帽",
+        "例句": "He wears a cap."
+      },
+      {
+        "word": "hat",
+        "pron": "/hæt/",
+        "cn": "帽子",
+        "记忆": "hat帽子",
+        "例句": "She has a nice hat."
+      },
+      {
+        "word": "skirt",
+        "pron": "/skɜːt/",
+        "cn": "短裙",
+        "记忆": "skirt短裙",
+        "例句": "My sister wears a skirt."
+      },
+      {
+        "word": "trousers",
+        "pron": "/ˈtraʊzəz/",
+        "cn": "裤子",
+        "记忆": "trouse穿+ers",
+        "例句": "These trousers are too long."
+      },
+      {
+        "word": "glove",
+        "pron": "/ɡlʌv/",
+        "cn": "手套",
+        "记忆": "glove手套",
+        "例句": "It's cold. Wear gloves."
+      },
+      {
+        "word": "umbrella",
+        "pron": "/ʌmˈbrelə/",
+        "cn": "雨伞",
+        "记忆": "umbra影子+lla",
+        "例句": "Take an umbrella. It's raining."
+      }
+    ]
+  },
+  "personality": {
+    "topic": "Personality 人物性格",
+    "words": [
+      {
+        "word": "generous",
+        "pron": "/ˈdʒenərəs/",
+        "cn": "慷慨的",
+        "记忆": "gene基因+rous多→产生多的→慷慨",
+        "例句": "She is generous with her time and money."
+      },
+      {
+        "word": "strict",
+        "pron": "/strɪkt/",
+        "cn": "严格的",
+        "记忆": "strict严格",
+        "例句": "Our English teacher is very strict."
+      },
+      {
+        "word": "humorous",
+        "pron": "/ˈhjuːmərəs/",
+        "cn": "幽默的",
+        "记忆": "humour幽默+ous",
+        "例句": "The professor is humorous and his class is fun."
+      },
+      {
+        "word": "reliable",
+        "pron": "/rɪˈlaɪəbl/",
+        "cn": "可靠的",
+        "记忆": "rely依靠+able",
+        "例句": "He is a reliable friend you can count on."
+      },
+      {
+        "word": "stubborn",
+        "pron": "/ˈstʌbən/",
+        "cn": "固执的",
+        "记忆": "stub树桩+born出生→像树桩一样硬→固执",
+        "例句": "Don't be so stubborn and listen to others."
+      },
+      {
+        "word": "modest",
+        "pron": "/ˈmɒdɪst/",
+        "cn": "谦虚的",
+        "记忆": "mode方式+st→保持低调的方式→谦虚",
+        "例句": "She is modest about her achievements."
+      },
+      {
+        "word": "confident",
+        "pron": "/ˈkɒnfɪdənt/",
+        "cn": "自信的",
+        "记忆": "confide信任+dent",
+        "例句": "Be confident and you can achieve anything."
+      },
+      {
+        "word": "mature",
+        "pron": "/məˈtjʊə/",
+        "cn": "成熟的",
+        "记忆": "mature成熟",
+        "例句": "He is more mature than other kids his age."
+      },
+      {
+        "word": "curious",
+        "pron": "/ˈkjʊəriəs/",
+        "cn": "好奇的",
+        "记忆": "cure好奇+ous",
+        "例句": "Children are always curious about the world."
+      },
+      {
+        "word": "impatient",
+        "pron": "/ɪmˈpeɪʃənt/",
+        "cn": "不耐烦的",
+        "记忆": "im不+patient耐心",
+        "例句": "Don't be impatient; good things take time."
+      },
+      {
+        "word": "independent",
+        "pron": "/ˌɪndɪˈpendənt/",
+        "cn": "独立的",
+        "记忆": "in不+depend依赖+ent",
+        "例句": "She is very independent and does things on her own."
+      },
+      {
+        "word": "energetic",
+        "pron": "/ˌenəˈdʒetɪk/",
+        "cn": "精力充沛的",
+        "记忆": "energy能量+tic",
+        "例句": "He is always energetic and ready to play."
+      }
+    ]
+  },
+  "emotion": {
+    "topic": "Emotion & Psychology 情感心理",
+    "words": [
+      {
+        "word": "anxious",
+        "pron": "/ˈæŋkʃəs/",
+        "cn": "焦虑的",
+        "记忆": "anxiety焦虑+y+ous",
+        "例句": "I feel anxious before exams."
+      },
+      {
+        "word": "disappointed",
+        "pron": "/ˌdɪsəˈpɔɪntɪd/",
+        "cn": "失望的",
+        "记忆": "disappoint使失望+ed",
+        "例句": "She was disappointed with her exam results."
+      },
+      {
+        "word": "embarrassed",
+        "pron": "/ɪmˈbærəst/",
+        "cn": "尴尬的",
+        "记忆": "embarrass使尴尬+ed",
+        "例句": "I felt embarrassed when I made a mistake."
+      },
+      {
+        "word": "grateful",
+        "pron": "/ˈɡreɪtfl/",
+        "cn": "感激的",
+        "记忆": "grace优雅+ful→感恩的",
+        "例句": "I am grateful for my parents' support."
+      },
+      {
+        "word": "optimistic",
+        "pron": "/ˌɒptɪˈmɪstɪk/",
+        "cn": "乐观的",
+        "记忆": "optim最佳+istic",
+        "例句": "Stay optimistic even in difficult times."
+      },
+      {
+        "word": "pessimistic",
+        "pron": "/ˌpesɪˈmɪstɪk/",
+        "cn": "悲观的",
+        "记忆": "pessim最差+istic",
+        "例句": "Don't be pessimistic; things will get better."
+      },
+      {
+        "word": "enthusiastic",
+        "pron": "/ɪnˌθjuːziˈæstɪk/",
+        "cn": "热情的",
+        "记忆": "enthusiasm热情+astic",
+        "例句": "She is enthusiastic about learning English."
+      },
+      {
+        "word": "proud",
+        "pron": "/praʊd/",
+        "cn": "自豪的",
+        "记忆": "proud自豪",
+        "例句": "I am proud of my progress in English."
+      },
+      {
+        "word": "nervous",
+        "pron": "/ˈnɜːvəs/",
+        "cn": "紧张的",
+        "记忆": "nerve神经+ous",
+        "例句": "I get nervous when I speak in public."
+      },
+      {
+        "word": "jealous",
+        "pron": "/ˈdʒeləs/",
+        "cn": "嫉妒的",
+        "记忆": "jealous嫉妒",
+        "例句": "Don't be jealous of others' success."
+      },
+      {
+        "word": "lonely",
+        "pron": "/ˈləʊnli/",
+        "cn": "孤独的",
+        "记忆": "alone孤独的→lonely",
+        "例句": "I felt lonely on my first day at school."
+      },
+      {
+        "word": "ashamed",
+        "pron": "/əˈʃeɪmd/",
+        "cn": "惭愧的",
+        "记忆": "shame羞耻→ashamed",
+        "例句": "I felt ashamed of my bad behavior."
+      }
+    ]
+  },
+  "health": {
+    "topic": "Health & Body 身心健康",
+    "words": [
+      {
+        "word": "fever",
+        "pron": "/ˈfiːvə/",
+        "cn": "发烧",
+        "记忆": "fever发烧",
+        "例句": "I have a fever and need to rest."
+      },
+      {
+        "word": "headache",
+        "pron": "/ˈhedeɪk/",
+        "cn": "头痛",
+        "记忆": "head头+ache痛",
+        "例句": "I have a headache, maybe I need to sleep."
+      },
+      {
+        "word": "stomachache",
+        "pron": "/ˈstʌməkeɪk/",
+        "cn": "胃痛",
+        "记忆": "stomach胃+ache痛",
+        "例句": "Eating too much candy gave me a stomachache."
+      },
+      {
+        "word": "cough",
+        "pron": "/kɒf/",
+        "cn": "咳嗽",
+        "记忆": "cough咳嗽",
+        "例句": "I have a bad cough, please give me some water."
+      },
+      {
+        "word": "symptom",
+        "pron": "/ˈsɪmptəm/",
+        "cn": "症状",
+        "记忆": "symptom症状",
+        "例句": "The main symptom of the flu is high fever."
+      },
+      {
+        "word": "disease",
+        "pron": "/dɪˈziːz/",
+        "cn": "疾病",
+        "记忆": "dis不+ease舒适→不舒服→疾病",
+        "例句": "Early detection can cure many diseases."
+      },
+      {
+        "word": "patient",
+        "pron": "/ˈpeɪʃənt/",
+        "cn": "病人/耐心的",
+        "记忆": "pat拍+ient→能忍受的人",
+        "例句": "Be patient with yourself when learning."
+      },
+      {
+        "word": "pharmacy",
+        "pron": "/ˈfɑːməsi/",
+        "cn": "药房",
+        "记忆": "pharma药+cy",
+        "例句": "You can buy medicine at the pharmacy."
+      },
+      {
+        "word": "surgeon",
+        "pron": "/ˈsɜːdʒən/",
+        "cn": "外科医生",
+        "记忆": "surgery外科+on",
+        "例句": "The surgeon performed a successful operation."
+      },
+      {
+        "word": "medicine",
+        "pron": "/ˈmedɪsɪn/",
+        "cn": "药/医学",
+        "记忆": "medic治+ine",
+        "例句": "Take the medicine three times a day."
+      },
+      {
+        "word": "exercise",
+        "pron": "/ˈeksəsaɪz/",
+        "cn": "锻炼/练习",
+        "记忆": "exercise锻炼",
+        "例句": "Regular exercise keeps you healthy."
+      },
+      {
+        "word": "healthy",
+        "pron": "/ˈhelθi/",
+        "cn": "健康的",
+        "记忆": "health健康+y",
+        "例句": "Eating vegetables is part of a healthy lifestyle."
+      }
+    ]
+  },
+  "technology": {
+    "topic": "Technology & Internet 科技网络",
+    "words": [
+      {
+        "word": "computer",
+        "pron": "/kəmˈpjuːtə/",
+        "cn": "电脑",
+        "记忆": "compute计算+er",
+        "例句": "I use a computer for my homework."
+      },
+      {
+        "word": "internet",
+        "pron": "/ˈɪntənet/",
+        "cn": "互联网",
+        "记忆": "inter相互+net网",
+        "例句": "The internet has changed the way we learn."
+      },
+      {
+        "word": "website",
+        "pron": "/ˈwebsaɪt/",
+        "cn": "网站",
+        "记忆": "web网+site地点",
+        "例句": "I found useful information on this website."
+      },
+      {
+        "word": "software",
+        "pron": "/ˈsɒftweə/",
+        "cn": "软件",
+        "记忆": "soft软+ware器件",
+        "例句": "This software helps me learn English."
+      },
+      {
+        "word": "hardware",
+        "pron": "/ˈhɑːdweə/",
+        "cn": "硬件",
+        "记忆": "hard硬+ware器件",
+        "例句": "The hardware of this computer is new."
+      },
+      {
+        "word": "program",
+        "pron": "/ˈprəʊɡræm/",
+        "cn": "程序/节目",
+        "记忆": "pro向前+gram写→预定步骤",
+        "例句": "I wrote a simple program in Python."
+      },
+      {
+        "word": "keyboard",
+        "pron": "/ˈkiːbɔːd/",
+        "cn": "键盘",
+        "记忆": "key键+board板",
+        "例句": "Type on the keyboard carefully."
+      },
+      {
+        "word": "laptop",
+        "pron": "/ˈlæptɒp/",
+        "cn": "笔记本电脑",
+        "记忆": "lap膝盖+top上面",
+        "例句": "I brought my laptop to school."
+      },
+      {
+        "word": "smartphone",
+        "pron": "/ˈsmɑːtfəʊn/",
+        "cn": "智能手机",
+        "记忆": "smart聪明+phone电话",
+        "例句": "My smartphone can take photos."
+      },
+      {
+        "word": "application",
+        "pron": "/ˌæplɪˈkeɪʃən/",
+        "cn": "应用程序",
+        "记忆": "apply应用+cation",
+        "例句": "I downloaded a new English learning application."
+      },
+      {
+        "word": "download",
+        "pron": "/daʊnˈləʊd/",
+        "cn": "下载",
+        "记忆": "down下+load装",
+        "例句": "Please download the file to your computer."
+      },
+      {
+        "word": "password",
+        "pron": "/ˈpɑːswɜːd/",
+        "cn": "密码",
+        "记忆": "pass过+word词→过关词",
+        "例句": "Don't share your password with others."
+      },
+      {
+        "word": "artificial",
+        "pron": "/ˌɑːtɪˈfɪʃəl/",
+        "cn": "人工智能的",
+        "记忆": "art技巧+fic做+ial→人造的",
+        "例句": "Artificial intelligence is developing fast."
+      },
+      {
+        "word": "robot",
+        "pron": "/ˈrəʊbɒt/",
+        "cn": "机器人",
+        "记忆": "robot机器人",
+        "例句": "Robots can do many tasks for us."
+      }
+    ]
+  },
+  "environment": {
+    "topic": "Environment & Nature 环境保护",
+    "words": [
+      {
+        "word": "environment",
+        "pron": "/ɪnˈvaɪərənmənt/",
+        "cn": "环境",
+        "记忆": "environ环绕+ment",
+        "例句": "We should protect the environment."
+      },
+      {
+        "word": "pollution",
+        "pron": "/pəˈluːʃən/",
+        "cn": "污染",
+        "记忆": "pollute污染+ion",
+        "例句": "Air pollution is a serious problem in cities."
+      },
+      {
+        "word": "climate",
+        "pron": "/ˈklaɪmət/",
+        "cn": "气候",
+        "记忆": "climate气候",
+        "例句": "The climate in the south is warmer."
+      },
+      {
+        "word": "recycle",
+        "pron": "/ˌriːˈsaɪkl/",
+        "cn": "回收利用",
+        "记忆": "re再+cycle循环",
+        "例句": "We should recycle paper and plastic."
+      },
+      {
+        "word": "global",
+        "pron": "/ˈɡləʊbəl/",
+        "cn": "全球的",
+        "记忆": "globe地球+al",
+        "例句": "Global warming is getting worse."
+      },
+      {
+        "word": "energy",
+        "pron": "/ˈenədʒi/",
+        "cn": "能源/精力",
+        "记忆": "en进入+erg做+y",
+        "例句": "We need to save energy to protect the earth."
+      },
+      {
+        "word": "resources",
+        "pron": "/rɪˈsɔːsɪz/",
+        "cn": "资源",
+        "记忆": "re再+source来源",
+        "例句": "Natural resources are limited."
+      },
+      {
+        "word": "species",
+        "pron": "/ˈspiːʃiːz/",
+        "cn": "物种",
+        "记忆": "species物种",
+        "例句": "Many species are in danger of dying out."
+      },
+      {
+        "word": "protected",
+        "pron": "/prəˈtektɪd/",
+        "cn": "受保护的",
+        "记忆": "pro前面+ tect盖→保护",
+        "例句": "These animals are protected by law."
+      },
+      {
+        "word": "environmentalist",
+        "pron": "/ɪnˌvaɪərənˈmentəlɪst/",
+        "cn": "环保主义者",
+        "记忆": "environment环境+alist人",
+        "例句": "My mother is an environmentalist."
+      },
+      {
+        "word": "earthquake",
+        "pron": "/ˈɜːθkweɪk/",
+        "cn": "地震",
+        "记忆": "earth地球+quake震动",
+        "例句": "The earthquake happened last night."
+      },
+      {
+        "word": "flood",
+        "pron": "/flʌd/",
+        "cn": "洪水",
+        "记忆": "flood洪水",
+        "例句": "The flood destroyed many houses."
+      }
+    ]
+  },
+  "career": {
+    "topic": "Career & Jobs 职业工作",
+    "words": [
+      {
+        "word": "engineer",
+        "pron": "/ˌendʒɪˈnɪə/",
+        "cn": "工程师",
+        "记忆": "engine引擎+er人",
+        "例句": "My father is an engineer."
+      },
+      {
+        "word": "photographer",
+        "pron": "/fəˈtɒɡrəfə/",
+        "cn": "摄影师",
+        "记忆": "photo光+graph写+er",
+        "例句": "The photographer took beautiful photos."
+      },
+      {
+        "word": "journalist",
+        "pron": "/ˈdʒɜːnəlɪst/",
+        "cn": "记者",
+        "记忆": "journal杂志+ist人",
+        "例句": "A journalist writes news articles."
+      },
+      {
+        "word": "accountant",
+        "pron": "/əˈkaʊntənt/",
+        "cn": "会计",
+        "记忆": "account账+ant人",
+        "例句": "She works as an accountant in a company."
+      },
+      {
+        "word": "manager",
+        "pron": "/ˈmænɪdʒə/",
+        "cn": "经理",
+        "记忆": "manage管理+er",
+        "例句": "The manager held a meeting this morning."
+      },
+      {
+        "word": "interview",
+        "pron": "/ˈɪntəvjuː/",
+        "cn": "面试/采访",
+        "记忆": "inter相互+view看",
+        "例句": "I have a job interview tomorrow."
+      },
+      {
+        "word": "employer",
+        "pron": "/ɪmˈplɔɪə/",
+        "cn": "雇主",
+        "记忆": "employ雇用+er",
+        "例句": "The employer hired three new workers."
+      },
+      {
+        "word": "employee",
+        "pron": "/ˌemplɔɪˈiː/",
+        "cn": "员工",
+        "记忆": "employ雇用+ee",
+        "例句": "The employees work hard every day."
+      },
+      {
+        "word": "volunteer",
+        "pron": "/ˌvɒlənˈtɪə/",
+        "cn": "志愿者",
+        "记忆": "volunt自愿+eer",
+        "例句": "I want to be a volunteer to help others."
+      },
+      {
+        "word": "professional",
+        "pron": "/prəˈfeʃənəl/",
+        "cn": "专业的/职业的",
+        "记忆": "profession职业+al",
+        "例句": "She is a professional athlete."
+      },
+      {
+        "word": "experience",
+        "pron": "/ɪkˈspɪəriəns/",
+        "cn": "经验/经历",
+        "记忆": "ex外+peri尝试+ence",
+        "例句": "She has five years of teaching experience."
+      },
+      {
+        "word": "retire",
+        "pron": "/rɪˈtaɪə/",
+        "cn": "退休",
+        "记忆": "re回+tire拉→收回",
+        "例句": "My grandfather will retire when he turns 60."
+      }
+    ]
+  },
+  "travel": {
+    "topic": "Travel & Transport 旅行交通",
+    "words": [
+      {
+        "word": "passport",
+        "pron": "/ˈpɑːspɔːt/",
+        "cn": "护照",
+        "记忆": "pass过+port港口",
+        "例句": "Bring your passport when you travel abroad."
+      },
+      {
+        "word": "luggage",
+        "pron": "/ˈlʌɡɪdʒ/",
+        "cn": "行李",
+        "记忆": "lug拉+gage行李",
+        "例句": "I packed my luggage last night."
+      },
+      {
+        "word": "suitcase",
+        "pron": "/ˈsuːtkeɪs/",
+        "cn": "手提箱",
+        "记忆": "suit一套+case箱子",
+        "例句": "My suitcase is too heavy to carry."
+      },
+      {
+        "word": "backpack",
+        "pron": "/ˈbækpæk/",
+        "cn": "背包",
+        "记忆": "back背+pack包",
+        "例句": "I put my books in the backpack."
+      },
+      {
+        "word": "destination",
+        "pron": "/ˌdestɪˈneɪʃən/",
+        "cn": "目的地",
+        "记忆": "destine注定+ation",
+        "例句": "What is your travel destination?"
+      },
+      {
+        "word": "sightseeing",
+        "pron": "/ˈsaɪtsiːɪŋ/",
+        "cn": "观光",
+        "记忆": "sight看+see+ing",
+        "例句": "We went sightseeing in Beijing."
+      },
+      {
+        "word": "tour",
+        "pron": "/tʊə/",
+        "cn": "旅行/旅游",
+        "记忆": "tour旅行",
+        "例句": "We took a tour around the city."
+      },
+      {
+        "word": "guide",
+        "pron": "/ɡaɪd/",
+        "cn": "导游/引导",
+        "记忆": "guide导游",
+        "例句": "The tour guide spoke excellent English."
+      },
+      {
+        "word": "abroad",
+        "pron": "/əˈbrɔːd/",
+        "cn": "在国外",
+        "记忆": "ab离开+road路→离开本地",
+        "例句": "My sister studies abroad in the UK."
+      },
+      {
+        "word": "journey",
+        "pron": "/ˈdʒɜːni/",
+        "cn": "旅程",
+        "记忆": "journe日→每日的路程",
+        "例句": "The journey took about six hours."
+      },
+      {
+        "word": "schedule",
+        "pron": "/ˈʃedjuːl/",
+        "cn": "日程安排",
+        "记忆": "schedule日程",
+        "例句": "Let's check the train schedule."
+      },
+      {
+        "word": "delay",
+        "pron": "/dɪˈleɪ/",
+        "cn": "延误/延迟",
+        "记忆": "de离开+lay放→放下来→延迟",
+        "例句": "Bad weather may delay the flight this afternoon."
+      }
+    ]
+  },
+  "abstract": {
+    "topic": "Abstract Concepts 抽象概念",
+    "words": [
+      {
+        "word": "freedom",
+        "pron": "/ˈfriːdəm/",
+        "cn": "自由",
+        "记忆": "free自由+dom",
+        "例句": "Everyone deserves freedom."
+      },
+      {
+        "word": "equality",
+        "pron": "/iˈkwɒləti/",
+        "cn": "平等",
+        "记忆": "equal平等+ity",
+        "例句": "We should fight for equality."
+      },
+      {
+        "word": "justice",
+        "pron": "/ˈdʒʌstɪs/",
+        "cn": "公正",
+        "记忆": "just公正+ice",
+        "例句": "Justice should be fair to everyone."
+      },
+      {
+        "word": "opportunity",
+        "pron": "/ˌɒpəˈtjuːnəti/",
+        "cn": "机会",
+        "记忆": "op向+port港口+unity→进门的机会",
+        "例句": "This is a great opportunity to learn."
+      },
+      {
+        "word": "challenge",
+        "pron": "/ˈtʃælɪndʒ/",
+        "cn": "挑战",
+        "记忆": "challenger挑战",
+        "例句": "Learning English is a challenge but also fun."
+      },
+      {
+        "word": "success",
+        "pron": "/səkˈses/",
+        "cn": "成功",
+        "记忆": "suc下面+cess走→走下去→成功",
+        "例句": "Hard work leads to success."
+      },
+      {
+        "word": "failure",
+        "pron": "/ˈfeɪljə/",
+        "cn": "失败",
+        "记忆": "fail失败+ure",
+        "例句": "Failure is the mother of success."
+      },
+      {
+        "word": "achievement",
+        "pron": "/əˈtʃiːvmənt/",
+        "cn": "成就",
+        "记忆": "achieve获得+ment",
+        "例句": "Getting into the team was a great achievement."
+      },
+      {
+        "word": "responsibility",
+        "pron": "/rɪˌspɒnsəˈbɪləti/",
+        "cn": "责任",
+        "记忆": "respond回应+ibility",
+        "例句": "Taking care of the environment is everyone's responsibility."
+      },
+      {
+        "word": "influence",
+        "pron": "/ˈɪnfluəns/",
+        "cn": "影响",
+        "记忆": "in进入+flu流+ence→流入→影响",
+        "例句": "Good friends can influence you in positive ways."
+      },
+      {
+        "word": "culture",
+        "pron": "/ˈkʌltʃə/",
+        "cn": "文化",
+        "记忆": "cult培养+ure",
+        "例句": "Chinese culture has a long history."
+      },
+      {
+        "word": "tradition",
+        "pron": "/trəˈdɪʃən/",
+        "cn": "传统",
+        "记忆": "trad传递+ition",
+        "例句": "Eating dumplings is a Chinese tradition."
+      },
+      {
+        "word": "celebration",
+        "pron": "/ˌselɪˈbreɪʃən/",
+        "cn": "庆祝",
+        "记忆": "celebrate庆祝+tion",
+        "例句": "The Spring Festival is a big celebration."
+      },
+      {
+        "word": "argument",
+        "pron": "/ˈɑːɡjumənt/",
+        "cn": "争论/参数",
+        "记忆": "argue争辩+ment",
+        "例句": "They had an argument about the plan."
+      },
+      {
+        "word": "decision",
+        "pron": "/dɪˈsɪʒən/",
+        "cn": "决定",
+        "记忆": "decide决定+sion",
+        "例句": "Making a decision is not always easy."
+      }
+    ]
+  },
+  "science": {
+    "topic": "Science & Nature 科学自然",
+    "words": [
+      {
+        "word": "experiment",
+        "pron": "/ɪkˈsperɪmənt/",
+        "cn": "实验",
+        "记忆": "ex外+peri尝试+ment",
+        "例句": "We did an experiment in the science lab."
+      },
+      {
+        "word": "research",
+        "pron": "/rɪˈsɜːtʃ/",
+        "cn": "研究",
+        "记忆": "re再+search搜索",
+        "例句": "Scientists do research to find answers."
+      },
+      {
+        "word": "theory",
+        "pron": "/ˈθɪəri/",
+        "cn": "理论",
+        "记忆": "the看+ory→观察→理论",
+        "例句": "Einstein's theory changed physics."
+      },
+      {
+        "word": "discovery",
+        "pron": "/dɪˈskʌvəri/",
+        "cn": "发现",
+        "记忆": "dis去掉+cover盖+ry",
+        "例句": "The discovery of penicillin saved many lives."
+      },
+      {
+        "word": "invent",
+        "pron": "/ɪnˈvent/",
+        "cn": "发明",
+        "记忆": "in进入+vent来→出现→发明",
+        "例句": "Edison is known for his inventions."
+      },
+      {
+        "word": "invention",
+        "pron": "/ɪnˈvenʃən/",
+        "cn": "发明物",
+        "记忆": "invent发明+ion",
+        "例句": "The computer is a great invention."
+      },
+      {
+        "word": "electricity",
+        "pron": "/ˌelekˈtrɪsəti/",
+        "cn": "电",
+        "记忆": "electric电+ity",
+        "例句": "We cannot live without electricity."
+      },
+      {
+        "word": "gravity",
+        "pron": "/ˈɡrævəti/",
+        "cn": "重力/引力",
+        "记忆": "grav重+ity",
+        "例句": "Gravity keeps us on the ground."
+      },
+      {
+        "word": "chemical",
+        "pron": "/ˈkemɪkəl/",
+        "cn": "化学的/化学品",
+        "记忆": "chemi化学+cal",
+        "例句": "Water is a chemical compound."
+      },
+      {
+        "word": "atom",
+        "pron": "/ˈætəm/",
+        "cn": "原子",
+        "记忆": "atom原子",
+        "例句": "An atom is the smallest unit of matter."
+      },
+      {
+        "word": "oxygen",
+        "pron": "/ˈɒksɪdʒən/",
+        "cn": "氧气",
+        "记忆": "oxy氧+gen产生",
+        "例句": "Humans need oxygen to breathe."
+      },
+      {
+        "word": "laboratory",
+        "pron": "/ləˈbɒrətəri/",
+        "cn": "实验室",
+        "记忆": "labor劳动+atory",
+        "例句": "We conduct experiments in the laboratory."
+      },
+      {
+        "word": "phenomenon",
+        "pron": "/fɪˈnɒmɪnən/",
+        "cn": "现象",
+        "记忆": "phenomenon现象",
+        "例句": "Rainbow is a natural phenomenon."
+      }
+    ]
+  },
+  "communication": {
+    "topic": "Communication & Media 交流媒体",
+    "words": [
+      {
+        "word": "communicate",
+        "pron": "/kəˈmjuːnɪkeɪt/",
+        "cn": "交流",
+        "记忆": "commune交流+icate",
+        "例句": "We should communicate more with our parents."
+      },
+      {
+        "word": "expression",
+        "pron": "/ɪkˈspreʃən/",
+        "cn": "表达/表情",
+        "记忆": "ex外+press压+ion→压出来→表达",
+        "例句": "Her expression showed she was surprised."
+      },
+      {
+        "word": "impression",
+        "pron": "/ɪmˈpreʃən/",
+        "cn": "印象",
+        "记忆": "impress印象+ion",
+        "例句": "What impression did the teacher have of you?"
+      },
+      {
+        "word": "broadcast",
+        "pron": "/ˈbrɔːdkɑːst/",
+        "cn": "广播",
+        "记忆": "broad宽+cast投",
+        "例句": "The news was broadcast on TV last night."
+      },
+      {
+        "word": "audience",
+        "pron": "/ˈɔːdiəns/",
+        "cn": "观众/听众",
+        "记忆": "audi听+ence",
+        "例句": "The audience laughed at the show."
+      },
+      {
+        "word": "editor",
+        "pron": "/ˈedɪtə/",
+        "cn": "编辑",
+        "记忆": "edit编辑+or人",
+        "例句": "The editor approved the article."
+      },
+      {
+        "word": "article",
+        "pron": "/ˈɑːtɪkl/",
+        "cn": "文章",
+        "记忆": "article文章",
+        "例句": "I read an interesting article online."
+      },
+      {
+        "word": "publish",
+        "pron": "/ˈpʌblɪʃ/",
+        "cn": "出版/发布",
+        "记忆": "public公众+ish",
+        "例句": "The book will be published next month."
+      },
+      {
+        "word": "journal",
+        "pron": "/ˈdʒɜːnəl/",
+        "cn": "日记/期刊",
+        "记忆": "journ日+al",
+        "例句": "I keep a journal to write about my day."
+      },
+      {
+        "word": "permission",
+        "pron": "/pəˈmɪʃən/",
+        "cn": "许可",
+        "记忆": "permit许可+sion",
+        "例句": "You need permission from your parents."
+      },
+      {
+        "word": "private",
+        "pron": "/ˈpraɪvət/",
+        "cn": "私人的",
+        "记忆": "priv私人+ate",
+        "例句": "This is my private diary, don't read it."
+      },
+      {
+        "word": "privacy",
+        "pron": "/ˈprɪvəsi/",
+        "cn": "隐私",
+        "记忆": "priv私人+y",
+        "例句": "Everyone has the right to privacy."
+      }
+    ]
+  },
+  "sports": {
+    "topic": "Sports & Olympics 体育运动",
+    "words": [
+      {
+        "word": "champion",
+        "pron": "/ˈtʃæmpiən/",
+        "cn": "冠军",
+        "记忆": "campaign战役→战场上的胜利者",
+        "例句": "She became the national swimming champion."
+      },
+      {
+        "word": "medal",
+        "pron": "/ˈmedəl/",
+        "cn": "奖牌",
+        "记忆": "medal奖牌",
+        "例句": "He won a gold medal at the Olympics."
+      },
+      {
+        "word": "Olympics",
+        "pron": "/əˈlɪmpɪks/",
+        "cn": "奥运会",
+        "记忆": "Olympus山→奥林匹克",
+        "例句": "The Olympics are held every four years."
+      },
+      {
+        "word": "stadium",
+        "pron": "/ˈsteɪdiəm/",
+        "cn": "体育场",
+        "记忆": "stad站+ium",
+        "例句": "The football stadium holds 50,000 people."
+      },
+      {
+        "word": "audience",
+        "pron": "/ˈɔːdiəns/",
+        "cn": "观众",
+        "记忆": "audi听+ence",
+        "例句": "The audience cheered for their team."
+      },
+      {
+        "word": "compete",
+        "pron": "/kəmˈpiːt/",
+        "cn": "竞争",
+        "记忆": "com共同+pet追求+e",
+        "例句": "We compete with other schools in sports."
+      },
+      {
+        "word": "competition",
+        "pron": "/ˌkɒmpɪˈtɪʃən/",
+        "cn": "比赛",
+        "记忆": "compete竞争+ition",
+        "例句": "She won first place in the English competition."
+      },
+      {
+        "word": "athlete",
+        "pron": "/ˈæθliːt/",
+        "cn": "运动员",
+        "记忆": "athlon比赛+te",
+        "例句": "The athlete trained every day."
+      },
+      {
+        "word": "coach",
+        "pron": "/kəʊtʃ/",
+        "cn": "教练",
+        "记忆": "coach教练",
+        "例句": "Our basketball coach is very experienced."
+      },
+      {
+        "word": "record",
+        "pron": "/ˈrekɔːd/ /rɪˈkɔːd/",
+        "cn": "记录",
+        "记忆": "re再+cord心→心中记住",
+        "例句": "He set a new world record in running."
+      },
+      {
+        "word": "spectator",
+        "pron": "/spekˈteɪtə/",
+        "cn": "观众",
+        "记忆": "spect看+ator人",
+        "例句": "There were 80,000 spectators at the game."
+      },
+      {
+        "word": "training",
+        "pron": "/ˈtreɪnɪŋ/",
+        "cn": "训练",
+        "记忆": "train训练+ing",
+        "例句": "Training makes an athlete stronger."
+      }
+    ]
+  },
+  "grammar": {
+    "topic": "English Grammar 英语语法术语",
+    "words": [
+      {
+        "word": "grammar",
+        "pron": "/ˈɡræmə/",
+        "cn": "语法",
+        "记忆": "gram文字+mar→文字规则",
+        "例句": "English grammar can be challenging."
+      },
+      {
+        "word": "vocabulary",
+        "pron": "/vəˈkæbjələri/",
+        "cn": "词汇量/词汇表",
+        "记忆": "vocal声音+abulary→词语",
+        "例句": "Reading helps expand your vocabulary."
+      },
+      {
+        "word": "pronunciation",
+        "pron": "/prəˌnʌnsiˈeɪʃən/",
+        "cn": "发音",
+        "记忆": "pronounce发音+iation",
+        "例句": "Her pronunciation is excellent."
+      },
+      {
+        "word": "composition",
+        "pron": "/ˌkɒmpəˈzɪʃən/",
+        "cn": "写作/作文",
+        "记忆": "com一起+pose放+ition→组织文字",
+        "例句": "I need to finish my English composition."
+      },
+      {
+        "word": "paragraph",
+        "pron": "/ˈpærəɡrɑːf/",
+        "cn": "段落",
+        "记忆": "para旁边+graph写→分写到旁边",
+        "例句": "Write a paragraph about your hobby."
+      },
+      {
+        "word": "sentence",
+        "pron": "/ˈsentəns/",
+        "cn": "句子",
+        "记忆": "sent感觉+ence→表达的完整单位",
+        "例句": "Please make a sentence with this word."
+      },
+      {
+        "word": "punctuation",
+        "pron": "/ˌpʌŋktʃuˈeɪʃən/",
+        "cn": "标点",
+        "记忆": "punct点+u+ation",
+        "例句": "Punctuation is important in writing."
+      },
+      {
+        "word": "syllable",
+        "pron": "/ˈsɪləbl/",
+        "cn": "音节",
+        "记忆": "syl一起+lable拿→能一起发出的音",
+        "例句": "The word 'banana' has three syllables."
+      },
+      {
+        "word": "idiom",
+        "pron": "/ˈɪdiəm/",
+        "cn": "习语/成语",
+        "记忆": "idio个人专用→特殊的表达",
+        "例句": "It's raining cats and dogs is an idiom."
+      },
+      {
+        "word": "conjunction",
+        "pron": "/kənˈdʒʌŋkʃən/",
+        "cn": "连词",
+        "记忆": "conjunct连接+ion",
+        "例句": "'And', 'but', and 'or' are conjunctions."
+      },
+      {
+        "word": "preposition",
+        "pron": "/ˌprepəˈzɪʃən/",
+        "cn": "介词",
+        "记忆": "preposition位置前置词",
+        "例句": "'In', 'on', and 'at' are prepositions."
+      },
+      {
+        "word": "adverb",
+        "pron": "/ˈædvɜːb/",
+        "cn": "副词",
+        "记忆": "ad方向+verb动词→修饰动词",
+        "例句": "She speaks English very well. 'Very' is an adverb."
+      },
+      {
+        "word": "adjective",
+        "pron": "/ˈædʒɪktɪv/",
+        "cn": "形容词",
+        "记忆": "ad方向+ject扔+ive→扔向名词的词",
+        "例句": "'Beautiful' is an adjective."
+      },
+      {
+        "word": "noun",
+        "pron": "/naʊn/",
+        "cn": "名词",
+        "记忆": "noun名词",
+        "例句": "'Happiness' is an abstract noun."
+      },
+      {
+        "word": "verb",
+        "pron": "/vɜːb/",
+        "cn": "动词",
+        "记忆": "verb动词",
+        "例句": "'Run' is an action verb."
+      }
+    ]
+  }
+}

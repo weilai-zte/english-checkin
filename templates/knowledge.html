@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📖 知识课程</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: #f0f4ff; min-height: 100vh; }
+
+  .top-bar {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .top-bar a {
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .top-bar a:active { opacity: 0.7; }
+  .top-bar .title {
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    flex: 1;
+    text-align: center;
+    padding-right: 32px;
+  }
+
+  /* Tab switcher */
+  .tab-bar {
+    display: flex;
+    background: white;
+    border-bottom: 2px solid #e8ecf4;
+    position: sticky;
+    top: 52px;
+    z-index: 99;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 12px 4px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+  }
+  .tab-btn.active { color: #667eea; border-bottom-color: #667eea; }
+  .tab-btn:active { background: #f5f0ff; }
+
+  .tab-content { display: none; padding: 16px; }
+  .tab-content.active { display: block; }
+
+  /* Knowledge content styling */
+  .content-wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 40px;
+  }
+
+  /* Markdown rendered content */
+  .md-content { padding: 16px; max-width: 480px; margin: 0 auto; }
+  .md-content h1 { font-size: 22px; color: #1a1a2e; text-align: center;
+                    margin: 20px 0 12px; }
+  .md-content h2 { font-size: 17px; color: #667eea; margin: 20px 0 10px;
+                    border-left: 4px solid #667eea; padding-left: 10px; }
+  .md-content h3 { font-size: 15px; color: #333; margin: 14px 0 8px;
+                    font-weight: bold; }
+  .md-content p { font-size: 14px; color: #444; line-height: 1.8; margin-bottom: 8px; }
+  .md-content ul, .md-content ol { padding-left: 20px; margin-bottom: 10px; }
+  .md-content li { font-size: 14px; color: #444; line-height: 1.8; margin-bottom: 4px; }
+  .md-content strong { color: #e67e22; font-weight: bold; }
+  .md-content em { color: #667eea; font-style: normal; font-weight: bold; }
+  .md-content blockquote {
+    background: #fff8e8; border-left: 4px solid #f39c12;
+    padding: 10px 14px; margin: 10px 0; border-radius: 0 10px 10px 0; }
+  .md-content blockquote p { color: #c07000; margin: 0; }
+  .md-content table { width: 100%; border-collapse: collapse;
+                      margin: 10px 0; font-size: 13px; }
+  .md-content th { background: #667eea; color: white; padding: 8px 6px;
+                    text-align: left; }
+  .md-content td { padding: 7px 6px; border-bottom: 1px solid #e8ecf4;
+                   color: #333; }
+  .md-content tr:nth-child(even) td { background: #f5f0ff; }
+  .md-content code { background: #f0f0ff; padding: 1px 5px; border-radius: 4px;
+                      font-size: 13px; color: #667eea; }
+  .md-content hr { border: none; border-top: 1px solid #e8ecf4; margin: 16px 0; }
+
+  /* Section intro cards */
+  .section-intro {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 12px 16px;
+    text-align: center;
+  }
+  .section-intro h2 { font-size: 18px; margin-bottom: 6px; color: white; border: none; padding: 0; }
+  .section-intro p { font-size: 13px; opacity: 0.9; color: white; }
+
+  /* Key highlight for important words */
+  .key { color: #e74c3c; font-weight: bold; }
+  .key2 { color: #27ae60; font-weight: bold; }
+  .key3 { color: #667eea; font-weight: bold; }
+
+  /* Tense cards */
+  .tense-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px; }
+  .tense-card {
+    background: white; border-radius: 14px; padding: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .tense-card:active { transform: scale(0.97); }
+  .tense-name { font-size: 13px; font-weight: bold; color: #667eea; margin-bottom: 6px; }
+  .tense-formula { font-size: 11px; color: #888; background: #f5f0ff;
+                   padding: 3px 8px; border-radius: 6px; margin-bottom: 6px; }
+  .tense-example { font-size: 11px; color: #555; line-height: 1.5; }
+  .tense-example strong { color: #e67e22; }
+
+  /* Accordion detail */
+  .tense-detail { display: none; margin: 0 16px 12px; background: white;
+                  border-radius: 14px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+  .tense-detail.open { display: block; }
+  .tense-detail h3 { color: #667eea; font-size: 15px; margin-bottom: 10px; }
+  .tense-detail ul { padding-left: 18px; }
+  .tense-detail li { font-size: 13px; color: #444; line-height: 1.7; margin-bottom: 5px; }
+  .rule-box { background: #fff8e8; border-left: 4px solid #f39c12;
+              padding: 10px 14px; border-radius: 0 10px 10px 0; margin: 10px 0; }
+  .rule-box p { color: #c07000; font-size: 13px; margin: 0; }
+  .mnemonic { background: #eafaf1; border-left: 4px solid #27ae60;
+              padding: 10px 14px; border-radius: 0 10px 10px 0; margin: 10px 0;
+              font-size: 13px; color: #1e8449; }
+</style>
+</head>
+<body>
+
+<!-- Top navigation -->
+<div class="top-bar">
+  <a href="/">← 返回首页</a>
+  <div class="title">📖 知识课程</div>
+</div>
+
+<!-- Tab switcher: 时态 | 介词 | 名词 | 冠词代词 | 从句 -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('tense')">⏱ 时态</button>
+  <button class="tab-btn" onclick="showTab('preposition')">📍 介词</button>
+  <button class="tab-btn" onclick="showTab('noun')">📖 名词</button>
+  <button class="tab-btn" onclick="showTab('article')">🔤 冠词代词</button>
+  <button class="tab-btn" onclick="showTab('clause')">📝 从句</button>
+</div>
+
+<div class="content-wrap">
+
+  <!-- 时态 tab -->
+  <div id="tab-tense" class="tab-content active">
+    <div class="section-intro">
+      <h2>⏱ 八种时态</h2>
+      <p>构成公式 · 时间标志词 · 例句</p>
+    </div>
+    <div class="tense-grid" id="tenseGrid"></div>
+    <div id="tenseDetails"></div>
+    <div class="md-content" style="margin-top:16px;">{{ marker_html|safe }}</div>
+  </div>
+
+  <!-- 介词 tab -->
+  <div id="tab-preposition" class="tab-content">
+    <div class="section-intro">
+      <h2>📍 介词分类</h2>
+      <p>时间 · 地点 · 方向 · 其他</p>
+    </div>
+    <div class="md-content">{{ preposition_html|safe }}</div>
+  </div>
+
+  <!-- 名词 tab -->
+  <div id="tab-noun" class="tab-content">
+    <div class="section-intro">
+      <h2>📖 名词 · 冠词</h2>
+      <p>可数 / 不可数 / 所有格</p>
+    </div>
+    <div class="md-content">{{ noun_html|safe }}</div>
+  </div>
+
+  <!-- 冠词代词 tab -->
+  <div id="tab-article" class="tab-content">
+    <div class="section-intro">
+      <h2>🔤 冠词 · 代词 · 比较级</h2>
+      <p>a/an/the · 人称物主 · 数量词</p>
+    </div>
+    <div class="md-content">{{ article_html|safe }}</div>
+  </div>
+
+  <!-- 从句 tab -->
+  <div id="tab-clause" class="tab-content">
+    <div class="section-intro">
+      <h2>📝 宾语从句 · 条件句 · 被动语态</h2>
+      <p>陈述语序 · 主将从现 · 虚拟语气</p>
+    </div>
+    <div class="md-content">{{ clause_html|safe }}</div>
+  </div>
+
+</div>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelector('[onclick="showTab(\'' + name + '\')"]').classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// Tense overview data (mirrors the table in knowledge_outline.md)
+const tenses = [
+  { name: "一般现在时", formula: "主+动原/三单", markers: "always, usually, often, every day", example: "He <strong>plays</strong> football." },
+  { name: "现在进行时", formula: "主+am/is/are+动原-ing", markers: "now, right now, at the moment", example: "He <strong>is playing</strong> football." },
+  { name: "一般过去时", formula: "主+动过去式", markers: "yesterday, last week, in 2020", example: "He <strong>played</strong> football yesterday." },
+  { name: "现在完成时", formula: "主+have/has+过去分词", markers: "already, yet, just, since, for", example: "He <strong>has played</strong> football." },
+  { name: "过去完成时", formula: "主+had+过去分词", markers: "by the time, before, after, already", example: "He <strong>had played</strong> before I came." },
+  { name: "过去进行时", formula: "主+was/were+动原-ing", markers: "while, at that time, when", example: "He <strong>was playing</strong> when I called." },
+  { name: "一般将来时", formula: "主+will/be going to+动原", markers: "tomorrow, next week, in the future", example: "He <strong>will play</strong> tomorrow." },
+  { name: "过去将来时", formula: "主+would+动原", markers: "the next day, the following week", example: "He said he <strong>would play</strong> the next day." },
+];
+
+const tenseDetails = [
+  { name: "一般现在时", rules: ["习惯性、经常性动作：主语+动词原形", "第三人称单数+ s/es", "客观真理、事实：主语+动词原形"], markers: "always, usually, often, sometimes, every day", mnemonics: "🌟 天天做，用一般现在时，第三人称单数记得加 s！" },
+  { name: "现在进行时", rules: ["正在发生的动作：am/is/are + 动词-ing", "现阶段正在做（不一定此刻）", "将来安排（用短暂动词）：We are leaving tomorrow."], markers: "now, right now, at the moment, look!, listen!", mnemonics: "🔍 看now、听now，正在进行不回头！" },
+  { name: "一般过去时", rules: ["过去某时发生的动作：主语+动词过去式", "规则动词+ed；不规则动词需单独记忆"], markers: "yesterday, last week/month/year, in 2020, just now, ago", mnemonics: "⏪ 过去式是时间的\"快照\"，昨天的事用过去时！" },
+  { name: "现在完成时", rules: ["过去发生，对现在有影响：have/has+过去分词", "到现在为止已完成或仍在持续", "尚未指明具体过去时间（用already/yet/since/for）"], markers: "already, yet, just, ever, never, before, since+时间点, for+时段", mnemonics: "🔗 现在完成时，时间不确定，但结果影响\"现在\"！" },
+  { name: "过去完成时", rules: ["\"过去的过去\"：had+过去分词", "两个过去的动作，先发生的用过去完成时"], markers: "by the time, before, after, by+过去时间", mnemonics: "⏳ 过去的过去，两件事比先后！" },
+  { name: "过去进行时", rules: ["过去某时刻正在进行的动作：was/were+动词-ing", "过去进行时+一般过去时（一个持续，一个发生）"], markers: "while, at that time, when, the whole morning", mnemonics: "🔀 while后面跟进行时，记得两边动作有\"交叠\"！" },
+  { name: "一般将来时", rules: ["will：临时决定、预测、承诺", "be going to：计划好的事、有迹象的事"], markers: "tomorrow, next week, in the future, soon, probably", mnemonics: "🔮 will随口说，be going to有计划！" },
+  { name: "过去将来时", rules: ["主句过去时，从句从\"过去看将来\"用would/was going to", "常见于宾语从句：He said he would come."], markers: "the next day, the following week (从过去角度)", mnemonics: "🌀 说过去的事，用would看将来！" },
+];
+
+const grid = document.getElementById('tenseGrid');
+const details = document.getElementById('tenseDetails');
+let openDetail = null;
+
+tenses.forEach((t, i) => {
+  grid.innerHTML += '<div class="tense-card" onclick="toggleDetail(' + i + ')">' +
+    '<div class="tense-name">' + t.name + '</div>' +
+    '<div class="tense-formula">' + t.formula + '</div>' +
+    '<div class="tense-example">' + t.example + '</div>' +
+  '</div>';
+
+  const d = tenseDetails[i];
+  details.innerHTML += '<div class="tense-detail" id="td-' + i + '">' +
+    '<h3>' + d.name + '</h3>' +
+    '<div class="rule-box"><p><strong>时间标志词：</strong>' + d.markers + '</p></div>' +
+    '<ul>' + d.rules.map(r => '<li>' + r + '</li>').join('') + '</ul>' +
+    '<div class="mnemonic">💡 ' + d.mnemonics + '</div>' +
+  '</div>';
+});
+
+function toggleDetail(i) {
+  const el = document.getElementById('td-' + i);
+  if (openDetail !== null && openDetail !== i) {
+    document.getElementById('td-' + openDetail).classList.remove('open');
+  }
+  if (openDetail === i) {
+    el.classList.remove('open');
+    openDetail = null;
+  } else {
+    el.classList.add('open');
+    openDetail = i;
+    // scroll into view
+    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  }
+}
+</script>
+</body>
+</html>

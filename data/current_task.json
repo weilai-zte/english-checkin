@@ -1,0 +1,72 @@
+{
+  "topic": "Health & Body 身心健康",
+  "difficulty": "medium",
+  "difficulty_label": "🌿 中等",
+  "vocab": [
+    {
+      "word": "disease",
+      "pron": "/dɪˈziːz/",
+      "cn": "疾病",
+      "example": "Early detection can cure many diseases.",
+      "memory": "dis不+ease舒适→不舒服→疾病",
+      "topic": "Health & Body 身心健康"
+    },
+    {
+      "word": "surgeon",
+      "pron": "/ˈsɜːdʒən/",
+      "cn": "外科医生",
+      "example": "The surgeon performed a successful operation.",
+      "memory": "surgery外科+on",
+      "topic": "Health & Body 身心健康"
+    },
+    {
+      "word": "pharmacy",
+      "pron": "/ˈfɑːməsi/",
+      "cn": "药房",
+      "example": "You can buy medicine at the pharmacy.",
+      "memory": "pharma药+cy",
+      "topic": "Health & Body 身心健康"
+    },
+    {
+      "word": "patient",
+      "pron": "/ˈpeɪʃənt/",
+      "cn": "病人/耐心的",
+      "example": "Be patient with yourself when learning.",
+      "memory": "pat拍+ient→能忍受的人",
+      "topic": "Health & Body 身心健康"
+    }
+  ],
+  "grammar": {
+    "id": "prepositions",
+    "title": "常用介词",
+    "level": "初一上",
+    "rule": "介词 + 名词/代词，构成介词短语",
+    "examples": [
+      {
+        "句": "I get up at 6 o'clock.",
+        "翻译": "我6点起床。"
+      },
+      {
+        "句": "My birthday is in July.",
+        "翻译": "我的生日在七月。"
+      }
+    ],
+    "exercises": [
+      {
+        "question": "I was born ____ July.",
+        "answer": "in",
+        "hint": "月份用in"
+      },
+      {
+        "question": "The cat is ____ the table.",
+        "answer": "under",
+        "hint": "在…下面"
+      },
+      {
+        "question": "I go to school ____ bus.",
+        "answer": "by",
+        "hint": "by+交通工具"
+      }
+    ]
+  }
+}

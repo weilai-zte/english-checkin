@@ -1,0 +1,6649 @@
+{
+  "checkins": [
+    {
+      "date": "2026-05-01",
+      "vocab": [
+        "office",
+        "supermarket"
+      ],
+      "grammar_id": "prepositions",
+      "grammar_title": "常用介词",
+      "score": "0/3"
+    },
+    {
+      "date": "2026-05-08",
+      "vocab": [
+        "ship",
+        "subway"
+      ],
+      "grammar_id": "present_simple",
+      "grammar_title": "一般现在时",
+      "score": "3/3"
+    },
+    {
+      "date": "2026-05-09",
+      "vocab": [
+        "interview",
+        "pessimistic"
+      ],
+      "grammar_id": "be_verb",
+      "grammar_title": "Be 动词（am/is/are）的用法",
+      "score": "3/3"
+    },
+    {
+      "date": "2026-05-09",
+      "vocab": [
+        "face",
+        "theory",
+        "Thursday",
+        "compete",
+        "ear",
+        "strict",
+        "responsibility",
+        "weather",
+        "jealous",
+        "arm"
+      ],
+      "grammar_id": "quiz",
+      "grammar_title": "选择题练习",
+      "score": "9/10"
+    },
+    {
+      "date": "2026-05-10",
+      "type": "personalized",
+      "vocab": [
+        "exam",
+        "lesson",
+        "science",
+        "brother",
+        "uncle",
+        "grandfather"
+      ],
+      "grammar_id": "prepositions",
+      "grammar_title": "常用介词",
+      "score": "0/3",
+      "weakness_focus": {
+        "tense": "be_verb",
+        "preposition": [
+          "in",
+          "on",
+          "at"
+        ],
+        "weak_topics": [
+          "School 学校",
+          "Family 家庭",
+          "Time & Days 时间与日期"
+        ]
+      }
+    },
+    {
+      "date": "2026-05-16",
+      "vocab": [
+        "February",
+        "audience",
+        "argument",
+        "museum",
+        "download"
+      ],
+      "grammar_id": "past_simple",
+      "grammar_title": "一般过去时",
+      "score": "3/3"
+    },
+    {
+      "date": "2026-05-16",
+      "vocab": [
+        "restaurant",
+        "neck",
+        "justice",
+        "employer",
+        "proud",
+        "dictionary",
+        "destination",
+        "spectator"
+      ],
+      "grammar_id": "quiz",
+      "grammar_title": "选择题练习",
+      "score": "5/8"
+    },
+    {
+      "date": "2026-05-17",
+      "vocab": [
+        "grammar",
+        "engineer",
+        "February",
+        "record",
+        "employer",
+        "surgeon",
+        "trousers",
+        "temperature"
+      ],
+      "grammar_id": "quiz",
+      "grammar_title": "选择题练习",
+      "score": "4/8"
+    },
+    {
+      "date": "2026-05-19",
+      "vocab": [
+        "culture",
+        "fever",
+        "fruit",
+        "sweet",
+        "energy"
+      ],
+      "grammar_id": "question_words",
+      "grammar_title": "疑问词与疑问句",
+      "score": "3/3"
+    },
+    {
+      "date": "2026-05-19",
+      "vocab": [
+        "Thursday",
+        "protected",
+        "humorous",
+        "March",
+        "destination",
+        "cough",
+        "communicate",
+        "greasy"
+      ],
+      "grammar_id": "quiz",
+      "grammar_title": "选择题练习",
+      "score": "4/8"
+    },
+    {
+      "date": "2026-05-20",
+      "vocab": [
+        "punctuation",
+        "phenomenon",
+        "sightseeing",
+        "cloudy",
+        "cough"
+      ],
+      "grammar_id": "be_verb",
+      "grammar_title": "Be 动词（am/is/are）的用法",
+      "score": "0/3"
+    },
+    {
+      "date": "2026-05-20",
+      "vocab": [
+        "athlete",
+        "punctuation",
+        "stubborn",
+        "opportunity",
+        "August",
+        "keyboard",
+        "Monday",
+        "head"
+      ],
+      "grammar_id": "quiz",
+      "grammar_title": "选择题练习",
+      "score": "7/8"
+    },
+    {
+      "date": "2026-05-22",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "0/8"
+    },
+    {
+      "date": "2026-05-22",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "0/8"
+    },
+    {
+      "date": "2026-05-22",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "0/8"
+    },
+    {
+      "date": "2026-05-22",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "0/8"
+    },
+    {
+      "date": "2026-05-22",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "0/8"
+    },
+    {
+      "date": "2026-05-23",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "8/8"
+    },
+    {
+      "date": "2026-05-23",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "0/8"
+    },
+    {
+      "date": "2026-05-23",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "0/8"
+    },
+    {
+      "date": "2026-05-23",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "0/8"
+    },
+    {
+      "date": "2026-05-24",
+      "vocab": [
+        "windy",
+        "robot",
+        "salty",
+        "breakfast",
+        "grateful",
+        "volunteer",
+        "vocabulary",
+        "publish",
+        "luggage",
+        "earthquake"
+      ],
+      "grammar_id": "quiz",
+      "grammar_title": "选择题练习",
+      "score": "6/10"
+    },
+    {
+      "date": "2026-05-28",
+      "vocab": [
+        "November",
+        "tour",
+        "gravity",
+        "September",
+        "website"
+      ],
+      "grammar_id": "articles",
+      "grammar_title": "冠词（a / an / the）",
+      "score": "3/3"
+    },
+    {
+      "date": "2026-05-28",
+      "grammar_id": "translate_en",
+      "grammar_title": "英译中练习",
+      "score": "0/8"
+    }
+  ],
+  "vocab_mastered": [
+    "ship",
+    "subway",
+    "interview",
+    "pessimistic",
+    "face",
+    "theory",
+    "Thursday",
+    "compete",
+    "ear",
+    "strict",
+    "weather",
+    "jealous",
+    "arm",
+    "February",
+    "audience",
+    "argument",
+    "museum",
+    "download",
+    "snowy",
+    "exercise",
+    "classmate",
+    "proud",
+    "restaurant",
+    "neck",
+    "justice",
+    "dictionary",
+    "culture",
+    "fever",
+    "fruit",
+    "sweet",
+    "energy",
+    "punctuation",
+    "stubborn",
+    "opportunity",
+    "August",
+    "keyboard",
+    "Monday",
+    "head",
+    "Sunday",
+    "Sunday",
+    "January",
+    "windy",
+    "robot",
+    "salty",
+    "breakfast",
+    "grateful",
+    "vocabulary",
+    "November",
+    "tour",
+    "gravity",
+    "September",
+    "website",
+    "Sunday"
+  ],
+  "grammar_mastered": [
+    "present_simple",
+    "be_verb",
+    "past_simple",
+    "question_words",
+    "articles"
+  ],
+  "streak": 1,
+  "last_checkin": "2026-05-28",
+  "total_days": 24,
+  "wrong_words": [
+    {
+      "word": "destination",
+      "cn": "目的地",
+      "pron": "/ˌdestɪˈneɪʃən/",
+      "user": "journal",
+      "date": "2026-05-19",
+      "attempts": 2
+    },
+    {
+      "word": "spectator",
+      "cn": "观众",
+      "pron": "/spekˈteɪtə/",
+      "user": "modest",
+      "date": "2026-05-22",
+      "attempts": 3,
+      "source": "flashcard"
+    },
+    {
+      "word": "influence",
+      "date": "2026-05-17",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "passport",
+      "date": "2026-05-17",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "energy",
+      "date": "2026-05-17",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "delay",
+      "date": "2026-05-17",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "luggage",
+      "cn": "行李",
+      "pron": "/ˈlʌɡɪdʒ/",
+      "user": "humorous",
+      "date": "2026-05-24",
+      "attempts": 3
+    },
+    {
+      "word": "coat",
+      "date": "2026-05-17",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "engineer",
+      "cn": "工程师",
+      "pron": "/ˌendʒɪˈnɪə/",
+      "user": "achievement",
+      "date": "2026-05-17",
+      "attempts": 1
+    },
+    {
+      "word": "record",
+      "cn": "记录",
+      "pron": "/ˈrekɔːd/ /rɪˈkɔːd/",
+      "user": "communicate",
+      "date": "2026-05-17",
+      "attempts": 1
+    },
+    {
+      "word": "surgeon",
+      "cn": "外科医生",
+      "pron": "/ˈsɜːdʒən/",
+      "user": "password",
+      "date": "2026-05-17",
+      "attempts": 1
+    },
+    {
+      "word": "conjunction",
+      "date": "2026-05-19",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "greasy",
+      "date": "2026-05-19",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "program",
+      "date": "2026-05-19",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "electricity",
+      "date": "2026-05-20",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "July",
+      "date": "2026-05-24",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "decision",
+      "date": "2026-05-19",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "adjective",
+      "date": "2026-05-19",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "syllable",
+      "date": "2026-05-24",
+      "attempts": 3,
+      "source": "flashcard"
+    },
+    {
+      "word": "protected",
+      "cn": "受保护的",
+      "pron": "/prəˈtektɪd/",
+      "user": "editor",
+      "date": "2026-05-19",
+      "attempts": 1
+    },
+    {
+      "word": "humorous",
+      "cn": "幽默的",
+      "pron": "/ˈhjuːmərəs/",
+      "user": "embarrassed",
+      "date": "2026-05-19",
+      "attempts": 1
+    },
+    {
+      "word": "communicate",
+      "cn": "交流",
+      "pron": "/kəˈmjuːnɪkeɪt/",
+      "user": "hardware",
+      "date": "2026-05-24",
+      "attempts": 3,
+      "source": "flashcard"
+    },
+    {
+      "word": "anxious",
+      "date": "2026-05-20",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "lonely",
+      "date": "2026-05-20",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "pepper",
+      "date": "2026-05-20",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "smartphone",
+      "date": "2026-05-20",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "laboratory",
+      "date": "2026-05-22",
+      "attempts": 3,
+      "source": "flashcard"
+    },
+    {
+      "word": "oxygen",
+      "date": "2026-05-28",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "hospital",
+      "date": "2026-05-22",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "April",
+      "date": "2026-05-22",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "failure",
+      "date": "2026-05-22",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "medicine",
+      "date": "2026-05-22",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "March",
+      "date": "2026-05-22",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "salty",
+      "date": "2026-05-22",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "equality",
+      "date": "2026-05-22",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "February",
+      "date": "2026-05-22",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "suitcase",
+      "date": "2026-05-22",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "cough",
+      "date": "2026-05-22",
+      "attempts": 3,
+      "source": "flashcard"
+    },
+    {
+      "word": "headache",
+      "date": "2026-05-24",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "training",
+      "date": "2026-05-24",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "flood",
+      "date": "2026-05-24",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "disappointed",
+      "date": "2026-05-24",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "publish",
+      "cn": "出版/发布",
+      "pron": "/ˈpʌblɪʃ/",
+      "user": "passport",
+      "date": "2026-05-24",
+      "attempts": 3
+    },
+    {
+      "word": "editor",
+      "date": "2026-05-24",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "invention",
+      "date": "2026-05-24",
+      "attempts": 2,
+      "source": "flashcard"
+    },
+    {
+      "word": "stadium",
+      "date": "2026-05-24",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "volunteer",
+      "cn": "志愿者",
+      "pron": "/ˌvɒlənˈtɪə/",
+      "user": "paragraph",
+      "date": "2026-05-24",
+      "attempts": 1
+    },
+    {
+      "word": "earthquake",
+      "cn": "地震",
+      "pron": "/ˈɜːθkweɪk/",
+      "user": "medal",
+      "date": "2026-05-24",
+      "attempts": 1
+    },
+    {
+      "word": "employee",
+      "date": "2026-05-28",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "nervous",
+      "date": "2026-05-28",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "December",
+      "date": "2026-05-28",
+      "attempts": 1,
+      "source": "flashcard"
+    },
+    {
+      "word": "science",
+      "date": "2026-05-28",
+      "attempts": 3,
+      "source": "flashcard"
+    }
+  ],
+  "word_stats": {
+    "test": {
+      "total": 5,
+      "correct": 5,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "face": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "theory": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "thursday": {
+      "total": 2,
+      "correct": 2,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "compete": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "ear": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "strict": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "responsibility": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-09"
+    },
+    "weather": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "jealous": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "arm": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-09"
+    },
+    "exam": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 0,
+      "first_seen": "2026-05-10"
+    },
+    "lesson": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 0,
+      "first_seen": "2026-05-10"
+    },
+    "science": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-10"
+    },
+    "brother": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 0,
+      "first_seen": "2026-05-10"
+    },
+    "uncle": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 0,
+      "first_seen": "2026-05-10"
+    },
+    "grandfather": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 0,
+      "first_seen": "2026-05-10"
+    },
+    "athlete": {
+      "total": 5,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-16"
+    },
+    "snowy": {
+      "total": 3,
+      "correct": 3,
+      "wrong": 0,
+      "first_seen": "2026-05-16"
+    },
+    "exercise": {
+      "total": 3,
+      "correct": 3,
+      "wrong": 0,
+      "first_seen": "2026-05-16"
+    },
+    "laptop": {
+      "total": 3,
+      "correct": 1,
+      "wrong": 2,
+      "first_seen": "2026-05-16"
+    },
+    "proud": {
+      "total": 4,
+      "correct": 3,
+      "wrong": 1,
+      "first_seen": "2026-05-16"
+    },
+    "experiment": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-16"
+    },
+    "global": {
+      "total": 3,
+      "correct": 1,
+      "wrong": 2,
+      "first_seen": "2026-05-16"
+    },
+    "classmate": {
+      "total": 3,
+      "correct": 3,
+      "wrong": 0,
+      "first_seen": "2026-05-16"
+    },
+    "restaurant": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-16"
+    },
+    "neck": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-16"
+    },
+    "justice": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-16"
+    },
+    "employer": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-16"
+    },
+    "dictionary": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-16"
+    },
+    "destination": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-16"
+    },
+    "spectator": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-16"
+    },
+    "influence": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-17"
+    },
+    "january": {
+      "total": 4,
+      "correct": 4,
+      "wrong": 0,
+      "first_seen": "2026-05-17"
+    },
+    "passport": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-17"
+    },
+    "energy": {
+      "total": 2,
+      "correct": 1,
+      "wrong": 1,
+      "first_seen": "2026-05-17"
+    },
+    "delay": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-17"
+    },
+    "luggage": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-17"
+    },
+    "coat": {
+      "total": 2,
+      "correct": 1,
+      "wrong": 1,
+      "first_seen": "2026-05-17"
+    },
+    "sunday": {
+      "total": 5,
+      "correct": 5,
+      "wrong": 0,
+      "first_seen": "2026-05-17"
+    },
+    "grammar": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-17"
+    },
+    "engineer": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-17"
+    },
+    "february": {
+      "total": 3,
+      "correct": 1,
+      "wrong": 1,
+      "first_seen": "2026-05-17"
+    },
+    "record": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-17"
+    },
+    "surgeon": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-17"
+    },
+    "trousers": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-17"
+    },
+    "temperature": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-17"
+    },
+    "conjunction": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-19"
+    },
+    "greasy": {
+      "total": 2,
+      "correct": 1,
+      "wrong": 1,
+      "first_seen": "2026-05-19"
+    },
+    "program": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-19"
+    },
+    "electricity": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-19"
+    },
+    "july": {
+      "total": 3,
+      "correct": 1,
+      "wrong": 2,
+      "first_seen": "2026-05-19"
+    },
+    "decision": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-19"
+    },
+    "adjective": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-19"
+    },
+    "syllable": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-19"
+    },
+    "protected": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-19"
+    },
+    "humorous": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-19"
+    },
+    "march": {
+      "total": 3,
+      "correct": 1,
+      "wrong": 1,
+      "first_seen": "2026-05-19"
+    },
+    "cough": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-19"
+    },
+    "communicate": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-19"
+    },
+    "anxious": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-20"
+    },
+    "lonely": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-20"
+    },
+    "pepper": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-20"
+    },
+    "smartphone": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-20"
+    },
+    "laboratory": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-20"
+    },
+    "oxygen": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-20"
+    },
+    "punctuation": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-20"
+    },
+    "stubborn": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-20"
+    },
+    "opportunity": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-20"
+    },
+    "august": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-20"
+    },
+    "keyboard": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-20"
+    },
+    "monday": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-20"
+    },
+    "head": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-20"
+    },
+    "我们班": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "最高的": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "男生。": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "书被翻": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "译成多": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "种语言": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "。": {
+      "total": 10,
+      "correct": 0,
+      "wrong": 10,
+      "first_seen": "2026-05-22"
+    },
+    "已经被": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "老师批": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "改了。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "房间比": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "那个房": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "间大两": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "倍。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "桥是去": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "年建成": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "的。": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "我是一": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "只鸟，": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "我就能": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "飞得更": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "高。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "此紧张": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "，": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "以至于": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "说不出": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "话来。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "愿走路": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "也不愿": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "意开车": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "因为停": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "车太难": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "了。": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "hospital": {
+      "total": 2,
+      "correct": 1,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "april": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "failure": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "medicine": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "notebook": {
+      "total": 2,
+      "correct": 2,
+      "wrong": 0,
+      "first_seen": "2026-05-22"
+    },
+    "salty": {
+      "total": 3,
+      "correct": 1,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "dress": {
+      "total": 2,
+      "correct": 2,
+      "wrong": 0,
+      "first_seen": "2026-05-22"
+    },
+    "equality": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "suitcase": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "说英语": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "吗？": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "有一本": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "书。": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-22"
+    },
+    "学校很": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "大。": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "天踢了": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "足球。": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "妈每天": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "做早饭": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "在操场": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "上跑步": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "一名初": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "一学生": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "天没有": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "见到她": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "须完成": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "作业。": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "在书房": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "里看书": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "五晚上": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "我都和": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "朋友去": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "看电影": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "哥哥": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "比我": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "高": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "昨天": {
+      "total": 8,
+      "correct": 0,
+      "wrong": 8,
+      "first_seen": "2026-05-22"
+    },
+    "没有": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "见到": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "她": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "学校": {
+      "total": 5,
+      "correct": 0,
+      "wrong": 5,
+      "first_seen": "2026-05-22"
+    },
+    "很大": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "今天": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "不在": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "会": {
+      "total": 6,
+      "correct": 0,
+      "wrong": 6,
+      "first_seen": "2026-05-22"
+    },
+    "说": {
+      "total": 5,
+      "correct": 0,
+      "wrong": 5,
+      "first_seen": "2026-05-22"
+    },
+    "英语": {
+      "total": 5,
+      "correct": 0,
+      "wrong": 5,
+      "first_seen": "2026-05-22"
+    },
+    "吗": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-22"
+    },
+    "踢了": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "足球": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "书": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "在": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "书架": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "上": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-22"
+    },
+    "妈妈": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "每天": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-22"
+    },
+    "做": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "早饭": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "必须": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "完成": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "作业": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "晚上": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "我": {
+      "total": 5,
+      "correct": 0,
+      "wrong": 5,
+      "first_seen": "2026-05-22"
+    },
+    "都": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "和": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "朋友": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "去": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "看": {
+      "total": 6,
+      "correct": 0,
+      "wrong": 6,
+      "first_seen": "2026-05-22"
+    },
+    "电影": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "公园": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "里": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "玩": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "是": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-22"
+    },
+    "一名": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "初一": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-22"
+    },
+    "学生": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-22"
+    },
+    "电影。": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-23"
+    },
+    "她。": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-23"
+    },
+    "正在": {
+      "total": 4,
+      "correct": 0,
+      "wrong": 4,
+      "first_seen": "2026-05-23"
+    },
+    "操场": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-23"
+    },
+    "跑步。": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-23"
+    },
+    "玩。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-23"
+    },
+    "学校。": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-23"
+    },
+    "书房": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-23"
+    },
+    "很大。": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-23"
+    },
+    "学生。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-23"
+    },
+    "headache": {
+      "total": 2,
+      "correct": 1,
+      "wrong": 1,
+      "first_seen": "2026-05-24"
+    },
+    "success": {
+      "total": 2,
+      "correct": 2,
+      "wrong": 0,
+      "first_seen": "2026-05-24"
+    },
+    "training": {
+      "total": 2,
+      "correct": 1,
+      "wrong": 1,
+      "first_seen": "2026-05-24"
+    },
+    "flood": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-24"
+    },
+    "disappointed": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-24"
+    },
+    "publish": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-24"
+    },
+    "editor": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-24"
+    },
+    "hair": {
+      "total": 2,
+      "correct": 2,
+      "wrong": 0,
+      "first_seen": "2026-05-24"
+    },
+    "invention": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-24"
+    },
+    "lunch": {
+      "total": 2,
+      "correct": 2,
+      "wrong": 0,
+      "first_seen": "2026-05-24"
+    },
+    "stadium": {
+      "total": 2,
+      "correct": 1,
+      "wrong": 1,
+      "first_seen": "2026-05-24"
+    },
+    "windy": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-24"
+    },
+    "robot": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-24"
+    },
+    "breakfast": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-24"
+    },
+    "grateful": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-24"
+    },
+    "volunteer": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-24"
+    },
+    "vocabulary": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-24"
+    },
+    "earthquake": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-24"
+    },
+    "应该": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "养成": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "阅读": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "的": {
+      "total": 2,
+      "correct": 0,
+      "wrong": 2,
+      "first_seen": "2026-05-28"
+    },
+    "好": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "习惯。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "告诉": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "会议": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "哪里": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "举行。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "相信": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "他": {
+      "total": 3,
+      "correct": 0,
+      "wrong": 3,
+      "first_seen": "2026-05-28"
+    },
+    "按时": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "完成任务。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "我们": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "共同": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "努力，": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "就": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "一定": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "能": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "实现": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "目标。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "已经": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "被": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "老师": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "批改": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "桥": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "去年": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "建": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "成": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "很": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "忙，": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "但": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "仍然": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "坚持": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "锻炼": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "身体。": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "最高": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "experience": {
+      "total": 2,
+      "correct": 2,
+      "wrong": 0,
+      "first_seen": "2026-05-28"
+    },
+    "park": {
+      "total": 1,
+      "correct": 1,
+      "wrong": 0,
+      "first_seen": "2026-05-28"
+    },
+    "employee": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "nervous": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    },
+    "december": {
+      "total": 1,
+      "correct": 0,
+      "wrong": 1,
+      "first_seen": "2026-05-28"
+    }
+  },
+  "wrong_grammar": [
+    {
+      "type": "translate",
+      "question": "我昨天踢了足球。",
+      "answer": "I played football yesterday.",
+      "user": "played→(空), football→(空), yesterday.→(空)",
+      "hint": "一般过去时",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "played",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "football",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "yesterday.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我必须完成作业。",
+      "answer": "I must finish my homework.",
+      "user": "must→(空), finish→(空), my→(空), homework.→(空)",
+      "hint": "must + 动词原形",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "must",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "finish",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "my",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "homework.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "她今天不在学校。",
+      "answer": "She is not at school today.",
+      "user": "is→(空), not→(空), at→(空), school→(空), today.→(空)",
+      "hint": "be动词否定",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "not",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "at",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "school",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "today.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我哥哥比我高。",
+      "answer": "My brother is taller than me.",
+      "user": "brother→(空), is→(空), taller→(空), than→(空), me.→(空)",
+      "hint": "比较级",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "brother",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "taller",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "than",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "me.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "他正在书房里看书。",
+      "answer": "He is reading a book in the study.",
+      "user": "is→(空), reading→(空), a→(空), book→(空), in→(空), the→(空), study.→(空)",
+      "hint": "现在进行时 be+v-ing",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "reading",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "a",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "in",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "study.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "每周五晚上我都和朋友去看电影。",
+      "answer": "I go to the movies with my friends every Friday evening.",
+      "user": "go→(空), to→(空), the→(空), movies→(空), with→(空), my→(空), friends→(空), every→(空), Friday→(空), evening.→(空)",
+      "hint": "每周五 = every Friday",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "go",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "to",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "movies",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "with",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "my",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "friends",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 8,
+          "expected": "every",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 9,
+          "expected": "Friday",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 10,
+          "expected": "evening.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "他们在公园里玩。",
+      "answer": "They are playing in the park.",
+      "user": "are→(空), playing→(空), in→(空), the→(空), park.→(空)",
+      "hint": "现在进行时",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "are",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "playing",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "in",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "park.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我昨天没有见到她。",
+      "answer": "I did not see her yesterday.",
+      "user": "did→(空), not→(空), see→(空), her→(空), yesterday.→(空)",
+      "hint": "一般过去时否定",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "did",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "not",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "see",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "her",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "yesterday.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我们学校很大。",
+      "answer": "Our school is very big.",
+      "user": "school→(空), is→(空), very→(空), big.→(空)",
+      "hint": "very + 形容词",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "school",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "very",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "big.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "你会说英语吗？",
+      "answer": "Can you speak English?",
+      "user": "you→(空), speak→(空), English?→(空)",
+      "hint": "can + 动词原形",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "you",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "speak",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "English?",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "他正在操场上跑步。",
+      "answer": "He is running on the playground.",
+      "user": "is→(空), running→(空), on→(空), the→(空), playground.→(空)",
+      "hint": "现在进行时",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "running",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "on",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "playground.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我是一名初一学生。",
+      "answer": "I am a Grade 7 student.",
+      "user": "am→(空), a→(空), Grade→(空), student.→(空)",
+      "hint": "初一学生 = Grade 7 student",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "am",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "a",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "Grade",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "student.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "他正在书房里看书。",
+      "answer": "He is reading a book in the study.",
+      "user": "is→(空), reading→(空), a→(空), book→(空), in→(空), the→(空), study.→(空)",
+      "hint": "现在进行时 be+v-ing",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "reading",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "a",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "in",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "study.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我哥哥比我高。",
+      "answer": "My brother is taller than me.",
+      "user": "brother→(空), is→(空), taller→(空), than→(空), me.→(空)",
+      "hint": "比较级",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "brother",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "taller",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "than",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "me.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "那本书在书架上吗？",
+      "answer": "Is that book on the shelf?",
+      "user": "that→(空), book→(空), on→(空), the→(空), shelf?→(空)",
+      "hint": "There be 一般疑问句",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "that",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "on",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "shelf?",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "桌上有一本书。",
+      "answer": "There is a book on the desk.",
+      "user": "is→(空), a→(空), book→(空), on→(空), the→(空), desk.→(空)",
+      "hint": "There be句型",
+      "date": "2026-05-22",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "a",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "on",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "desk.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Can you speak English?",
+      "answer": "你会说英语吗？",
+      "hint": "can + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "说英语",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "吗？",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "There is a book on the desk.",
+      "answer": "桌上有一本书。",
+      "hint": "There be句型",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "有一本",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "书。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Our school is very big.",
+      "answer": "我们学校很大。",
+      "hint": "very + 形容词",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "学校很",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "大。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I played football yesterday.",
+      "answer": "我昨天踢了足球。",
+      "hint": "一般过去时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "天踢了",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "足球。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "My mother makes breakfast every day.",
+      "answer": "我妈妈每天做早饭。",
+      "hint": "第三人称单数加s",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "妈每天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "做早饭",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "He is running on the playground.",
+      "answer": "他正在操场上跑步。",
+      "hint": "现在进行时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "在操场",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "上跑步",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I am a Grade 7 student.",
+      "answer": "我是一名初一学生。",
+      "hint": "初一学生 = Grade 7 student",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "一名初",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "一学生",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I did not see her yesterday.",
+      "answer": "我昨天没有见到她。",
+      "hint": "一般过去时否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "天没有",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "见到她",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Our school is very big.",
+      "answer": "我们学校很大。",
+      "hint": "very + 形容词",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "学校很",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "大。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I must finish my homework.",
+      "answer": "我必须完成作业。",
+      "hint": "must + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "须完成",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "作业。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I am a Grade 7 student.",
+      "answer": "我是一名初一学生。",
+      "hint": "初一学生 = Grade 7 student",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "一名初",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "一学生",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I did not see her yesterday.",
+      "answer": "我昨天没有见到她。",
+      "hint": "一般过去时否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "天没有",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "见到她",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "He is reading a book in the study.",
+      "answer": "他正在书房里看书。",
+      "hint": "现在进行时 be+v-ing",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "在书房",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "里看书",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I go to the movies with my friends every Friday evening.",
+      "answer": "每周五晚上我都和朋友去看电影。",
+      "hint": "每周五 = every Friday",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "五晚上",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "我都和",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "朋友去",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "看电影",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "My mother makes breakfast every day.",
+      "answer": "我妈妈每天做早饭。",
+      "hint": "第三人称单数加s",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "妈每天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "做早饭",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I played football yesterday.",
+      "answer": "我昨天踢了足球。",
+      "hint": "一般过去时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "天踢了",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "足球。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "My brother is taller than me.",
+      "answer": "我哥哥比我高。",
+      "hint": "比较级",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "哥哥",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "比我",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "高",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I did not see her yesterday.",
+      "answer": "我昨天没有见到她。",
+      "hint": "一般过去时否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "昨天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "没有",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "见到",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "她",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Our school is very big.",
+      "answer": "我们学校很大。",
+      "hint": "very + 形容词",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "学校",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "很大",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "She is not at school today.",
+      "answer": "她今天不在学校。",
+      "hint": "be动词否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "今天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "不在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "学校",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Can you speak English?",
+      "answer": "你会说英语吗？",
+      "hint": "can + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "会",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "说",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "英语",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "吗",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I played football yesterday.",
+      "answer": "我昨天踢了足球。",
+      "hint": "一般过去时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "昨天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "踢了",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "足球",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Is that book on the shelf?",
+      "answer": "那本书在书架上吗？",
+      "hint": "There be 一般疑问句",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "书",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "书架",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "上",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "吗",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "My mother makes breakfast every day.",
+      "answer": "我妈妈每天做早饭。",
+      "hint": "第三人称单数加s",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "妈妈",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "每天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "做",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "早饭",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I must finish my homework.",
+      "answer": "我必须完成作业。",
+      "hint": "must + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "必须",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "完成",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "作业",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I go to the movies with my friends every Friday evening.",
+      "answer": "每周五晚上我都和朋友去看电影。",
+      "hint": "每周五 = every Friday",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "晚上",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "我",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "都",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "和",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "朋友",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "去",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "看",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 8,
+          "expected": "电影",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Can you speak English?",
+      "answer": "你会说英语吗？",
+      "hint": "can + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "会",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "说",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "英语",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "吗",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "My brother is taller than me.",
+      "answer": "我哥哥比我高。",
+      "hint": "比较级",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "哥哥",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "比我",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "高",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I played football yesterday.",
+      "answer": "我昨天踢了足球。",
+      "hint": "一般过去时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "昨天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "踢了",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "足球",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "They are playing in the park.",
+      "answer": "他们在公园里玩。",
+      "hint": "现在进行时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "公园",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "里",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "玩",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "She is not at school today.",
+      "answer": "她今天不在学校。",
+      "hint": "be动词否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "今天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "不在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "学校",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I am a Grade 7 student.",
+      "answer": "我是一名初一学生。",
+      "hint": "初一学生 = Grade 7 student",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "是",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "一名",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "初一",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "学生",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-22"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I go to the movies with my friends every Friday evening.",
+      "answer": "每周五晚上我都和朋友去看电影。",
+      "hint": "每周五 = every Friday",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "晚上",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "我",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "都",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "和",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "朋友",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "去",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "看",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 8,
+          "expected": "电影。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I did not see her yesterday.",
+      "answer": "我昨天没有见到她。",
+      "hint": "一般过去时否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "昨天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "没有",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "见到",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "她。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "He is running on the playground.",
+      "answer": "他正在操场上跑步。",
+      "hint": "现在进行时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "正在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "操场",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "上",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "跑步。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "They are playing in the park.",
+      "answer": "他们在公园里玩。",
+      "hint": "现在进行时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "公园",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "里",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "玩。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Can you speak English?",
+      "answer": "你会说英语吗？",
+      "hint": "can + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "会",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "说",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "英语",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "吗？",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "She is not at school today.",
+      "answer": "她今天不在学校。",
+      "hint": "be动词否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "今天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "不在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "学校。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I must finish my homework.",
+      "answer": "我必须完成作业。",
+      "hint": "must + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "必须",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "完成",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "作业。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "He is reading a book in the study.",
+      "answer": "他正在书房里看书。",
+      "hint": "现在进行时 be+v-ing",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "正在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "书房",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "里",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "看",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "书。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Our school is very big.",
+      "answer": "我们学校很大。",
+      "hint": "very + 形容词",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "学校",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "很大。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I am a Grade 7 student.",
+      "answer": "我是一名初一学生。",
+      "hint": "初一学生 = Grade 7 student",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "是",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "一名",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "初一",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "学生。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I go to the movies with my friends every Friday evening.",
+      "answer": "每周五晚上我都和朋友去看电影。",
+      "hint": "每周五 = every Friday",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "晚上",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "我",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "都",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "和",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "朋友",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "去",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "看",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 8,
+          "expected": "电影。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "He is reading a book in the study.",
+      "answer": "他正在书房里看书。",
+      "hint": "现在进行时 be+v-ing",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "正在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "书房",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "里",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "看",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "书。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I played football yesterday.",
+      "answer": "我昨天踢了足球。",
+      "hint": "一般过去时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "昨天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "踢了",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "足球。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Can you speak English?",
+      "answer": "你会说英语吗？",
+      "hint": "can + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "会",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "说",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "英语",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "吗？",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I did not see her yesterday.",
+      "answer": "我昨天没有见到她。",
+      "hint": "一般过去时否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "昨天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "没有",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "见到",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "她。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I must finish my homework.",
+      "answer": "我必须完成作业。",
+      "hint": "must + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "必须",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "完成",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "作业。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Our school is very big.",
+      "answer": "我们学校很大。",
+      "hint": "very + 形容词",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "学校",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "很大。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "She is not at school today.",
+      "answer": "她今天不在学校。",
+      "hint": "be动词否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "今天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "不在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "学校。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Can you speak English?",
+      "answer": "你会说英语吗？",
+      "hint": "can + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "会",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "说",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "英语",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "吗？",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "He is running on the playground.",
+      "answer": "他正在操场上跑步。",
+      "hint": "现在进行时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "正在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "操场",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "上",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "跑步。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I played football yesterday.",
+      "answer": "我昨天踢了足球。",
+      "hint": "一般过去时",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "昨天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "踢了",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "足球。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I must finish my homework.",
+      "answer": "我必须完成作业。",
+      "hint": "must + 动词原形",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "必须",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "完成",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "作业。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I go to the movies with my friends every Friday evening.",
+      "answer": "每周五晚上我都和朋友去看电影。",
+      "hint": "每周五 = every Friday",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "晚上",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "我",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "都",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "和",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "朋友",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "去",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "看",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 8,
+          "expected": "电影。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I did not see her yesterday.",
+      "answer": "我昨天没有见到她。",
+      "hint": "一般过去时否定",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "昨天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "没有",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "见到",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "她。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-23"
+    },
+    {
+      "type": "tense",
+      "question": "They ____ (go) home after school.",
+      "answer": "went",
+      "user": "goes",
+      "hint": "go的过去式是went",
+      "date": "2026-05-24"
+    },
+    {
+      "type": "tense",
+      "question": "I ____ (listen) to music.",
+      "answer": "am listening",
+      "user": "are listening",
+      "hint": "I用am",
+      "date": "2026-05-24"
+    },
+    {
+      "type": "preposition",
+      "question": "The rabbit runs ____ the forest.",
+      "answer": "through",
+      "user": "on",
+      "hint": "穿过…（内部穿过）",
+      "date": "2026-05-24"
+    },
+    {
+      "type": "preposition",
+      "question": "The boy ____ blue shorts is playing.",
+      "answer": "in",
+      "user": "over",
+      "hint": "in + 颜色的短裤",
+      "date": "2026-05-24"
+    },
+    {
+      "type": "translate",
+      "question": "他们在公园里玩。",
+      "answer": "They are playing in the park.",
+      "user": "are→(空), playing→(空), in→(空), the→(空), park.→(空)",
+      "hint": "现在进行时",
+      "date": "2026-05-24",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "are",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "playing",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "in",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "park.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我们学校很大。",
+      "answer": "Our school is very big.",
+      "user": "school→(空), is→(空), very→(空), big.→(空)",
+      "hint": "very + 形容词",
+      "date": "2026-05-24",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "school",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "very",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "big.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我昨天踢了足球。",
+      "answer": "I played football yesterday.",
+      "user": "played→(空), football→(空), yesterday.→(空)",
+      "hint": "一般过去时",
+      "date": "2026-05-24",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "played",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "football",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "yesterday.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "桌上有一本书。",
+      "answer": "There is a book on the desk.",
+      "user": "is→(空), a→(空), book→(空), on→(空), the→(空), desk.→(空)",
+      "hint": "There be句型",
+      "date": "2026-05-24",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "a",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "on",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "desk.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "她今天不在学校。",
+      "answer": "She is not at school today.",
+      "user": "is→(空), not→(空), at→(空), school→(空), today.→(空)",
+      "hint": "be动词否定",
+      "date": "2026-05-24",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "not",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "at",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "school",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "today.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我妈妈每天做早饭。",
+      "answer": "My mother makes breakfast every day.",
+      "user": "mother→(空), makes→(空), breakfast→(空), every→(空), day.→(空)",
+      "hint": "第三人称单数加s",
+      "date": "2026-05-24",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "mother",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "makes",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "breakfast",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "every",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "day.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "他正在书房里看书。",
+      "answer": "He is reading a book in the study.",
+      "user": "is→(空), reading→(空), a→(空), book→(空), in→(空), the→(空), study.→(空)",
+      "hint": "现在进行时 be+v-ing",
+      "date": "2026-05-24",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "reading",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "a",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "in",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "study.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我必须完成作业。",
+      "answer": "I must finish my homework.",
+      "user": "must→(空), finish→(空), my→(空), homework.→(空)",
+      "hint": "must + 动词原形",
+      "date": "2026-05-24",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "must",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "finish",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "my",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "homework.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "每周五晚上我都和朋友去看电影。",
+      "answer": "I go to the movies with my friends every Friday evening.",
+      "user": "go→(空), to→(空), the→(空), movies→(空), with→(空), my→(空), friends→(空), every→(空), Friday→(空), evening.→(空)",
+      "hint": "每周五 = every Friday",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "go",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "to",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "movies",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "with",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "my",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "friends",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 8,
+          "expected": "every",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 9,
+          "expected": "Friday",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 10,
+          "expected": "evening.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "桌上有一本书。",
+      "answer": "There is a book on the desk.",
+      "user": "is→(空), a→(空), book→(空), on→(空), the→(空), desk.→(空)",
+      "hint": "There be句型",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "a",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "on",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "desk.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "他们在公园里玩。",
+      "answer": "They are playing in the park.",
+      "user": "are→(空), playing→(空), in→(空), the→(空), park.→(空)",
+      "hint": "现在进行时",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "are",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "playing",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "in",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "park.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "那本书在书架上吗？",
+      "answer": "Is that book on the shelf?",
+      "user": "that→(空), book→(空), on→(空), the→(空), shelf?→(空)",
+      "hint": "There be 一般疑问句",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "that",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "on",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "shelf?",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我昨天没有见到她。",
+      "answer": "I did not see her yesterday.",
+      "user": "did→(空), not→(空), see→(空), her→(空), yesterday.→(空)",
+      "hint": "一般过去时否定",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "did",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "not",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "see",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "her",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "yesterday.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "他正在操场上跑步。",
+      "answer": "He is running on the playground.",
+      "user": "is→(空), running→(空), on→(空), the→(空), playground.→(空)",
+      "hint": "现在进行时",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "running",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "on",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "playground.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我是一名初一学生。",
+      "answer": "I am a Grade 7 student.",
+      "user": "am→(空), a→(空), Grade→(空), student.→(空)",
+      "hint": "初一学生 = Grade 7 student",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "am",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "a",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "Grade",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "student.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我昨天踢了足球。",
+      "answer": "I played football yesterday.",
+      "user": "played→(空), football→(空), yesterday.→(空)",
+      "hint": "一般过去时",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "played",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "football",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "yesterday.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "她今天不在学校。",
+      "answer": "She is not at school today.",
+      "user": "is→(空), not→(空), at→(空), school→(空), today.→(空)",
+      "hint": "be动词否定",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "not",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "at",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "school",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "today.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "每周五晚上我都和朋友去看电影。",
+      "answer": "I go to the movies with my friends every Friday evening.",
+      "user": "go→(空), to→(空), the→(空), movies→(空), with→(空), my→(空), friends→(空), every→(空), Friday→(空), evening.→(空)",
+      "hint": "每周五 = every Friday",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "go",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "to",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "movies",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "with",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "my",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "friends",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 8,
+          "expected": "every",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 9,
+          "expected": "Friday",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 10,
+          "expected": "evening.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我妈妈每天做早饭。",
+      "answer": "My mother makes breakfast every day.",
+      "user": "mother→(空), makes→(空), breakfast→(空), every→(空), day.→(空)",
+      "hint": "第三人称单数加s",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "mother",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "makes",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "breakfast",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "every",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "day.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "他正在书房里看书。",
+      "answer": "He is reading a book in the study.",
+      "user": "is→(空), reading→(空), a→(空), book→(空), in→(空), the→(空), study.→(空)",
+      "hint": "现在进行时 be+v-ing",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "is",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "reading",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "a",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "in",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "study.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "那本书在书架上吗？",
+      "answer": "Is that book on the shelf?",
+      "user": "that→(空), book→(空), on→(空), the→(空), shelf?→(空)",
+      "hint": "There be 一般疑问句",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "that",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "book",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "on",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "the",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "shelf?",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "你会说英语吗？",
+      "answer": "Can you speak English?",
+      "user": "you→(空), speak→(空), English?→(空)",
+      "hint": "can + 动词原形",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "you",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "speak",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "English?",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我昨天没有见到她。",
+      "answer": "I did not see her yesterday.",
+      "user": "did→(空), not→(空), see→(空), her→(空), yesterday.→(空)",
+      "hint": "一般过去时否定",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "did",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "not",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "see",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "her",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "yesterday.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate",
+      "question": "我必须完成作业。",
+      "answer": "I must finish my homework.",
+      "user": "must→(空), finish→(空), my→(空), homework.→(空)",
+      "hint": "must + 动词原形",
+      "date": "2026-05-28",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "must",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "finish",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "my",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "homework.",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "type": "translate_en",
+      "sentence": "We should develop the good habit of reading every day.",
+      "answer": "我们应该养成每天阅读的好习惯。",
+      "hint": "of+动名词结构",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "应该",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "养成",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "每天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "阅读",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "的",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "好",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "习惯。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-28"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Please tell me where the meeting will be held.",
+      "answer": "请告诉我会议在哪里举行。",
+      "hint": "where引导宾语从句",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "告诉",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "我",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "会议",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "在",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "哪里",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "举行。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-28"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "I believe that he will finish the task on time.",
+      "answer": "我相信他会按时完成任务。",
+      "hint": "that引导宾语从句（可省略）",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "相信",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "他",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "会",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "按时",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "完成任务。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-28"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "As long as we work hard together, we can surely achieve our goal.",
+      "answer": "只要我们共同努力，就一定能实现目标。",
+      "hint": "as long as条件句",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "我们",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "共同",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "努力，",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "就",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "一定",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "能",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "实现",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 8,
+          "expected": "目标。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-28"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "The homework has been checked by the teacher.",
+      "answer": "作业已经被老师批改了。",
+      "hint": "现在完成时被动",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "已经",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "被",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "老师",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "批改",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "了。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-28"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "That bridge was built last year.",
+      "answer": "那座桥是去年建成的。",
+      "hint": "一般过去时被动",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "桥",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "是",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "去年",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "建",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "成",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "的。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-28"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "Although he is busy, he still exercises every day.",
+      "answer": "尽管他很忙，但他仍然每天坚持锻炼身体。",
+      "hint": "although转折",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "他",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "很",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "忙，",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "但",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "他",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 6,
+          "expected": "仍然",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 7,
+          "expected": "每天",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 8,
+          "expected": "坚持",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 9,
+          "expected": "锻炼",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 10,
+          "expected": "身体。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-28"
+    },
+    {
+      "type": "translate_en",
+      "sentence": "He is the tallest boy in our class.",
+      "answer": "他是我们班最高的男生。",
+      "hint": "最高级：the + 最高级 + in 范围",
+      "wrong_blanks": [
+        {
+          "idx": 1,
+          "expected": "是",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 2,
+          "expected": "我们班",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 3,
+          "expected": "最高",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 4,
+          "expected": "的",
+          "user": "(空)",
+          "is_correct": false
+        },
+        {
+          "idx": 5,
+          "expected": "男生。",
+          "user": "(空)",
+          "is_correct": false
+        }
+      ],
+      "date": "2026-05-28"
+    }
+  ],
+  "flashcard_history": [
+    {
+      "word": "test",
+      "rating": 1,
+      "date": "2026-05-09"
+    },
+    {
+      "word": "athlete",
+      "rating": 0,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "snowy",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "exercise",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "laptop",
+      "rating": 0,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "proud",
+      "rating": 0,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "experiment",
+      "rating": 0,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "global",
+      "rating": 0,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "classmate",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "athlete",
+      "rating": 1,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "snowy",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "exercise",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "laptop",
+      "rating": 0,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "proud",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "experiment",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "global",
+      "rating": 0,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "classmate",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "athlete",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "snowy",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "exercise",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "laptop",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "proud",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "experiment",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "global",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "classmate",
+      "rating": 2,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "athlete",
+      "rating": 0,
+      "date": "2026-05-16"
+    },
+    {
+      "word": "influence",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "January",
+      "rating": 1,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "passport",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "energy",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "delay",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "luggage",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "coat",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "Sunday",
+      "rating": 2,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "influence",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "January",
+      "rating": 2,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "passport",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "energy",
+      "rating": 1,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "delay",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "luggage",
+      "rating": 0,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "coat",
+      "rating": 1,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "Sunday",
+      "rating": 1,
+      "date": "2026-05-17"
+    },
+    {
+      "word": "conjunction",
+      "rating": 0,
+      "date": "2026-05-19"
+    },
+    {
+      "word": "greasy",
+      "rating": 0,
+      "date": "2026-05-19"
+    },
+    {
+      "word": "program",
+      "rating": 0,
+      "date": "2026-05-19"
+    },
+    {
+      "word": "electricity",
+      "rating": 0,
+      "date": "2026-05-19"
+    },
+    {
+      "word": "July",
+      "rating": 0,
+      "date": "2026-05-19"
+    },
+    {
+      "word": "decision",
+      "rating": 0,
+      "date": "2026-05-19"
+    },
+    {
+      "word": "adjective",
+      "rating": 0,
+      "date": "2026-05-19"
+    },
+    {
+      "word": "syllable",
+      "rating": 0,
+      "date": "2026-05-19"
+    },
+    {
+      "word": "anxious",
+      "rating": 0,
+      "date": "2026-05-20"
+    },
+    {
+      "word": "lonely",
+      "rating": 0,
+      "date": "2026-05-20"
+    },
+    {
+      "word": "pepper",
+      "rating": 0,
+      "date": "2026-05-20"
+    },
+    {
+      "word": "electricity",
+      "rating": 0,
+      "date": "2026-05-20"
+    },
+    {
+      "word": "experiment",
+      "rating": 0,
+      "date": "2026-05-20"
+    },
+    {
+      "word": "smartphone",
+      "rating": 0,
+      "date": "2026-05-20"
+    },
+    {
+      "word": "laboratory",
+      "rating": 0,
+      "date": "2026-05-20"
+    },
+    {
+      "word": "oxygen",
+      "rating": 0,
+      "date": "2026-05-20"
+    },
+    {
+      "word": "test",
+      "rating": 1,
+      "date": "2026-05-21"
+    },
+    {
+      "word": "test",
+      "rating": 1,
+      "date": "2026-05-21"
+    },
+    {
+      "word": "test",
+      "rating": 1,
+      "date": "2026-05-21"
+    },
+    {
+      "word": "test",
+      "rating": 1,
+      "date": "2026-05-21"
+    },
+    {
+      "word": "spectator",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "Sunday",
+      "rating": 2,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "hospital",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "April",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "failure",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "medicine",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "March",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "notebook",
+      "rating": 1,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "salty",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "dress",
+      "rating": 1,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "equality",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "laboratory",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "February",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "suitcase",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "cough",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "spectator",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "Sunday",
+      "rating": 2,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "hospital",
+      "rating": 1,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "April",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "failure",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "medicine",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "March",
+      "rating": 1,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "notebook",
+      "rating": 1,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "salty",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "dress",
+      "rating": 2,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "equality",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "laboratory",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "February",
+      "rating": 1,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "suitcase",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "cough",
+      "rating": 0,
+      "date": "2026-05-22"
+    },
+    {
+      "word": "headache",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "success",
+      "rating": 1,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "training",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "flood",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "disappointed",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "publish",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "syllable",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "communicate",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "editor",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "hair",
+      "rating": 2,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "January",
+      "rating": 1,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "invention",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "lunch",
+      "rating": 2,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "July",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "stadium",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "headache",
+      "rating": 1,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "success",
+      "rating": 1,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "training",
+      "rating": 1,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "flood",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "disappointed",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "publish",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "syllable",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "communicate",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "editor",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "hair",
+      "rating": 2,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "January",
+      "rating": 2,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "invention",
+      "rating": 0,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "lunch",
+      "rating": 2,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "July",
+      "rating": 1,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "stadium",
+      "rating": 1,
+      "date": "2026-05-24"
+    },
+    {
+      "word": "science",
+      "rating": 2,
+      "date": "2026-05-28"
+    },
+    {
+      "word": "experience",
+      "rating": 2,
+      "date": "2026-05-28"
+    },
+    {
+      "word": "park",
+      "rating": 2,
+      "date": "2026-05-28"
+    },
+    {
+      "word": "Sunday",
+      "rating": 2,
+      "date": "2026-05-28"
+    },
+    {
+      "word": "oxygen",
+      "rating": 0,
+      "date": "2026-05-28"
+    },
+    {
+      "word": "employee",
+      "rating": 0,
+      "date": "2026-05-28"
+    },
+    {
+      "word": "nervous",
+      "rating": 0,
+      "date": "2026-05-28"
+    },
+    {
+      "word": "December",
+      "rating": 0,
+      "date": "2026-05-28"
+    },
+    {
+      "word": "science",
+      "rating": 0,
+      "date": "2026-05-28"
+    },
+    {
+      "word": "experience",
+      "rating": 2,
+      "date": "2026-05-28"
+    }
+  ]
+}

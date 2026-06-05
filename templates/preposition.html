@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📍 介词练习</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+         min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; }
+  h1 { color: white; font-size: 22px; text-align: center; margin-bottom: 20px; }
+  .q-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+  .q-num { font-size: 12px; color: #aaa; margin-bottom: 8px; }
+  .q-text { font-size: 17px; color: #1a1a2e; margin-bottom: 14px; line-height: 1.6; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt { padding: 10px 16px; border: 2px solid #e8ecf4; border-radius: 10px;
+         font-size: 16px; cursor: pointer; transition: all 0.15s;
+         background: white; text-align: left; color: #333; }
+  .opt:hover { border-color: #48dbfb; background: #f0fdff; }
+  .opt.selected { border-color: #48dbfb; background: #48dbfb; color: #333; }
+  .submit-btn { display: block; width: 100%; padding: 16px; border: none;
+                border-radius: 14px; background: linear-gradient(135deg, #48dbfb, #0abde3);
+                color: #333; font-size: 18px; font-weight: bold; cursor: pointer;
+                margin-top: 16px; }
+  .submit-btn:active { transform: scale(0.98); }
+  .result-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 14px; }
+  .result-q { font-size: 14px; color: #666; margin-bottom: 6px; }
+  .result-a { font-size: 16px; color: #1a1a2e; margin-bottom: 4px; }
+  .result-ok { color: #27ae60; font-weight: bold; }
+  .result-fail { color: #e74c3c; font-weight: bold; }
+  .result-hint { font-size: 12px; color: #aaa; margin-top: 4px; }
+  .score-badge { background: linear-gradient(135deg, #48dbfb, #0abde3);
+                 color: #333; border-radius: 16px; padding: 24px; text-align: center;
+                 margin-bottom: 16px; font-size: 22px; font-weight: bold; }
+  a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📍 介词专项练习</h1>
+
+  <div id="quiz-area">
+    {% for q in questions %}
+    <div class="q-card">
+      <div class="q-num">第 {{ loop.index }} / {{ questions|length }} 题</div>
+      <div class="q-text">{{ q.question }}</div>
+      <div class="options" id="opts-{{ loop.index0 }}" data-question="{{ loop.index0 }}">
+        {% for opt in q.options %}
+        <div class="opt" data-val="{{ opt }}">{{ opt }}</div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    <button class="submit-btn" onclick="submitAll()">提交答案</button>
+  </div>
+
+  <div id="result-area" style="display:none;">
+    <div class="score-badge" id="score-badge"></div>
+    <div id="results-list"></div>
+    <button class="submit-btn" onclick="window.location.reload()">再做一次</button>
+    <div style="text-align:center;margin-top:16px;"><a href="/">← 返回首页</a></div>
+  </div>
+</div>
+
+<script>
+const questions = {{ questions|tojson }};
+const selected = {};
+
+document.querySelectorAll('.opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const container = btn.closest('.options');
+    const qid = parseInt(container.dataset.question);
+
+    // 同一题内取消之前的选中（允许改答案）
+    container.querySelectorAll('.opt').forEach(b => {
+      b.classList.remove('selected');
+    });
+
+    // 选中当前选项
+    btn.classList.add('selected');
+    selected[qid] = btn.dataset.val;
+  });
+});
+
+function submitAll() {
+  const unanswered = questions.map((_, i) => i).filter(i => !selected[i]);
+  if (unanswered.length > 0) {
+    alert("请先做完所有题目（还剩 " + unanswered.length + " 题）");
+    return;
+  }
+  const answers = questions.map((_, i) => selected[i] || "");
+  fetch("/preposition/check", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ answers })
+  }).then(r => r.json()).then(data => {
+    if (data.error === "session_expired") {
+      alert("练习已过期，请刷新页面重新开始");
+      return;
+    }
+    showResults(data);
+  });
+}
+
+function showResults(data) {
+  document.getElementById("quiz-area").style.display = "none";
+  document.getElementById("result-area").style.display = "block";
+  const pct = Math.round(data.correct / data.total * 100);
+  document.getElementById("score-badge").textContent =
+    '🎯 得分：' + data.correct + '/' + data.total + '（' + pct + '%）';
+
+  let html = "";
+  data.results.forEach(r => {
+    const cls = r.is_correct ? "result-ok" : "result-fail";
+    const icon = r.is_correct ? "✅" : "❌";
+    html += '<div class="result-card">' +
+      '<div class="result-q">' + r.question + '</div>' +
+      '<div class="result-a ' + cls + '">' + icon + ' 正确答案：' + r.answer + '</div>' +
+      (!r.is_correct ? '<div class="result-a">你的答案：' + r.user + '</div>' : '') +
+      '<div class="result-hint">💡 ' + r.hint + '</div>' +
+    '</div>';
+  });
+  document.getElementById("results-list").innerHTML = html;
+}
+</script>
+</body>
+</html>

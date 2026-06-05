@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学习统计 - 初一英语</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif; background: #f0f4ff; min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; }
+  .card { background: white; border-radius: 20px; padding: 24px; margin-bottom: 16px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  h1 { font-size: 22px; color: #1a1a2e; text-align: center; margin-bottom: 20px; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-box { background: #f8f9ff; border-radius: 14px; padding: 20px; text-align: center; }
+  .stat-num { font-size: 36px; font-weight: bold; color: #667eea; }
+  .stat-label { font-size: 13px; color: #888; margin-top: 4px; }
+  .progress-bar { background: #e0e0e0; border-radius: 10px; height: 12px; margin: 8px 0; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2);
+                   border-radius: 10px; transition: width 0.5s; }
+  .pct { font-size: 13px; color: #888; text-align: right; margin-bottom: 4px; }
+  h2 { font-size: 16px; color: #333; margin: 16px 0 8px; }
+  .day-list { max-height: 200px; overflow-y: auto; }
+  .day-item { display: flex; justify-content: space-between; padding: 8px 0;
+              border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+  .day-date { color: #666; }
+  .day-info { color: #888; }
+  .mastered-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px;
+         background: #eef; color: #667eea; }
+  .streak-fire { font-size: 48px; text-align: center; margin-bottom: 8px; }
+  .streak-num { font-size: 36px; font-weight: bold; text-align: center; color: #e67e22; }
+  .streak-label { text-align: center; color: #888; font-size: 14px; }
+  a { color: #667eea; text-decoration: none; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📊 学习统计</h1>
+
+  <div class="card">
+    <div class="streak-fire">🔥</div>
+    <div class="streak-num">{{ progress.streak }}</div>
+    <div class="streak-label">连续打卡天数</div>
+  </div>
+
+  <div class="card">
+    <div class="stat-grid">
+      <div class="stat-box">
+        <div class="stat-num">{{ progress.total_days }}</div>
+        <div class="stat-label">累计打卡天数</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">{{ mastered }}</div>
+        <div class="stat-label">已掌握词汇</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">{{ grammar_done }}</div>
+        <div class="stat-label">已学语法</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">{{ total_words }}</div>
+        <div class="stat-label">词汇总量</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>词汇掌握进度</h2>
+    <div class="pct">{{ mastered }}/{{ total_words }} ({{ "%.0f"|format(mastered/total_words*100) if total_words > 0 else 0 }}%)</div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: {{ mastered/total_words*100 if total_words > 0 else 0 }}%"></div>
+    </div>
+
+    <h2>语法掌握进度</h2>
+    <div class="pct">{{ grammar_done }}/{{ total_grammar }}</div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: {{ grammar_done/total_grammar*100 }}%"></div>
+    </div>
+  </div>
+
+  {% if progress.vocab_mastered %}
+  <div class="card">
+    <h2>已掌握词汇</h2>
+    <div class="mastered-list">
+      {% for w in progress.vocab_mastered %}
+      <span class="tag">{{ w }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if progress.checkins %}
+  <div class="card">
+    <h2>打卡记录</h2>
+    <div class="day-list">
+      {% for c in progress.checkins|reverse %}
+      <div class="day-item">
+        <span class="day-date">{{ c.date }}</span>
+        <span class="day-info">{{ c.vocab|join(', ') }} · {{ c.score }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div style="text-align:center; margin-top:12px;">
+    <a href="/">← 返回首页</a>
+  </div>
+</div>
+</body>
+</html>

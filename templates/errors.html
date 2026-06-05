@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>错题本 - 初一英语</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: #f0f2ff; min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; }
+  h1 { color: #333; font-size: 22px; text-align: center; margin-bottom: 8px; }
+  .summary { background: white; border-radius: 14px; padding: 16px; margin-bottom: 16px;
+             box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .summary-row { display: flex; justify-content: space-around; text-align: center; }
+  .stat { padding: 8px; }
+  .stat-num { font-size: 28px; font-weight: bold; color: #667eea; }
+  .stat-label { font-size: 12px; color: #888; margin-top: 2px; }
+  .accuracy { font-size: 18px; font-weight: bold; color: #48dbfb; }
+  .empty { text-align: center; padding: 60px 20px; color: #aaa; }
+  .empty-icon { font-size: 64px; margin-bottom: 12px; }
+  .word-card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px;
+               box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .word-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .word-en { font-size: 22px; font-weight: bold; color: #333; }
+  .speaker-btn { background: none; border: none; cursor: pointer; font-size: 22px; padding: 2px 4px; }
+  .word-cn { font-size: 16px; color: #667eea; margin-bottom: 4px; }
+  .word-pron { font-size: 13px; color: #888; margin-bottom: 8px; }
+  .meta { display: flex; gap: 12px; font-size: 12px; color: #aaa; flex-wrap: wrap; }
+  .meta-badge { padding: 2px 8px; border-radius: 10px; }
+  .badge-wrong { background: #ffebee; color: #f44336; }
+  .badge-source { background: #e8f5e9; color: #4caf50; }
+  .topic-tag { display: inline-block; padding: 2px 8px; border-radius: 10px;
+               background: #eef; color: #667eea; font-size: 11px; margin-bottom: 8px; }
+  .back-link { display: block; text-align: center; padding: 14px; color: #667eea;
+               text-decoration: none; font-size: 15px; margin-top: 16px; }
+
+  /* ── 语法错题样式 ── */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    background: white; border-radius: 14px; padding: 14px 16px; margin-bottom: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08); cursor: pointer; user-select: none;
+  }
+  .section-header:hover { background: #f8f8ff; }
+  .section-title { font-size: 16px; font-weight: bold; color: #333; }
+  .section-count { font-size: 13px; color: #f44336; background: #ffebee;
+                   padding: 2px 8px; border-radius: 10px; }
+  .section-toggle { font-size: 16px; color: #aaa; transition: transform 0.2s; }
+  .section-toggle.open { transform: rotate(180deg); }
+  .section-body { display: none; }
+  .section-body.open { display: block; }
+  .grammar-card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 10px;
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #667eea; }
+  .grammar-q { font-size: 15px; color: #333; line-height: 1.6; margin-bottom: 8px; }
+  .grammar-row { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 4px; }
+  .grammar-label { font-size: 12px; font-weight: bold; color: #aaa; min-width: 56px; padding-top: 2px; }
+  .grammar-user { font-size: 14px; color: #e74c3c; }
+  .grammar-ok { font-size: 14px; color: #27ae60; font-weight: bold; }
+  .grammar-answer { font-size: 14px; color: #333; }
+  .grammar-hint { font-size: 13px; color: #667eea; background: #f0f0ff;
+                  border-radius: 8px; padding: 8px 12px; margin-top: 8px; }
+  .no-errors { text-align: center; color: #aaa; font-size: 14px; padding: 16px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📒 错题本</h1>
+
+  <div class="summary">
+    <div class="summary-row">
+      <div class="stat">
+        <div class="stat-num">{{ wrong_count }}</div>
+        <div class="stat-label">错词数</div>
+      </div>
+      <div class="stat">
+        <div class="accuracy">{{ accuracy }}%</div>
+        <div class="stat-label">总体正确率</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">{{ total_attempts }}</div>
+        <div class="stat-label">总练习次</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 语法错题（可折叠） ── -->
+  {% set total_grammar = tense_count + prep_count + trans_count %}
+  {% if total_grammar > 0 %}
+  <div class="section-header" onclick="toggleSection(this)">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="section-title">📝 语法错题</span>
+      <span class="section-count">{{ total_grammar }} 道</span>
+    </div>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-body">
+    {% if tense_count > 0 %}
+    <div style="padding: 4px 0 8px; font-size: 13px; color: #888; font-weight: bold;">⏱ 时态</div>
+    {% for e in tense_errors %}
+    <div class="grammar-card">
+      <div class="grammar-q">{{ e.question }}</div>
+      <div class="grammar-row">
+        <span class="grammar-label">你的答案</span>
+        <span class="grammar-user">❌ {{ e.user }}</span>
+      </div>
+      <div class="grammar-row">
+        <span class="grammar-label">正确答案</span>
+        <span class="grammar-answer">{{ e.answer }}</span>
+      </div>
+      {% if e.hint %}
+      <div class="grammar-hint">💡 {{ e.hint }}</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if prep_count > 0 %}
+    <div style="padding: 4px 0 8px; font-size: 13px; color: #888; font-weight: bold;">📍 介词</div>
+    {% for e in prep_errors %}
+    <div class="grammar-card" style="border-left-color:#48dbfb;">
+      <div class="grammar-q">{{ e.question }}</div>
+      <div class="grammar-row">
+        <span class="grammar-label">你的答案</span>
+        <span class="grammar-user">❌ {{ e.user }}</span>
+      </div>
+      <div class="grammar-row">
+        <span class="grammar-label">正确答案</span>
+        <span class="grammar-answer">{{ e.answer }}</span>
+      </div>
+      {% if e.hint %}
+      <div class="grammar-hint">💡 {{ e.hint }}</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if trans_count > 0 %}
+    <div style="padding: 4px 0 8px; font-size: 13px; color: #888; font-weight: bold;">🖊 翻译（中英）</div>
+    {% for e in trans_errors %}
+    <div class="grammar-card" style="border-left-color:#f9ca24;">
+      <div class="grammar-q">
+        {% if e.type == "translate_en" %}
+          🌐 {{ e.sentence }}
+        {% else %}
+          🌐 {{ e.question }}
+        {% endif %}
+      </div>
+      <div class="grammar-row">
+        <span class="grammar-label">正确答案</span>
+        <span class="grammar-answer">
+          {% if e.type == "translate_en" %}
+            {{ e.wrong_blanks[0].expected if e.wrong_blanks else "" }}
+          {% else %}
+            {{ e.answer }}
+          {% endif %}
+        </span>
+      </div>
+      {% if e.wrong_blanks %}
+      <div style="font-size:12px;color:#888;margin-top:4px;">
+        填错：{% for b in e.wrong_blanks %}{{ b.expected }}→{{ b.user }}{% if not loop.last %}、{% endif %}{% endfor %}
+      </div>
+      {% endif %}
+      {% if e.hint %}
+      <div class="grammar-hint">💡 {{ e.hint }}</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <!-- ── 词汇错题 ── -->
+  <div class="section-header" onclick="toggleSection(this)">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="section-title">📖 词汇错题</span>
+      <span class="section-count" style="background:#ffebee;color:#f44336;">{{ wrong_count }} 词</span>
+    </div>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-body open">
+    {% if not wrong %}
+    <div class="no-errors">🎉 词汇方面没有错题</div>
+    {% else %}
+    {% for e in wrong %}
+    <div class="word-card">
+      <div class="topic-tag">{{ e.get("topic", "") }}</div>
+      <div class="word-header">
+        <span class="word-en">{{ e.word }}</span>
+        <button class="speaker-btn" onclick="speakWord('{{ e.word }}')">🔊</button>
+      </div>
+      <div class="word-cn">{{ e.get("cn", "") }}</div>
+      <div class="word-pron">{{ e.get("pron", "") }}</div>
+      <div class="meta">
+        <span class="meta-badge badge-wrong">❌ 错 {{ stats.get(e.word.lower(), {}).get("wrong", 1) }} 次</span>
+        <span class="meta-badge">📅 {{ e.get("date", "") }}</span>
+        <span class="meta-badge badge-source">{{ "闪卡" if e.get("source") == "flashcard" else "选择题" }}</span>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  <a href="/" class="back-link">← 返回首页</a>
+</div>
+
+<script>
+// ─── 折叠 ────────────────────────────────────────────────
+function toggleSection(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.section-toggle');
+  body.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+// ─── TTS ──────────────────────────────────────────────────
+function speakWord(word) {
+  if (!word) return;
+  const audio = new Audio('/tts?word=' + encodeURIComponent(word.trim()));
+  audio.play().catch(() => {});
+}
+</script>
+</body>
+</html>

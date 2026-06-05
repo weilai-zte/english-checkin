@@ -1,0 +1,804 @@
+[
+  {
+    "id": "be_verb",
+    "title": "Be 动词（am/is/are）的用法",
+    "level": "初一上",
+    "规则": "主语 + be动词 + 表语",
+    "am_is_are": {
+      "I": "am",
+      "He/She/It": "is",
+      "You/We/They": "are"
+    },
+    "例子": [
+      {
+        "句": "I am a student.",
+        "翻译": "我是一名学生。"
+      },
+      {
+        "句": "She is tall.",
+        "翻译": "她很高。"
+      },
+      {
+        "句": "They are in the classroom.",
+        "翻译": "他们在教室里。"
+      }
+    ],
+    "练习": [
+      {
+        "题": "My name ____ Li Ming.",
+        "答案": "is",
+        "提示": "My name是第三人称单数"
+      },
+      {
+        "题": "I ____ from China.",
+        "答案": "am",
+        "提示": "I用am"
+      },
+      {
+        "题": "You and I ____ friends.",
+        "答案": "are",
+        "提示": "You和I都是复数概念"
+      }
+    ]
+  },
+  {
+    "id": "present_simple",
+    "title": "一般现在时",
+    "level": "初一上",
+    "规则": "主语 + 动词原形/动词-s/es（第三人称单数）",
+    "知识点": {
+      "第三人称单数": "在He/She/It后，动词加-s或-es",
+      "规则": {
+        "一般动词": "加 -s（plays, reads）",
+        "以s/x/o/ch/sh结尾": "加 -es（watches, goes）",
+        "辅音+y结尾": "y变i加-es（study→studies）"
+      }
+    },
+    "例子": [
+      {
+        "句": "I play football every day.",
+        "翻译": "我每天都踢足球。"
+      },
+      {
+        "句": "She plays football every day.",
+        "翻译": "她每天都踢足球。"
+      }
+    ],
+    "练习": [
+      {
+        "题": "He ____ (watch) TV every day.",
+        "答案": "watches",
+        "提示": "He第三人称单数，watch加es"
+      },
+      {
+        "题": "They ____ (like) apples.",
+        "答案": "like",
+        "提示": "They复数不加s"
+      },
+      {
+        "题": "My mother ____ (cook) dinner.",
+        "答案": "cooks",
+        "提示": "母亲是第三人称单数"
+      }
+    ]
+  },
+  {
+    "id": "present_continuous",
+    "title": "现在进行时",
+    "level": "初一下",
+    "规则": "主语 + am/is/are + 动词-ing",
+    "知识点": {
+      "构成": {
+        "be动词": "am(I) / is(He/She/It) / are(You/We/They)",
+        "动词ing": "原形+ing（doing）"
+      },
+      "规则": {
+        "一般情况": "加-ing（playing）",
+        "以e结尾": "去e加-ing（making）",
+        "重读闭音节结尾": "双写尾字母加-ing（running）"
+      }
+    },
+    "例子": [
+      {
+        "句": "I am reading a book now.",
+        "翻译": "我现在正在读书。"
+      },
+      {
+        "句": "She is cooking dinner.",
+        "翻译": "她正在做晚饭。"
+      }
+    ],
+    "练习": [
+      {
+        "题": "Look! The baby ____ (cry).",
+        "答案": "is crying",
+        "提示": "look表示现在进行时"
+      },
+      {
+        "题": "I ____ (listen) to music.",
+        "答案": "am listening",
+        "提示": "I用am"
+      },
+      {
+        "题": "He ____ (make) a cake.",
+        "答案": "is making",
+        "提示": "make去e加ing"
+      }
+    ]
+  },
+  {
+    "id": "past_simple",
+    "title": "一般过去时",
+    "level": "初一下",
+    "规则": "主语 + 动词过去式",
+    "知识点": {
+      "规则动词": {
+        "一般情况": "加-ed（played）",
+        "以e结尾": "加-d（liked）",
+        "辅音+y结尾": "y变i加-ed（studied）",
+        "重读闭音节结尾": "双写尾字母加-ed（stopped）"
+      },
+      "be动词过去式": "was(I/He/She/It) / were(You/We/They)"
+    },
+    "例子": [
+      {
+        "句": "I played football yesterday.",
+        "翻译": "我昨天踢足球了。"
+      },
+      {
+        "句": "She was happy last night.",
+        "翻译": "她昨晚很开心。"
+      }
+    ],
+    "练习": [
+      {
+        "题": "I ____ (visit) my grandmother last week.",
+        "答案": "visited",
+        "提示": "last week一般过去时"
+      },
+      {
+        "题": "He ____ (be) very tired yesterday.",
+        "答案": "was",
+        "提示": "yesterday用过去式was"
+      },
+      {
+        "题": "They ____ (go) home after school.",
+        "答案": "went",
+        "提示": "go的过去式是went"
+      }
+    ]
+  },
+  {
+    "id": "prepositions",
+    "title": "常用介词",
+    "level": "初一上",
+    "规则": "介词 + 名词/代词，构成介词短语",
+    "知识点": {
+      "时间介词": {
+        "at": "时刻（at 7 o'clock）/ 节日（at Christmas）",
+        "on": "具体日期（on Monday）/ 星期（on Tuesday）",
+        "in": "月份（in January）/ 年份（in 2024）/ 季节（in spring）"
+      },
+      "地点介词": {
+        "in": "在…里面（in the room）",
+        "on": "在…上面（on the table）",
+        "at": "在…地点（at school/home）",
+        "under": "在…下面（under the chair）",
+        "near": "在…附近（near the window）",
+        "behind": "在…后面（behind the door）"
+      },
+      "方位介词": {
+        "to": "到…（go to school）",
+        "from": "从…（from China）",
+        "with": "和…一起（with my friends）",
+        "for": "为了…（for breakfast）",
+        "by": "通过…方式（by bus）"
+      }
+    },
+    "例子": [
+      {
+        "句": "I get up at 6 o'clock.",
+        "翻译": "我6点起床。"
+      },
+      {
+        "句": "My birthday is in July.",
+        "翻译": "我的生日在七月。"
+      }
+    ],
+    "练习": [
+      {
+        "题": "I was born ____ July.",
+        "答案": "in",
+        "提示": "月份用 in"
+      },
+      {
+        "题": "The cat is ____ the table.",
+        "答案": "under",
+        "提示": "在…下面"
+      },
+      {
+        "题": "I go to school ____ bus.",
+        "答案": "by",
+        "提示": "by + 交通工具（无冠词）"
+      },
+      {
+        "题": "My birthday is ____ Monday.",
+        "答案": "on",
+        "提示": "星期几用 on"
+      },
+      {
+        "题": "She sits ____ Tom and Mary.",
+        "答案": "between",
+        "提示": "between…and… 在…之间"
+      },
+      {
+        "题": "The book is ____ the desk.",
+        "答案": "on",
+        "提示": "在…上面（表面接触）"
+      },
+      {
+        "题": "I usually get up ____ 6 o'clock.",
+        "答案": "at",
+        "提示": "时刻用 at"
+      },
+      {
+        "题": "There is a bird ____ the tree.",
+        "答案": "in",
+        "提示": "在树上有鸟（鸟在树里）"
+      },
+      {
+        "题": "The girl ____ red is my sister.",
+        "答案": "in",
+        "提示": "in + 颜色/衣服 = 穿着…的人"
+      },
+      {
+        "题": "I live ____ Beijing.",
+        "答案": "in",
+        "提示": "大城市用 in"
+      },
+      {
+        "题": "The school is ____ the hospital.",
+        "答案": "near",
+        "提示": "在…附近"
+      },
+      {
+        "题": "He stands ____ the door.",
+        "答案": "behind",
+        "提示": "在…后面"
+      },
+      {
+        "题": "It's very kind ____ you to help.",
+        "答案": "of",
+        "提示": "It's kind of sb to do"
+      },
+      {
+        "题": "I want a cup ____ tea.",
+        "答案": "of",
+        "提示": "a cup of 一杯…"
+      },
+      {
+        "题": "Let's go ____ the park.",
+        "答案": "to",
+        "提示": "go to + 地点"
+      },
+      {
+        "题": "The boy ____ blue shorts is playing.",
+        "答案": "in",
+        "提示": "in + 颜色的短裤"
+      },
+      {
+        "题": "Thanks ____ your help.",
+        "答案": "for",
+        "提示": "thanks for = 因…而感谢"
+      },
+      {
+        "题": "What do you have ____ breakfast?",
+        "答案": "for",
+        "提示": "for + 三餐"
+      },
+      {
+        "题": "I will be there ____ 3 o'clock.",
+        "答案": "by",
+        "提示": "by = 不迟于…"
+      },
+      {
+        "题": "She is good ____ English.",
+        "答案": "at",
+        "提示": "be good at 擅长…"
+      },
+      {
+        "题": "There is a big tree ____ the house.",
+        "答案": "in front of",
+        "提示": "在…前面（外部）"
+      },
+      {
+        "题": "The rabbit runs ____ the forest.",
+        "答案": "through",
+        "提示": "穿过…（内部穿过）"
+      },
+      {
+        "题": "We will meet ____ the school gate.",
+        "答案": "at",
+        "提示": "at + 具体地点（门口）"
+      },
+      {
+        "题": "He looks ____ the window every morning.",
+        "答案": "out of",
+        "提示": "out of = 向…外"
+      },
+      {
+        "题": "The story is ____ an old man and a boy.",
+        "答案": "about",
+        "提示": "about = 关于…"
+      },
+      {
+        "题": "I often play basketball ____ the afternoon.",
+        "答案": "in",
+        "提示": "in the afternoon / evening / morning"
+      },
+      {
+        "题": "Don't talk ____ me while I'm working.",
+        "答案": "to",
+        "提示": "talk to sb 对…说话"
+      },
+      {
+        "题": "The movie starts ____ 7:00.",
+        "答案": "at",
+        "提示": "具体时刻用 at"
+      },
+      {
+        "题": "There is a picture ____ the wall.",
+        "答案": "on",
+        "提示": "在墙上有图画（表面接触）"
+      },
+      {
+        "题": "I have been here ____ 2020.",
+        "答案": "since",
+        "提示": "since + 起点时间（从…到现在）"
+      },
+      {
+        "题": "He didn't come ____ his illness.",
+        "答案": "because of",
+        "提示": "because of + 名词（因为…）"
+      },
+      {
+        "题": "The dog is sitting ____ the two chairs.",
+        "答案": "between",
+        "提示": "between 在两者之间"
+      },
+      {
+        "题": "The bridge goes ____ the river.",
+        "答案": "over",
+        "提示": "over 在…上方（跨越）"
+      },
+      {
+        "题": "She walked ____ the street carefully.",
+        "答案": "along",
+        "提示": "along 沿着…"
+      },
+      {
+        "题": "He put the lamp ____ the table.",
+        "答案": "on",
+        "提示": "on 在…上面"
+      },
+      {
+        "题": "The temperature is ____ zero today.",
+        "答案": "above",
+        "提示": "above 在…之上（温度）"
+      },
+      {
+        "题": "We sat ____ the river and talked.",
+        "答案": "by",
+        "提示": "by 在…旁边（附近）"
+      },
+      {
+        "题": "The cat is hiding ____ the sofa.",
+        "答案": "under",
+        "提示": "under 在…下面"
+      },
+      {
+        "题": "I will wait for you ____ 5 o'clock.",
+        "答案": "until",
+        "提示": "until 直到…"
+      },
+      {
+        "题": "We went to Shanghai ____ train last week.",
+        "答案": "by",
+        "提示": "by train 乘火车"
+      },
+      {
+        "题": "There is a bus stop ____ the shop.",
+        "答案": "next to",
+        "提示": "next to 在…旁边"
+      },
+      {
+        "题": "He ran ____ the finish line.",
+        "答案": "to",
+        "提示": "run to 跑到…"
+      },
+      {
+        "题": "The teacher is standing ____ the students.",
+        "答案": "in front of",
+        "提示": "in front of 在…前面"
+      },
+      {
+        "题": "She looked at me ____ surprise.",
+        "答案": "with",
+        "提示": "with surprise 惊讶地"
+      },
+      {
+        "题": "____ the end of the day, I was very tired.",
+        "答案": "By",
+        "提示": "by the end of 到…结束时"
+      },
+      {
+        "题": "The boy jumped ____ the wall.",
+        "答案": "over",
+        "提示": "over 跳过…"
+      }
+    ]
+  },
+  {
+    "id": "there_be",
+    "title": "There be 句型",
+    "level": "初一上",
+    "规则": "There is/are + 名词 + 地点/时间",
+    "知识点": {
+      "be动词选择": "is后跟可数名词单数或不可数名词；are后跟复数名词",
+      "就近原则": "be动词由最近的名词决定",
+      "否定": "There is/are not + 名词",
+      "疑问": "Is/Are there + 名词 + 地点？"
+    },
+    "例子": [
+      {
+        "句": "There is a book on the desk.",
+        "翻译": "桌上有一本书。"
+      },
+      {
+        "句": "There are 20 students in our class.",
+        "翻译": "我们班有20名学生。"
+      }
+    ],
+    "练习": [
+      {
+        "题": "There ____ a pencil in the box.",
+        "答案": "is",
+        "提示": "a pencil是单数"
+      },
+      {
+        "题": "There ____ many books on the shelf.",
+        "答案": "are",
+        "提示": "many books是复数"
+      },
+      {
+        "题": "____ there any milk in the fridge?",
+        "答案": "Is",
+        "提示": "milk不可数用Is开头"
+      }
+    ]
+  },
+  {
+    "id": "question_words",
+    "title": "疑问词与疑问句",
+    "level": "初一上",
+    "规则": "疑问词 + be动词/助动词 + 主语 + ...？",
+    "知识点": {
+      "6大疑问词": {
+        "What": "什么（问事物）What is this?",
+        "Who": "谁（问人）Who is he?",
+        "Where": "哪里（问地点）Where do you live?",
+        "When": "何时（问时间）When is your birthday?",
+        "Why": "为什么（问原因）Why are you late?",
+        "How": "怎样（问方式/状态）How are you?"
+      },
+      "How组合": {
+        "How old": "几岁",
+        "How many": "多少（可数）",
+        "How much": "多少（不可数/价格）",
+        "How far": "多远"
+      }
+    },
+    "练习": [
+      {
+        "题": "____ is your name?",
+        "答案": "What",
+        "提示": "问事物用What"
+      },
+      {
+        "题": "____ is your mother? She's at home.",
+        "答案": "Where",
+        "提示": "回答是地点"
+      },
+      {
+        "题": "____ is your birthday? It's in May.",
+        "答案": "When",
+        "提示": "回答是时间"
+      }
+    ],
+    "例子": [
+      {
+        "句": "What is your name?",
+        "翻译": "你叫什么名字？"
+      },
+      {
+        "句": "Where do you live?",
+        "翻译": "你住在哪里？"
+      },
+      {
+        "句": "How are you?",
+        "翻译": "你好吗？"
+      }
+    ]
+  },
+  {
+    "id": "can_may_must",
+    "title": "情态动词 can/may/must",
+    "level": "初一上",
+    "规则": "主语 + 情态动词 + 动词原形",
+    "知识点": {
+      "can": {
+        "用法": "表示能力（会/能）",
+        "肯定": "主语 + can + 动词原形",
+        "否定": "主语 + cannot(can't) + 动词原形",
+        "疑问": "Can + 主语 + 动词原形？"
+      },
+      "must": {
+        "用法": "表示必须",
+        "否定": "must not(mustn't) = 禁止",
+        "注意": "mustn't ≠ don't have to"
+      }
+    },
+    "练习": [
+      {
+        "题": "I ____ swim well.",
+        "答案": "can",
+        "提示": "能力用can"
+      },
+      {
+        "题": "You ____ go now. It's late.",
+        "答案": "must",
+        "提示": "必须用must"
+      },
+      {
+        "题": "You ____ play with fire. It's dangerous.",
+        "答案": "mustn't",
+        "提示": "禁止用mustn't"
+      }
+    ],
+    "例子": [
+      {
+        "句": "I can swim.",
+        "翻译": "我会游泳。"
+      },
+      {
+        "句": "You must finish your homework.",
+        "翻译": "你必须完成作业。"
+      },
+      {
+        "句": "You mustn't smoke here.",
+        "翻译": "你不能在这里抽烟。"
+      }
+    ]
+  },
+  {
+    "id": "nouns",
+    "title": "名词（可数/不可数/所有格）",
+    "level": "初一下",
+    "规则": "名词分可数和不可数；所有格用's或 of",
+    "知识点": {
+      "可数名词": {
+        "规则复数": "+s, +es, 辅音+y→ies",
+        "不规则复数": "man→men, child→children, tooth→teeth"
+      },
+      "不可数名词": "无复数，用量词表达数量（a cup of water）",
+      "所有格": {
+        "有生命": "'s（Tom's book）",
+        "复数以s结尾": "只加'（teachers' office）"
+      }
+    },
+    "例子": [
+      {"句": "I have two children.", "翻译": "我有两个孩子。"},
+      {"句": "This is Tom's book.", "翻译": "这是汤姆的书。"}
+    ],
+    "练习": [
+      {"题": "There are three ____ (child) in the room.", "答案": "children", "提示": "child的复数是不规则变化children"},
+      {"题": "She drank a glass of ____ (milk).", "答案": "milk", "提示": "milk是不可数名词，不用复数"},
+      {"题": "My mother's bag is new.", "翻译": "我妈妈的包是新的。"},
+      {"题": "The ____ (teacher) office is large.", "答案": "teachers'", "提示": "复数名词以s结尾，所有格只加撇"},
+      {"题": "I need some ____ (information) about the city.", "答案": "information", "提示": "information是不可数名词，没有复数"}
+    ]
+  },
+  {
+    "id": "articles",
+    "title": "冠词（a / an / the）",
+    "level": "初一下",
+    "规则": "a/an表泛指，the表特指；元音音标开头用an",
+    "知识点": {
+      "a": "辅音音标开头（a book, a university）",
+      "an": "元音音标开头（an apple, an hour, an L-shaped room）",
+      "the": "特指、再次提到、独一无二的事物、序数词、最高级前",
+      "零冠词": "国名、城市、学科、语言、球类运动不用冠词"
+    },
+    "例子": [
+      {"句": "She is a teacher.", "翻译": "她是一名老师。"},
+      {"句": "An hour later, he arrived.", "翻译": "一小时后他到了。"}
+    ],
+    "练习": [
+      {"题": "He is ____ honest boy.", "答案": "an", "提示": "honest以元音/h/音开头"},
+      {"题": "There is ____ university near here.", "答案": "a", "提示": "university以辅音/ju:/音开头"},
+      {"题": "She plays ____ piano every day.", "答案": "the", "提示": "乐器前加the"},
+      {"题": "I was born in ____ China.", "答案": "", "提示": "国名不加冠词"},
+      {"题": "This is ____ most interesting book I have ever read.", "答案": "the", "提示": "最高级前必须加the"}
+    ]
+  },
+  {
+    "id": "pronouns",
+    "title": "代词（人称/物主/指示）",
+    "level": "初一下",
+    "规则": "人称代词分主格宾格，物主代词分形容词性和名词性",
+    "知识点": {
+      "人称代词主格": "I, you, he, she, it, we, they（作主语）",
+      "人称代词宾格": "me, you, him, her, it, us, them（作宾语）",
+      "形容词性物主代词": "my, your, his, her, its, our, their（后接名词）",
+      "名词性物主代词": "mine, yours, his, hers, ours, theirs（独立使用）"
+    },
+    "例子": [
+      {"句": "I like her.", "翻译": "我喜欢她。"},
+      {"句": "This book is mine.", "翻译": "这本书是我的。"}
+    ],
+    "练习": [
+      {"题": "____ (I) am a student.", "答案": "I", "提示": "作主语用主格I"},
+      {"题": "Please give ____ (she) the book.", "答案": "her", "提示": "作宾语用宾格her"},
+      {"题": "This is ____ (we) classroom.", "答案": "our", "提示": "后接名词用形容词性物主代词our"},
+      {"题": "The red bag is ____ (I).", "答案": "mine", "提示": "独立使用名词性物主代词mine"},
+      {"题": "____ is the capital of China.", "答案": "It", "提示": "指代Beijing用It"}
+    ]
+  },
+  {
+    "id": "comparison",
+    "title": "形容词比较级与最高级",
+    "level": "初二上",
+    "规则": "比较级 + than；最高级 + in/of 范围，前加 the",
+    "知识点": {
+      "规则变化": "+er/+est（tall→taller→tallest），y→ier/iest（happy→happier），多音节用more/most",
+      "不规则变化": "good→better→best, bad→worse→worst, far→farther/further",
+      "修饰词": "much, a little, even, slightly + 比较级"
+    },
+    "例子": [
+      {"句": "He is taller than his brother.", "翻译": "他比他哥哥高。"},
+      {"句": "This is the most beautiful city in China.", "翻译": "这是中国最美的城市。"}
+    ],
+    "练习": [
+      {"题": "Tom is ____ (tall) than Jack.", "答案": "taller", "提示": "than前用比较级taller"},
+      {"题": "This is the ____ (beautiful) painting I have ever seen.", "答案": "most beautiful", "提示": "多音节词最高级用most beautiful"},
+      {"题": "She is ____ (good) at English than me.", "答案": "better", "提示": "good的比较级不规则是better"},
+      {"题": "My sister is two years ____ (old) than me.", "答案": "older", "提示": "than前面用比较级older"},
+      {"题": "The sun is ____ (big) than the moon.", "答案": "bigger", "提示": "big的比较级是bigger，双写尾字母加er"}
+    ]
+  },
+  {
+    "id": "some_any",
+    "title": "数量词（some / any / many / much / a few / a little）",
+    "level": "初一下",
+    "规则": "some肯定句，any疑问否定句；many复数，much不可数",
+    "知识点": {
+      "some": "肯定句（some apples）",
+      "any": "疑问句/否定句（Do you have any...? / I don't have any...）",
+      "many": "修饰可数名词复数（many students）",
+      "much": "修饰不可数名词（much water）",
+      "a few": "有一点（可数），暗含积极",
+      "a little": "有一点（不可数），暗含积极"
+    },
+    "练习": [
+      {"题": "There are ____ apples on the table.", "答案": "some", "提示": "肯定句中用some"},
+      {"题": "Do you have ____ questions?", "答案": "any", "提示": "疑问句中用any"},
+      {"题": "I don't have ____ time.", "答案": "much", "提示": "time不可数，用much"},
+      {"题": "There are ____ students in the hall.", "答案": "many", "提示": "students可数复数，用many"},
+      {"题": "I have ____ friends. I feel lonely.", "答案": "few", "提示": "few暗含消极（几乎没有朋友，感到孤独）"}
+    ]
+  },
+  {
+    "id": "imperative_exclamatory",
+    "title": "祈使句与感叹句",
+    "level": "初一下",
+    "规则": "祈使句用动词原形开头；感叹句用What或How开头",
+    "知识点": {
+      "祈使句肯定": "动词原形（Sit down）",
+      "祈使句否定": "Don't + 动词原形（Don't be late）",
+      "感叹句What句型": "What + a/an + 形容词 + 可数名词单数 + 主语 + 动词！",
+      "感叹句How句型": "How + 形容词/副词 + 主语 + 动词！"
+    },
+    "例子": [
+      {"句": "Don't be late!", "翻译": "不要迟到！"},
+      {"句": "What a beautiful flower it is!", "翻译": "多美的花啊！"}
+    ],
+    "练习": [
+      {"题": "____ (not be) late for class.", "答案": "Don't be", "提示": "祈使句否定用Don't + 动词原形"},
+      {"题": "____ beautiful the park is!", "答案": "How", "提示": "How + 形容词引导感叹句"},
+      {"题": "____ a lovely girl she is!", "答案": "What", "提示": "What + a/an + 形容词引导感叹句"},
+      {"题": "Let's ____ (go) shopping.", "答案": "go", "提示": "Let's后用动词原形"}
+    ]
+  },
+  {
+    "id": "object_clause",
+    "title": "宾语从句",
+    "level": "初二上",
+    "规则": "主句 + 连词 + 主语 + 谓语（陈述语序）",
+    "知识点": {
+      "that": "陈述，可省略（I think that he is right）",
+      "if/whether": "是否",
+      "特殊疑问词": "what, who, where, when, why（保持原词序）",
+      "时态变化": "主句过去时 → 从句往前推一个时态"
+    },
+    "例子": [
+      {"句": "I think that he is honest.", "翻译": "我认为他是诚实的。"},
+      {"句": "I don't know where he lives.", "翻译": "我不知道他住在哪里。"}
+    ],
+    "练习": [
+      {"题": "I think ____ (that) she will come.", "答案": "that", "提示": "that引导宾语从句，可以省略"},
+      {"题": "Can you tell me where ____ (the museum is / is the museum)?", "答案": "the museum is", "提示": "宾语从句用陈述语序，不是问句语序"},
+      {"题": "He said he ____ (was / is) tired.", "答案": "was", "提示": "主句过去时，从句往后退一个时态（现在时→过去时）"},
+      {"题": "I wonder ____ she likes the movie.", "答案": "if", "提示": "if表示是否，引导宾语从句"}
+    ]
+  },
+  {
+    "id": "if_conditional",
+    "title": "If 条件句（真实 vs 虚拟）",
+    "level": "初二下",
+    "规则": "真实条件句主将从现；虚拟语气与事实相反用过去式/would",
+    "知识点": {
+      "真实条件句": "If + 一般现在时，主句一般将来时（If it rains, I will stay home）",
+      "虚拟现在": "If + 主语 + 过去式，主语 + would + 动词原形",
+      "虚拟过去": "If + 主语 + had + 过去分词，主语 + would have + 过去分词"
+    },
+    "例子": [
+      {"句": "If you study hard, you will pass the exam.", "翻译": "如果你努力学习，你就会通过考试。"},
+      {"句": "If I were rich, I would travel the world.", "翻译": "如果我有钱，我就会环游世界。"}
+    ],
+    "练习": [
+      {"题": "If it ____ (rain) tomorrow, I will stay at home.", "答案": "rains", "提示": "真实条件句主将从现"},
+      {"题": "If I ____ (be) a bird, I would fly in the sky.", "答案": "were", "提示": "与现在事实相反，用were（即使主语是he也用were）"},
+      {"题": "If he had studied harder, he ____ (would have passed / will pass) the exam.", "答案": "would have passed", "提示": "与过去事实相反，从句had done，主句would have done"}
+    ]
+  },
+  {
+    "id": "passive_voice",
+    "title": "被动语态",
+    "level": "初二上",
+    "规则": "主语 + be动词 + 过去分词（by + 执行者）",
+    "知识点": {
+      "一般现在时": "am/is/are + 过去分词（English is taught by the teacher）",
+      "一般过去时": "was/were + 过去分词（The book was read by the student）",
+      "现在进行时": "is/are/am + being + 过去分词（The house is being painted）",
+      "现在完成时": "has/have + been + 过去分词（The work has been done）"
+    },
+    "例子": [
+      {"句": "Chinese is spoken by many people.", "翻译": "汉语被很多人使用。"},
+      {"句": "The letter was written by Tom.", "翻译": "这封信是汤姆写的。"}
+    ],
+    "练习": [
+      {"题": "English ____ (speak) in many countries.", "答案": "is spoken", "提示": "一般现在时被动：is + 过去分词"},
+      {"题": "The window ____ (break) by Tom yesterday.", "答案": "was broken", "提示": "一般过去时被动：was + 过去分词"},
+      {"题": "The project ____ (complete) now.", "答案": "is being completed", "提示": "现在进行时被动：is being + 过去分词"},
+      {"题": "The homework ____ (finish) already.", "答案": "has been finished", "提示": "现在完成时被动：has been + 过去分词"}
+    ]
+  },
+  {
+    "id": "there_be_extended",
+    "title": "There be 句型（扩展：时态/就近原则）",
+    "level": "初一下",
+    "规则": "There is/are + 名词 + 地点；就近原则：be形式由最近名词决定",
+    "知识点": {
+      "时态": "There is/are（现在）/ There was/were（过去）/ There will be（将来）",
+      "就近原则": "There is a desk and two chairs（is匹配a desk）",
+      "现在完成时": "There has/have been + 名词"
+    },
+    "练习": [
+      {"题": "There ____ a table and two chairs in the room.", "答案": "is", "提示": "就近原则：a table是单数，用is"},
+      {"题": "There ____ a concert in the park tomorrow.", "答案": "will be", "提示": "tomorrow用一般将来时will be"},
+      {"题": "There ____ many people at the meeting yesterday.", "答案": "were", "提示": "yesterday是一般过去时were"},
+      {"题": "There have been three ____ (accident) on this road.", "答案": "accidents", "提示": "accident可数，there have been后接复数"},
+      {"题": "____ there any interesting films on TV last night?", "答案": "Were", "提示": "last night是一般过去时，any films是复数，用Were"}
+    ]
+  }
+]

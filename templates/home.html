@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>初一英语打卡</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif; background: #f0f4ff;
+         min-height: 100vh; }
+  .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+  .card { background: white; border-radius: 20px; padding: 28px; margin-bottom: 16px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  h1 { text-align: center; color: #1a1a2e; font-size: 26px; margin-bottom: 24px; }
+  .emoji { font-size: 64px; text-align: center; margin-bottom: 12px; }
+  .streak { text-align: center; font-size: 18px; color: #e67e22; font-weight: bold;
+            margin-bottom: 20px; }
+  .streak span { font-size: 32px; }
+  .btn { display: block; width: 100%; padding: 16px; border: none; border-radius: 14px;
+         font-size: 18px; font-weight: bold; cursor: pointer; text-align: center;
+         text-decoration: none; transition: transform 0.1s; }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2);
+                  color: white; margin-bottom: 12px; }
+  .btn-secondary { background: #e8ecf4; color: #4a5568; margin-bottom: 12px; }
+  .btn-disabled { background: #ccc; color: #888; cursor: not-allowed; }
+  .stat-row { display: flex; justify-content: space-around; margin-bottom: 16px; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: bold; color: #667eea; }
+  .stat-label { font-size: 13px; color: #888; margin-top: 4px; }
+  .tag { display: inline-block; padding: 4px 12px; border-radius: 20px;
+          font-size: 12px; background: #eef; color: #667eea; margin: 4px; }
+  .done-msg { text-align: center; padding: 20px; color: #27ae60; font-size: 18px; }
+
+  /* 难度选择器 */
+  .diff-bar { display: flex; gap: 8px; margin-bottom: 20px; }
+  .diff-btn { flex: 1; padding: 10px 4px; border: 2px solid #e8ecf4; border-radius: 12px;
+              background: white; font-size: 13px; font-weight: bold; cursor: pointer;
+              text-decoration: none; color: #888; text-align: center; transition: all 0.2s; }
+  .diff-btn:hover { border-color: #667eea; color: #667eea; }
+  .diff-btn.active-easy { border-color: #27ae60; background: #eafaf1; color: #27ae60; }
+  .diff-btn.active-medium { border-color: #f39c12; background: #fff8e8; color: #f39c12; }
+  .diff-btn.active-hard { border-color: #e74c3c; background: #fdeaea; color: #e74c3c; }
+  .diff-desc { text-align: center; font-size: 12px; color: #aaa; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="emoji">📚</div>
+  <h1>初一英语打卡</h1>
+
+  <!-- 难度选择 -->
+  <div class="card" style="padding: 20px;">
+    <div style="font-size:14px;color:#666;margin-bottom:12px;font-weight:bold;">⚙️ 练习难度</div>
+    <div class="diff-bar">
+      <a href="/difficulty/easy" class="diff-btn {% if difficulty == 'easy' %}active-easy{% endif %}">
+        🌱 简单
+      </a>
+      <a href="/difficulty/medium" class="diff-btn {% if difficulty == 'medium' %}active-medium{% endif %}">
+        🌿 中等
+      </a>
+      <a href="/difficulty/hard" class="diff-btn {% if difficulty == 'hard' %}active-hard{% endif %}">
+        🔥 困难
+      </a>
+    </div>
+    <div class="diff-desc">
+      {% if difficulty == 'easy' %}
+        常用基础词汇，干扰项明显，适合巩固基础
+      {% elif difficulty == 'medium' %}
+        初中核心词汇，适度挑战
+      {% else %}
+        抽象/学术词汇，复杂语法，干扰项相近
+      {% endif %}
+    </div>
+
+    <div style="font-size:12px;color:#aaa;text-align:center;">
+      当前难度：<strong style="color:#667eea;">
+      {% if difficulty == 'easy' %}🌱 简单
+      {% elif difficulty == 'medium' %}🌿 中等
+      {% else %}🔥 困难{% endif %}</strong>
+    </div>
+  </div>
+
+  {% if checked_in_today %}
+  <div class="card">
+    <div class="done-msg">✅ 今日已完成打卡！</div>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-num">{{ streak }}</div>
+        <div class="stat-label">连续天数 🔥</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">{{ progress.total_days }}</div>
+        <div class="stat-label">累计打卡</div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="card">
+    <div class="streak">
+      {% if streak > 0 %}
+      🔥 连续 <span>{{ streak }}</span> 天
+      {% else %}
+      📖 开始你的学习之旅吧！
+      {% endif %}
+    </div>
+    <a href="/learn" class="btn btn-primary">🚀 今日打卡</a>
+  </div>
+  {% endif %}
+
+  <div class="card">
+    <div style="font-size:15px;color:#666;margin-bottom:12px;">🧠 词汇练习</div>
+    <a href="/flashcard" class="btn btn-secondary">🃏 闪卡复习（中文猜英文）</a>
+    <a href="/quiz" class="btn btn-secondary">🧠 听音猜意（英文猜中文）</a>
+    <a href="/stats" class="btn btn-secondary">📊 学习概览</a>
+    <a href="/errors" class="btn btn-secondary">📒 错题本</a>
+  </div>
+
+  <div class="card">
+    <div style="font-size:15px;color:#666;margin-bottom:12px;">📝 语法练习</div>
+    <a href="/tense" class="btn btn-secondary">⏱ 时态专项</a>
+    <a href="/preposition" class="btn btn-secondary">📍 介词专项</a>
+    <a href="/translate" class="btn btn-secondary">🖊 中译英翻译</a>
+    <a href="/translate-en" class="btn btn-secondary">🖊 英译中练习</a>
+  </div>
+
+  <div class="card">
+    <div style="font-size:15px;color:#666;margin-bottom:12px;">📖 知识课程</div>
+    <a href="/knowledge" class="btn btn-secondary">📖 知识课程（时态+介词）</a>
+  </div>
+</div>
+</body>
+</html>

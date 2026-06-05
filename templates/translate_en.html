@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英译中练习</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+           background: #1a1a2e; min-height: 100vh; color: white; }
+    .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+    h1 { text-align: center; margin-bottom: 6px; font-size: 22px; }
+    .subtitle { text-align: center; color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 24px; }
+
+    .question-card {
+      background: white; color: #1a1a2e; border-radius: 16px;
+      padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .question-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px; font-size: 13px; color: #888;
+    }
+    .question-num { font-weight: 600; color: #667eea; }
+    .difficulty-badge {
+      padding: 2px 10px; border-radius: 12px; font-size: 11px;
+      background: #e0e7ff; color: #667eea;
+    }
+    .en-prompt {
+      font-size: 18px; color: #1a1a2e; font-weight: 600;
+      background: #f0f0ff; border-radius: 10px; padding: 10px 14px;
+      margin-bottom: 12px; line-height: 1.6;
+    }
+    .zh-display {
+      display: flex; flex-wrap: wrap; gap: 6px 4px; align-items: center;
+      margin-bottom: 14px; min-height: 44px;
+    }
+    .word-text {
+      font-size: 18px; color: #1a1a2e; font-weight: 500; padding: 4px 2px;
+    }
+    .word-input {
+      font-size: 18px; border: none; border-bottom: 2px solid #667eea;
+      background: transparent; text-align: center; outline: none;
+      min-width: 60px; max-width: 200px; padding: 4px 2px;
+      color: #1a1a2e; transition: border-color 0.2s, color 0.2s;
+    }
+    .word-input.correct { border-color: #22c55e; color: #22c55e; }
+    .word-input.wrong   { border-color: #ef4444; color: #ef4444; }
+    .hint-row { font-size: 13px; color: #f59e0b; margin-top: 4px; }
+    .ref-row { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 6px; font-style: italic; }
+    .result-overlay {
+      padding: 12px; border-radius: 10px; margin-top: 10px; font-size: 14px;
+    }
+    .result-correct   { background: #dcfce7; color: #166534; }
+    .result-partial  { background: #fef9c3; color: #854d0e; }
+    .result-wrong    { background: #fee2e2; color: #991b1b; }
+    .blank-result { font-weight: 600; }
+    .blank-result.correct { color: #22c55e; }
+    .blank-result.wrong   { color: #ef4444; }
+
+    .btn-primary {
+      display: block; width: 100%; padding: 16px; font-size: 18px; font-weight: 600;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white; border: none; border-radius: 12px; cursor: pointer; margin-top: 10px;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .score-banner {
+      text-align: center; margin-bottom: 20px; padding: 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 16px;
+    }
+    .score-banner .big { font-size: 48px; color: white; font-weight: 700; }
+    .score-banner .label { color: rgba(255,255,255,0.7); font-size: 14px; }
+    .back-link { display: block; text-align: center; color: rgba(255,255,255,0.4);
+                 text-decoration: none; font-size: 14px; margin-top: 20px; }
+    .back-link:hover { color: rgba(255,255,255,0.7); }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🖊 英译中练习</h1>
+  <p class="subtitle">看英文句子，填写空格中的单词</p>
+
+  <div id="score-banner" style="display:none" class="score-banner">
+    <div class="label">本次得分</div>
+    <div class="big" id="score-num"></div>
+  </div>
+
+  <form id="quiz-form" onsubmit="return false">
+    {% for s in sentences %}
+    <div class="question-card">
+      <div class="question-header">
+        <span class="question-num">第 {{ loop.index }} / {{ sentences|length }} 题</span>
+        <span class="difficulty-badge">{{ difficulty }}</span>
+      </div>
+      <div class="en-prompt">{{ s.en }}</div>
+      <div class="zh-display">
+        {% for w in s.words_display %}
+          {% if w.type == "text" %}
+            <span class="word-text">{{ w.text }}</span>
+          {% elif w.type == "input" %}
+            <input type="text"
+                   class="word-input"
+                   id="blank-{{ loop.index0 }}-{{ w.idx }}"
+                   data-target="{{ w.word }}"
+                   placeholder="{{ w.hint }}"
+                   autocomplete="off"
+                   spellcheck="false"
+                   style="width:{{ [w.word|length * 22 + 16, 80]|max }}px">
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="hint-row">💡 提示：{{ s.hint }}</div>
+      <div id="result-{{ loop.index0 }}" style="display:none"></div>
+    </div>
+    {% endfor %}
+
+    <button class="btn-primary" id="submit-btn" onclick="submitAll()">提交答案</button>
+  </form>
+
+  <a href="/" class="back-link">← 返回首页</a>
+</div>
+
+<script>
+// ── 实时高亮 ───────────────────────────────────────────────
+document.querySelectorAll('.word-input').forEach(input => {
+  input.addEventListener('input', () => {
+    const target = input.dataset.target.trim();
+    const val    = input.value.trim();
+    if (!val) {
+      input.classList.remove('correct', 'wrong');
+    } else if (val === target) {
+      input.classList.add('correct');
+      input.classList.remove('wrong');
+    } else {
+      input.classList.remove('correct');
+      input.classList.add('wrong');
+    }
+  });
+});
+
+// ── 提交 ────────────────────────────────────────────────────
+async function submitAll() {
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '批改中…';
+
+  const answers = [];
+  document.querySelectorAll('.question-card').forEach((_, qi) => {
+    const blanks = {};
+    document.querySelectorAll(`[id^="blank-${qi}-"]`).forEach(inp => {
+      blanks[inp.id.split('-').pop()] = inp.value;
+    });
+    answers.push(blanks);
+  });
+
+  const res  = await fetch('/translate-en/check', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ answers })
+  });
+  const data = await res.json();
+
+  if (data.error) { alert(data.error); btn.disabled = false; btn.textContent = '重新提交'; return; }
+
+  document.getElementById('score-banner').style.display = 'block';
+  document.getElementById('score-num').textContent = data.correct + ' / ' + data.total;
+
+  data.results.forEach((r, qi) => {
+    r.user_blanks.forEach(b => {
+      const inp = document.getElementById(`blank-${qi}-${b.idx}`);
+      if (inp) {
+        if (!inp.value.trim() && b.user !== '(空)') inp.value = b.user;
+        inp.classList.remove('correct', 'wrong');
+        inp.classList.add(b.is_correct ? 'correct' : 'wrong');
+        inp.readOnly = true;
+      }
+    });
+
+    const div = document.getElementById(`result-${qi}`);
+    div.style.display = 'block';
+    const correct_count = r.user_blanks.filter(b => b.is_correct).length;
+    const total_count   = r.user_blanks.length;
+    if (r.is_correct) {
+      div.className = 'result-overlay result-correct';
+      div.innerHTML = '✅ 完全正确！' +
+        r.user_blanks.map(b => `<span class="blank-result correct">✓ ${b.expected}</span>`).join(' &nbsp; ');
+    } else if (correct_count > 0) {
+      div.className = 'result-overlay result-partial';
+      div.innerHTML = r.user_blanks.map(b =>
+        `<span class="blank-result ${b.is_correct ? 'correct' : 'wrong'}">${b.is_correct ? '✓' : '✗'} ${b.expected}</span>`
+      ).join(' &nbsp; ') + `<br><span style="font-size:12px;margin-top:4px;display:inline-block">正确：${correct_count}/${total_count}</span>`;
+    } else {
+      div.className = 'result-overlay result-wrong';
+      div.innerHTML = '✗ 错误 &nbsp; 正确答案：' + r.user_blanks.map(b => b.expected).join(', ');
+    }
+  });
+
+  btn.textContent = '已完成';
+}
+</script>
+</body>
+</html>

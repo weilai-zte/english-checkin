@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学习统计 - 初一英语</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: #f0f2ff; min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; }
+  h1 { color: #333; font-size: 22px; text-align: center; margin-bottom: 16px; }
+  .card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .card-title { font-size: 14px; color: #888; margin-bottom: 12px; font-weight: bold; }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .stat-box { background: #f8f9ff; border-radius: 12px; padding: 12px 8px; text-align: center; }
+  .stat-num { font-size: 24px; font-weight: bold; color: #667eea; }
+  .stat-unit { font-size: 11px; color: #888; }
+  .accuracy-highlight { text-align: center; }
+  .accuracy-big { font-size: 48px; font-weight: bold; color: #48dbfb; }
+  .accuracy-label { font-size: 13px; color: #888; }
+  .topic-item { display: flex; align-items: center; gap: 10px; padding: 8px 0;
+                border-bottom: 1px solid #f0f0f0; }
+  .topic-item:last-child { border-bottom: none; }
+  .topic-name { flex: 1; font-size: 14px; color: #333; }
+  .topic-wrong { font-size: 13px; color: #f44336; font-weight: bold; }
+  .topic-wrong.none { color: #4caf50; }
+  .topic-bar-wrap { flex: 2; height: 6px; background: #e0e0e0; border-radius: 3px; }
+  .topic-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #667eea, #764ba2); }
+  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .day-cell { text-align: center; padding: 6px 2px; border-radius: 8px; font-size: 11px; }
+  .day-done { background: #e8f5e9; color: #4caf50; }
+  .day-miss { background: #f5f5f5; color: #ccc; }
+  .day-label { font-size: 10px; color: #aaa; margin-top: 2px; }
+  .back-link { display: block; text-align: center; padding: 14px; color: #667eea;
+               text-decoration: none; font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📊 学习统计</h1>
+
+  <!-- 核心指标 -->
+  <div class="card">
+    <div class="card-title">总体概览</div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num">{{ accuracy }}%</div>
+        <div class="stat-unit">正确率</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">{{ streak }}</div>
+        <div class="stat-unit">连续天</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">{{ total_attempts }}</div>
+        <div class="stat-unit">练习次</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">{{ mastered }}</div>
+        <div class="stat-unit">已掌握词</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">{{ wrong_count }}</div>
+        <div class="stat-unit">错词数</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">{{ grammar_mastered }}/{{ total_grammar }}</div>
+        <div class="stat-unit">语法进度</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 正确率 -->
+  <div class="card">
+    <div class="card-title">整体正确率</div>
+    <div class="accuracy-highlight">
+      <div class="accuracy-big">{{ accuracy }}%</div>
+      <div class="accuracy-label">总计 {{ total_correct }} / {{ total_attempts }} 次答对</div>
+    </div>
+  </div>
+
+  <!-- 话题弱点 -->
+  <div class="card">
+    <div class="card-title">⚠️ 话题薄弱度（错题次数排序）</div>
+    {% for tname, tdata in sorted_topics[:8] %}
+    <div class="topic-item">
+      <div class="topic-name">{{ tname }}</div>
+      <div class="topic-bar-wrap">
+        <div class="topic-bar-fill" style="width: {{ tdata.bar_pct }}%"></div>
+      </div>
+      <div class="topic-wrong {% if tdata.wrong == 0 %}none{% endif %}">
+        {% if tdata.wrong > 0 %}{{ tdata.wrong }}错{% else %}✓{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    {% if not sorted_topics %}暂无数据{% endif %}
+  </div>
+
+  <!-- 打卡日历 -->
+  <div class="card">
+    <div class="card-title">📅 近7天打卡</div>
+    <div class="week-grid">
+      {% for day in recent %}
+      <div>
+        <div class="day-cell {% if day.entry %}day-done{% else %}day-miss{% endif %}">
+          {{ day.date[5:] }}
+        </div>
+        <div class="day-label">{{ "✔" if day.entry else "✗" }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <a href="/" class="back-link">← 返回首页</a>
+</div>
+</body>
+</html>
