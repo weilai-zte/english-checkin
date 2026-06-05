@@ -27,6 +27,38 @@ FEISHU_WEBHOOK="..." python3 send_daily.py
 FEISHU_WEBHOOK="..." python3 send_weekly_report.py
 ```
 
+## Git Workflow
+
+```bash
+# Commit all changes (follows SPARV workflow: spec → act → review → vault)
+git add -A && git commit -m "<type>: <description>"
+
+# View recent commits
+git log --oneline -10
+
+# View uncommitted changes
+git diff
+
+# Check status
+git status
+```
+
+## SPARV Workflow
+
+This project follows the SPARV methodology for all changes:
+
+1. **Specify** — Define what to build, score >= 9 to proceed
+2. **Plan** — Break into atomic tasks with verifiable outputs
+3. **Act** — TDD: write test first, then implement
+4. **Review** — Spec conformance + code quality check
+5. **Vault** — Archive session, update `.sparv/kb.md`
+
+Key files:
+- `.sparv/plan/<session>/state.yaml` — Current phase state
+- `.sparv/plan/<session>/journal.md` — Session log
+- `.sparv/kb.md` — Cross-session knowledge base
+- `.sparv/history/<session>/` — Archived sessions
+
 ## Architecture
 
 ### Stack

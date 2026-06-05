@@ -1,1 +1,6 @@
 .flask_session/
+__pycache__/
+*.pyc
+.pytest_cache/
+.harness-active
+sparv.plan/
