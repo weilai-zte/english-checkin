@@ -6,6 +6,26 @@
   const STORAGE_KEY = 'ck_progress_v1';
   const DIFF_KEY = 'ck_difficulty_v1';
   const TASK_KEY = 'ck_current_task_v1';
+  const USER_KEY = 'ck_user_key_v1';
+
+  // ─── Supabase ────────────────────────────────────────
+  const SB_URL = 'https://qhsqkythuplxffhhmcpw.supabase.co';
+  const SB_KEY = 'sb_publishable_Ea-4wpoSNGXovudWaW-AaA_u1G_0QNR';
+  let sb = null;
+  try {
+    if (window.supabase && window.supabase.createClient) {
+      sb = window.supabase.createClient(SB_URL, SB_KEY);
+    }
+  } catch (e) { console.warn('Supabase init failed:', e); }
+
+  function getUserKey() {
+    let key = localStorage.getItem(USER_KEY);
+    if (!key) {
+      key = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
+      localStorage.setItem(USER_KEY, key);
+    }
+    return key;
+  }
 
   // ─── State ───────────────────────────────────────────
   let progress = loadProgress();
@@ -38,6 +58,44 @@
   }
   function saveProgress() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    syncToSupabase();
+  }
+
+  // ─── Supabase sync ───────────────────────────────────
+  let _syncTimer = null;
+  function syncToSupabase() {
+    if (!sb) return;
+    clearTimeout(_syncTimer);
+    _syncTimer = setTimeout(async () => {
+      try {
+        const key = getUserKey();
+        await sb.from('progress').upsert({
+          user_key: key,
+          data: progress,
+          updated_at: new Date().toISOString(),
+        }, { onConflict: 'user_key' });
+      } catch (e) { console.warn('Supabase upsert failed:', e); }
+    }, 300);
+  }
+
+  async function syncFromSupabase() {
+    if (!sb) return;
+    try {
+      const key = getUserKey();
+      const { data, error } = await sb.from('progress')
+        .select('data,updated_at')
+        .eq('user_key', key)
+        .maybeSingle();
+      if (error || !data) return;
+      const local = localStorage.getItem(STORAGE_KEY);
+      const localTs = local ? JSON.parse(local)._updated_at || '' : '';
+      const remoteTs = data.updated_at || '';
+      if (remoteTs > localTs) {
+        progress = Object.assign(defaultProgress(), data.data);
+        progress._updated_at = data.updated_at;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+      }
+    } catch (e) { console.warn('Supabase fetch failed:', e); }
   }
   function setDifficulty(level) {
     difficulty = level;
@@ -263,7 +321,7 @@
     return {
       topic: vocabPicks[0]?.topic || '',
       vocab: vocabPicks.map(w => ({
-        word: w.word, pron: w.pron, cn: w.cn,
+        word: w.word, pron: w.pron || '', cn: w.cn,
         example: w.例句, memory: w.记忆 || '',
         topic: w.topic, hide: Math.random() < 0.5 ? 'word' : 'cn',
       })),
@@ -384,7 +442,7 @@
             <button class="diff-btn ${difficulty==='medium'?'active-medium':''}" data-d="medium">🌿 中等</button>
             <button class="diff-btn ${difficulty==='hard'?'active-hard':''}" data-d="hard">🔥 困难</button>
           </div>
-          <div style="font-size:12px;color:#888;text-align:center;">
+          <div style="font-size:12px;color:#555;text-align:center;">
             ${difficulty==='easy'?'常用基础词汇，干扰项明显':''}
             ${difficulty==='medium'?'初中核心词汇，适度挑战':''}
             ${difficulty==='hard'?'抽象/学术词汇，复杂语法':''}
@@ -407,7 +465,7 @@
           <div style="color:#e67e22;font-size:20px;font-weight:bold;margin-bottom:8px;">
             🔥 连续 <span style="font-size:32px;">${streak}</span> 天
           </div>
-          <div style="color:#888;font-size:14px;">完成今日任务保持连续！</div>
+          <div style="color:#555;font-size:14px;">完成今日任务保持连续！</div>
         </div>
         <a class="btn btn-primary" href="#/learn">🚀 开始今日打卡</a>
         `}
@@ -455,7 +513,7 @@
         <div class="card" style="text-align:center;">
           <div class="card-title">今日主题</div>
           <div style="font-size:20px;font-weight:bold;color:#667eea;">${escapeHtml(t.topic || '综合练习')}</div>
-          <div style="font-size:13px;color:#888;margin-top:6px;">
+          <div style="font-size:13px;color:#555;margin-top:6px;">
             词汇 ${t.vocab.length} 个 · 语法 ${t.grammar.title}
           </div>
         </div>
@@ -477,7 +535,7 @@
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="flex:1;">
             <div style="font-size:18px;font-weight:bold;color:#1a1a2e;">${hideWord ? '???' : escapeHtml(w.word)}</div>
-            <div style="font-size:14px;color:#888;">${hideWord ? escapeHtml(w.cn) : escapeHtml(w.pron)}</div>
+            <div style="font-size:14px;color:#555;">${hideWord ? escapeHtml(w.cn) : escapeHtml(w.pron || '')}</div>
           </div>
           <button class="btn-sm btn-ghost" data-speak="${escapeHtml(w.word)}" style="background:none;border:none;font-size:20px;cursor:pointer;">🔊</button>
         </div>
@@ -516,7 +574,7 @@
           <div class="vocab-reveal" id="vocab-back">
             ${hideWord ? escapeHtml(w.word) : escapeHtml(w.cn)}
           </div>
-          <div class="vocab-pron">${escapeHtml(w.pron)}</div>
+          <div class="vocab-pron">${escapeHtml(w.pron || '')}</div>
           <button class="btn-sm" id="speak-btn" style="background:#eef;color:#667eea;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:4px;">🔊 听发音</button>
           <div class="vocab-example">${escapeHtml(w.example || '')}</div>
           ${w.memory ? `<div class="vocab-memory">💡 ${escapeHtml(w.memory)}</div>` : ''}
@@ -610,7 +668,7 @@
       finishDiv.innerHTML = `
         <div style="font-size:36px;margin-bottom:8px;">${correct >= 2 ? '🎉' : '💪'}</div>
         <div style="font-size:18px;font-weight:bold;color:#667eea;">${score} 正确</div>
-        <div style="color:#888;margin:8px 0;">${correct >= 2 ? '已记录到打卡！' : '再接再厉！'}</div>
+        <div style="color:#555;margin:8px 0;">${correct >= 2 ? '已记录到打卡！' : '再接再厉！'}</div>
         <div class="btn-row">
           <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习</a>
           <a class="btn btn-primary" href="#/home">完成</a>
@@ -654,14 +712,14 @@
           <div class="card-inner ${flipped ? 'flipped' : ''}">
             <div class="card-face card-front">
               <div class="card-cn">${escapeHtml(w.cn)}</div>
-              <div class="card-pron">${escapeHtml(w.pron)}</div>
+              <div class="card-pron">${escapeHtml(w.pron || '')}</div>
             </div>
             <div class="card-face card-back">
               <div class="card-word-row">
                 <span class="card-word">${escapeHtml(w.word)}</span>
                 <button class="card-speak" data-s="${escapeHtml(w.word)}" title="听发音">🔊</button>
               </div>
-              <div class="card-pron">${escapeHtml(w.pron)}</div>
+              <div class="card-pron">${escapeHtml(w.pron || '')}</div>
               <div class="card-cn" style="font-size:14px;margin-top:8px;opacity:0.8;">${escapeHtml(w.cn)}</div>
             </div>
           </div>
@@ -807,7 +865,7 @@
       card.className = 'card';
       card.innerHTML = `
         <div class="card-title">第 ${i+1} 题 · 看英文选中文</div>
-        <div class="grammar-q quiz-word">${escapeHtml(q.word)} <span class="quiz-pron">${escapeHtml(q.pron || '')}</span></div>
+        <div class="grammar-q quiz-word">${escapeHtml(q.q || q.word || '')} <span class="quiz-pron">${escapeHtml(q.pron || '')}</span></div>
         <div class="mcq-list">
           ${q.options.map(o => {
             const isObj = o && typeof o === 'object';
@@ -874,15 +932,15 @@
       const blanks = [];
       words.forEach((w, i) => {
         if (i === 0) {
-          parts.push(`<span style="font-weight:bold;color:#1a1a2e;">${escapeHtml(w)}</span>`);
+          parts.push(`<span style="font-weight:bold;color:inherit;">${escapeHtml(w)}</span>`);
         } else {
           blanks.push({ idx: i, word: w });
-          parts.push(`<input type="text" class="grammar-input" data-q="${qi}" data-b="${i}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
         }
       });
       card.innerHTML = `
         <div class="card-title">第 ${qi+1} 题</div>
-        <div style="background:#f8f9ff;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;">${escapeHtml(s.cn)}</div>
+        <div style="background:#eef0f5;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;color:#1a1a2e;">${escapeHtml(s.cn)}</div>
         <div class="grammar-hint">💡 ${escapeHtml(s.hint || '')}</div>
         <div style="line-height:2.4;font-size:15px;margin-top:8px;">${parts.join(' ')}</div>
         <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:8px;"></div>
@@ -967,13 +1025,13 @@
           parts.push(`<span>${escapeHtml(t.text)}</span>`);
         } else {
           blanks.push({ idx: bIdx, word: t.text });
-          parts.push(`<input type="text" class="grammar-input" data-q="${qi}" data-b="${bIdx}" style="display:inline-block;width:auto;min-width:50px;margin:2px;text-align:center;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${bIdx}" style="display:inline-block;width:auto;min-width:50px;margin:2px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
           bIdx++;
         }
       });
       card.innerHTML = `
         <div class="card-title">第 ${qi+1} 题</div>
-        <div style="background:#f8f9ff;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;font-weight:bold;">${escapeHtml(s.en)}</div>
+        <div style="background:#eef0f5;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;font-weight:bold;color:#1a1a2e;">${escapeHtml(s.en)}</div>
         <div class="grammar-hint">💡 ${escapeHtml(s.hint || '')}</div>
         <div style="line-height:2.4;font-size:15px;margin-top:8px;">${parts.join('')}</div>
         <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:8px;"></div>
@@ -1088,7 +1146,7 @@
       const opts = shuffle([target, ...distractors]);
       // 选项 value 用中文意，display 也是中文意；正确答案是 target.cn
       const options = opts.map(w => ({ display: w.cn, value: w.cn, _word: w.word }));
-      return { word: target.word, cn: target.cn, pron: target.pron, a: target.cn, options };
+      return { word: target.word, cn: target.cn, pron: target.pron || '', a: target.cn, options };
     });
     currentQuestions = questions;
     renderMCQ(app, '选择题', questions, (correct, results) => {
@@ -1155,11 +1213,11 @@
               <div class="error-word">
                 <div class="error-word-en">${escapeHtml(e.word)}</div>
                 <div class="error-word-cn">${escapeHtml(e.cn)} · ${escapeHtml(e.pron || '')}</div>
-                ${e.topic ? `<div style="font-size:11px;color:#aaa;">${escapeHtml(e.topic.split(' ')[0])}</div>` : ''}
+                ${e.topic ? `<div style="font-size:11px;color:#777;">${escapeHtml(e.topic.split(' ')[0])}</div>` : ''}
               </div>
               <div class="error-meta">错 ${progress.word_stats[e.word.toLowerCase()]?.wrong || 1} 次</div>
             </div>
-          `).join('') : '<p style="color:#888;">还没有错题，加油！</p>'}
+          `).join('') : '<p style="color:#555;">还没有错题，加油！</p>'}
         </div>
 
         <div class="card">
@@ -1168,9 +1226,9 @@
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question)}</div>
               <div style="font-size:12px;color:#27ae60;">✓ ${escapeHtml(e.answer)}</div>
-              <div style="font-size:12px;color:#888;">你: ${escapeHtml(e.user || '(空)')}</div>
+              <div style="font-size:12px;color:#555;">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
-          `).join('') || '<p style="color:#888;">无</p>'}
+          `).join('') || '<p style="color:#555;">无</p>'}
         </div>
 
         <div class="card">
@@ -1179,9 +1237,9 @@
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question)}</div>
               <div style="font-size:12px;color:#27ae60;">✓ ${escapeHtml(e.answer)}</div>
-              <div style="font-size:12px;color:#888;">你: ${escapeHtml(e.user || '(空)')}</div>
+              <div style="font-size:12px;color:#555;">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
-          `).join('') || '<p style="color:#888;">无</p>'}
+          `).join('') || '<p style="color:#555;">无</p>'}
         </div>
 
         <div class="card">
@@ -1190,9 +1248,9 @@
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question || e.sentence || '')}</div>
               <div style="font-size:12px;color:#27ae60;">✓ ${escapeHtml(e.answer || '')}</div>
-              <div style="font-size:12px;color:#888;">你: ${escapeHtml(e.user || '(空)')}</div>
+              <div style="font-size:12px;color:#555;">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
-          `).join('') || '<p style="color:#888;">无</p>'}
+          `).join('') || '<p style="color:#555;">无</p>'}
         </div>
 
         <button class="btn btn-danger" id="clear-errors">🗑️ 清空所有错题</button>
@@ -1212,6 +1270,18 @@
     };
   }
 
+  // ─── 分类树（用于统计页层级展示）───────────────
+  const CATEGORY_TREE = {
+    '时间与日期':   ['月份','星期','时间','数字','数词','顺序','节日','日常'],
+    '日常生活':     ['家庭','建筑','家具','衣物','食物','餐具','购物','器具','健康','身体'],
+    '学校与学习':   ['学校','学习','学科','物品','语言'],
+    '自然与世界':   ['动物','自然','天文','环境','颜色','地点','方位','国名','交通'],
+    '人与社会':     ['人物','职业','工作','组织','运动','娱乐','游戏','活动','艺术','乐器','宗教'],
+    '科技与媒体':   ['科技','媒体','通信'],
+    '语法功能词':   ['代词','介词','冠词','连词','限定词','量词','be动词','助动词','情态动词','短语介词','疑问词','应答','问候','语气'],
+    '词汇分级':     ['基础动词','基础名词','基础形容词','名词','动词','形容词','副词','高级动词','高级名词','高级形容词','高级副词','高级介词','高级连词','抽象名词','短语'],
+  };
+
   // ─── 视图：Stats ──────────────────────────────────
   function renderStats(app) {
     const stats = progress.word_stats;
@@ -1222,18 +1292,52 @@
     const totalW = all.length;
     const mastered = progress.vocab_mastered.length;
 
-    // 按 topic 统计
-    const topicStats = {};
+    // 按叶子分类统计（w.记忆）
+    const leafStats = {};
+    const mappedLeaves = new Set(Object.values(CATEGORY_TREE).flat());
     for (const w of all) {
-      const tname = w.topic.split(' ')[0];
-      if (!topicStats[tname]) topicStats[tname] = { total: 0, mastered: 0, wrong: 0 };
-      topicStats[tname].total++;
-      const wl = w.word.toLowerCase();
-      if (progress.vocab_mastered.includes(w.word)) topicStats[tname].mastered++;
-      topicStats[tname].wrong += stats[wl]?.wrong || 0;
+      const rawTopic = w.记忆 || w.topic || '';
+      const tname = rawTopic.split(' ')[0] || '其他';
+      if (!leafStats[tname]) leafStats[tname] = { total: 0, mastered: 0, wrong: 0 };
+      leafStats[tname].total++;
+      const wordKey = w.word || w.w || '';
+      const wl = wordKey.toLowerCase();
+      if (wl && progress.vocab_mastered.includes(wordKey)) leafStats[tname].mastered++;
+      leafStats[tname].wrong += stats[wl]?.wrong || 0;
     }
-    const sorted = Object.entries(topicStats).sort((a, b) => b[1].wrong - a[1].wrong);
-    const maxWrong = sorted[0]?.[1].wrong || 1;
+
+    // 汇总到父类
+    const parentStats = [];
+    for (const [parent, children] of Object.entries(CATEGORY_TREE)) {
+      let total = 0, mastered = 0, wrong = 0;
+      const childList = [];
+      for (const child of children) {
+        const s = leafStats[child];
+        if (s && s.total > 0) {
+          total += s.total; mastered += s.mastered; wrong += s.wrong;
+          childList.push({ name: child, ...s });
+        }
+      }
+      if (total > 0) {
+        childList.sort((a, b) => b.wrong - a.wrong);
+        parentStats.push({ name: parent, total, mastered, wrong, children: childList });
+      }
+    }
+    // 未归类的叶子 → "其他"
+    const otherChildren = [];
+    let otherWrong = 0;
+    for (const [name, s] of Object.entries(leafStats)) {
+      if (s.total > 0 && !mappedLeaves.has(name)) {
+        otherChildren.push({ name, ...s });
+        otherWrong += s.wrong;
+      }
+    }
+    if (otherChildren.length > 0) {
+      otherChildren.sort((a, b) => b.wrong - a.wrong);
+      parentStats.push({ name: '其他', total: otherChildren.reduce((a, c) => a + c.total, 0), wrong: otherWrong, children: otherChildren });
+    }
+    parentStats.sort((a, b) => b.wrong - a.wrong);
+    const maxParentWrong = parentStats[0]?.wrong || 1;
 
     // 最近 7 天
     const recent = [];
@@ -1274,12 +1378,24 @@
 
         <div class="card">
           <div class="card-title">各话题错题分布</div>
-          ${sorted.map(([name, s]) => `
-            <div class="topic-item">
-              <div class="topic-name">${escapeHtml(name)}</div>
-              <div class="topic-bar-wrap"><div class="topic-bar-fill" style="width:${s.wrong ? Math.round(s.wrong/maxWrong*100) : 0}%"></div></div>
-              <div class="topic-wrong ${s.wrong ? '' : 'none'}">${s.wrong}</div>
-            </div>
+          ${parentStats.length === 0 ? '<div style="text-align:center;color:#999;padding:12px 0;">暂无错题数据，继续加油！</div>' : ''}
+          ${parentStats.map(p => `
+            <details class="cat-group">
+              <summary class="cat-summary">
+                <span class="cat-name">${escapeHtml(p.name)}</span>
+                <span class="cat-bar-wrap"><span class="cat-bar-fill" style="width:${p.wrong ? Math.round(p.wrong/maxParentWrong*100) : 0}%"></span></span>
+                <span class="cat-wrong">${p.wrong}错</span>
+              </summary>
+              <div class="cat-children">
+                ${p.children.map(c => `
+                  <div class="topic-item" style="padding:4px 0;">
+                    <span class="topic-name" style="flex:0 0 56px;font-size:12px;color:#555;">${escapeHtml(c.name)}</span>
+                    <span class="topic-bar-wrap"><span class="topic-bar-fill" style="width:${c.wrong ? Math.round(c.wrong / Math.max(p.children[0]?.wrong || 1, 1) * 100) : 0}%"></span></span>
+                    <span class="topic-wrong" style="font-size:12px;">${c.wrong}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </details>
           `).join('')}
         </div>
       </div>
@@ -1330,7 +1446,7 @@
             <div style="padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px;">
               <strong>${c.date}</strong> · ${escapeHtml(c.grammar_title || '')} · ${c.score || ''}
             </div>
-          `).join('') || '<p style="color:#888;">还没有打卡记录</p>'}
+          `).join('') || '<p style="color:#555;">还没有打卡记录</p>'}
         </div>
 
         <button class="btn btn-danger" id="reset-progress">⚠️ 重置所有进度</button>
@@ -1390,4 +1506,13 @@
   // ─── 启动 ──────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', render);
   if (document.readyState !== 'loading') render();
+  // 启动后从 Supabase 同步远程进度
+  syncFromSupabase().then(() => {
+    // 如果远程数据较新，重新渲染首页
+    if (parseRoute().name === 'home') {
+      const app = document.getElementById('app');
+      app.innerHTML = '';
+      renderHome(app);
+    }
+  });
 })();

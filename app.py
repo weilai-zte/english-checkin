@@ -1,7 +1,7 @@
 """
 初一英语打卡系统 v2 - 干净版
 """
-import json, random, datetime, os
+import json, random, datetime, os, re
 from pathlib import Path
 from flask import Flask, render_template, request, jsonify, redirect, session, make_response
 from flask_session import Session
@@ -28,39 +28,52 @@ def make_session_permanent():
     session.permanent = True
 
 # ─── 难度分层 ───────────────────────────────────────────────────────────────
-# easy:   过滤 SIMPLE_WORDS，每日5词，闪卡20张
-# medium: 过滤 SIMPLE_WORDS，每日5词，闪卡15张（当前默认）
-# hard:   额外过滤简单话题词+SIMPLE_WORDS，每日3词，闪卡8张，干扰项更接近正确答案
-# 注意：SIMPLE_WORDS 在下方定义，这里的 block_words 是额外补充的过滤词
+# 三级词库: junior_vocab_3levels.json  → L1=466 / L2=800 / L3=768 (零跨级重复, 总 2006)
+# 通过 vocab_for_difficulty(difficulty) 按 level_key 取对应 level 的词池
+# block_topics: 屏蔽 topic 名 (前端按 'topic.split("(")[0]' 取简称)
+#               屏蔽非当前难度的 level topic, 就只留当前 level 词
 DIFFICULTY_CONFIG = {
     "easy": {
         "daily_count": 5,
-        "flashcard_count": 20,
+        "flashcard_count": 15,
         "quiz_count": 10,
-        "block_topics": set(),           # 不屏蔽任何话题
-        "extra_block": set(),            # 额外屏蔽词（除SIMPLE_WORDS外）
+        "opt_count": 3,                  # 3 选 1 (L1 必会核心)
+        "block_topics": {"L2 拓展常用", "L3 拔高拓展"},  # 只看 L1
+        "extra_block": set(),
         "tense_all": True,               # 用全部时态题
         "translate_complex": False,       # 用简单翻译句
+        "label": "L1 必会核心",
+        "emoji": "🌱",
+        "desc": "高频基础词，必会必背",
+        "level_key": "L1",                # 从三级词库取词
     },
     "medium": {
         "daily_count": 5,
         "flashcard_count": 15,
         "quiz_count": 10,
-        "block_topics": {"Colors", "Animals"},
+        "opt_count": 4,                  # 4 选 1 (L2 拓展常用)
+        "block_topics": {"L1 必会核心", "L3 拔高拓展"},  # 只看 L2
         "extra_block": set(),
         "tense_all": True,
         "translate_complex": False,
+        "label": "L2 拓展常用",
+        "emoji": "🌿",
+        "desc": "教材核心词，初中覆盖",
+        "level_key": "L2",
     },
     "hard": {
-        "daily_count": 3,
-        "flashcard_count": 8,
-        "quiz_count": 8,
-        "block_topics": {"Colors", "Animals", "Food & Drink",
-                         "Time & Days", "Body Parts", "Clothes",
-                         "Transportation", "Places", "Weather"},
+        "daily_count": 5,
+        "flashcard_count": 12,
+        "quiz_count": 10,
+        "opt_count": 4,                  # 4 选 1，干扰项更相近 (L3 拔高拓展)
+        "block_topics": {"L1 必会核心", "L2 拓展常用"},  # 只看 L3
         "extra_block": set(),
         "tense_all": False,              # 只用难题
         "translate_complex": True,        # 用复杂翻译句
+        "label": "L3 拔高拓展",
+        "emoji": "🔥",
+        "desc": "抽象/学术词，中考拔高",
+        "level_key": "L3",
     },
 }
 
@@ -372,6 +385,66 @@ def load_vocab():
     with open(DATA / "vocab.json", encoding="utf-8") as f:
         return json.load(f)
 
+
+# ══════════════════════════════════════════════════════════════════════
+# 人教版 PEP + 课标 2022 三级词库 (junior_vocab_3levels.json)
+# 作为 easy/medium/hard 三个难度的题源 (L1/L2/L3)
+# ══════════════════════════════════════════════════════════════════════
+JUNIOR_VOCAB_FILE = DATA / "junior_vocab_3levels.json"
+_JUNIOR_CACHE = None
+
+def load_junior_vocab():
+    """加载三级词库，归一化到 {L1: [{word, pron, cn, 记忆, 例句}], L2: [...], L3: [...]}
+    兼容源文件键名 (L1_必会核心/L2_拓展常用/L3_拔高拓展) 和字段 (w/l1_cat)
+    """
+    global _JUNIOR_CACHE
+    if _JUNIOR_CACHE is not None:
+        return _JUNIOR_CACHE
+    raw = {"L1": [], "L2": [], "L3": []}
+    if not JUNIOR_VOCAB_FILE.exists():
+        _JUNIOR_CACHE = raw
+        return raw
+    with open(JUNIOR_VOCAB_FILE, encoding="utf-8") as f:
+        data = json.load(f)
+    key_map = {}
+    for k in data.keys():
+        if k.startswith("L1"): key_map[k] = "L1"
+        elif k.startswith("L2"): key_map[k] = "L2"
+        elif k.startswith("L3"): key_map[k] = "L3"
+    def normalize(w):
+        return {
+            "word": w.get("word") or w.get("w", ""),
+            "pron": w.get("pron", ""),
+            "cn":   w.get("cn", ""),
+            "记忆": w.get("记忆") or w.get("l1_cat") or w.get("l2_cat") or w.get("l3_cat") or "",
+            "例句": w.get("例句", ""),
+        }
+    for src_key, lv in key_map.items():
+        for w in data[src_key]:
+            n = normalize(w)
+            if n["word"]:
+                raw[lv].append(n)
+    _JUNIOR_CACHE = raw
+    return raw
+
+
+def vocab_for_difficulty(difficulty):
+    """根据难度返回匹配的 vocab dict (与 load_vocab() 同形: {topic_key: {topic, words}})
+    easy/medium/hard → L1/L2/L3 from junior_vocab_3levels.json
+    其他 (向后兼容) → 走原 vocab.json
+    """
+    cfg = DIFFICULTY_CONFIG.get(difficulty, {})
+    level_key = cfg.get("level_key")
+    if not level_key:
+        return load_vocab()       # 非三难度模式 → 用原 vocab.json
+    words = load_junior_vocab().get(level_key, [])
+    return {
+        f"_level_{level_key}": {
+            "topic": f"{level_key} {cfg.get('label', '')}".strip(),
+            "words": words,
+        }
+    }
+
 def load_grammar():
     with open(DATA / "grammar.json", encoding="utf-8") as f:
         return json.load(f)
@@ -493,7 +566,8 @@ def home():
 
     difficulty = get_difficulty()
     return render_template("home.html", progress=progress, streak=streak,
-                           today=today, checked_in_today=checked, difficulty=difficulty)
+                           today=today, checked_in_today=checked, difficulty=difficulty,
+                           cfg=DIFFICULTY_CONFIG[difficulty])
 
 @app.route("/difficulty/<level>")
 def set_difficulty(level):
@@ -605,7 +679,7 @@ def view_progress():
 
 @app.route("/flashcard")
 def flashcard():
-    vocab = load_vocab()
+    vocab = vocab_for_difficulty(get_difficulty())
     progress = load_progress()
     difficulty = get_difficulty()
     cfg = DIFFICULTY_CONFIG[difficulty]
@@ -733,7 +807,8 @@ def stats_page():
     # 各话题词汇量统计
     topic_stats = {}
     for topic_key, topic_data in vocab.items():
-        tname = topic_data["topic"].split(" ")[0]
+        cn_match = re.search(r'[\u4e00-\u9fff][\u4e00-\u9fff\s]+\S', topic_data["topic"])
+        tname = cn_match.group() if cn_match else topic_data["topic"]
         words_in_topic = [w["word"].lower() for w in topic_data["words"]]
         mastered = sum(1 for w in words_in_topic if w in progress.get("vocab_mastered", []))
         wrong_count = sum(stats.get(w, {}).get("wrong", 0) for w in words_in_topic)
@@ -764,7 +839,7 @@ def stats_page():
     # 最近7天练习情况
     today = datetime.date.today()
     recent = []
-    for i in range(7):
+    for i in range(6, -1, -1):
         d = (today - datetime.timedelta(days=i)).isoformat()
         entry = next((c for c in checkins if c.get("date") == d), None)
         recent.append({"date": d, "entry": entry})
@@ -1197,7 +1272,7 @@ def translate_check():
 @app.route("/quiz")
 def quiz():
     """选择题练习：看英文+听发音，选中文意思"""
-    vocab = load_vocab()
+    vocab = vocab_for_difficulty(get_difficulty())
     progress = load_progress()
     difficulty = get_difficulty()
     cfg = DIFFICULTY_CONFIG[difficulty]
@@ -1215,7 +1290,7 @@ def quiz():
                 candidates.append({
                     "word": w["word"],
                     "cn": w["cn"],
-                    "pron": w["pron"],
+                    "pron": w.get("pron", ""),
                     "topic": topic_data["topic"],
                 })
 
@@ -1228,17 +1303,17 @@ def quiz():
 
     random.shuffle(candidates)
     n = cfg["quiz_count"]
+    opt_n = cfg.get("opt_count", 4)         # 3 选 1 (L1) / 4 选 1 (L2/L3)
     questions = []
     for target in candidates[:n]:
         correct_word = target["word"]
         correct_cn = target["cn"]
-        # 干扰项：同难度范围内的其他词（更难模式下干扰项更相近）
         other_cns = [(c["word"], c["cn"]) for c in candidates if c["word"] != correct_word]
         if difficulty == "hard":
-            # 困难模式：干扰项从同话题或相似长度词中选，更难区分
-            distractors = random.sample(other_cns, min(3, len(other_cns)))
+            # 困难模式：干扰项从同难度其他词中取
+            distractors = random.sample(other_cns, min(opt_n - 1, len(other_cns)))
         else:
-            distractors = random.sample(other_cns, min(3, len(other_cns)))
+            distractors = random.sample(other_cns, min(opt_n - 1, len(other_cns)))
         options = [{"display": correct_cn, "value": correct_word}] + \
                   [{"display": d[1], "value": d[0]} for d in distractors]
         random.shuffle(options)

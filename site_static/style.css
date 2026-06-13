@@ -63,16 +63,16 @@ body {
   cursor: pointer;
 }
 .mcq-opt .mcq-text {
-  color: #0d1b2a !important;
+  color: #0d1b2a;
   font-size: 16px !important;
   font-weight: 500 !important;
   flex: 1;
   word-break: break-word;
 }
-.quiz-word { font-size: 28px !important; font-weight: 700 !important; color: #1a1a2e !important; padding: 4px 0 12px; }
-.quiz-word .quiz-pron { font-size: 14px; font-weight: 400; color: #888; margin-left: 6px; }
+.quiz-word { font-size: 28px !important; font-weight: 700 !important; color: #1a1a2e; padding: 4px 0 12px; }
+.quiz-word .quiz-pron { font-size: 14px; font-weight: 400; color: #555; margin-left: 6px; }
 .mcq-opt input[type="radio"] { width: 18px; height: 18px; accent-color: #667eea; }
-.mcq-opt span { color: #1a1a2e !important; font-weight: 500; }
+.mcq-opt span { color: #1a1a2e; font-weight: 500; }
 
 /* Tab 切换 */
 .tab-bar {
@@ -102,7 +102,7 @@ body {
 /* 容器 */
 .container { padding: 16px; }
 .card {
-  background: white;
+  background: #f5f5f7;
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 12px;
@@ -171,7 +171,38 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
 .stat-row { display: flex; justify-content: space-around; margin: 16px 0; }
 .stat { text-align: center; }
 .stat-num { font-size: 28px; font-weight: bold; color: #667eea; }
-.stat-label { font-size: 12px; color: #888; margin-top: 2px; }
+.stat-label { font-size: 12px; color: #555; margin-top: 2px; }
+
+/* 统计 - 话题分布 */
+.topic-item { display: flex; align-items: center; gap: 10px; padding: 8px 0;
+              border-bottom: 1px solid #e8ecf4; }
+.topic-item:last-child { border-bottom: none; }
+.topic-name { flex: 0 0 64px; font-size: 13px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topic-wrong { font-size: 13px; color: #f44336; font-weight: bold; flex: 0 0 32px; text-align: right; }
+.topic-wrong.none { color: #4caf50; }
+.topic-bar-wrap { flex: 1; min-width: 40px; height: 6px; background: #e0e0e0; border-radius: 3px; }
+.topic-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.3s; }
+
+/* 统计 - 分类折叠 */
+.cat-group { margin-bottom: 2px; }
+.cat-group[open] { margin-bottom: 8px; }
+.cat-summary { display: flex; align-items: center; gap: 10px; padding: 10px 4px;
+               cursor: pointer; list-style: none; }
+.cat-summary::-webkit-details-marker { display: none; }
+.cat-summary::before { content: '▸'; width: 16px; font-size: 12px; color: #999; flex-shrink: 0; transition: transform 0.2s; }
+.cat-group[open] > .cat-summary::before { transform: rotate(90deg); }
+.cat-name { flex: 0 0 80px; font-size: 14px; font-weight: 600; color: #333; }
+.cat-bar-wrap { flex: 1; height: 6px; background: #e0e0e0; border-radius: 3px; }
+.cat-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #667eea, #764ba2); }
+.cat-wrong { flex: 0 0 38px; font-size: 13px; color: #f44336; font-weight: bold; text-align: right; }
+.cat-children { padding: 2px 0 4px 28px; }
+
+/* 统计 - 打卡日历 */
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.day-cell { text-align: center; padding: 6px 1px; border-radius: 8px; font-size: 10px; }
+.day-done { background: #e8f5e9; color: #4caf50; }
+.day-miss { background: #e8e8ed; color: #999; }
+.day-label { font-size: 9px; color: #777; margin-top: 1px; }
 
 /* 闪卡 */
 .flashcard {
@@ -249,7 +280,7 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
   margin-bottom: 8px;
   display: none;
 }
-.vocab-pron { color: #888; font-size: 14px; margin: 8px 0; }
+.vocab-pron { color: #555; font-size: 14px; margin: 8px 0; }
 .vocab-example {
   background: #f8f9ff;
   border-radius: 12px;
@@ -271,6 +302,8 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
   font-size: 16px;
   margin-bottom: 12px;
   font-family: inherit;
+  background: #eaeaf0;
+  color: #1a1a2e;
 }
 .grammar-input:focus { outline: none; border-color: #667eea; }
 .grammar-hint {
@@ -297,8 +330,8 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
 .error-item:last-child { border-bottom: none; }
 .error-word { flex: 1; }
 .error-word-en { font-size: 17px; font-weight: bold; color: #1a1a2e; }
-.error-word-cn { font-size: 13px; color: #888; }
-.error-pron { font-size: 12px; color: #aaa; }
+.error-word-cn { font-size: 13px; color: #555; }
+.error-pron { font-size: 12px; color: #777; }
 .error-meta { font-size: 12px; color: #e74c3c; }
 
 /* 难度选择 */
@@ -319,18 +352,18 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
 .diff-btn.active-hard { border-color: #e74c3c; background: #fdeaea; color: #e74c3c; }
 
 /* 知识页 markdown */
-.markdown { line-height: 1.7; color: #333; font-size: 15px; }
-.markdown h1 { font-size: 22px; margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #e8ecf4; }
-.markdown h2 { font-size: 19px; margin: 18px 0 10px; color: #667eea; }
-.markdown h3 { font-size: 16px; margin: 14px 0 8px; color: #4a5568; }
+.markdown { line-height: 1.8; color: #1a1a2e; font-size: 15px; }
+.markdown h1 { font-size: 22px; margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #e8ecf4; color: #0d1b2a; }
+.markdown h2 { font-size: 19px; margin: 18px 0 10px; color: #667eea; font-weight: 700; }
+.markdown h3 { font-size: 16px; margin: 14px 0 8px; color: #2d3748; font-weight: 700; }
 .markdown ul, .markdown ol { padding-left: 24px; margin-bottom: 12px; }
-.markdown li { margin-bottom: 4px; }
-.markdown code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #e74c3c; }
+.markdown li { margin-bottom: 6px; }
+.markdown code { background: #e8e8ed; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #c0392b; font-weight: 500; }
 .markdown pre { background: #1a1a2e; color: #e0e0e0; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 13px; margin: 12px 0; }
 .markdown table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
 .markdown table th, .markdown table td { border: 1px solid #e8ecf4; padding: 8px; text-align: left; }
-.markdown table th { background: #f0f4ff; font-weight: bold; }
-.markdown blockquote { border-left: 3px solid #667eea; padding-left: 12px; color: #666; margin: 8px 0; }
+.markdown table th { background: #eef0ff; font-weight: bold; color: #667eea; }
+.markdown blockquote { border-left: 3px solid #667eea; padding-left: 12px; color: #555; margin: 8px 0; background: #f0f0f5; border-radius: 0 6px 6px 0; padding: 8px 14px; }
 
 /* Toast */
 .toast {
@@ -372,4 +405,30 @@ input[type="text"] {
   .diff-btn { background: #2d2d4e; border-color: #3d3d5e; color: #aaa; }
   .markdown table th { background: #2d2d4e; }
   .markdown table th, .markdown table td { border-color: #3d3d5e; }
+  .quiz-word { color: #e8e8ff; }
+  .quiz-word .quiz-pron { color: #aab; }
+  .mcq-opt .mcq-text { color: #e0e0e0; }
+  .mcq-opt span { color: #e0e0e0; }
+  .mcq-opt { background: #3d3d5e; border-color: #5a5a8a; }
+  .card input[type="text"] { background: #3d3d5e !important; color: #e0e0e0 !important; border-color: #5a5a8a !important; }
+  .grammar-input { background: #3d3d5e; color: #e0e0e0; border-color: #5a5a8a; }
+      .topic-item { border-bottom-color: #3d3d5e; }
+      .topic-name { color: #ccc; }
+      .topic-bar-wrap { background: #3d3d5e; }
+      .day-done { background: #1a3d2a; color: #4caf50; }
+      .day-miss { background: #2d2d3e; color: #777; }
+      .cat-name { color: #ccc; }
+      .cat-summary::before { color: #888; }
+      .cat-bar-wrap { background: #3d3d5e; }
+      .cat-wrong { color: #f08080; }
+      .cat-children .topic-name { color: #aaa; }
+      .markdown { color: #e0e0e0; }
+      .markdown h1 { color: #f0f0f0; border-bottom-color: #3d3d5e; }
+      .markdown h2 { color: #8e99ee; }
+      .markdown h3 { color: #c0c0d0; }
+      .markdown code { background: #3d3d5e; color: #f08080; }
+      .markdown table th { background: #2d2d4e; border-color: #5a5a8a; }
+      .markdown table td { border-color: #3d3d5e; }
+      .markdown blockquote { color: #aaa; background: #2d2d3e; }
+      .markdown pre { background: #0d0d1a; }
 }
