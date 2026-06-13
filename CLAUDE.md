@@ -3,7 +3,14 @@
 ## 🚨 MANDATORY REFERENCES (创建项目/提交代码前必读)
 
 **强制参考**:
-- 📖 **[`~/Projects/PROJECT_GOVERNANCE.md`](../PROJECT_GOVERNANCE.md)** —— `~/Projects/` 下所有项目**必须**遵守的治理规范 (12 部分: 目录结构 / License / README / Contributing / CI / Conventional Commits / Branch 策略 / Tag 规范 等)
+- 📖 **[`~/Projects/PROJECT_GOVERNANCE.md`](../PROJECT_GOVERNANCE.md)** —— `~/Projects/` 下所有项目**必须**遵守的治理规范 (14 部分: 目录结构 / License / README / Contributing / CI / Conventional Commits / Branch 策略 / Tag 规范 / 5 doc-as-data / CLAUDE.md init 模板)
+
+**关键章节速查**:
+- §10 Commit 规范 (Conventional Commits 11 enum)
+- §11 Branch 策略 (Simplified Git Flow)
+- §12 Tag 规范 (SemVer)
+- §13 **5 doc-as-data principles** (json 真理源 + md 渲染 + 8 字段骨架 + evolution log)
+- §14 **CLAUDE.md init 模板** (本段就是这个模板的应用)
 
 **本文件与 PROJECT_GOVERNANCE.md 的关系**:
 - `CLAUDE.md` (本文件) = **本项目专属** Claude Code 上下文 (Commands / Architecture / SPARV Workflow)
@@ -11,7 +18,7 @@
 - **冲突时**: 项目级 (本文件) 优先于 Projects 级
 
 **创建/提交代码前 3 步检查**:
-1. ☐ 阅读过 `~/Projects/PROJECT_GOVERNANCE.md` §10 (Conventional Commits) + §11 (Branch 策略) + §12 (SemVer Tag 规范)
+1. ☐ 阅读过 `~/Projects/PROJECT_GOVERNANCE.md` §10 + §11 + §12 + §13 (Commit / Branch / Tag / doc-as-data)
 2. ☐ 本文件 `## Commands` + `## Architecture` + `## SPARV Workflow` 仍准确
 3. ☐ 项目根 `docs/requirements.json` + `docs/spec.json` 仍反映当前代码
 
