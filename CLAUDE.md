@@ -1,5 +1,27 @@
 # CLAUDE.md
 
+## 🚨 MANDATORY REFERENCES (创建项目/提交代码前必读)
+
+**强制参考**:
+- 📖 **[`~/Projects/PROJECT_GOVERNANCE.md`](../PROJECT_GOVERNANCE.md)** —— `~/Projects/` 下所有项目**必须**遵守的治理规范 (12 部分: 目录结构 / License / README / Contributing / CI / Conventional Commits / Branch 策略 / Tag 规范 等)
+
+**本文件与 PROJECT_GOVERNANCE.md 的关系**:
+- `CLAUDE.md` (本文件) = **本项目专属** Claude Code 上下文 (Commands / Architecture / SPARV Workflow)
+- `~/Projects/PROJECT_GOVERNANCE.md` = **Projects 通用规范** (所有子项目共享)
+- **冲突时**: 项目级 (本文件) 优先于 Projects 级
+
+**创建/提交代码前 3 步检查**:
+1. ☐ 阅读过 `~/Projects/PROJECT_GOVERNANCE.md` §10 (Conventional Commits) + §11 (Branch 策略) + §12 (SemVer Tag 规范)
+2. ☐ 本文件 `## Commands` + `## Architecture` + `## SPARV Workflow` 仍准确
+3. ☐ 项目根 `docs/requirements.json` + `docs/spec.json` 仍反映当前代码
+
+**创建/提交代码后必做**:
+- 修改本文件后 → 同步更新 `docs/spec.json` (truth source)
+- 重大决策 → 写 `docs/adr/<NNNN>-<title>.md`
+- 破坏性变更 → commit footer 加 `BREAKING CHANGE: <说明>`
+
+---
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Commands
