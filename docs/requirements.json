@@ -1,0 +1,383 @@
+{
+  "doc_id": "requirements",
+  "doc_kind": "requirements",
+  "goal": {
+    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 23 编号需求 (F-013 功能 + N-005 非功能 + C-003 约束 + 2 验收原则)",
+    "why": "代码改完必须先改本文（用户驱动原则）。AI 改 send_daily.py / app.py / build.py 前必须先确认本文当前有效需求",
+    "success_criteria": [
+      "新增需求必须先在本文 §3 加编号 + §5 加 UC，再写代码",
+      "代码与本文冲突时改本文（用户驱动）",
+      "5 原则 doc-as-data：本文 json 是真理源，md 是渲染",
+      "改任何 §3/§4/§5 编号需求前先看本文 decision_table 优先级"
+    ]
+  },
+  "inputs": [
+    {
+      "name": "user_pain_points",
+      "source": "魏来口头需求（飞书消息 / 1:1 沟通）",
+      "type": "feishu"
+    },
+    {
+      "name": "v0.1~v0.11 历史需求",
+      "source": "git log + changelog.json",
+      "type": "file"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "functional_requirements",
+      "destination": "本文 §3 (F-001~F-013, 13 条)",
+      "type": "json"
+    },
+    {
+      "name": "non_functional_requirements",
+      "destination": "本文 §4 (N-001~N-005, 5 条)",
+      "type": "json"
+    },
+    {
+      "name": "use_cases",
+      "destination": "本文 §5 (13 UC across 5 actor)",
+      "type": "json"
+    },
+    {
+      "name": "constraints",
+      "destination": "本文 §7 (C-001~C-003)",
+      "type": "json"
+    }
+  ],
+  "internal_logic": {
+    "summary": "用户驱动原则：用户提需求 → 先改本文 → 再改代码。代码与本文冲突时改本文（不是改代码）",
+    "steps": [
+      "用户提需求（飞书/口头）",
+      "Hermes Agent 读本文定位对应 §",
+      "加新编号（F-/N-/C-/UC-）",
+      "在对应 UC 加 Actor/前置/主流程/后置/异常",
+      "改代码",
+      "加测试（tests/test_bugs.py）",
+      "在 evolution 表加 add/change/deprecate 条目"
+    ],
+    "decision_table": [
+      {
+        "condition": "用户提新需求",
+        "action": "先改本文档 §3/§4/§5/§7，加编号，再写代码",
+        "priority": 1
+      },
+      {
+        "condition": "代码与本文冲突",
+        "action": "代码是 ground truth，立即改本文（不是回滚代码）",
+        "priority": 2
+      },
+      {
+        "condition": "新增 use case",
+        "action": "必须含 Actor/前置/主流程/后置/异常 5 字段",
+        "priority": 3
+      },
+      {
+        "condition": "P0 需求 (核心功能)",
+        "action": "必须有实现+测试+文档+验证 4 验收",
+        "priority": 4
+      }
+    ],
+    "interfaces": [],
+    "schema": {
+      "functional_requirements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "priority",
+            "statement",
+            "verification"
+          ]
+        }
+      },
+      "use_cases": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "actor",
+            "precondition",
+            "main_flow",
+            "postcondition",
+            "exception"
+          ]
+        }
+      }
+    },
+    "state_machines": []
+  },
+  "constraints": [
+    {
+      "name": "doc_as_data_8_fields",
+      "category": "compliance",
+      "rule": "本文必须含 8 字段 (doc_id/goal/inputs/outputs/internal_logic/constraints/failure_modes+upstream/downstream/version/last_validated/evolution)",
+      "metric": "5 原则 #3 强制"
+    }
+  ],
+  "failure_modes": [],
+  "upstream": [],
+  "downstream": [
+    "spec",
+    "design",
+    "readme",
+    "changelog"
+  ],
+  "version": "v0.12",
+  "last_validated": "2026-06-13",
+  "evolution": [
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "5 原则 doc-as-data 改造：docs/requirements.json 是真理源，docs/requirements.md 是渲染",
+      "why": "用户要求 doc-as-data：文件即数据，AI 可机器读取",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "工程迁移 ~/english-checkin → ~/Projects/english-checkin",
+      "why": "用户要求把工程放在 Projects 下统一管理",
+      "by": "玄奘"
+    }
+  ],
+  "details": {
+    "§3_functional_requirements": [
+      {
+        "id": "F-001",
+        "priority": "P0",
+        "statement": "每天早晨 08:00 cron 推送飞书打卡提醒（早晨任务）",
+        "verification": "tests/cron_daily_morning.py"
+      },
+      {
+        "id": "F-002",
+        "priority": "P0",
+        "statement": "每天晚上 19:00 cron 推送飞书打卡提醒（晚间任务）",
+        "verification": "cron job f461006984b2 已 scheduled"
+      },
+      {
+        "id": "F-003",
+        "priority": "P1",
+        "statement": "每周六 09:00 cron 推送学习报告",
+        "verification": "send_weekly_report.py 实测可推送"
+      },
+      {
+        "id": "F-004",
+        "priority": "P0",
+        "statement": "公网地址永久固定（cheerful-puffpuff-a1b9eb.netlify.app）",
+        "verification": "send_daily.py PUBLIC_URL 已硬编码"
+      },
+      {
+        "id": "F-005",
+        "priority": "P0",
+        "statement": "TTS 用浏览器 Web Speech API（跨平台，不依赖 macOS say）",
+        "verification": "site_static/app.js speak() 函数"
+      },
+      {
+        "id": "F-006",
+        "priority": "P0",
+        "statement": "进度存浏览器 localStorage（ck_progress_v1）",
+        "verification": "site_static/app.js loadProgress() 函数"
+      },
+      {
+        "id": "F-007",
+        "priority": "P1",
+        "statement": "三级难度（easy/medium/hard）",
+        "verification": "DIFFICULTY_CONFIG in app.py"
+      },
+      {
+        "id": "F-008",
+        "priority": "P1",
+        "statement": "词库 319 词（vocab.json 23 话题）+ 三级词库 2016+ 词（junior_vocab_3levels.json）",
+        "verification": "vocab-check.py 实测 319 词"
+      },
+      {
+        "id": "F-009",
+        "priority": "P0",
+        "statement": "14 个页面（home/learn/vocab/quiz/translate/translate-en/tense/preposition/errors/stats/knowledge/...）",
+        "verification": "templates/ 目录 14 个 HTML"
+      },
+      {
+        "id": "F-010",
+        "priority": "P2",
+        "statement": "错题自动记录 + 连续答对 3 次自动移除 + 200 条自动截断",
+        "verification": "app.py progress.json schema"
+      },
+      {
+        "id": "F-011",
+        "priority": "P1",
+        "statement": "知识课程 5 个 tab（介词/名词/冠词代词/从句/标志词）",
+        "verification": "knowledge_outline.md 17KB"
+      },
+      {
+        "id": "F-012",
+        "priority": "P1",
+        "statement": "TTS 发音按钮（vocab/quiz 页面）",
+        "verification": "site_static/app.js speak() 调用"
+      },
+      {
+        "id": "F-013",
+        "priority": "P0",
+        "statement": "飞书 Webhook 推送（send_daily.py / send_weekly_report.py）",
+        "verification": "FEISHU_WEBHOOK env var 接入"
+      }
+    ],
+    "§4_non_functional_requirements": [
+      {
+        "id": "N-001",
+        "category": "availability",
+        "statement": "公网地址永久稳定（已升 Netlify 套餐，禁止 trycloudflare 临时 URL）"
+      },
+      {
+        "id": "N-002",
+        "category": "ux",
+        "statement": "移动端友好（手机浏览器直接访问，Safari 添加到主屏幕）"
+      },
+      {
+        "id": "N-003",
+        "category": "privacy",
+        "statement": "离线友好（localStorage 不依赖服务端，所有数据在浏览器）"
+      },
+      {
+        "id": "N-004",
+        "category": "deployability",
+        "statement": "部署可重现（build.py → data.js → dist/index.html）"
+      },
+      {
+        "id": "N-005",
+        "category": "performance",
+        "statement": "静态版 index.html < 50KB（已 SPA 化 + 资源 inlined）"
+      }
+    ],
+    "§5_use_cases": [
+      {
+        "id": "UC-01",
+        "actor": "孩子",
+        "precondition": "飞书群已加 Bot",
+        "main_flow": "每天 19:00 收到飞书打卡卡片 → 点击\"开始打卡\"按钮 → 跳转公网 URL",
+        "postcondition": "孩子进入学习页面",
+        "exception": "Bot 未加群 → 用户收不到推送（cron 仍触发，但 feishu webhook 返回 4xx）"
+      },
+      {
+        "id": "UC-02",
+        "actor": "孩子",
+        "precondition": "公网 URL 可访问",
+        "main_flow": "浏览器打开 cheerful-puffpuff-a1b9eb.netlify.app → 首页难度选择 → 点 /learn",
+        "postcondition": "进入每日学习任务",
+        "exception": "URL 不可访问 → 联系父亲检查 Netlify 部署"
+      },
+      {
+        "id": "UC-03",
+        "actor": "孩子",
+        "precondition": "已 /learn",
+        "main_flow": "5 个词汇闪卡（中→英）→ 翻面看答案 → 点\"记住\"/\"忘了\"/\"太简单\"",
+        "postcondition": "进度更新到 localStorage",
+        "exception": "localStorage 满 → 自动截断 flashcard_history 200 条"
+      },
+      {
+        "id": "UC-04",
+        "actor": "孩子",
+        "precondition": "已 /learn 或直接访问 /quiz",
+        "main_flow": "听英文发音 → 选 4 个中文意思 → 点\"下一题\"",
+        "postcondition": "得分≥60% 标记该词已掌握",
+        "exception": "浏览器不支持 SpeechRecognition（Safari 有 bug）→ 显示麦克风按钮但不工作"
+      },
+      {
+        "id": "UC-05",
+        "actor": "孩子",
+        "precondition": "已 /learn",
+        "main_flow": "8 种时态选择题 → 选答案 → 提交",
+        "postcondition": "错题自动入 wrong_grammar 数组",
+        "exception": "难度=hard → 切换到 HARD_TENSE_QUESTIONS"
+      },
+      {
+        "id": "UC-06",
+        "actor": "孩子",
+        "precondition": "已 /learn",
+        "main_flow": "看中文句子 → 整词填空 → 实时变绿 → 提交",
+        "postcondition": "错题入 wrong_words",
+        "exception": "mask_sentence() 调用签名错误 → 主语消失（2026-05-18 修复）"
+      },
+      {
+        "id": "UC-07",
+        "actor": "孩子",
+        "precondition": "至少 1 个错题",
+        "main_flow": "/errors → 按错误次数倒序显示 → 可点 🔊 发音",
+        "postcondition": "复习错题",
+        "exception": "无错题 → 显示空状态"
+      },
+      {
+        "id": "UC-08",
+        "actor": "孩子",
+        "precondition": "有打卡记录",
+        "main_flow": "/stats → 显示正确率 + 薄弱话题热力图 + 近 7 天打卡日历",
+        "postcondition": "看到学习数据",
+        "exception": "无数据 → 显示\"今天开始第一次打卡\""
+      },
+      {
+        "id": "UC-09",
+        "actor": "孩子",
+        "precondition": "公网 URL 可访问",
+        "main_flow": "/knowledge → 5 个 tab（介词/名词/冠词代词/从句/标志词）",
+        "postcondition": "浏览知识课程",
+        "exception": "手机端折叠 accordion"
+      },
+      {
+        "id": "UC-10",
+        "actor": "父亲（魏来）",
+        "precondition": "周六 09:00 cron 触发",
+        "main_flow": "send_weekly_report.py 读取 progress.json → 生成卡片 → 飞书推送",
+        "postcondition": "父亲收到本周学习报告",
+        "exception": "progress.json 空 → 报告内容为\"今天开始第一次打卡\""
+      },
+      {
+        "id": "UC-11",
+        "actor": "父亲（魏来）",
+        "precondition": "Hermes cron 系统运行",
+        "main_flow": "hermes cron list → 修改 jobs.json → enable/disable job",
+        "postcondition": "cron 状态变化",
+        "exception": "jobs.json JSON 解析失败 → cron 静默跳过"
+      },
+      {
+        "id": "UC-12",
+        "actor": "父亲（魏来）",
+        "precondition": "site_static/dist/ 有新 build",
+        "main_flow": "export NETLIFY_AUTH_TOKEN + NETLIFY_SITE_ID → netlify deploy --dir=dist --prod",
+        "postcondition": "公网 URL 更新",
+        "exception": "本机无法访问 GitHub → dist 分支不能 push，自动部署失效"
+      },
+      {
+        "id": "UC-13",
+        "actor": "父亲（魏来）",
+        "precondition": "vocab-check.py 验证通过",
+        "main_flow": "编辑 data/vocab.json 或 data/grammar.json → python3 site_static/build.py → netlify deploy",
+        "postcondition": "词库更新到线上",
+        "exception": "vocab.json 含重复词 → vocab-check.py 报警"
+      }
+    ],
+    "§7_constraints": [
+      {
+        "id": "C-001",
+        "category": "deploy",
+        "rule": "Netlify 静态托管（不能有服务端 session / 服务端 progress.json）",
+        "metric": "site_static/ 全部客户端化"
+      },
+      {
+        "id": "C-002",
+        "category": "compatibility",
+        "rule": "浏览器兼容性：iOS Safari 16+ / Android Chrome / Desktop Chrome / Edge",
+        "metric": "Web Speech API + localStorage 100% 覆盖"
+      },
+      {
+        "id": "C-003",
+        "category": "data_integrity",
+        "rule": "词库英文不混杂中文（中文释义不含完整英文单词）",
+        "metric": "vocab-check.py 自动验证"
+      }
+    ]
+  }
+}

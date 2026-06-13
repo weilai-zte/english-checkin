@@ -1,0 +1,78 @@
+{
+  "doc_id": "readme",
+  "doc_kind": "readme",
+  "goal": {
+    "statement": "english-checkin 项目门面：5 分钟读懂项目（什么 / 为什么 / 怎么用 / 在哪 / 能做什么）",
+    "why": "新 AI agent / 协作者 5 分钟内能跑通项目 + 知道读哪些 doc",
+    "success_criteria": [
+      "30 秒看完 §1 一句话定位 + §2 核心能力",
+      "5 分钟跑通快速开始",
+      "10 分钟看 docs/ 找到具体实现"
+    ]
+  },
+  "inputs": [
+    {
+      "name": "all_doc_truth",
+      "source": "docs/{requirements,spec,design}.json + changelog.json",
+      "type": "file"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "project_intro",
+      "destination": "本文 §1 一句话定位 + §2 核心能力",
+      "type": "markdown"
+    },
+    {
+      "name": "quick_start",
+      "destination": "本文 §4 快速开始",
+      "type": "markdown"
+    }
+  ],
+  "internal_logic": {
+    "summary": "项目门面 = §1 一句话定位 + §2 核心能力 + §3 目录结构 + §4 快速开始 + §5 双部署轨道 + §6 定时任务 + §7 详细文档",
+    "interfaces": []
+  },
+  "constraints": [
+    {
+      "name": "readme_length",
+      "category": "performance",
+      "rule": "README < 300 行",
+      "metric": "目标 200 行"
+    },
+    {
+      "name": "no_history",
+      "category": "compliance",
+      "rule": "5 原则 #2：只写当前有效真理，不写历史 BUG 修复",
+      "metric": "BUG 历史在 changelog.json"
+    }
+  ],
+  "failure_modes": [],
+  "upstream": [
+    "requirements",
+    "spec",
+    "design",
+    "changelog"
+  ],
+  "downstream": [],
+  "version": "v0.12",
+  "last_validated": "2026-06-13",
+  "evolution": [
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "5 原则 doc-as-data: readme.json (真理源) + readme.md (渲染)",
+      "why": "用户要求 doc-as-data",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "工程迁移 ~/english-checkin → ~/Projects/english-checkin",
+      "why": "用户要求把工程放在 Projects 下统一管理",
+      "by": "玄奘"
+    }
+  ]
+}

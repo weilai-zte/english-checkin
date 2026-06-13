@@ -6,7 +6,9 @@ import pytest
 import ast
 import re
 import sys
-sys.path.insert(0, "/Users/weilai/english-checkin")
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 
 # ─── Bug 1: preposition.html dataset.q → dataset.question ────────────────────
@@ -15,7 +17,7 @@ class TestPrepositionDatasetBug:
 
     def test_bug_fixed_uses_container_dataset_question(self):
         """验证修复：使用 container.dataset.question"""
-        with open("/Users/weilai/english-checkin/templates/preposition.html") as f:
+        with open(str(PROJECT_ROOT / "templates/preposition.html")) as f:
             content = f.read()
         # Bug was: btn.dataset.q → Fixed: container.dataset.question
         assert "container.dataset.question" in content, \
@@ -31,7 +33,7 @@ class TestTranslateBlankComparison:
     def test_mask_sentence_works_correctly(self):
         """mask_sentence 正确生成 blanks_info"""
         import sys
-        sys.path.insert(0, "/Users/weilai/english-checkin")
+        sys.path.insert(0, str(PROJECT_ROOT))
         # Replicate mask_sentence logic
         def mask_sentence(en):
             raw_words = en.strip().split()
@@ -52,7 +54,7 @@ class TestTranslateBlankComparison:
 
     def test_translate_check_removes_punct_from_expected(self):
         """translate_check() 中用 re.sub 清理标点后比较"""
-        with open("/Users/weilai/english-checkin/app.py") as f:
+        with open(str(PROJECT_ROOT / "app.py")) as f:
             content = f.read()
         assert 're.sub(r"[^a-zA-Z\']", "", expected)' in content, \
             "translate_check should strip punctuation before comparison"
@@ -65,8 +67,8 @@ class TestHardcodedSecretsFixed:
     def test_webhook_reads_from_env(self):
         """send_daily.py 和 send_weekly_report.py 使用 os.environ.get("FEISHU_WEBHOOK")"""
         for filepath in [
-            "/Users/weilai/english-checkin/send_daily.py",
-            "/Users/weilai/english-checkin/send_weekly_report.py",
+            str(PROJECT_ROOT / "send_daily.py"),
+            str(PROJECT_ROOT / "send_weekly_report.py"),
         ]:
             with open(filepath) as f:
                 content = f.read()
@@ -77,7 +79,7 @@ class TestHardcodedSecretsFixed:
 
     def test_secret_key_reads_from_env(self):
         """app.py 中的 secret_key 应从环境变量读取"""
-        with open("/Users/weilai/english-checkin/app.py") as f:
+        with open(str(PROJECT_ROOT / "app.py")) as f:
             content = f.read()
         assert 'os.environ.get("SECRET_KEY"' in content, \
             "app.py should read secret_key from SECRET_KEY env var"
@@ -89,7 +91,7 @@ class TestMakeResponseAtModuleLevel:
 
     def test_make_response_at_module_level(self):
         """验证 make_response 在顶层导入"""
-        with open("/Users/weilai/english-checkin/app.py") as f:
+        with open(str(PROJECT_ROOT / "app.py")) as f:
             content = f.read()
 
         lines = content.split("\n")
@@ -113,7 +115,7 @@ class TestSimpleWordsDeduplicated:
 
     def test_no_duplicates_in_simple_words(self):
         """SIMPLE_WORDS 源码中无重复词"""
-        with open("/Users/weilai/english-checkin/app.py") as f:
+        with open(str(PROJECT_ROOT / "app.py")) as f:
             content = f.read()
         start = content.find("SIMPLE_WORDS = {")
         end = content.find("\n}", start)
@@ -133,7 +135,7 @@ class TestAnswerLengthValidation:
 
     def test_quiz_check_has_length_guard(self):
         """quiz_check 中使用 answers[i] if i < len(answers) else 保护"""
-        with open("/Users/weilai/english-checkin/app.py") as f:
+        with open(str(PROJECT_ROOT / "app.py")) as f:
             content = f.read()
 
         quiz_check_start = content.find("def quiz_check():")
@@ -149,7 +151,7 @@ class TestTtsCleanup:
 
     def test_tts_has_finally_block(self):
         """tts() 应在 finally 中清理临时文件"""
-        with open("/Users/weilai/english-checkin/app.py") as f:
+        with open(str(PROJECT_ROOT / "app.py")) as f:
             content = f.read()
 
         tts_start = content.find("def tts():")
@@ -169,7 +171,7 @@ class TestStatsDivisionByZero:
 
     def test_stats_page_has_empty_list_guard(self):
         """sorted_topics 为空时有保护"""
-        with open("/Users/weilai/english-checkin/app.py") as f:
+        with open(str(PROJECT_ROOT / "app.py")) as f:
             content = f.read()
 
         stats_start = content.find("def stats_page():")
@@ -186,7 +188,7 @@ class TestTtsRegex:
 
     def test_tts_regex_pattern_exists(self):
         """tts() 有 word 验证 regex"""
-        with open("/Users/weilai/english-checkin/app.py") as f:
+        with open(str(PROJECT_ROOT / "app.py")) as f:
             content = f.read()
 
         tts_start = content.find("def tts():")
@@ -203,7 +205,7 @@ class TestAppSyntax:
 
     def test_app_syntax_is_valid(self):
         """app.py 可以被 Python AST 解析"""
-        with open("/Users/weilai/english-checkin/app.py") as f:
+        with open(str(PROJECT_ROOT / "app.py")) as f:
             src = f.read()
         try:
             ast.parse(src)

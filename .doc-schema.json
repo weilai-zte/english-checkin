@@ -1,0 +1,357 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://english-checkin.local/docs/.doc-schema.json",
+  "title": "english-checkin doc-as-data meta-schema",
+  "description": "元 schema：所有 docs/*.json 必须符合此 8 字段骨架（5 原则 #3 强制）",
+  "type": "object",
+  "required": [
+    "doc_id",
+    "doc_kind",
+    "goal",
+    "inputs",
+    "outputs",
+    "internal_logic",
+    "constraints",
+    "failure_modes",
+    "upstream",
+    "downstream",
+    "version",
+    "last_validated",
+    "evolution"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "doc_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{2,40}$",
+      "description": "文档唯一 ID（小写蛇形），与文件名一致（无 .json 后缀）"
+    },
+    "doc_kind": {
+      "type": "string",
+      "enum": [
+        "requirements",
+        "spec",
+        "design",
+        "data_sources",
+        "development",
+        "readme",
+        "changelog",
+        "bugfix_history",
+        "agent_learning"
+      ]
+    },
+    "goal": {
+      "type": "object",
+      "required": [
+        "statement",
+        "why",
+        "success_criteria"
+      ]
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "source",
+          "type"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "file",
+              "api",
+              "env",
+              "db",
+              "cli",
+              "wiki",
+              "obsidian",
+              "feishu"
+            ]
+          },
+          "format": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "destination",
+          "type"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "file",
+              "api",
+              "env",
+              "db",
+              "cli",
+              "wiki",
+              "obsidian",
+              "feishu",
+              "stdout",
+              "html",
+              "json",
+              "yaml",
+              "sqlite",
+              "markdown",
+              "log"
+            ]
+          },
+          "format": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "internal_logic": {
+      "type": "object",
+      "description": "内部逻辑：算法/规则/决策表",
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decision_table": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "condition",
+              "action"
+            ],
+            "properties": {
+              "condition": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "interfaces": {
+          "type": "array",
+          "description": "对外接口契约（函数签名）",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "signature": {
+                "type": "string"
+              },
+              "returns": {
+                "type": "string"
+              },
+              "invariants": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "raises": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "schema": {
+          "type": "object",
+          "description": "数据结构 schema（inline json-schema 片段）",
+          "additionalProperties": true
+        },
+        "state_machines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "states": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "transitions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "from": {
+                      "type": "string"
+                    },
+                    "to": {
+                      "type": "string"
+                    },
+                    "trigger": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "rule"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "performance",
+              "time_window",
+              "resource",
+              "compliance",
+              "data_integrity",
+              "naming",
+              "cost"
+            ]
+          },
+          "rule": {
+            "type": "string"
+          },
+          "metric": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "trigger",
+          "fallback",
+          "recovered_by"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          },
+          "recovered_by": {
+            "type": "string"
+          },
+          "alert": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "upstream": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "downstream": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v\\d+\\.\\d+\\.\\d+"
+    },
+    "last_validated": {
+      "type": "string",
+      "format": "date"
+    },
+    "evolution": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "date",
+          "version",
+          "action",
+          "what",
+          "why",
+          "by"
+        ],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "version": {
+            "type": "string"
+          },
+          "action": {
+            "enum": [
+              "add",
+              "change",
+              "deprecate",
+              "split",
+              "merge"
+            ]
+          },
+          "what": {
+            "type": "string"
+          },
+          "why": {
+            "type": "string"
+          },
+          "by": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

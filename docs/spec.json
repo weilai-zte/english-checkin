@@ -1,0 +1,638 @@
+{
+  "doc_id": "spec",
+  "doc_kind": "spec",
+  "goal": {
+    "statement": "english-checkin 实现 spec：6 模块边界 + 14 Flask routes + 5 数据 schema + 1 build 接口 + 3 状态机 + 错误码规约 + 性能预算",
+    "why": "代码实现必须严格按本文对齐。AI 改 app.py 路由签名 / build.py 接口 / 数据 schema 前必须先改本文 + 跑 tests/test_bugs.py",
+    "success_criteria": [
+      "改任何 Flask 路由前，先改 spec.json routes[] 节",
+      "改任何 data/*.json schema 前，先改 spec.json schema[] 节",
+      "改任何 build.py 接口前，先改 spec.json build_interface 节",
+      "5 原则 doc-as-data：本文 json 是真理源，md 是渲染"
+    ]
+  },
+  "inputs": [
+    {
+      "name": "requirements_truth",
+      "source": "docs/requirements.json",
+      "type": "file"
+    },
+    {
+      "name": "code_signatures",
+      "source": "app.py + send_daily.py + send_weekly_report.py + site_static/build.py + site_static/app.js",
+      "type": "file"
+    },
+    {
+      "name": "data_schemas",
+      "source": "data/{vocab.json, grammar.json, progress.json, junior_vocab_3levels.json}",
+      "type": "file"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "flask_routes",
+      "destination": "本文 internal_logic.routes (14 routes)",
+      "type": "json"
+    },
+    {
+      "name": "data_schemas",
+      "destination": "本文 internal_logic.schema (5: vocab/grammar/progress/junior_vocab/data_js)",
+      "type": "json"
+    },
+    {
+      "name": "build_interface",
+      "destination": "本文 internal_logic.interfaces (1: build_data_export)",
+      "type": "json"
+    },
+    {
+      "name": "state_machines",
+      "destination": "本文 internal_logic.state_machines (3: flashcard/wrong_word_upgrade/netlify_deploy)",
+      "type": "json"
+    },
+    {
+      "name": "performance_budget",
+      "destination": "本文 constraints (6 项 NFR 数值)",
+      "type": "json"
+    },
+    {
+      "name": "error_codes",
+      "destination": "本文 failure_modes (5 类 12 项)",
+      "type": "json"
+    }
+  ],
+  "internal_logic": {
+    "summary": "1) Flask 14 routes（带路由/方法/前置/返回） 2) 5 数据 Schema（vocab/grammar/progress/junior_vocab/data_js） 3) build 接口（Flask → static site） 4) 3 状态机（flashcard/wrong_word/netlify） 5) 错误码 5 类 12 项 6) 性能预算 6 项 7) 依赖矩阵 8 项",
+    "interfaces": [
+      {
+        "name": "build_data_export",
+        "module": "site_static/build.py",
+        "signature": "export_data() -> None (write site_static/dist/assets/data.js)",
+        "returns": "None（写盘副作用）",
+        "invariants": [
+          "vocab 必须含 _L1 / _L2 / _L3 三级 (junior_vocab_3levels.json 导出)",
+          "vocab 可含 _legacy_{topic} (兼容老 vocab.json 兜底)",
+          "grammar 必须含 TRANSLATE_SENTENCES + HARD_TRANSLATE + HARD_TENSE_QUESTIONS",
+          "knowledge_md 必须包含 '## 三、介词分类' 标记 (介词 tab 用)",
+          "difficulty_config 必须含 block_topics (list) + extra_block (list)"
+        ],
+        "raises": [
+          "data/*.json 解析失败 → print 警告 + 继续"
+        ]
+      },
+      {
+        "name": "send_daily",
+        "module": "send_daily.py",
+        "signature": "build_msg() -> dict; send(msg) -> dict (urllib POST)",
+        "returns": "dict (Feishu API response, 含 StatusCode)",
+        "invariants": [
+          "WEBHOOK 从 FEISHU_WEBHOOK env var 读取 (空则 raise ValueError)",
+          "PUBLIC_URL 默认 https://cheerful-puffpuff-a1b9eb.netlify.app (env 可覆盖)",
+          "msg_type='interactive' + 紫色 header + '开始打卡'/'闪卡复习' 两个按钮",
+          "进度从 data/progress.json 读取 (streak/total_days)"
+        ],
+        "raises": [
+          "urllib.error.URLError (DNS 失败) → 走 DNS 旁路 (curl --resolve)"
+        ]
+      },
+      {
+        "name": "send_weekly_report",
+        "module": "send_weekly_report.py",
+        "signature": "build_msg() -> dict; send(msg) -> dict",
+        "returns": "dict (Feishu API response)",
+        "invariants": [
+          "本周 = 上周六 ~ 本周五 (weekday + 1 days offset)",
+          "汇总本周打卡天数 + 整体正确率 + 薄弱话题 TOP5 + 新掌握词汇",
+          "LOCAL_URL = 'http://127.0.0.1:5200' (Flask 本地版链接)"
+        ],
+        "raises": []
+      },
+      {
+        "name": "mask_sentence",
+        "module": "app.py",
+        "signature": "mask_sentence(en: str) -> tuple[list[dict], list[dict]]",
+        "returns": "(words_display, blanks_info)",
+        "invariants": [
+          "仅保留句首第 1 个词（主语锚点）",
+          "其余词一整词一空，无预填",
+          "len(words) < 2 → 整句作为 text 返回，blanks 为空"
+        ],
+        "raises": []
+      },
+      {
+        "name": "vocab_check",
+        "module": "~/.hermes/skills/english-checkin/scripts/vocab-check.py",
+        "signature": "main() -> None (print 报告)",
+        "returns": "None（打印副作用）",
+        "invariants": [
+          "检查 1: 重复 (word, cn) 对，按 topic 分组",
+          "检查 2: cn 含英文且 len > 8 → cn_with_en 列表",
+          "PROJECT_ROOT = Path.home() / 'Projects' / 'english-checkin'"
+        ],
+        "raises": []
+      },
+      {
+        "name": "netlify_deploy",
+        "module": "shell command",
+        "signature": "netlify deploy --dir=site_static/dist --prod",
+        "returns": "stdout 含 'Deploy URL' + 'Website URL'",
+        "invariants": [
+          "NETLIFY_AUTH_TOKEN 必须从 publish.sh grep 提取 (PAT)",
+          "NETLIFY_SITE_ID 必须从 publish.sh grep 提取 (e263ee9b-e3e8-41ee-b605-9b8d6f58ea1a)",
+          "site ID 错误 → 部署到错误网站"
+        ],
+        "raises": [
+          "AUTH_TOKEN 过期 → 重新 netlify login"
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "path": "/",
+        "method": "GET",
+        "handler": "home_page()",
+        "session_required": false,
+        "returns": "home.html + 难度选择器"
+      },
+      {
+        "path": "/learn",
+        "method": "GET",
+        "handler": "learn_page()",
+        "session_required": true,
+        "returns": "learn.html + 5 词任务建立"
+      },
+      {
+        "path": "/vocab/<int:idx>",
+        "method": "GET",
+        "handler": "vocab_page(idx)",
+        "session_required": true,
+        "returns": "vocab.html + 闪卡"
+      },
+      {
+        "path": "/quiz",
+        "method": "GET",
+        "handler": "quiz_page()",
+        "session_required": false,
+        "returns": "quiz.html + 选择题"
+      },
+      {
+        "path": "/quiz/check",
+        "method": "POST",
+        "handler": "quiz_check()",
+        "session_required": true,
+        "returns": "JSON {score, results}"
+      },
+      {
+        "path": "/translate",
+        "method": "GET",
+        "handler": "translate_page()",
+        "session_required": true,
+        "returns": "translate.html + 中译英"
+      },
+      {
+        "path": "/translate/check",
+        "method": "POST",
+        "handler": "translate_check()",
+        "session_required": true,
+        "returns": "JSON {results, score}"
+      },
+      {
+        "path": "/translate-en",
+        "method": "GET",
+        "handler": "translate_en_page()",
+        "session_required": true,
+        "returns": "translate_en.html + 英译中"
+      },
+      {
+        "path": "/translate-en/check",
+        "method": "POST",
+        "handler": "translate_en_check()",
+        "session_required": true,
+        "returns": "JSON {results, score}"
+      },
+      {
+        "path": "/tense",
+        "method": "GET",
+        "handler": "tense_page()",
+        "session_required": true,
+        "returns": "tense.html + 时态"
+      },
+      {
+        "path": "/tense/check",
+        "method": "POST",
+        "handler": "tense_check()",
+        "session_required": true,
+        "returns": "JSON {results, score}"
+      },
+      {
+        "path": "/preposition",
+        "method": "GET",
+        "handler": "preposition_page()",
+        "session_required": true,
+        "returns": "preposition.html + 介词"
+      },
+      {
+        "path": "/preposition/check",
+        "method": "POST",
+        "handler": "preposition_check()",
+        "session_required": true,
+        "returns": "JSON {results, score}"
+      },
+      {
+        "path": "/knowledge",
+        "method": "GET",
+        "handler": "knowledge_page()",
+        "session_required": false,
+        "returns": "knowledge.html + 5 tabs"
+      },
+      {
+        "path": "/errors",
+        "method": "GET",
+        "handler": "errors_page()",
+        "session_required": false,
+        "returns": "errors.html + 错题本"
+      },
+      {
+        "path": "/stats",
+        "method": "GET",
+        "handler": "stats_page()",
+        "session_required": false,
+        "returns": "stats.html + 统计"
+      },
+      {
+        "path": "/difficulty/<level>",
+        "method": "GET",
+        "handler": "set_difficulty(level)",
+        "session_required": false,
+        "returns": "redirect to home"
+      },
+      {
+        "path": "/tts",
+        "method": "GET",
+        "handler": "tts()",
+        "session_required": false,
+        "returns": "audio/wav (Flask 本地版 only)"
+      },
+      {
+        "path": "/vocab-check",
+        "method": "POST",
+        "handler": "vocab_check_endpoint()",
+        "session_required": true,
+        "returns": "JSON {results}"
+      }
+    ],
+    "schema": {
+      "vocab_json": {
+        "type": "object",
+        "description": "data/vocab.json - 23 话题, 319 词, 初中覆盖",
+        "example_keys": [
+          "_L1_Colors",
+          "_L1_Animals",
+          "_L2_Sports",
+          "_L3_Advanced"
+        ],
+        "fields": {
+          "topic": "str (e.g. 'L1 Colors (10 词)')",
+          "words": "list[{word, pron, cn, 记忆, 例句}]"
+        },
+        "invariants": [
+          "23 话题, 总 319 词",
+          "无重复 (word, cn) 对",
+          "cn 字段不含完整英文单词"
+        ]
+      },
+      "grammar_json": {
+        "type": "object",
+        "description": "data/grammar.json - 18 语法组",
+        "fields": {
+          "id": "str (e.g. 'simple_past')",
+          "name": "str (中文名)",
+          "rules": "list[str]",
+          "examples": "list[{en, cn}]"
+        },
+        "invariants": [
+          "18 语法组",
+          "每组至少 1 个 example"
+        ]
+      },
+      "progress_json": {
+        "type": "object",
+        "description": "data/progress.json - Flask 本地版进度",
+        "fields": {
+          "streak": "int (连续天数)",
+          "total_days": "int (累计天数)",
+          "last_checkin": "str (YYYY-MM-DD) | null",
+          "vocab_mastered": "list[str] (已掌握词)",
+          "grammar_mastered": "list[str] (已掌握语法)",
+          "checkins": "list[{date, vocab, quiz, tense, preposition}]",
+          "wrong_words": "list[{word, cn, wrong_count, last_wrong_date}]",
+          "word_stats": "{word: {total, correct, wrong, first_seen}}",
+          "wrong_grammar": "list[{grammar_id, wrong_count, last_wrong_date}]",
+          "flashcard_history": "list[{date, word, action, difficulty}]"
+        },
+        "invariants": [
+          "wrong_words + flashcard_history 自动截断 200 条",
+          "连续答对 3 次 → wrong_words 自动移除",
+          "level='hard' 词自动移入 vocab_mastered"
+        ]
+      },
+      "junior_vocab_3levels_json": {
+        "type": "object",
+        "description": "data/junior_vocab_3levels.json - 三级平铺 (L1/L2/L3)",
+        "fields": {
+          "L1": "list[{w, cn, l1_cat}] (基础, 小学覆盖)",
+          "L2": "list[{w, cn, l2_cat}] (拓展, 日常)",
+          "L3": "list[{w, cn, l3_cat}] (拔高, 高级)"
+        },
+        "invariants": [
+          "L1 词不在 L2/L3",
+          "总词数 2016+"
+        ]
+      },
+      "data_js_frontend": {
+        "type": "object",
+        "description": "site_static/dist/assets/data.js - 客户端打包数据",
+        "fields": {
+          "vocab": "{_L1: {topic, words}, _L2: ..., _L3: ..., _legacy_{topic}: ...}",
+          "grammar": "grammar.json 内容",
+          "translate_sentences": "list[{cn, en}]",
+          "hard_translate": "list[{cn, en}]",
+          "hard_tense_questions": "list[...]",
+          "simple_words": "list[str] (已 deprecated, [] for junior_vocab)",
+          "junior_vocab_meta": "{L1: int, L2: int, L3: int}",
+          "difficulty_config": "{easy: {...}, medium: {...}, hard: {...}}",
+          "knowledge_md": "str (knowledge_outline.md 内容)"
+        },
+        "invariants": [
+          "json.dumps with ensure_ascii=False (中文不转义)"
+        ]
+      }
+    },
+    "state_machines": [
+      {
+        "name": "flashcard_lifecycle",
+        "states": [
+          "new",
+          "learning",
+          "forgot",
+          "mastered"
+        ],
+        "transitions": [
+          {
+            "from": "new",
+            "to": "learning",
+            "trigger": "用户首次查看闪卡"
+          },
+          {
+            "from": "learning",
+            "to": "forgot",
+            "trigger": "用户点'忘了'按钮"
+          },
+          {
+            "from": "learning",
+            "to": "mastered",
+            "trigger": "用户点'太简单' ≥3 次"
+          },
+          {
+            "from": "forgot",
+            "to": "mastered",
+            "trigger": "连续答对 3 次"
+          }
+        ]
+      },
+      {
+        "name": "wrong_word_upgrade",
+        "states": [
+          "correct",
+          "wrong_once",
+          "wrong_repeat",
+          "auto_removed"
+        ],
+        "transitions": [
+          {
+            "from": "correct",
+            "to": "wrong_once",
+            "trigger": "用户答错 1 次"
+          },
+          {
+            "from": "wrong_once",
+            "to": "correct",
+            "trigger": "用户答对 1 次"
+          },
+          {
+            "from": "wrong_once",
+            "to": "wrong_repeat",
+            "trigger": "用户再答错 1 次"
+          },
+          {
+            "from": "wrong_repeat",
+            "to": "auto_removed",
+            "trigger": "连续答对 3 次"
+          }
+        ]
+      },
+      {
+        "name": "netlify_deploy",
+        "states": [
+          "edit_local",
+          "build_data",
+          "extract_creds",
+          "deploy",
+          "verify"
+        ],
+        "transitions": [
+          {
+            "from": "edit_local",
+            "to": "build_data",
+            "trigger": "data/*.json 修改"
+          },
+          {
+            "from": "build_data",
+            "to": "extract_creds",
+            "trigger": "python3 build.py 成功"
+          },
+          {
+            "from": "extract_creds",
+            "to": "deploy",
+            "trigger": "grep publish.sh 拿 token/site ID"
+          },
+          {
+            "from": "deploy",
+            "to": "verify",
+            "trigger": "netlify deploy --dir=dist --prod"
+          },
+          {
+            "from": "verify",
+            "to": "done",
+            "trigger": "curl 主页 200 + assets/data.js 内容正确"
+          }
+        ]
+      }
+    ]
+  },
+  "constraints": [
+    {
+      "name": "flask_routes_count",
+      "category": "compliance",
+      "rule": "Flask routes 数 ≤ 19 (当前 14 + 5 POST check)",
+      "metric": "实测 14 GET + 5 POST = 19 routes"
+    },
+    {
+      "name": "vocab_count",
+      "category": "data_integrity",
+      "rule": "vocab.json 总词数 = 319",
+      "metric": "vocab-check.py 实测"
+    },
+    {
+      "name": "grammar_count",
+      "category": "data_integrity",
+      "rule": "grammar.json 语法组数 = 18",
+      "metric": "手动 + 自动检查"
+    },
+    {
+      "name": "junior_vocab_size",
+      "category": "performance",
+      "rule": "junior_vocab_3levels.json 总词数 ≥ 2016",
+      "metric": "L1 + L2 + L3 三级合计"
+    },
+    {
+      "name": "static_site_size",
+      "category": "performance",
+      "rule": "site_static/dist/ 总大小 ≤ 1MB",
+      "metric": "实测 ~300KB (含 data.js + app.js + style.css)"
+    },
+    {
+      "name": "build_time",
+      "category": "performance",
+      "rule": "python3 build.py < 5s",
+      "metric": "实测 ~3s (data.js 导出)"
+    },
+    {
+      "name": "flask_startup",
+      "category": "performance",
+      "rule": "Flask 启动 < 3s",
+      "metric": "实测 ~2s"
+    }
+  ],
+  "failure_modes": [
+    {
+      "name": "flask_session_overflow",
+      "trigger": "session cookie > 4KB (Flask 3.1 Samesite=Lax)",
+      "fallback": "redirect 回 /learn",
+      "recovered_by": "清理 session",
+      "alert": "无"
+    },
+    {
+      "name": "vocab_duplicate",
+      "trigger": "vocab-check.py 发现 (word, cn) 重复",
+      "fallback": "报警并打印删除脚本",
+      "recovered_by": "用户手动删除",
+      "alert": "stderr 提示"
+    },
+    {
+      "name": "feishu_dns_fail",
+      "trigger": "urllib.error.URLError (DNS 解析失败)",
+      "fallback": "Python 退化为 JSON 生成器 + curl 直连 (--resolve IP)",
+      "recovered_by": "DNS 恢复或换 IP",
+      "alert": "logs/send_daily_*.log"
+    },
+    {
+      "name": "feishu_timeout",
+      "trigger": "TimeoutError (SSL read timeout)",
+      "fallback": "走 send_daily_safe.sh (curl with --connect-timeout)",
+      "recovered_by": "网络恢复",
+      "alert": "logs/send_daily_*.log"
+    },
+    {
+      "name": "feishu_400_bad_request",
+      "trigger": "FEISHU_ALLOWED_USERS 含多个 open_id",
+      "fallback": "脚本已 .split(',')[0] 自动取第一个",
+      "recovered_by": "用户改 env var",
+      "alert": "stderr"
+    },
+    {
+      "name": "netlify_token_expired",
+      "trigger": "401 Unauthorized",
+      "fallback": "重新 netlify login + 更新 publish.sh",
+      "recovered_by": "用户重新登录",
+      "alert": "stderr"
+    },
+    {
+      "name": "build_data_missing",
+      "trigger": "data/*.json 不存在",
+      "fallback": "try/except 警告 + legacy fallback",
+      "recovered_by": "用户补文件",
+      "alert": "stderr"
+    },
+    {
+      "name": "speech_recognition_safari_bug",
+      "trigger": "Safari SpeechRecognition.onend 不触发",
+      "fallback": "6 秒 listenTimeout 强制停止",
+      "recovered_by": "用户用 Chrome",
+      "alert": "无"
+    },
+    {
+      "name": "knowledge_md_split_wrong",
+      "trigger": "## 三、介词分类 标记缺失",
+      "fallback": "preposition tab 显示空",
+      "recovered_by": "用户补 markdown 标记",
+      "alert": "无"
+    },
+    {
+      "name": "localstorage_quota",
+      "trigger": "localStorage.setItem 抛 QuotaExceededError",
+      "fallback": "自动截断 flashcard_history/wrong_words 200 条",
+      "recovered_by": "用户清浏览器",
+      "alert": "无"
+    },
+    {
+      "name": "mask_sentence_wrong_call",
+      "trigger": "调用 mask_sentence(en, difficulty) 双参数",
+      "fallback": "主语消失，全空白 input",
+      "recovered_by": "用户改回单参数",
+      "alert": "无 (UI 报错隐式)"
+    },
+    {
+      "name": "build_venv_missing",
+      "trigger": "site_static/.venv/ 不存在 (首次部署)",
+      "fallback": "用户手动 python3 -m venv .venv && pip install mistune",
+      "recovered_by": "用户重装",
+      "alert": "stderr"
+    }
+  ],
+  "upstream": [
+    "requirements"
+  ],
+  "downstream": [
+    "design",
+    "readme",
+    "changelog"
+  ],
+  "version": "v0.12",
+  "last_validated": "2026-06-13",
+  "evolution": [
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "5 原则 doc-as-data: docs/spec.json (真理源) + docs/spec.md (渲染)",
+      "why": "用户要求 doc-as-data",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "spec 列出 14 routes (Flask) + 5 data schemas + 1 build 接口 + 3 state machines",
+      "why": "v0.11 起工程跨 19 routes + 5 数据 schema, AI 改之前需要 spec 对齐",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "spec.json 含 6 constraints (性能预算) + 12 failure_modes (5 类: session/data/feishu/netlify/UI)",
+      "why": "覆盖 2026-05~06 已踩过的 12 个坑",
+      "by": "玄奘"
+    }
+  ]
+}

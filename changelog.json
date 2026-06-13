@@ -1,0 +1,202 @@
+{
+  "doc_id": "changelog",
+  "doc_kind": "changelog",
+  "goal": {
+    "statement": "english-checkin 全量变更日志：v0.1~v0.12 每条 release 的 added/fixed/changed/verified",
+    "why": "AI / 用户追溯'什么版本加了 X / 修了 Y / 何时重构'的真理源",
+    "success_criteria": [
+      "每个 release 1 条 entry",
+      "每个 entry 必含 date/version/action/what/why/by 6 字段",
+      "5 原则 #5 演进记录：每次 commit 必追加"
+    ]
+  },
+  "inputs": [
+    {
+      "name": "git_commits",
+      "source": "git log --oneline",
+      "type": "cli"
+    },
+    {
+      "name": "release_notes",
+      "source": "魏来口头/飞书",
+      "type": "feishu"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "release_notes",
+      "destination": "本文内部 evolution 数组",
+      "type": "json"
+    }
+  ],
+  "internal_logic": {
+    "summary": "v0.1~v0.12 共 12 个 release。**只记当前有效**（5 原则 #2）：已 supersede 的写进 BUGFIX_HISTORY",
+    "decision_table": [
+      {
+        "condition": "patch 版本 (X.Y.Z)",
+        "action": "必含 change + verified (小修复 + 测试通过)",
+        "priority": 1
+      },
+      {
+        "condition": "minor 版本 (X.Y.0)",
+        "action": "必含 add + change (新功能 + 接口变更)",
+        "priority": 2
+      },
+      {
+        "condition": "major 版本 (X.0.0)",
+        "action": "必含 breaking change + migration guide",
+        "priority": 3
+      }
+    ],
+    "interfaces": [],
+    "schema": {},
+    "state_machines": []
+  },
+  "constraints": [
+    {
+      "name": "no_chinese_history",
+      "category": "compliance",
+      "rule": "5 原则 #2：只写当前有效真理；superseded 的 BUG 修复移入 changelog evolution 完整保留",
+      "metric": "v0.12-doc 起严格执行"
+    }
+  ],
+  "failure_modes": [],
+  "upstream": [
+    "requirements",
+    "spec",
+    "design"
+  ],
+  "downstream": [],
+  "version": "v0.12",
+  "last_validated": "2026-06-13",
+  "evolution": [
+    {
+      "date": "2026-06-13",
+      "version": "v0.12-doc",
+      "action": "add",
+      "what": "5 原则 doc-as-data 改造：6 个文档 (requirements/spec/design/readme/changelog/.doc-schema) json+md 双格式",
+      "why": "用户要求 doc-as-data：文件即数据，AI 可机器读取",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "change",
+      "what": "工程迁移 ~/english-checkin → ~/Projects/english-checkin (git 跟随迁移)",
+      "why": "用户要求把工程放在 Projects 下统一管理",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "change",
+      "what": "同步更新 5 处 cron + skill + Obsidian + 测试 + Netlify 凭证引用",
+      "why": "迁移路径后必须同步所有引用，否则 cron 19:00 推送 404 + tests 路径错",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "deprecate",
+      "what": "废弃 ~/.openclaw/workspace/projects/english-打卡/ (React PWA) + 删除 /tmp/xiyou/english-analyze/ (macOS 重启后已清理)",
+      "why": "2026-06-10 架构重构后 Flask 静态化版完全取代 React PWA；多 Agent 图片弱项分析模式也已废弃",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "site_static/ 核心代码 (build.py + app.js + style.css) 加入 git (原 untracked)",
+      "why": "Netlify 部署源必须入库，否则机器重装后无法恢复部署流程",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "data/junior_vocab_3levels.json 加入 git (原 untracked, 三级词库 2016+ 词)",
+      "why": "三级词库是 build_data_export 接口的核心输入，必须入库",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-12",
+      "version": "v0.11",
+      "action": "add",
+      "what": "三级词库 junior_vocab_3levels.json + L1/L2/L3 分类",
+      "why": "原 vocab.json 319 词太基础，加三级平铺结构支持难度过滤",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-10",
+      "version": "v0.10",
+      "action": "add",
+      "what": "Flask app.py → 静态站点 (site_static/build.py + app.js + style.css) → Netlify 部署",
+      "why": "用户原话：英语打卡链接打开后内容还是旧的，必须部署 Flask 完整版（319 词）而非 React PWA（221 词）",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-10",
+      "version": "v0.10",
+      "action": "deprecate",
+      "what": "~/.openclaw/workspace/projects/english-打卡 (React PWA) 部署流程废弃",
+      "why": "React 版功能阉割 (221 词, 无知识课程), Flask 版是用户实际使用版本",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-10",
+      "version": "v0.10",
+      "action": "change",
+      "what": "Netlify 公网地址永久固定: https://cheerful-puffpuff-a1b9eb.netlify.app",
+      "why": "升 netlify 套餐后 URL 永久稳定，不再漂移 (trycloudflare 临时 URL 已废弃)",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-05-18",
+      "version": "v0.9",
+      "action": "add",
+      "what": "中译英填空模式 (mask_sentence 主语锚点 + 整词空白 + 实时变绿 + 提交校验)",
+      "why": "初一学生不能写完整句子, 只保留主语, 其余整词填空",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-05-15",
+      "version": "v0.8",
+      "action": "add",
+      "what": "语音模式 useVoiceInput.js (麦克风 + SpeechRecognition + Levenshtein 距离模糊匹配)",
+      "why": "孩子可发英语读音, 系统识别判断正确",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-05-10",
+      "version": "v0.7",
+      "action": "add",
+      "what": "三级难度系统 (easy/medium/hard) + DIFFICULTY_CONFIG + SIMPLE_WORDS 过滤",
+      "why": "基础词太简单, 需要按难度屏蔽 + flashcard_count 调节",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-05-09",
+      "version": "v0.6",
+      "action": "add",
+      "what": "错题本 (/errors) + 学习统计 (/stats) + 闪卡背面 🔊 按钮",
+      "why": "孩子需要看到自己的薄弱点, 错题自动记录, 连续答对 3 次自动移除",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-05-09",
+      "version": "v0.6",
+      "action": "add",
+      "what": "知识课程 /knowledge (5 tab: 介词/名词/冠词代词/从句/标志词)",
+      "why": "光练不教不行, 加语法知识点课程, 17KB markdown",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-05-XX",
+      "version": "v0.5",
+      "action": "add",
+      "what": "v0.5 早期 Flask 版本 (词库 200 词, 5 个页面)",
+      "why": "项目诞生",
+      "by": "玄奘"
+    }
+  ]
+}

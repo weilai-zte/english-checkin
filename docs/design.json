@@ -1,0 +1,235 @@
+{
+  "doc_id": "design",
+  "doc_kind": "design",
+  "goal": {
+    "statement": "english-checkin 架构设计：3 模块边界 + 双部署轨道 (Flask 本地 + Netlify 静态) + 4 数据流 + 3 关键设计决策 + 6 故障模式",
+    "why": "新人（AI / 用户）看 DESIGN 5 分钟能理清：Flask 本地版 vs Netlify 静态版的关系 + 数据从哪来 → 怎么练习 → 怎么部署 → 怎么归档",
+    "success_criteria": [
+      "改模块边界/数据流前先改本文 + spec.json",
+      "BUG 修复不入本文（应入 changelog.json evolution）",
+      "架构图 ASCII 化（可文本 diff）"
+    ]
+  },
+  "inputs": [
+    {
+      "name": "spec_truth",
+      "source": "docs/spec.json",
+      "type": "file"
+    },
+    {
+      "name": "requirements_truth",
+      "source": "docs/requirements.json",
+      "type": "file"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "system_topology",
+      "destination": "本文 internal_logic.decision_table (3 模块 + 2 部署轨道)",
+      "type": "json"
+    },
+    {
+      "name": "data_flow",
+      "destination": "本文 internal_logic.steps (4 步)",
+      "type": "json"
+    },
+    {
+      "name": "design_decisions",
+      "destination": "本文 internal_logic.decision_table (3 关键决策)",
+      "type": "json"
+    }
+  ],
+  "internal_logic": {
+    "summary": "3 模块 (Flask 本地版 / Netlify 静态版 / 飞书推送) + 双部署轨道 + 4 数据流 + 3 关键设计决策",
+    "steps": [
+      "数据源层：vocab.json (319 词) + grammar.json (18 语法) + junior_vocab_3levels.json (三级词库) + knowledge_outline.md (17KB)",
+      "服务端层：Flask app.py (1589 行, 19 routes) OR site_static/app.js (客户端 SPA)",
+      "进度存储层：Flask 服务端 (progress.json) OR 浏览器 localStorage (ck_progress_v1)",
+      "推送层：send_daily.py + send_weekly_report.py (飞书 webhook)"
+    ],
+    "decision_table": [
+      {
+        "condition": "3 模块 (Flask 本地 / Netlify 静态 / 飞书推送)",
+        "action": "Flask 本地版和 Netlify 静态版是同一份数据的两种部署形态；不混层，单一真相源 (vocab.json/grammar.json)",
+        "priority": 1
+      },
+      {
+        "condition": "进度存储选择",
+        "action": "Flask 本地用服务端 progress.json（多设备同步基础）；Netlify 静态版用 localStorage（隐私优先）",
+        "priority": 2
+      },
+      {
+        "condition": "TTS 选择",
+        "action": "Flask 本地用 macOS say（音质好）；Netlify 静态版用浏览器 Web Speech API（跨平台）",
+        "priority": 3
+      }
+    ],
+    "interfaces": [
+      {
+        "name": "Flask 本地版",
+        "module": "app.py (1589 行, 19 routes)",
+        "returns": "Flask 服务 + 服务端 progress.json + macOS say TTS",
+        "invariants": [
+          "端口 5200",
+          "session 任务流（必须先 /learn 再 /vocab/0）"
+        ]
+      },
+      {
+        "name": "Netlify 静态版",
+        "module": "site_static/{build.py, app.js, style.css, dist/}",
+        "returns": "客户端 SPA + localStorage + Web Speech API",
+        "invariants": [
+          "build.py 把数据打包成 data.js",
+          "客户端 hash 路由 + localStorage"
+        ]
+      },
+      {
+        "name": "飞书推送",
+        "module": "send_daily.py + send_weekly_report.py",
+        "returns": "飞书 webhook POST",
+        "invariants": [
+          "WEBHOOK 从 env var 读取",
+          "PUBLIC_URL 硬编码 netlify 公网地址"
+        ]
+      }
+    ],
+    "schema": {},
+    "state_machines": [
+      {
+        "name": "build_data_export_state",
+        "states": [
+          "input_data",
+          "load_flask_app",
+          "export_vocab",
+          "export_grammar",
+          "export_translate",
+          "export_knowledge",
+          "write_data_js"
+        ],
+        "transitions": [
+          {
+            "from": "input_data",
+            "to": "load_flask_app",
+            "trigger": "build.py 启动"
+          },
+          {
+            "from": "load_flask_app",
+            "to": "export_vocab",
+            "trigger": "load_junior_vocab() 成功"
+          },
+          {
+            "from": "export_vocab",
+            "to": "export_grammar",
+            "trigger": "_L1/_L2/_L3 写入"
+          },
+          {
+            "from": "export_grammar",
+            "to": "export_translate",
+            "trigger": "grammar.json 写入"
+          },
+          {
+            "from": "export_translate",
+            "to": "export_knowledge",
+            "trigger": "TRANSLATE_SENTENCES + HARD_TRANSLATE 写入"
+          },
+          {
+            "from": "export_knowledge",
+            "to": "write_data_js",
+            "trigger": "knowledge_outline.md 读入"
+          },
+          {
+            "from": "write_data_js",
+            "to": "done",
+            "trigger": "site_static/dist/assets/data.js written"
+          }
+        ]
+      }
+    ]
+  },
+  "constraints": [
+    {
+      "name": "single_file_size",
+      "category": "performance",
+      "rule": "单文件 < 100KB (app.py 1589 行 ~82KB 已接近上限)",
+      "metric": "实测 app.py 82KB, site_static/app.js 59KB"
+    },
+    {
+      "name": "no_dual_data_source",
+      "category": "data_integrity",
+      "rule": "单一真相源：词库/语法/翻译从 vocab.json/grammar.json 读取，不在 Flask + 客户端各自硬编码",
+      "metric": "build.py 验证 TRANSLATE_SENTENCES + DIFFICULTY_CONFIG 都从 app.py 导入"
+    }
+  ],
+  "failure_modes": [
+    {
+      "name": "flask_session_overflow",
+      "trigger": "session cookie > 4KB (Flask 3.1 Samesite=Lax)",
+      "fallback": "redirect 回 /learn",
+      "recovered_by": "清理 session",
+      "alert": "无"
+    },
+    {
+      "name": "build_venv_missing",
+      "trigger": "site_static/.venv/ 不存在",
+      "fallback": "用户手动 python3 -m venv .venv && pip install mistune",
+      "recovered_by": "用户重装",
+      "alert": "stderr"
+    },
+    {
+      "name": "netlify_token_expired",
+      "trigger": "401 Unauthorized",
+      "fallback": "重新 netlify login",
+      "recovered_by": "用户重新登录",
+      "alert": "stderr"
+    },
+    {
+      "name": "vocab_duplicate",
+      "trigger": "vocab-check.py 发现 (word, cn) 重复",
+      "fallback": "报警并打印删除脚本",
+      "recovered_by": "用户手动删除",
+      "alert": "stderr"
+    },
+    {
+      "name": "localstorage_quota",
+      "trigger": "localStorage.setItem 抛 QuotaExceededError",
+      "fallback": "自动截断 flashcard_history 200 条",
+      "recovered_by": "用户清浏览器",
+      "alert": "无"
+    },
+    {
+      "name": "github_unreachable",
+      "trigger": "本机无法访问 GitHub (curl github.com 超时)",
+      "fallback": "绕过 GitHub, 直接 netlify deploy",
+      "recovered_by": "在另一台机器 push dist 分支",
+      "alert": "无"
+    }
+  ],
+  "upstream": [
+    "requirements",
+    "spec"
+  ],
+  "downstream": [
+    "readme",
+    "changelog"
+  ],
+  "version": "v0.12",
+  "last_validated": "2026-06-13",
+  "evolution": [
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "5 原则 doc-as-data: docs/design.json (真理源) + docs/design.md (渲染)",
+      "why": "用户要求 doc-as-data",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "design.json 含 3 模块边界 + 双部署轨道 + 4 数据流 + 3 设计决策",
+      "why": "v0.11 起工程跨 Flask + 静态 + 飞书三层，新人 5 分钟需要看 design 理解结构",
+      "by": "玄奘"
+    }
+  ]
+}

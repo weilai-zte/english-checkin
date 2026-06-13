@@ -1,6 +1,27 @@
-.flask_session/
+# Python
 __pycache__/
 *.pyc
+*.pyo
 .pytest_cache/
+
+# Flask runtime files
+.flask_session/
+
+# SPARV workflow runtime
 .harness-active
 sparv.plan/
+
+# Netlify local cache (含 auth tokens)
+.netlify/
+site_static/dist/.netlify/
+site_static/.netlify/
+
+# Site static - Python venv (几百 MB, 重装即可)
+site_static/.venv/
+
+# Site static - 历史打包产物 (76 KB dist.zip, 不入库保留历史)
+site_static/dist.zip
+site_static/dist-pkg/
+
+# 注意：data/progress.json 和 data/current_task.json 已 git tracked 2 个 commit
+# 如果未来想不入库：git rm --cached + 加入 gitignore
