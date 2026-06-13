@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
-"""每日飞书打卡提醒推送"""
+"""每日飞书打卡提醒推送
+
+PUBLIC_URL: 固定的 Netlify 部署地址（2026-06-11 改回，netlify 套餐已升级）
+可通过环境变量 PUBLIC_URL 临时覆盖。
+"""
 import urllib.request, json, datetime, os
 from pathlib import Path
 
 BASE = Path(__file__).parent
 WEBHOOK = os.environ.get("FEISHU_WEBHOOK", "")
-PUBLIC_URL = "https://cheerful-puffpuff-a1b9eb.netlify.app"
+PUBLIC_URL = os.environ.get("PUBLIC_URL", "https://cheerful-puffpuff-a1b9eb.netlify.app").rstrip("/")
+
 
 def load_progress():
     p = BASE / "data" / "progress.json"
@@ -13,6 +18,7 @@ def load_progress():
         with open(p) as f:
             return json.load(f)
     return {"streak": 0, "total_days": 0}
+
 
 def build_msg():
     p = load_progress()
@@ -71,6 +77,7 @@ def build_msg():
     }
     return msg
 
+
 def send():
     data = json.dumps(build_msg()).encode()
     req = urllib.request.Request(
@@ -80,8 +87,9 @@ def send():
     with urllib.request.urlopen(req, timeout=15) as r:
         resp = json.loads(r.read())
     status = resp.get("msg")
-    print(f"\u3010{datetime.datetime.now().isoformat()}\u3011 推送结果: {status}")
+    print(f"【{datetime.datetime.now().isoformat()}】 推送结果: {status} | URL: {PUBLIC_URL}")
     return status == "success"
+
 
 if __name__ == "__main__":
     send()

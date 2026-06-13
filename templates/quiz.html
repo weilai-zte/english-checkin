@@ -16,11 +16,11 @@
   .progress-bar { background: #e0e0e0; border-radius: 8px; height: 8px; margin-bottom: 20px; }
   .progress-fill { background: linear-gradient(90deg, #667eea, #764ba2); height: 100%;
                    border-radius: 8px; transition: width 0.3s; }
-  .q-card { background: #f8f9ff; border-radius: 14px; padding: 16px; margin-bottom: 12px; }
-  .q-num { font-size: 12px; color: #888; margin-bottom: 6px; }
-  .q-cn { font-size: 20px; color: #333; margin-bottom: 6px; font-weight: bold; }
-  .q-en { font-size: 20px; color: #333; margin-bottom: 6px; font-weight: bold; }
-  .q-pron { font-size: 13px; color: #888; margin-bottom: 14px; }
+  .q-card { background: #f0f1f3; border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+  .q-num { font-size: 12px; color: #777; margin-bottom: 6px; }
+  .q-cn { font-size: 20px; color: #1a1a2e; margin-bottom: 6px; font-weight: bold; }
+  .q-en { font-size: 22px; color: #1a1a2e; margin-bottom: 6px; font-weight: bold; }
+  .q-pron { font-size: 13px; color: #666; margin-bottom: 14px; }
   .option { display: block; width: 100%; padding: 12px 16px; margin-bottom: 8px;
             border: 2px solid #e0e0e0; border-radius: 12px;
             font-size: 16px; cursor: pointer; text-align: left;
@@ -43,7 +43,7 @@
   .result-icon { font-size: 20px; margin-right: 8px; }
   .score-big { font-size: 64px; font-weight: bold; text-align: center;
                 color: #667eea; margin-bottom: 8px; }
-  .score-label { text-align: center; color: #888; font-size: 16px; margin-bottom: 20px; }
+  .score-label { text-align: center; color: #555; font-size: 16px; margin-bottom: 20px; }
   .streak-badge { text-align: center; font-size: 20px; color: #e67e22; margin-top: 12px; }
   .speaker-btn { background: none; border: none; cursor: pointer; font-size: 28px; padding: 4px 8px; vertical-align: middle; }
   .speaker-btn:active { transform: scale(0.9); }
@@ -101,7 +101,7 @@ function renderQuestion() {
         ${q.word}
         <button class="speaker-btn" onclick="speakWord('${q.word.replace(/'/g, "\\'")}')" title="听发音">🔊</button>
       </div>
-      <div class="q-pron">${q.pron}</div>
+      <div class="q-pron">${q.pron || ''}</div>
       ${optionsHtml}
     </div>
   `;

@@ -7,7 +7,7 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: -apple-system, "PingFang SC", sans-serif;
-         background: #f0f4ff; min-height: 100vh; }
+         background: linear-gradient(135deg, #11998e, #38ef7d); min-height: 100vh; }
 
   .top-bar {
     background: linear-gradient(135deg, #667eea, #764ba2);
@@ -40,7 +40,7 @@
   /* Tab switcher */
   .tab-bar {
     display: flex;
-    background: white;
+    background: #f5f5f7;
     border-bottom: 2px solid #e8ecf4;
     position: sticky;
     top: 52px;
@@ -52,7 +52,7 @@
     text-align: center;
     font-size: 14px;
     font-weight: bold;
-    color: #888;
+    color: #555;
     cursor: pointer;
     border: none;
     background: none;
@@ -120,20 +120,20 @@
   /* Tense cards */
   .tense-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px; }
   .tense-card {
-    background: white; border-radius: 14px; padding: 14px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    background: #f5f5f7; border-radius: 14px; padding: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     cursor: pointer; transition: all 0.15s;
   }
   .tense-card:active { transform: scale(0.97); }
   .tense-name { font-size: 13px; font-weight: bold; color: #667eea; margin-bottom: 6px; }
-  .tense-formula { font-size: 11px; color: #888; background: #f5f0ff;
+  .tense-formula { font-size: 11px; color: #555; background: #f5f0ff;
                    padding: 3px 8px; border-radius: 6px; margin-bottom: 6px; }
   .tense-example { font-size: 11px; color: #555; line-height: 1.5; }
   .tense-example strong { color: #e67e22; }
 
   /* Accordion detail */
-  .tense-detail { display: none; margin: 0 16px 12px; background: white;
-                  border-radius: 14px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+  .tense-detail { display: none; margin: 0 16px 12px; background: #f5f5f7;
+                  border-radius: 14px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
   .tense-detail.open { display: block; }
   .tense-detail h3 { color: #667eea; font-size: 15px; margin-bottom: 10px; }
   .tense-detail ul { padding-left: 18px; }

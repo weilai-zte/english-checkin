@@ -7,26 +7,26 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: -apple-system, "PingFang SC", sans-serif;
-         background: #f0f2ff; min-height: 100vh; padding: 20px; }
+         background: linear-gradient(135deg, #11998e, #38ef7d); min-height: 100vh; padding: 20px; }
   .container { max-width: 480px; margin: 0 auto; }
-  h1 { color: #333; font-size: 22px; text-align: center; margin-bottom: 8px; }
-  .summary { background: white; border-radius: 14px; padding: 16px; margin-bottom: 16px;
+  h1 { color: white; font-size: 22px; text-align: center; margin-bottom: 8px; }
+  .summary { background: #f5f5f7; border-radius: 14px; padding: 16px; margin-bottom: 16px;
              box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
   .summary-row { display: flex; justify-content: space-around; text-align: center; }
   .stat { padding: 8px; }
   .stat-num { font-size: 28px; font-weight: bold; color: #667eea; }
-  .stat-label { font-size: 12px; color: #888; margin-top: 2px; }
+  .stat-label { font-size: 12px; color: #555; margin-top: 2px; }
   .accuracy { font-size: 18px; font-weight: bold; color: #48dbfb; }
-  .empty { text-align: center; padding: 60px 20px; color: #aaa; }
+  .empty { text-align: center; padding: 60px 20px; color: #777; }
   .empty-icon { font-size: 64px; margin-bottom: 12px; }
-  .word-card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px;
+  .word-card { background: #f5f5f7; border-radius: 14px; padding: 16px; margin-bottom: 12px;
                box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
   .word-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
   .word-en { font-size: 22px; font-weight: bold; color: #333; }
   .speaker-btn { background: none; border: none; cursor: pointer; font-size: 22px; padding: 2px 4px; }
   .word-cn { font-size: 16px; color: #667eea; margin-bottom: 4px; }
-  .word-pron { font-size: 13px; color: #888; margin-bottom: 8px; }
-  .meta { display: flex; gap: 12px; font-size: 12px; color: #aaa; flex-wrap: wrap; }
+  .word-pron { font-size: 13px; color: #555; margin-bottom: 8px; }
+  .meta { display: flex; gap: 12px; font-size: 12px; color: #777; flex-wrap: wrap; }
   .meta-badge { padding: 2px 8px; border-radius: 10px; }
   .badge-wrong { background: #ffebee; color: #f44336; }
   .badge-source { background: #e8f5e9; color: #4caf50; }
@@ -38,28 +38,28 @@
   /* ── 语法错题样式 ── */
   .section-header {
     display: flex; align-items: center; justify-content: space-between;
-    background: white; border-radius: 14px; padding: 14px 16px; margin-bottom: 12px;
+    background: #f5f5f7; border-radius: 14px; padding: 14px 16px; margin-bottom: 12px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.08); cursor: pointer; user-select: none;
   }
   .section-header:hover { background: #f8f8ff; }
   .section-title { font-size: 16px; font-weight: bold; color: #333; }
   .section-count { font-size: 13px; color: #f44336; background: #ffebee;
                    padding: 2px 8px; border-radius: 10px; }
-  .section-toggle { font-size: 16px; color: #aaa; transition: transform 0.2s; }
+  .section-toggle { font-size: 16px; color: #777; transition: transform 0.2s; }
   .section-toggle.open { transform: rotate(180deg); }
   .section-body { display: none; }
   .section-body.open { display: block; }
-  .grammar-card { background: white; border-radius: 14px; padding: 16px; margin-bottom: 10px;
+  .grammar-card { background: #f5f5f7; border-radius: 14px; padding: 16px; margin-bottom: 10px;
                   box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #667eea; }
   .grammar-q { font-size: 15px; color: #333; line-height: 1.6; margin-bottom: 8px; }
   .grammar-row { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 4px; }
-  .grammar-label { font-size: 12px; font-weight: bold; color: #aaa; min-width: 56px; padding-top: 2px; }
+  .grammar-label { font-size: 12px; font-weight: bold; color: #777; min-width: 56px; padding-top: 2px; }
   .grammar-user { font-size: 14px; color: #e74c3c; }
   .grammar-ok { font-size: 14px; color: #27ae60; font-weight: bold; }
   .grammar-answer { font-size: 14px; color: #333; }
   .grammar-hint { font-size: 13px; color: #667eea; background: #f0f0ff;
                   border-radius: 8px; padding: 8px 12px; margin-top: 8px; }
-  .no-errors { text-align: center; color: #aaa; font-size: 14px; padding: 16px; }
+  .no-errors { text-align: center; color: #777; font-size: 14px; padding: 16px; }
 </style>
 </head>
 <body>
@@ -95,7 +95,7 @@
   </div>
   <div class="section-body">
     {% if tense_count > 0 %}
-    <div style="padding: 4px 0 8px; font-size: 13px; color: #888; font-weight: bold;">⏱ 时态</div>
+    <div style="padding: 4px 0 8px; font-size: 13px; color: #555; font-weight: bold;">⏱ 时态</div>
     {% for e in tense_errors %}
     <div class="grammar-card">
       <div class="grammar-q">{{ e.question }}</div>
@@ -115,7 +115,7 @@
     {% endif %}
 
     {% if prep_count > 0 %}
-    <div style="padding: 4px 0 8px; font-size: 13px; color: #888; font-weight: bold;">📍 介词</div>
+    <div style="padding: 4px 0 8px; font-size: 13px; color: #555; font-weight: bold;">📍 介词</div>
     {% for e in prep_errors %}
     <div class="grammar-card" style="border-left-color:#48dbfb;">
       <div class="grammar-q">{{ e.question }}</div>
@@ -135,7 +135,7 @@
     {% endif %}
 
     {% if trans_count > 0 %}
-    <div style="padding: 4px 0 8px; font-size: 13px; color: #888; font-weight: bold;">🖊 翻译（中英）</div>
+    <div style="padding: 4px 0 8px; font-size: 13px; color: #555; font-weight: bold;">🖊 翻译（中英）</div>
     {% for e in trans_errors %}
     <div class="grammar-card" style="border-left-color:#f9ca24;">
       <div class="grammar-q">

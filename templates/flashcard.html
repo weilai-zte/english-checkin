@@ -7,7 +7,7 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: -apple-system, "PingFang SC", sans-serif;
-         background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+         background: linear-gradient(135deg, #11998e, #38ef7d);
          min-height: 100vh; padding: 20px; }
   .container { max-width: 480px; margin: 0 auto; position: relative; }
   h1 { color: white; font-size: 22px; text-align: center; margin-bottom: 16px; }
@@ -24,9 +24,9 @@
   .card-back { background: linear-gradient(135deg, #667eea, #764ba2);
                transform: rotateY(180deg); color: white; text-align: center; }
   .word-en { font-size: 42px; font-weight: bold; color: #1a1a2e; }
-  .word-pron { font-size: 18px; color: #888; margin: 8px 0; }
+  .word-pron { font-size: 18px; color: #555; margin: 8px 0; }
   .word-cn { font-size: 28px; color: #667eea; font-weight: bold; }
-  .word-hidden { font-size: 42px; color: #ccc; font-weight: bold; letter-spacing: 4px; }
+  .word-hidden { font-size: 42px; color: #999; font-weight: bold; letter-spacing: 4px; }
   .memory { font-size: 14px; color: rgba(255,255,255,0.8); margin-top: 12px; }
   .example { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 8px; font-style: italic; }
   .tap-hint { text-align: center; color: rgba(255,255,255,0.4); font-size: 13px; margin-bottom: 12px; }
@@ -38,26 +38,24 @@
   .btn-good { background: #feca57; color: #333; }
   .btn-easy { background: #48dbfb; color: #333; }
   .dones { text-align: center; font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 8px; }
-  .speaker-btn { background: none; border: none; cursor: pointer; font-size: 26px;
-                 padding: 4px; vertical-align: middle; flex-shrink: 0; }
-  .speaker-btn-float {
-    display: none;                    /* 默认隐藏，翻到背面才显示 */
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 10;
-    background: rgba(255,255,255,0.9);
+  .speaker-btn {
+    background: rgba(255,255,255,0.25);
     border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
     cursor: pointer;
-    font-size: 22px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-size: 24px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    vertical-align: middle;
+    flex-shrink: 0;
+    transition: background 0.15s;
+    display: none;
   }
-  .speaker-btn-float:hover { background: white; }
-  .speaker-btn-float:active { transform: scale(0.95); }
-  a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 14px; }
+  .speaker-btn.is-visible { display: inline-block; }
+  .speaker-btn:hover { background: rgba(255,255,255,0.4); }
+  .speaker-btn:active { transform: scale(0.95); }
+  .back-en-row { display: flex; align-items: center; justify-content: center;
+                 gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+  a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -77,8 +75,9 @@
       </div>
       <!-- 反面：揭示答案 -->
       <div class="card-face card-back">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+        <div class="back-en-row">
           <div class="word-en" id="back-en" style="color:white;"></div>
+          <button class="speaker-btn" id="back-speaker" onclick="event.stopPropagation(); speakWord(currentWord);" title="听发音">🔊</button>
         </div>
         <div class="word-cn" id="back-cn" style="font-size:24px; font-weight:bold; margin-top:8px;"></div>
         <div class="memory" id="back-memory"></div>
@@ -86,9 +85,6 @@
       </div>
     </div>
   </div>
-
-  <!-- 🔊 发音按钮：绝对定位在卡片右上角，完全在 flashcard 外部 -->
-  <button id="back-speaker" class="speaker-btn-float" onclick="speakWord(currentWord)" title="听发音">🔊</button>
 
   <div class="tap-hint">👆 点击卡片翻转查看答案</div>
 
@@ -149,7 +145,7 @@ function showCard() {
   document.getElementById("progress-text").textContent = (idx+1) + " / " + words.length;
   document.getElementById("card-inner").classList.remove("flipped");
   document.getElementById("nav-area").style.display = "none";
-  document.getElementById("back-speaker").style.display = "none";  // 重置时隐藏发音按钮
+  document.getElementById("back-speaker").classList.remove("is-visible");  // 重置时隐藏发音按钮
   flipped = false;
 }
 
@@ -158,10 +154,10 @@ function flip() {
   flipped = !flipped;
   if (flipped) {
     document.getElementById("nav-area").style.display = "flex";
-    document.getElementById("back-speaker").style.display = "block";  // 显示发音按钮
+    document.getElementById("back-speaker").classList.add("is-visible");  // 翻到背面显示发音
   } else {
     document.getElementById("nav-area").style.display = "none";
-    document.getElementById("back-speaker").style.display = "none";   // 隐藏发音按钮
+    document.getElementById("back-speaker").classList.remove("is-visible");
   }
 }
 

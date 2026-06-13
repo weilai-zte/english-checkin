@@ -105,6 +105,7 @@ INDEX_HTML = """<!DOCTYPE html>
 <body>
 <div id="app"></div>
 <div id="toast" class="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/data.js"></script>
 <script src="assets/app.js"></script>
 </body>
