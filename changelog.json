@@ -198,5 +198,40 @@
       "why": "项目诞生",
       "by": "玄奘"
     }
+  ],
+  "release_summaries": [
+    {
+      "version": "v0.12.0",
+      "date": "2026-06-13",
+      "tag_sha": "d4935b5",
+      "git_tag": "v0.12.0",
+      "summary": "工程迁移 ~/Projects + doc-as-data 改造 + 开源规范",
+      "highlights": [
+        "工程迁移: ~/english-checkin → ~/Projects/english-checkin",
+        "doc-as-data: 6 个文档 json+md 双格式 (requirements/spec/design/readme/changelog/.doc-schema)",
+        "开源规范: LICENSE + CONTRIBUTING + CODE_OF_CONDUCT + SECURITY + GitHub Actions CI",
+        "site_static/ 核心代码进 git (从 untracked → tracked)",
+        "data/junior_vocab_3levels.json 进 git (三级词库 2016+ 词)"
+      ],
+      "sync_changes": [
+        "cron jobs.json: 1 处路径修复 (晚 19:00 推送)",
+        "tests/test_bugs.py: 14 处硬编码 → 相对路径 (12 测试全过)",
+        "SKILL.md: 34 处 + 4 处路径同步 + 94 行废弃内容删除",
+        "Obsidian 知识库: 5 处路径更新",
+        "~/.openclaw/.../publish.sh: 加禁用注释"
+      ],
+      "verification": [
+        "✅ pytest 12 passed",
+        "✅ Flask 本地版 启动 200",
+        "✅ build.py: 3 级词库 L1=466/L2=800/L3=768",
+        "✅ vocab-check: 无重复",
+        "✅ Netlify 公开 URL 主页/data.js/app.js 全 200"
+      ],
+      "breaking_changes": "None",
+      "commits": [
+        "d4935b5",
+        "7f58b0a"
+      ]
+    }
   ]
 }
