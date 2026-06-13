@@ -1,5 +1,12 @@
 # english-checkin — 初一英语每日打卡系统
 
+<!-- BADGES -->
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://www.conventionalcommits.org/)
+[![CI](https://github.com/weilai/english-checkin/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
+[![Version v0.12.0](https://img.shields.io/badge/version-v0.12.0-green.svg)](changelog.json)
+<!-- /BADGES -->
+
 > **公网访问**: <https://cheerful-puffpuff-a1b9eb.netlify.app>
 > **项目位置**: `~/Projects/english-checkin/`
 > **当前版本**: v0.12 (2026-06-13)
