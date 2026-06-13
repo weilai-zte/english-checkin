@@ -1,0 +1,194 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  # 1. Python syntax check
+  syntax:
+    name: Python syntax
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify Python syntax
+        run: |
+          python3 -m py_compile app.py
+          python3 -m py_compile send_daily.py
+          python3 -m py_compile send_weekly_report.py
+          python3 -m py_compile site_static/build.py
+
+  # 2. Run pytest (12 unit tests)
+  test:
+    name: Pytest unit tests
+    runs-on: macos-latest
+    needs: syntax
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install flask flask-session pytest mistune
+
+      - name: Run pytest
+        run: |
+          python3 -m pytest tests/test_bugs.py -v
+
+  # 3. doc-as-data schema validation
+  doc-validate:
+    name: doc-as-data schema validation
+    runs-on: macos-latest
+    needs: syntax
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate docs/*.json against .doc-schema.json
+        run: |
+          python3 << 'PYEOF'
+          import json
+          from pathlib import Path
+
+          schema = json.loads(Path('.doc-schema.json').read_text())
+          required_fields = schema['required']
+
+          docs_dir = Path('docs')
+          json_files = [
+              'docs/requirements.json',
+              'docs/spec.json',
+              'docs/design.json',
+              'readme.json',
+              'changelog.json',
+          ]
+
+          errors = []
+          for f in json_files:
+              path = Path(f)
+              if not path.exists():
+                  errors.append(f"MISSING: {f}")
+                  continue
+              data = json.loads(path.read_text())
+              missing = [k for k in required_fields if k not in data]
+              if missing:
+                  errors.append(f"INVALID {f}: missing fields {missing}")
+
+          if errors:
+              print("❌ Doc validation failed:")
+              for e in errors:
+                  print(f"  {e}")
+              exit(1)
+          else:
+              print(f"✅ All {len(json_files)} docs valid (8 字段骨架)")
+          PYEOF
+
+  # 4. Vocab data quality check
+  vocab-check:
+    name: Vocab data quality
+    runs-on: macos-latest
+    needs: syntax
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check vocab.json data quality
+        run: |
+          python3 << 'PYEOF'
+          import json
+          from collections import Counter, defaultdict
+
+          with open('data/vocab.json') as f:
+              vocab = json.load(f)
+
+          # 检查 1: 重复 (word, cn) 对
+          seen = {}
+          dups = []
+          for topic_key, topic_data in vocab.items():
+              for i, w in enumerate(topic_data.get('words', [])):
+                  key = (w['word'].lower(), w['cn'])
+                  if key in seen:
+                      dups.append((topic_key, i, w['word']))
+                  else:
+                      seen[key] = topic_key
+
+          if dups:
+              print(f"❌ Found {len(dups)} duplicate (word, cn) pairs:")
+              for d in dups[:5]:
+                  print(f"  {d}")
+              exit(1)
+
+          # 检查 2: 总词数
+          total = sum(len(t.get('words', [])) for t in vocab.values())
+          topics = len(vocab)
+          print(f"✅ vocab.json: {total} words across {topics} topics")
+          assert total == 319, f"Expected 319 words, got {total}"
+          assert topics == 23, f"Expected 23 topics, got {topics}"
+          PYEOF
+
+  # 5. Build static site (verify build.py works)
+  build:
+    name: Build static site
+    runs-on: macos-latest
+    needs: syntax
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up venv and install mistune
+        run: |
+          python3 -m venv site_static/.venv
+          source site_static/.venv/bin/activate
+          pip install --quiet flask flask-session mistune
+          # Symlink to project root for sys.path
+          cd site_static && python3 build.py
+
+      - name: Verify dist/ output
+        run: |
+          test -f site_static/dist/index.html
+          test -f site_static/dist/assets/app.js
+          test -f site_static/dist/assets/style.css
+          test -f site_static/dist/assets/data.js
+          test -f site_static/dist/netlify.toml
+          echo "✅ All dist/ files present"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: site_static/dist/
+          retention-days: 7
+
+  # 6. All-pass summary
+  all-pass:
+    name: ✅ All checks passed
+    runs-on: macos-latest
+    needs: [syntax, test, doc-validate, vocab-check, build]
+    if: success()
+    steps:
+      - run: echo "🎉 english-checkin CI all green — ready to merge / release"
