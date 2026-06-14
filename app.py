@@ -1080,7 +1080,7 @@ def preposition_practice():
                  "near", "behind", "between", "into", "from", "to", "of",
                  "over", "after", "before", "above", "below", "along",
                  "since", "until", "through", "across", "next to", "out of",
-                 "in front of", "because of", "until", "along"]
+                 "in front of", "because of"]
 
     # 排除近期做对的题（最近20条记录中答对的题目）
     progress = load_progress()
@@ -1308,12 +1308,14 @@ def quiz():
     for target in candidates[:n]:
         correct_word = target["word"]
         correct_cn = target["cn"]
-        other_cns = [(c["word"], c["cn"]) for c in candidates if c["word"] != correct_word]
-        if difficulty == "hard":
-            # 困难模式：干扰项从同难度其他词中取
-            distractors = random.sample(other_cns, min(opt_n - 1, len(other_cns)))
-        else:
-            distractors = random.sample(other_cns, min(opt_n - 1, len(other_cns)))
+        # 按 .cn 去重，确保干扰项中文释义不重复
+        seen_cn = {correct_cn}
+        unique_others = []
+        for c in candidates:
+            if c["word"] != correct_word and c["cn"] not in seen_cn:
+                seen_cn.add(c["cn"])
+                unique_others.append((c["word"], c["cn"]))
+        distractors = random.sample(unique_others, min(opt_n - 1, len(unique_others)))
         options = [{"display": correct_cn, "value": correct_word}] + \
                   [{"display": d[1], "value": d[0]} for d in distractors]
         random.shuffle(options)

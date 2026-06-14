@@ -807,8 +807,11 @@
     }
 
     const questions = sample(all, 10).map(q => {
-      const opts = shuffle([q.a, ...sample(all.filter(x => x.a !== q.a), 3).map(x => x.a)]);
-      return { ...q, options: opts };
+      const uniqueAnswers = [...new Set(all.filter(x => x.a !== q.a).map(x => x.a))];
+      const opts = shuffle([q.a, ...sample(uniqueAnswers, Math.min(3, uniqueAnswers.length))]);
+      // 如果唯一选项不够，用空字符串补足（避免 undefined）
+      while (opts.length < 4) opts.push('');
+      return { ...q, options: opts.filter(Boolean).slice(0, 4) };
     });
     currentQuestions = questions;
     renderMCQ(app, '时态专项', questions, (correct, results) => {
@@ -832,7 +835,8 @@
     const pool = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'under', 'near', 'behind', 'between', 'into', 'from', 'to', 'of', 'over', 'after', 'before', 'above', 'below', 'along', 'since', 'until', 'through', 'across', 'next to', 'out of', 'in front of', 'because of'];
     const all = (prepG.练习 || []).map(ex => ({ q: ex.题, a: ex.答案, hint: ex.提示 }));
     const questions = sample(all, 10).map(q => {
-      const opts = shuffle([q.a, ...sample(pool.filter(p => p.toLowerCase() !== q.a.toLowerCase()), 3)]);
+      const uniquePool = [...new Set(pool.filter(p => p.toLowerCase() !== q.a.toLowerCase()))];
+      const opts = shuffle([q.a, ...sample(uniquePool, Math.min(3, uniquePool.length))]);
       return { ...q, options: opts };
     });
     currentQuestions = questions;
@@ -1142,8 +1146,14 @@
     const picks = sample(candidates, cfg.quiz_count);
     const questions = picks.map(target => {
       const others = candidates.filter(c => c.word !== target.word);
-      const distractors = sample(others, 3);
-      const opts = shuffle([target, ...distractors]);
+      // 去重：不同单词可能有相同中文释义，确保 4 个选项中文不重复
+      const seen = new Set([target.cn]);
+      const uniqueOthers = [];
+      for (const c of shuffle(others)) {
+        if (!seen.has(c.cn)) { seen.add(c.cn); uniqueOthers.push(c); }
+        if (uniqueOthers.length >= 3) break;
+      }
+      const opts = shuffle([target, ...uniqueOthers]);
       // 选项 value 用中文意，display 也是中文意；正确答案是 target.cn
       const options = opts.map(w => ({ display: w.cn, value: w.cn, _word: w.word }));
       return { word: target.word, cn: target.cn, pron: target.pron || '', a: target.cn, options };
