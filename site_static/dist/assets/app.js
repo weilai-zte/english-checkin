@@ -807,11 +807,20 @@
     }
 
     const questions = sample(all, 10).map(q => {
-      const uniqueAnswers = [...new Set(all.filter(x => x.a !== q.a).map(x => x.a))];
+      // 大小写归一化去重（"is" vs "Is" 视为相同）
+      const qaLower = q.a.toLowerCase();
+      const uniqueAnswers = [...new Set(all.map(x => x.a).filter(a => a.toLowerCase() !== qaLower).map(a => a.toLowerCase()))];
       const opts = shuffle([q.a, ...sample(uniqueAnswers, Math.min(3, uniqueAnswers.length))]);
-      // 如果唯一选项不够，用空字符串补足（避免 undefined）
+      if (uniqueAnswers.length < 3) {
+        // 回退到通用 tense 干扰词池
+        const fallback = ['is','are','am','was','were','have','has','had','do','does','did','will','would','can','could','must','should'];
+        for (const f of fallback) {
+          if (opts.length >= 4) break;
+          if (f.toLowerCase() !== qaLower && !opts.includes(f)) opts.push(f);
+        }
+      }
       while (opts.length < 4) opts.push('');
-      return { ...q, options: opts.filter(Boolean).slice(0, 4) };
+      return { ...q, options: [...new Set(opts.filter(Boolean))].slice(0, 4) };
     });
     currentQuestions = questions;
     renderMCQ(app, '时态专项', questions, (correct, results) => {
