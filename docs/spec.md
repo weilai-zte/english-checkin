@@ -42,7 +42,7 @@ english-checkin 实现 spec：模块边界 + **19 Flask routes** + **5 数据 sc
 | `build_interface` | 本文 §5 (1: build_data_export) | json |
 | `state_machines` | 本文 §6 (3: flashcard / wrong_word / netlify) | json |
 | `performance_budget` | 本文 §7 (7 项 NFR 数值) | json |
-| `error_codes` | 本文 §8 (5 类 12 项) | json |
+| `error_codes` | 本文 §8 (5 类 13 项) | json |
 
 ---
 
@@ -264,10 +264,11 @@ edit_local → build_data → extract_creds → deploy → verify → done
 | static_site_size | performance | dist/ ≤ 1MB | 实测 ~300KB |
 | build_time | performance | build.py < 5s | 实测 ~3s |
 | flask_startup | performance | Flask 启动 < 3s | 实测 ~2s |
+| mcq_option_uniqueness | data_integrity | MCQ 4 选项必须全部不同：prep_opts 无重复 + 时态 case-insensitive 去重 + quiz .cn 去重 | 肉眼检查无重复 |
 
 ---
 
-## §8 失败模式 (12 项, 5 类)
+## §8 失败模式 (13 项, 5 类)
 
 ### Session 类
 - `flask_session_overflow`: session cookie > 4KB → redirect 回 /learn
@@ -289,10 +290,17 @@ edit_local → build_data → extract_creds → deploy → verify → done
 - `knowledge_md_split_wrong`: ## 三、介词分类 标记缺失 → preposition tab 显示空
 - `mask_sentence_wrong_call`: 双参数调用 → 主语消失，全空白 input
 - `build_venv_missing`: site_static/.venv/ 缺失 → 手动 python3 -m venv
+- `mcq_option_duplicate`: prep_opts 含重复值 或 时态大小写不一致 或 quiz 同中文释义 → Set 去重 + .toLowerCase() 归一化
 
 ---
 
 ## §9 演进记录
+
+### v0.13 (2026-06-15)
+- **add**: mcq_option_uniqueness constraint + mcq_option_duplicate failure_mode — by 玄奘
+  - why: prep_opts 含重复值 + 时态 'is'/'Is' 大小写不一致导致选项重复
+- **add**: build_interface invariants 增加 CATEGORY_TREE 常量检查 — by 玄奘
+  - why: 统计页 75 子类 → 8 父类分层，CATEGORY_TREE 是新增数据结构
 
 ### v0.12 (2026-06-13)
 - **add**: 5 原则 doc-as-data: docs/spec.json (真理源) + docs/spec.md (渲染) — by 玄奘

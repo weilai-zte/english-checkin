@@ -2,7 +2,7 @@
   "doc_id": "requirements",
   "doc_kind": "requirements",
   "goal": {
-    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 23 编号需求 (F-013 功能 + N-005 非功能 + C-003 约束 + 2 验收原则)",
+    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 27 编号需求 (F-016 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
     "why": "代码改完必须先改本文（用户驱动原则）。AI 改 send_daily.py / app.py / build.py 前必须先确认本文当前有效需求",
     "success_criteria": [
       "新增需求必须先在本文 §3 加编号 + §5 加 UC，再写代码",
@@ -125,9 +125,33 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.12",
-  "last_validated": "2026-06-13",
+  "version": "v0.13",
+  "last_validated": "2026-06-15",
   "evolution": [
+    {
+      "date": "2026-06-15",
+      "version": "v0.13",
+      "action": "add",
+      "what": "F-014 MCQ 选项去重：prep_opts 池去重 + 时态干扰项大小写归一化 + quiz 中文释义去重（Flask + SPA 双端）",
+      "why": "用户发现时态选项中 'is'/'Is' 重复出现",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-15",
+      "version": "v0.13",
+      "action": "add",
+      "what": "F-015 学习统计话题分层归类：8 父类 CATEGORY_TREE + <details>/<summary> 折叠展开",
+      "why": "75 个扁平子类全部平铺显示可读性差，用户要求父子层级归类",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-15",
+      "version": "v0.13",
+      "action": "change",
+      "what": "F-009 页面数 14→14（无新增页面，统计页 UI 重构）",
+      "why": "统计页从 75 扁平分类重构为 8 父类分层显示",
+      "by": "玄奘"
+    },
     {
       "date": "2026-06-13",
       "version": "v0.12",
@@ -224,6 +248,24 @@
         "priority": "P0",
         "statement": "飞书 Webhook 推送（send_daily.py / send_weekly_report.py）",
         "verification": "FEISHU_WEBHOOK env var 接入"
+      },
+      {
+        "id": "F-014",
+        "priority": "P1",
+        "statement": "MCQ 选择题 4 个选项必须全部不同：prep_opts 池去重 + 时态干扰项大小写归一化去重 + 词汇测试中文释义去重（Flask + SPA 双端修复）",
+        "verification": "肉眼检查时态/介词/quiz 页面无重复选项"
+      },
+      {
+        "id": "F-015",
+        "priority": "P1",
+        "statement": "学习统计页话题分层归类：8 父类 CATEGORY_TREE 映射 75 子类 + <details>/<summary> 原生折叠展开，默认显示父类",
+        "verification": "/stats 页面显示 8 个可折叠父类，点击展开子类明细"
+      },
+      {
+        "id": "F-016",
+        "priority": "P2",
+        "statement": "知识课程页面文字对比度提升：markdown 正文 #1a1a2e + 标题 #2d3748 + 代码块 #e8e8ed + 暗色模式覆盖",
+        "verification": "/knowledge 页面文字清晰可读"
       }
     ],
     "§4_non_functional_requirements": [
@@ -251,6 +293,11 @@
         "id": "N-005",
         "category": "performance",
         "statement": "静态版 index.html < 50KB（已 SPA 化 + 资源 inlined）"
+      },
+      {
+        "id": "N-006",
+        "category": "ux",
+        "statement": "知识课程页面文字可读性：markdown 正文对比度 ≥7:1 + 代码块背景色 #e8e8ed + 引用块背景 #f0f0f5"
       }
     ],
     "§5_use_cases": [
@@ -314,8 +361,8 @@
         "id": "UC-08",
         "actor": "孩子",
         "precondition": "有打卡记录",
-        "main_flow": "/stats → 显示正确率 + 薄弱话题热力图 + 近 7 天打卡日历",
-        "postcondition": "看到学习数据",
+        "main_flow": "/stats → 显示正确率 + 8 父类分层话题错题分布（可折叠展开） + 近 7 天打卡日历",
+        "postcondition": "看到学习数据，可按父类展开查看子类明细",
         "exception": "无数据 → 显示\"今天开始第一次打卡\""
       },
       {

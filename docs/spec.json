@@ -2,7 +2,7 @@
   "doc_id": "spec",
   "doc_kind": "spec",
   "goal": {
-    "statement": "english-checkin 实现 spec：6 模块边界 + 14 Flask routes + 5 数据 schema + 1 build 接口 + 3 状态机 + 错误码规约 + 性能预算",
+    "statement": "english-checkin 实现 spec：6 模块边界 + 14 Flask routes + 5 数据 schema + 1 build 接口 + 3 状态机 + 错误码规约 + 性能预算 + MCQ 选项去重约束",
     "why": "代码实现必须严格按本文对齐。AI 改 app.py 路由签名 / build.py 接口 / 数据 schema 前必须先改本文 + 跑 tests/test_bugs.py",
     "success_criteria": [
       "改任何 Flask 路由前，先改 spec.json routes[] 节",
@@ -73,7 +73,8 @@
           "vocab 可含 _legacy_{topic} (兼容老 vocab.json 兜底)",
           "grammar 必须含 TRANSLATE_SENTENCES + HARD_TRANSLATE + HARD_TENSE_QUESTIONS",
           "knowledge_md 必须包含 '## 三、介词分类' 标记 (介词 tab 用)",
-          "difficulty_config 必须含 block_topics (list) + extra_block (list)"
+          "difficulty_config 必须含 block_topics (list) + extra_block (list)",
+          "app.js 必须含 CATEGORY_TREE 常量 (8 父类 → 子类, stats 页分层展示用)"
         ],
         "raises": [
           "data/*.json 解析失败 → print 警告 + 继续"
@@ -511,6 +512,12 @@
       "category": "performance",
       "rule": "Flask 启动 < 3s",
       "metric": "实测 ~2s"
+    },
+    {
+      "name": "mcq_option_uniqueness",
+      "category": "data_integrity",
+      "rule": "MCQ 4 选项必须全部不同：prep_opts 无重复值 + 时态干扰项 case-insensitive 去重 + quiz 中文释义去重",
+      "metric": "肉眼检查 4 个选项无重复；prep_opts len == len(set(prep_opts))"
     }
   ],
   "failure_modes": [
@@ -597,6 +604,13 @@
       "fallback": "用户手动 python3 -m venv .venv && pip install mistune",
       "recovered_by": "用户重装",
       "alert": "stderr"
+    },
+    {
+      "name": "mcq_option_duplicate",
+      "trigger": "prep_opts 含重复值 或 时态干扰项大小写不一致 或 quiz 选项同中文释义",
+      "fallback": "Set 去重 + .toLowerCase() 归一化 + .cn Set 去重",
+      "recovered_by": "肉眼确认 4 选项全不同",
+      "alert": "用户截图反馈（无自动告警）"
     }
   ],
   "upstream": [
@@ -607,9 +621,25 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.12",
-  "last_validated": "2026-06-13",
+  "version": "v0.13",
+  "last_validated": "2026-06-15",
   "evolution": [
+    {
+      "date": "2026-06-15",
+      "version": "v0.13",
+      "action": "add",
+      "what": "新增 mcq_option_uniqueness constraint + mcq_option_duplicate failure_mode",
+      "why": "prep_opts 含重复值 'until'/'along' + 时态 'is'/'Is' 大小写不一致导致选项重复",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-15",
+      "version": "v0.13",
+      "action": "add",
+      "what": "build_interface invariants 增加 app.js CATEGORY_TREE 常量检查",
+      "why": "统计页 75 子类 → 8 父类分层，CATEGORY_TREE 是新增数据结构",
+      "by": "玄奘"
+    },
     {
       "date": "2026-06-13",
       "version": "v0.12",
