@@ -961,18 +961,15 @@
       list.appendChild(card);
 
       // 实时校验：输入正确立即绿色显示
-      card.querySelectorAll('input[type="text"]').forEach(inp => {
+      card.querySelectorAll('input').forEach((inp, idx) => {
+        const expected = blanks[idx].word;
         inp.addEventListener('input', () => {
-          const qi = parseInt(inp.dataset.q);
-          const bi = parseInt(inp.dataset.b);
-          const words = sents[qi].en.trim().split(/\s+/);
-          const expected = words[bi] || '';
-          const clean = w => w.toLowerCase().replace(/[^a-z']/g, '');
-          const userVal = clean(inp.value);
-          if (userVal && userVal === clean(expected)) {
+          const clean = s => s.toLowerCase().replace(/[^a-z']/g, '');
+          const val = inp.value;
+          if (val.trim() && clean(val) === clean(expected)) {
             inp.style.border = '2px solid #4caf50';
             inp.style.background = '#e8f5e9';
-          } else if (userVal) {
+          } else if (val.trim()) {
             inp.style.border = '2px solid #ef5350';
             inp.style.background = '#fff5f5';
           } else {
