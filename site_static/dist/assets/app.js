@@ -948,7 +948,7 @@
           parts.push(`<span style="font-weight:bold;color:inherit;">${escapeHtml(w)}</span>`);
         } else {
           blanks.push({ idx: i, word: w });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
         }
       });
       card.innerHTML = `
@@ -960,13 +960,13 @@
       `;
       list.appendChild(card);
 
-      // 实时校验：输入正确立即绿色显示
-      card.querySelectorAll('input').forEach((inp, idx) => {
-        const expected = blanks[idx].word;
-        inp.addEventListener('input', () => {
+      // 实时校验：输入正确立即绿色（使用 data-target 属性，与 Flask 模板一致）
+      card.querySelectorAll('input').forEach(inp => {
+        const target = inp.dataset.target || '';
+        inp.oninput = () => {
           const clean = s => s.toLowerCase().replace(/[^a-z']/g, '');
           const val = inp.value;
-          if (val.trim() && clean(val) === clean(expected)) {
+          if (val.trim() && clean(val) === clean(target)) {
             inp.style.border = '2px solid #4caf50';
             inp.style.background = '#e8f5e9';
           } else if (val.trim()) {
@@ -976,7 +976,7 @@
             inp.style.border = '2px solid #d0d5e0';
             inp.style.background = '#eaeaf0';
           }
-        });
+        };
       });
     });
 
