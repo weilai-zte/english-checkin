@@ -10,12 +10,15 @@ document.addEventListener('input', function(e) {
   if (val && val === target) {
     inp.style.border = '2px solid #4caf50';
     inp.style.background = '#e8f5e9';
+    inp.style.color = '#2e7d32';
   } else if (val) {
     inp.style.border = '2px solid #ef5350';
     inp.style.background = '#fff5f5';
+    inp.style.color = '#c62828';
   } else {
     inp.style.border = '2px solid #d0d5e0';
-    inp.style.background = '#eaeaf0';
+    inp.style.background = '';
+    inp.style.color = '';
   }
 });
 
@@ -968,7 +971,7 @@ document.addEventListener('input', function(e) {
           parts.push(`<span style="font-weight:bold;color:inherit;">${escapeHtml(w)}</span>`);
         } else {
           blanks.push({ idx: i, word: w });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;outline:none;font-family:inherit;" autocomplete="off">`);
         }
       });
       card.innerHTML = `
@@ -1058,7 +1061,7 @@ document.addEventListener('input', function(e) {
           parts.push(`<span>${escapeHtml(t.text)}</span>`);
         } else {
           blanks.push({ idx: bIdx, word: t.text });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${bIdx}" style="display:inline-block;width:auto;min-width:50px;margin:2px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${bIdx}" style="display:inline-block;width:auto;min-width:50px;margin:2px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;outline:none;font-family:inherit;" autocomplete="off">`);
           bIdx++;
         }
       });
