@@ -87,7 +87,7 @@
         "returns": "dict (Feishu API response, 含 StatusCode)",
         "invariants": [
           "WEBHOOK 从 FEISHU_WEBHOOK env var 读取 (空则 raise ValueError)",
-          "PUBLIC_URL 默认 https://cheerful-puffpuff-a1b9eb.netlify.app (env 可覆盖)",
+          "PUBLIC_URL 默认 https://weilai-zte.github.io/english-checkin (env 可覆盖)",
           "msg_type='interactive' + 紫色 header + '开始打卡'/'闪卡复习' 两个按钮",
           "进度从 data/progress.json 读取 (streak/total_days)"
         ],

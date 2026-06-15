@@ -116,4 +116,4 @@ We thank the following individuals for responsibly disclosing security issues:
 - **Maintainer**: [@weilai](https://github.com/weilai)
 - **Email**: 5-529@163.com
 - **Project home**: `~/Projects/english-checkin/`
-- **Public site**: <https://cheerful-puffpuff-a1b9eb.netlify.app>
+- **Public site**: <https://weilai-zte.github.io/english-checkin>

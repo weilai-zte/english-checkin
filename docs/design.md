@@ -61,7 +61,7 @@ english-checkin 架构设计：**3 模块边界** + **双部署轨道**（Flask 
 │  │                  │  • build.py → data.js                 │
 │  │  • 客户端 SPA    │  • app.js (hash 路由)                  │
 │  │  • localStorage  │  • Web Speech API                     │
-│  │  • 公网部署版本   │  • https://cheerful-puffpuff-a1b9eb   │
+│  │  • 公网部署版本   │  • https://weilai-zte.github.io/english-checkin │
 │  └──────────────────┘                                       │
 │                                                             │
 │  ┌──────────────────┐                                       │

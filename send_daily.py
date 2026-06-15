@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """每日飞书打卡提醒推送
 
-PUBLIC_URL: 固定的 Netlify 部署地址（2026-06-11 改回，netlify 套餐已升级）
+PUBLIC_URL: 固定的 GitHub Pages 部署地址
 可通过环境变量 PUBLIC_URL 临时覆盖。
 """
 import urllib.request, json, datetime, os
@@ -9,7 +9,7 @@ from pathlib import Path
 
 BASE = Path(__file__).parent
 WEBHOOK = os.environ.get("FEISHU_WEBHOOK", "")
-PUBLIC_URL = os.environ.get("PUBLIC_URL", "https://cheerful-puffpuff-a1b9eb.netlify.app").rstrip("/")
+PUBLIC_URL = os.environ.get("PUBLIC_URL", "https://weilai-zte.github.io/english-checkin").rstrip("/")
 
 
 def load_progress():

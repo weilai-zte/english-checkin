@@ -7,7 +7,7 @@
 [![Version v0.12.0](https://img.shields.io/badge/version-v0.12.0-green.svg)](changelog.json)
 <!-- /BADGES -->
 
-> **公网访问**: <https://cheerful-puffpuff-a1b9eb.netlify.app>
+> **公网访问**: <https://weilai-zte.github.io/english-checkin>
 > **项目位置**: `~/Projects/english-checkin/`
 > **当前版本**: v0.12 (2026-06-13)
 
@@ -46,7 +46,7 @@
 ├── templates/                  # 14 个 HTML 模板
 ├── static/                     # CSS / JS / 图片
 ├── tests/                      # 单元测试 + E2E
-├── site_static/                # Netlify 部署源
+├── site_static/                # GitHub Pages 部署源
 │   ├── build.py                # 静态站点生成器
 │   ├── app.js                  # 客户端 SPA 逻辑
 │   ├── style.css               # 共享样式
@@ -64,7 +64,7 @@
 ## §4 快速开始
 
 ### 4.1 公网访问（推荐）
-直接打开 <https://cheerful-puffpuff-a1b9eb.netlify.app>
+直接打开 <https://weilai-zte.github.io/english-checkin>
 
 ### 4.2 Flask 本地版（开发用）
 ```bash
@@ -73,15 +73,13 @@ python3 app.py   # 端口 5200
 # 访问 http://127.0.0.1:5200
 ```
 
-### 4.3 重新构建 Netlify 静态版
+### 4.3 重新构建 GitHub Pages 静态版
 ```bash
 cd ~/Projects/english-checkin/site_static
 python3 build.py   # 生成 dist/assets/data.js
 
-# 部署到 Netlify（凭证从 ~/.openclaw/workspace/projects/english-打卡-DEPRECATED-PWA/publish.sh grep）
-export NETLIFY_AUTH_TOKEN="$(grep NETLIFY_AUTH_TOKEN ~/.openclaw/workspace/projects/english-打卡-DEPRECATED-PWA/publish.sh | cut -d'=' -f2 | tr -d '\"')"
-export NETLIFY_SITE_ID="$(grep NETLIFY_SITE_ID ~/.openclaw/workspace/projects/english-打卡-DEPRECATED-PWA/publish.sh | cut -d'=' -f2 | tr -d '\"')"
-netlify deploy --dir=dist --prod
+# 构建后 git push main → CI 自动部署到 GitHub Pages
+git add dist/ && git commit -m "build: regenerate static site" && git push
 ```
 
 ### 4.4 手动推送飞书每日打卡
@@ -98,9 +96,9 @@ python3 -m pytest tests/test_bugs.py -v   # 12 单元测试
 
 ## §5 双部署轨道
 
-| | Flask 本地版 | Netlify 静态版 |
+| | Flask 本地版 | GitHub Pages 静态版 |
 |---|---|---|
-| 访问 | `http://127.0.0.1:5200` | `https://cheerful-puffpuff-a1b9eb.netlify.app` |
+| 访问 | `http://127.0.0.1:5200` | `https://weilai-zte.github.io/english-checkin` |
 | 用途 | 开发 / 调试 | **公网生产环境** |
 | 进度 | 服务端 `data/progress.json` | 浏览器 `localStorage` (`ck_progress_v1`) |
 | TTS | macOS `say` | 浏览器 Web Speech API |
@@ -132,7 +130,7 @@ python3 -m pytest tests/test_bugs.py -v   # 12 单元测试
 
 | 症状 | 根因 | 解决 |
 |------|------|------|
-| 打卡链接 404 | 部署丢失 | `cd ~/Projects/english-checkin/site_static/dist && netlify deploy --dir=. --prod` |
+| 打卡链接 404 | 部署丢失 | `git push main` 触发 CI 自动重新部署 |
 | 打卡链接是旧版 (5/9 React) | 误用 React publish.sh | 改用 site_static 部署（见 §4.3） |
 | 飞书没收到练习题 | cron 触发后 `ValueError: unknown url type: ''` | 手动重跑必须带 env 前缀（见 §4.4） |
 | 飞书发送失败 (DNS) | `urllib` DNS 解析失败 | 走 DNS 旁路：Python 生成 JSON + curl --resolve 直连 |
@@ -152,7 +150,7 @@ python3 -m pytest tests/test_bugs.py -v   # 12 单元测试
 
 ## 🔗 相关链接
 
-- **公网 URL**: <https://cheerful-puffpuff-a1b9eb.netlify.app>
+- **公网 URL**: <https://weilai-zte.github.io/english-checkin>
 - **本地路径**: `~/Projects/english-checkin/`
 - **Skill**: <https://github.com/.../skills/english-checkin/SKILL.md>（实际在 `~/.hermes/skills/english-checkin/SKILL.md`）
 - **Obsidian 知识库**: `~/Documents/Obsidian-Vault/05-知识体系/环境配置/项目路径速查.md`（已更新路径）

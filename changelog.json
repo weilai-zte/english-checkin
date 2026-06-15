@@ -146,8 +146,8 @@
       "date": "2026-06-10",
       "version": "v0.10",
       "action": "change",
-      "what": "Netlify 公网地址永久固定: https://cheerful-puffpuff-a1b9eb.netlify.app",
-      "why": "升 netlify 套餐后 URL 永久稳定，不再漂移 (trycloudflare 临时 URL 已废弃)",
+      "what": "GitHub Pages 公网地址永久固定: https://weilai-zte.github.io/english-checkin",
+      "why": "迁移至 GitHub Pages 后 URL 永久稳定，不再漂移 (Netlify 免费额度超限，已迁移)",
       "by": "玄奘"
     },
     {

@@ -192,7 +192,7 @@
       {
         "id": "F-004",
         "priority": "P0",
-        "statement": "公网地址永久固定（cheerful-puffpuff-a1b9eb.netlify.app）",
+        "statement": "公网地址永久固定（weilai-zte.github.io/english-checkin）",
         "verification": "send_daily.py PUBLIC_URL 已硬编码"
       },
       {
@@ -313,7 +313,7 @@
         "id": "UC-02",
         "actor": "孩子",
         "precondition": "公网 URL 可访问",
-        "main_flow": "浏览器打开 cheerful-puffpuff-a1b9eb.netlify.app → 首页难度选择 → 点 /learn",
+        "main_flow": "浏览器打开 weilai-zte.github.io/english-checkin → 首页难度选择 → 点 /learn",
         "postcondition": "进入每日学习任务",
         "exception": "URL 不可访问 → 联系父亲检查 Netlify 部署"
       },

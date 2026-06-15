@@ -185,7 +185,7 @@ def send(msg: dict) -> dict:
 ```
 **Invariants**:
 - WEBHOOK 从 `FEISHU_WEBHOOK` env var 读取 (空则 raise ValueError)
-- PUBLIC_URL 默认 `https://cheerful-puffpuff-a1b9eb.netlify.app` (env 可覆盖)
+- PUBLIC_URL 默认 `https://weilai-zte.github.io/english-checkin` (env 可覆盖)
 - 进度从 `data/progress.json` 读取 (streak/total_days)
 
 ### 5.3 send_weekly_report (`send_weekly_report.py`)
