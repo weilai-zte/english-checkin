@@ -1,4 +1,21 @@
 /* 初一英语打卡 - 客户端应用逻辑 */
+
+// Global helper for inline translate input validation
+window._trValidate = function(inp) {
+  var target = (inp.dataset.target || '').toLowerCase().replace(/[^a-z']/g, '');
+  var val = (inp.value || '').toLowerCase().replace(/[^a-z']/g, '');
+  if (val && val === target) {
+    inp.style.border = '2px solid #4caf50';
+    inp.style.background = '#e8f5e9';
+  } else if (val) {
+    inp.style.border = '2px solid #ef5350';
+    inp.style.background = '#fff5f5';
+  } else {
+    inp.style.border = '2px solid #d0d5e0';
+    inp.style.background = '#eaeaf0';
+  }
+};
+
 (function () {
   'use strict';
 
@@ -948,7 +965,7 @@
           parts.push(`<span style="font-weight:bold;color:inherit;">${escapeHtml(w)}</span>`);
         } else {
           blanks.push({ idx: i, word: w });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" oninput="window._trValidate(this)" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
         }
       });
       card.innerHTML = `
@@ -959,25 +976,6 @@
         <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:8px;"></div>
       `;
       list.appendChild(card);
-
-      // 实时校验：输入正确立即绿色（使用 data-target 属性，与 Flask 模板一致）
-      card.querySelectorAll('input').forEach(inp => {
-        const target = inp.dataset.target || '';
-        inp.oninput = () => {
-          const clean = s => s.toLowerCase().replace(/[^a-z']/g, '');
-          const val = inp.value;
-          if (val.trim() && clean(val) === clean(target)) {
-            inp.style.border = '2px solid #4caf50';
-            inp.style.background = '#e8f5e9';
-          } else if (val.trim()) {
-            inp.style.border = '2px solid #ef5350';
-            inp.style.background = '#fff5f5';
-          } else {
-            inp.style.border = '2px solid #d0d5e0';
-            inp.style.background = '#eaeaf0';
-          }
-        };
-      });
     });
 
     app.querySelector('#tr-submit').onclick = () => {
