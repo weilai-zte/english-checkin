@@ -410,7 +410,7 @@ input[type="text"] {
   .mcq-opt .mcq-text { color: #e0e0e0; }
   .mcq-opt span { color: #e0e0e0; }
   .mcq-opt { background: #3d3d5e; border-color: #5a5a8a; }
-  .card input[type="text"] { background: #3d3d5e !important; color: #e0e0e0 !important; border-color: #5a5a8a !important; }
+  .card input[type="text"] { background: #3d3d5e; color: #e0e0e0; border-color: #5a5a8a; }
   .grammar-input { background: #3d3d5e; color: #e0e0e0; border-color: #5a5a8a; }
       .topic-item { border-bottom-color: #3d3d5e; }
       .topic-name { color: #ccc; }
