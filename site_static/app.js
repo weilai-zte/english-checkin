@@ -1,7 +1,10 @@
 /* 初一英语打卡 - 客户端应用逻辑 */
 
-// Global helper for inline translate input validation
-window._trValidate = function(inp) {
+// Document-level event delegation for translate input validation
+// (attached once, catches all dynamically created translate inputs)
+document.addEventListener('input', function(e) {
+  var inp = e.target;
+  if (inp.tagName !== 'INPUT' || !inp.dataset.target) return;
   var target = (inp.dataset.target || '').toLowerCase().replace(/[^a-z']/g, '');
   var val = (inp.value || '').toLowerCase().replace(/[^a-z']/g, '');
   if (val && val === target) {
@@ -14,7 +17,7 @@ window._trValidate = function(inp) {
     inp.style.border = '2px solid #d0d5e0';
     inp.style.background = '#eaeaf0';
   }
-};
+});
 
 (function () {
   'use strict';
@@ -965,7 +968,7 @@ window._trValidate = function(inp) {
           parts.push(`<span style="font-weight:bold;color:inherit;">${escapeHtml(w)}</span>`);
         } else {
           blanks.push({ idx: i, word: w });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" oninput="window._trValidate(this)" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;background:#eaeaf0;outline:none;font-family:inherit;" autocomplete="off">`);
         }
       });
       card.innerHTML = `
