@@ -971,7 +971,7 @@ document.addEventListener('input', function(e) {
           parts.push(`<span style="font-weight:bold;color:inherit;">${escapeHtml(w)}</span>`);
         } else {
           blanks.push({ idx: i, word: w });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;outline:none;font-family:inherit;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;color:inherit;outline:none;font-family:inherit;" autocomplete="off">`);
         }
       });
       card.innerHTML = `
@@ -1061,7 +1061,7 @@ document.addEventListener('input', function(e) {
           parts.push(`<span>${escapeHtml(t.text)}</span>`);
         } else {
           blanks.push({ idx: bIdx, word: t.text });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${bIdx}" style="display:inline-block;width:auto;min-width:50px;margin:2px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;outline:none;font-family:inherit;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${bIdx}" style="display:inline-block;width:auto;min-width:50px;margin:2px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;color:inherit;outline:none;font-family:inherit;" autocomplete="off">`);
           bIdx++;
         }
       });
