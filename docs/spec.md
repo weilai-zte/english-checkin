@@ -31,7 +31,7 @@ english-checkin 实现 spec：模块边界 + **19 Flask routes** + **5 数据 sc
 | name | source | type |
 |------|--------|------|
 | `requirements_truth` | `docs/requirements.json` | file |
-| `code_signatures` | `app.py + send_daily.py + send_weekly_report.py + site_static/build.py + site_static/app.js` | file |
+| `code_signatures` | `app.py + send_daily.py + send_weekly_report.py + send_wrong_words.py + send_weekly_wrong_words.py + site_static/build.py + site_static/app.js` | file |
 | `data_schemas` | `data/{vocab.json, grammar.json, progress.json, junior_vocab_3levels.json}` | file |
 
 ### outputs
@@ -316,3 +316,37 @@ edit_local → build_data → extract_creds → deploy → verify → done
 - **设计**: [design.json](./design.json) + [design.md](./design.md)
 - **项目门面**: [../readme.json](../readme.json) + [../readme.md](../readme.md)
 - **变更日志**: [../changelog.json](../changelog.json)
+
+### 5.5 send_wrong_words (`send_wrong_words.py`)
+```python
+def build_prompt(words) -> str:
+    """为每个今日错词生成针对性巩固提示 (LLM 输入)"""
+def call_llm(prompt, cfg) -> str:
+    """OpenAI 兼容 chat completion → first choice content"""
+def parse_llm_json(raw) -> list:
+    """容忍 ```json ... ``` fence；失败则截取首个 JSON 数组"""
+def build_card(words, llm_tips, today) -> dict:
+    """飞书 interactive 卡片 (橙色 header)"""
+def send_webhook(msg) -> tuple[bool, dict]:
+    """urllib POST → 飞书 webhook → ('success' status, raw response)"""
+```
+**Invariants**:
+- WEBHOOK 从 `FEISHU_WEBHOOK` env var 读取 (空则 raise)
+- 进度优先 Supabase `progress` 表 `?user_key=eq.ck_user_key_v1&order=updated_at.desc&limit=1`；失败回落 `data/progress.json`
+- LLM 配置读 `~/.hermes/config.yaml` (`model.provider=minimax-cn`)，PyYAML 必需
+- DRY_RUN=1 仅打印 JSON 不真推
+
+### 5.6 send_weekly_wrong_words (`send_weekly_wrong_words.py`)
+```python
+def collect_weekly_wrong() -> tuple[list, date, date]:
+    """取近 7 天 wrong_words，按 attempts 降序聚合去重"""
+def build_prompt_weekly(words, week_start, today) -> str:
+    """本周 TOP N 错词提示 prompt (LLM 输入)"""
+def build_card(words, llm_resp, week_start, today) -> dict:
+    """飞书 interactive 卡片 (indigo header, 最多 10 个错词块)"""
+```
+**Invariants**:
+- 复用 `send_wrong_words.load_llm_config / call_llm / parse_llm_json / send_webhook / lookup_word_meta`
+- 时间窗 = `[today - 7 days, today]`（含今天）
+- 已掌握词（vocab_mastered）与本周跨天去重
+

@@ -19,7 +19,7 @@
     },
     {
       "name": "code_signatures",
-      "source": "app.py + send_daily.py + send_weekly_report.py + site_static/build.py + site_static/app.js",
+      "source": "app.py + send_daily.py + send_weekly_report.py + site_static/build.py + site_static/app.js + send_wrong_words.py + send_weekly_wrong_words.py",
       "type": "file"
     },
     {
@@ -144,6 +144,37 @@
         "raises": [
           "AUTH_TOKEN 过期 → 重新 netlify login"
         ]
+      },
+      {
+        "name": "send_wrong_words",
+        "module": "send_wrong_words.py",
+        "signature": "main() -> int; build_prompt(words) -> str; call_llm(prompt, cfg) -> str; parse_llm_json(raw) -> list; build_card(words, llm_tips, today) -> dict; send_webhook(msg) -> (bool, dict)",
+        "returns": "0 推送成功 / 1 失败 (sys.exit code)",
+        "invariants": [
+          "WEBHOOK 从 FEISHU_WEBHOOK env var 读取 (空则 raise RuntimeError)",
+          "进度优先从 Supabase progress 表 (user_key=ck_user_key_v1) 读；失败回落 data/progress.json",
+          "调玄奘默认 LLM (~/.hermes/config.yaml: model.provider=minimax-cn) 生成针对性巩固例句；无 api_key 抛 RuntimeError",
+          "DRY_RUN=1 仅打印卡片 JSON 不真推",
+          "msg_type='interactive' + 橙色 header + '错题本'/'闪卡复习' 按钮",
+          "PyYAML 必需；缺失时 RuntimeError 提示 pip install pyyaml"
+        ],
+        "raises": [
+          "urllib.error.URLError (DNS 失败) → 走 DNS 旁路",
+          "yaml.YAMLError → RuntimeError 路径解析失败"
+        ]
+      },
+      {
+        "name": "send_weekly_wrong_words",
+        "module": "send_weekly_wrong_words.py",
+        "signature": "main() -> int; collect_weekly_wrong() -> (list, date, date); build_prompt_weekly(words, ws, today) -> str; build_card(words, llm_resp, ws, today) -> dict",
+        "returns": "0 推送成功 / 1 失败",
+        "invariants": [
+          "近 7 天 wrong_words 去重聚合 + 按 attempts 降序，截取 TOP 10 在卡片展示",
+          "复用 send_wrong_words 的 load_llm_config / call_llm / parse_llm_json / send_webhook / lookup_word_meta",
+          "supabase 读到空走本地 progress.json 兜底",
+          "msg_type='interactive' + indigo header + '错题本'/'学习概览' 按钮"
+        ],
+        "raises": []
       }
     ],
     "routes": [
@@ -622,7 +653,7 @@
     "changelog"
   ],
   "version": "v0.13",
-  "last_validated": "2026-06-15",
+  "last_validated": "2026-07-15",
   "evolution": [
     {
       "date": "2026-06-15",
@@ -663,6 +694,14 @@
       "what": "spec.json 含 6 constraints (性能预算) + 12 failure_modes (5 类: session/data/feishu/netlify/UI)",
       "why": "覆盖 2026-05~06 已踩过的 12 个坑",
       "by": "玄奘"
+    },
+    {
+      "date": "2026-07-15",
+      "version": "v0.14",
+      "action": "add",
+      "what": "新增 send_wrong_words / send_weekly_wrong_words: 玄奘 LLM 生成针对性巩固例句，飞书卡片推送今日/本周错词；Supabase progress 表按 user_key 过滤单行；删 __pycache__ 入库",
+      "why": "F-017/F-018 错词巩固推送 + 反模式修正 (多用户合并 + TLS 旁路 + 手搓 YAML)",
+      "by": "Codex"
     }
   ]
 }

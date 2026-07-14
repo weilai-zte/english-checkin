@@ -2,7 +2,7 @@
   "doc_id": "requirements",
   "doc_kind": "requirements",
   "goal": {
-    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 27 编号需求 (F-016 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
+    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 29 编号需求 (F-018 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
     "why": "代码改完必须先改本文（用户驱动原则）。AI 改 send_daily.py / app.py / build.py 前必须先确认本文当前有效需求",
     "success_criteria": [
       "新增需求必须先在本文 §3 加编号 + §5 加 UC，再写代码",
@@ -266,6 +266,18 @@
         "priority": "P2",
         "statement": "知识课程页面文字对比度提升：markdown 正文 #1a1a2e + 标题 #2d3748 + 代码块 #e8e8ed + 暗色模式覆盖",
         "verification": "/knowledge 页面文字清晰可读"
+      },
+      {
+        "id": "F-017",
+        "priority": "P1",
+        "statement": "每日 20:00 推送今日错词的针对性巩固提示：玄奘 LLM 生成 tip/example，按 word 去重；调 Supabase progress.user_key='ck_user_key_v1' 单行；FEISHU_WEBHOOK env",
+        "verification": "send_wrong_words.sh cron 触发；DRY_RUN=1 输出 interactive 卡片 JSON；F-010 wrong_words 字段匹配"
+      },
+      {
+        "id": "F-018",
+        "priority": "P1",
+        "statement": "每周日 20:00 推送本周错词 TOP 10 汇总 + LLM 老师鼓励/分析（按 attempts 降序、已掌握词过滤）",
+        "verification": "send_weekly_wrong_words.sh cron 触发；DRY_RUN=1 输出卡片 JSON；本周时间窗 = today - 7 天"
       }
     ],
     "§4_non_functional_requirements": [
