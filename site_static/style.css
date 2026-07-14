@@ -108,6 +108,8 @@ body {
   margin-bottom: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
+.card-word-en { color: #1a1a2e; }
+.card-word-sub { color: #4a5568; }
 .card-title {
   font-size: 14px;
   color: #4a5568;
@@ -422,6 +424,8 @@ input[type="text"] {
       .cat-bar-wrap { background: #3d3d5e; }
       .cat-wrong { color: #f08080; }
       .cat-children .topic-name { color: #aaa; }
+      .card-word-en { color: #f0f0f0; }
+      .card-word-sub { color: #c0c0d0; }
       .markdown { color: #e0e0e0; }
       .markdown h1 { color: #f0f0f0; border-bottom-color: #3d3d5e; }
       .markdown h2 { color: #8e99ee; }

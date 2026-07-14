@@ -536,7 +536,7 @@ document.addEventListener('input', function(e) {
         <div class="card" style="text-align:center;">
           <div class="card-title">今日主题</div>
           <div style="font-size:20px;font-weight:bold;color:#667eea;">${escapeHtml(t.topic || '综合练习')}</div>
-          <div style="font-size:13px;color:#555;margin-top:6px;">
+          <div class="card-word-sub" style="font-size:13px;margin-top:6px;">
             词汇 ${t.vocab.length} 个 · 语法 ${t.grammar.title}
           </div>
         </div>
@@ -557,8 +557,8 @@ document.addEventListener('input', function(e) {
       div.innerHTML = `
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="flex:1;">
-            <div style="font-size:18px;font-weight:bold;color:#1a1a2e;">${hideWord ? '???' : escapeHtml(w.word)}</div>
-            <div style="font-size:14px;color:#555;">${hideWord ? escapeHtml(w.cn) : escapeHtml(w.pron || '')}</div>
+            <div class="card-word-en" style="font-size:18px;font-weight:bold;">${hideWord ? '???' : escapeHtml(w.word)}</div>
+            <div class="card-word-sub" style="font-size:14px;">${hideWord ? escapeHtml(w.cn) : escapeHtml(w.pron || '')}</div>
           </div>
           <button class="btn-sm btn-ghost" data-speak="${escapeHtml(w.word)}" style="background:none;border:none;font-size:20px;cursor:pointer;">🔊</button>
         </div>
@@ -907,7 +907,7 @@ document.addEventListener('input', function(e) {
       const promptLabel = isEn2Cn ? '看英文选中文' : '看中文选英文';
       const faceHtml = isEn2Cn
         ? `<div class="grammar-q quiz-word">${escapeHtml(q.q || q.word || '')} <span class="quiz-pron">${escapeHtml(q.pron || '')}</span></div>`
-        : `<div class="grammar-q" style="font-size:22px;font-weight:bold;color:#1a1a2e;margin-bottom:8px;">${escapeHtml(q.cn || q.q || '')}</div>`;
+        : `<div class="grammar-q card-word-en" style="font-size:22px;font-weight:bold;margin-bottom:8px;">${escapeHtml(q.cn || q.q || '')}</div>`;
       card.innerHTML = `
         <div class="card-title">第 ${i+1} 题 · ${promptLabel}</div>
         ${faceHtml}
@@ -985,7 +985,7 @@ document.addEventListener('input', function(e) {
       });
       card.innerHTML = `
         <div class="card-title">第 ${qi+1} 题</div>
-        <div style="background:#eef0f5;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;color:#1a1a2e;">${escapeHtml(s.cn)}</div>
+        <div class="card-word-en" style="background:#eef0f5;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;">${escapeHtml(s.cn)}</div>
         <div class="grammar-hint">💡 ${escapeHtml(s.hint || '')}</div>
         <div style="line-height:2.4;font-size:15px;margin-top:8px;">${parts.join(' ')}</div>
         <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:8px;"></div>
@@ -1076,7 +1076,7 @@ document.addEventListener('input', function(e) {
       });
       card.innerHTML = `
         <div class="card-title">第 ${qi+1} 题</div>
-        <div style="background:#eef0f5;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;font-weight:bold;color:#1a1a2e;">${escapeHtml(s.en)}</div>
+        <div class="card-word-en" style="background:#eef0f5;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;font-weight:bold;">${escapeHtml(s.en)}</div>
         <div class="grammar-hint">💡 ${escapeHtml(s.hint || '')}</div>
         <div style="line-height:2.4;font-size:15px;margin-top:8px;">${parts.join('')}</div>
         <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:8px;"></div>

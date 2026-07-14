@@ -136,3 +136,42 @@ class TestBug3bTranslateNoDataTarget:
         src = (PROJECT_ROOT / "site_static" / "app.js").read_text()
         lines = [l for l in src.split("\n") if "data-target" in l]
         assert not lines, "site_static/app.js translate 不能泄露 data-target"
+
+
+class TestBug4DarkModeWordVisibility:
+    """Bug 4: 静态站暗模式 (prefers-color-scheme: dark) 下单词颜色不能和卡片背景同色"""
+
+    def test_renderLearn_words_have_adaptive_colors(self):
+        """renderLearn 不能用死色 (#1a1a2e/#555), 必须用主题自适应类"""
+        src = (PROJECT_ROOT / "site_static" / "app.js").read_text()
+        # 找到 renderLearn 函数体
+        idx = src.index("function renderLearn")
+        end = src.index("function renderVocab", idx)
+        body = src[idx:end]
+        assert "card-word-en" in body, \
+            "renderLearn 单词必须用 .card-word-en 类 (暗模式自动变浅)"
+        assert "card-word-sub" in body, \
+            "renderLearn 注音/中文必须用 .card-word-sub 类"
+        assert "color:#1a1a2e" not in body, \
+            "renderLearn 不能有死色 #1a1a2e (在暗模式 .card 背景上看不见)"
+        assert "color:#555" not in body, \
+            "renderLearn 不能有死色 #555 (深模式 + 浅模式都不够清晰)"
+
+    def test_style_css_has_dark_mode_overrides(self):
+        """style.css @media (prefers-color-scheme: dark) 必须覆盖新加的类"""
+        css = (PROJECT_ROOT / "site_static" / "style.css").read_text()
+        assert ".card-word-en" in css, ".card-word-en 类必须存在"
+        assert ".card-word-sub" in css, ".card-word-sub 类必须存在"
+        # 暗模式覆盖要存在且有效
+        dark_block = css[css.index("@media (prefers-color-scheme: dark)"):]
+        assert ".card-word-en" in dark_block, \
+            "暗模式下 .card-word-en 必须有覆盖色"
+        assert ".card-word-sub" in dark_block, \
+            "暗模式下 .card-word-sub 必须有覆盖色"
+
+    def test_dist_assets_synced_with_source(self):
+        """dist/assets/{app.js,style.css} 必须和 site_static/ 同步 (build.py 已跑)"""
+        for f in ("app.js", "style.css"):
+            src = (PROJECT_ROOT / "site_static" / f).read_text()
+            dst = (PROJECT_ROOT / "site_static" / "dist" / "assets" / f).read_text()
+            assert src == dst, f"{f} dist/assets 必须和源同步 (跑 build.py)"
