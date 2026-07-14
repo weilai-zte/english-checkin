@@ -76,6 +76,13 @@ if (window.speechSynthesis) {
     <div class="hint-label">猜猜这个单词是什么？
       <button class="speaker-btn" onclick="speakWord('{{ word.word }}')">🔊</button>
     </div>
+    {% if word.example %}
+    <!-- Bug 3a: hide==word 时例句会泄露答案, 暂时遮住 -->
+    <div class="example" style="background:#e0e0e0;color:#888;font-style:italic;">
+      <div class="example-en">查看中文后再揭晓英文例句</div>
+      <div class="example-cn">💡 听完发音猜英文</div>
+    </div>
+    {% endif %}
     {% else %}
     <!-- 隐藏中文，只显示英文 -->
     <div class="word">{{ word.word }}
@@ -93,10 +100,13 @@ if (window.speechSynthesis) {
     </div>
     {% endif %}
 
+    {% if word.hide != 'word' and word.example %}
+    <!-- hide==cn 模式可显示英文例句, 不泄露答案 -->
     <div class="example">
       <div class="example-en">{{ word.example }}</div>
       <div class="example-cn">例句</div>
     </div>
+    {% endif %}
 
     <form method="post">
       <button type="submit" class="btn">

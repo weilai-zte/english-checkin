@@ -4,7 +4,10 @@
 PUBLIC_URL: 固定的 GitHub Pages 部署地址
 可通过环境变量 PUBLIC_URL 临时覆盖。
 """
-import urllib.request, json, datetime, os
+import urllib.request
+import json
+import datetime
+import os
 from pathlib import Path
 
 BASE = Path(__file__).parent
@@ -64,7 +67,7 @@ def build_msg():
                             "tag": "button",
                             "text": {"tag": "plain_text", "content": "🃏 闪卡复习"},
                             "type": "default",
-                            "url": f"{PUBLIC_URL}/flashcard"
+                            "url": f"{PUBLIC_URL}/#/flashcard"
                         }
                     ]
                 },

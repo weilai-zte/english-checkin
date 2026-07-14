@@ -471,16 +471,22 @@ def save_progress(d):
 
 # ─── 每日任务 ────────────────────────────────────────────
 def get_daily_task():
-    vocab = load_vocab()
+    difficulty = get_difficulty()
+    cfg = DIFFICULTY_CONFIG[difficulty]
+    vocab = vocab_for_difficulty(difficulty)
     grammar = load_grammar()
     progress = load_progress()
     mastered = set(progress.get("vocab_mastered", []))
 
-    # 收集所有符合难度的词（排除已掌握 + 过于简单）
+    # 收集所有符合难度的词（排除已掌握 + 过于简单 + 非本难度 topic）
     candidates = []
     for topic_key, topic_data in vocab.items():
+        topic_simple = topic_data["topic"].split("(")[0].strip()
+        if topic_simple in cfg["block_topics"]:
+            continue
         for w in topic_data["words"]:
-            if w["word"].lower() not in mastered and w["word"].lower() not in SIMPLE_WORDS:
+            wl = w["word"].lower()
+            if wl not in mastered and wl not in (SIMPLE_WORDS | cfg["extra_block"]):
                 candidates.append((topic_key, topic_data, w))
 
     if not candidates:
@@ -517,7 +523,16 @@ def get_daily_task():
     # 词汇练习：随机隐藏英文或中文
     vocab_items = []
     for topic_key, topic_data, w in selected:
-        hide = random.choice(["word", "cn"])
+        # 均衡策略: 已有的全 word 后面强制 cn, 反之亦然 (避免 5 个全一边)
+        n = len(vocab_items)
+        word_count = sum(1 for v in vocab_items if v["hide"] == "word")
+        cn_count = n - word_count
+        if n > 0 and word_count == 0:
+            hide = "word"     # 前面全是 cn → 补一个 word
+        elif n > 0 and cn_count == 0:
+            hide = "cn"       # 前面全是 word → 补一个 cn
+        else:
+            hide = random.choice(["word", "cn"])
         vocab_items.append({
             "word": w["word"],
             "pron": w["pron"],
@@ -1316,14 +1331,31 @@ def quiz():
                 seen_cn.add(c["cn"])
                 unique_others.append((c["word"], c["cn"]))
         distractors = random.sample(unique_others, min(opt_n - 1, len(unique_others)))
-        options = [{"display": correct_cn, "value": correct_word}] + \
-                  [{"display": d[1], "value": d[0]} for d in distractors]
+        # 方向: 看英文选中文 (en2cn) 还是看中文选英文 (cn2en)
+        # 均衡策略: 已有的全 en2cn 时强制 cn2en, 反之亦然
+        en2cn_count = sum(1 for q in questions if q["direction"] == "en2cn")
+        cn2en_count = len(questions) - en2cn_count
+        if len(questions) > 0 and en2cn_count == 0:
+            direction = "cn2en"
+        elif len(questions) > 0 and cn2en_count == 0:
+            direction = "cn2en"  # 前面全 en2cn → 补 cn2en
+        else:
+            direction = "en2cn" if random.random() < 0.5 else "cn2en"
+        if direction == "en2cn":
+            # 题面: 英文; 选项: 中文, 正确答案 value=correct_cn
+            options = [{"display": correct_cn, "value": correct_cn}] + \
+                      [{"display": d[1], "value": d[1]} for d in distractors]
+        else:
+            # 题面: 中文; 选项: 英文, 正确答案 value=correct_word
+            options = [{"display": correct_word, "value": correct_word}] + \
+                      [{"display": d[0], "value": d[0]} for d in distractors]
         random.shuffle(options)
         questions.append({
             "word": correct_word,
             "cn": correct_cn,
             "pron": target["pron"],
             "topic": target["topic"],
+            "direction": direction,
             "options": options,
         })
 
@@ -1339,7 +1371,9 @@ def quiz_check():
     correct = 0
     for i, q in enumerate(questions):
         user_ans = answers[i] if i < len(answers) else ""
-        is_correct = user_ans.strip().lower() == q["word"].strip().lower()
+        # en2cn 比 q["cn"], cn2en 比 q["word"]
+        correct_ans = q["cn"] if q.get("direction") == "en2cn" else q["word"]
+        is_correct = user_ans.strip().lower() == correct_ans.strip().lower()
         if is_correct:
             correct += 1
         results.append({

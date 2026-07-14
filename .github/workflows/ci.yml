@@ -47,7 +47,9 @@ jobs:
 
       - name: Run pytest
         run: |
-          python3 -m pytest tests/test_bugs.py -v
+          # 跑所有单元测试 (含 test_new_bugs.py 5 个 bug 回归)
+          # 跳过 e2e (test_app.spec.py 文件名不合法, 需要走独立配置)
+          python3 -m pytest tests/ --ignore=tests/e2e -v
 
   # 3. doc-as-data schema validation
   doc-validate:

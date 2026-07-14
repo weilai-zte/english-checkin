@@ -97,10 +97,9 @@
             <span class="word-text">{{ w.text }}</span>
           {% elif w.type == "input" %}
             <input type="text"
-                   class="word-input"
-                   id="blank-{{ loop.index0 }}-{{ w.idx }}"
-                   data-target="{{ w.word }}"
-                   placeholder="{{ w.hint }}"
+                 class="word-input"
+                 id="blank-{{ loop.index0 }}-{{ w.idx }}"
+                 placeholder="{{ w.hint }}"
                    autocomplete="off"
                    spellcheck="false"
                    style="width:{{ [w.hint|length * 10, 70]|max }}px">
@@ -117,25 +116,7 @@
 </div>
 
 <script>
-// ── 实时高亮：写对变绿 ─────────────────────────────────────────
-document.querySelectorAll('.word-input').forEach(input => {
-  input.addEventListener('input', () => {
-    const target = input.dataset.target.replace(/[^a-zA-Z']/g, '').toLowerCase();
-    const val    = input.value.replace(/[^a-zA-Z']/g, '').toLowerCase();
-    if (!val) {
-      input.classList.remove('correct', 'wrong');
-    } else if (val === target) {
-      input.classList.add('correct');
-      input.classList.remove('wrong');
-    } else if (target.startsWith(val) && val.length >= target.length * 0.6) {
-      // 部分对，不变红但也不算绿
-      input.classList.remove('correct', 'wrong');
-    } else {
-      input.classList.add('wrong');
-      input.classList.remove('correct');
-    }
-  });
-});
+// Bug 3b: 实时高亮会泄露答案(data-target), 改为提交后由后端返回判定再渲染
 
 // ── 提交 ──────────────────────────────────────────────────────
 async function submitAll() {

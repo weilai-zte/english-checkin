@@ -3,7 +3,7 @@
 <!-- BADGES -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://www.conventionalcommits.org/)
-[![CI](https://github.com/weilai/english-checkin/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
+[![CI](https://github.com/weilai-zte/english-checkin/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
 [![Version v0.12.0](https://img.shields.io/badge/version-v0.12.0-green.svg)](changelog.json)
 <!-- /BADGES -->
 

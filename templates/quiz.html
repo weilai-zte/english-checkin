@@ -88,7 +88,8 @@ function renderQuestion() {
 
   const container = document.getElementById("question-container");
   const letters = ["A", "B", "C", "D"];
-  // options: {display: 中文, value: 英文}
+  // direction: en2cn (看英文选中文) / cn2en (看中文选英文)
+  const isEn2Cn = q.direction === "en2cn";
   let optionsHtml = q.options.map((opt, i) =>
     `<button class="option" data-value="${opt.value}" onclick="selectOption(this, '${opt.value.replace(/'/g, "\\'")}')">` +
     `<strong>${letters[i]}.</strong> ${opt.display}</button>`
@@ -97,11 +98,15 @@ function renderQuestion() {
   container.innerHTML = `
     <div class="q-card">
       <div class="q-num">第 ${qidx + 1} 题 / 共 ${questions.length} 题 · [${q.topic}]</div>
-      <div class="q-en">
-        ${q.word}
-        <button class="speaker-btn" onclick="speakWord('${q.word.replace(/'/g, "\\'")}')" title="听发音">🔊</button>
-      </div>
-      <div class="q-pron">${q.pron || ''}</div>
+      ${isEn2Cn ? `
+        <div class="q-en">
+          ${q.word}
+          <button class="speaker-btn" onclick="speakWord('${q.word.replace(/'/g, "\\'")}')" title="听发音">🔊</button>
+        </div>
+        <div class="q-pron">${q.pron || ''}</div>
+      ` : `
+        <div class="q-cn" style="font-size:24px;color:#1a1a2e;margin-bottom:12px;font-weight:bold;">${q.cn}</div>
+      `}
       ${optionsHtml}
     </div>
   `;
@@ -119,17 +124,18 @@ function selectOption(el, word) {
   document.querySelectorAll(".option").forEach(btn => {
     btn.classList.add("disabled");
     btn.disabled = true;
-    if (btn.dataset.value === questions[qidx].word) {
+    const correctAns = questions[qidx].direction === "en2cn" ? questions[qidx].cn : questions[qidx].word;
+    if (btn.dataset.value === correctAns) {
       btn.classList.add("correct");
     }
   });
 
-  const isCorrect = word === questions[qidx].word;
+  const isCorrect = word === correctAns;
   if (!isCorrect) {
     el.classList.add("wrong");
     // 显示正确答案
     document.querySelectorAll(".option").forEach(btn => {
-      if (btn.dataset.value === questions[qidx].word) {
+      if (btn.dataset.value === correctAns) {
         btn.classList.add("correct");
       }
     });

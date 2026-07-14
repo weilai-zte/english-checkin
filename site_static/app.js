@@ -599,7 +599,8 @@ document.addEventListener('input', function(e) {
           </div>
           <div class="vocab-pron">${escapeHtml(w.pron || '')}</div>
           <button class="btn-sm" id="speak-btn" style="background:#eef;color:#667eea;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:4px;">🔊 听发音</button>
-          <div class="vocab-example">${escapeHtml(w.example || '')}</div>
+          <!-- Bug 3a: hideWord 时例句会泄露答案, 暂时遮住 -->
+          <div class="vocab-example" id="vocab-example">${hideWord ? '<span style="color:#888;font-style:italic;">查看中文后揭晓英文例句</span>' : escapeHtml(w.example || '')}</div>
           ${w.memory ? `<div class="vocab-memory">💡 ${escapeHtml(w.memory)}</div>` : ''}
         </div>
         <div class="btn-row">
@@ -618,6 +619,9 @@ document.addEventListener('input', function(e) {
       revealed = true;
       app.querySelector('#vocab-front').style.display = 'none';
       app.querySelector('#vocab-back').style.display = 'block';
+      // 揭晓后还原英文例句
+      const ex = app.querySelector('#vocab-example');
+      if (ex && w.example) ex.textContent = w.example;
     };
     app.querySelector('#next-btn').onclick = () => {
       if (!revealed) { toast('先点"揭晓"看看答案'); return; }
@@ -899,9 +903,14 @@ document.addEventListener('input', function(e) {
     questions.forEach((q, i) => {
       const card = document.createElement('div');
       card.className = 'card';
+      const isEn2Cn = q.direction === 'en2cn' || !q.direction; // 兼容旧数据
+      const promptLabel = isEn2Cn ? '看英文选中文' : '看中文选英文';
+      const faceHtml = isEn2Cn
+        ? `<div class="grammar-q quiz-word">${escapeHtml(q.q || q.word || '')} <span class="quiz-pron">${escapeHtml(q.pron || '')}</span></div>`
+        : `<div class="grammar-q" style="font-size:22px;font-weight:bold;color:#1a1a2e;margin-bottom:8px;">${escapeHtml(q.cn || q.q || '')}</div>`;
       card.innerHTML = `
-        <div class="card-title">第 ${i+1} 题 · 看英文选中文</div>
-        <div class="grammar-q quiz-word">${escapeHtml(q.q || q.word || '')} <span class="quiz-pron">${escapeHtml(q.pron || '')}</span></div>
+        <div class="card-title">第 ${i+1} 题 · ${promptLabel}</div>
+        ${faceHtml}
         <div class="mcq-list">
           ${q.options.map(o => {
             const isObj = o && typeof o === 'object';
@@ -971,7 +980,7 @@ document.addEventListener('input', function(e) {
           parts.push(`<span style="font-weight:bold;color:inherit;">${escapeHtml(w)}</span>`);
         } else {
           blanks.push({ idx: i, word: w });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" data-target="${escapeHtml(w)}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;color:inherit;outline:none;font-family:inherit;" autocomplete="off">`);
+          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;color:inherit;outline:none;font-family:inherit;" autocomplete="off">`);
         }
       });
       card.innerHTML = `
@@ -1186,9 +1195,22 @@ document.addEventListener('input', function(e) {
         if (uniqueOthers.length >= 3) break;
       }
       const opts = shuffle([target, ...uniqueOthers]);
-      // 选项 value 用中文意，display 也是中文意；正确答案是 target.cn
-      const options = opts.map(w => ({ display: w.cn, value: w.cn, _word: w.word }));
-      return { word: target.word, cn: target.cn, pron: target.pron || '', a: target.cn, options };
+      // 方向：均衡策略 - 已有全 en2cn 时强制 cn2en, 反之亦然
+      const en2cnCount = questions.filter(q => q.direction === 'en2cn').length;
+      const cn2enCount = questions.length - en2cnCount;
+      let direction;
+      if (questions.length > 0 && en2cnCount === 0) direction = 'cn2en';
+      else if (questions.length > 0 && cn2enCount === 0) direction = 'cn2en'; // 前面全 en2cn → 补 cn2en
+      else direction = Math.random() < 0.5 ? 'en2cn' : 'cn2en';
+      if (direction === 'en2cn') {
+        // 看英文选中文：display=value=中文
+        const options = opts.map(w => ({ display: w.cn, value: w.cn, _word: w.word }));
+        return { word: target.word, cn: target.cn, pron: target.pron || '', a: target.cn, direction, options };
+      } else {
+        // 看中文选英文：display=value=英文
+        const options = opts.map(w => ({ display: w.word, value: w.word, _word: w.word }));
+        return { word: target.word, cn: target.cn, pron: target.pron || '', a: target.word, direction, options };
+      }
     });
     currentQuestions = questions;
     renderMCQ(app, '选择题', questions, (correct, results) => {
@@ -1558,3 +1580,4 @@ document.addEventListener('input', function(e) {
     }
   });
 })();
+          // Bug 3b: 不再把答案写到 DOM, 提交后服务端返回判定再渲染
