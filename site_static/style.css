@@ -422,6 +422,8 @@ input[type="text"] {
   .card-title { color: #aaa; }
   h1, h2, h3, p { color: #e0e0e0; }
   .btn-secondary { background: #3d3d5e; color: #e0e0e0; }
+  .btn-secondary:hover { background: #4a4a72; color: #ffffff; }
+  .btn-secondary:focus-visible { outline: 3px solid rgba(102,126,234,0.7); outline-offset: 2px; }
   .diff-btn { background: #2d2d4e; border-color: #555580; color: #e0e6ff; font-weight: 600; }
   .difficulty-hint { color: #cbd5e1; }
   .markdown table th { background: #2d2d4e; }
@@ -431,6 +433,7 @@ input[type="text"] {
   .mcq-opt .mcq-text { color: #e0e0e0; }
   .mcq-opt span { color: #e0e0e0; }
   .mcq-opt { background: #3d3d5e; border-color: #5a5a8a; }
+  .mcq-opt:hover { background: #4a4a72; border-color: #7a7ab0; }
   .card input[type="text"] { background: #3d3d5e; color: #f0f0ff; border-color: #5a5a8a; }
   .grammar-input { background: #3d3d5e; color: #f0f0ff; border-color: #5a5a8a; }
       .topic-item { border-bottom-color: #3d3d5e; }
