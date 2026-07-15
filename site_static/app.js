@@ -511,7 +511,7 @@ document.addEventListener('input', function(e) {
             <button class="diff-btn ${difficulty==='medium'?'active-medium':''}" data-d="medium">🌿 中等</button>
             <button class="diff-btn ${difficulty==='hard'?'active-hard':''}" data-d="hard">🔥 困难</button>
           </div>
-          <div style="font-size:12px;color:#555;text-align:center;">
+          <div style="font-size:12px;color:#374151;text-align:center;">
             ${difficulty==='easy'?'常用基础词汇，干扰项明显':''}
             ${difficulty==='medium'?'初中核心词汇，适度挑战':''}
             ${difficulty==='hard'?'抽象/学术词汇，复杂语法':''}
@@ -656,7 +656,7 @@ document.addEventListener('input', function(e) {
           <div class="vocab-pron">${escapeHtml(w.pron || '')}</div>
           <button class="btn-sm" id="speak-btn" style="background:#eef;color:#667eea;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:4px;">🔊 听发音</button>
           <!-- Bug 3a: hideWord 时例句会泄露答案, 暂时遮住 -->
-          <div class="vocab-example" id="vocab-example">${hideWord ? '<span style="color:#888;font-style:italic;">查看中文后揭晓英文例句</span>' : escapeHtml(w.example || '')}</div>
+          <div class="vocab-example" id="vocab-example">${hideWord ? '<span style="color:#4a5568;font-style:italic;">查看中文后揭晓英文例句</span>' : escapeHtml(w.example || '')}</div>
           ${w.memory ? `<div class="vocab-memory">💡 ${escapeHtml(w.memory)}</div>` : ''}
         </div>
         <div class="btn-row">
@@ -699,7 +699,7 @@ document.addEventListener('input', function(e) {
         <div class="card">
           <div class="card-title">${escapeHtml(g.title)}</div>
           ${g.rule ? `<div class="grammar-hint">${escapeHtml(g.rule)}</div>` : ''}
-          ${g.examples.length ? `<div style="font-size:13px;color:#666;margin-bottom:8px;">
+          ${g.examples.length ? `<div style="font-size:13px;color:#374151;margin-bottom:8px;">
             ${g.examples.map(e => `<div>• ${escapeHtml(typeof e === 'string' ? e : JSON.stringify(e))}</div>`).join('')}
           </div>` : ''}
         </div>
@@ -751,7 +751,7 @@ document.addEventListener('input', function(e) {
       finishDiv.innerHTML = `
         <div style="font-size:36px;margin-bottom:8px;">${correct >= 2 ? '🎉' : '💪'}</div>
         <div style="font-size:18px;font-weight:bold;color:#667eea;">${score} 正确</div>
-        <div style="color:#555;margin:8px 0;">${correct >= 2 ? '已记录到打卡！' : '再接再厉！'}</div>
+        <div style="color:#374151;margin:8px 0;">${correct >= 2 ? '已记录到打卡！' : '再接再厉！'}</div>
         <div class="btn-row">
           <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习</a>
           <a class="btn btn-primary" href="#/home">完成</a>
@@ -1333,11 +1333,11 @@ document.addEventListener('input', function(e) {
               <div class="error-word">
                 <div class="error-word-en">${escapeHtml(e.word)}</div>
                 <div class="error-word-cn">${escapeHtml(e.cn)} · ${escapeHtml(e.pron || '')}</div>
-                ${e.topic ? `<div style="font-size:11px;color:#777;">${escapeHtml(e.topic.split(' ')[0])}</div>` : ''}
+                ${e.topic ? `<div style="font-size:11px;color:#4a5568;">${escapeHtml(e.topic.split(' ')[0])}</div>` : ''}
               </div>
               <div class="error-meta">错 ${progress.word_stats[e.word.toLowerCase()]?.wrong || 1} 次</div>
             </div>
-          `).join('') : '<p style="color:#555;">还没有错题，加油！</p>'}
+          `).join('') : '<p style="color:#374151;">还没有错题，加油！</p>'}
         </div>
 
         <div class="card">
@@ -1346,9 +1346,9 @@ document.addEventListener('input', function(e) {
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question)}</div>
               <div style="font-size:12px;color:#27ae60;">✓ ${escapeHtml(e.answer)}</div>
-              <div style="font-size:12px;color:#555;">你: ${escapeHtml(e.user || '(空)')}</div>
+              <div style="font-size:12px;color:#374151;">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
-          `).join('') || '<p style="color:#555;">无</p>'}
+          `).join('') || '<p style="color:#374151;">无</p>'}
         </div>
 
         <div class="card">
@@ -1357,9 +1357,9 @@ document.addEventListener('input', function(e) {
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question)}</div>
               <div style="font-size:12px;color:#27ae60;">✓ ${escapeHtml(e.answer)}</div>
-              <div style="font-size:12px;color:#555;">你: ${escapeHtml(e.user || '(空)')}</div>
+              <div style="font-size:12px;color:#374151;">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
-          `).join('') || '<p style="color:#555;">无</p>'}
+          `).join('') || '<p style="color:#374151;">无</p>'}
         </div>
 
         <div class="card">
@@ -1368,9 +1368,9 @@ document.addEventListener('input', function(e) {
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question || e.sentence || '')}</div>
               <div style="font-size:12px;color:#27ae60;">✓ ${escapeHtml(e.answer || '')}</div>
-              <div style="font-size:12px;color:#555;">你: ${escapeHtml(e.user || '(空)')}</div>
+              <div style="font-size:12px;color:#374151;">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
-          `).join('') || '<p style="color:#555;">无</p>'}
+          `).join('') || '<p style="color:#374151;">无</p>'}
         </div>
 
         <button class="btn btn-danger" id="clear-errors">🗑️ 清空所有错题</button>
@@ -1514,7 +1514,7 @@ document.addEventListener('input', function(e) {
 
         <div class="card">
           <div class="card-title">各话题错题分布</div>
-          ${parentStats.length === 0 ? '<div style="text-align:center;color:#999;padding:12px 0;">暂无错题数据，继续加油！</div>' : ''}
+          ${parentStats.length === 0 ? '<div style="text-align:center;color:#6b7280;padding:12px 0;">暂无错题数据，继续加油！</div>' : ''}
           ${parentStats.map(p => `
             <details class="cat-group">
               <summary class="cat-summary">
@@ -1525,7 +1525,7 @@ document.addEventListener('input', function(e) {
               <div class="cat-children">
                 ${p.children.map(c => `
                   <div class="topic-item" style="padding:4px 0;">
-                    <span class="topic-name" style="flex:0 0 56px;font-size:12px;color:#555;">${escapeHtml(c.name)}</span>
+                    <span class="topic-name" style="flex:0 0 56px;font-size:12px;color:#374151;">${escapeHtml(c.name)}</span>
                     <span class="topic-bar-wrap"><span class="topic-bar-fill" style="width:${c.wrong ? Math.round(c.wrong / Math.max(p.children[0]?.wrong || 1, 1) * 100) : 0}%"></span></span>
                     <span class="topic-wrong" style="font-size:12px;">${c.wrong}</span>
                   </div>
@@ -1590,7 +1590,7 @@ document.addEventListener('input', function(e) {
             <div style="padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px;">
               <strong>${c.date}</strong> · ${escapeHtml(c.grammar_title || '')} · ${c.score || ''}
             </div>
-          `).join('') || '<p style="color:#555;">还没有打卡记录</p>'}
+          `).join('') || '<p style="color:#374151;">还没有打卡记录</p>'}
         </div>
 
         <button class="btn btn-danger" id="reset-progress">⚠️ 重置所有进度</button>
@@ -1725,7 +1725,7 @@ document.addEventListener('input', function(e) {
       const c = cells[i];
       html += '<div title="' + c.date + ' · ' + c.count + ' 次" style="width:12px;height:12px;border-radius:2px;background:' + palette[c.level] + ';"></div>';
     }
-    html += '</div></div><div style="display:flex;justify-content:flex-end;align-items:center;gap:4px;font-size:10px;color:#777;margin-top:6px;">少 ';
+    html += '</div></div><div style="display:flex;justify-content:flex-end;align-items:center;gap:4px;font-size:10px;color:#4a5568;margin-top:6px;">少 ';
     for (const p of palette) html += '<span style="display:inline-block;width:10px;height:10px;background:' + p + ';border-radius:2px;margin:0 1px;"></span>';
     html += ' 多</div>';
     return html;
@@ -1823,8 +1823,8 @@ document.addEventListener('input', function(e) {
     const c = getCheckin(last);
     const ww = (progress.wrong_words || []).slice(-10).reverse();
     let wrongHtml = ww.length === 0
-      ? '<p style="color:#888;font-size:13px;">最近没有错词 ✨</p>'
-      : ww.map(w => '<div style="padding:6px 0;border-bottom:1px solid #f0f0f0;"><strong>' + escapeHtml(w.word || '') + '</strong> · <span style="color:#555;">' + escapeHtml(w.cn || '') + '</span><div style="font-size:11px;color:#999;">错于 ' + escapeHtml(w.date || '') + '</div></div>').join('');
+      ? '<p style="color:#4a5568;font-size:13px;">最近没有错词 ✨</p>'
+      : ww.map(w => '<div style="padding:6px 0;border-bottom:1px solid #f0f0f0;"><strong>' + escapeHtml(w.word || '') + '</strong> · <span style="color:#374151;">' + escapeHtml(w.cn || '') + '</span><div style="font-size:11px;color:#6b7280;">错于 ' + escapeHtml(w.date || '') + '</div></div>').join('');
     app.innerHTML = topBar('上次打卡回顾') +
       '<div class="container">' +
         '<div class="card"><div class="card-title">📅 上次打卡 · ' + escapeHtml(last) + '</div>' +
@@ -1945,7 +1945,7 @@ document.addEventListener('input', function(e) {
     app.innerHTML = topBar('导入自定义词表') +
       '<div class="container">' +
         '<div class="card"><div class="card-title">📋 粘贴词表</div>' +
-          '<p style="font-size:12px;color:#555;">一行一词，支持:<br>' +
+          '<p style="font-size:12px;color:#374151;">一行一词，支持:<br>' +
             '· <code>word</code><br>· <code>word: 中文</code><br>' +
             '· <code>word /pron/: 中文</code><br>· <code>word,pron,中文</code>' +
           '</p>' +
@@ -1954,11 +1954,11 @@ document.addEventListener('input', function(e) {
             '<button class="btn btn-primary" id="vocab-save-btn" style="flex:2;">💾 保存导入</button>' +
             (count ? '<button class="btn btn-danger" id="vocab-clear-btn" style="flex:1;">清空</button>' : '') +
           '</div>' +
-          '<div id="vocab-status" style="margin-top:8px;font-size:12px;color:#555;"></div>' +
+          '<div id="vocab-status" style="margin-top:8px;font-size:12px;color:#374151;"></div>' +
         '</div>' +
         (count ? '<div class="card"><div class="card-title">已导入 (' + count + ')</div>' +
           progress.custom_vocab.slice(0, 30).map(w => '<div style="padding:4px 0;border-bottom:1px solid #f0f0f0;"><strong>' + escapeHtml(w.word) + '</strong>' + (w.cn ? ' · ' + escapeHtml(w.cn) : '') + '</div>').join('') +
-          (count > 30 ? '<div style="font-size:11px;color:#999;">…还有 ' + (count - 30) + ' 个</div>' : '') +
+          (count > 30 ? '<div style="font-size:11px;color:#6b7280;">…还有 ' + (count - 30) + ' 个</div>' : '') +
         '</div>' : '') +
       '</div>';
     app.querySelector('#vocab-save-btn').onclick = () => {
@@ -2020,7 +2020,7 @@ document.addEventListener('input', function(e) {
     app.innerHTML = topBar('听写模式') +
       '<div class="container">' +
         '<div class="card"><div class="card-title">📝 听 5 个词，写出拼写</div>' +
-          (pool.length === 0 ? '<p style="color:#555;">词都掌握了 🎉</p>' :
+          (pool.length === 0 ? '<p style="color:#374151;">词都掌握了 🎉</p>' :
             '<div id="d-items">' +
               pool.map((w, i) => {
                 const masked = w.word[0] + '_'.repeat(Math.max(1, w.word.length - 2)) + (w.word.length > 1 ? w.word[w.word.length - 1] : '');
@@ -2030,7 +2030,7 @@ document.addEventListener('input', function(e) {
                     '<button class="btn btn-secondary speak-btn" data-word="' + escapeHtml(w.word) + '" style="min-width:48px;">🔊</button>' +
                   '</div>' +
                   '<input type="text" class="d-input" data-check="' + escapeHtml(w.word) + '" style="width:100%;padding:8px;margin-top:8px;border:2px solid #ddd;border-radius:6px;font-size:16px;" placeholder="拼写…" autocomplete="off" autocapitalize="off" spellcheck="false">' +
-                  '<div class="d-feedback" style="font-size:12px;margin-top:4px;color:#777;">' + escapeHtml(w.cn || '') + '</div>' +
+                  '<div class="d-feedback" style="font-size:12px;margin-top:4px;color:#4a5568;">' + escapeHtml(w.cn || '') + '</div>' +
                 '</div>';
               }).join('') +
             '</div>') +
@@ -2141,7 +2141,7 @@ document.addEventListener('input', function(e) {
       inp.value = '';
       const divT = document.createElement('div');
       divT.id = 'chat-typing';
-      divT.style.cssText = 'margin:6px 0;text-align:left;font-size:12px;color:#999;';
+      divT.style.cssText = 'margin:6px 0;text-align:left;font-size:12px;color:#6b7280;';
       divT.textContent = 'AI 正在输入…';
       card.appendChild(divT); card.scrollTop = card.scrollHeight;
       const msgs = [{ role: 'system', content: CHAT_SYSTEM_PROMPT }].concat(hist.slice(-6).map(h => ({ role: h.role, content: h.content })));

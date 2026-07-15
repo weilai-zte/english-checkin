@@ -97,7 +97,7 @@ body {
   border-bottom: 3px solid transparent;
   white-space: nowrap;
 }
-.tab-btn.active { color: #667eea; border-bottom-color: #667eea; }
+.tab-btn.active { color: #4f46e5; border-bottom-color: #4f46e5; font-weight: 800; }
 
 /* 容器 */
 .container { padding: 16px; }
@@ -326,8 +326,9 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
   border-radius: 0 8px 8px 0;
 }
 .grammar-result { margin-top: 8px; padding: 8px; border-radius: 8px; font-size: 14px; }
-.grammar-result.correct { background: #eafaf1; color: #27ae60; }
-.grammar-result.wrong { background: #fdeaea; color: #e74c3c; }
+.grammar-result.correct { background: #c6f6d5; color: #14532d; border-left: 4px solid #16a34a; }
+.grammar-result.wrong   { background: #fecaca; color: #7f1d1d; border-left: 4px solid #dc2626; }
+.grammar-result { font-weight: 600; }
 
 /* 错题本 */
 .error-item {
