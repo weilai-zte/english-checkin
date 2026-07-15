@@ -135,6 +135,14 @@ Key files:
 | `GET /progress` | Vocabulary progress |
 | `GET /stats` | Learning statistics |
 | `GET /tts?word=...` | macOS TTS via `say` command |
+| `GET /review` | 上次打卡回顾（错词重练 + 进度对比） |
+| `GET /achievements` | 成就系统（10 个 badge） |
+| `GET /progress/export` / `POST /progress/import` | JSON 进度备份 / 导入 |
+| `GET /vocab/import` / `POST /vocab/import` | 自定义词表导入（多格式粘贴） |
+| `POST /vocab/import/clear` | 清空自定义词表 |
+| `GET /dictation` / `POST /dictation` | 听写模式（隐藏单词 + FSRS 评分） |
+| `GET /chat` / `POST /chat/send` / `POST /chat/clear` | AI 对话练习（OpenAI 兼容，需 `~/.hermes/config.yaml`） |
+| `GET /` (home) | 增加每日一词展示 |
 
 ### `mask_sentence()`
 Located in `app.py` lines 74–112. Converts English sentences to blank-fill format for translation practice. Returns `(words_display, blanks_info)` — does **not** modify the original sentence. Used by both `translate_practice()` and `translate_check()`.
