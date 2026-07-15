@@ -728,3 +728,59 @@ class TestKnowledgePage:
         monkeypatch.setattr(P, "exists", fake_exists)
         resp = client.get("/knowledge")
         assert resp.status_code == 404
+
+
+# ════════════════════════════════════════════════════════════════
+# J. 走查发现但未修 Bug 的回归测试
+# ════════════════════════════════════════════════════════════════
+
+class TestBugQuizDirectionBalance:
+    """Bug: app.py:1340-1341 — cn2en_count==0 时应补 en2cn，但代码补 cn2en。
+
+    构造场景: random.random() 强制 0.7 → else 分支走 en2cn；
+    n=2 让第 1 题 en2cn 后，第 2 题前 en2cn_count=1, cn2en_count=0
+    → 触发 typo 分支。修复后第 2 题方向应为 en2cn。
+    """
+
+    def test_cn2en_count_zero_should_force_en2cn(self, sample_junior_vocab,
+                                                  client, monkeypatch):
+        # 把 easy 难度题数降到 2，opt_count 降 2（最少 3 干扰项，这里不强求）
+        monkeypatch.setitem(appmod.DIFFICULTY_CONFIG["easy"], "quiz_count", 2)
+        # random.random() 返回 0.3 → 走 else 分支 → en2cn（模拟第 1 题）
+        monkeypatch.setattr(appmod.random, "random", lambda: 0.3)
+        # 显式设 session difficulty = easy（default 是 medium，会 redirect 到 /flashcard）
+        with client.session_transaction() as sess:
+            sess["difficulty"] = "easy"
+        resp = client.get("/quiz")
+        assert resp.status_code == 200
+        with client.session_transaction() as sess:
+            qs = sess.get("quiz_questions", [])
+        assert len(qs) == 2, f"应有 2 题，实际 {len(qs)}"
+        # 第 1 题是 en2cn（被强制）
+        assert qs[0]["direction"] == "en2cn"
+        # 第 2 题前 cn2en_count=0 → 修复后应为 en2cn（不是 cn2en）
+        assert qs[1]["direction"] == "en2cn", (
+            f"前面全 en2cn 时，第 2 题应补 en2cn（bug: 当前补 cn2en）。实际: {qs[1]['direction']}"
+        )
+
+
+class TestBugTranslateCheckPunctuation:
+    """Bug: app.py:1238 — expected 剥标点但 user_word 不剥。
+
+    user 答 'student!' 应等同 'student'。修复后 user_word 也应被剥标点。
+    """
+
+    def test_user_punctuation_should_be_stripped(self, sample_grammar, client, app_ctx):
+        with client.session_transaction() as sess:
+            sess["translate_sentences"] = [
+                {"cn": "我是学生。", "en": "I am a student.",
+                 "hint": "", "qi": 0,
+                 "blanks_info": [{"word": "student.", "idx": 1}]},
+            ]
+        # user 答 "student!" 应正确（标点应被忽略）
+        resp = client.post("/translate/check",
+                           json={"answers": [{"1": "student!"}]})
+        data = resp.get_json()
+        assert data["correct"] == 1, (
+            f"user 标点应被剥离，'student!' 应等同 'student'。实际 data={data}"
+        )

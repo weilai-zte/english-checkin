@@ -153,8 +153,8 @@ else:
 
 ### 2.3 Bug 2b: quiz 全 en2cn
 **症状**: 10 题全 en2cn，看不到中文选英文
-**修复**: 加均衡策略（见 §1.6，注意仍有 Bug）
-**测试**: `TestBug2bQuizBidirectional`
+**修复**: 加均衡策略（见 §1.6；typo 已于 2026-07-15 修：`cn2en_count==0` 应补 `en2cn`）
+**测试**: `TestBug2bQuizBidirectional` + `TestBugQuizDirectionBalance::test_cn2en_count_zero_should_force_en2cn`
 
 ### 2.4 Bug 3a: vocab.html hide='word' 时泄露英文例句
 **修复**: 模板加 `{% if hide != 'word' %}` 条件渲染
@@ -198,9 +198,9 @@ else:
 **测试**: `test_bug_fixed_uses_container_dataset_question`
 
 ### 2.14 translate_check 不剥标点
-**现状**: `expected` 剥标点但 `user_word` 不剥
-**风险**: 用户答 `student!!!` 会判错
-**未修**: app.py 行 1237-1238
+**症状**: `expected` 剥标点但 `user_word` 不剥，用户答 `student!` 会判错
+**修复** (2026-07-15 commit TBD): `user_clean = re.sub(r"[^a-zA-Z']", "", user_word).lower()` 同步剥
+**测试**: `TestBugTranslateCheckPunctuation::test_user_punctuation_should_be_stripped`
 
 ---
 
@@ -337,9 +337,7 @@ grammar (POST)
 - `translate_practice()` — pool 切换 + mask_sentence 串联
 
 ### 5.2 已知但未修 Bug
-- **Bug: quiz direction 均衡策略有 typo** (app.py 行 1336-1343)
-  - `cn2en_count == 0` 时应补 `en2cn`，代码却补 `cn2en`
-  - 测试覆盖 `TestQuizDirection::test_quiz_returns_questions_with_direction` 但未验证此 Bug
+- _（无 — 全部已修，详见 §2.3 / §2.14）_
 
 ### 5.3 假设/未验证
 - `mask_sentence` 处理多空格 / 中文 / 数字的行为

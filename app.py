@@ -1233,9 +1233,10 @@ def translate_check():
             idx = b["idx"]
             expected = b["word"]
             user_word = (user_blanks.get(str(b["idx"]), "") or "").strip()
-            # 去掉首尾标点后比较
+            # 去掉首尾标点后比较（expected 和 user_word 都剥，避免 "student!" vs "student." 误判）
             exp_clean = re.sub(r"[^a-zA-Z']", "", expected).lower()
-            ok = user_word.lower() == exp_clean
+            user_clean = re.sub(r"[^a-zA-Z']", "", user_word).lower()
+            ok = user_clean == exp_clean
             blank_results.append({
                 "idx": idx,
                 "expected": expected,
@@ -1338,7 +1339,7 @@ def quiz():
         if len(questions) > 0 and en2cn_count == 0:
             direction = "cn2en"
         elif len(questions) > 0 and cn2en_count == 0:
-            direction = "cn2en"  # 前面全 en2cn → 补 cn2en
+            direction = "en2cn"  # 前面全 en2cn → 补 en2cn (而不是再加一个 cn2en)
         else:
             direction = "en2cn" if random.random() < 0.5 else "cn2en"
         if direction == "en2cn":
