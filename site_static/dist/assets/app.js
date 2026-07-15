@@ -209,7 +209,7 @@ document.addEventListener('input', function(e) {
     if (_bestVoice) u.voice = _bestVoice;
     u.rate = 0.95;
     u.pitch = 1.0;
-    u.volume = 1.0;
+    u.volume = 0.55;
     window.speechSynthesis.speak(u);
   }
 
@@ -1711,7 +1711,7 @@ document.addEventListener('input', function(e) {
         '<div style="flex:1;"><div style="font-size:24px;font-weight:bold;color:#92400e;">' + escapeHtml(w.word) + '</div>' +
         (w.pron ? '<div style="font-size:13px;color:#92400e;">' + escapeHtml(w.pron) + '</div>' : '') +
         '<div style="font-size:14px;color:#451a03;margin-top:4px;">' + escapeHtml(w.cn || '') + '</div></div>' +
-        '<button class="btn btn-secondary speak-btn" data-word="' + escapeHtml(w.word) + '" style="min-width:48px;">🔊</button>' +
+        '<button class="speak-btn" data-word="' + escapeHtml(w.word) + '" style="min-width:48px;background:#fff;color:#92400e;border:1px solid #92400e;">🔊</button>' +
       '</div></div>';
   }
   // attach speak handler delegation for the daily word button (existing delegation handles translate inputs only)
