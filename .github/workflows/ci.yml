@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip install flask flask-session pytest mistune
+          pip install flask flask-session pytest mistune fsrs pyyaml
 
       - name: Run pytest
         run: |
