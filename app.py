@@ -432,18 +432,33 @@ def vocab_for_difficulty(difficulty):
     """根据难度返回匹配的 vocab dict (与 load_vocab() 同形: {topic_key: {topic, words}})
     easy/medium/hard → L1/L2/L3 from junior_vocab_3levels.json
     其他 (向后兼容) → 走原 vocab.json
+    自定义词 (#6) → 注入到所有难度池的第一个 topic
     """
     cfg = DIFFICULTY_CONFIG.get(difficulty, {})
     level_key = cfg.get("level_key")
     if not level_key:
-        return load_vocab()       # 非三难度模式 → 用原 vocab.json
-    words = load_junior_vocab().get(level_key, [])
-    return {
-        f"_level_{level_key}": {
-            "topic": f"{level_key} {cfg.get('label', '')}".strip(),
-            "words": words,
+        pool = load_vocab()
+    else:
+        words = load_junior_vocab().get(level_key, [])
+        pool = {
+            f"_level_{level_key}": {
+                "topic": f"{level_key} {cfg.get('label', '')}".strip(),
+                "words": words,
+            }
         }
-    }
+    # Inject custom vocab into the first available topic
+    custom = load_custom_vocab()
+    if custom:
+        first_key = next(iter(pool), "_custom_")
+        if first_key not in pool:
+            pool[first_key] = {"topic": "📥 自定义词表", "words": custom}
+        else:
+            # Prepend custom words so they have higher pick chance
+            pool[first_key] = {
+                "topic": pool[first_key]["topic"],
+                "words": custom + pool[first_key]["words"],
+            }
+    return pool
 
 def load_grammar():
     with open(DATA / "grammar.json", encoding="utf-8") as f:
@@ -468,6 +483,148 @@ def load_progress():
 def save_progress(d):
     with open(DATA / "progress.json", "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, indent=2)
+
+# ─── 词根词缀 (#8 借鉴 Memrise / 拓词) ─────────────────
+# 区分 prefix (词首) 和 suffix (词尾)，避免 "qwerty" 错配 "er"
+PREFIX_ROOTS = [
+    {"root": "tele",   "cn": "远",          "examples": "telephone / television / telescope"},
+    {"root": "phon",   "cn": "声音",        "examples": "phone / microphone / symphony"},
+    {"root": "photo",  "cn": "光",          "examples": "photo / photograph"},
+    {"root": "tele",   "cn": "远",          "examples": "telephone / television"},
+    {"root": "auto",   "cn": "自己",        "examples": "autograph / automatic"},
+    {"root": "micro",  "cn": "小",          "examples": "microphone / microscope"},
+    {"root": "pre",    "cn": "前",          "examples": "preview / prepare"},
+    {"root": "post",   "cn": "后",          "examples": "postpone / postwar"},
+    {"root": "sub",    "cn": "下",          "examples": "subway / submarine"},
+    {"root": "trans",  "cn": "跨/转移",    "examples": "transport / translate"},
+    {"root": "re",     "cn": "再/回",      "examples": "return / review / replay"},
+    {"root": "un",     "cn": "不",          "examples": "unable / unhappy / unfair"},
+    {"root": "dis",    "cn": "不/分开",    "examples": "dislike / disagree"},
+    {"root": "im",     "cn": "不/向内",    "examples": "impossible / impolite"},
+    {"root": "mis",    "cn": "错误",        "examples": "misuse / mistake"},
+    {"root": "over",   "cn": "过度",        "examples": "overwork / overall"},
+    {"root": "under",  "cn": "不足/下面",   "examples": "understand / underground"},
+    {"root": "inter",  "cn": "之间",        "examples": "international / interact"},
+]
+
+SUFFIX_ROOTS = [
+    {"root": "tion",   "cn": "名词后缀",    "examples": "action / nation / station"},
+    {"root": "sion",   "cn": "名词后缀",    "examples": "decision / vision / expression"},
+    {"root": "ment",   "cn": "名词后缀",    "examples": "movement / agreement"},
+    {"root": "ness",   "cn": "名词后缀",    "examples": "happiness / kindness"},
+    {"root": "able",   "cn": "能…的",      "examples": "readable / available / comfortable"},
+    {"root": "ible",   "cn": "能…的",      "examples": "visible / possible"},
+    {"root": "ful",    "cn": "充满…的",    "examples": "beautiful / helpful"},
+    {"root": "less",   "cn": "无…的",      "examples": "careless / hopeless"},
+    {"root": "ly",     "cn": "副词后缀",    "examples": "quickly / slowly / happily"},
+    {"root": "er",     "cn": "…的人/比较", "examples": "teacher / worker / faster"},
+    {"root": "or",     "cn": "…的人",      "examples": "actor / doctor / director"},
+    {"root": "ist",    "cn": "…的人",      "examples": "artist / scientist"},
+    {"root": "ing",    "cn": "进行/动名",   "examples": "running / swimming / building"},
+]
+
+
+def find_root(word):
+    """Return first matching root dict for `word`, or None.
+
+    Prefixes match at word start (longest first), then suffixes at word end.
+    """
+    if not word:
+        return None
+    wl = word.lower()
+    # Try longest prefix first (avoid 're' matching when 're' is a real prefix)
+    for r in sorted(PREFIX_ROOTS, key=lambda x: -len(x["root"])):
+        if wl.startswith(r["root"]):
+            return {**r, "type": "prefix"}
+    for r in sorted(SUFFIX_ROOTS, key=lambda x: -len(x["root"])):
+        if wl.endswith(r["root"]):
+            return {**r, "type": "suffix"}
+    return None
+
+
+COMMON_ROOTS = PREFIX_ROOTS + SUFFIX_ROOTS  # backwards compat
+
+
+# ─── 自定义词表 (#6 借鉴 Quizlet / mochi.cards 导入) ─────────────
+def _custom_vocab_path():
+    """Lazy path lookup so tests can monkeypatch DATA."""
+    return DATA / "custom_vocab.json"
+
+
+def load_custom_vocab():
+    """Load user-imported vocab from data/custom_vocab.json. Returns list of word dicts."""
+    path = _custom_vocab_path()
+    if not path.exists():
+        return []
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, list):
+            return data
+        return []
+    except (json.JSONDecodeError, OSError):
+        return []
+
+
+def parse_pasted_vocab(text):
+    """Parse pasted text into list of word dicts. Accepted formats:
+       - word: 中文释义
+       - word /pron/ 中文释义
+       - word	中文 (tab-separated)
+       - CSV: word,pron,cn,example,memory  (header optional)
+    Empty lines and lines starting with # are ignored.
+    """
+    items = []
+    lines = text.splitlines()
+    # Detect CSV: if any line has 2+ commas, treat as CSV
+    is_csv = any(line.count(",") >= 2 for line in lines if line.strip())
+    # Detect header row to skip (only when CSV mode)
+    csv_header_seen = False
+    for raw in lines:
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        if is_csv:
+            parts = [p.strip() for p in line.split(",")]
+            if not parts[0]:
+                continue
+            # Skip header row (only first row, only if first col matches known header keyword)
+            if not csv_header_seen and parts[0].lower() in {"word", "w", "单词", "词"}:
+                csv_header_seen = True
+                continue
+            csv_header_seen = True
+            w = {
+                "word": parts[0],
+                "pron": parts[1] if len(parts) > 1 else "",
+                "cn": parts[2] if len(parts) > 2 else "",
+                "例句": parts[3] if len(parts) > 3 else "",
+                "记忆": parts[4] if len(parts) > 4 else "",
+            }
+        else:
+            # Try tab first
+            if "\t" in line or "	" in line:
+                parts = line.split("	")
+                w = {"word": parts[0].strip(),
+                     "pron": "",
+                     "cn": parts[1].strip() if len(parts) > 1 else "",
+                     "例句": parts[2].strip() if len(parts) > 2 else "",
+                     "记忆": ""}
+            else:
+                # word: 中文  OR  word /pron/ 中文
+                m = re.match(r"^([A-Za-z][\w\s\-'’]*?)(?:\s+/([^/]+)/)?\s*[:：\-—]\s*(.+)$", line)
+                if m:
+                    w = {"word": m.group(1).strip(),
+                         "pron": (m.group(2) or "").strip(),
+                         "cn": m.group(3).strip(),
+                         "例句": "",
+                         "记忆": ""}
+                else:
+                    # Fallback: just take the whole line as the word
+                    w = {"word": line, "pron": "", "cn": "", "例句": "", "记忆": ""}
+        if w["word"]:
+            items.append(w)
+    return items
+
 
 # ─── 错题回流 (#2 借鉴 扇贝 / Anki) ─────────────────────
 def _next_review_for(today, attempts, correct_streak=0):
@@ -624,6 +781,10 @@ def get_daily_task():
             "hint": ex.get("提示", "")
         })
 
+    # 词根注入 (#8)
+    for item in vocab_items:
+        item["root"] = find_root(item["word"])
+
     return {
         "topic": topic_data["topic"],
         "vocab": vocab_items,
@@ -681,11 +842,12 @@ def vocab_practice(idx):
         return redirect("/learn")
     word = task["vocab"][idx]
     total = len(task["vocab"])
+    word_root = find_root(word["word"])
 
     if request.method == "POST":
         return redirect(f"/vocab/{idx+1}" if idx+1 < total else "/grammar")
 
-    return render_template("vocab.html", word=word, idx=idx, total=total)
+    return render_template("vocab.html", word=word, idx=idx, total=total, root=word_root)
 
 @app.route("/grammar", methods=["GET", "POST"])
 def grammar_practice():
@@ -1013,6 +1175,50 @@ def achievements_page():
     return render_template("achievements.html",
                            achievements=items, unlocked=unlocked,
                            total=len(items))
+
+
+@app.route("/vocab/import", methods=["GET", "POST"])
+def vocab_import():
+    """Import custom word list (paste or CSV) — borrowed from Quizlet / mochi.cards."""
+    if request.method == "POST":
+        text = (request.form.get("text") or "").strip()
+        if not text:
+            return render_template("vocab_import.html", error="内容为空", custom_count=len(load_custom_vocab()))
+        try:
+            items = parse_pasted_vocab(text)
+        except Exception as e:
+            return render_template("vocab_import.html", error=f"解析失败: {e}", custom_count=len(load_custom_vocab()))
+        if not items:
+            return render_template("vocab_import.html", error="未识别到任何单词", custom_count=len(load_custom_vocab()))
+        # Merge with existing custom vocab, dedupe by lowercase word
+        existing = {w["word"].lower(): w for w in load_custom_vocab()}
+        added = 0
+        for w in items:
+            key = w["word"].lower()
+            if key not in existing:
+                existing[key] = w
+                added += 1
+            else:
+                # Update cn/pron if new entry has them
+                if w.get("cn"):
+                    existing[key]["cn"] = w["cn"]
+                if w.get("pron"):
+                    existing[key]["pron"] = w["pron"]
+        merged = list(existing.values())
+        with open(_custom_vocab_path(), "w", encoding="utf-8") as f:
+            json.dump(merged, f, ensure_ascii=False, indent=2)
+        return render_template("vocab_import.html", success=f"已新增 {added} 词，总计 {len(merged)} 词",
+                               custom_count=len(merged), sample=items[:5])
+    return render_template("vocab_import.html", custom_count=len(load_custom_vocab()))
+
+
+@app.route("/vocab/import/clear", methods=["POST"])
+def vocab_import_clear():
+    """Wipe custom vocab (irreversible; for testing / reset)."""
+    p = _custom_vocab_path()
+    if p.exists():
+        p.unlink()
+    return redirect("/vocab/import")
 
 
 # ─── 打卡热力图 (借鉴 GitHub contributions / 扇贝打卡日历) ─────────────

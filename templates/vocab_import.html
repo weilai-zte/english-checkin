@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自定义词表 - 初一英语</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: linear-gradient(135deg, #11998e, #38ef7d); min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; }
+  h1 { color: white; font-size: 22px; text-align: center; margin-bottom: 16px; }
+  .card { background: #f5f5f7; border-radius: 14px; padding: 16px; margin-bottom: 12px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .card-title { font-size: 14px; color: #555; margin-bottom: 10px; font-weight: bold; }
+  textarea { width: 100%; min-height: 180px; border: 1px solid #ddd; border-radius: 8px;
+             padding: 10px; font-family: ui-monospace, monospace; font-size: 13px;
+             line-height: 1.5; resize: vertical; box-sizing: border-box; }
+  .btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 12px;
+         font-size: 15px; font-weight: bold; cursor: pointer; text-align: center;
+         text-decoration: none; margin-top: 8px; }
+  .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+  .btn-warn { background: #f39c12; color: white; }
+  .btn-secondary { background: #e8ecf4; color: #4a5568; }
+  .msg { padding: 10px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 10px; }
+  .msg-ok { background: #e8f5e9; color: #2e7d32; }
+  .msg-err { background: #fdecea; color: #c62828; }
+  .hint { font-size: 11px; color: #777; line-height: 1.6; margin-top: 8px; }
+  .sample-word { display: inline-block; background: #eef; color: #667eea; padding: 3px 8px;
+                 border-radius: 999px; margin: 3px; font-size: 12px; }
+  .back-link { display: block; text-align: center; padding: 14px; color: white;
+               text-decoration: none; font-size: 15px; }
+  .count { font-size: 12px; color: #888; text-align: right; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📥 自定义词表</h1>
+
+  {% if error %}<div class="msg msg-err">⚠ {{ error }}</div>{% endif %}
+  {% if success %}<div class="msg msg-ok">✓ {{ success }}</div>{% endif %}
+
+  <div class="card">
+    <div class="card-title">当前词表 <span class="count">（{{ custom_count }} 词）</span></div>
+    <div class="hint">已导入的词会自动出现在日常打卡中。重复的词会更新释义。</div>
+  </div>
+
+  <form method="post" action="/vocab/import" class="card">
+    <div class="card-title">粘贴新词</div>
+    <textarea name="text" placeholder="一行一词，支持格式：
+
+word: 中文
+apple /ˈæp.əl/: 苹果
+banana — 香蕉
+cat  猫
+
+或 CSV（首行可作为表头）：
+word,pron,cn,example
+apple,/ˈæp.əl/,苹果,An apple a day."></textarea>
+    <button type="submit" class="btn btn-primary">➕ 导入</button>
+    <div class="hint">支持换行/Tab/CSV；# 开头的行视为注释；解析失败的单行会作为纯单词保留。</div>
+  </form>
+
+  {% if sample %}
+  <div class="card">
+    <div class="card-title">本次解析样本</div>
+    {% for w in sample %}
+    <div style="padding: 6px 0; border-bottom: 1px solid #f0f0f0;">
+      <strong>{{ w.word }}</strong>
+      {% if w.pron %}<span style="color:#888;font-size:12px;">{{ w.pron }}</span>{% endif %}
+      <div style="color:#666;font-size:13px;">{{ w.cn or "（无释义）" }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if custom_count > 0 %}
+  <form method="post" action="/vocab/import/clear" class="card"
+        onsubmit="return confirm('确定清空所有自定义词？此操作不可撤销。')">
+    <div class="card-title">清空自定义词表</div>
+    <button type="submit" class="btn btn-warn">🗑 清空（{{ custom_count }} 词）</button>
+  </form>
+  {% endif %}
+
+  <a href="/" class="back-link">← 返回首页</a>
+</div>
+</body>
+</html>

@@ -100,6 +100,15 @@ if (window.speechSynthesis) {
     </div>
     {% endif %}
 
+    {% if root %}
+    <div class="memory" style="background:#e8f5e9;color:#1b5e20;">
+      <div class="memory-label">🌳 词根拆解</div>
+      <span style="font-family:ui-monospace,monospace;font-weight:bold;">{{ root.root }}</span>
+      <span> → {{ root.cn }}</span>
+      <div style="font-size:11px;color:#666;margin-top:4px;">例：{{ root.examples }}</div>
+    </div>
+    {% endif %}
+
     {% if word.hide != 'word' and word.example %}
     <!-- hide==cn 模式可显示英文例句, 不泄露答案 -->
     <div class="example">
