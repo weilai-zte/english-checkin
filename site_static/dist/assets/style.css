@@ -181,7 +181,7 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
 .stat-row { display: flex; justify-content: space-around; margin: 16px 0; }
 .stat { text-align: center; }
 .stat-num { font-size: 28px; font-weight: bold; color: #667eea; }
-.stat-label { font-size: 12px; color: #555; margin-top: 2px; }
+.stat-label { font-size: 12px; color: #4a5568; margin-top: 2px; font-weight: 500; }
 
 /* 统计 - 话题分布 */
 .topic-item { display: flex; align-items: center; gap: 10px; padding: 8px 0;
@@ -357,9 +357,10 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
   text-align: center;
   color: #4a5568;
 }
-.diff-btn.active-easy { border-color: #27ae60; background: #eafaf1; color: #27ae60; }
-.diff-btn.active-medium { border-color: #f39c12; background: #fff8e8; color: #f39c12; }
-.diff-btn.active-hard { border-color: #e74c3c; background: #fdeaea; color: #e74c3c; }
+.diff-btn.active-easy   { border-color: #27ae60; background: #27ae60; color: #ffffff; }
+.diff-btn.active-medium { border-color: #d97706; background: #d97706; color: #ffffff; }
+.diff-btn.active-hard   { border-color: #dc2626; background: #dc2626; color: #ffffff; }
+.diff-btn.active-easy:hover, .diff-btn.active-medium:hover, .diff-btn.active-hard:hover { filter: brightness(1.08); }
 
 /* 知识页 markdown */
 .markdown { line-height: 1.8; color: #1a1a2e; font-size: 15px; }
@@ -490,13 +491,13 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 /* B. home section dividers */
 .section-label {
   font-size: 12px;
-  color: #888;
+  color: #4a5568;
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  margin: 16px 4px 8px;
-  padding-left: 6px;
-  border-left: 3px solid #667eea;
+  margin: 18px 4px 8px;
+  padding-left: 8px;
+  border-left: 4px solid #667eea;
 }
 
 /* I. hero density */

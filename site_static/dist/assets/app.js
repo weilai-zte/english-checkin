@@ -49,6 +49,20 @@ document.addEventListener('input', function(e) {
     }
     return key;
   }
+  function setUserKey(k) {
+    if (!k || typeof k !== 'string') return false;
+    k = k.trim();
+    if (!k) return false;
+    localStorage.setItem(USER_KEY, k);
+    return true;
+  }
+  async function loadFromRemoteByKey(k) {
+    if (!sb) throw new Error('云端未连接');
+    const { data, error } = await sb.from('progress').select('data,updated_at').eq('user_key', k).maybeSingle();
+    if (error) throw error;
+    if (!data) return null;
+    return data;
+  }
 
   // ─── State ───────────────────────────────────────────
   let progress = loadProgress();
@@ -1580,8 +1594,60 @@ document.addEventListener('input', function(e) {
         </div>
 
         <button class="btn btn-danger" id="reset-progress">⚠️ 重置所有进度</button>
+
+        <div class="card" style="margin-top:16px;">
+          <div class="card-title">☁️ 跨设备同步</div>
+          <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
+            当前 ID: <code id="user-key-display" style="font-size:11px;background:#eef2ff;padding:2px 6px;border-radius:4px;word-break:break-all;"></code>
+            <button id="copy-user-key" class="btn-sm" style="background:#667eea;color:white;border:none;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;margin-left:4px;">📋 复制</button>
+          </div>
+          <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
+            在另一台设备的同一浏览器粘贴此 ID 即可看到同步进度。
+          </div>
+          <div style="display:flex;gap:6px;">
+            <input id="migrate-key-input" type="text" placeholder="粘贴另一个设备的 ID..." style="flex:1;padding:8px;border:1.5px solid #d0d5e0;border-radius:8px;font-size:13px;" />
+            <button id="migrate-key-btn" class="btn-sm" style="background:#667eea;color:white;border:none;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;">📥 切换到此 ID</button>
+          </div>
+          <div style="font-size:11px;color:#6b7280;margin-top:6px;">⚠ 切换 ID 会从云端拉取对应进度，本地数据将被覆盖。</div>
+        </div>
       </div>
     `;
+
+    const ukd = app.querySelector('#user-key-display');
+    if (ukd) ukd.textContent = getUserKey();
+    const cup = app.querySelector('#copy-user-key');
+    if (cup) cup.onclick = () => {
+      const k = getUserKey();
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(k).then(() => toast('ID 已复制')).catch(() => toast('复制失败，手动选择'));
+      } else {
+        // fallback: select the text in the code element
+        const r = document.createRange(); r.selectNode(ukd); window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+        toast('请按 ⌘/Ctrl+C 复制选中文字');
+      }
+    };
+    const mib = app.querySelector('#migrate-key-input');
+    const mbtn = app.querySelector('#migrate-key-btn');
+    if (mbtn) mbtn.onclick = async () => {
+      const k = (mib.value || '').trim();
+      if (!k) { toast('请粘贴一个 ID'); return; }
+      mbtn.disabled = true; mbtn.textContent = '...';
+      try {
+        const remote = await loadFromRemoteByKey(k);
+        if (!remote) { toast('云端没找到这个 ID'); return; }
+        if (!confirm('将从云端拉取该 ID 的进度并覆盖本地数据，确认？')) return;
+        progress = Object.assign(defaultProgress(), remote.data);
+        progress._updated_at = remote.updated_at;
+        saveProgress();
+        localStorage.setItem(USER_KEY, k);
+        toast('已切换并加载');
+        render();
+      } catch (e) {
+        toast('加载失败: ' + (e.message || e));
+      } finally {
+        mbtn.disabled = false; mbtn.textContent = '📥 切换到此 ID';
+      }
+    };
     app.querySelector('#reset-progress').onclick = () => {
       if (confirm('确定要重置所有进度？包括打卡、错题、掌握记录。此操作不可恢复！')) {
         progress = defaultProgress();

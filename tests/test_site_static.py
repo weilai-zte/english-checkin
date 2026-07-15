@@ -168,3 +168,41 @@ def test_dist_app_js_has_new_features():
                    "function renderAchievements", "function renderChat",
                    "function parsePastedVocab", "renderDictation"):
         assert marker in dist_js, f"dist app.js missing {marker}"
+
+
+def test_setUserKey_helper_present():
+    assert 'function setUserKey' in APP_JS_SRC
+    assert 'localStorage.setItem(USER_KEY' in APP_JS_SRC
+
+
+def test_loadFromRemoteByKey_helper_present():
+    assert 'function loadFromRemoteByKey' in APP_JS_SRC
+    assert "from('progress').select" in APP_JS_SRC
+
+
+def test_render_progress_has_cross_device_card():
+    block = _function_block('renderProgress')
+    assert '跨设备同步' in block
+    assert 'user-key-display' in block
+    assert 'copy-user-key' in block
+    assert 'migrate-key-input' in block
+
+
+def test_active_difficulty_buttons_use_white_text():
+    css = (ROOT / 'site_static' / 'style.css').read_text(encoding='utf-8')
+    for cls in ('active-easy', 'active-medium', 'active-hard'):
+        m = re.search(r'\.diff-btn\.' + cls + r'\s*\{([^}]+)\}', css)
+        assert m, f'{cls} rule missing'
+        assert 'color: #ffffff' in m.group(1), f'{cls} not using white text'
+
+
+def test_section_label_darker():
+    css = (ROOT / 'site_static' / 'style.css').read_text(encoding='utf-8')
+    m = re.search(r'\.section-label\s*\{([^}]+)\}', css)
+    assert m
+    body = m.group(1)
+    color = re.search(r'color:\s*(#[0-9a-fA-F]{3,6})', body)
+    assert color, 'section-label missing color'
+    # assert not the too-light #888888
+    assert color.group(1).lower() != '#888888', \
+        f'section-label color {color.group(1)} is too light (#888 was complaint)'
