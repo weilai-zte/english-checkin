@@ -1711,7 +1711,7 @@ document.addEventListener('input', function(e) {
         '<div style="flex:1;"><div style="font-size:24px;font-weight:bold;color:#92400e;">' + escapeHtml(w.word) + '</div>' +
         (w.pron ? '<div style="font-size:13px;color:#92400e;">' + escapeHtml(w.pron) + '</div>' : '') +
         '<div style="font-size:14px;color:#451a03;margin-top:4px;">' + escapeHtml(w.cn || '') + '</div></div>' +
-        '<button class="speak-btn" data-word="' + escapeHtml(w.word) + '" style="padding:4px 8px;background:#fff;color:#92400e;border:1px solid #92400e;border-radius:8px;font-size:14px;">🔊</button>' +
+        '<button class="speak-btn" data-word="' + escapeHtml(w.word) + '" style="margin-left:auto;padding:10px 14px;background:#fff;color:#92400e;border:1.5px solid #b45309;border-radius:10px;font-size:18px;line-height:1;flex-shrink:0;">🔊</button>' +
       '</div></div>';
   }
   // attach speak handler delegation for the daily word button (existing delegation handles translate inputs only)
