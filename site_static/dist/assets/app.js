@@ -4,8 +4,8 @@
 // (attached once, catches all dynamically created translate inputs)
 document.addEventListener('input', function(e) {
   var inp = e.target;
-  if (inp.tagName !== 'INPUT' || !inp.dataset.target) return;
-  var target = (inp.dataset.target || '').toLowerCase().replace(/[^a-z']/g, '');
+  if (inp.tagName !== 'INPUT' || !inp.dataset.check) return;
+  var target = (inp.dataset.check || '').toLowerCase().replace(/[^a-z']/g, '');
   var val = (inp.value || '').toLowerCase().replace(/[^a-z']/g, '');
   if (val && val === target) {
     inp.style.border = '2px solid #4caf50';
@@ -77,6 +77,10 @@ document.addEventListener('input', function(e) {
       word_stats: {},
       wrong_grammar: [],
       flashcard_history: [],
+      custom_vocab: [],          // #6 imported words
+      card_states: {},           // #1 FSRS (SM-2)
+      chat_history: [],          // #12 AI dialogue
+      achievements_unlocked: {}, // #7 achievements
     };
   }
   function saveProgress() {
@@ -281,6 +285,11 @@ document.addEventListener('input', function(e) {
     for (const t of Object.values(D.vocab)) {
       for (const w of t.words) arr.push({ ...w, topic: t.topic });
     }
+    if (progress.custom_vocab && progress.custom_vocab.length) {
+      for (const w of progress.custom_vocab) {
+        arr.push({ ...w, topic: '__custom__', 例句: w.例句 || '' });
+      }
+    }
     return arr;
   }
   function getDifficultyCfg() { return D.difficulty_config[difficulty]; }
@@ -414,6 +423,11 @@ document.addEventListener('input', function(e) {
     'stats': renderStats,
     'progress': renderProgress,
     'knowledge': renderKnowledge,
+    'review': renderReview,
+    'achievements': renderAchievements,
+    'vocab-import': renderVocabImport,
+    'dictation': renderDictation,
+    'chat': renderChat,
   };
   function navigate(hash) { window.location.hash = '#/' + hash; }
   function parseRoute() {
@@ -457,6 +471,8 @@ document.addEventListener('input', function(e) {
           <div style="font-size:56px;">📚</div>
           <h1>初一英语打卡</h1>
         </div>
+
+        ${renderDailyWordCard()}
 
         <div class="card">
           <div class="card-title">⚙️ 练习难度</div>
@@ -507,6 +523,14 @@ document.addEventListener('input', function(e) {
         <a class="btn btn-secondary" href="#/stats">📊 学习统计</a>
         <a class="btn btn-secondary" href="#/progress">📈 进度概览</a>
         <a class="btn btn-secondary" href="#/knowledge">📖 知识课程</a>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
+          <a class="btn btn-secondary" href="#/review">🔄 上次回顾</a>
+          <a class="btn btn-secondary" href="#/achievements">🏆 成就</a>
+          <a class="btn btn-secondary" href="#/vocab-import">📥 导入词表</a>
+          <a class="btn btn-secondary" href="#/dictation">✍️ 听写</a>
+          <a class="btn btn-secondary" href="#/chat">💬 AI 对话</a>
+        </div>
       </div>
     `;
 
@@ -1441,6 +1465,22 @@ document.addEventListener('input', function(e) {
         </div>
 
         <div class="card">
+          <div class="card-title">📅 打卡热力图</div>
+          ${renderHeatmap()}
+        </div>
+
+        <div class="card">
+          <div class="card-title">💾 进度备份 / 还原</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <button class="btn btn-secondary" id="export-progress-btn">📤 导出 JSON</button>
+            <label class="btn btn-secondary" style="cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;">
+              📥 导入 JSON
+              <input type="file" id="import-progress-input" accept="application/json,.json" style="display:none;">
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
           <div class="card-title">各话题错题分布</div>
           ${parentStats.length === 0 ? '<div style="text-align:center;color:#999;padding:12px 0;">暂无错题数据，继续加油！</div>' : ''}
           ${parentStats.map(p => `
@@ -1464,6 +1504,14 @@ document.addEventListener('input', function(e) {
         </div>
       </div>
     `;
+
+    const eb = app.querySelector('#export-progress-btn');
+    if (eb) eb.onclick = () => exportProgressJson();
+    const ib = app.querySelector('#import-progress-input');
+    if (ib) ib.onchange = (ev) => {
+      const f = ev.target.files && ev.target.files[0];
+      if (f) importProgressJson(f);
+    };
   }
 
   // ─── 视图：Progress ───────────────────────────────
@@ -1566,6 +1614,492 @@ document.addEventListener('input', function(e) {
   function extractSections(titles) {
     return titles.map(extractSection).filter(Boolean).join('\n\n');
   }
+
+// ─── Borrowed features (batch 1-3) ──────────────────
+  const HEATMAP_WEEKS = 16;
+
+  // #3 heatmap
+  function computeHeatmap(checkins) {
+    const counts = {};
+    for (const c of (checkins || [])) if (c && c.date) counts[c.date] = (counts[c.date] || 0) + 1;
+    const cells = [];
+    const today = new Date();
+    for (let i = HEATMAP_WEEKS * 7 - 1; i >= 0; i--) {
+      const d = new Date(today.getTime() - i * 86400000);
+      const k = d.toISOString().split('T')[0];
+      const n = counts[k] || 0;
+      cells.push({ date: k, count: n, level: n === 0 ? 0 : Math.min(4, n) });
+    }
+    return cells;
+  }
+  function renderHeatmap() {
+    const cells = computeHeatmap(progress.checkins);
+    const cols = Math.ceil(cells.length / 7);
+    const palette = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
+    let html = '<div style="overflow-x:auto;padding:4px 0;"><div style="display:grid;grid-template-columns:repeat(' + cols + ',12px);gap:2px;">';
+    for (let i = 0; i < cells.length; i++) {
+      const c = cells[i];
+      html += '<div title="' + c.date + ' · ' + c.count + ' 次" style="width:12px;height:12px;border-radius:2px;background:' + palette[c.level] + ';"></div>';
+    }
+    html += '</div></div><div style="display:flex;justify-content:flex-end;align-items:center;gap:4px;font-size:10px;color:#777;margin-top:6px;">少 ';
+    for (const p of palette) html += '<span style="display:inline-block;width:10px;height:10px;background:' + p + ';border-radius:2px;margin:0 1px;"></span>';
+    html += ' 多</div>';
+    return html;
+  }
+
+  // #14 backup
+  function exportProgressJson() {
+    const blob = new Blob([JSON.stringify(progress, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'english-checkin-' + today() + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+    toast('已导出 JSON');
+  }
+  function importProgressJson(file) {
+    const r = new FileReader();
+    r.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        if (!data || typeof data !== 'object' || !Array.isArray(data.checkins)) {
+          toast('格式不对', 2500); return;
+        }
+        if (!confirm('确定覆盖当前进度吗？建议先导出当前进度作为备份。')) return;
+        progress = Object.assign(defaultProgress(), data);
+        progress.card_states = data.card_states || {};
+        progress.custom_vocab = data.custom_vocab || [];
+        progress.chat_history = data.chat_history || [];
+        progress.achievements_unlocked = data.achievements_unlocked || {};
+        saveProgress();
+        render();
+        toast('已导入');
+      } catch (e) { toast('解析失败: ' + e.message, 3000); }
+    };
+    r.readAsText(file, 'utf-8');
+  }
+
+  // #4 daily word (deterministic by day-of-year)
+  function pickDailyWord() {
+    const cfg = getDifficultyCfg();
+    const blockTopics = new Set(cfg.block_topics || []);
+    const blocked = new Set([...D.simple_words, ...(cfg.extra_block || [])]);
+    const pool = [];
+    for (const [k, t] of Object.entries(D.vocab)) {
+      const simple = (t.topic.split('(')[0] || '').trim();
+      if (blockTopics.has(simple)) continue;
+      for (const w of (t.words || [])) {
+        const wl = (w.word || '').toLowerCase();
+        if (wl && !blocked.has(wl)) pool.push({ ...w, topic: simple || t.topic });
+      }
+    }
+    if (progress.custom_vocab && progress.custom_vocab.length) {
+      for (const w of progress.custom_vocab) pool.push({ ...w, topic: '__custom__' });
+    }
+    if (pool.length === 0) return null;
+    const d = new Date();
+    const seed = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000);
+    return pool[seed % pool.length];
+  }
+  function renderDailyWordCard() {
+    const w = pickDailyWord();
+    if (!w) return '';
+    return '<div class="card" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">' +
+      '<div style="font-size:12px;color:#92400e;font-weight:bold;">📌 每日一词</div>' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-top:6px;">' +
+        '<div style="flex:1;"><div style="font-size:24px;font-weight:bold;color:#92400e;">' + escapeHtml(w.word) + '</div>' +
+        (w.pron ? '<div style="font-size:13px;color:#92400e;">' + escapeHtml(w.pron) + '</div>' : '') +
+        '<div style="font-size:14px;color:#451a03;margin-top:4px;">' + escapeHtml(w.cn || '') + '</div></div>' +
+        '<button class="btn btn-secondary speak-btn" data-word="' + escapeHtml(w.word) + '" style="min-width:48px;">🔊</button>' +
+      '</div></div>';
+  }
+  // attach speak handler delegation for the daily word button (existing delegation handles translate inputs only)
+  document.addEventListener('click', function(e) {
+    const t = e.target.closest && e.target.closest('.speak-btn');
+    if (t) speak(t.dataset.word);
+  });
+
+  // #9 last-checkin review
+  function lastCheckinDate() {
+    const cs = progress.checkins || [];
+    return cs.length ? cs[cs.length - 1].date : null;
+  }
+  function getCheckin(date) {
+    return (progress.checkins || []).find(c => c.date === date);
+  }
+  function renderReview(app) {
+    const last = lastCheckinDate();
+    if (!last) {
+      app.innerHTML = topBar('上次打卡回顾') + '<div class="container"><div class="card"><p>还没有打卡记录</p><a class="btn btn-primary" href="#/home">返回</a></div></div>';
+      return;
+    }
+    const c = getCheckin(last);
+    const ww = (progress.wrong_words || []).slice(-10).reverse();
+    let wrongHtml = ww.length === 0
+      ? '<p style="color:#888;font-size:13px;">最近没有错词 ✨</p>'
+      : ww.map(w => '<div style="padding:6px 0;border-bottom:1px solid #f0f0f0;"><strong>' + escapeHtml(w.word || '') + '</strong> · <span style="color:#555;">' + escapeHtml(w.cn || '') + '</span><div style="font-size:11px;color:#999;">错于 ' + escapeHtml(w.date || '') + '</div></div>').join('');
+    app.innerHTML = topBar('上次打卡回顾') +
+      '<div class="container">' +
+        '<div class="card"><div class="card-title">📅 上次打卡 · ' + escapeHtml(last) + '</div>' +
+          '<div class="stat-row">' +
+            '<div class="stat"><div class="stat-num">' + (c.score || 0) + '%</div><div class="stat-label">正确率</div></div>' +
+            '<div class="stat"><div class="stat-num">' + (((c.vocab || []).length || c.vocab_count || 0)) + '</div><div class="stat-label">词汇</div></div>' +
+          '</div></div>' +
+        '<div class="card"><div class="card-title">📒 最近 10 个错词</div>' + wrongHtml + '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
+          '<a class="btn btn-primary" href="#/learn">🚀 今日打卡</a>' +
+          '<a class="btn btn-secondary" href="#/errors">📒 错题本</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+  // #1 FSRS — SM-2 simplified client-side
+  function fsrsReview(word, correct) {
+    const today = new Date().toISOString().split('T')[0];
+    const states = progress.card_states = progress.card_states || {};
+    let card = states[word];
+    if (!card) card = states[word] = { ease: 2.5, interval: 0, due: today, reviews: 0, lapses: 0 };
+    card.reviews = (card.reviews || 0) + 1;
+    if (correct) {
+      card.interval = card.interval === 0 ? 1 : (card.interval === 1 ? 3 : Math.round(card.interval * card.ease));
+      card.ease = Math.min(2.8, card.ease + 0.05);
+    } else {
+      card.lapses = (card.lapses || 0) + 1;
+      card.interval = 1;
+      card.ease = Math.max(1.3, card.ease - 0.2);
+    }
+    const due = new Date(); due.setDate(due.getDate() + card.interval);
+    card.due = due.toISOString().split('T')[0];
+    saveProgress();
+    return card;
+  }
+  function fsrsDueWords(limit) {
+    limit = limit || 3;
+    const today = new Date().toISOString().split('T')[0];
+    const states = progress.card_states || {};
+    const due = [];
+    for (const [word, st] of Object.entries(states)) {
+      if (st && st.due && st.due <= today) due.push(word);
+    }
+    if (due.length < limit) {
+      const seen = new Set(due.map(w => w.toLowerCase()));
+      for (const w of (progress.wrong_words || [])) { const k = (w.word || '').toLowerCase(); if (k && !seen.has(k)) { due.push(w.word); seen.add(k); } }
+      for (const w of (progress.vocab_mastered || [])) { const k = w.toLowerCase(); if (!seen.has(k)) { due.push(w); seen.add(k); } }
+    }
+    return due.slice(0, limit);
+  }
+
+  // #7 achievements
+  const ACHIEVEMENTS = [
+    { id: 'first_checkin', name: '初出茅庐', desc: '完成第一次打卡', check: p => p.total_days >= 1 },
+    { id: 'streak_3', name: '连续 3 天', desc: '连续打卡 3 天', check: p => (p.streak || 0) >= 3 },
+    { id: 'streak_7', name: '连续一周', desc: '连续打卡 7 天', check: p => (p.streak || 0) >= 7 },
+    { id: 'vocab_50', name: '词汇新秀', desc: '掌握 50 个词', check: p => p.vocab_mastered.length >= 50 },
+    { id: 'vocab_200', name: '词汇达人', desc: '掌握 200 个词', check: p => p.vocab_mastered.length >= 200 },
+    { id: 'vocab_500', name: '词汇大师', desc: '掌握 500 个词', check: p => p.vocab_mastered.length >= 500 },
+    { id: 'first_perfect', name: '满分首秀', desc: '打卡正确率 ≥ 90%', check: p => (p.checkins || []).some(c => (c.score || 0) >= 90) },
+    { id: 'grammar_30', name: '语法入门', desc: '掌握 30 个语法点', check: p => p.grammar_mastered.length >= 30 },
+    { id: 'flashcard_50', name: '闪卡熟练', desc: '闪卡练习 50 次', check: p => (p.flashcard_history || []).length >= 50 },
+    { id: 'imported_vocab', name: '自力更生', desc: '导入自定义词表', check: p => (p.custom_vocab || []).length > 0 },
+  ];
+  function evaluateAchievements() {
+    const unlocked = progress.achievements_unlocked = progress.achievements_unlocked || {};
+    let changed = false;
+    for (const a of ACHIEVEMENTS) {
+      if (!unlocked[a.id] && a.check(progress)) { unlocked[a.id] = new Date().toISOString(); changed = true; }
+    }
+    if (changed) saveProgress();
+    return unlocked;
+  }
+  function renderAchievements(app) {
+    const unlocked = evaluateAchievements();
+    app.innerHTML = topBar('成就系统') +
+      '<div class="container">' +
+        ACHIEVEMENTS.map(a => {
+          const got = !!unlocked[a.id];
+          return '<div class="card" style="display:flex;align-items:center;gap:12px;' + (got ? '' : 'opacity:0.5;') + '">' +
+            '<div style="font-size:32px;">' + (got ? '🏆' : '🔒') + '</div>' +
+            '<div style="flex:1;"><strong>' + escapeHtml(a.name) + '</strong>' +
+              '<div style="font-size:12px;color:#555;">' + escapeHtml(a.desc) + '</div>' +
+              (got ? '<div style="font-size:10px;color:#999;">解锁于 ' + escapeHtml((unlocked[a.id] || '').split('T')[0]) + '</div>' : '') +
+            '</div></div>';
+        }).join('') +
+        '<div class="card" style="text-align:center;color:#555;">已解锁 ' + Object.keys(unlocked).length + ' / ' + ACHIEVEMENTS.length + '</div>' +
+      '</div>';
+  }
+
+  // #6 custom vocab import
+  function parsePastedVocab(text) {
+    const out = [], lines = (text || '').split(/\r?\n/);
+    for (const raw of lines) {
+      const line = raw.trim();
+      if (!line || line.startsWith('#')) continue;
+      let m;
+      if ((m = line.match(/^([^/:\s,]+)\s*\/\s*([^/\s]+)\s*\/\s*:\s*(.+)$/))) {
+        out.push({ word: m[1].trim(), pron: m[2].trim(), cn: m[3].trim() });
+      } else if ((m = line.match(/^([^:,]+):\s*(.+)$/))) {
+        out.push({ word: m[1].trim(), cn: m[2].trim() });
+      } else if ((m = line.match(/^([^,]+),([^,]*),(.+)$/))) {
+        out.push({ word: m[1].trim(), pron: m[2].trim(), cn: m[3].trim() });
+      } else {
+        out.push({ word: line });
+      }
+    }
+    const seen = new Set();
+    return out.filter(w => {
+      const k = (w.word || '').toLowerCase();
+      if (!w.word || seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  }
+  function renderVocabImport(app) {
+    const count = (progress.custom_vocab || []).length;
+    app.innerHTML = topBar('导入自定义词表') +
+      '<div class="container">' +
+        '<div class="card"><div class="card-title">📋 粘贴词表</div>' +
+          '<p style="font-size:12px;color:#555;">一行一词，支持:<br>' +
+            '· <code>word</code><br>· <code>word: 中文</code><br>' +
+            '· <code>word /pron/: 中文</code><br>· <code>word,pron,中文</code>' +
+          '</p>' +
+          '<textarea id="vocab-textarea" rows="10" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;font-size:13px;font-family:monospace;" placeholder="apple: 苹果&#10;banana /ˈbænənə/: 香蕉"></textarea>' +
+          '<div style="display:flex;gap:8px;margin-top:8px;">' +
+            '<button class="btn btn-primary" id="vocab-save-btn" style="flex:2;">💾 保存导入</button>' +
+            (count ? '<button class="btn btn-danger" id="vocab-clear-btn" style="flex:1;">清空</button>' : '') +
+          '</div>' +
+          '<div id="vocab-status" style="margin-top:8px;font-size:12px;color:#555;"></div>' +
+        '</div>' +
+        (count ? '<div class="card"><div class="card-title">已导入 (' + count + ')</div>' +
+          progress.custom_vocab.slice(0, 30).map(w => '<div style="padding:4px 0;border-bottom:1px solid #f0f0f0;"><strong>' + escapeHtml(w.word) + '</strong>' + (w.cn ? ' · ' + escapeHtml(w.cn) : '') + '</div>').join('') +
+          (count > 30 ? '<div style="font-size:11px;color:#999;">…还有 ' + (count - 30) + ' 个</div>' : '') +
+        '</div>' : '') +
+      '</div>';
+    app.querySelector('#vocab-save-btn').onclick = () => {
+      const text = app.querySelector('#vocab-textarea').value;
+      const parsed = parsePastedVocab(text);
+      if (!parsed.length) { document.getElementById('vocab-status').textContent = '没解析到任何词，检查格式'; return; }
+      progress.custom_vocab = parsed;
+      progress.card_states = progress.card_states || {};
+      saveProgress();
+      toast('已导入 ' + parsed.length + ' 个词');
+      render();
+    };
+    const cl = app.querySelector('#vocab-clear-btn');
+    if (cl) cl.onclick = () => {
+      if (!confirm('清空已导入的词表？')) return;
+      progress.custom_vocab = [];
+      saveProgress();
+      toast('已清空');
+      render();
+    };
+  }
+
+  // #8 word roots (lookup table, inline)
+  const PREFIX_ROOTS = [
+    { p: 'un-', m: '不/相反' }, { p: 're-', m: '再/回' }, { p: 'in-', m: '不' },
+    { p: 'im-', m: '不' }, { p: 'dis-', m: '不/分开' }, { p: 'pre-', m: '前' },
+    { p: 'post-', m: '后' }, { p: 'mis-', m: '错' }, { p: 'over-', m: '过度' },
+    { p: 'under-', m: '不足' }, { p: 'sub-', m: '下/次' }, { p: 'super-', m: '上/超' },
+    { p: 'inter-', m: '之间' }, { p: 'trans-', m: '跨/转换' }, { p: 'auto-', m: '自动' },
+    { p: 'co-', m: '共同' }, { p: 'anti-', m: '反对' }, { p: 'ex-', m: '前/出' },
+    { p: 'de-', m: '下/去' }, { p: 'en-', m: '使' },
+  ];
+  const SUFFIX_ROOTS = [
+    { s: '-tion', m: '名词·行为/状态' }, { s: '-sion', m: '名词·行为/状态' },
+    { s: '-ment', m: '名词·行为/结果' }, { s: '-ness', m: '名词·性质' },
+    { s: '-ful', m: '形容词·充满' }, { s: '-less', m: '形容词·无' },
+    { s: '-able', m: '形容词·能' }, { s: '-ible', m: '形容词·能' },
+    { s: '-er', m: '名词·人/比较级' }, { s: '-or', m: '名词·人' },
+    { s: '-ist', m: '名词·人/信仰者' }, { s: '-ize', m: '动词·使' },
+    { s: '-ate', m: '动词·使/形容词' }, { s: '-ly', m: '副词/形容词' },
+    { s: '-ous', m: '形容词·多' }, { s: '-al', m: '形容词·属于' },
+    { s: '-ic', m: '形容词·…的' }, { s: '-ive', m: '形容词·倾向' },
+    { s: '-ed', m: '形容词·被动' }, { s: '-ing', m: '形容词·主动/名词' },
+  ];
+  function findRoot(word) {
+    const w = (word || '').toLowerCase();
+    if (!w) return null;
+    const sp = [...PREFIX_ROOTS].sort((a, b) => b.p.length - a.p.length);
+    for (const pr of sp) if (w.startsWith(pr.p)) return pr;
+    const ss = [...SUFFIX_ROOTS].sort((a, b) => b.s.length - a.s.length);
+    for (const sr of ss) if (w.endsWith(sr.s)) return sr;
+    return null;
+  }
+
+  // #5 dictation
+  function renderDictation(app) {
+    const all = allWords().filter(w => !(progress.vocab_mastered || []).includes(w.word));
+    const pool = all.length ? sample(all, Math.min(5, all.length)) : [];
+    app.innerHTML = topBar('听写模式') +
+      '<div class="container">' +
+        '<div class="card"><div class="card-title">📝 听 5 个词，写出拼写</div>' +
+          (pool.length === 0 ? '<p style="color:#555;">词都掌握了 🎉</p>' :
+            '<div id="d-items">' +
+              pool.map((w, i) => {
+                const masked = w.word[0] + '_'.repeat(Math.max(1, w.word.length - 2)) + (w.word.length > 1 ? w.word[w.word.length - 1] : '');
+                return '<div class="d-item" data-idx="' + i + '" data-word="' + escapeHtml(w.word) + '" data-cn="' + escapeHtml(w.cn || '') + '" style="padding:10px 0;border-bottom:1px solid #f0f0f0;">' +
+                  '<div style="display:flex;align-items:center;gap:8px;">' +
+                    '<span style="font-family:monospace;font-size:20px;font-weight:bold;color:#667eea;letter-spacing:2px;">' + escapeHtml(masked) + '</span>' +
+                    '<button class="btn btn-secondary speak-btn" data-word="' + escapeHtml(w.word) + '" style="min-width:48px;">🔊</button>' +
+                  '</div>' +
+                  '<input type="text" class="d-input" data-check="' + escapeHtml(w.word) + '" style="width:100%;padding:8px;margin-top:8px;border:2px solid #ddd;border-radius:6px;font-size:16px;" placeholder="拼写…" autocomplete="off" autocapitalize="off" spellcheck="false">' +
+                  '<div class="d-feedback" style="font-size:12px;margin-top:4px;color:#777;">' + escapeHtml(w.cn || '') + '</div>' +
+                '</div>';
+              }).join('') +
+            '</div>') +
+          '<div style="display:flex;gap:8px;margin-top:12px;">' +
+            '<button class="btn btn-secondary" id="d-reveal" style="flex:1;">👁 显示答案</button>' +
+            '<button class="btn btn-primary" id="d-check" style="flex:1;">✅ 提交</button>' +
+          '</div>' +
+          '<div id="d-result" style="margin-top:10px;font-size:14px;"></div>' +
+        '</div>' +
+      '</div>';
+    if (pool.length === 0) return;
+    app.querySelectorAll('.d-input').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const t = (inp.dataset.check || '').toLowerCase().replace(/[^a-z']/g, '');
+        const v = (inp.value || '').toLowerCase().replace(/[^a-z']/g, '');
+        inp.style.borderColor = (v && t && v === t) ? '#4caf50' : (v ? '#ef5350' : '#ddd');
+      });
+    });
+    app.querySelector('#d-reveal').onclick = () => {
+      app.querySelectorAll('.d-item').forEach(d => {
+        d.querySelector('.d-feedback').innerHTML = '<span style="color:#667eea;font-weight:bold;">' + escapeHtml(d.dataset.word) + '</span>';
+      });
+    };
+    app.querySelector('#d-check').onclick = () => {
+      let correct = 0;
+      app.querySelectorAll('.d-item').forEach(d => {
+        const target = (d.dataset.word || '').toLowerCase().replace(/[^a-z']/g, '');
+        const inp = d.querySelector('.d-input');
+        const val = (inp.value || '').toLowerCase().replace(/[^a-z']/g, '');
+        const fb = d.querySelector('.d-feedback');
+        if (val && val === target) {
+          correct++;
+          fb.innerHTML = '<span style="color:#2e7d32;">✓ ' + escapeHtml(d.dataset.word) + '</span>';
+          fsrsReview(d.dataset.word, true);
+        } else {
+          fb.innerHTML = '<span style="color:#c62828;">✗ 正解: ' + escapeHtml(d.dataset.word) + '</span>';
+          fsrsReview(d.dataset.word, false);
+          const k = (d.dataset.word || '').toLowerCase();
+          progress.word_stats[k] = progress.word_stats[k] || { total: 0, correct: 0, wrong: 0 };
+          progress.word_stats[k].wrong = (progress.word_stats[k].wrong || 0) + 1;
+        }
+        inp.disabled = true;
+      });
+      const total = pool.length;
+      saveProgress();
+      const r = app.querySelector('#d-result');
+      r.innerHTML = '<strong>' + correct + ' / ' + total + '</strong> ' + (correct === total ? '🎉 全对!' : correct >= total * 0.6 ? '👍 不错' : '继续加油');
+      r.style.color = correct >= total * 0.6 ? '#27ae60' : '#e67e22';
+    };
+  }
+
+  // #12 AI chat
+  const CHAT_SYSTEM_PROMPT = 'You are a friendly English tutor chatting with a Chinese middle-school student (初一 level, around 12-13 years old, CEFR A2). Rules: 1. Reply in 1-2 SHORT sentences (max 20 words). Simple vocabulary only. 2. ALWAYS end with a question to keep the conversation going. 3. If the student makes a grammar/vocab mistake, gently correct it in parentheses. 4. Be encouraging.';
+  const CHAT_CFG_KEY = 'ck_chat_cfg_v1';
+  function getChatCfg() {
+    try { const raw = localStorage.getItem(CHAT_CFG_KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+  }
+  function setChatCfg(cfg) {
+    if (cfg) localStorage.setItem(CHAT_CFG_KEY, JSON.stringify(cfg));
+    else localStorage.removeItem(CHAT_CFG_KEY);
+  }
+  async function callLlmChat(messages) {
+    const cfg = getChatCfg();
+    if (!cfg || !cfg.base_url || !cfg.api_key) return null;
+    try {
+      const r = await fetch(cfg.base_url.replace(/\/$/, '') + '/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + cfg.api_key },
+        body: JSON.stringify({ model: cfg.model || 'gpt-3.5-turbo', messages: messages, max_tokens: 200, temperature: 0.7 })
+      });
+      if (!r.ok) return null;
+      const data = await r.json();
+      return data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+    } catch (e) { return null; }
+  }
+  function renderChat(app) {
+    const cfg = getChatCfg();
+    const ready = !!(cfg && cfg.base_url && cfg.api_key);
+    const hist = progress.chat_history = progress.chat_history || [];
+    app.innerHTML = topBar('AI 对话', false) +
+      '<div class="container" style="display:flex;flex-direction:column;">' +
+        (ready ? '' : '<div class="card" style="background:#fdecea;color:#c62828;font-size:13px;">⚠ 未设置 LLM。点下方"设置"配置 base_url / api_key / model。<br><b>注意</b>: API key 存在本地, 不要在公共设备用。</div>') +
+        '<div class="card" style="min-height:240px;max-height:50vh;overflow-y:auto;margin-bottom:8px;" id="chat-card">' +
+          (hist.length === 0
+            ? '<div class="bubble-bot" style="display:inline-block;background:#f0f0f0;padding:8px 12px;border-radius:12px;font-size:14px;">👋 你好！我是你的英语对话伙伴。试试用英语问我：What\'s your name? / How old are you?</div>'
+            : hist.map(m => '<div style="margin:6px 0;text-align:' + (m.role === 'user' ? 'right' : 'left') + ';"><span class="' + (m.role === 'user' ? 'bubble-user' : 'bubble-bot') + '" style="display:inline-block;max-width:80%;padding:8px 12px;border-radius:12px;font-size:14px;line-height:1.4;word-wrap:break-word;' + (m.role === 'user' ? 'background:#667eea;color:white;' : 'background:#f0f0f0;color:#333;') + '">' + escapeHtml(m.content || '') + '</span></div>').join('')) +
+        '</div>' +
+        '<div style="display:flex;gap:6px;">' +
+          '<input id="chat-input" type="text" placeholder="用英语输入…" autocomplete="off" style="flex:1;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:14px;">' +
+          '<button class="btn btn-primary" id="chat-send-btn" style="min-width:64px;">发送</button>' +
+        '</div>' +
+        '<div style="display:flex;gap:6px;margin-top:6px;">' +
+          '<button class="btn btn-secondary" id="chat-cfg-btn" style="flex:1;font-size:12px;padding:6px;">⚙ 设置</button>' +
+          '<button class="btn btn-secondary" id="chat-clear-btn" style="flex:1;font-size:12px;padding:6px;">🗑 清空</button>' +
+        '</div>' +
+      '</div>';
+    const card = app.querySelector('#chat-card');
+    if (card) card.scrollTop = card.scrollHeight;
+    const send = async () => {
+      const inp = app.querySelector('#chat-input');
+      const msg = (inp.value || '').trim();
+      if (!msg) return;
+      hist.push({ role: 'user', content: msg });
+      const divU = document.createElement('div');
+      divU.style.cssText = 'margin:6px 0;text-align:right;';
+      divU.innerHTML = '<span style="display:inline-block;max-width:80%;padding:8px 12px;border-radius:12px;background:#667eea;color:white;">' + escapeHtml(msg) + '</span>';
+      card.appendChild(divU); card.scrollTop = card.scrollHeight;
+      inp.value = '';
+      const divT = document.createElement('div');
+      divT.id = 'chat-typing';
+      divT.style.cssText = 'margin:6px 0;text-align:left;font-size:12px;color:#999;';
+      divT.textContent = 'AI 正在输入…';
+      card.appendChild(divT); card.scrollTop = card.scrollHeight;
+      const msgs = [{ role: 'system', content: CHAT_SYSTEM_PROMPT }].concat(hist.slice(-6).map(h => ({ role: h.role, content: h.content })));
+      const reply = await callLlmChat(msgs);
+      const t = document.getElementById('chat-typing'); if (t) t.remove();
+      if (reply) {
+        hist.push({ role: 'assistant', content: reply });
+        progress.chat_history = hist.slice(-20);
+        saveProgress();
+        const divA = document.createElement('div');
+        divA.style.cssText = 'margin:6px 0;text-align:left;';
+        divA.innerHTML = '<span style="display:inline-block;max-width:80%;padding:8px 12px;border-radius:12px;background:#f0f0f0;color:#333;">' + escapeHtml(reply) + '</span>';
+        card.appendChild(divA); card.scrollTop = card.scrollHeight;
+      } else {
+        const divE = document.createElement('div');
+        divE.style.cssText = 'margin:6px 0;text-align:left;color:#c62828;font-size:12px;';
+        divE.textContent = '✗ AI 没回应（检查设置或网络）';
+        card.appendChild(divE);
+      }
+    };
+    const sBtn = app.querySelector('#chat-send-btn'); if (sBtn) sBtn.onclick = send;
+    const inp = app.querySelector('#chat-input');
+    if (inp) inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') send(); });
+    const cfgBtn = app.querySelector('#chat-cfg-btn');
+    if (cfgBtn) cfgBtn.onclick = () => {
+      const cur = getChatCfg() || {};
+      const base = prompt('LLM base_url (e.g. https://api.openai.com/v1):', cur.base_url || '');
+      if (!base) return;
+      const key = prompt('API key:', cur.api_key || '');
+      if (!key) return;
+      const model = prompt('Model (e.g. gpt-3.5-turbo):', cur.model || 'gpt-3.5-turbo');
+      setChatCfg({ base_url: base, api_key: key, model: model || 'gpt-3.5-turbo' });
+      toast('已保存');
+      render();
+    };
+    const clBtn = app.querySelector('#chat-clear-btn');
+    if (clBtn) clBtn.onclick = () => {
+      if (!confirm('清空对话？')) return;
+      progress.chat_history = [];
+      saveProgress();
+      render();
+    };
+  }
+
 
   // ─── 启动 ──────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', render);

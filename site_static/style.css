@@ -436,3 +436,8 @@ input[type="text"] {
       .markdown blockquote { color: #aaa; background: #2d2d3e; }
       .markdown pre { background: #0d0d1a; }
 }
+
+/* ===== Borrowed features (batch 1-3) ===== */
+.heatmap-wrap { user-select: none; }
+.bubble-user { /* used inline by chat */ }
+.bubble-bot  { /* used inline by chat */ }
