@@ -442,13 +442,29 @@ document.addEventListener('input', function(e) {
     const app = document.getElementById('app');
     app.innerHTML = '';
     fn(app, r.params);
+    // F. FAB: show on non-home routes
+    let fab = document.getElementById('fab-home');
+    if (!fab) {
+      fab = document.createElement('button');
+      fab.id = 'fab-home';
+      fab.className = 'fab';
+      fab.setAttribute('aria-label', '返回首页');
+      fab.innerHTML = '🏠';
+      fab.onclick = () => navigate('home');
+      document.body.appendChild(fab);
+    }
+    fab.classList.toggle('hidden', r.name === 'home' || r.name === '');
   }
 
   // ─── 视图：顶部栏 ──────────────────────────────────
   function topBar(title, showBack = true) {
+    const streak = (typeof progress !== 'undefined' && progress) ? (progress.streak || 0) : 0;
+    const streakBadge = streak > 0
+      ? `<span style="background:rgba(255,255,255,0.18);padding:2px 8px;border-radius:10px;font-size:12px;font-weight:600;margin-left:8px;flex-shrink:0;">🔥${streak}</span>`
+      : '';
     return `<div class="top-bar">
-      ${showBack ? `<a href="#/home" class="back">←</a>` : '<span style="width:32px"></span>'}
-      <div class="title">${escapeHtml(title)}</div>
+      ${showBack ? `<a href="#/home" class="back" aria-label="返回首页">←</a>` : '<span style="width:32px"></span>'}
+      <div class="title">${escapeHtml(title)}${streakBadge}</div>
     </div>`;
   }
   function checkedInToday() {
@@ -467,9 +483,9 @@ document.addEventListener('input', function(e) {
     app.innerHTML = `
       ${topBar('初一英语打卡', false)}
       <div class="container">
-        <div style="text-align:center;padding:24px 0 8px;">
-          <div style="font-size:56px;">📚</div>
-          <h1>初一英语打卡</h1>
+        <div class="hero-block" style="text-align:center;">
+          <div class="hero-icon">📚</div>
+          <h1 class="hero-title">初一英语打卡</h1>
         </div>
 
         ${renderDailyWordCard()}
@@ -489,10 +505,9 @@ document.addEventListener('input', function(e) {
         </div>
 
         ${done ? `
-        <div class="card">
-          <div style="text-align:center;color:#27ae60;font-size:18px;font-weight:bold;padding:8px 0;">
-            ✅ 今日已完成打卡！
-          </div>
+        <div class="card" style="text-align:center;background:linear-gradient(135deg,#eafaf1,#d4f5e2);">
+          <div style="font-size:40px;">🎉</div>
+          <div style="color:#27ae60;font-size:18px;font-weight:bold;margin-top:4px;">今日已完成打卡！</div>
           <div class="stat-row">
             <div class="stat"><div class="stat-num">${streak}</div><div class="stat-label">连续天数 🔥</div></div>
             <div class="stat"><div class="stat-num">${totalDays}</div><div class="stat-label">累计打卡</div></div>
@@ -500,18 +515,17 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary" href="#/learn">📖 继续练习（不计打卡）</a>
         </div>
         ` : `
+        <a class="btn btn-cta" href="#/learn">🚀 开始今日打卡 →</a>
         <div class="card" style="text-align:center;">
-          <div style="color:#e67e22;font-size:20px;font-weight:bold;margin-bottom:8px;">
-            🔥 连续 <span style="font-size:32px;">${streak}</span> 天
+          <div style="color:#e67e22;font-size:14px;font-weight:bold;">
+            🔥 连续 <span style="font-size:28px;">${streak}</span> 天 · 完成今日任务保持！
           </div>
-          <div style="color:#555;font-size:14px;">完成今日任务保持连续！</div>
         </div>
-        <a class="btn btn-primary" href="#/learn">🚀 开始今日打卡</a>
         `}
 
+        <div class="section-label">📚 练习</div>
         <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习 (${cfg.flashcard_count} 张)</a>
         <a class="btn btn-secondary" href="#/quiz">🎯 选择题练习</a>
-
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <a class="btn btn-secondary" href="#/tense">⏰ 时态</a>
           <a class="btn btn-secondary" href="#/preposition">🔗 介词</a>
@@ -519,12 +533,16 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary" href="#/translate-en">🔤 英译中</a>
         </div>
 
-        <a class="btn btn-secondary" href="#/errors">📒 错题本</a>
-        <a class="btn btn-secondary" href="#/stats">📊 学习统计</a>
-        <a class="btn btn-secondary" href="#/progress">📈 进度概览</a>
-        <a class="btn btn-secondary" href="#/knowledge">📖 知识课程</a>
+        <div class="section-label">📈 学习记录</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a class="btn btn-secondary" href="#/errors">📒 错题本</a>
+          <a class="btn btn-secondary" href="#/stats">📊 学习统计</a>
+          <a class="btn btn-secondary" href="#/progress">📈 进度概览</a>
+          <a class="btn btn-secondary" href="#/knowledge">📖 知识课程</a>
+        </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
+        <div class="section-label">🛠 工具</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <a class="btn btn-secondary" href="#/review">🔄 上次回顾</a>
           <a class="btn btn-secondary" href="#/achievements">🏆 成就</a>
           <a class="btn btn-secondary" href="#/vocab-import">📥 导入词表</a>
@@ -1705,13 +1723,15 @@ document.addEventListener('input', function(e) {
   function renderDailyWordCard() {
     const w = pickDailyWord();
     if (!w) return '';
-    return '<div class="card" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">' +
-      '<div style="font-size:12px;color:#92400e;font-weight:bold;">📌 每日一词</div>' +
+    return '<div class="card daily-word-card">' +
+      '<div class="dw-label">📌 每日一词</div>' +
       '<div style="display:flex;align-items:center;gap:10px;margin-top:6px;">' +
-        '<div style="flex:1;"><div style="font-size:24px;font-weight:bold;color:#92400e;">' + escapeHtml(w.word) + '</div>' +
-        (w.pron ? '<div style="font-size:13px;color:#92400e;">' + escapeHtml(w.pron) + '</div>' : '') +
-        '<div style="font-size:14px;color:#451a03;margin-top:4px;">' + escapeHtml(w.cn || '') + '</div></div>' +
-        '<button class="speak-btn" data-word="' + escapeHtml(w.word) + '" style="margin-left:auto;padding:10px 14px;background:#fff;color:#92400e;border:1.5px solid #b45309;border-radius:10px;font-size:18px;line-height:1;flex-shrink:0;">🔊</button>' +
+        '<div style="flex:1;min-width:0;">' +
+          '<div class="dw-word">' + escapeHtml(w.word) + '</div>' +
+          (w.pron ? '<div class="dw-pron">' + escapeHtml(w.pron) + '</div>' : '') +
+          '<div class="dw-cn">' + escapeHtml(w.cn || '') + '</div>' +
+        '</div>' +
+        '<button class="speak-btn" data-word="' + escapeHtml(w.word) + '" style="margin-left:auto;padding:10px 14px;background:#fff;color:#6b46c1;border:1.5px solid #b794f4;border-radius:10px;font-size:18px;line-height:1;flex-shrink:0;">🔊</button>' +
       '</div></div>';
   }
   // attach speak handler delegation for the daily word button (existing delegation handles translate inputs only)
