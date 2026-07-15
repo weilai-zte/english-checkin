@@ -427,7 +427,7 @@ document.addEventListener('input', function(e) {
     'achievements': renderAchievements,
     'vocab-import': renderVocabImport,
     'dictation': renderDictation,
-    'chat': renderChat,
+    // 'chat': renderChat, // #12 hidden by user request 2026-07-15
   };
   function navigate(hash) { window.location.hash = '#/' + hash; }
   function parseRoute() {
@@ -529,7 +529,7 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary" href="#/achievements">🏆 成就</a>
           <a class="btn btn-secondary" href="#/vocab-import">📥 导入词表</a>
           <a class="btn btn-secondary" href="#/dictation">✍️ 听写</a>
-          <a class="btn btn-secondary" href="#/chat">💬 AI 对话</a>
+          <!-- #12 AI 对话 hidden by user request 2026-07-15 -->
         </div>
       </div>
     `;
