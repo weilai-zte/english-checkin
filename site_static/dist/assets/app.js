@@ -511,7 +511,7 @@ document.addEventListener('input', function(e) {
             <button class="diff-btn ${difficulty==='medium'?'active-medium':''}" data-d="medium">🌿 中等</button>
             <button class="diff-btn ${difficulty==='hard'?'active-hard':''}" data-d="hard">🔥 困难</button>
           </div>
-          <div style="font-size:12px;color:#374151;text-align:center;">
+          <div class="difficulty-hint">
             ${difficulty==='easy'?'常用基础词汇，干扰项明显':''}
             ${difficulty==='medium'?'初中核心词汇，适度挑战':''}
             ${difficulty==='hard'?'抽象/学术词汇，复杂语法':''}

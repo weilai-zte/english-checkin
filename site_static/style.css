@@ -358,10 +358,18 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
   text-align: center;
   color: #4a5568;
 }
-.diff-btn.active-easy   { border-color: #27ae60; background: #27ae60; color: #ffffff; }
-.diff-btn.active-medium { border-color: #d97706; background: #d97706; color: #ffffff; }
-.diff-btn.active-hard   { border-color: #dc2626; background: #dc2626; color: #ffffff; }
+.diff-btn.active-easy   { border-color: #15803d; background: #15803d; color: #ffffff; }
+.diff-btn.active-medium { border-color: #b45309; background: #b45309; color: #ffffff; }
+.diff-btn.active-hard   { border-color: #b91c1c; background: #b91c1c; color: #ffffff; }
 .diff-btn.active-easy:hover, .diff-btn.active-medium:hover, .diff-btn.active-hard:hover { filter: brightness(1.08); }
+
+/* 难度说明 */
+.difficulty-hint {
+  font-size: 12px;
+  color: #4a5568;
+  text-align: center;
+  margin-top: 8px;
+}
 
 /* 知识页 markdown */
 .markdown { line-height: 1.8; color: #1a1a2e; font-size: 15px; }
@@ -415,6 +423,7 @@ input[type="text"] {
   h1, h2, h3, p { color: #e0e0e0; }
   .btn-secondary { background: #3d3d5e; color: #e0e0e0; }
   .diff-btn { background: #2d2d4e; border-color: #555580; color: #e0e6ff; font-weight: 600; }
+  .difficulty-hint { color: #cbd5e1; }
   .markdown table th { background: #2d2d4e; }
   .markdown table th, .markdown table td { border-color: #3d3d5e; }
   .quiz-word { color: #e8e8ff; }
