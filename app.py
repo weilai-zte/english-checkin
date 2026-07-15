@@ -474,11 +474,21 @@ def load_progress():
             d.setdefault("word_stats", {})
             d.setdefault("wrong_grammar", [])
             d.setdefault("flashcard_history", [])
+            d.setdefault("achievements_unlocked", {})
+            # FSRS lazy migration (#1): only runs if card_states absent;
+            # creates the key as a side effect.
+            try:
+                if "card_states" not in d and fsrs_migrate_if_needed(d):
+                    save_progress(d)
+            except Exception:
+                d.setdefault("card_states", {})
             return d
-    return {"checkins": [], "vocab_mastered": [], "grammar_mastered": [],
-            "streak": 0, "last_checkin": None, "total_days": 0,
-            "wrong_words": [], "word_stats": {}, "wrong_grammar": [],
-            "flashcard_history": []}
+    empty = {"checkins": [], "vocab_mastered": [], "grammar_mastered": [],
+             "streak": 0, "last_checkin": None, "total_days": 0,
+             "wrong_words": [], "word_stats": {}, "wrong_grammar": [],
+             "flashcard_history": [], "achievements_unlocked": {}}
+    empty["card_states"] = {}
+    return empty
 
 def save_progress(d):
     with open(DATA / "progress.json", "w", encoding="utf-8") as f:
@@ -694,6 +704,181 @@ def _set_next_review(entry, today=None):
     attempts = max(1, int(entry.get("attempts", 1)))
     entry["next_review"] = _next_review_for(today, attempts)
 
+def _fsrs_card_to_dict(card):
+    """Serialize fsrs.Card to a JSON-safe dict."""
+    return {
+        "state": int(card.state),
+        "step": card.step,
+        "stability": card.stability,
+        "difficulty": card.difficulty,
+        "due": card.due.isoformat() if card.due else None,
+        "last_review": card.last_review.isoformat() if card.last_review else None,
+    }
+
+
+def _dict_to_fsrs_card(d):
+    """Deserialize a dict (from JSON) back to fsrs.Card."""
+    from fsrs import Card, State
+    state = State(d.get("state", 0)) if d.get("state") is not None else State.Learning
+    due = d.get("due")
+    if due:
+        try:
+            due_dt = datetime.datetime.fromisoformat(due)
+            if due_dt.tzinfo is None:
+                due_dt = due_dt.replace(tzinfo=datetime.timezone.utc)
+        except (ValueError, TypeError):
+            due_dt = datetime.datetime.now(datetime.timezone.utc)
+    else:
+        due_dt = datetime.datetime.now(datetime.timezone.utc)
+    lr = d.get("last_review")
+    if lr:
+        try:
+            lr_dt = datetime.datetime.fromisoformat(lr)
+            if lr_dt.tzinfo is None:
+                lr_dt = lr_dt.replace(tzinfo=datetime.timezone.utc)
+        except (ValueError, TypeError):
+            lr_dt = None
+    else:
+        lr_dt = None
+    return Card(state=state, step=d.get("step"),
+                stability=d.get("stability"), difficulty=d.get("difficulty"),
+                due=due_dt, last_review=lr_dt)
+
+
+# ─── FSRS (#1 借鉴 Anki 默认 FSRS 间隔重复算法) ──────────────
+_FSRS_AVAILABLE = False
+try:
+    from fsrs import Scheduler, Card, Rating, State
+    _FSRS_AVAILABLE = True
+except ImportError:
+    pass
+
+_fsrs_scheduler = None
+
+
+def _get_fsrs():
+    global _fsrs_scheduler
+    if not _FSRS_AVAILABLE:
+        return None
+    if _fsrs_scheduler is None:
+        _fsrs_scheduler = Scheduler()
+    return _fsrs_scheduler
+
+
+def fsrs_migrate_if_needed(progress):
+    """One-time migration: build card_states from existing vocab_mastered + wrong_words.
+    Idempotent: skips if card_states already exists.
+    """
+    if "card_states" in progress:
+        return False
+    states = {}
+    # Migrate mastered words as Review state with high stability (long interval)
+    mastered = progress.get("vocab_mastered", [])
+    now = datetime.datetime.now(datetime.timezone.utc)
+    for w in mastered:
+        wl = w.lower() if isinstance(w, str) else w.get("word", "").lower()
+        if not wl:
+            continue
+        card = _dict_to_fsrs_card({
+            "state": int(State.Review) if _FSRS_AVAILABLE else 2,
+            "stability": 30.0,
+            "difficulty": 5.0,
+            "due": (now + datetime.timedelta(days=30)).isoformat(),
+            "last_review": now.isoformat(),
+        })
+        states[wl] = _fsrs_card_to_dict(card)
+    # Migrate wrong_words as Learning state with low stability (short interval)
+    wrong = progress.get("wrong_words", [])
+    for e in wrong:
+        wl = e.get("word", "").lower()
+        if not wl:
+            continue
+        card = _dict_to_fsrs_card({
+            "state": int(State.Learning) if _FSRS_AVAILABLE else 1,
+            "stability": 1.0,
+            "difficulty": 6.0,
+            "due": (now + datetime.timedelta(days=1)).isoformat(),
+            "last_review": now.isoformat(),
+        })
+        states[wl] = _fsrs_card_to_dict(card)
+    progress["card_states"] = states
+    return True
+
+
+def fsrs_due_words(progress, today=None, limit=3):
+    """Return up to `limit` word dicts whose FSRS due date <= today."""
+    if not _FSRS_AVAILABLE:
+        return []
+    if today is None:
+        today = datetime.date.today()
+    if isinstance(today, datetime.datetime):
+        today = today.date()
+    states = progress.get("card_states", {})
+    due_keys = []
+    for wl, d in states.items():
+        due_str = d.get("due")
+        if not due_str:
+            continue
+        try:
+            due_dt = datetime.datetime.fromisoformat(due_str)
+            due_d = due_dt.date() if isinstance(due_dt, datetime.datetime) else due_dt
+        except (ValueError, TypeError):
+            continue
+        if due_d <= today:
+            due_keys.append((wl, due_d))
+    # Sort by due date ascending (overdue first)
+    due_keys.sort(key=lambda x: x[1])
+    due_keys = due_keys[:limit]
+    # Hydrate from vocab pool
+    lookup = {}
+    try:
+        for data in load_vocab().values():
+            for w in data["words"]:
+                lookup[w["word"].lower()] = {**w, "_topic": data["topic"]}
+    except Exception:
+        pass
+    out = []
+    for wl, _ in due_keys:
+        v = lookup.get(wl)
+        if not v:
+            continue
+        out.append({
+            "word": v["word"],
+            "pron": v.get("pron", ""),
+            "cn": v.get("cn", ""),
+            "example": v.get("例句", ""),
+            "memory": v.get("记忆", ""),
+            "topic": v.get("_topic", ""),
+            "hide": "cn",
+            "is_review": True,
+        })
+    return out
+
+
+def fsrs_review(progress, word, rating_enum, today=None):
+    """Apply FSRS rating to a word's card. Mutates progress["card_states"][word].
+
+    rating_enum: fsrs.Rating.Again/Hard/Good/Easy
+    """
+    if not _FSRS_AVAILABLE:
+        return
+    if today is None:
+        today = datetime.datetime.now(datetime.timezone.utc)
+    elif isinstance(today, datetime.date) and not isinstance(today, datetime.datetime):
+        today = datetime.datetime.combine(today, datetime.time(12, 0), tzinfo=datetime.timezone.utc)
+    sched = _get_fsrs()
+    if sched is None:
+        return
+    states = progress.setdefault("card_states", {})
+    wl = word.lower()
+    if wl in states:
+        card = _dict_to_fsrs_card(states[wl])
+    else:
+        card = Card()
+    new_card, _ = sched.review_card(card, rating_enum, review_datetime=today)
+    states[wl] = _fsrs_card_to_dict(new_card)
+
+
 
 # ─── 每日任务 ────────────────────────────────────────────
 def get_daily_task():
@@ -728,8 +913,11 @@ def get_daily_task():
     # 随机选5个词（初中难度）
     selected = random.sample(candidates, min(5, len(candidates)))
 
-    # 注入错题回流 (#2)：从 wrong_words 拉取到期复习词
-    review = due_review_words(progress, limit=2)
+    # FSRS 间隔重复 (#1)：拉取到期复习词
+    try:
+        review = fsrs_due_words(progress, limit=2)
+    except Exception:
+        review = []
     review_n = len(review)
     # 把 selected 转成 vocab_items 形态；保持 word/cn 均衡（不连续出现同类 hide）
     selected_items = []
@@ -997,6 +1185,16 @@ def flashcard_rate():
     # 错题本最多200条
     progress["wrong_words"] = progress["wrong_words"][-200:]
 
+    # FSRS: 记录本次评分 (#1)
+    try:
+        if _FSRS_AVAILABLE:
+            from fsrs import Rating
+            fsrs_rating = {0: Rating.Again, 1: Rating.Good, 2: Rating.Easy}.get(rating)
+            if fsrs_rating:
+                fsrs_review(progress, word, fsrs_rating)
+    except Exception:
+        pass
+
     save_progress(progress)
     return jsonify({"ok": True})
 
@@ -1175,6 +1373,192 @@ def achievements_page():
     return render_template("achievements.html",
                            achievements=items, unlocked=unlocked,
                            total=len(items))
+
+
+# ─── 听写模式 (#5 借鉴 拓词 typing + TTS) ───────────────
+@app.route("/dictation", methods=["GET", "POST"])
+def dictation():
+    """Listen-and-type: TTS plays the word, user types the spelling."""
+    if request.method == "POST":
+        # Submit a dictation answer
+        data = request.json or {}
+        word = (data.get("word") or "").strip()
+        user_input = (data.get("input") or "").strip()
+        correct = user_input.lower() == word.lower()
+        progress = load_progress()
+        # Record via FSRS
+        try:
+            if _FSRS_AVAILABLE:
+                from fsrs import Rating
+                fsrs_review(progress, word,
+                            Rating.Good if correct else Rating.Again)
+        except Exception:
+            pass
+        # Bump word_stats
+        wl = word.lower()
+        stats = progress["word_stats"]
+        if wl not in stats:
+            stats[wl] = {"total": 0, "correct": 0, "wrong": 0, "first_seen": datetime.date.today().isoformat()}
+        stats[wl]["total"] += 1
+        if correct:
+            stats[wl]["correct"] += 1
+            # 3 consecutive correct = mastered (consistent with existing rule)
+            if stats[wl]["correct"] >= 3 and wl not in progress.get("vocab_mastered", []):
+                progress.setdefault("vocab_mastered", []).append(word)
+        else:
+            stats[wl]["wrong"] += 1
+            stats[wl]["correct"] = 0
+            # Record to wrong_words
+            existing = {e["word"].lower(): i for i, e in enumerate(progress.get("wrong_words", []))}
+            entry = {"word": word, "date": datetime.date.today().isoformat(),
+                     "attempts": stats[wl]["total"], "source": "dictation"}
+            _set_next_review(entry)
+            if wl in existing:
+                progress["wrong_words"][existing[wl]].update(entry)
+            else:
+                progress.setdefault("wrong_words", []).append(entry)
+        save_progress(progress)
+        return jsonify({"correct": correct, "expected": word,
+                        "user": user_input or "(空)",
+                        "mastered_now": correct and stats[wl]["correct"] >= 3})
+
+    # GET: prepare 5 words from current difficulty pool
+    progress = load_progress()
+    difficulty = get_difficulty()
+    pool_dict = vocab_for_difficulty(difficulty)
+    pool = []
+    for v in pool_dict.values():
+        pool.extend(v.get("words", []))
+    if not pool:
+        return render_template("dictation.html", words=[], error="无词可听写")
+    # Pick 5 words: prefer FSRS-due words first, then random
+    try:
+        due = fsrs_due_words(progress, limit=5)
+        due_words_set = {w["word"] for w in due}
+        review = [w for w in due if w["word"] in {p["word"] for p in pool}]
+        remaining = [p for p in pool if p["word"] not in due_words_set]
+        random.shuffle(remaining)
+        selected = review + remaining[:max(0, 5 - len(review))]
+    except Exception:
+        selected = random.sample(pool, min(5, len(pool)))
+    # Render: hide spelling, show cn + example
+    items = []
+    for w in selected[:5]:
+        items.append({"word": w["word"], "pron": w.get("pron", ""),
+                      "cn": w.get("cn", ""), "example": w.get("例句", "")})
+    return render_template("dictation.html", words=items)
+
+
+# ─── AI 对话练习 (#12 借鉴 Duolingo Max / Babbel) ─────────────
+def _load_llm_config():
+    """Mirror send_wrong_words.py: load ~/.hermes/config.yaml provider/api_key/base_url."""
+    import os
+    cfg_path = Path.home() / ".hermes" / "config.yaml"
+    if not cfg_path.exists():
+        return None
+    try:
+        import yaml
+    except ImportError:
+        return None
+    try:
+        cfg = yaml.safe_load(cfg_path.read_text(encoding="utf-8")) or {}
+    except Exception:
+        return None
+    model_block = cfg.get("model", {}) or {}
+    provider = model_block.get("provider", "")
+    default_model = model_block.get("default", "")
+    pb = (cfg.get("providers", {}) or {}).get(provider, {}) or {}
+    return {
+        "base_url": os.environ.get("LLM_BASE_URL", pb.get("base_url", "")),
+        "api_key": os.environ.get("LLM_API_KEY", pb.get("api_key", "")),
+        "model": os.environ.get("LLM_MODEL", pb.get("model", default_model)),
+    }
+
+
+def _call_llm_chat(messages, max_tokens=200, temperature=0.7):
+    """POST messages to OpenAI-compatible chat API; return assistant text or None on failure."""
+    import urllib.request
+    import urllib.error
+    cfg = _load_llm_config()
+    if not cfg or not cfg.get("base_url") or not cfg.get("api_key"):
+        return None
+    url = cfg["base_url"].rstrip("/") + "/chat/completions"
+    payload = {
+        "model": cfg["model"],
+        "messages": messages,
+        "max_tokens": max_tokens,
+        "temperature": temperature,
+    }
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {cfg['api_key']}",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        return data["choices"][0]["message"]["content"]
+    except (urllib.error.URLError, urllib.error.HTTPError, KeyError, json.JSONDecodeError, TimeoutError):
+        return None
+
+
+_SYSTEM_PROMPT = (
+    "You are a friendly English tutor chatting with a Chinese middle-school student (初一 level, "
+    "around 12-13 years old, CEFR A2). "
+    "Rules: \n"
+    "1. Reply in 1-2 SHORT sentences (max 20 words). Simple vocabulary only.\n"
+    "2. ALWAYS end with a question to keep the conversation going.\n"
+    "3. If the student makes a grammar/vocab mistake, gently correct it in parentheses "
+    "(e.g., \"I goed (you mean: I went) to school.\").\n"
+    "4. Be encouraging. Use emojis sparingly (1-2 per reply).\n"
+    "5. Topics: school, hobbies, food, friends, weekend plans. Avoid adult/political topics.\n"
+)
+
+
+@app.route("/chat", methods=["GET"])
+def chat_page():
+    """AI 对话练习 — start a new session or resume the last one (in session)."""
+    history = session.get("chat_history", [])
+    cfg = _load_llm_config()
+    llm_ready = bool(cfg and cfg.get("base_url") and cfg.get("api_key"))
+    return render_template("chat.html", history=history, llm_ready=llm_ready)
+
+
+@app.route("/chat/send", methods=["POST"])
+def chat_send():
+    """User sends a message; AI replies via LLM."""
+    data = request.json or {}
+    user_msg = (data.get("message") or "").strip()
+    if not user_msg:
+        return jsonify({"ok": False, "error": "消息为空"})
+    history = session.get("chat_history", [])
+    # Build messages: system + last N turns + new user msg
+    messages = [{"role": "system", "content": _SYSTEM_PROMPT}]
+    # Keep last 6 turns (3 user/assistant pairs) to limit token cost
+    for turn in history[-6:]:
+        messages.append({"role": turn["role"], "content": turn["content"]})
+    messages.append({"role": "user", "content": user_msg})
+
+    reply = _call_llm_chat(messages)
+    if not reply:
+        return jsonify({"ok": False, "error": "AI 没回应（检查 ~/.hermes/config.yaml 或网络）"})
+
+    history.append({"role": "user", "content": user_msg, "ts": datetime.datetime.now().isoformat()})
+    history.append({"role": "assistant", "content": reply, "ts": datetime.datetime.now().isoformat()})
+    # Trim history to last 20 turns to keep session cookie small
+    session["chat_history"] = history[-20:]
+    session.permanent = True
+    return jsonify({"ok": True, "reply": reply})
+
+
+@app.route("/chat/clear", methods=["POST"])
+def chat_clear():
+    session.pop("chat_history", None)
+    return redirect("/chat")
 
 
 @app.route("/vocab/import", methods=["GET", "POST"])
@@ -1979,6 +2363,16 @@ def quiz_check():
         for r in results:
             if r["is_correct"] and r["word"] not in progress["vocab_mastered"]:
                 progress["vocab_mastered"].append(r["word"])
+    # FSRS: 记录每个词的结果 (#1)
+    try:
+        if _FSRS_AVAILABLE:
+            from fsrs import Rating
+            for r in results:
+                fsrs_review(progress, r["word"],
+                            Rating.Good if r["is_correct"] else Rating.Again)
+    except Exception:
+        pass
+
     progress["checkins"].append({
         "date": today,
         "vocab": [q["word"] for q in questions],

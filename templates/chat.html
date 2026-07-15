@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 对话 - 初一英语</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: linear-gradient(135deg, #11998e, #38ef7d); min-height: 100vh;
+         padding: 20px; display: flex; flex-direction: column; }
+  .container { max-width: 480px; margin: 0 auto; width: 100%; display: flex;
+               flex-direction: column; height: calc(100vh - 40px); }
+  h1 { color: white; font-size: 20px; text-align: center; margin-bottom: 12px; }
+  .chat-card { background: #f5f5f7; border-radius: 14px; padding: 14px; flex: 1;
+               overflow-y: auto; margin-bottom: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .msg { margin-bottom: 10px; max-width: 80%; }
+  .msg.user { margin-left: auto; }
+  .msg.assistant { margin-right: auto; }
+  .bubble { padding: 10px 14px; border-radius: 14px; font-size: 14px;
+            line-height: 1.5; word-wrap: break-word; }
+  .msg.user .bubble { background: #667eea; color: white; border-bottom-right-radius: 4px; }
+  .msg.assistant .bubble { background: #e8ecf4; color: #333; border-bottom-left-radius: 4px; }
+  .meta { font-size: 10px; color: #999; margin-top: 4px; padding: 0 4px; }
+  .input-row { display: flex; gap: 8px; }
+  .input-row input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 12px;
+                     font-size: 15px; }
+  .input-row input:focus { outline: none; border-color: #667eea; }
+  .input-row button { padding: 12px 18px; background: #667eea; color: white;
+                      border: none; border-radius: 12px; font-weight: bold;
+                      cursor: pointer; }
+  .input-row button:disabled { background: #ccc; cursor: not-allowed; }
+  .status { text-align: center; font-size: 12px; color: #777; padding: 6px; }
+  .warn { background: #fdecea; color: #c62828; padding: 10px; border-radius: 8px;
+          font-size: 12px; margin-bottom: 10px; }
+  .actions { display: flex; gap: 8px; margin-bottom: 10px; }
+  .actions a, .actions button { flex: 1; padding: 8px; background: white; color: #667eea;
+                                  border: 1px solid #ddd; border-radius: 10px;
+                                  text-align: center; text-decoration: none;
+                                  font-size: 12px; cursor: pointer; }
+  .typing { display: inline-block; padding: 6px 0; }
+  .typing span { display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+                 background: #999; margin: 0 2px; animation: blink 1.4s infinite; }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>💬 AI 英语对话</h1>
+
+  {% if not llm_ready %}
+  <div class="warn">⚠ 未检测到 ~/.hermes/config.yaml 或缺 API key。AI 回复不可用。</div>
+  {% endif %}
+
+  <div class="actions">
+    <button onclick="document.getElementById('msg-input').focus()">🔄 继续对话</button>
+    <form method="post" action="/chat/clear" style="flex:1;margin:0;">
+      <button type="submit" onclick="return confirm('清空当前对话？')">🗑 清空对话</button>
+    </form>
+  </div>
+
+  <div class="chat-card" id="chat-card">
+    {% if not history %}
+    <div class="msg assistant">
+      <div class="bubble">👋 你好！我是你的英语对话伙伴。试试用英语问我：What's your name? / How old are you? / What's your favorite hobby?</div>
+    </div>
+    {% else %}
+      {% for m in history %}
+      <div class="msg {{ m.role }}">
+        <div class="bubble">{{ m.content }}</div>
+        <div class="meta">{% if m.role == 'user' %}你{% else %}AI{% endif %}</div>
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <div class="input-row">
+    <input type="text" id="msg-input" placeholder="用英语输入…按 Enter 发送" autocomplete="off">
+    <button id="send-btn" onclick="sendMsg()">发送</button>
+  </div>
+  <div class="status" id="status"></div>
+</div>
+
+<script>
+const card = document.getElementById('chat-card');
+const input = document.getElementById('msg-input');
+const sendBtn = document.getElementById('send-btn');
+const status = document.getElementById('status');
+
+function appendBubble(role, text) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.textContent = text;
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  meta.textContent = role === 'user' ? '你' : 'AI';
+  div.appendChild(bubble);
+  div.appendChild(meta);
+  card.appendChild(div);
+  card.scrollTop = card.scrollHeight;
+}
+
+function appendTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg assistant';
+  div.id = 'typing-indicator';
+  div.innerHTML = '<div class="bubble"><span class="typing"><span></span><span></span><span></span></span></div>';
+  card.appendChild(div);
+  card.scrollTop = card.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+async function sendMsg() {
+  const msg = input.value.trim();
+  if (!msg) return;
+  appendBubble('user', msg);
+  input.value = '';
+  sendBtn.disabled = true;
+  status.textContent = 'AI 正在回复…';
+  appendTyping();
+  try {
+    const r = await fetch('/chat/send', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({message: msg})
+    });
+    const data = await r.json();
+    removeTyping();
+    if (data.ok) {
+      appendBubble('assistant', data.reply);
+      status.textContent = '';
+    } else {
+      status.style.color = '#c62828';
+      status.textContent = '✗ ' + data.error;
+    }
+  } catch (e) {
+    removeTyping();
+    status.style.color = '#c62828';
+    status.textContent = '✗ 网络错误: ' + e.message;
+  } finally {
+    sendBtn.disabled = false;
+    input.focus();
+  }
+}
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !sendBtn.disabled) sendMsg();
+});
+
+// Auto-scroll to bottom on load
+card.scrollTop = card.scrollHeight;
+</script>
+</body>
+</html>

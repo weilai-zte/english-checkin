@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听写练习 - 初一英语</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: linear-gradient(135deg, #11998e, #38ef7d); min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; }
+  h1 { color: white; font-size: 22px; text-align: center; margin-bottom: 16px; }
+  .card { background: #f5f5f7; border-radius: 14px; padding: 16px; margin-bottom: 12px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .card-title { font-size: 14px; color: #555; margin-bottom: 12px; font-weight: bold; }
+  .empty { text-align: center; color: #999; padding: 40px; }
+  .word-row { padding: 14px 0; border-bottom: 1px solid #eee; }
+  .word-row:last-child { border-bottom: none; }
+  .word-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .word-cn { flex: 1; font-size: 18px; font-weight: bold; color: #333; }
+  .pron { font-size: 12px; color: #888; }
+  .play-btn { background: #667eea; color: white; border: none; padding: 8px 14px;
+              border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: bold; }
+  .play-btn:active { transform: scale(0.96); }
+  .input-row { display: flex; gap: 8px; }
+  .spell-input { flex: 1; padding: 10px; border: 2px solid #ddd; border-radius: 10px;
+                 font-size: 16px; font-family: ui-monospace, monospace; }
+  .spell-input:focus { outline: none; border-color: #667eea; }
+  .submit-btn { padding: 10px 16px; background: #667eea; color: white; border: none;
+                border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 13px; }
+  .feedback { margin-top: 8px; font-size: 13px; padding: 8px 10px; border-radius: 8px; }
+  .feedback.ok { background: #e8f5e9; color: #2e7d32; }
+  .feedback.bad { background: #fdecea; color: #c62828; }
+  .stats { display: flex; justify-content: space-around; padding: 10px;
+           background: #f0f4ff; border-radius: 10px; margin-bottom: 12px; }
+  .stats-num { font-size: 22px; font-weight: bold; color: #667eea; text-align: center; }
+  .stats-label { font-size: 11px; color: #666; text-align: center; }
+  .back-link { display: block; text-align: center; padding: 14px; color: white;
+               text-decoration: none; font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🎧 听写练习</h1>
+
+  {% if error %}
+  <div class="card"><div class="empty">{{ error }}</div></div>
+  {% else %}
+  <div class="card">
+    <div class="card-title">5 个词，按顺序听 + 拼写</div>
+    {% for w in words %}
+    <div class="word-row" data-word="{{ w.word }}">
+      <div class="word-header">
+        <button class="play-btn" onclick="playWord('{{ w.word }}')" aria-label="播放发音">🔊 听</button>
+        <div class="word-cn">
+          {{ loop.index }}. {{ w.cn }}
+          {% if w.pron %}<span class="pron">({{ w.pron }})</span>{% endif %}
+        </div>
+      </div>
+      <div class="input-row">
+        <input type="text" class="spell-input" data-word="{{ w.word }}"
+               placeholder="输入单词拼写…" autocomplete="off"
+               autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="submit-btn" onclick="submitOne(this)">提交</button>
+      </div>
+      <div class="feedback" style="display:none;"></div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="card">
+    <div class="stats">
+      <div>
+        <div class="stats-num" id="total">0</div>
+        <div class="stats-label">已提交</div>
+      </div>
+      <div>
+        <div class="stats-num" id="correct">0</div>
+        <div class="stats-label">正确</div>
+      </div>
+      <div>
+        <div class="stats-num" id="accuracy">-</div>
+        <div class="stats-label">正确率</div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <a href="/" class="back-link">← 返回首页</a>
+</div>
+
+<script>
+function playWord(word) {
+  const audio = new Audio('/tts?word=' + encodeURIComponent(word));
+  audio.play().catch(() => {});
+}
+
+async function submitOne(btn) {
+  const row = btn.closest('.word-row');
+  const input = row.querySelector('.spell-input');
+  const feedback = row.querySelector('.feedback');
+  const word = input.dataset.word;
+  const userInput = input.value.trim();
+  if (!userInput) {
+    feedback.className = 'feedback bad';
+    feedback.style.display = 'block';
+    feedback.textContent = '⚠ 请先输入';
+    return;
+  }
+  btn.disabled = true;
+  try {
+    const r = await fetch('/dictation', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({word: word, input: userInput})
+    });
+    const data = await r.json();
+    feedback.className = 'feedback ' + (data.correct ? 'ok' : 'bad');
+    feedback.style.display = 'block';
+    if (data.correct) {
+      feedback.textContent = '✓ 正确！' + (data.mastered_now ? ' 已加入掌握列表 🎉' : '');
+      input.disabled = true;
+    } else {
+      feedback.innerHTML = '✗ 正确写法：<strong>' + data.expected + '</strong>（你写的：' + data.user + '）';
+      input.disabled = false;
+    }
+    updateStats();
+  } catch (e) {
+    feedback.className = 'feedback bad';
+    feedback.style.display = 'block';
+    feedback.textContent = '✗ 网络错误: ' + e.message;
+    btn.disabled = false;
+  }
+}
+
+function updateStats() {
+  const feedbacks = document.querySelectorAll('.feedback');
+  let total = 0, correct = 0;
+  feedbacks.forEach(f => {
+    if (f.style.display !== 'none') {
+      total++;
+      if (f.classList.contains('ok')) correct++;
+    }
+  });
+  document.getElementById('total').textContent = total;
+  document.getElementById('correct').textContent = correct;
+  document.getElementById('accuracy').textContent = total ? Math.round(correct / total * 100) + '%' : '-';
+}
+
+// Allow Enter to submit
+document.querySelectorAll('.spell-input').forEach(inp => {
+  inp.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const btn = inp.parentElement.querySelector('.submit-btn');
+      submitOne(btn);
+    }
+  });
+});
+</script>
+</body>
+</html>
