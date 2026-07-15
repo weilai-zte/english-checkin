@@ -1838,14 +1838,14 @@ document.addEventListener('input', function(e) {
       '<div class="container">' +
         ACHIEVEMENTS.map(a => {
           const got = !!unlocked[a.id];
-          return '<div class="card" style="display:flex;align-items:center;gap:12px;' + (got ? '' : 'opacity:0.5;') + '">' +
+          return '<div class="card" style="display:flex;align-items:center;gap:12px;' + (got ? '' : 'opacity:0.65;') + '">' +
             '<div style="font-size:32px;">' + (got ? '🏆' : '🔒') + '</div>' +
-            '<div style="flex:1;"><strong>' + escapeHtml(a.name) + '</strong>' +
-              '<div style="font-size:12px;color:#555;">' + escapeHtml(a.desc) + '</div>' +
-              (got ? '<div style="font-size:10px;color:#999;">解锁于 ' + escapeHtml((unlocked[a.id] || '').split('T')[0]) + '</div>' : '') +
+            '<div style="flex:1;min-width:0;"><strong style="color:#0d1b2a;font-size:16px;">' + escapeHtml(a.name) + '</strong>' +
+              '<div style="font-size:13px;color:#374151;margin-top:4px;line-height:1.5;">' + escapeHtml(a.desc) + '</div>' +
+              (got ? '<div style="font-size:12px;color:#6b7280;margin-top:4px;">解锁于 ' + escapeHtml((unlocked[a.id] || '').split('T')[0]) + '</div>' : '') +
             '</div></div>';
         }).join('') +
-        '<div class="card" style="text-align:center;color:#555;">已解锁 ' + Object.keys(unlocked).length + ' / ' + ACHIEVEMENTS.length + '</div>' +
+        '<div class="card" style="text-align:center;color:#374151;font-weight:600;">已解锁 ' + Object.keys(unlocked).length + ' / ' + ACHIEVEMENTS.length + '</div>' +
       '</div>';
   }
 
