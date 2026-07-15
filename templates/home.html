@@ -81,6 +81,27 @@
     </div>
   </div>
 
+  <!-- 今日推荐 (#4 借鉴 扇贝/百词斩 每日一词) -->
+  {% if daily_word %}
+  <div class="card" style="padding: 18px;">
+    <div style="font-size:12px;color:#888;margin-bottom:6px;">💡 今日推荐 · {{ today }}</div>
+    <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
+      <div style="font-size:24px;font-weight:bold;color:#333;">{{ daily_word.word }}</div>
+      {% if daily_word.pron %}
+      <div style="font-size:13px;color:#888;">/{{ daily_word.pron }}/</div>
+      {% endif %}
+      <a href="/tts?word={{ daily_word.word }}" target="_blank"
+         style="margin-left:auto;padding:6px 12px;background:#eef;color:#667eea;border-radius:999px;
+                font-size:12px;text-decoration:none;font-weight:bold;">🔊 听</a>
+    </div>
+    <div style="font-size:15px;color:#555;margin-top:8px;">{{ daily_word.cn }}</div>
+    {% if daily_word.example %}
+    <div style="font-size:12px;color:#999;margin-top:10px;line-height:1.5;
+                border-left:3px solid #e0e0e0;padding-left:10px;">{{ daily_word.example }}</div>
+    {% endif %}
+  </div>
+  {% endif %}
+
   {% if checked_in_today %}
   <div class="card">
     <div class="done-msg">✅ 今日已完成打卡！</div>
@@ -107,6 +128,10 @@
     <a href="/learn" class="btn btn-primary">🚀 今日打卡</a>
   </div>
   {% endif %}
+
+  <!-- 上次打卡回顾入口 -->
+  <a href="/review" class="btn btn-secondary">🔁 回顾上次打卡</a>
+  <a href="/achievements" class="btn btn-secondary">🏅 查看成就</a>
 
   <div class="card">
     <div style="font-size:15px;color:#666;margin-bottom:12px;">🧠 词汇练习</div>

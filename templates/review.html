@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>上次打卡回顾 - 初一英语</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif;
+         background: linear-gradient(135deg, #11998e, #38ef7d); min-height: 100vh; padding: 20px; }
+  .container { max-width: 480px; margin: 0 auto; }
+  h1 { color: white; font-size: 22px; text-align: center; margin-bottom: 16px; }
+  .card { background: #f5f5f7; border-radius: 14px; padding: 16px; margin-bottom: 12px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .card-title { font-size: 14px; color: #555; margin-bottom: 12px; font-weight: bold; }
+  .empty { text-align: center; color: #999; padding: 30px 16px; font-size: 14px; }
+  .word-item { display: flex; align-items: center; gap: 10px; padding: 12px 0;
+               border-bottom: 1px solid #f0f0f0; }
+  .word-item:last-child { border-bottom: none; }
+  .word-main { flex: 1; min-width: 0; }
+  .word-en { font-size: 17px; font-weight: bold; color: #333; }
+  .word-pron { font-size: 11px; color: #999; }
+  .word-cn { font-size: 14px; color: #666; margin-top: 2px; }
+  .tts-btn { padding: 6px 12px; background: #eef; color: #667eea; border-radius: 999px;
+             font-size: 12px; text-decoration: none; font-weight: bold; white-space: nowrap; }
+  .summary { display: flex; justify-content: space-around; padding: 8px 0; }
+  .summary-item { text-align: center; }
+  .summary-num { font-size: 22px; font-weight: bold; color: #667eea; }
+  .summary-label { font-size: 11px; color: #555; margin-top: 2px; }
+  .back-link { display: block; text-align: center; padding: 14px; color: white;
+               text-decoration: none; font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🔁 上次打卡回顾</h1>
+
+  {% if not last_date %}
+  <div class="card">
+    <div class="empty">
+      还没有打卡记录<br>
+      <a href="/" style="color:#667eea;text-decoration:none;">去首页开始第一次打卡 →</a>
+    </div>
+  </div>
+  {% else %}
+  <div class="card">
+    <div class="card-title">📅 {{ last_date }} 的打卡</div>
+    {% if last_entry %}
+    <div class="summary">
+      <div class="summary-item">
+        <div class="summary-num">{{ last_entry.score }}</div>
+        <div class="summary-label">本次得分</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-num">{{ wrong_words|length }}</div>
+        <div class="summary-label">错词数</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-num">{{ last_entry.grammar_title or "—" }}</div>
+        <div class="summary-label">语法题</div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <div class="card-title">❌ 错词清单（{{ wrong_words|length }} 个）</div>
+    {% if wrong_words %}
+      {% for w in wrong_words %}
+      <div class="word-item">
+        <div class="word-main">
+          <div class="word-en">{{ w.word }}</div>
+          {% if w.pron %}<div class="word-pron">{{ w.pron }}</div>{% endif %}
+          <div class="word-cn">{{ w.cn or "（释义未收录）" }}</div>
+        </div>
+        <a href="/tts?word={{ w.word }}" target="_blank" class="tts-btn">🔊</a>
+      </div>
+      {% endfor %}
+      <a href="/flashcard" class="tts-btn" style="display:block;text-align:center;margin-top:14px;padding:10px;">
+        🎴 用闪卡再过一遍
+      </a>
+    {% else %}
+      <div class="empty">🎉 上次全部答对！</div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <a href="/" class="back-link">← 返回首页</a>
+</div>
+</body>
+</html>

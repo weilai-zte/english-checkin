@@ -3,7 +3,7 @@
 """
 import json, random, datetime, os, re
 from pathlib import Path
-from flask import Flask, render_template, request, jsonify, redirect, session, make_response
+from flask import Flask, render_template, request, jsonify, redirect, session, make_response, Response
 from flask_session import Session
 
 BASE = Path(__file__).parent
@@ -469,6 +469,75 @@ def save_progress(d):
     with open(DATA / "progress.json", "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, indent=2)
 
+# ─── 错题回流 (#2 借鉴 扇贝 / Anki) ─────────────────────
+def _next_review_for(today, attempts, correct_streak=0):
+    """Pick the next review date based on attempts. Simple exponential-ish ladder:
+       attempts=1 → +1d, 2 → +3d, 3 → +7d, 4+ → +14d.
+    """
+    ladder = [1, 3, 7, 14]
+    idx = min(attempts - 1, len(ladder) - 1)
+    return (today + datetime.timedelta(days=ladder[idx])).isoformat()
+
+
+def due_review_words(progress, today=None, limit=2):
+    """Return up to `limit` word dicts whose next_review <= today.
+
+    Migrates legacy wrong_words (no next_review field) by treating them as due now.
+    Looks up words in BOTH legacy vocab.json AND current difficulty pool.
+    """
+    if today is None:
+        today = datetime.date.today()
+    lookup = {}
+    # Pool 1: legacy vocab.json
+    try:
+        for data in load_vocab().values():
+            for w in data["words"]:
+                lookup[w["word"].lower()] = {**w, "_topic": data["topic"]}
+    except Exception:
+        pass
+    # Pool 2: difficulty pool (overrides if same word)
+    try:
+        difficulty = get_difficulty()
+        for data in vocab_for_difficulty(difficulty).values():
+            for w in data["words"]:
+                lookup[w["word"].lower()] = {**w, "_topic": data["topic"]}
+    except (RuntimeError, KeyError):
+        pass
+    due = []
+    for e in progress.get("wrong_words", []):
+        wl = e.get("word", "").lower()
+        next_str = e.get("next_review")
+        if next_str:
+            try:
+                if datetime.date.fromisoformat(next_str) > today:
+                    continue
+            except (ValueError, TypeError):
+                pass
+        v = lookup.get(wl)
+        if not v:
+            continue
+        due.append({
+            "word": v["word"],
+            "pron": v.get("pron", ""),
+            "cn": v.get("cn", ""),
+            "example": v.get("例句", ""),
+            "memory": v.get("记忆", ""),
+            "topic": v.get("_topic", ""),
+            "hide": "cn",
+            "is_review": True,
+        })
+    due.sort(key=lambda x: x.get("word", ""))
+    return due[:limit]
+
+
+def _set_next_review(entry, today=None):
+    """Stamp next_review on a wrong_words entry based on current attempts."""
+    if today is None:
+        today = datetime.date.today()
+    attempts = max(1, int(entry.get("attempts", 1)))
+    entry["next_review"] = _next_review_for(today, attempts)
+
+
 # ─── 每日任务 ────────────────────────────────────────────
 def get_daily_task():
     difficulty = get_difficulty()
@@ -502,6 +571,30 @@ def get_daily_task():
     # 随机选5个词（初中难度）
     selected = random.sample(candidates, min(5, len(candidates)))
 
+    # 注入错题回流 (#2)：从 wrong_words 拉取到期复习词
+    review = due_review_words(progress, limit=2)
+    review_n = len(review)
+    # 把 selected 转成 vocab_items 形态；保持 word/cn 均衡（不连续出现同类 hide）
+    selected_items = []
+    for topic_key, topic_data, w in selected:
+        n = len(selected_items)
+        word_count = sum(1 for v in selected_items if v["hide"] == "word")
+        cn_count = n - word_count
+        if n > 0 and word_count == 0:
+            hide = "word"
+        elif n > 0 and cn_count == 0:
+            hide = "cn"
+        else:
+            hide = random.choice(["word", "cn"])
+        selected_items.append({
+            "word": w["word"], "pron": w["pron"], "cn": w["cn"],
+            "example": w.get("例句", ""), "memory": w.get("记忆", ""),
+            "topic": topic_data["topic"], "hide": hide,
+            "is_review": False,
+        })
+    # 复习词优先（前 review_n 个位置）
+    vocab_items = review + selected_items[:max(0, 5 - review_n)]
+
     # 随机选语法（排除已掌握，降低近期出现过的权重）
     mastered_gids = set(progress.get("grammar_mastered", []))
     recent_titles = {c.get("grammar_title") for c in progress.get("checkins", [])[-7:]}
@@ -520,28 +613,7 @@ def get_daily_task():
     weights = [w / total_w for w in weights]
     gram = random.choices(grammar, weights=weights, k=1)[0]
 
-    # 词汇练习：随机隐藏英文或中文
-    vocab_items = []
-    for topic_key, topic_data, w in selected:
-        # 均衡策略: 已有的全 word 后面强制 cn, 反之亦然 (避免 5 个全一边)
-        n = len(vocab_items)
-        word_count = sum(1 for v in vocab_items if v["hide"] == "word")
-        cn_count = n - word_count
-        if n > 0 and word_count == 0:
-            hide = "word"     # 前面全是 cn → 补一个 word
-        elif n > 0 and cn_count == 0:
-            hide = "cn"       # 前面全是 word → 补一个 cn
-        else:
-            hide = random.choice(["word", "cn"])
-        vocab_items.append({
-            "word": w["word"],
-            "pron": w["pron"],
-            "cn": w["cn"],
-            "example": w["例句"],
-            "memory": w.get("记忆", ""),
-            "topic": topic_data["topic"],
-            "hide": hide,  # 'word'=隐藏英文,'cn'=隐藏中文
-        })
+    # vocab_items 已在上面注入复习词时构建
 
     # 语法练习（打分）
     exercises = []
@@ -580,9 +652,10 @@ def home():
             streak = 0
 
     difficulty = get_difficulty()
+    daily_word = pick_daily_word()
     return render_template("home.html", progress=progress, streak=streak,
                            today=today, checked_in_today=checked, difficulty=difficulty,
-                           cfg=DIFFICULTY_CONFIG[difficulty])
+                           cfg=DIFFICULTY_CONFIG[difficulty], daily_word=daily_word)
 
 @app.route("/difficulty/<level>")
 def set_difficulty(level):
@@ -811,6 +884,271 @@ def errors_page():
                            stats=stats, total_attempts=total_attempts,
                            total_correct=total_correct, accuracy=accuracy)
 
+# ─── 上次打卡回顾 (#9 借鉴 扇贝 每日回顾) ─────────────────
+def _last_checkin_date(progress):
+    """Return (date_str, entry) of the most recent check-in, or (None, None)."""
+    ck = progress.get("checkins", [])
+    dated = [c for c in ck if c.get("date")]
+    if not dated:
+        return None, None
+    dated.sort(key=lambda c: c["date"], reverse=True)
+    return dated[0]["date"], dated[0]
+
+
+@app.route("/review")
+def review_last():
+    """Show wrong words + wrong grammar from the most recent check-in.
+
+    Replaces naive 'yesterday' concept: if you skipped a day, show the most recent.
+    """
+    progress = load_progress()
+    last_date, last_entry = _last_checkin_date(progress)
+    wrong_words = []
+    if last_date:
+        vocab = load_vocab()
+        for e in progress.get("wrong_words", []):
+            if e.get("date") != last_date:
+                continue
+            if not e.get("word", "").isascii():
+                continue
+            # Hydrate from vocab if missing cn/pron
+            for data in vocab.values():
+                for w in data["words"]:
+                    if w["word"].lower() == e["word"].lower():
+                        e.setdefault("cn", w.get("cn", ""))
+                        e.setdefault("pron", w.get("pron", ""))
+                        break
+            wrong_words.append(e)
+    return render_template("review.html", last_date=last_date,
+                           last_entry=last_entry, wrong_words=wrong_words)
+
+
+# ─── 成就系统 (#7 借鉴 Duolingo 勋章) ─────────────────
+ACHIEVEMENTS = [
+    {"id": "streak_3",   "icon": "🌱", "name": "初窥门径", "desc": "连续打卡 3 天"},
+    {"id": "streak_7",   "icon": "🔥", "name": "一周连击", "desc": "连续打卡 7 天"},
+    {"id": "streak_30",  "icon": "💎", "name": "月度冠军", "desc": "连续打卡 30 天"},
+    {"id": "mastered_10","icon": "📖", "name": "初识单词", "desc": "掌握 10 个单词"},
+    {"id": "mastered_50","icon": "📚", "name": "词汇小成", "desc": "掌握 50 个单词"},
+    {"id": "mastered_200","icon": "🏆", "name": "词汇大师", "desc": "掌握 200 个单词"},
+    {"id": "checkins_10","icon": "🎯", "name": "十次打卡", "desc": "累计完成 10 次打卡"},
+    {"id": "checkins_50","icon": "🌟", "name": "五十次打卡", "desc": "累计完成 50 次打卡"},
+    {"id": "perfect_score","icon": "💯", "name": "满分时刻", "desc": "语法题拿过 3/3 满分"},
+    {"id": "all_difficulties","icon": "🧗", "name": "挑战自我", "desc": "在 easy/medium/hard 三档都完成过打卡"},
+]
+
+
+def evaluate_achievements(progress):
+    """Return list of {id, icon, name, desc, unlocked, unlocked_date}."""
+    streak = progress.get("streak", 0)
+    mastered_n = len(progress.get("vocab_mastered", []))
+    checkin_dates = {c.get("date") for c in progress.get("checkins", []) if c.get("date")}
+    has_perfect = False
+    difficulties_done = set()
+    for c in progress.get("checkins", []):
+        s = str(c.get("score", "0/0"))
+        if "/" in s:
+            try:
+                a, b = (int(x) for x in s.split("/"))
+                if b > 0 and a == b:
+                    has_perfect = True
+            except (ValueError, TypeError):
+                pass
+        # Track difficulty from vocab topic? We don't store difficulty in checkins.
+        # Treat any checkin as covering "medium" since that's the default.
+        difficulties_done.add("medium")
+
+    unlocked_map = progress.get("achievements_unlocked", {})
+    today = datetime.date.today().isoformat()
+    out = []
+    for a in ACHIEVEMENTS:
+        unlocked = a["id"] in unlocked_map
+        unlocked_date = unlocked_map.get(a["id"])
+        out.append({**a, "unlocked": unlocked, "unlocked_date": unlocked_date})
+
+    # Check rules and auto-unlock new ones
+    changed = False
+    for a in out:
+        if a["unlocked"]:
+            continue
+        ach_id = a["id"]
+        should_unlock = False
+        if ach_id == "streak_3" and streak >= 3:
+            should_unlock = True
+        elif ach_id == "streak_7" and streak >= 7:
+            should_unlock = True
+        elif ach_id == "streak_30" and streak >= 30:
+            should_unlock = True
+        elif ach_id == "mastered_10" and mastered_n >= 10:
+            should_unlock = True
+        elif ach_id == "mastered_50" and mastered_n >= 50:
+            should_unlock = True
+        elif ach_id == "mastered_200" and mastered_n >= 200:
+            should_unlock = True
+        elif ach_id == "checkins_10" and len(progress.get("checkins", [])) >= 10:
+            should_unlock = True
+        elif ach_id == "checkins_50" and len(progress.get("checkins", [])) >= 50:
+            should_unlock = True
+        elif ach_id == "perfect_score" and has_perfect:
+            should_unlock = True
+        elif ach_id == "all_difficulties" and len(difficulties_done) >= 3:
+            should_unlock = True
+        if should_unlock:
+            unlocked_map[ach_id] = today
+            a["unlocked"] = True
+            a["unlocked_date"] = today
+            changed = True
+    if changed:
+        progress["achievements_unlocked"] = unlocked_map
+    return out, changed
+
+
+@app.route("/achievements")
+def achievements_page():
+    progress = load_progress()
+    items, changed = evaluate_achievements(progress)
+    if changed:
+        save_progress(progress)
+    unlocked = sum(1 for a in items if a["unlocked"])
+    return render_template("achievements.html",
+                           achievements=items, unlocked=unlocked,
+                           total=len(items))
+
+
+# ─── 打卡热力图 (借鉴 GitHub contributions / 扇贝打卡日历) ─────────────
+def compute_heatmap(checkins, weeks=16, today=None):
+    """Generate a GitHub-style heatmap of recent check-ins.
+
+    Returns a list of weeks; each week is a list of 7 day dicts (Mon->Sun).
+    Aligned to weeks (Monday start) and ends at `today`.
+    Levels: 0=missed, 1=<50%, 2=<80%, 3=<100%, 4=perfect.
+    """
+    if today is None:
+        today = datetime.date.today()
+
+    checkin_map = {}
+    for c in checkins or []:
+        d = c.get("date")
+        if not d:
+            continue
+        score_str = str(c.get("score", "0/0"))
+        try:
+            correct, total = (int(x) for x in score_str.split("/"))
+        except (ValueError, AttributeError):
+            correct, total = 0, 0
+        pct = (correct / total * 100) if total > 0 else 0
+        level = 4 if pct >= 100 else 3 if pct >= 80 else 2 if pct >= 50 else 1 if total > 0 else 0
+        checkin_map[d] = {"score": score_str, "level": level, "correct": correct, "total": total}
+
+    start = today - datetime.timedelta(weeks=weeks - 1)
+    start = start - datetime.timedelta(days=start.weekday())  # snap to Monday
+
+    days = []
+    cur = start
+    while cur <= today:
+        date_str = cur.isoformat()
+        entry = checkin_map.get(date_str)
+        days.append({
+            "date": date_str,
+            "level": entry["level"] if entry else 0,
+            "tooltip": entry["score"] if entry else "未打卡",
+            "weekday": cur.weekday(),
+        })
+        cur += datetime.timedelta(days=1)
+
+    return [days[i:i + 7] for i in range(0, len(days), 7)]
+
+
+def pick_daily_word(today=None, difficulty=None):
+    """Deterministic per-day word: same word for the whole day, rotates through vocab.
+
+    Borrowed from 扇贝/百词斩: a 'Word of the Day' that gives users a reason to return
+    outside the scheduled check-in.
+    """
+    if today is None:
+        today = datetime.date.today()
+    if difficulty is None:
+        try:
+            difficulty = get_difficulty()
+        except RuntimeError:
+            difficulty = "medium"  # safe fallback outside request context
+    pool_dict = vocab_for_difficulty(difficulty)
+    pool = []
+    for v in pool_dict.values():
+        pool.extend(v.get("words", []))
+    if not pool:
+        return None
+    # Use day-of-year + year as seed → same word all day, changes daily
+    doy = today.timetuple().tm_yday
+    idx = (doy + today.year) % len(pool)
+    w = pool[idx]
+    return {
+        "word": w.get("word"),
+        "pron": w.get("pron", ""),
+        "cn": w.get("cn", ""),
+        "example": w.get("例句", ""),
+    }
+
+
+# ─── 进度备份 / 恢复 (借鉴 Quizlet / Anki 通用做法) ─────────────────
+REQUIRED_PROGRESS_KEYS = {"checkins", "vocab_mastered", "wrong_words", "word_stats"}
+
+
+def _validate_progress_payload(payload):
+    """Return (ok, error_message). Basic shape check only."""
+    if not isinstance(payload, dict):
+        return False, "根节点必须是 JSON 对象"
+    missing = REQUIRED_PROGRESS_KEYS - payload.keys()
+    if missing:
+        return False, f"缺少必需字段: {', '.join(sorted(missing))}"
+    for k in ("checkins", "vocab_mastered", "wrong_words"):
+        if not isinstance(payload.get(k), (list, dict)):
+            return False, f"字段 {k} 类型错误"
+    return True, None
+
+
+@app.route("/progress/export")
+def progress_export():
+    """下载 progress.json 作为本地备份。"""
+    p = DATA / "progress.json"
+    if not p.exists():
+        return jsonify({"error": "progress.json 不存在"}), 404
+    with open(p, encoding="utf-8") as f:
+        body = f.read()
+    filename = f"english-checkin-progress-{datetime.date.today().isoformat()}.json"
+    return Response(
+        body,
+        mimetype="application/json",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+@app.route("/progress/import", methods=["POST"])
+def progress_import():
+    """覆盖式恢复：上传 JSON 文件，先备份当前再写入。"""
+    f = request.files.get("file")
+    if not f or not f.filename:
+        return jsonify({"ok": False, "error": "未收到文件"}), 400
+    try:
+        raw = f.read().decode("utf-8")
+        payload = json.loads(raw)
+    except (UnicodeDecodeError, json.JSONDecodeError) as e:
+        return jsonify({"ok": False, "error": f"JSON 解析失败: {e}"}), 400
+    ok, err = _validate_progress_payload(payload)
+    if not ok:
+        return jsonify({"ok": False, "error": err}), 400
+
+    # 备份当前 progress.json（如果存在）
+    p = DATA / "progress.json"
+    if p.exists():
+        ts = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+        backup = DATA / f"progress.backup-{ts}.json"
+        p.replace(backup)
+    save_progress(payload)
+    return jsonify({"ok": True, "msg": "已恢复", "checkins": len(payload.get("checkins", [])),
+                    "mastered": len(payload.get("vocab_mastered", []))})
+
+
 # ─── 统计概览页 ───────────────────────────────────────
 @app.route("/stats")
 def stats_page():
@@ -859,6 +1197,8 @@ def stats_page():
         entry = next((c for c in checkins if c.get("date") == d), None)
         recent.append({"date": d, "entry": entry})
 
+    heatmap_weeks = compute_heatmap(checkins, weeks=16)
+
     return render_template("stats.html",
                            mastered=mastered, total_words=total_words,
                            accuracy=accuracy, streak=streak,
@@ -866,6 +1206,7 @@ def stats_page():
                            wrong_count=len(progress.get("wrong_words", [])),
                            sorted_topics=sorted_topics,
                            recent=recent,
+                           heatmap_weeks=heatmap_weeks,
                            total_grammar=len(grammar),
                            grammar_mastered=len(progress.get("grammar_mastered", [])),
                            flashcard_total=len(progress.get("flashcard_history", [])))
@@ -1555,6 +1896,7 @@ def translate_en_check():
             existing = {e["word"].lower(): i for i, e in enumerate(progress["wrong_words"])}
             entry = {"word": b["expected"], "date": today, "attempts": stats[wl]["total"],
                      "source": "translate_en"}
+            _set_next_review(entry)
             if wl in existing:
                 progress["wrong_words"][existing[wl]] = entry
             else:

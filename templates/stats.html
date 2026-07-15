@@ -30,8 +30,26 @@
   .day-done { background: #e8f5e9; color: #4caf50; }
   .day-miss { background: #e8e8ed; color: #999; }
   .day-label { font-size: 10px; color: #777; margin-top: 2px; }
+  /* Heatmap (GitHub-style) */
+  .heatmap-wrap { overflow-x: auto; padding-bottom: 4px; }
+  .heatmap { display: flex; gap: 3px; }
+  .heatmap-week { display: flex; flex-direction: column; gap: 3px; }
+  .heatmap-cell { width: 12px; height: 12px; border-radius: 2px; background: #ebedf0; }
+  .heatmap-cell.l1 { background: #9be9a8; }
+  .heatmap-cell.l2 { background: #40c463; }
+  .heatmap-cell.l3 { background: #30a14e; }
+  .heatmap-cell.l4 { background: #216e39; }
+  .heatmap-legend { display: flex; align-items: center; justify-content: flex-end;
+                    gap: 4px; font-size: 11px; color: #777; margin-top: 8px; }
+  .heatmap-legend .heatmap-cell { width: 10px; height: 10px; }
   .back-link { display: block; text-align: center; padding: 14px; color: #667eea;
                text-decoration: none; font-size: 15px; }
+  .pill-btn { display: inline-block; padding: 10px 16px; border-radius: 999px;
+              font-size: 13px; font-weight: bold; text-decoration: none;
+              border: none; cursor: pointer; transition: opacity 0.2s; }
+  .pill-btn:hover { opacity: 0.85; }
+  .pill-primary { background: #667eea; color: white; }
+  .pill-warn { background: #f39c12; color: white; }
 </style>
 </head>
 <body>
@@ -86,22 +104,73 @@
     {% if not sorted_topics %}暂无数据{% endif %}
   </div>
 
-  <!-- 打卡日历 -->
+  <!-- 打卡热力图 (近16周) -->
   <div class="card">
-    <div class="card-title">📅 近7天打卡</div>
-    <div class="week-grid">
-      {% for day in recent %}
-      <div>
-        <div class="day-cell {% if day.entry %}day-done{% else %}day-miss{% endif %}">
-          {{ day.date[5:] }}
+    <div class="card-title">📅 打卡热力图（近 16 周）</div>
+    <div class="heatmap-wrap">
+      <div class="heatmap">
+        {% for week in heatmap_weeks %}
+        <div class="heatmap-week">
+          {% for day in week %}
+          <div class="heatmap-cell l{{ day.level }}" title="{{ day.date }}: {{ day.tooltip }}"></div>
+          {% endfor %}
         </div>
-        <div class="day-label">{{ "✔" if day.entry else "✗" }}</div>
+        {% endfor %}
       </div>
-      {% endfor %}
+    </div>
+    <div class="heatmap-legend">
+      <span>少</span>
+      <div class="heatmap-cell"></div>
+      <div class="heatmap-cell l1"></div>
+      <div class="heatmap-cell l2"></div>
+      <div class="heatmap-cell l3"></div>
+      <div class="heatmap-cell l4"></div>
+      <span>多</span>
     </div>
   </div>
 
+  <!-- 进度备份 / 恢复 -->
+  <div class="card">
+    <div class="card-title">💾 进度备份</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="/progress/export" class="pill-btn pill-primary" download>📥 导出 JSON 备份</a>
+    </div>
+    <form id="import-form" enctype="multipart/form-data" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+      <input type="file" name="file" id="import-file" accept="application/json,.json" required
+             style="font-size:13px;flex:1;min-width:160px;">
+      <button type="submit" class="pill-btn pill-warn">📤 恢复（覆盖当前）</button>
+    </form>
+    <div id="import-msg" style="font-size:12px;color:#666;margin-top:8px;"></div>
+  </div>
+
   <a href="/" class="back-link">← 返回首页</a>
+
+  <script>
+    document.getElementById('import-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const file = document.getElementById('import-file').files[0];
+      if (!file) return;
+      const msg = document.getElementById('import-msg');
+      msg.textContent = '上传中…';
+      const fd = new FormData();
+      fd.append('file', file);
+      try {
+        const r = await fetch('/progress/import', { method: 'POST', body: fd });
+        const data = await r.json();
+        if (data.ok) {
+          msg.style.color = '#27ae60';
+          msg.textContent = '✓ ' + data.msg + '（' + data.checkins + ' 次打卡，' + data.mastered + ' 词掌握）';
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          msg.style.color = '#e74c3c';
+          msg.textContent = '✗ ' + data.error;
+        }
+      } catch (err) {
+        msg.style.color = '#e74c3c';
+        msg.textContent = '✗ 网络错误: ' + err.message;
+      }
+    });
+  </script>
 </div>
 </body>
 </html>
