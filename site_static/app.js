@@ -1286,13 +1286,8 @@ document.addEventListener('input', function(e) {
         if (uniqueOthers.length >= 3) break;
       }
       const opts = shuffle([target, ...uniqueOthers]);
-      // 方向：均衡策略 - 已有全 en2cn 时强制 cn2en, 反之亦然
-      const en2cnCount = questions.filter(q => q.direction === 'en2cn').length;
-      const cn2enCount = questions.length - en2cnCount;
-      let direction;
-      if (questions.length > 0 && en2cnCount === 0) direction = 'cn2en';
-      else if (questions.length > 0 && cn2enCount === 0) direction = 'cn2en'; // 前面全 en2cn → 补 cn2en
-      else direction = Math.random() < 0.5 ? 'en2cn' : 'cn2en';
+      // 方向：每题 50/50 随机。原均衡策略在 picks.map 闭包里引用尚未构造的 questions,触发 TDZ(#/quiz 空白 bug)。
+      const direction = Math.random() < 0.5 ? 'en2cn' : 'cn2en';
       if (direction === 'en2cn') {
         // 看英文选中文：display=value=中文
         const options = opts.map(w => ({ display: w.cn, value: w.cn, _word: w.word }));
