@@ -2089,6 +2089,32 @@ document.addEventListener('input', function(e) {
       ocrResult.style.display = 'none';
     };
     ocrClearBtn.onclick = resetImage;
+    // LLM 配置入口 — 紧贴 OCR 按钮上方,用户没配置时一目了然。
+    const llmRaw = getChatCfgRaw();
+    const llmStatus = document.createElement('div');
+    llmStatus.className = 'llm-status';
+    // 状态色: 红=未配置 / 橙=已加密未解锁 / 绿=已就绪
+    let state = 'red';
+    let prefix = '⚠ 未配置 LLM (图片识别需要)';
+    let btns = '<button class="btn btn-primary llm-btn" id="vocab-llm-setup">⚙ 配置</button>';
+    if (llmRaw.exists) {
+      if (llmRaw.encrypted && !isUnlocked()) {
+        state = 'amber';
+        prefix = '🔒 LLM 已加密 · 需要解锁';
+        btns = '<button class="btn btn-primary llm-btn" id="vocab-llm-setup">🔓 解锁</button> <button class="btn btn-secondary llm-btn" id="vocab-llm-edit">⚙ 设置</button>';
+      } else {
+        state = 'green';
+        prefix = '✅ LLM 已就绪 (' + escapeHtml(llmRaw.base_url || '?') + (llmRaw.model ? ' · ' + escapeHtml(llmRaw.model) : '') + ')';
+        btns = '<button class="btn btn-secondary llm-btn" id="vocab-llm-edit">⚙ 设置</button>';
+      }
+    }
+    llmStatus.classList.add('llm-status-' + state);
+    llmStatus.innerHTML = '<span class="llm-status-text">' + prefix + '</span>' + btns;
+    ocrBtn.parentNode.insertBefore(llmStatus, ocrBtn);
+    const llmSetup = document.getElementById('vocab-llm-setup');
+    if (llmSetup) llmSetup.onclick = () => openLlmSettingsModal(llmRaw.encrypted ? 'unlock' : 'setup');
+    const llmEdit = document.getElementById('vocab-llm-edit');
+    if (llmEdit) llmEdit.onclick = () => openLlmSettingsModal('auto');
     ocrBtn.onclick = async () => {
       if (!pendingFile) return;
       if (!getChatCfg() || !getChatCfg().base_url) {
@@ -2244,13 +2270,101 @@ document.addEventListener('input', function(e) {
 
   // #12 AI chat
   const CHAT_SYSTEM_PROMPT = 'You are a friendly English tutor chatting with a Chinese middle-school student (初一 level, around 12-13 years old, CEFR A2). Rules: 1. Reply in 1-2 SHORT sentences (max 20 words). Simple vocabulary only. 2. ALWAYS end with a question to keep the conversation going. 3. If the student makes a grammar/vocab mistake, gently correct it in parentheses. 4. Be encouraging.';
+
+  // ─── LLM Config (encrypted at rest, AES-GCM + PBKDF2) ──
+  // Storage layout:
+  //   localStorage['ck_chat_cfg_v1'] = { enc: {salt, iv, ct, v, hint_base, hint_model} } | { base_url, api_key, model } (legacy plaintext)
+  //   sessionStorage['ck_chat_unlock_v1'] = '1'  ← unlocked for this tab/session
+  // In-memory _decryptedCfg holds plaintext ONLY while unlocked.
   const CHAT_CFG_KEY = 'ck_chat_cfg_v1';
-  function getChatCfg() {
-    try { const raw = localStorage.getItem(CHAT_CFG_KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+  const CHAT_UNLOCK_KEY = 'ck_chat_unlock_v1';
+  const PBKDF2_ITER = 200000;
+  let _decryptedCfg = null;
+
+  function _b64(buf) {
+    const b = new Uint8Array(buf); let s = '';
+    for (let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+    return btoa(s);
   }
-  function setChatCfg(cfg) {
-    if (cfg) localStorage.setItem(CHAT_CFG_KEY, JSON.stringify(cfg));
-    else localStorage.removeItem(CHAT_CFG_KEY);
+  function _b64Dec(s) {
+    const bin = atob(s); const out = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  async function _deriveKey(passphrase, salt) {
+    const base = await crypto.subtle.importKey(
+      'raw', new TextEncoder().encode(passphrase),
+      { name: 'PBKDF2' }, false, ['deriveKey']);
+    return crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt, iterations: PBKDF2_ITER, hash: 'SHA-256' },
+      base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+  }
+  async function _encryptObj(plainObj, passphrase) {
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const key = await _deriveKey(passphrase, salt);
+    const ct = await crypto.subtle.encrypt(
+      { name: 'AES-GCM', iv }, key,
+      new TextEncoder().encode(JSON.stringify(plainObj)));
+    return { salt: _b64(salt), iv: _b64(iv), ct: _b64(ct), v: 1 };
+  }
+  async function _decryptObj(encObj, passphrase) {
+    try {
+      const key = await _deriveKey(passphrase, _b64Dec(encObj.salt));
+      const pt = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: _b64Dec(encObj.iv) }, key, _b64Dec(encObj.ct));
+      return JSON.parse(new TextDecoder().decode(pt));
+    } catch (e) { return null; }
+  }
+
+  function _readRawStore() {
+    try {
+      const raw = localStorage.getItem(CHAT_CFG_KEY);
+      if (!raw) return null;
+      const obj = JSON.parse(raw);
+      if (obj && obj.enc) return { kind: 'enc', enc: obj.enc };
+      if (obj && (obj.base_url || obj.api_key || obj.model)) return { kind: 'plain', data: obj };
+      return null;
+    } catch (e) { return null; }
+  }
+  function isUnlocked() {
+    if (_decryptedCfg) return true;
+    return sessionStorage.getItem(CHAT_UNLOCK_KEY) === '1';
+  }
+  function getChatCfg() { return _decryptedCfg; }
+  function getChatCfgRaw() {
+    const r = _readRawStore();
+    if (!r) return { exists: false, encrypted: false, base_url: '', model: '' };
+    if (r.kind === 'enc') {
+      return { exists: true, encrypted: true, base_url: r.enc.hint_base || '', model: r.enc.hint_model || '' };
+    }
+    return { exists: true, encrypted: false, base_url: r.data.base_url || '', model: r.data.model || '' };
+  }
+  async function setChatCfgEncrypted(cfg, passphrase) {
+    const enc = await _encryptObj(cfg, passphrase);
+    enc.hint_base = (cfg.base_url || '').replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+    enc.hint_model = cfg.model || '';
+    localStorage.setItem(CHAT_CFG_KEY, JSON.stringify({ enc }));
+    _decryptedCfg = cfg;
+    sessionStorage.setItem(CHAT_UNLOCK_KEY, '1');
+  }
+  function lockChatCfg() {
+    _decryptedCfg = null;
+    sessionStorage.removeItem(CHAT_UNLOCK_KEY);
+  }
+  async function unlockChatCfg(passphrase) {
+    const r = _readRawStore();
+    if (!r || r.kind !== 'enc') return { ok: false, reason: 'no-encrypted' };
+    const cfg = await _decryptObj(r.enc, passphrase);
+    if (!cfg) return { ok: false, reason: 'wrong-passphrase' };
+    _decryptedCfg = cfg;
+    sessionStorage.setItem(CHAT_UNLOCK_KEY, '1');
+    return { ok: true, cfg };
+  }
+  function clearChatCfg() {
+    localStorage.removeItem(CHAT_CFG_KEY);
+    _decryptedCfg = null;
+    sessionStorage.removeItem(CHAT_UNLOCK_KEY);
   }
   async function callLlmChat(messages) {
     const cfg = getChatCfg();
@@ -2266,13 +2380,186 @@ document.addEventListener('input', function(e) {
       return data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
     } catch (e) { return null; }
   }
+  // ─── LLM settings modal (unlock / setup / change / clear) ───
+  // Mounts a full-screen overlay. Pass mode to bias the first screen.
+  async function openLlmSettingsModal(mode) {
+    mode = mode || 'auto';
+    const raw = getChatCfgRaw();
+    const cur = getChatCfg() || {};
+    if (mode === 'auto') {
+      if (!raw.exists) mode = 'setup';
+      else if (raw.encrypted && !isUnlocked()) mode = 'unlock';
+      else mode = 'edit';
+    }
+    closeLlmModal();
+    const wrap = document.createElement('div');
+    wrap.id = 'llm-modal';
+    wrap.className = 'modal-overlay';
+    document.body.appendChild(wrap);
+
+    function renderInner() {
+      const isEnc = raw.encrypted;
+      const isUnlock = mode === 'unlock';
+      const isSetup = mode === 'setup';
+      const isEdit = mode === 'edit';
+      const isChangePw = mode === 'change-pw';
+      const lockState = !raw.exists ? '⚪ 未配置' : (isUnlocked() ? '🔓 已解锁 (本会话)' : (isEnc ? '🔒 已加密 (需解锁)' : '⚠ 未加密 (旧版)'));
+      wrap.innerHTML =
+        '<div class="modal-card">' +
+          '<div class="modal-head"><span>⚙ LLM 设置</span><button class="modal-x" id="llm-x">×</button></div>' +
+          '<div class="modal-body">' +
+            '<div class="lock-row">状态: <b>' + lockState + '</b>' +
+              (raw.exists
+                ? ' <span class="lock-hint">(' + escapeHtml(raw.base_url || '?') + (raw.model ? ' · ' + escapeHtml(raw.model) : '') + ')</span>'
+                : ' <span class="lock-hint">未配置</span>') +
+            '</div>' +
+            (isUnlock
+              ? '<p class="modal-p">已用密码加密保存了 API key。输入密码解锁后,本会话可调用 LLM。</p>' +
+                '<label class="modal-lbl">密码</label>' +
+                '<input type="password" id="llm-pw" class="modal-input" autocomplete="off" placeholder="请输入加密密码">' +
+                '<div class="modal-err" id="llm-err"></div>' +
+                '<div class="modal-actions">' +
+                  '<button class="btn btn-primary" id="llm-unlock-btn">🔓 解锁</button>' +
+                  '<button class="btn btn-secondary" id="llm-forgot-btn">忘记密码 / 重新设置</button>' +
+                '</div>'
+              : isChangePw
+              ? '<p class="modal-p">先用当前密码解锁,然后设置新密码。</p>' +
+                '<label class="modal-lbl">当前密码</label>' +
+                '<input type="password" id="llm-pw" class="modal-input" autocomplete="off">' +
+                '<label class="modal-lbl">新密码</label>' +
+                '<input type="password" id="llm-new-pw" class="modal-input" autocomplete="off">' +
+                '<label class="modal-lbl">确认新密码</label>' +
+                '<input type="password" id="llm-new-pw2" class="modal-input" autocomplete="off">' +
+                '<div class="modal-err" id="llm-err"></div>' +
+                '<div class="modal-actions">' +
+                  '<button class="btn btn-primary" id="llm-chpw-btn">修改密码</button>' +
+                '</div>'
+              : '<label class="modal-lbl">Base URL <span class="modal-sub">(e.g. https://api.deepseek.com/v1)</span></label>' +
+                '<input type="text" id="llm-base" class="modal-input" autocomplete="off" placeholder="https://api.deepseek.com/v1" value="' + escapeHtml(cur.base_url || '') + '">' +
+                '<label class="modal-lbl">API Key</label>' +
+                '<input type="password" id="llm-key" class="modal-input" autocomplete="off" placeholder="sk-...">' +
+                '<label class="modal-lbl">Model <span class="modal-sub">(e.g. deepseek-chat)</span></label>' +
+                '<input type="text" id="llm-model" class="modal-input" autocomplete="off" placeholder="deepseek-chat" value="' + escapeHtml(cur.model || 'deepseek-chat') + '">' +
+                '<label class="modal-lbl">加密密码 <span class="modal-sub">(用于本地加密 API key,浏览器关闭再开会要求输入)</span></label>' +
+                '<input type="password" id="llm-new-pw" class="modal-input" autocomplete="off" placeholder="≥ 4 位">' +
+                '<label class="modal-lbl">确认密码</label>' +
+                '<input type="password" id="llm-new-pw2" class="modal-input" autocomplete="off">' +
+                '<div class="modal-err" id="llm-err"></div>' +
+                '<div class="modal-actions">' +
+                  '<button class="btn btn-primary" id="llm-save-btn">🔒 加密保存</button>' +
+                  (isEnc ? '<button class="btn btn-secondary" id="llm-chpw-btn2">改密码</button>' : '') +
+                  (raw.exists ? '<button class="btn btn-danger" id="llm-del-btn">删除配置</button>' : '') +
+                '</div>' +
+                '<p class="modal-foot">API key 用 PBKDF2 (200k 轮) + AES-256-GCM 加密后存 localStorage。关闭浏览器再打开,本会话结束,需要重新输入密码解锁。</p>'
+            ) +
+          '</div>' +
+        '</div>';
+      wrap.querySelector('#llm-x').onclick = closeLlmModal;
+      wrap.onclick = (e) => { if (e.target === wrap) closeLlmModal(); };
+
+      if (isUnlock) {
+        const pw = wrap.querySelector('#llm-pw');
+        const err = wrap.querySelector('#llm-err');
+        const doUnlock = async () => {
+          err.textContent = '';
+          const v = pw.value;
+          if (!v) { err.textContent = '请输入密码'; return; }
+          const r = await unlockChatCfg(v);
+          if (r.ok) { closeLlmModal(); toast('🔓 已解锁'); render(); }
+          else { err.textContent = '密码错误'; pw.select(); }
+        };
+        wrap.querySelector('#llm-unlock-btn').onclick = doUnlock;
+        if (pw) pw.addEventListener('keydown', e => { if (e.key === 'Enter') doUnlock(); });
+        wrap.querySelector('#llm-forgot-btn').onclick = () => {
+          if (confirm('忘记密码将删除当前加密配置,需要重新填写 base_url / api_key / model。继续？')) {
+            clearChatCfg();
+            closeLlmModal();
+            openLlmSettingsModal('setup');
+          }
+        };
+        if (pw) setTimeout(() => pw.focus(), 50);
+      } else if (isChangePw) {
+        wrap.querySelector('#llm-chpw-btn').onclick = async () => {
+          const err = wrap.querySelector('#llm-err');
+          err.textContent = '';
+          const cur_pw = wrap.querySelector('#llm-pw').value;
+          const np = wrap.querySelector('#llm-new-pw').value;
+          const np2 = wrap.querySelector('#llm-new-pw2').value;
+          if (!cur_pw) { err.textContent = '请输入当前密码'; return; }
+          if (np.length < 4) { err.textContent = '新密码至少 4 位'; return; }
+          if (np !== np2) { err.textContent = '两次新密码不一致'; return; }
+          const r = await unlockChatCfg(cur_pw);
+          if (!r.ok) { err.textContent = '当前密码错误'; return; }
+          await setChatCfgEncrypted(r.cfg, np);
+          closeLlmModal(); toast('🔒 密码已更新'); render();
+        };
+      } else {
+        // setup / edit
+        wrap.querySelector('#llm-save-btn').onclick = async () => {
+          const err = wrap.querySelector('#llm-err');
+          err.textContent = '';
+          const base = wrap.querySelector('#llm-base').value.trim().replace(/\/$/, '');
+          const key = wrap.querySelector('#llm-key').value.trim();
+          const model = wrap.querySelector('#llm-model').value.trim() || 'deepseek-chat';
+          const np = wrap.querySelector('#llm-new-pw').value;
+          const np2 = wrap.querySelector('#llm-new-pw2').value;
+          if (!base) { err.textContent = '请填写 Base URL'; return; }
+          if (!key) { err.textContent = '请填写 API Key'; return; }
+          if (np.length < 4) { err.textContent = '密码至少 4 位'; return; }
+          if (np !== np2) { err.textContent = '两次密码不一致'; return; }
+          await setChatCfgEncrypted({ base_url: base, api_key: key, model: model }, np);
+          closeLlmModal(); toast('🔒 已加密保存'); render();
+        };
+        const chpw2 = wrap.querySelector('#llm-chpw-btn2');
+        if (chpw2) chpw2.onclick = () => { mode = 'change-pw'; renderInner(); };
+        const del = wrap.querySelector('#llm-del-btn');
+        if (del) del.onclick = () => {
+          if (confirm('确定删除 LLM 配置？删除后需要重新设置。')) {
+            clearChatCfg();
+            closeLlmModal();
+            toast('已删除'); render();
+          }
+        };
+      }
+    }
+    renderInner();
+  }
+  function closeLlmModal() {
+    const el = document.getElementById('llm-modal');
+    if (el) el.remove();
+  }
+  // Auto-prompt unlock at boot if encrypted config exists but session not unlocked.
+  function maybePromptUnlock() {
+    const raw = getChatCfgRaw();
+    if (!raw.exists) return;
+    if (!raw.encrypted) return; // legacy plaintext: handled by migration banner
+    if (isUnlocked()) return;
+    // Defer one tick so the page can paint first.
+    setTimeout(() => openLlmSettingsModal('unlock'), 100);
+  }
+  // Migration: legacy plaintext localStorage entries. Re-saves as encrypted.
+  async function maybeMigrateLegacyCfg() {
+    const raw = _readRawStore();
+    if (!raw || raw.kind !== 'plain') return;
+    // If the user has an active session with default progress, only prompt when on home or first render
+    if (!confirm('检测到旧版未加密的 LLM 配置 (api_key 明文存储)。\n\n是否现在用密码加密保存？\n选「取消」可稍后从 ⚙ LLM 设置 里手动加密。')) return;
+    openLlmSettingsModal('setup');
+  }
   function renderChat(app) {
     const cfg = getChatCfg();
     const ready = !!(cfg && cfg.base_url && cfg.api_key);
     const hist = progress.chat_history = progress.chat_history || [];
     app.innerHTML = topBar('AI 对话', false) +
       '<div class="container" style="display:flex;flex-direction:column;">' +
-        (ready ? '' : '<div class="card" style="background:#fdecea;color:#c62828;font-size:13px;">⚠ 未设置 LLM。点下方"设置"配置 base_url / api_key / model。<br><b>注意</b>: API key 存在本地, 不要在公共设备用。</div>') +
+        (ready ? '' :
+          (function() {
+            const r = getChatCfgRaw();
+            if (r.exists && r.encrypted && !isUnlocked()) {
+              return '<div class="card" style="background:#fff7e6;color:#7a4a00;font-size:13px;border-left:4px solid #f59e0b;">🔒 LLM 已加密保存。需要输入密码解锁后才能用。<br><button class="btn btn-primary" id="chat-unlock-inline" style="margin-top:6px;font-size:12px;padding:6px 10px;">🔓 解锁</button> <button class="btn btn-secondary" id="chat-cfg-inline" style="margin-top:6px;font-size:12px;padding:6px 10px;">⚙ 设置</button></div>';
+            }
+            return '<div class="card" style="background:#fdecea;color:#c62828;font-size:13px;">⚠ 未设置 LLM。点下方"设置"配置 base_url / api_key / model。<br><b>注意</b>: API key 用密码加密后存在本地。</div>';
+          })()
+        ) +
         '<div class="card" style="min-height:240px;max-height:50vh;overflow-y:auto;margin-bottom:8px;" id="chat-card">' +
           (hist.length === 0
             ? '<div class="bubble-bot" style="display:inline-block;background:#f0f0f0;padding:8px 12px;border-radius:12px;font-size:14px;">👋 你好！我是你的英语对话伙伴。试试用英语问我：What\'s your name? / How old are you?</div>'
@@ -2289,6 +2576,10 @@ document.addEventListener('input', function(e) {
       '</div>';
     const card = app.querySelector('#chat-card');
     if (card) card.scrollTop = card.scrollHeight;
+    const unlockInline = app.querySelector('#chat-unlock-inline');
+    if (unlockInline) unlockInline.onclick = () => openLlmSettingsModal('unlock');
+    const cfgInline = app.querySelector('#chat-cfg-inline');
+    if (cfgInline) cfgInline.onclick = () => openLlmSettingsModal('auto');
     const send = async () => {
       const inp = app.querySelector('#chat-input');
       const msg = (inp.value || '').trim();
@@ -2326,17 +2617,7 @@ document.addEventListener('input', function(e) {
     const inp = app.querySelector('#chat-input');
     if (inp) inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') send(); });
     const cfgBtn = app.querySelector('#chat-cfg-btn');
-    if (cfgBtn) cfgBtn.onclick = () => {
-      const cur = getChatCfg() || {};
-      const base = prompt('LLM base_url (e.g. https://api.openai.com/v1):', cur.base_url || '');
-      if (!base) return;
-      const key = prompt('API key:', cur.api_key || '');
-      if (!key) return;
-      const model = prompt('Model (e.g. gpt-3.5-turbo):', cur.model || 'gpt-3.5-turbo');
-      setChatCfg({ base_url: base, api_key: key, model: model || 'gpt-3.5-turbo' });
-      toast('已保存');
-      render();
-    };
+    if (cfgBtn) cfgBtn.onclick = () => openLlmSettingsModal('auto');
     const clBtn = app.querySelector('#chat-clear-btn');
     if (clBtn) clBtn.onclick = () => {
       if (!confirm('清空对话？')) return;
@@ -2350,14 +2631,21 @@ document.addEventListener('input', function(e) {
   // ─── 启动 ──────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', render);
   if (document.readyState !== 'loading') render();
-  // 启动后从 Supabase 同步远程进度
-  syncFromSupabase().then(() => {
-    // 如果远程数据较新，重新渲染首页
+  // 启动后从 Supabase 同步远程进度 (失败也走解锁/迁移流程)
+  function _postBoot() {
     if (parseRoute().name === 'home') {
       const app = document.getElementById('app');
       app.innerHTML = '';
       renderHome(app);
     }
-  });
+    if (parseRoute().name === 'home' || parseRoute().name === 'vocab-import' || parseRoute().name === 'chat') {
+      maybePromptUnlock();
+      maybeMigrateLegacyCfg();
+    }
+  }
+  // race the supabase sync against a short timeout so unlock prompt never gets blocked by network
+  Promise.race([syncFromSupabase(), new Promise(r => setTimeout(r, 1500))])
+    .then(_postBoot)
+    .catch(e => { console.warn('[boot-sync-fail]', e); _postBoot(); });
 })();
           // Bug 3b: 不再把答案写到 DOM, 提交后服务端返回判定再渲染
