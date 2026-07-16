@@ -88,7 +88,10 @@ body {
   min-height: 48px;
 }
 .mcq-opt:hover { background: #eef2ff; border-color: #667eea; }
-.mcq-opt:has(input:checked) { background: #e0e7ff; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.2); }
+.mcq-opt:has(input:checked),
+.mcq-opt.is-selected { background: #e0e7ff; border-color: #667eea; color: #0d1b2a; box-shadow: 0 0 0 3px rgba(102,126,234,0.2); }
+.mcq-opt:has(input:checked) .mcq-text,
+.mcq-opt.is-selected .mcq-text { color: #0d1b2a; font-weight: 700 !important; }
 .mcq-opt input[type="radio"] {
   width: 20px;
   height: 20px;
@@ -370,14 +373,38 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
   align-items: center;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border);
 }
 .error-item:last-child { border-bottom: none; }
-.error-word { flex: 1; }
-.error-word-en { font-size: 17px; font-weight: bold; color: #1a1a2e; }
-.error-word-cn { font-size: 13px; color: #555; }
-.error-pron { font-size: 12px; color: #777; }
-.error-meta { font-size: 12px; color: #e74c3c; }
+.error-word { flex: 1; min-width: 0; }
+.error-word-en { font-size: 17px; font-weight: bold; color: var(--text-1); }
+.error-word-cn { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.error-pron { font-size: 12px; color: var(--text-2); }
+.error-topic { margin-top: 2px; font-size: 11px; color: var(--text-2); }
+.error-meta { flex-shrink: 0; font-size: 12px; color: var(--danger); font-weight: 600; }
+
+/* 全部词汇：收藏状态在浅色/深色卡片上都保持清晰 */
+.vl-mark {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #d89b11;
+  border-radius: 8px;
+  background: #fff8e1;
+  color: #8a5700;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.vl-mark[aria-pressed="true"] {
+  background: #f59e0b;
+  border-color: #b45309;
+  color: #ffffff;
+}
 
 /* 难度选择 */
 .diff-bar { display: flex; gap: 8px; margin-bottom: 12px; }
@@ -468,6 +495,12 @@ input[type="text"] {
   .mcq-opt span { color: #e0e0e0; }
   .mcq-opt { background: #3d3d5e; border-color: #5a5a8a; }
   .mcq-opt:hover { background: #4a4a72; border-color: #7a7ab0; }
+  .mcq-opt:has(input:checked),
+  .mcq-opt.is-selected { background: #4a4a72; border-color: #8e99ee; color: #ffffff; box-shadow: 0 0 0 3px rgba(102,126,234,0.35); }
+  .mcq-opt:has(input:checked) .mcq-text,
+  .mcq-opt:has(input:checked) span,
+  .mcq-opt.is-selected .mcq-text,
+  .mcq-opt.is-selected span { color: #ffffff; font-weight: 700 !important; }
   .card input[type="text"] { background: #3d3d5e; color: #f0f0ff; border-color: #5a5a8a; }
   .grammar-input { background: #3d3d5e; color: #f0f0ff; border-color: #5a5a8a; }
       .topic-item { border-bottom-color: #3d3d5e; }
@@ -690,6 +723,37 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   background: color-mix(in srgb, var(--danger) 12%, var(--bg-card));
 }
 .tr-input:disabled { cursor: default; opacity: 0.85; }
+/* 中译英提交结果:完整句子 + 错处标注 */
+.tr-full {
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 8px 0 4px 0;
+  padding: 10px 12px;
+  background: var(--bg-tag);
+  border-radius: 8px;
+  color: var(--text-1);
+  font-weight: 500;
+}
+.tr-wrong {
+  text-decoration: underline wavy var(--danger);
+  text-underline-offset: 4px;
+  color: var(--danger);
+  font-weight: 700;
+  cursor: help;
+}
+.tr-wrong-list {
+  margin: 6px 0 0 0;
+  padding-left: 22px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.tr-wrong-label { margin-top: 8px; font-size: 13px; color: var(--text-2); }
+.tr-wrong-inline {
+  color: var(--danger);
+  font-weight: 600;
+  font-family: monospace;
+}
+
 
 /* ─── LLM 设置 / 解锁 模态框 ─── */
 .modal-overlay {
@@ -835,6 +899,16 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 @media (prefers-color-scheme: dark) {
   .llm-status .llm-btn { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); color: inherit; }
   .llm-status .llm-btn:hover { background: rgba(255, 255, 255, 0.2); }
+  .vl-mark {
+    background: #3d3522;
+    border-color: #f6c453;
+    color: #ffd76a;
+  }
+  .vl-mark[aria-pressed="true"] {
+    background: #f6c453;
+    border-color: #f6c453;
+    color: #2b2340;
+  }
 }
 
 /* 听写 / 词表 / 卡片通用的喇叭按钮 — 固定大小,不被 flex 拉伸 */

@@ -1005,6 +1005,13 @@ document.addEventListener('input', function(e) {
       `;
       list.appendChild(card);
     });
+    app.querySelectorAll('.mcq-opt input[type="radio"]').forEach(input => {
+      input.addEventListener('change', () => {
+        app.querySelectorAll(`input[name="${input.name}"]`).forEach(radio => {
+          radio.closest('.mcq-opt').classList.toggle('is-selected', radio.checked);
+        });
+      });
+    });
     app.querySelector('#mcq-submit').onclick = () => {
       const results = [];
       let correct = 0;
@@ -1039,7 +1046,7 @@ document.addEventListener('input', function(e) {
   function renderTranslate(app) {
     const pool = translationPoolForDifficulty();
     const sents = sample(pool, Math.min(8, pool.length));
-    const answers = {};
+    const cleanAnswer = value => value.toLowerCase().replace(/[^a-z']/g, '');
 
     app.innerHTML = `
       ${topBar('中译英')}
@@ -1080,6 +1087,23 @@ document.addEventListener('input', function(e) {
         <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:10px;"></div>
       `;
       list.appendChild(card);
+
+      card.querySelectorAll('.tr-input').forEach((inp, blankIndex) => {
+        const expected = blanks[blankIndex].word;
+        inp.addEventListener('input', () => {
+          const isCorrect = cleanAnswer(inp.value) === cleanAnswer(expected);
+          inp.classList.toggle('correct', isCorrect);
+          inp.classList.remove('wrong');
+          if (isCorrect && inp.dataset.completed !== 'true') {
+            inp.dataset.completed = 'true';
+            const allInputs = [...app.querySelectorAll('.tr-input')];
+            const nextInput = allInputs[allInputs.indexOf(inp) + 1];
+            if (nextInput) nextInput.focus();
+          } else if (!isCorrect) {
+            delete inp.dataset.completed;
+          }
+        });
+      });
     });
 
     app.querySelector('#tr-submit').onclick = () => {
@@ -1088,33 +1112,46 @@ document.addEventListener('input', function(e) {
       inputs.forEach(inp => {
         const q = inp.dataset.q, b = inp.dataset.b;
         if (!userAns[q]) userAns[q] = {};
-        userAns[q][b] = (inp.value || '').trim().toLowerCase();
+        userAns[q][b] = (inp.value || '').trim();
       });
       let totalCorrect = 0;
       sents.forEach((s, qi) => {
         const words = s.en.trim().split(/\s+/);
         const blanks = [];
         words.forEach((w, i) => { if (i !== 0) blanks.push({ idx: i, word: w }); });
-        const clean = w => w.toLowerCase().replace(/[^a-z']/g, '');
         let allOk = true;
         const userResults = [];
         blanks.forEach(b => {
-          const u = clean(userAns[qi]?.[b.idx] || '');
-          const e = clean(b.word);
+          const raw = userAns[qi]?.[b.idx] || '';
+          const u = cleanAnswer(raw);
+          const e = cleanAnswer(b.word);
           const ok = u === e;
           if (!ok) allOk = false;
-          userResults.push({ b, u, e, ok });
+          userResults.push({ b, raw, u, e, ok });
         });
         if (allOk) totalCorrect++;
         const r = app.querySelector(`[data-r="${qi}"]`);
         r.className = 'grammar-result ' + (allOk ? 'correct' : 'wrong');
         r.style.display = 'block';
-        r.innerHTML = allOk ? '✅ 完全正确！' :
-          `❌ ${userResults.map(ur => `第${ur.b.idx}空: <strong>${escapeHtml(ur.u || '(空)')}</strong> → 应为 <strong>${escapeHtml(ur.e)}</strong>`).join('；')}`;
+        if (allOk) {
+          r.innerHTML = `✅ 完全正确！<div class="tr-full">${escapeHtml(s.en)}</div>`;
+        } else {
+          const wrongIdxs = new Set(userResults.filter(ur => !ur.ok).map(ur => ur.b.idx));
+          const enWords = s.en.split(/\s+/);
+          const annotated = enWords.map((w, i) => {
+            if (i === 0 || !wrongIdxs.has(i)) return escapeHtml(w);
+            const ur = userResults.find(x => x.b.idx === i);
+            return `<span class="tr-wrong" title="你填: ${escapeHtml(ur.u || '(空)')}">${escapeHtml(w)}</span>`;
+          }).join(' ');
+          const wrongList = userResults.filter(ur => !ur.ok)
+            .map(ur => `<li>第 ${ur.b.idx} 空: <span class="tr-wrong-inline">${escapeHtml(ur.raw || '(空)')}</span></li>`).join('');
+          r.innerHTML = `❌ 正确答案:<div class="tr-full">${annotated}</div>` +
+            (wrongList ? `<div class="tr-wrong-label">你填写错误的词:</div><ul class="tr-wrong-list">${wrongList}</ul>` : '');
+        }
         if (!allOk) {
           progress.wrong_grammar.push({
             type: 'translate', question: s.cn, answer: s.en,
-            user: userResults.filter(x => !x.ok).map(x => `${x.e}→${x.u}`).join(', '),
+            user: userResults.filter(x => !x.ok).map(x => `${x.e}→${x.raw}`).join(', '),
             hint: s.hint, date: today(),
           });
         }
@@ -1122,7 +1159,8 @@ document.addEventListener('input', function(e) {
         blanks.forEach(b => {
           const inp = app.querySelector(`[data-q="${qi}"][data-b="${b.idx}"]`);
           if (!inp) return;
-          inp.classList.add(b.word && clean(b.word) === (inp.value || '').trim().toLowerCase().replace(/[^a-z']/g, '') ? 'correct' : 'wrong');
+          inp.classList.remove('correct', 'wrong');
+          inp.classList.add(b.word && cleanAnswer(b.word) === cleanAnswer(inp.value || '') ? 'correct' : 'wrong');
           inp.disabled = true;
         });
       });
@@ -1363,7 +1401,7 @@ document.addEventListener('input', function(e) {
               <div class="error-word">
                 <div class="error-word-en">${escapeHtml(e.word)}</div>
                 <div class="error-word-cn">${escapeHtml(e.cn)} · ${escapeHtml(e.pron || '')}</div>
-                ${e.topic ? `<div style="font-size:11px;color:#4a5568;">${escapeHtml(e.topic.split(' ')[0])}</div>` : ''}
+                ${e.topic ? `<div class="error-topic">${escapeHtml(e.topic.split(' ')[0])}</div>` : ''}
               </div>
               <div class="error-meta">错 ${progress.word_stats[e.word.toLowerCase()]?.wrong || 1} 次</div>
             </div>
@@ -1790,7 +1828,7 @@ document.addEventListener('input', function(e) {
                   <div style="font-weight:bold;font-size:16px;color:var(--accent);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHtml(w.word)}">${escapeHtml(w.word)}</div>
                   <div style="display:flex;gap:2px;flex-shrink:0;">
                     <button class="vl-mark" data-word="${escapeHtml(w.word)}" title="${isMarked?'取消标记':'标记已学'}"
-                      style="background:transparent;border:none;cursor:pointer;font-size:16px;padding:0 2px;">${isMarked?'⭐':'☆'}</button>
+                      aria-label="${isMarked?'取消标记':'标记已学'}: ${escapeHtml(w.word)}" aria-pressed="${isMarked}">${isMarked?'★':'☆'}</button>
                     <button class="speak-btn" data-word="${escapeHtml(w.word)}" style="background:transparent;border:none;cursor:pointer;font-size:18px;padding:0 2px;">🔊</button>
                   </div>
                 </div>
