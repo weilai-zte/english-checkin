@@ -1950,10 +1950,75 @@ document.addEventListener('input', function(e) {
       return true;
     });
   }
+  // ─── helpers: Tesseract.js lazy load + AI vocab structuring ───
+  let _tessPromise = null;
+  function loadTesseract() {
+    if (window.Tesseract) return Promise.resolve(window.Tesseract);
+    if (_tessPromise) return _tessPromise;
+    _tessPromise = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+      s.onload = () => resolve(window.Tesseract);
+      s.onerror = () => reject(new Error('Tesseract.js 加载失败（需联网）'));
+      document.head.appendChild(s);
+    });
+    return _tessPromise;
+  }
+  async function ocrImage(file) {
+    const Tesseract = await loadTesseract();
+    const { data } = await Tesseract.recognize(file, 'eng+chi_sim', {
+      logger: () => {},  // suppress per-line progress noise
+    });
+    return (data && data.text || '').trim();
+  }
+  const VOCAB_STRUCT_PROMPT = `You are a vocabulary list parser. The user will give you raw OCR text from a vocabulary list photo. Output a JSON array (ONLY the JSON, no markdown fences, no commentary) where each item has {"word": "<english>", "pron": "<ipa or empty>", "cn": "<chinese>"}. Rules:
+- One JSON object per vocabulary entry
+- "word" must be lowercase English (strip punctuation like commas/periods)
+- "pron" is IPA like "/əˈpæl/" or empty string if not visible
+- "cn" is the Chinese meaning (no English in this field)
+- Skip page numbers, headers, exercise instructions
+- If a line is unreadable, skip it
+- Aim for ~5-30 entries; if the OCR is messy, prefer fewer clean entries`;
+  async function aiStructureVocab(ocrText) {
+    const reply = await callLlmChat([
+      { role: 'system', content: VOCAB_STRUCT_PROMPT },
+      { role: 'user', content: 'Raw OCR text:\n\n' + ocrText },
+    ]);
+    if (!reply) return null;
+    // Strip ```json fences if LLM added them anyway
+    const m = reply.match(/\[[\s\S]*\]/);
+    const json = m ? m[0] : reply;
+    try {
+      const arr = JSON.parse(json);
+      if (!Array.isArray(arr)) return null;
+      return arr.filter(x => x && typeof x.word === 'string' && x.word.trim())
+                .map(x => ({
+                  word: String(x.word).trim().toLowerCase().replace(/[^a-z'\-\s]/g, '').trim(),
+                  pron: x.pron ? String(x.pron).trim() : '',
+                  cn: x.cn ? String(x.cn).trim() : '',
+                }))
+                .filter(x => x.word);
+    } catch (e) { return null; }
+  }
+
   function renderVocabImport(app) {
     const count = (progress.custom_vocab || []).length;
     app.innerHTML = topBar('导入自定义词表') +
       '<div class="container">' +
+        '<div class="card"><div class="card-title">📷 图片识别导入</div>' +
+          '<p style="font-size:12px;color:var(--text-2);margin-bottom:8px;">拍照或选择词表图片，OCR 识别后 AI 自动整理成可导入格式。</p>' +
+          '<input type="file" id="vocab-img-input" accept="image/*" capture="environment" style="display:none;">' +
+          '<label for="vocab-img-input" style="display:block;padding:18px;border:2px dashed var(--border-input);border-radius:10px;text-align:center;cursor:pointer;color:var(--text-2);font-size:14px;background:var(--bg-page);">📷 点击选择 / 拍摄图片</label>' +
+          '<div id="vocab-img-preview" style="display:none;margin-top:10px;text-align:center;">' +
+            '<img id="vocab-img-thumb" style="max-width:100%;max-height:220px;border-radius:8px;border:1px solid var(--border);">' +
+          '</div>' +
+          '<div style="display:flex;gap:8px;margin-top:10px;">' +
+            '<button class="btn btn-primary" id="vocab-ocr-btn" style="flex:2;" disabled>🔍 识别并整理</button>' +
+            '<button class="btn btn-secondary" id="vocab-ocr-clear-btn" style="flex:1;display:none;">重选</button>' +
+          '</div>' +
+          '<div id="vocab-ocr-status" style="margin-top:8px;font-size:12px;color:var(--text-2);"></div>' +
+          '<div id="vocab-ocr-result" style="display:none;margin-top:10px;"></div>' +
+        '</div>' +
         '<div class="card"><div class="card-title">📋 粘贴词表</div>' +
           '<p style="font-size:12px;color:var(--text-2);">一行一词，支持:<br>' +
             '· <code>word</code><br>· <code>word: 中文</code><br>' +
@@ -1988,6 +2053,91 @@ document.addEventListener('input', function(e) {
       saveProgress();
       toast('已清空');
       render();
+    };
+
+    // ── Image upload + OCR + AI structuring ──
+    const imgInput = app.querySelector('#vocab-img-input');
+    const imgPreview = app.querySelector('#vocab-img-preview');
+    const imgThumb = app.querySelector('#vocab-img-thumb');
+    const ocrBtn = app.querySelector('#vocab-ocr-btn');
+    const ocrClearBtn = app.querySelector('#vocab-ocr-clear-btn');
+    const ocrStatus = app.querySelector('#vocab-ocr-status');
+    const ocrResult = app.querySelector('#vocab-ocr-result');
+    let pendingFile = null;
+    let pendingStructured = null;
+
+    function resetImage() {
+      pendingFile = null;
+      pendingStructured = null;
+      imgInput.value = '';
+      imgPreview.style.display = 'none';
+      ocrBtn.disabled = true;
+      ocrClearBtn.style.display = 'none';
+      ocrStatus.textContent = '';
+      ocrResult.style.display = 'none';
+      ocrResult.innerHTML = '';
+    }
+    imgInput.onchange = (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      pendingFile = f;
+      imgThumb.src = URL.createObjectURL(f);
+      imgPreview.style.display = 'block';
+      ocrBtn.disabled = false;
+      ocrClearBtn.style.display = 'inline-block';
+      ocrStatus.textContent = '已选择: ' + f.name + ' (' + Math.round(f.size / 1024) + ' KB)';
+      ocrResult.style.display = 'none';
+    };
+    ocrClearBtn.onclick = resetImage;
+    ocrBtn.onclick = async () => {
+      if (!pendingFile) return;
+      if (!getChatCfg() || !getChatCfg().base_url) {
+        ocrStatus.innerHTML = '<span style="color:var(--danger);">⚠ 需要先在 AI 对话页配置 LLM（base_url / api_key / model）</span>';
+        return;
+      }
+      ocrBtn.disabled = true;
+      ocrStatus.textContent = '🔍 OCR 识别中…（首次加载 ~10s）';
+      ocrResult.style.display = 'none';
+      try {
+        const ocrText = await ocrImage(pendingFile);
+        if (!ocrText) {
+          ocrStatus.innerHTML = '<span style="color:var(--danger);">未识别到文字，换一张试试</span>';
+          ocrBtn.disabled = false;
+          return;
+        }
+        ocrStatus.textContent = '✅ OCR 完成（' + ocrText.length + ' 字符）。AI 整理中…';
+        const structured = await aiStructureVocab(ocrText);
+        if (!structured || !structured.length) {
+          ocrStatus.innerHTML = '<span style="color:var(--danger);">AI 整理失败，原始 OCR：</span><details style="margin-top:6px;"><summary>查看</summary><pre style="white-space:pre-wrap;font-size:11px;color:var(--text-3);">' + escapeHtml(ocrText) + '</pre></details>';
+          ocrBtn.disabled = false;
+          return;
+        }
+        pendingStructured = structured;
+        ocrStatus.innerHTML = '✅ AI 整理出 <b>' + structured.length + '</b> 个词，点击下方按钮导入';
+        ocrResult.style.display = 'block';
+        ocrResult.innerHTML =
+          '<div style="max-height:200px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;padding:8px;background:var(--bg-page);font-size:13px;">' +
+          structured.slice(0, 30).map(w => '<div style="padding:3px 0;border-bottom:1px solid var(--border);"><strong>' + escapeHtml(w.word) + '</strong>' + (w.pron ? ' <span style="color:var(--text-3);">' + escapeHtml(w.pron) + '</span>' : '') + (w.cn ? ' · ' + escapeHtml(w.cn) : '') + '</div>').join('') +
+          (structured.length > 30 ? '<div style="font-size:11px;color:var(--text-3);padding-top:4px;">…还有 ' + (structured.length - 30) + ' 个</div>' : '') +
+          '</div>' +
+          '<div style="display:flex;gap:8px;margin-top:10px;">' +
+            '<button class="btn btn-primary" id="vocab-ocr-confirm" style="flex:2;">💾 导入 ' + structured.length + ' 个词</button>' +
+            '<button class="btn btn-secondary" id="vocab-ocr-cancel" style="flex:1;">取消</button>' +
+          '</div>';
+        app.querySelector('#vocab-ocr-cancel').onclick = resetImage;
+        app.querySelector('#vocab-ocr-confirm').onclick = () => {
+          progress.custom_vocab = pendingStructured;
+          progress.card_states = progress.card_states || {};
+          saveProgress();
+          toast('已导入 ' + pendingStructured.length + ' 个词');
+          resetImage();
+          render();
+        };
+      } catch (e) {
+        ocrStatus.innerHTML = '<span style="color:var(--danger);">识别失败: ' + escapeHtml(e.message || String(e)) + '</span>';
+      } finally {
+        ocrBtn.disabled = false;
+      }
     };
   }
 
