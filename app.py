@@ -1464,7 +1464,7 @@ def dictation():
                         "user": user_input or "(空)",
                         "mastered_now": correct and stats[wl]["correct"] >= 3})
 
-    # GET: prepare 5 words from current difficulty pool
+    # GET: prepare 10 words from current difficulty pool
     progress = load_progress()
     difficulty = get_difficulty()
     pool_dict = vocab_for_difficulty(difficulty)
@@ -1473,19 +1473,19 @@ def dictation():
         pool.extend(v.get("words", []))
     if not pool:
         return render_template("dictation.html", words=[], error="无词可听写")
-    # Pick 5 words: prefer FSRS-due words first, then random
+    # Pick 10 words: prefer FSRS-due words first, then random
     try:
-        due = fsrs_due_words(progress, limit=5)
+        due = fsrs_due_words(progress, limit=10)
         due_words_set = {w["word"] for w in due}
         review = [w for w in due if w["word"] in {p["word"] for p in pool}]
         remaining = [p for p in pool if p["word"] not in due_words_set]
         random.shuffle(remaining)
-        selected = review + remaining[:max(0, 5 - len(review))]
+        selected = review + remaining[:max(0, 10 - len(review))]
     except Exception:
-        selected = random.sample(pool, min(5, len(pool)))
+        selected = random.sample(pool, min(10, len(pool)))
     # Render: hide spelling, show cn + example
     items = []
-    for w in selected[:5]:
+    for w in selected[:10]:
         items.append({"word": w["word"], "pron": w.get("pron", ""),
                       "cn": w.get("cn", ""), "example": w.get("例句", "")})
     return render_template("dictation.html", words=items)

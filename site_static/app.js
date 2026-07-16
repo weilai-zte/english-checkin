@@ -2388,10 +2388,10 @@ document.addEventListener('input', function(e) {
   // #5 dictation
   function renderDictation(app) {
     const all = allWords().filter(w => !(progress.vocab_mastered || []).includes(w.word));
-    const pool = all.length ? sample(all, Math.min(5, all.length)) : [];
+    const pool = all.length ? sample(all, Math.min(10, all.length)) : [];
     app.innerHTML = topBar('听写模式') +
       '<div class="container">' +
-        '<div class="card"><div class="card-title">📝 听 5 个词，写出拼写</div>' +
+        '<div class="card"><div class="card-title">📝 听 10 个词，写出拼写</div>' +
           (pool.length === 0 ? '<p style="color:var(--text-2);">词都掌握了 🎉</p>' :
             '<div id="d-items">' +
               pool.map((w, i) => {

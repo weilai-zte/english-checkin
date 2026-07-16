@@ -37,8 +37,8 @@ def test_dictation_get_renders_words():
             body = r.data.decode('utf-8')
             assert '听写练习' in body
             assert 'data-word=' in body
-            # Should have 5 word rows
-            assert body.count('class="word-row"') == 5
+            # Should have 10 word rows
+            assert body.count('class="word-row"') == 10
 
 
 def test_dictation_post_correct():
