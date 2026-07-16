@@ -3,12 +3,12 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 3778,
+    "total": 3875,
     "type_count": {
       "vocab": 3624,
-      "grammar": 45,
-      "translate": 66,
-      "tense": 43
+      "grammar": 72,
+      "translate": 106,
+      "tense": 73
     },
     "grade_count": {
       "L1": 1778,
@@ -52662,6 +52662,2004 @@
       "example": "",
       "pos": "名词",
       "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_attributive",
+      "type": "grammar",
+      "level": "初三上",
+      "grade": "L3",
+      "topic": "定语从句",
+      "title": "定语从句 (who/which/that/whose)",
+      "rule": "定语从句修饰名词或代词,放在先行词后; who 指人,which 指物,that 指人/物,whose 表所属",
+      "examples": [
+        {
+          "句": "The man who is wearing a hat is my father.",
+          "翻译": "戴着帽子的那个人是我爸爸。"
+        },
+        {
+          "句": "I like the book which/that you gave me.",
+          "翻译": "我喜欢你给我的那本书。"
+        },
+        {
+          "句": "The girl whose mother is a doctor studies very hard.",
+          "翻译": "那个妈妈是医生的女孩学习很努力。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "The boy ____ (who/which) won the race is my brother.",
+          "答案": "who",
+          "提示": "先行词 boy 指人,用 who"
+        },
+        {
+          "题": "This is the book ____ (which/who) I bought yesterday.",
+          "答案": "which/that",
+          "提示": "先行词 book 指物,用 which 或 that"
+        },
+        {
+          "题": "The man ____ car was stolen called the police.",
+          "答案": "whose",
+          "提示": "表所属关系用 whose"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_adverbial_when",
+      "type": "grammar",
+      "level": "初三上",
+      "grade": "L3",
+      "topic": "状语从句",
+      "title": "状语从句 (when/while/before/after/until)",
+      "rule": "时间状语从句用 when/while/before/after/until 引导,从句用一般现在时表将来",
+      "examples": [
+        {
+          "句": "When I came in, he was watching TV.",
+          "翻译": "我进来时,他正在看电视。"
+        },
+        {
+          "句": "I will call you after I arrive.",
+          "翻译": "我到了以后会给你打电话。"
+        },
+        {
+          "句": "Wait here until I come back.",
+          "翻译": "在这里等我回来。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "I will tell him the news when he ____ (come) back.",
+          "答案": "comes",
+          "提示": "主将从现: 主句将来时,从句用一般现在时"
+        },
+        {
+          "题": "____ (While/When) I was sleeping, the phone rang.",
+          "答案": "While",
+          "提示": "while + 持续性动作,when + 点时间"
+        },
+        {
+          "题": "Don't leave ____ (until/before) I tell you to.",
+          "答案": "until",
+          "提示": "until 直到…为止"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_adverbial_because",
+      "type": "grammar",
+      "level": "初三上",
+      "grade": "L3",
+      "topic": "状语从句",
+      "title": "状语从句 (because/although/so that/if)",
+      "rule": "because 表原因; although/though 表让步; so that 表目的; if 表条件",
+      "examples": [
+        {
+          "句": "I stayed at home because it was raining.",
+          "翻译": "因为下雨,我待在家里。"
+        },
+        {
+          "句": "Although he is poor, he is happy.",
+          "翻译": "虽然他穷,但他很快乐。"
+        },
+        {
+          "句": "Study hard so that you can pass the exam.",
+          "翻译": "努力学习,这样你就能通过考试。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ (Because/Although) he was ill, he didn't come to school.",
+          "答案": "Because",
+          "提示": "表原因用 Because"
+        },
+        {
+          "题": "____ (Although/Because) it was cold, he went out without a coat.",
+          "答案": "Although",
+          "提示": "表让步用 Although"
+        },
+        {
+          "题": "Speak louder ____ (so that/in case) everyone can hear you.",
+          "答案": "so that",
+          "提示": "表目的用 so that"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_subjective",
+      "type": "grammar",
+      "level": "初三下",
+      "grade": "L3",
+      "topic": "主语从句",
+      "title": "主语从句 (what/that/whether)",
+      "rule": "主语从句作主语,常用 what/that/whether 引导,谓语动词用第三人称单数",
+      "examples": [
+        {
+          "句": "What he said is true.",
+          "翻译": "他说的话是真的。"
+        },
+        {
+          "句": "Whether he will come is unknown.",
+          "翻译": "他是否会来还不知道。"
+        },
+        {
+          "句": "That she passed the exam made her mother happy.",
+          "翻译": "她通过考试让她妈妈很高兴。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ (What/Which) he said is important.",
+          "答案": "What",
+          "提示": "\"…的内容\"用 What"
+        },
+        {
+          "题": "____ (Whether/If) he is coming is not clear.",
+          "答案": "Whether",
+          "提示": "主语从句用 Whether 不用 If"
+        },
+        {
+          "题": "____ (That/What) the earth moves around the sun is true.",
+          "答案": "That",
+          "提示": "that 引导陈述句主语从句"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_predicative",
+      "type": "grammar",
+      "level": "初三下",
+      "grade": "L3",
+      "topic": "表语从句",
+      "title": "表语从句 (that/whether/what)",
+      "rule": "表语从句作表语,跟在系动词后",
+      "examples": [
+        {
+          "句": "The problem is that we don't have enough time.",
+          "翻译": "问题是我们没有足够的时间。"
+        },
+        {
+          "句": "My idea is whether we should go now.",
+          "翻译": "我的想法是我们是否应该现在走。"
+        },
+        {
+          "句": "This is what I want to say.",
+          "翻译": "这就是我想说的。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "The truth is ____ (that/what) he lied.",
+          "答案": "that",
+          "提示": "表语从句陈述事实用 that"
+        },
+        {
+          "题": "The question is ____ (whether/if) he can finish it on time.",
+          "答案": "whether",
+          "提示": "whether 不用 if 在表语从句中也可,但 whether 更正式"
+        },
+        {
+          "题": "That is ____ (what/which) I bought yesterday.",
+          "答案": "what",
+          "提示": "\"…的东西\"用 what"
+        }
+      ],
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_there_be2",
+      "type": "grammar",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "There be 句型",
+      "title": "There be 句型 (进阶:就近原则 + 时态变化)",
+      "rule": "就近原则: be 动词与最近的主语保持一致; 时态: there is/was/will be/has been",
+      "examples": [
+        {
+          "句": "There is a book and two pens on the desk.",
+          "翻译": "桌子上有一本书和两支钢笔。"
+        },
+        {
+          "句": "There were many people in the park yesterday.",
+          "翻译": "昨天公园里有很多人。"
+        },
+        {
+          "句": "There will be a meeting tomorrow.",
+          "翻译": "明天将有一个会议。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "There ____ (is/are) a pen and two pencils in my bag.",
+          "答案": "is",
+          "提示": "就近原则: a pen 单数,用 is"
+        },
+        {
+          "题": "There ____ (is/was) a party last night.",
+          "答案": "was",
+          "提示": "last night 过去时间,用 was"
+        },
+        {
+          "题": "There ____ (will be/is) a concert next week.",
+          "答案": "will be",
+          "提示": "next week 将来时间,用 will be"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_if_real",
+      "type": "grammar",
+      "level": "初二下",
+      "grade": "L2",
+      "topic": "If 条件句",
+      "title": "If 真实条件句 (主将从现)",
+      "rule": "If + 一般现在时, 主句 + will + 动原; 表\"如果…就…\"",
+      "examples": [
+        {
+          "句": "If it rains tomorrow, I will stay at home.",
+          "翻译": "如果明天下雨,我就待在家里。"
+        },
+        {
+          "句": "If you study hard, you will pass the exam.",
+          "翻译": "如果你努力学习,你会通过考试。"
+        },
+        {
+          "句": "If he comes, tell him to wait.",
+          "翻译": "如果他来了,让他等一下。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "If it ____ (rain) tomorrow, we will cancel the trip.",
+          "答案": "rains",
+          "提示": "主将从现:从句用一般现在时 rains"
+        },
+        {
+          "题": "If she ____ (be) free, she will help us.",
+          "答案": "is",
+          "提示": "主将从现:从句用 is"
+        },
+        {
+          "题": "If you don't hurry, you ____ (miss) the bus.",
+          "答案": "will miss",
+          "提示": "主句用 will + 动原"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_if_unreal",
+      "type": "grammar",
+      "level": "初三下",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "title": "If 虚拟条件句 (与现在/过去事实相反)",
+      "rule": "与现在相反: If + 过去式, 主句 would + 动原; 与过去相反: If + had done, 主句 would have done",
+      "examples": [
+        {
+          "句": "If I were you, I would take the job.",
+          "翻译": "如果我是你,我会接受这份工作。"
+        },
+        {
+          "句": "If I had studied harder, I would have passed.",
+          "翻译": "如果我以前更努力学习,我早就通过了。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "If I ____ (be) a bird, I would fly in the sky.",
+          "答案": "were",
+          "提示": "虚拟语气:be 动词统一用 were"
+        },
+        {
+          "题": "If he had come earlier, he ____ (meet) her.",
+          "答案": "would have met",
+          "提示": "与过去相反: 主句 would have + 过去分词"
+        },
+        {
+          "题": "If I ____ (have) more money, I would buy a bigger house.",
+          "答案": "had",
+          "提示": "与现在相反: 从句用过去式 had"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_tag_questions",
+      "type": "grammar",
+      "level": "初二下",
+      "grade": "L2",
+      "topic": "反义疑问句",
+      "title": "反义疑问句 (前肯定后否定,前否定后肯定)",
+      "rule": "前肯后否,前否后肯; 时态一致; 人称一致",
+      "examples": [
+        {
+          "句": "You are a student, aren't you?",
+          "翻译": "你是学生,对吗?"
+        },
+        {
+          "句": "He can swim, can't he?",
+          "翻译": "他会游泳,对吗?"
+        },
+        {
+          "句": "She doesn't like apples, does she?",
+          "翻译": "她不喜欢苹果,对吗?"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "You are from China, ____ (aren't you/are you)?",
+          "答案": "aren't you",
+          "提示": "前肯后否: are → aren't"
+        },
+        {
+          "题": "He can't drive, ____ (can he/can't he)?",
+          "答案": "can he",
+          "提示": "前否后肯: can't → can"
+        },
+        {
+          "题": "They went there, ____ (didn't they/did they)?",
+          "答案": "didn't they",
+          "提示": "前肯后否: went → didn't"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_phrasal_look",
+      "type": "grammar",
+      "level": "初二上",
+      "grade": "L2",
+      "topic": "短语动词",
+      "title": "look 短语动词 (look at/for/after/forward to/like)",
+      "rule": "look at 看; look for 寻找; look after 照顾; look forward to 期待; look like 看起来像",
+      "examples": [
+        {
+          "句": "Look at the blackboard, please.",
+          "翻译": "请看黑板。"
+        },
+        {
+          "句": "I am looking for my keys.",
+          "翻译": "我在找我的钥匙。"
+        },
+        {
+          "句": "She looks after her little brother.",
+          "翻译": "她照顾她的小弟弟。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "I'm looking ____ (at/for) my cat. Have you seen it?",
+          "答案": "for",
+          "提示": "寻找用 look for"
+        },
+        {
+          "题": "My grandma looks ____ (after/for) me when my parents are out.",
+          "答案": "after",
+          "提示": "照顾用 look after"
+        },
+        {
+          "题": "I look forward ____ (to/--) hearing from you.",
+          "答案": "to",
+          "提示": "期待 look forward to + doing/n."
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_phrasal_get_put",
+      "type": "grammar",
+      "level": "初二上",
+      "grade": "L2",
+      "topic": "短语动词",
+      "title": "get/put/take 短语动词",
+      "rule": "get up 起床; get on 上车; get off 下车; put on 穿上; put away 收起来; take off 脱下; take away 拿走",
+      "examples": [
+        {
+          "句": "I get up at 7 o'clock every morning.",
+          "翻译": "我每天早上7点起床。"
+        },
+        {
+          "句": "Put on your coat, it's cold outside.",
+          "翻译": "穿上你的外套,外面很冷。"
+        },
+        {
+          "句": "Please take off your shoes before entering.",
+          "翻译": "进来之前请脱鞋。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "I ____ (get up/get on) early yesterday morning.",
+          "答案": "got up",
+          "提示": "起床用 get up"
+        },
+        {
+          "题": "Don't forget to ____ (put on/put up) your jacket.",
+          "答案": "put on",
+          "提示": "穿上用 put on"
+        },
+        {
+          "题": "The plane ____ (took off/took away) at 8 am.",
+          "答案": "took off",
+          "提示": "飞机起飞/脱下用 take off"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_it_usage",
+      "type": "grammar",
+      "level": "初二下",
+      "grade": "L2",
+      "topic": "it 用法",
+      "title": "it 用法 (人称/时间/距离/形式主语/形式宾语)",
+      "rule": "it 指代前文; 表时间/距离/天气; it is + adj + to do (形式主语); find/think it + adj + to do (形式宾语)",
+      "examples": [
+        {
+          "句": "It is three o'clock now.",
+          "翻译": "现在3点了。"
+        },
+        {
+          "句": "It is important to learn English well.",
+          "翻译": "学好英语很重要。"
+        },
+        {
+          "句": "I find it hard to learn math.",
+          "翻译": "我发现学数学很难。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ (It/This) is sunny today.",
+          "答案": "It",
+          "提示": "天气用 It"
+        },
+        {
+          "题": "I think ____ (it/this) is a good idea.",
+          "答案": "it",
+          "提示": "think/it/that 从句中 it 作形式宾语可省略"
+        },
+        {
+          "题": "____ (It/This) took me two hours to finish the work.",
+          "答案": "It",
+          "提示": "It takes sb. time to do 表花费时间"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_pronoun_all",
+      "type": "grammar",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "代词",
+      "title": "人称代词与物主代词 (主格/宾格/形容词性/名词性)",
+      "rule": "主格作主语,宾格作宾语; 形容词性物主代词后接名词,名词性物主代词单独使用",
+      "examples": [
+        {
+          "句": "I like him. He is my friend.",
+          "翻译": "我喜欢他。他是我的朋友。"
+        },
+        {
+          "句": "This is my book. The book is mine.",
+          "翻译": "这是我的书。这本书是我的。"
+        },
+        {
+          "句": "She gave him a present. It was hers.",
+          "翻译": "她给了他一个礼物。这是她的。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ (I/Me) am a student.",
+          "答案": "I",
+          "提示": "主格 I 作主语"
+        },
+        {
+          "题": "This is ____ (my/mine) book.",
+          "答案": "my",
+          "提示": "后接名词 book, 用形容词性物主代词 my"
+        },
+        {
+          "题": "The red bike is ____ (her/hers).",
+          "答案": "hers",
+          "提示": "单独使用, 表\"她的(自行车)\", 用名词性物主代词 hers"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_demonstrative",
+      "type": "grammar",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "代词",
+      "title": "指示代词 (this/that/these/those)",
+      "rule": "this/that 指单数,these/those 指复数; this/these 近指,that/those 远指",
+      "examples": [
+        {
+          "句": "This is my book. That is yours.",
+          "翻译": "这是我的书。那是你的。"
+        },
+        {
+          "句": "These are my friends. Those are his.",
+          "翻译": "这些是我的朋友。那些是他的。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ (This/These) is a pen.",
+          "答案": "This",
+          "提示": "a pen 单数, 用 This"
+        },
+        {
+          "题": "____ (That/Those) are birds in the sky.",
+          "答案": "Those",
+          "提示": "are + 复数, 远指用 Those"
+        },
+        {
+          "题": "____ (These/This) apples are sweet.",
+          "答案": "These",
+          "提示": "apples 复数, 近指用 These"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_article_complete",
+      "type": "grammar",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "冠词",
+      "title": "冠词综合 (a/an/the/零冠词)",
+      "rule": "a/an 表泛指; the 表特指; 零冠词用于复数泛指/不可数/三餐/球类/学科/标题",
+      "examples": [
+        {
+          "句": "I have a cat. The cat is black.",
+          "翻译": "我有一只猫。这只猫是黑色的。"
+        },
+        {
+          "句": "We play basketball after school.",
+          "翻译": "我们放学后打篮球。"
+        },
+        {
+          "句": "He goes to school by bike.",
+          "翻译": "他骑自行车去上学。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "He is ____ (a/an) honest boy.",
+          "答案": "an",
+          "提示": "honest /ɒ/ 元音音素,用 an"
+        },
+        {
+          "题": "____ (The/A) sun rises in the east.",
+          "答案": "The",
+          "提示": "世界上独一无二的事物前用 the"
+        },
+        {
+          "题": "I have ____ (a/--) breakfast at 7.",
+          "答案": "--",
+          "提示": "三餐前用零冠词"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_numeral",
+      "type": "grammar",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "数词",
+      "title": "数词 (基数/序数/分数/日期)",
+      "rule": "基数表数量,序数表顺序; 分数: 分子基分母序; 日期: 月+序数+年",
+      "examples": [
+        {
+          "句": "I have three books.",
+          "翻译": "我有三本书。"
+        },
+        {
+          "句": "He is the first student to arrive.",
+          "翻译": "他是第一个到的学生。"
+        },
+        {
+          "句": "Two thirds of the students are girls.",
+          "翻译": "三分之二的学生是女生。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "There are ____ (five/fifth) people in my family.",
+          "答案": "five",
+          "提示": "基数 five 表数量"
+        },
+        {
+          "题": "Today is May ____ (three/third).",
+          "答案": "third",
+          "提示": "日期用序数 third"
+        },
+        {
+          "题": "____ (One/First) of the cake is for you.",
+          "答案": "One",
+          "提示": "分子用基数 One"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_adj_all_forms",
+      "type": "grammar",
+      "level": "初一下",
+      "grade": "L1",
+      "topic": "形容词比较级",
+      "title": "形容词三级 (原级/比较级/最高级) 完整用法",
+      "rule": "as...as 原级比较; 比较级 + than; the + 最高级 + 范围; the more...the more 越…越…",
+      "examples": [
+        {
+          "句": "Tom is as tall as Jack.",
+          "翻译": "汤姆和杰克一样高。"
+        },
+        {
+          "句": "Anna is taller than her sister.",
+          "翻译": "安娜比她姐姐高。"
+        },
+        {
+          "句": "Tom is the tallest of the three.",
+          "翻译": "汤姆是三人中最高的。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "She is ____ (as tall/taller) as her mother.",
+          "答案": "as tall",
+          "提示": "\"和…一样\"用 as...as 原级"
+        },
+        {
+          "题": "This book is ____ (more interesting/most interesting) than that one.",
+          "答案": "more interesting",
+          "提示": "两者比较用比较级 more interesting"
+        },
+        {
+          "题": "He is ____ (the fastest/faster) runner in the class.",
+          "答案": "the fastest",
+          "提示": "三者以上最高级 the fastest"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_past_future",
+      "type": "grammar",
+      "level": "初三下",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "title": "过去将来时 (would / was/were going to)",
+      "rule": "从过去看将来: 主句过去时 + would + 动原 或 was/were going to + 动原",
+      "examples": [
+        {
+          "句": "He said he would come tomorrow.",
+          "翻译": "他说他明天会来。"
+        },
+        {
+          "句": "She was going to travel but it rained.",
+          "翻译": "她本打算去旅行但下雨了。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "He said he ____ (will/would) help me.",
+          "答案": "would",
+          "提示": "主句 said 过去,从句用过去将来时 would"
+        },
+        {
+          "题": "I ____ (am going/was going) to call you, but I forgot.",
+          "答案": "was going",
+          "提示": "过去的打算用 was going to"
+        },
+        {
+          "题": "She told us she ____ (will/would) be back soon.",
+          "答案": "would",
+          "提示": "过去将来时 would"
+        }
+      ],
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_past_perfect",
+      "type": "grammar",
+      "level": "初三上",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "title": "过去完成时 (had + 过去分词)",
+      "rule": "表示\"过去的过去\"发生的动作; 标志词 by the time/before/already",
+      "examples": [
+        {
+          "句": "By the time I arrived, he had left.",
+          "翻译": "我到达时,他已经离开了。"
+        },
+        {
+          "句": "She had finished her homework before 8 pm.",
+          "翻译": "她8点前就完成了作业。"
+        },
+        {
+          "句": "He had lived there for ten years before he moved.",
+          "翻译": "他搬走前已经在那住了10年。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "By the time she got there, the train ____ (left/had left).",
+          "答案": "had left",
+          "提示": "\"过去的过去\"用过去完成时 had left"
+        },
+        {
+          "题": "He said he ____ (already/has already) finished the work.",
+          "答案": "had already finished",
+          "提示": "said 过去 → 从句 had + 过去分词"
+        },
+        {
+          "题": "When I called him, he ____ (had gone/went) to bed.",
+          "答案": "had gone",
+          "提示": "打电话时他已经睡了, 用过去完成时"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_past_continuous",
+      "type": "grammar",
+      "level": "初二上",
+      "grade": "L2",
+      "topic": "过去进行时",
+      "title": "过去进行时 (was/were + 动-ing)",
+      "rule": "过去某时刻正在进行的动作; 常与 when/while/at that time 连用",
+      "examples": [
+        {
+          "句": "I was reading a book at 8 pm yesterday.",
+          "翻译": "昨晚8点我在看书。"
+        },
+        {
+          "句": "While she was cooking, the phone rang.",
+          "翻译": "她做饭时电话响了。"
+        },
+        {
+          "句": "They were playing football when it began to rain.",
+          "翻译": "他们正在踢足球,突然下雨了。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "I ____ (was reading/read) a novel when the doorbell rang.",
+          "答案": "was reading",
+          "提示": "过去某时正在进行的动作,用过去进行时 was reading"
+        },
+        {
+          "题": "At 9 pm last night, we ____ (watch/were watching) a movie.",
+          "答案": "were watching",
+          "提示": "复数用 were watching"
+        },
+        {
+          "题": "While I ____ (was walking/walked) to school, I met Tom.",
+          "答案": "was walking",
+          "提示": "while + 持续性动作, 用过去进行时"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_basic_sentences",
+      "type": "grammar",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "五大基本句型",
+      "title": "五大基本句型 (SV/SVO/SVOO/SVOC/SVP)",
+      "rule": "SV 主谓; SVO 主谓宾; SVOO 主谓间宾直宾; SVOC 主谓宾宾补; SVP 主系表",
+      "examples": [
+        {
+          "句": "Birds fly.",
+          "翻译": "鸟飞。 (SV)"
+        },
+        {
+          "句": "I love music.",
+          "翻译": "我爱音乐。 (SVO)"
+        },
+        {
+          "句": "She is beautiful.",
+          "翻译": "她很漂亮。 (SVP)"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "\"Time flies.\" 是 ____ (SV/SVO) 句型.",
+          "答案": "SV",
+          "提示": "Time(主) flies(谓), 没有宾语, 是 SV"
+        },
+        {
+          "题": "\"He gave me a book.\" 是 ____ (SVO/SVOO) 句型.",
+          "答案": "SVOO",
+          "提示": "He(主) gave(谓) me(间宾) a book(直宾)"
+        },
+        {
+          "题": "\"She looks happy.\" 是 ____ (SVO/SVP) 句型.",
+          "答案": "SVP",
+          "提示": "looks 是系动词, happy 是表语, SVP"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_passive_general",
+      "type": "grammar",
+      "level": "初三上",
+      "grade": "L3",
+      "topic": "被动语态",
+      "title": "被动语态 (be + 过去分词)",
+      "rule": "主语是动作承受者; be 动词随主语时态/人称变化",
+      "examples": [
+        {
+          "句": "English is spoken all over the world.",
+          "翻译": "全世界都讲英语。"
+        },
+        {
+          "句": "The window was broken by Tom.",
+          "翻译": "窗户被汤姆打破了。"
+        },
+        {
+          "句": "The work has been finished already.",
+          "翻译": "工作已经完成了。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "This song ____ (is sung/sings) by many people.",
+          "答案": "is sung",
+          "提示": "一般现在时被动 is + sung"
+        },
+        {
+          "题": "The letter ____ (was written/is written) by him yesterday.",
+          "答案": "was written",
+          "提示": "yesterday 过去, was + written"
+        },
+        {
+          "题": "A new hospital ____ (is being built/has built) now.",
+          "答案": "is being built",
+          "提示": "now 现在进行时被动 is being built"
+        }
+      ],
+      "freq": 5,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_exclam_full",
+      "type": "grammar",
+      "level": "初一下",
+      "grade": "L1",
+      "topic": "感叹句",
+      "title": "感叹句 (What/How 全套用法)",
+      "rule": "What + (a/an) + 形容词 + 名词 + 主语 + 谓语; How + 形容词/副词 + 主语 + 谓语",
+      "examples": [
+        {
+          "句": "What a beautiful flower!",
+          "翻译": "多漂亮的花啊!"
+        },
+        {
+          "句": "How beautiful the flower is!",
+          "翻译": "这花多漂亮啊!"
+        },
+        {
+          "句": "What kind students they are!",
+          "翻译": "他们是多么善良的学生啊!"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ (What/How) a nice day it is!",
+          "答案": "What",
+          "提示": "修饰带 a/an 的名词用 What"
+        },
+        {
+          "题": "____ (What/How) hard he works!",
+          "答案": "How",
+          "提示": "修饰副词 hard 用 How"
+        },
+        {
+          "题": "____ (What/How) clever the boy is!",
+          "答案": "How",
+          "提示": "How 修饰形容词 clever"
+        }
+      ],
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_conj_subordinate",
+      "type": "grammar",
+      "level": "初二上",
+      "grade": "L2",
+      "topic": "并列连词",
+      "title": "并列连词与从属连词 (and/but/or/so/because/when/if/although)",
+      "rule": "并列: and/but/or/so; 从属: when/because/if/although/that",
+      "examples": [
+        {
+          "句": "I was hungry, so I ate a sandwich.",
+          "翻译": "我饿了,所以吃了个三明治。"
+        },
+        {
+          "句": "He likes math but he doesn't like English.",
+          "翻译": "他喜欢数学但不喜欢英语。"
+        },
+        {
+          "句": "I will go if it doesn't rain.",
+          "翻译": "如果不下雨我就去。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "He is rich, ____ (and/but) he is not happy.",
+          "答案": "but",
+          "提示": "转折关系用 but"
+        },
+        {
+          "题": "Stay here ____ (until/while) I come back.",
+          "答案": "until",
+          "提示": "直到…为止用 until"
+        },
+        {
+          "题": "____ (Because/So) he was ill, he didn't go to school.",
+          "答案": "Because",
+          "提示": "原因状语用 Because 开头, 不用 So(So 是并列连词)"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_adv_manner",
+      "type": "grammar",
+      "level": "初一下",
+      "grade": "L1",
+      "topic": "副词",
+      "title": "副词 (频率/程度/方式副词)",
+      "rule": "频率副词: always/usually/often/sometimes/never; 程度副词: very/quite/rather/extremely; 方式副词多由 adj+ly",
+      "examples": [
+        {
+          "句": "She always gets up early.",
+          "翻译": "她总是早起。"
+        },
+        {
+          "句": "He runs very fast.",
+          "翻译": "他跑得非常快。"
+        },
+        {
+          "句": "She sings beautifully.",
+          "翻译": "她唱歌很好听。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "I ____ (always/often) go to bed at 10 pm.",
+          "答案": "always/often",
+          "提示": "频率副词修饰动词"
+        },
+        {
+          "题": "He is ____ (very/quite) tall.",
+          "答案": "very/quite",
+          "提示": "程度副词修饰形容词 tall"
+        },
+        {
+          "题": "She speaks English ____ (fluent/fluently).",
+          "答案": "fluently",
+          "提示": "修饰动词 speaks 用副词 fluently"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_indirect_speech",
+      "type": "grammar",
+      "level": "初三下",
+      "grade": "L3",
+      "topic": "间接引语",
+      "title": "间接引语 (宾语从句, 时态退一格)",
+      "rule": "直接引语 → 间接引语: 人称/时态/时间状语相应变化; 主从时态一致",
+      "examples": [
+        {
+          "句": "He said, \"I am tired.\" → He said he was tired.",
+          "翻译": "他说他累了。"
+        },
+        {
+          "句": "She said, \"I will come.\" → She said she would come.",
+          "翻译": "她说她会来。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "He said, \"I am happy.\" → He said he ____ (is/was) happy.",
+          "答案": "was",
+          "提示": "am 在过去时 → was"
+        },
+        {
+          "题": "She said, \"I will go.\" → She said she ____ (will/would) go.",
+          "答案": "would",
+          "提示": "will 在过去时 → would"
+        },
+        {
+          "题": "Tom said, \"I like it.\" → Tom said he ____ (likes/liked) it.",
+          "答案": "liked",
+          "提示": "现在时 → 过去时 liked"
+        }
+      ],
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "id": "g_prep_combined",
+      "type": "grammar",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "介词",
+      "title": "介词综合 (in/on/at 时间 + in/on/at 地点)",
+      "rule": "in 年月季节上午下午晚上; on 日期星期; at 钟点; in 城市大国; at 小地点",
+      "examples": [
+        {
+          "句": "I was born in 2008.",
+          "翻译": "我出生于2008年。"
+        },
+        {
+          "句": "The meeting is on Monday.",
+          "翻译": "会议在周一。"
+        },
+        {
+          "句": "He lives at 25 Park Street.",
+          "翻译": "他住在公园街25号。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "School starts ____ (in/on) September.",
+          "答案": "in",
+          "提示": "月份前用 in"
+        },
+        {
+          "题": "We have lunch ____ (at/in) 12 o'clock.",
+          "答案": "at",
+          "提示": "钟点前用 at"
+        },
+        {
+          "题": "He arrived ____ (in/at) Beijing yesterday.",
+          "答案": "in",
+          "提示": "大城市前用 in"
+        }
+      ],
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "我喜欢那位正在唱歌的女孩。",
+      "en": "I like the girl who is singing.",
+      "hint": "who 引导定语从句修饰 girl",
+      "grade": "L3",
+      "topic": "定语从句",
+      "difficulty": "hard",
+      "id": "t_llm2_001",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "这是我昨天买的那本书。",
+      "en": "This is the book (which/that) I bought yesterday.",
+      "hint": "which/that 引导定语从句修饰 book",
+      "grade": "L3",
+      "topic": "定语从句",
+      "difficulty": "hard",
+      "id": "t_llm2_002",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "我喜欢那个窗户朝南的房间。",
+      "en": "I like the room whose window faces south.",
+      "hint": "whose 表所属",
+      "grade": "L3",
+      "topic": "定语从句",
+      "difficulty": "hard",
+      "id": "t_llm2_003",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "那位戴眼镜的女士是我的老师。",
+      "en": "The woman who wears glasses is my teacher.",
+      "hint": "who 引导定语从句",
+      "grade": "L3",
+      "topic": "定语从句",
+      "difficulty": "hard",
+      "id": "t_llm2_004",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "这是我们去年参观的博物馆。",
+      "en": "This is the museum (which/that) we visited last year.",
+      "hint": "which/that 引导",
+      "grade": "L3",
+      "topic": "定语从句",
+      "difficulty": "hard",
+      "id": "t_llm2_005",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "当老师进来时,学生们正在读书。",
+      "en": "When the teacher came in, the students were reading.",
+      "hint": "when 引导时间状语从句",
+      "grade": "L2",
+      "topic": "状语从句",
+      "difficulty": "medium",
+      "id": "t_llm2_006",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "因为下雨,我们待在家里。",
+      "en": "Because it was raining, we stayed at home.",
+      "hint": "because 引导原因状语从句",
+      "grade": "L2",
+      "topic": "状语从句",
+      "difficulty": "medium",
+      "id": "t_llm2_007",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "如果你努力学习,你会成功。",
+      "en": "If you study hard, you will succeed.",
+      "hint": "if 真实条件句 主将从现",
+      "grade": "L2",
+      "topic": "状语从句",
+      "difficulty": "medium",
+      "id": "t_llm2_008",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "虽然他很累,但他继续工作。",
+      "en": "Although he was tired, he kept on working.",
+      "hint": "although 引导让步状语从句",
+      "grade": "L3",
+      "topic": "状语从句",
+      "difficulty": "hard",
+      "id": "t_llm2_009",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "他说话很大声,以至于后排都能听见。",
+      "en": "He spoke so loudly that the back row could hear him.",
+      "hint": "so...that 结果状语从句",
+      "grade": "L3",
+      "topic": "状语从句",
+      "difficulty": "hard",
+      "id": "t_llm2_010",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "这本书被翻译成了多种语言。",
+      "en": "This book has been translated into many languages.",
+      "hint": "现在完成时被动",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "t_llm2_011",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "这座桥是去年建成的。",
+      "en": "This bridge was built last year.",
+      "hint": "一般过去时被动",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "t_llm2_012",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "这些问题正在被讨论。",
+      "en": "These problems are being discussed.",
+      "hint": "现在进行时被动",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "t_llm2_013",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "全世界都讲英语。",
+      "en": "English is spoken all over the world.",
+      "hint": "一般现在时被动",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "t_llm2_014",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "这支歌是中国民歌。",
+      "en": "This song is sung as a Chinese folk song.",
+      "hint": "一般现在时被动 + as",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "t_llm2_015",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "如果我是你,我就会接受那份工作。",
+      "en": "If I were you, I would take the job.",
+      "hint": "与现在相反的虚拟",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "difficulty": "hard",
+      "id": "t_llm2_016",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "如果我昨天早点起床,我就会赶上公共汽车。",
+      "en": "If I had got up earlier yesterday, I would have caught the bus.",
+      "hint": "与过去相反的虚拟",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "difficulty": "hard",
+      "id": "t_llm2_017",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "要是我会飞就好了。",
+      "en": "If only I could fly.",
+      "hint": "wish 类虚拟",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "difficulty": "hard",
+      "id": "t_llm2_018",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "我出生于 2010 年。",
+      "en": "I was born in 2010.",
+      "hint": "in + 年份",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm2_019",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "会议在周一上午 9 点开始。",
+      "en": "The meeting starts at 9 am on Monday.",
+      "hint": "at + 钟点 + on + 星期",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm2_020",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "他住在北京。",
+      "en": "He lives in Beijing.",
+      "hint": "大城市前用 in",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm2_021",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "图书馆在学校前面。",
+      "en": "The library is in front of the school.",
+      "hint": "in front of 在…前面",
+      "grade": "L1",
+      "topic": "学校学习",
+      "difficulty": "easy",
+      "id": "t_llm2_022",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "他在桌子底下找到了一只猫。",
+      "en": "He found a cat under the table.",
+      "hint": "under 在…下面",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm2_023",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "汤姆比杰克高。",
+      "en": "Tom is taller than Jack.",
+      "hint": "比较级 + than",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm2_024",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "今天比昨天热。",
+      "en": "Today is hotter than yesterday.",
+      "hint": "hot → hotter",
+      "grade": "L1",
+      "topic": "天气",
+      "difficulty": "easy",
+      "id": "t_llm2_025",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "这本书比那本书有趣得多。",
+      "en": "This book is much more interesting than that one.",
+      "hint": "much 修饰比较级",
+      "grade": "L2",
+      "topic": "阅读",
+      "difficulty": "medium",
+      "id": "t_llm2_026",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "他跑得和他哥哥一样快。",
+      "en": "He runs as fast as his brother.",
+      "hint": "as...as 平级比较",
+      "grade": "L2",
+      "topic": "日常",
+      "difficulty": "medium",
+      "id": "t_llm2_027",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "她是班里最高的女生。",
+      "en": "She is the tallest girl in our class.",
+      "hint": "the + 最高级 + 范围",
+      "grade": "L2",
+      "topic": "日常",
+      "difficulty": "medium",
+      "id": "t_llm2_028",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "你叫什么名字?",
+      "en": "What is your name?",
+      "hint": "特殊疑问句",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm2_029",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "现在几点了?",
+      "en": "What time is it now?",
+      "hint": "问时间",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm2_030",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "请问洗手间在哪里?",
+      "en": "Excuse me, where is the restroom?",
+      "hint": "Excuse me 表打扰, where 问地点",
+      "grade": "L1",
+      "topic": "交通旅行",
+      "difficulty": "easy",
+      "id": "t_llm2_031",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "我每天骑自行车上学。",
+      "en": "I ride my bike to school every day.",
+      "hint": "ride + 交通工具",
+      "grade": "L1",
+      "topic": "学校学习",
+      "difficulty": "easy",
+      "id": "t_llm2_032",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "你喜欢什么运动?",
+      "en": "What sport do you like?",
+      "hint": "What + 名词 + 一般疑问句",
+      "grade": "L1",
+      "topic": "运动",
+      "difficulty": "easy",
+      "id": "t_llm2_033",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "这个周末你打算做什么?",
+      "en": "What are you going to do this weekend?",
+      "hint": "be going to + 动原",
+      "grade": "L2",
+      "topic": "日常",
+      "difficulty": "medium",
+      "id": "t_llm2_034",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "你已经看完那本书了吗?",
+      "en": "Have you finished reading that book yet?",
+      "hint": "现在完成时 + yet",
+      "grade": "L2",
+      "topic": "阅读",
+      "difficulty": "medium",
+      "id": "t_llm2_035",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "我在这里住了十年了。",
+      "en": "I have lived here for ten years.",
+      "hint": "现在完成时 + for + 时间段",
+      "grade": "L2",
+      "topic": "日常",
+      "difficulty": "medium",
+      "id": "t_llm2_036",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "昨天这个时候我在写作业。",
+      "en": "I was doing my homework at this time yesterday.",
+      "hint": "过去进行时",
+      "grade": "L2",
+      "topic": "学校学习",
+      "difficulty": "medium",
+      "id": "t_llm2_037",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "我想知道明天的天气怎么样。",
+      "en": "I wonder what the weather will be like tomorrow.",
+      "hint": "宾语从句 what...will be like",
+      "grade": "L3",
+      "topic": "从句",
+      "difficulty": "hard",
+      "id": "t_llm2_038",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "他对我说他明天会去上海。",
+      "en": "He told me that he would go to Shanghai tomorrow.",
+      "hint": "间接引语 时态退一格",
+      "grade": "L3",
+      "topic": "从句",
+      "difficulty": "hard",
+      "id": "t_llm2_039",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "cn": "这正是我一直想要的书。",
+      "en": "This is the book that I have been looking for.",
+      "hint": "定语从句 + 现在完成进行时",
+      "grade": "L3",
+      "topic": "从句",
+      "difficulty": "hard",
+      "id": "t_llm2_040",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "The earth ____ (move) around the sun.",
+      "answer": "moves",
+      "hint": "客观真理用一般现在时第三人称单数 moves",
+      "grade": "L1",
+      "topic": "一般现在时",
+      "difficulty": "easy",
+      "id": "tt_llm2_001",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "My father ____ (drink) tea every morning.",
+      "answer": "drinks",
+      "hint": "第三人称单数 drinks",
+      "grade": "L1",
+      "topic": "一般现在时",
+      "difficulty": "easy",
+      "id": "tt_llm2_002",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "Water ____ (freeze) at 0°C.",
+      "answer": "freezes",
+      "hint": "客观事实 freezes",
+      "grade": "L1",
+      "topic": "一般现在时",
+      "difficulty": "easy",
+      "id": "tt_llm2_003",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "I ____ (buy) a new bike last week.",
+      "answer": "bought",
+      "hint": "buy 的过去式是 bought",
+      "grade": "L1",
+      "topic": "一般过去时",
+      "difficulty": "easy",
+      "id": "tt_llm2_004",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "She ____ (write) a letter to her friend yesterday.",
+      "answer": "wrote",
+      "hint": "write 的过去式是 wrote",
+      "grade": "L1",
+      "topic": "一般过去时",
+      "difficulty": "easy",
+      "id": "tt_llm2_005",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "They ____ (have) a party last Saturday.",
+      "answer": "had",
+      "hint": "have 的过去式是 had",
+      "grade": "L1",
+      "topic": "一般过去时",
+      "difficulty": "easy",
+      "id": "tt_llm2_006",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "We ____ (visit) our grandparents next weekend.",
+      "answer": "will visit",
+      "hint": "next weekend 将来 → will + 动原",
+      "grade": "L2",
+      "topic": "一般将来时",
+      "difficulty": "medium",
+      "id": "tt_llm2_007",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "I ____ (be) a doctor in the future.",
+      "answer": "will be",
+      "hint": "in the future → will + be 原形",
+      "grade": "L2",
+      "topic": "一般将来时",
+      "difficulty": "medium",
+      "id": "tt_llm2_008",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "Look at the dark clouds. It ____ (rain).",
+      "answer": "is going to rain",
+      "hint": "be going to 表预测",
+      "grade": "L2",
+      "topic": "一般将来时",
+      "difficulty": "medium",
+      "id": "tt_llm2_009",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "Listen! She ____ (sing) in the next room.",
+      "answer": "is singing",
+      "hint": "Listen! 现在进行时",
+      "grade": "L2",
+      "topic": "现在进行时",
+      "difficulty": "medium",
+      "id": "tt_llm2_010",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "Don't disturb him. He ____ (sleep).",
+      "answer": "is sleeping",
+      "hint": "现在进行时 is + sleeping",
+      "grade": "L2",
+      "topic": "现在进行时",
+      "difficulty": "medium",
+      "id": "tt_llm2_011",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "What ____ you ____ (do) right now?",
+      "answer": "are, doing",
+      "hint": "现在进行时疑问句: are + doing",
+      "grade": "L2",
+      "topic": "现在进行时",
+      "difficulty": "medium",
+      "id": "tt_llm2_012",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "At 9 pm yesterday, I ____ (watch) TV.",
+      "answer": "was watching",
+      "hint": "过去某时正在做 → 过去进行时 was + 动-ing",
+      "grade": "L2",
+      "topic": "过去进行时",
+      "difficulty": "medium",
+      "id": "tt_llm2_013",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "While she ____ (read), the bell rang.",
+      "answer": "was reading",
+      "hint": "while + 持续动作 → 过去进行时",
+      "grade": "L2",
+      "topic": "过去进行时",
+      "difficulty": "medium",
+      "id": "tt_llm2_014",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "When I called, they ____ (play) basketball.",
+      "answer": "were playing",
+      "hint": "复数 → were + 动-ing",
+      "grade": "L2",
+      "topic": "过去进行时",
+      "difficulty": "medium",
+      "id": "tt_llm2_015",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "I ____ (already, finish) my homework.",
+      "answer": "have already finished",
+      "hint": "already 提示现在完成时 have + 过去分词",
+      "grade": "L2",
+      "topic": "现在完成时",
+      "difficulty": "medium",
+      "id": "tt_llm2_016",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "He ____ (live) here since 2010.",
+      "answer": "has lived",
+      "hint": "since + 时间点 → 现在完成时",
+      "grade": "L2",
+      "topic": "现在完成时",
+      "difficulty": "medium",
+      "id": "tt_llm2_017",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "I ____ (never, see) such a beautiful sunset.",
+      "answer": "have never seen",
+      "hint": "never 提示现在完成时 have + never + 过去分词",
+      "grade": "L2",
+      "topic": "现在完成时",
+      "difficulty": "medium",
+      "id": "tt_llm2_018",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "By the time I arrived, he ____ (leave).",
+      "answer": "had left",
+      "hint": "\"过去的过去\" → 过去完成时 had + 过去分词",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "difficulty": "hard",
+      "id": "tt_llm2_019",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "She told me she ____ (already, eat) lunch.",
+      "answer": "had already eaten",
+      "hint": "told 过去 → 从句 had + 过去分词",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "difficulty": "hard",
+      "id": "tt_llm2_020",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "After he ____ (finish) his work, he went home.",
+      "answer": "had finished",
+      "hint": "\"过去的过去\" → had + 过去分词",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "difficulty": "hard",
+      "id": "tt_llm2_021",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "He said he ____ (come) the next day.",
+      "answer": "would come",
+      "hint": "said 过去 → 从句 would + 动原",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "difficulty": "hard",
+      "id": "tt_llm2_022",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "She told us she ____ (visit) her aunt the following week.",
+      "answer": "would visit",
+      "hint": "过去将来时 would + 动原",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "difficulty": "hard",
+      "id": "tt_llm2_023",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "I didn't know if he ____ (arrive) on time.",
+      "answer": "would arrive",
+      "hint": "过去将来时 would + 动原",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "difficulty": "hard",
+      "id": "tt_llm2_024",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "It ____ (rain) for two hours. It is still raining.",
+      "answer": "has been raining",
+      "hint": "现在完成进行时 have been + 动-ing",
+      "grade": "L3",
+      "topic": "现在完成进行时",
+      "difficulty": "hard",
+      "id": "tt_llm2_025",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "I ____ (wait) for you for an hour.",
+      "answer": "have been waiting",
+      "hint": "for + 时间段 + 持续动作 → 现在完成进行时",
+      "grade": "L3",
+      "topic": "现在完成进行时",
+      "difficulty": "hard",
+      "id": "tt_llm2_026",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "By next year, I ____ (study) here for 5 years.",
+      "answer": "will have studied",
+      "hint": "将来完成时 will have + 过去分词",
+      "grade": "L3",
+      "topic": "将来完成时",
+      "difficulty": "hard",
+      "id": "tt_llm2_027",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "By the time you arrive, dinner ____ (be) ready.",
+      "answer": "will have been",
+      "hint": "将来完成时 will have + been",
+      "grade": "L3",
+      "topic": "将来完成时",
+      "difficulty": "hard",
+      "id": "tt_llm2_028",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "Many trees ____ (plant) in our city every year.",
+      "answer": "are planted",
+      "hint": "一般现在时被动 are + 过去分词",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "tt_llm2_029",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
+    },
+    {
+      "question": "The homework ____ (must, finish) before 9 pm.",
+      "answer": "must be finished",
+      "hint": "情态动词被动: 情态动词 + be + 过去分词",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "tt_llm2_030",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen2_2026_07"
     }
   ]
 }
