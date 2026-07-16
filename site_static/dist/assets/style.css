@@ -1,5 +1,39 @@
 /* 初一英语打卡 - 共享样式 */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===== Design Tokens (added in Step 1; preserves existing palette exactly) ===== */
+:root {
+  /* Surface tiers */
+  --bg-page: #eef2ff;
+  --bg-card: #ffffff;
+  --bg-surface: #f5f5f7;
+  --bg-input: #eaeaf0;
+  --bg-hover: #eef2ff;
+  --bg-tag: #eef;
+
+  /* Text tiers */
+  --text-1: #0d1b2a;
+  --text-2: #4a5568;
+  --text-3: #555;
+  --text-4: #333;
+
+  /* Brand / accent (no dark override - same in both modes) */
+  --accent: #667eea;
+  --accent-2: #764ba2;
+  --accent-strong: #4f46e5;
+
+  /* Semantic */
+  --success: #27ae60;
+  --warn: #f39c12;
+  --danger: #e74c3c;
+  --info: #f08080;
+
+  /* Border */
+  --border: #e8ecf4;
+  --border-strong: #e8e8ed;
+  --border-input: #c5cee0;
+}
+
 body {
   font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
   background: #eef2ff;
@@ -528,3 +562,62 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 .daily-word-card .dw-word  { font-size: 22px; font-weight: 700; color: #2d1a3e; }
 .daily-word-card .dw-pron  { font-size: 13px; color: #6b46c1; }
 .daily-word-card .dw-cn    { font-size: 14px; color: #44337a; margin-top: 2px; }
+
+
+/* ===== Dark-mode coherence fixes (appended last, wins on tie) ===== */
+@media (prefers-color-scheme: dark) {
+  /* Dark token overrides */
+  :root {
+    --bg-page: #1a1a2e;
+    --bg-card: #2d2d4e;
+    --bg-surface: #2d2d4e;
+    --bg-input: #3d3d5e;
+    --bg-hover: #4a4a72;
+    --bg-tag: #3d3d5e;
+
+    --text-1: #e0e0e0;
+    --text-2: #aaa;
+    --text-3: #cbd5e1;
+    --text-4: #ccc;
+
+    --success: #4caf50;
+    --danger: #f44336;
+
+    --border: #3d3d5e;
+    --border-strong: #5a5a8a;
+    --border-input: #5a5a8a;
+  }
+
+  /* Decorative cards: replace light-only gradients in dark mode */
+  .card-front {
+    background: var(--bg-surface);
+    border: 1px solid var(--accent-2);
+    color: var(--text-1);
+  }
+  .card-back {
+    background: var(--bg-surface);
+    border: 1px solid var(--accent);
+    color: var(--text-1);
+    transform: rotateY(180deg);
+  }
+
+  /* Daily word card: replace light purple gradient with neutral + accent edge */
+  .daily-word-card {
+    background: var(--bg-surface);
+    border-left: 4px solid var(--accent);
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-1);
+  }
+  .daily-word-card .dw-label,
+  .daily-word-card .dw-pron { color: var(--accent); }
+  .daily-word-card .dw-word,
+  .daily-word-card .dw-cn { color: var(--text-1); }
+
+  /* Inline-styled celebrate card (linear-gradient(135deg, #eafaf1, #d4f5e2)) */
+  .card[style*="linear-gradient(135deg,#eafaf1"] {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--success);
+  }
+}

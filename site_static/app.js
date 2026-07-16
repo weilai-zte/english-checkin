@@ -521,7 +521,7 @@ document.addEventListener('input', function(e) {
         ${done ? `
         <div class="card" style="text-align:center;background:linear-gradient(135deg,#eafaf1,#d4f5e2);">
           <div style="font-size:40px;">🎉</div>
-          <div style="color:#27ae60;font-size:18px;font-weight:bold;margin-top:4px;">今日已完成打卡！</div>
+          <div style="color:var(--success);font-size:18px;font-weight:bold;margin-top:4px;">今日已完成打卡！</div>
           <div class="stat-row">
             <div class="stat"><div class="stat-num">${streak}</div><div class="stat-label">连续天数 🔥</div></div>
             <div class="stat"><div class="stat-num">${totalDays}</div><div class="stat-label">累计打卡</div></div>
@@ -591,7 +591,7 @@ document.addEventListener('input', function(e) {
       <div class="container">
         <div class="card" style="text-align:center;">
           <div class="card-title">今日主题</div>
-          <div style="font-size:20px;font-weight:bold;color:#667eea;">${escapeHtml(t.topic || '综合练习')}</div>
+          <div style="font-size:20px;font-weight:bold;color:var(--accent);">${escapeHtml(t.topic || '综合练习')}</div>
           <div class="card-word-sub" style="font-size:13px;margin-top:6px;">
             词汇 ${t.vocab.length} 个 · 语法 ${t.grammar.title}
           </div>
@@ -654,7 +654,7 @@ document.addEventListener('input', function(e) {
             ${hideWord ? escapeHtml(w.word) : escapeHtml(w.cn)}
           </div>
           <div class="vocab-pron">${escapeHtml(w.pron || '')}</div>
-          <button class="btn-sm" id="speak-btn" style="background:#eef;color:#667eea;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:4px;">🔊 听发音</button>
+          <button class="btn-sm" id="speak-btn" style="background:#eef;color:var(--accent);border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:4px;">🔊 听发音</button>
           <!-- Bug 3a: hideWord 时例句会泄露答案, 暂时遮住 -->
           <div class="vocab-example" id="vocab-example">${hideWord ? '<span style="color:#4a5568;font-style:italic;">查看中文后揭晓英文例句</span>' : escapeHtml(w.example || '')}</div>
           ${w.memory ? `<div class="vocab-memory">💡 ${escapeHtml(w.memory)}</div>` : ''}
@@ -750,7 +750,7 @@ document.addEventListener('input', function(e) {
       finishDiv.style.textAlign = 'center';
       finishDiv.innerHTML = `
         <div style="font-size:36px;margin-bottom:8px;">${correct >= 2 ? '🎉' : '💪'}</div>
-        <div style="font-size:18px;font-weight:bold;color:#667eea;">${score} 正确</div>
+        <div style="font-size:18px;font-weight:bold;color:var(--accent);">${score} 正确</div>
         <div style="color:#374151;margin:8px 0;">${correct >= 2 ? '已记录到打卡！' : '再接再厉！'}</div>
         <div class="btn-row">
           <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习</a>
@@ -1345,7 +1345,7 @@ document.addEventListener('input', function(e) {
           ${tenseE.slice(0, 10).map(e => `
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question)}</div>
-              <div style="font-size:12px;color:#27ae60;">✓ ${escapeHtml(e.answer)}</div>
+              <div style="font-size:12px;color:var(--success);">✓ ${escapeHtml(e.answer)}</div>
               <div style="font-size:12px;color:#374151;">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
           `).join('') || '<p style="color:#374151;">无</p>'}
@@ -1356,7 +1356,7 @@ document.addEventListener('input', function(e) {
           ${prepE.slice(0, 10).map(e => `
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question)}</div>
-              <div style="font-size:12px;color:#27ae60;">✓ ${escapeHtml(e.answer)}</div>
+              <div style="font-size:12px;color:var(--success);">✓ ${escapeHtml(e.answer)}</div>
               <div style="font-size:12px;color:#374151;">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
           `).join('') || '<p style="color:#374151;">无</p>'}
@@ -1367,7 +1367,7 @@ document.addEventListener('input', function(e) {
           ${trE.slice(0, 10).map(e => `
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question || e.sentence || '')}</div>
-              <div style="font-size:12px;color:#27ae60;">✓ ${escapeHtml(e.answer || '')}</div>
+              <div style="font-size:12px;color:var(--success);">✓ ${escapeHtml(e.answer || '')}</div>
               <div style="font-size:12px;color:#374151;">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
           `).join('') || '<p style="color:#374151;">无</p>'}
@@ -1562,7 +1562,7 @@ document.addEventListener('input', function(e) {
             <div style="flex:1;">
               <div class="bar"><div class="bar-fill" style="width:${(mastered/totalW*100)}%"></div></div>
             </div>
-            <div style="font-weight:bold;color:#667eea;">${mastered}/${totalW}</div>
+            <div style="font-weight:bold;color:var(--accent);">${mastered}/${totalW}</div>
           </div>
         </div>
 
@@ -1572,7 +1572,7 @@ document.addEventListener('input', function(e) {
             <div style="flex:1;">
               <div class="bar"><div class="bar-fill" style="width:${(gMastered/totalG*100)}%"></div></div>
             </div>
-            <div style="font-weight:bold;color:#667eea;">${gMastered}/${totalG}</div>
+            <div style="font-weight:bold;color:var(--accent);">${gMastered}/${totalG}</div>
           </div>
         </div>
 
@@ -1598,15 +1598,15 @@ document.addEventListener('input', function(e) {
         <div class="card" style="margin-top:16px;">
           <div class="card-title">☁️ 跨设备同步</div>
           <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
-            当前 ID: <code id="user-key-display" style="font-size:11px;background:#eef2ff;padding:2px 6px;border-radius:4px;word-break:break-all;"></code>
-            <button id="copy-user-key" class="btn-sm" style="background:#667eea;color:white;border:none;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;margin-left:4px;">📋 复制</button>
+            当前 ID: <code id="user-key-display" style="font-size:11px;background:var(--bg-page);padding:2px 6px;border-radius:4px;word-break:break-all;"></code>
+            <button id="copy-user-key" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;margin-left:4px;">📋 复制</button>
           </div>
           <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
             在另一台设备的同一浏览器粘贴此 ID 即可看到同步进度。
           </div>
           <div style="display:flex;gap:6px;">
             <input id="migrate-key-input" type="text" placeholder="粘贴另一个设备的 ID..." style="flex:1;padding:8px;border:1.5px solid #d0d5e0;border-radius:8px;font-size:13px;" />
-            <button id="migrate-key-btn" class="btn-sm" style="background:#667eea;color:white;border:none;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;">📥 切换到此 ID</button>
+            <button id="migrate-key-btn" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;">📥 切换到此 ID</button>
           </div>
           <div style="font-size:11px;color:#6b7280;margin-top:6px;">⚠ 切换 ID 会从云端拉取对应进度，本地数据将被覆盖。</div>
         </div>
@@ -2026,7 +2026,7 @@ document.addEventListener('input', function(e) {
                 const masked = w.word[0] + '_'.repeat(Math.max(1, w.word.length - 2)) + (w.word.length > 1 ? w.word[w.word.length - 1] : '');
                 return '<div class="d-item" data-idx="' + i + '" data-word="' + escapeHtml(w.word) + '" data-cn="' + escapeHtml(w.cn || '') + '" style="padding:10px 0;border-bottom:1px solid #f0f0f0;">' +
                   '<div style="display:flex;align-items:center;gap:8px;">' +
-                    '<span style="font-family:monospace;font-size:20px;font-weight:bold;color:#667eea;letter-spacing:2px;">' + escapeHtml(masked) + '</span>' +
+                    '<span style="font-family:monospace;font-size:20px;font-weight:bold;color:var(--accent);letter-spacing:2px;">' + escapeHtml(masked) + '</span>' +
                     '<button class="btn btn-secondary speak-btn" data-word="' + escapeHtml(w.word) + '" style="min-width:48px;">🔊</button>' +
                   '</div>' +
                   '<input type="text" class="d-input" data-check="' + escapeHtml(w.word) + '" style="width:100%;padding:8px;margin-top:8px;border:2px solid #ddd;border-radius:6px;font-size:16px;" placeholder="拼写…" autocomplete="off" autocapitalize="off" spellcheck="false">' +
@@ -2051,7 +2051,7 @@ document.addEventListener('input', function(e) {
     });
     app.querySelector('#d-reveal').onclick = () => {
       app.querySelectorAll('.d-item').forEach(d => {
-        d.querySelector('.d-feedback').innerHTML = '<span style="color:#667eea;font-weight:bold;">' + escapeHtml(d.dataset.word) + '</span>';
+        d.querySelector('.d-feedback').innerHTML = '<span style="color:var(--accent);font-weight:bold;">' + escapeHtml(d.dataset.word) + '</span>';
       });
     };
     app.querySelector('#d-check').onclick = () => {
@@ -2078,7 +2078,7 @@ document.addEventListener('input', function(e) {
       saveProgress();
       const r = app.querySelector('#d-result');
       r.innerHTML = '<strong>' + correct + ' / ' + total + '</strong> ' + (correct === total ? '🎉 全对!' : correct >= total * 0.6 ? '👍 不错' : '继续加油');
-      r.style.color = correct >= total * 0.6 ? '#27ae60' : '#e67e22';
+      r.style.color = correct >= total * 0.6 ? 'var(--success)' : '#e67e22';
     };
   }
 
@@ -2116,7 +2116,7 @@ document.addEventListener('input', function(e) {
         '<div class="card" style="min-height:240px;max-height:50vh;overflow-y:auto;margin-bottom:8px;" id="chat-card">' +
           (hist.length === 0
             ? '<div class="bubble-bot" style="display:inline-block;background:#f0f0f0;padding:8px 12px;border-radius:12px;font-size:14px;">👋 你好！我是你的英语对话伙伴。试试用英语问我：What\'s your name? / How old are you?</div>'
-            : hist.map(m => '<div style="margin:6px 0;text-align:' + (m.role === 'user' ? 'right' : 'left') + ';"><span class="' + (m.role === 'user' ? 'bubble-user' : 'bubble-bot') + '" style="display:inline-block;max-width:80%;padding:8px 12px;border-radius:12px;font-size:14px;line-height:1.4;word-wrap:break-word;' + (m.role === 'user' ? 'background:#667eea;color:white;' : 'background:#f0f0f0;color:#333;') + '">' + escapeHtml(m.content || '') + '</span></div>').join('')) +
+            : hist.map(m => '<div style="margin:6px 0;text-align:' + (m.role === 'user' ? 'right' : 'left') + ';"><span class="' + (m.role === 'user' ? 'bubble-user' : 'bubble-bot') + '" style="display:inline-block;max-width:80%;padding:8px 12px;border-radius:12px;font-size:14px;line-height:1.4;word-wrap:break-word;' + (m.role === 'user' ? 'background:var(--accent);color:white;' : 'background:#f0f0f0;color:#333;') + '">' + escapeHtml(m.content || '') + '</span></div>').join('')) +
         '</div>' +
         '<div style="display:flex;gap:6px;">' +
           '<input id="chat-input" type="text" placeholder="用英语输入…" autocomplete="off" style="flex:1;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:14px;">' +
@@ -2136,7 +2136,7 @@ document.addEventListener('input', function(e) {
       hist.push({ role: 'user', content: msg });
       const divU = document.createElement('div');
       divU.style.cssText = 'margin:6px 0;text-align:right;';
-      divU.innerHTML = '<span style="display:inline-block;max-width:80%;padding:8px 12px;border-radius:12px;background:#667eea;color:white;">' + escapeHtml(msg) + '</span>';
+      divU.innerHTML = '<span style="display:inline-block;max-width:80%;padding:8px 12px;border-radius:12px;background:var(--accent);color:white;">' + escapeHtml(msg) + '</span>';
       card.appendChild(divU); card.scrollTop = card.scrollHeight;
       inp.value = '';
       const divT = document.createElement('div');
