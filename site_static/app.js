@@ -1013,38 +1013,45 @@ document.addEventListener('input', function(e) {
     const cfg = getDifficultyCfg();
     const pool = cfg.translate_complex ? D.hard_translate : D.translate_sentences;
     const sents = sample(pool, Math.min(8, pool.length));
-    const answers = {}; // answers[qi][blankIdx] = user input
-    const correct = new Array(sents.length).fill(false);
+    const answers = {};
 
     app.innerHTML = `
       ${topBar('中译英')}
       <div class="container">
         <div id="tr-list"></div>
-        <button class="btn btn-primary" id="tr-submit">提交</button>
+        <button class="btn btn-primary" id="tr-submit" style="margin-top:16px;">提交</button>
       </div>
     `;
+
+    // Word-length -> input width heuristic
+    function inputWidth(word) {
+      const n = word.replace(/[^a-zA-Z0-9']/g, '').length;
+      if (n <= 2) return '50px';
+      if (n <= 4) return '70px';
+      if (n <= 6) return '92px';
+      if (n <= 8) return '112px';
+      return '134px';
+    }
 
     const list = app.querySelector('#tr-list');
     sents.forEach((s, qi) => {
       const words = s.en.trim().split(/\s+/);
       const card = document.createElement('div');
-      card.className = 'card';
-      const parts = [];
+      card.className = 'card tr-card';
       const blanks = [];
-      words.forEach((w, i) => {
+      const tokens = words.map((w, i) => {
         if (i === 0) {
-          parts.push(`<span style="font-weight:bold;color:inherit;">${escapeHtml(w)}</span>`);
-        } else {
-          blanks.push({ idx: i, word: w });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${i}" style="display:inline-block;width:auto;min-width:60px;margin:2px 4px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;color:inherit;outline:none;font-family:inherit;" autocomplete="off">`);
+          return `<span class="tr-anchor">${escapeHtml(w)}</span>`;
         }
-      });
+        blanks.push({ idx: i, word: w });
+        return `<input type="text" class="tr-input" data-q="${qi}" data-b="${i}" style="--w:${inputWidth(w)};" autocomplete="off" autocapitalize="off" spellcheck="false">`;
+      }).join(' ');
       card.innerHTML = `
         <div class="card-title">第 ${qi+1} 题</div>
-        <div class="card-word-en" style="background:#eef0f5;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;">${escapeHtml(s.cn)}</div>
-        <div class="grammar-hint">💡 ${escapeHtml(s.hint || '')}</div>
-        <div style="line-height:2.4;font-size:15px;margin-top:8px;">${parts.join(' ')}</div>
-        <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:8px;"></div>
+        <div class="tr-sentence">${escapeHtml(s.cn)}</div>
+        ${s.hint ? `<div class="tr-hint">💡 ${escapeHtml(s.hint)}</div>` : ''}
+        <div class="tr-answer">${tokens}</div>
+        <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:10px;"></div>
       `;
       list.appendChild(card);
     });
@@ -1085,9 +1092,12 @@ document.addEventListener('input', function(e) {
             hint: s.hint, date: today(),
           });
         }
-        // disable inputs
-        sents.forEach((_, i) => {
-          app.querySelectorAll(`[data-q="${i}"]`).forEach(inp => inp.disabled = true);
+        // mark per-input correct/wrong + disable
+        blanks.forEach(b => {
+          const inp = app.querySelector(`[data-q="${qi}"][data-b="${b.idx}"]`);
+          if (!inp) return;
+          inp.classList.add(b.word && clean(b.word) === (inp.value || '').trim().toLowerCase().replace(/[^a-z']/g, '') ? 'correct' : 'wrong');
+          inp.disabled = true;
         });
       });
       progress.wrong_grammar = progress.wrong_grammar.slice(-100);
