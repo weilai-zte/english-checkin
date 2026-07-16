@@ -284,17 +284,23 @@ document.addEventListener('input', function(e) {
 
   // ─── 统一内容过滤 (D.content.items, 按属性筛选) ─────────────────
   // 用法: D.filter({type:"vocab", grade:"L1", topic:"饮食健康"})
-  D.filter = function(attrs) {
+  function filterContent(attrs) {
     if (!D.content || !D.content.items) return [];
     return D.content.items.filter(function(it) {
       for (var k in attrs) {
-        var v = attrs[k];
-        if (v === undefined || v === null) continue;
-        if (it[k] !== v) return false;
+        var expected = attrs[k];
+        if (expected === undefined || expected === null) continue;
+        var actual = it[k];
+        if (Array.isArray(actual)) {
+          if (!actual.includes(expected)) return false;
+        } else if (actual !== expected) {
+          return false;
+        }
       }
       return true;
     });
-  };
+  }
+  D.filter = filterContent;
   // ─── 词库查找辅助 ──────────────────────────────────
   function findWord(en) {
     const lower = en.toLowerCase();
@@ -357,8 +363,8 @@ document.addEventListener('input', function(e) {
     const recentTitles = new Set(progress.checkins.slice(-7).map(c => c.grammar_title));
     const weights = D.grammar.map(g => {
       let w = 1;
-      if (masteredG.has(g.id)) w = 0;
-      else if (recentTitles.has(g.title)) w = 0.3;
+      if (masteredG.has(g.id)) w = 0.15;
+      if (recentTitles.has(g.title)) w *= 0.3;
       if (g.id === 'prepositions') w *= 0.5;
       return w;
     });
@@ -371,7 +377,7 @@ document.addEventListener('input', function(e) {
       if (r <= 0) { gram = D.grammar[i]; break; }
     }
 
-    const exercises = (gram.练习 || []).slice(0, 3).map(ex => ({
+    const exercises = sample(gram.练习 || [], Math.min(3, (gram.练习 || []).length)).map(ex => ({
       question: ex.题,
       answer: ex.答案,
       hint: ex.提示 || '',
@@ -888,20 +894,17 @@ document.addEventListener('input', function(e) {
 
   // ─── 视图：Tense ──────────────────────────────────
   function renderTense(app) {
-    const cfg = getDifficultyCfg();
-    const tids = ['present_simple', 'present_continuous', 'past_simple', 'can_may_must', 'be_verb', 'there_be'];
-    const all = [];
+    const bank = Array.isArray(D.tense_questions) ? D.tense_questions : [];
+    const selected = bank.filter(q => q.difficulty === difficulty);
+    const all = selected.map(q => ({
+      q: q.question, a: q.answer, hint: q.hint,
+      gid: q.id, gtitle: q.topic || '时态专项',
+    }));
 
-    if (cfg.tense_all) {
-      for (const g of D.grammar) {
-        if (!tids.includes(g.id)) continue;
-        for (const ex of (g.练习 || [])) {
-          all.push({ q: ex.题, a: ex.答案, hint: ex.提示, gid: g.id, gtitle: g.title });
-        }
-      }
-    } else {
-      for (const ex of D.hard_tense_questions) {
-        all.push({ q: ex.题, a: ex.答案, hint: ex.提示, gid: 'hard', gtitle: '高级时态' });
+    // 兼容旧构建产物；新构建始终走 content.json 的分级题库。
+    if (!all.length) {
+      for (const ex of D.hard_tense_questions || []) {
+        all.push({ q: ex.题, a: ex.答案, hint: ex.提示, gid: 'legacy', gtitle: '时态专项' });
       }
     }
 
@@ -1025,9 +1028,16 @@ document.addEventListener('input', function(e) {
   }
 
   // ─── 视图：Translate (CN→EN 填空) ────────────────
-  function renderTranslate(app) {
+  function translationPoolForDifficulty() {
+    const bank = Array.isArray(D.translate_questions) ? D.translate_questions : [];
+    const selected = bank.filter(q => q.difficulty === difficulty);
+    if (selected.length) return selected;
     const cfg = getDifficultyCfg();
-    const pool = cfg.translate_complex ? D.hard_translate : D.translate_sentences;
+    return cfg.translate_complex ? D.hard_translate : D.translate_sentences;
+  }
+
+  function renderTranslate(app) {
+    const pool = translationPoolForDifficulty();
     const sents = sample(pool, Math.min(8, pool.length));
     const answers = {};
 
@@ -1125,8 +1135,7 @@ document.addEventListener('input', function(e) {
 
   // ─── 视图：Translate-En (EN→CN 填空) ─────────────
   function renderTranslateEn(app) {
-    const cfg = getDifficultyCfg();
-    const pool = cfg.translate_complex ? D.hard_translate : D.translate_sentences;
+    const pool = translationPoolForDifficulty();
     const sents = sample(pool, Math.min(8, pool.length));
     const normPunct = s => s.replace(/[\s。？！、，；：""''（）【】《》]/g, '');
 

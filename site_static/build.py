@@ -102,6 +102,7 @@ def export_data():
             "练习": it.get("exercises", []),
             "grade": it.get("grade", "L1"),
             "topic": it.get("topic", ""),
+            "knowledge_points": it.get("knowledge_points", []),
         })
 
     # 兼容旧的 grammar.json 字段 (供某些视图 id 匹配)
@@ -139,6 +140,18 @@ def export_data():
                       for it in content_items if it.get("type") == "translate" and it.get("difficulty") in ("medium", "hard")]
     hard_tense_questions = [{"题": it["question"], "答案": it["answer"], "提示": it.get("hint", "")}
                             for it in content_items if it.get("type") == "tense"]
+    translate_questions = [{
+        "id": it["id"], "cn": it["cn"], "en": it["en"], "hint": it.get("hint", ""),
+        "grade": it.get("grade", "L1"), "topic": it.get("topic", ""),
+        "difficulty": it.get("difficulty", "easy"),
+        "knowledge_points": it.get("knowledge_points", []),
+    } for it in content_items if it.get("type") == "translate"]
+    tense_questions = [{
+        "id": it["id"], "question": it["question"], "answer": it["answer"],
+        "hint": it.get("hint", ""), "grade": it.get("grade", "L1"),
+        "topic": it.get("topic", ""), "difficulty": it.get("difficulty", "easy"),
+        "knowledge_points": it.get("knowledge_points", []),
+    } for it in content_items if it.get("type") == "tense"]
 
     data = {
         "vocab": vocab,
@@ -146,6 +159,8 @@ def export_data():
         "translate_sentences": translate_sentences,
         "hard_translate": hard_translate,
         "hard_tense_questions": hard_tense_questions,
+        "translate_questions": translate_questions,
+        "tense_questions": tense_questions,
         # 三级词库已分级, 不再需要屏蔽"小学基础词"
         "simple_words": [],
         "junior_vocab_meta": {lvl: len(vocab[f"_{lvl}"]["words"]) for lvl in ("L1", "L2", "L3")},
