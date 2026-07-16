@@ -77,37 +77,6 @@ DIFFICULTY_CONFIG = {
     },
 }
 
-# 困难模式额外语法题（grammar.json里没有的）
-HARD_TENSE_QUESTIONS = [
-    {"题": "By next month, she ____ (finish) the report.", "答案": "will have finished", "提示": "将来完成时：will have + 过去分词"},
-    {"题": "If I ____ (be) rich, I would travel the world.", "答案": "were", "提示": "虚拟语气（与现在事实相反）"},
-    {"题": "The book ____ (read) by millions of people.", "答案": "has been read", "提示": "现在完成时的被动"},
-    {"题": "I wish I ____ (know) the answer.", "答案": "knew", "提示": "wish后用过去式表不可能实现的愿望"},
-    {"题": "Not until he arrived home ____ (realize) he lost his keys.", "答案": "did he realize", "提示": "否定副词开头的倒装"},
-    {"题": "The longer you wait, ____ (little) patience you have.", "答案": "the less", "提示": "the+比较级，the+比较级（越...越...）"},
-    {"题": "She speaks English as if she ____ (be) a native speaker.", "答案": "were", "提示": "as if后用虚拟语气"},
-    {"题": "I would have helped him if he ____ (ask) me.", "答案": "had asked", "提示": "虚拟语气过去式（与过去事实相反）"},
-    {"题": "____ (see) from space, Earth looks like a blue ball.", "答案": "Seen", "提示": "过去分词作状语（被看作）"},
-    {"题": "He has lived in Shanghai since he ____ (come) here.", "答案": "came", "提示": "since后跟过去式"},
-    # ── 新增：被动语态 ───────────────────────────────
-    {"题": "Many trees ____ (plant) in the park every year.", "答案": "are planted", "提示": "一般现在时被动：are + 过去分词"},
-    {"题": "The bridge ____ (build) last year. It is now open.", "答案": "was built", "提示": "一般过去时被动：was + 过去分词"},
-    {"题": "A new hospital ____ (build) in our city now.", "答案": "is being built", "提示": "现在进行时被动：is being + 过去分词"},
-    {"题": "The work ____ (finish) by the workers already.", "答案": "has been finished", "提示": "现在完成时被动：has been + 过去分词"},
-    # ── 新增：宾语从句 ───────────────────────────────
-    {"题": "I don't know ____ she is waiting for.", "答案": "who", "提示": "who引导宾语从句，在从句中作宾语"},
-    {"题": "He told me that he ____ (leave) the next day.", "答案": "would leave", "提示": "主句过去时，从句用过去将来时would leave"},
-    {"题": "I wonder if/whether he ____ (come) tomorrow.", "答案": "will come", "提示": "主句现在时，从句时态不变（一般将来时）"},
-    # ── 新增：If条件句 ────────────────────────────────
-    {"题": "If you heat ice, it ____ (melt).", "答案": "will melt", "提示": "真实条件句：主将从现"},
-    {"题": "If I ____ (have) a car, I would drive to work.", "答案": "had", "提示": "与现在事实相反：If + 过去式，would + 动原"},
-    {"题": "If she had practiced more, she ____ (win).", "答案": "would have won", "提示": "与过去事实相反：If + had + 过去分词，would have + 过去分词"},
-    # ── 新增：比较级/最高级 ──────────────────────────
-    {"题": "This is the ____ (beautiful) painting in the gallery.", "答案": "most beautiful", "提示": "多音节词最高级：most + 形容词原级"},
-    {"题": "He runs ____ (fast) of all the students.", "答案": "fastest", "提示": "最高级：the + fastest + in/of 范围"},
-    {"题": "The weather is getting ____ (bad) and ____ (bad).", "答案": "worse and worse", "提示": "比较级 + and + 比较级：越来越..."},
-]
-
 # 困难翻译句
 # ─── 中译英填空生成 ─────────────────────────────────────────────────────────
 import re
@@ -159,7 +128,7 @@ def reverse_mask_sentence(zh):
     策略：正向最大匹配分词，标点附着到前一个词（不算作独立空格）。
     用于英译中：用户看到英文原句，填写中文翻译。
     """
-    # 常用中文词语词表（覆盖 TRANSLATE_SENTENCES 全部句子）
+    # 常用中文词语词表（覆盖 content.json 中 translate 题面）
     VOCAB = {
         # 基本词（单字为主）
         "我们", "学校", "很大", "一名", "初一", "学生", "她", "今天", "不在",
@@ -304,36 +273,6 @@ def reverse_mask_sentence(zh):
 
     return words_display, blanks_info
 
-HARD_TRANSLATE = [
-    {"cn": "如果我们早点出发，就能赶上最后一班地铁。", "en": "If we set off earlier, we can catch the last subway.", "hint": "条件句 + 最高级"},
-    {"cn": "尽管他很忙，但他仍然每天坚持锻炼身体。", "en": "Although he is busy, he still exercises every day.", "hint": "although转折"},
-    {"cn": "只要我们共同努力，就一定能实现目标。", "en": "As long as we work hard together, we can surely achieve our goal.", "hint": "as long as条件句"},
-    {"cn": "无论天气多么恶劣，警察都会坚守岗位。", "en": "No matter how bad the weather is, the police will stay at their posts.", "hint": "no matter how让步"},
-    {"cn": "保护环境是我们每个人的责任。", "en": "It is everyone's responsibility to protect the environment.", "hint": "it作形式主语"},
-    {"cn": "我宁愿走路也不愿意开车，因为停车太难了。", "en": "I would rather walk than drive because it's too hard to park.", "hint": "would rather...than..."},
-    {"cn": "他如此紧张，以至于说不出话来。", "en": "He was so nervous that he couldn't speak.", "hint": "so...that结果状语从句"},
-    {"cn": "我们应该养成每天阅读的好习惯。", "en": "We should develop the good habit of reading every day.", "hint": "of+动名词结构"},
-    # ── 新增：被动语态 ─────────────────────────────────────────────
-    {"cn": "这本书被翻译成多种语言。", "en": "The book is translated into many languages.", "hint": "一般现在时被动"},
-    {"cn": "那座桥是去年建成的。", "en": "That bridge was built last year.", "hint": "一般过去时被动"},
-    {"cn": "这个问题正在被讨论。", "en": "The problem is being discussed now.", "hint": "现在进行时被动"},
-    {"cn": "作业已经被老师批改了。", "en": "The homework has been checked by the teacher.", "hint": "现在完成时被动"},
-    # ── 新增：宾语从句 ─────────────────────────────────────────────
-    {"cn": "我相信他会按时完成任务。", "en": "I believe that he will finish the task on time.", "hint": "that引导宾语从句（可省略）"},
-    {"cn": "我想知道她为什么哭。", "en": "I wonder why she is crying.", "hint": "why引导宾语从句，陈述语序"},
-    {"cn": "请告诉我会议在哪里举行。", "en": "Please tell me where the meeting will be held.", "hint": "where引导宾语从句"},
-    # ── 新增：If条件句 & 虚拟语气 ─────────────────────────────────
-    {"cn": "如果你努力，就一定会成功。", "en": "If you work hard, you will surely succeed.", "hint": "真实条件句：主将从现"},
-    {"cn": "如果我是一只鸟，我就能飞得更高。", "en": "If I were a bird, I could fly higher.", "hint": "虚拟语气与现在事实相反"},
-    {"cn": "如果有时间，我会来看你。", "en": "If I had time, I would come to see you.", "hint": "与现在相反的虚拟语气"},
-    # ── 新增：比较级/最高级 ──────────────────────────────────────
-    {"cn": "他是我们班最高的男生。", "en": "He is the tallest boy in our class.", "hint": "最高级：the + 最高级 + in 范围"},
-    {"cn": "这个房间比那个房间大两倍。", "en": "This room is twice larger than that one.", "hint": "比较级 + than"},
-    # ── 新增：名词/冠词 ───────────────────────────────────────────
-    {"cn": "我在两杯牛奶和三个苹果。", "en": "I need two cups of milk and three apples.", "hint": "量词 + of + 不可数名词"},
-]
-
-
 def get_difficulty():
     """从session读取当前难度，默认medium"""
     return session.get("difficulty", "medium")
@@ -460,9 +399,112 @@ def vocab_for_difficulty(difficulty):
             }
     return pool
 
+_CONTENT_BANK_CACHE = None
+
+def load_content_bank():
+    """读取统一内容库 data/content.json(真理源)。缓存到 module 级避免重复 IO。"""
+    global _CONTENT_BANK_CACHE
+    if _CONTENT_BANK_CACHE is not None:
+        return _CONTENT_BANK_CACHE
+    path = DATA / "content.json"
+    if not path.exists():
+        _CONTENT_BANK_CACHE = None
+        return None
+    with open(path, encoding="utf-8") as f:
+        _CONTENT_BANK_CACHE = json.load(f)
+    return _CONTENT_BANK_CACHE
+
 def load_grammar():
+    """优先从 content.json 的 type=grammar 抽出并转回旧 schema
+    (id/title/level/规则/例子/练习), 下游代码可继续使用 g["练习"]/g["规则"]。
+    兜底回退到 data/grammar.json 兼容历史 fixture。"""
+    bank = load_content_bank()
+    if bank:
+        out = []
+        for g in bank.get("items", []):
+            if g.get("type") != "grammar":
+                continue
+            exercises = []
+            for ex in (g.get("exercises") or []):
+                exercises.append({
+                    "题": ex.get("question") or ex.get("题", ""),
+                    "答案": ex.get("answer") or ex.get("答案", ""),
+                    "提示": ex.get("hint") or ex.get("提示", ""),
+                })
+            examples = []
+            for ex in (g.get("examples") or []):
+                examples.append({
+                    "句": ex.get("句") or ex.get("sentence", ""),
+                    "翻译": ex.get("翻译") or ex.get("translation", ""),
+                })
+            _raw_id = g.get("id") or ""
+            _compat_id = _raw_id[2:] if _raw_id.startswith("g_") else _raw_id
+            out.append({
+                "id": _compat_id,
+                "title": g.get("title", ""),
+                "level": g.get("level", ""),
+                "规则": g.get("rule") or g.get("规则", ""),
+                "例子": examples,
+                "练习": exercises,
+            })
+        if out:
+            return out
     with open(DATA / "grammar.json", encoding="utf-8") as f:
         return json.load(f)
+
+def load_translate_pool(difficulty):
+    """从 content.json 抽 type=translate 的句子,按 difficulty 过滤。
+    无匹配时回退到全量;永远返回 list 不返回 None。"""
+    bank = load_content_bank()
+    pool = []
+    if bank:
+        for it in bank.get("items", []):
+            if it.get("type") != "translate":
+                continue
+            if it.get("difficulty") and it.get("difficulty") != difficulty:
+                continue
+            pool.append({
+                "cn": it.get("cn", ""),
+                "en": it.get("en", ""),
+                "hint": it.get("hint", ""),
+            })
+        if not pool:
+            for it in bank.get("items", []):
+                if it.get("type") == "translate":
+                    pool.append({
+                        "cn": it.get("cn", ""),
+                        "en": it.get("en", ""),
+                        "hint": it.get("hint", ""),
+                    })
+    return pool
+
+def load_tense_pool(difficulty):
+    """从 content.json 抽 type=tense 的题目,按 difficulty 过滤。
+    返回 [{题, 答案, 提示, knowledge_points}, ...]; 空时回退到全量。"""
+    bank = load_content_bank()
+    pool = []
+    if bank:
+        for it in bank.get("items", []):
+            if it.get("type") != "tense":
+                continue
+            if it.get("difficulty") and it.get("difficulty") != difficulty:
+                continue
+            pool.append({
+                "题": it.get("question", ""),
+                "答案": it.get("answer", ""),
+                "提示": it.get("hint", ""),
+                "knowledge_points": it.get("knowledge_points") or [],
+            })
+        if not pool:
+            for it in bank.get("items", []):
+                if it.get("type") == "tense":
+                    pool.append({
+                        "题": it.get("question", ""),
+                        "答案": it.get("answer", ""),
+                        "提示": it.get("hint", ""),
+                        "knowledge_points": it.get("knowledge_points") or [],
+                    })
+    return pool
 
 def load_progress():
     p = DATA / "progress.json"
@@ -1804,168 +1846,72 @@ def stats_page():
 # ─── 时态练习 ───────────────────────────────────────────
 @app.route("/tense")
 def tense_practice():
-    """时态专项练习：选择题"""
-    grammar = load_grammar()
+    """时态专项练习:选择题。题库来自 data/content.json,不再硬编码。"""
     difficulty = get_difficulty()
     cfg = DIFFICULTY_CONFIG[difficulty]
 
-    # ── 每个时态的专属干扰项池（同根词 + 同类时态的其他形式）─────────────
-    # 原则：干扰项必须和正确答案属于同一时态体系，但语法形式错误或人称不匹配
-    TENSE_DISTRACTOR_POOLS = {
-        # 一般现在时：第三人称单数 vs 非三单 vs 过去式
-        "present_simple": {
-            "watches":  ["watch", "watched", "watching"],
-            "likes":     ["like", "liked", "liking"],
-            "cooks":     ["cook", "cooked", "cooking"],
-            "plays":     ["play", "played", "playing"],
-            "reads":     ["read", "reading"],
-            "studies":   ["study", "studied", "studying"],
-            "goes":      ["go", "went", "going"],
-            "does":      ["do", "did", "doing"],
-            "is":        ["am", "are", "was", "be", "been", "being"],
-            "are":       ["is", "am", "was", "were", "be", "been", "being"],
-            "am":        ["is", "are", "was", "be", "been", "being"],
-            "like":      ["likes", "liked", "liking"],
-            "play":      ["plays", "played", "playing"],
-            "study":     ["studies", "studied", "studying"],
-            "go":        ["goes", "went", "going"],
-            "do":        ["does", "did", "doing"],
-            "read":      ["reads", "reading"],
-        },
-        # 现在进行时：be + v-ing，同一动词的不同人称形式
-        "present_continuous": {
-            "is crying":   ["are crying", "was crying", "were crying", "cries", "cried", "cry"],
-            "am listening": ["is listening", "are listening", "was listening", "listen", "listened", "listens"],
-            "is making":   ["are making", "was making", "were making", "make", "makes", "made"],
-            "is reading":  ["are reading", "was reading", "were reading", "reads", "read", "readed"],
-            "is playing":  ["are playing", "was playing", "were playing", "plays", "played", "play"],
-            "is going":    ["are going", "was going", "were going", "goes", "went", "go"],
-            "is crying":  ["are crying", "was crying", "cries", "cried"],
-            "am reading":  ["is reading", "are reading", "was reading", "reads", "read"],
-            "are playing": ["is playing", "was playing", "plays", "played", "play"],
-            "is cooking":  ["are cooking", "was cooking", "cooks", "cooked", "cook"],
-            "is watching":["are watching", "was watching", "watches", "watched", "watch"],
-            "is studying":["are studying", "was studying", "studies", "studied", "study"],
-        },
-        # 一般过去时：规则/不规则过去式
-        "past_simple": {
-            "visited":   ["visit", "visits", "visiting"],
-            "was":       ["is", "are", "am", "were", "be", "been", "being"],
-            "were":      ["is", "are", "am", "was", "be", "been", "being"],
-            "went":      ["go", "goes", "going", "will go"],
-            "played":    ["play", "plays", "playing"],
-            "cooked":    ["cook", "cooks", "cooking"],
-            "liked":     ["like", "likes", "liking"],
-            "studied":   ["study", "studies", "studying"],
-            "stopped":   ["stop", "stops", "stopping"],
-            "watched":   ["watch", "watches", "watching"],
-            "cleaned":   ["clean", "cleans", "cleaning"],
-            "walked":    ["walk", "walks", "walking"],
-            "opened":    ["open", "opens", "opening"],
-            "closed":    ["close", "closes", "closing"],
-            "lived":     ["live", "lives", "living"],
-            "worked":    ["work", "works", "working"],
-            "looked":    ["look", "looks", "looking"],
-            "talked":    ["talk", "talks", "talking"],
-            "liked":     ["like", "likes", "liking"],
-            "studied":   ["study", "studies", "studying"],
-        },
-        # 情态动词：其他情态动词
-        "can_may_must": {
-            "can":       ["could", "may", "might", "must", "should", "will", "shall"],
-            "must":      ["can", "could", "may", "might", "should", "will", "shall"],
-            "mustn't":   ["can't", "couldn't", "shouldn't", "won't", "wouldn't", "needn't"],
-        },
-        # be动词综合干扰池（be动词在各种时态中的所有形式）
-        "be_verb": {
-            "is":   ["am", "are", "was", "were", "be", "been", "being"],
-            "am":   ["is", "are", "was", "were", "be", "been", "being"],
-            "are":  ["is", "am", "was", "were", "be", "been", "being"],
-            "was":  ["is", "are", "am", "were", "be", "been", "being"],
-            "were": ["is", "are", "am", "was", "be", "been", "being"],
-        },
-        # There be 句型干扰池
-        "there_be": {
-            "is":   ["are", "was", "were", "be", "been"],
-            "are":  ["is", "was", "were", "be", "been"],
-            "is a": ["are a", "was a", "were a"],
-            "are many": ["is many", "was many", "were many"],
-        },
-    }
+    # 按难度取时态题;easy/medium 走简单池 + 中等池拼接以保持题量
+    if cfg["tense_all"]:
+        pool = load_tense_pool("easy") + load_tense_pool("medium")
+    else:
+        pool = load_tense_pool("hard")
 
-    # 困难模式干扰池（更接近答案的复杂形式）
-    HARD_TENSE_DISTRACTORS = {
-        "will have finished": ["will finish", "would finish", "has finished", "had finished", "finished"],
-        "were":               ["was", "is", "are", "am", "been", "being"],
-        "did he realize":     ["he realized", "he realizes", "does he realize"],
-        "the less":           ["the more", "less", "more", "the little"],
-        "seen":               ["see", "saw", "seeing", "sees"],
-        "knew":               ["know", "knows", "knowing", "known"],
-        "has been read":      ["is read", "was read", "had read", "have read"],
-        "came":               ["come", "comes", "coming", "will come"],
-        "had asked":          ["have asked", "has asked", "asked", "ask"],
-        "was":                ["is", "are", "am", "were", "be", "been", "being"],
-    }
+    # 同 knowledge_points 的其它答案作为优选干扰项
+    common_distractors = [
+        "is", "are", "am", "was", "were", "have", "has", "had",
+        "do", "does", "did", "will", "would", "can", "could",
+        "must", "should", "may", "might",
+    ]
 
     all_questions = []
+    for ex in pool:
+        correct = ex["答案"]
+        correct_lower = correct.lower().strip()
+        kps = ex.get("knowledge_points") or []
 
-    if cfg["tense_all"]:
-        # 普通/简单模式：grammar.json里的时态题
-        tense_ids = ["present_simple", "present_continuous", "past_simple", "can_may_must", "be_verb", "there_be"]
-        tense_items = [g for g in grammar if g["id"] in tense_ids]
+        # 同 knowledge_points 的其它答案
+        siblings = [
+            o["答案"] for o in pool
+            if o["答案"].lower().strip() != correct_lower
+            and any(kp in (o.get("knowledge_points") or []) for kp in kps)
+        ]
+        # 去重(大小写不敏感)并保持原大小写
+        seen = set()
+        unique_siblings = []
+        for s in siblings:
+            key = s.lower()
+            if key in seen or key == correct_lower:
+                continue
+            seen.add(key)
+            unique_siblings.append(s)
+        candidates = unique_siblings
 
-        for g in tense_items:
-            pool_map = TENSE_DISTRACTOR_POOLS.get(g["id"], {})
-            for ex in (g.get("练习") or []):
-                correct = ex["答案"]
-                correct_lower = correct.lower().strip()
+        if len(candidates) < 3:
+            # 回退通用干扰池
+            extra = [c for c in common_distractors if c.lower() != correct_lower]
+            random.shuffle(extra)
+            for c in extra:
+                if len(candidates) >= 3:
+                    break
+                if c.lower() not in seen and c.lower() != correct_lower:
+                    candidates.append(c)
+                    seen.add(c.lower())
 
-                # 查专属干扰池（优先同词根）
-                if correct_lower in pool_map:
-                    candidates = [d for d in pool_map[correct_lower] if d.lower() != correct_lower]
-                else:
-                    # 备选：从所有同组词条中找同词根干扰项
-                    candidates = []
-                    for key_variants in pool_map.values():
-                        for v in key_variants:
-                            if v.lower() != correct_lower and v.lower() not in [c.lower() for c in candidates]:
-                                candidates.append(v)
+        if not candidates:
+            # 万一池子完全空,给个保底,不让 sample 抛错
+            candidates = ["is", "are", "was"]
 
-                if len(candidates) < 3:
-                    # 回退到通用干扰词（同词根其他时态形式）
-                    tense_opts = ["is","are","am","was","were","have","has","had",
-                                  "do","does","did","will","would","can","could","must","should"]
-                    candidates = [o for o in tense_opts if o.lower() != correct_lower]
-
-                distractors = random.sample(candidates, min(3, len(candidates)))
-                options = [correct] + distractors
-                random.shuffle(options)
-                all_questions.append({
-                    "grammar_id": g["id"],
-                    "grammar_title": g["title"],
-                    "question": ex["题"],
-                    "answer": correct,
-                    "hint": ex.get("提示", ""),
-                    "options": options,
-                })
-    else:
-        # 困难模式：只用高级时态题
-        for ex in HARD_TENSE_QUESTIONS:
-            correct = ex["答案"]
-            correct_lower = correct.lower().strip()
-            pool = [o for o in HARD_TENSE_DISTRACTORS.get(correct, [])
-                    if o.lower() != correct_lower]
-            distractors = random.sample(pool, min(3, len(pool)))
-            options = [correct] + distractors
-            random.shuffle(options)
-            all_questions.append({
-                "grammar_id": "hard_tense",
-                "grammar_title": "高级时态与虚拟语气",
-                "question": ex["题"],
-                "answer": correct,
-                "hint": ex["提示"],
-                "options": options,
-            })
+        distractors = random.sample(candidates, min(3, len(candidates)))
+        options = [correct] + distractors
+        random.shuffle(options)
+        all_questions.append({
+            "grammar_id": "tense",
+            "grammar_title": "时态练习",
+            "question": ex["题"],
+            "answer": correct,
+            "hint": ex.get("提示", ""),
+            "options": options,
+        })
 
     random.shuffle(all_questions)
     session["tense_questions"] = all_questions[:10]
@@ -2102,35 +2048,14 @@ def preposition_check():
 
 
 # ─── 翻译练习 ───────────────────────────────────────────
-TRANSLATE_SENTENCES = [
-    # 简单句
-    {"cn": "我是一名初一学生。", "en": "I am a Grade 7 student.", "hint": "初一学生 = Grade 7 student"},
-    {"cn": "她今天不在学校。", "en": "She is not at school today.", "hint": "be动词否定"},
-    {"cn": "我妈妈每天做早饭。", "en": "My mother makes breakfast every day.", "hint": "第三人称单数加s"},
-    {"cn": "他正在书房里看书。", "en": "He is reading a book in the study.", "hint": "现在进行时 be+v-ing"},
-    {"cn": "我昨天踢了足球。", "en": "I played football yesterday.", "hint": "一般过去时"},
-    {"cn": "桌上有一本书。", "en": "There is a book on the desk.", "hint": "There be句型"},
-    {"cn": "你会说英语吗？", "en": "Can you speak English?", "hint": "can + 动词原形"},
-    {"cn": "我必须完成作业。", "en": "I must finish my homework.", "hint": "must + 动词原形"},
-    {"cn": "他们在公园里玩。", "en": "They are playing in the park.", "hint": "现在进行时"},
-    {"cn": "我哥哥比我高。", "en": "My brother is taller than me.", "hint": "比较级"},
-    # 稍微复杂
-    {"cn": "每周五晚上我都和朋友去看电影。", "en": "I go to the movies with my friends every Friday evening.", "hint": "每周五 = every Friday"},
-    {"cn": "那本书在书架上吗？", "en": "Is that book on the shelf?", "hint": "There be 一般疑问句"},
-    {"cn": "我昨天没有见到她。", "en": "I did not see her yesterday.", "hint": "一般过去时否定"},
-    {"cn": "他正在操场上跑步。", "en": "He is running on the playground.", "hint": "现在进行时"},
-    {"cn": "我们学校很大。", "en": "Our school is very big.", "hint": "very + 形容词"},
-]
-
 @app.route("/translate")
 def translate_practice():
-    """翻译练习：看中文，填英文空格"""
+    """翻译练习:看中文,填英文空格。题库来自 data/content.json。"""
     difficulty = get_difficulty()
     cfg = DIFFICULTY_CONFIG[difficulty]
-    if cfg["translate_complex"]:
-        pool = HARD_TRANSLATE
-    else:
-        pool = TRANSLATE_SENTENCES
+    pool = load_translate_pool("hard" if cfg["translate_complex"] else difficulty)
+    if not pool:
+        pool = load_translate_pool("easy") + load_translate_pool("medium") + load_translate_pool("hard")
     raw_sents = random.sample(pool, min(8, len(pool)))
     # 生成填空数据
     sents = []
@@ -2402,7 +2327,9 @@ def translate_en_page():
     """英译中练习：看英文句子，填中文"""
     difficulty = get_difficulty()
     cfg = DIFFICULTY_CONFIG[difficulty]
-    pool = HARD_TRANSLATE if cfg["translate_complex"] else TRANSLATE_SENTENCES
+    pool = load_translate_pool("hard" if cfg["translate_complex"] else difficulty)
+    if not pool:
+        pool = load_translate_pool("easy") + load_translate_pool("medium") + load_translate_pool("hard")
 
     raw_sents = random.sample(pool, min(8, len(pool)))
     sents = []
