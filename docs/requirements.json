@@ -2,7 +2,7 @@
   "doc_id": "requirements",
   "doc_kind": "requirements",
   "goal": {
-    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 29 编号需求 (F-018 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
+    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 30 编号需求 (F-019 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
     "why": "代码改完必须先改本文（用户驱动原则）。AI 改 send_daily.py / app.py / build.py 前必须先确认本文当前有效需求",
     "success_criteria": [
       "新增需求必须先在本文 §3 加编号 + §5 加 UC，再写代码",
@@ -26,7 +26,7 @@
   "outputs": [
     {
       "name": "functional_requirements",
-      "destination": "本文 §3 (F-001~F-013, 13 条)",
+      "destination": "本文 §3 (F-001~F-019, 19 条)",
       "type": "json"
     },
     {
@@ -125,9 +125,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.13",
-  "last_validated": "2026-06-15",
+  "version": "v0.15",
+  "last_validated": "2026-07-16",
   "evolution": [
+    {
+      "date": "2026-07-16",
+      "version": "v0.15",
+      "action": "add",
+      "what": "F-019 统一题库扩容、36 个核心知识点覆盖及按难度读取要求",
+      "why": "用户反馈多次打卡后题目不足，并要求关键知识点完整覆盖",
+      "by": "Codex"
+    },
     {
       "date": "2026-06-15",
       "version": "v0.13",
@@ -278,6 +286,12 @@
         "priority": "P1",
         "statement": "每周日 20:00 推送本周错词 TOP 10 汇总 + LLM 老师鼓励/分析（按 attempts 降序、已掌握词过滤）",
         "verification": "send_weekly_wrong_words.sh cron 触发；DRY_RUN=1 输出卡片 JSON；本周时间窗 = today - 7 天"
+      },
+      {
+        "id": "F-019",
+        "priority": "P0",
+        "statement": "统一 content.json 练习题库须支持持续打卡：语法组 ≥100 且组内练习 ≥450，中译英 ≥240，时态 ≥200；36 个初中核心知识点各至少 6 道练习；翻译和时态按 easy/medium/hard 精确读取对应题库，每日语法从组内随机抽题并对已掌握内容低频复习",
+        "verification": "python3 -m pytest tests/test_content_bank.py tests/test_site_static.py -q"
       }
     ],
     "§4_non_functional_requirements": [

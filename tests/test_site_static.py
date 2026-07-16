@@ -180,6 +180,30 @@ def test_loadFromRemoteByKey_helper_present():
     assert "from('progress').select" in APP_JS_SRC
 
 
+def test_daily_grammar_samples_from_all_group_exercises():
+    block = _function_block('generateDailyTask')
+    assert 'sample(gram.练习' in block
+    assert "masteredG.has(g.id)) w = 0.15" in block
+
+
+def test_tense_route_uses_unified_content_bank_by_difficulty():
+    block = _function_block('renderTense')
+    assert 'D.tense_questions' in block
+    assert 'q.difficulty' in block
+
+
+def test_translation_routes_use_unified_content_bank_by_difficulty():
+    for function_name in ('renderTranslate', 'renderTranslateEn'):
+        block = _function_block(function_name)
+        assert 'translationPoolForDifficulty()' in block
+
+
+def test_content_filter_supports_array_attributes():
+    block = _function_block('filterContent')
+    assert 'Array.isArray(actual)' in block
+    assert 'actual.includes(expected)' in block
+
+
 def test_render_progress_has_cross_device_card():
     block = _function_block('renderProgress')
     assert '跨设备同步' in block
