@@ -131,11 +131,12 @@ def test_roots_present():
     assert 'function findRoot' in APP_JS_SRC
 
 
-# ─── #5 dictation: 5 words, masked first/last ────────────────────
+# ─── #5 dictation: 10 words, masked first/last ───────────────────
 def test_dictation_masks_letters():
     block = _function_block('renderDictation')
     assert "'_'.repeat" in block or '"_".repeat' in block or "'_'.repeat(" in block
-    assert 'Math.min(5' in block
+    assert 'Math.min(10' in block
+    assert '听 10 个词' in block
 
 
 # ─── #12 chat: OpenAI-compatible endpoint ────────────────────────
