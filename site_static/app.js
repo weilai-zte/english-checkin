@@ -454,6 +454,7 @@ document.addEventListener('input', function(e) {
     'achievements': renderAchievements,
     'vocab-import': renderVocabImport,
     'dictation': renderDictation,
+    'vocab-list': renderVocabList,
     // 'chat': renderChat, // #12 hidden by user request 2026-07-15
   };
   function navigate(hash) { window.location.hash = '#/' + hash; }
@@ -567,6 +568,7 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary" href="#/stats">📊 学习统计</a>
           <a class="btn btn-secondary" href="#/progress">📈 进度概览</a>
           <a class="btn btn-secondary" href="#/knowledge">📖 知识课程</a>
+          <a class="btn btn-secondary" href="#/vocab-list">📚 全部词汇</a>
         </div>
 
         <div class="section-label">🛠 工具</div>
@@ -1719,6 +1721,47 @@ document.addEventListener('input', function(e) {
     const next = rest.indexOf('\n## ', 4);
     return next < 0 ? rest : rest.slice(0, next);
   }
+
+
+  // ─── 视图：词汇大全 (浏览所有词,供提前学习) ──────────────────
+  function renderVocabList(app) {
+    const items = (D.content && D.content.items || []).filter(it => it.type === 'vocab');
+    const grades = ['全部', 'L1', 'L2', 'L3'];
+    let activeGrade = '全部';
+
+    function render() {
+      const filtered = activeGrade === '全部' ? items : items.filter(it => it.grade === activeGrade);
+      app.innerHTML = `
+        ${topBar('📚 全部词汇 (' + items.length + ' 词)')}
+        <div class="container">
+          <div class="diff-bar" style="margin-bottom:12px;">
+            ${grades.map(g => `<button class="diff-btn ${activeGrade===g?'active-medium':''}" data-g="${g}">${g}</button>`).join('')}
+          </div>
+          <div style="color:var(--text-2);font-size:13px;margin-bottom:8px;">
+            共 ${filtered.length} 词 · 点击 🔊 听发音
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;">
+            ${filtered.map(w => `
+              <div class="card" style="padding:10px;margin:0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                  <div style="font-weight:bold;font-size:16px;color:var(--accent);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHtml(w.word)}">${escapeHtml(w.word)}</div>
+                  <button class="speak-btn" data-word="${escapeHtml(w.word)}" style="background:transparent;border:none;cursor:pointer;font-size:18px;padding:0 4px;flex-shrink:0;">🔊</button>
+                </div>
+                ${w.pron ? `<div style="color:var(--text-2);font-size:11px;">${escapeHtml(w.pron)}</div>` : ''}
+                <div style="color:var(--text-1);font-size:13px;margin-top:4px;">${escapeHtml(w.cn || '')}</div>
+                <div style="color:var(--text-2);font-size:10px;margin-top:4px;">${escapeHtml(w.grade||'')} · ${escapeHtml(w._topic||w.topic||'')}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      app.querySelectorAll('[data-g]').forEach(btn => {
+        btn.onclick = () => { activeGrade = btn.dataset.g; render(); };
+      });
+    }
+    render();
+  }
+
   function extractSections(titles) {
     return titles.map(extractSection).filter(Boolean).join('\n\n');
   }
