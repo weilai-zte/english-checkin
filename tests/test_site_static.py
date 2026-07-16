@@ -220,6 +220,42 @@ def test_active_difficulty_buttons_use_white_text():
         assert 'color: #ffffff' in m.group(1), f'{cls} not using white text'
 
 
+def test_translate_live_validation_and_compact_result():
+    block = _function_block('renderTranslate')
+    assert "classList.toggle('correct'" in block
+    assert 'nextInput.focus()' in block
+    assert 'tr-full' in block and 'tr-wrong-list' in block
+
+
+def test_mcq_checked_state_has_dark_mode_contrast():
+    css = STYLE.read_text(encoding='utf-8')
+    dark_css = css[css.index('@media (prefers-color-scheme: dark)'):]
+    assert '.mcq-opt:has(input:checked)' in dark_css
+    assert '.mcq-opt.is-selected' in dark_css
+    assert 'color: #ffffff' in dark_css
+    assert "classList.toggle('is-selected'" in _function_block('renderMCQ')
+
+
+def test_error_book_uses_theme_aware_text_colors():
+    css = STYLE.read_text(encoding='utf-8')
+    for cls, token in (('error-word-en', '--text-1'),
+                       ('error-word-cn', '--text-2'),
+                       ('error-topic', '--text-2')):
+        rule = re.search(r'\.' + cls + r'\s*\{([^}]+)\}', css)
+        assert rule, f'{cls} rule missing'
+        assert f'var({token})' in rule.group(1), f'{cls} must use {token}'
+
+
+def test_vocab_mark_button_is_visible_and_accessible():
+    block = _function_block('renderVocabList')
+    css = STYLE.read_text(encoding='utf-8')
+    assert 'aria-pressed=' in block and 'aria-label=' in block
+    rule = re.search(r'\.vl-mark\s*\{([^}]+)\}', css)
+    assert rule, 'vl-mark rule missing'
+    assert 'width:' in rule.group(1) and 'height:' in rule.group(1)
+    assert 'color:' in rule.group(1)
+
+
 def test_section_label_darker():
     css = (ROOT / 'site_static' / 'style.css').read_text(encoding='utf-8')
     m = re.search(r'\.section-label\s*\{([^}]+)\}', css)
