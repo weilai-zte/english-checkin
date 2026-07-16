@@ -41,15 +41,39 @@ def export_data():
         DIFFICULTY_CONFIG, load_junior_vocab,
     )
 
-    junior = load_junior_vocab()  # {L1: [...], L2: [...], L3: [...]}
+    # 工具: JSON 加载
+    def _try_load(name):
+        try:
+            return json.loads((PROJECT_ROOT / "data" / name).read_text(encoding="utf-8"))
+        except FileNotFoundError:
+            return None
+
+    # 主词库: 统一从 content.json 取 (vocab 已按 (word,grade) 去重并合并 src 字段)
+    # 替代旧的 junior_vocab_3levels.json + vocab_983 + vocab.json 三源合并
+    content_for_build = _try_load("content.json") or {"items": []}
+    vocab_items = [it for it in content_for_build.get("items", []) if it.get("type") == "vocab"]
     LEVEL_LABELS = {"L1": "L1 必会核心", "L2": "L2 拓展常用", "L3": "L3 拔高拓展"}
     vocab = {}
     for lvl in ("L1", "L2", "L3"):
-        words = junior.get(lvl, [])
+        bucket = []
+        for it in vocab_items:
+            if it.get("grade") != lvl:
+                continue
+            bucket.append({
+                "word": it.get("word", ""),
+                "pron": it.get("pron", ""),
+                "cn": it.get("cn", ""),
+                "记忆": it.get("memory", ""),
+                "例句": it.get("example", ""),
+                "_topic": it.get("topic", ""),
+                "_pos": it.get("pos", ""),
+                "_freq": it.get("freq", 0),
+                "_src": it.get("src", ""),
+            })
         label = LEVEL_LABELS[lvl]
         vocab[f"_{lvl}"] = {
-            "topic": f"{label} ({len(words)} 词)",
-            "words": words,
+            "topic": f"{label} ({len(bucket)} 词)",
+            "words": bucket,
         }
     total_words = sum(len(v["words"]) for v in vocab.values())
 
@@ -62,7 +86,34 @@ def export_data():
         for k, v in legacy_vocab.items():
             vocab[f"_legacy_{k}"] = v
 
-    grammar = json.loads((PROJECT_ROOT / "data" / "grammar.json").read_text(encoding="utf-8"))
+    # grammar / translate / tense 全部走 content.json (统一来源)
+    content_items = content_for_build.get("items", [])
+
+    grammar = []
+    for it in content_items:
+        if it.get("type") != "grammar":
+            continue
+        grammar.append({
+            "id": it["id"].replace("g_", ""),
+            "title": it.get("title", ""),
+            "level": it.get("level", ""),
+            "规则": it.get("rule", ""),
+            "例子": it.get("examples", []),
+            "练习": it.get("exercises", []),
+            "grade": it.get("grade", "L1"),
+            "topic": it.get("topic", ""),
+        })
+
+    # 兼容旧的 grammar.json 字段 (供某些视图 id 匹配)
+    try:
+        legacy_grammar = json.loads((PROJECT_ROOT / "data" / "grammar.json").read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        legacy_grammar = []
+    # 把 legacy 里 prepositions 等特殊 id 注入 (content.json 不重复)
+    legacy_ids = {g["id"] for g in grammar}
+    for g in legacy_grammar:
+        if g.get("id") not in legacy_ids:
+            grammar.append(g)
 
     # 知识大纲 markdown
     knowledge_md = (PROJECT_ROOT / "knowledge_outline.md").read_text(encoding="utf-8")
@@ -79,32 +130,25 @@ def export_data():
     grammar_outline = _try_load("grammar_outline.json") or {}
     content = _try_load("content.json") or {"meta": {"total": 0}, "items": []}
 
-    # 把 983 词按 grade 合并进 L1/L2/L3 词库,daily task 自动扩池
-    GRADE_TO_KEY = {"L1": "_L1", "L2": "_L2", "L3": "_L3"}
-    for w in vocab_983.get("words", []):
-        key = GRADE_TO_KEY.get(w.get("grade"))
-        if not key or key not in vocab:
-            continue
-        vocab[key]["words"].append({
-            "word": w["w"],
-            "pron": w.get("phon", ""),
-            "cn": w["cn"],
-            "记忆": "",
-            "例句": w.get("example", ""),
-            "_src": "pdf983",
-            "_pos": w.get("pos", ""),
-            "_freq": w.get("freq", ""),
-        })
+# 983 词已合入 content.json,无需再合并
+
+    # translate / tense 从 content.json 取 (与 app.py 兼容字段名)
+    translate_sentences = [{"cn": it["cn"], "en": it["en"], "hint": it.get("hint", "")}
+                           for it in content_items if it.get("type") == "translate" and it.get("difficulty") == "easy"]
+    hard_translate = [{"cn": it["cn"], "en": it["en"], "hint": it.get("hint", "")}
+                      for it in content_items if it.get("type") == "translate" and it.get("difficulty") in ("medium", "hard")]
+    hard_tense_questions = [{"题": it["question"], "答案": it["answer"], "提示": it.get("hint", "")}
+                            for it in content_items if it.get("type") == "tense"]
 
     data = {
         "vocab": vocab,
         "grammar": grammar,
-        "translate_sentences": TRANSLATE_SENTENCES,
-        "hard_translate": HARD_TRANSLATE,
-        "hard_tense_questions": HARD_TENSE_QUESTIONS,
+        "translate_sentences": translate_sentences,
+        "hard_translate": hard_translate,
+        "hard_tense_questions": hard_tense_questions,
         # 三级词库已分级, 不再需要屏蔽"小学基础词"
         "simple_words": [],
-        "junior_vocab_meta": {lvl: len(junior.get(lvl, [])) for lvl in ("L1", "L2", "L3")},
+        "junior_vocab_meta": {lvl: len(vocab[f"_{lvl}"]["words"]) for lvl in ("L1", "L2", "L3")},
         "difficulty_config": {
             k: {**v, "block_topics": list(v["block_topics"]), "extra_block": list(v.get("extra_block", set()))}
             for k, v in DIFFICULTY_CONFIG.items()
@@ -122,7 +166,7 @@ def export_data():
     print(f"  ✓ data.js: 3 级词库 L1={data['junior_vocab_meta']['L1']} / "
           f"L2={data['junior_vocab_meta']['L2']} / L3={data['junior_vocab_meta']['L3']} "
           f"(共 {total_words} 词), {len(grammar)} grammar groups, "
-          f"{len(TRANSLATE_SENTENCES) + len(HARD_TRANSLATE)} translate sentences")
+          f"{len(translate_sentences) + len(hard_translate)} translate sentences")
 
 # ── SPA 入口 ─────────────────────────────────────────────────
 INDEX_HTML = """<!DOCTYPE html>
