@@ -5,7 +5,7 @@ from pathlib import Path
 
 BASE = Path(__file__).parent
 WEBHOOK = os.environ.get("FEISHU_WEBHOOK", "")
-LOCAL_URL = "http://127.0.0.1:5200"
+LOCAL_URL = os.environ.get("LOCAL_URL", "http://127.0.0.1:5200").rstrip("/")
 
 
 def load_progress():

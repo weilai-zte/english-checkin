@@ -2582,8 +2582,6 @@ def tts():
 
 
 # ─── 知识课程页面 ─────────────────────────────────────────────────────────────
-import mistune
-
 @app.route("/knowledge")
 def knowledge_page():
     outline_path = Path(__file__).parent / "knowledge_outline.md"
@@ -2591,6 +2589,7 @@ def knowledge_page():
         return "知识大纲文件未找到", 404
     md_content = outline_path.read_text(encoding="utf-8")
 
+    import mistune  # lazy: only loaded when /knowledge is hit
     md = mistune.create_markdown(plugins=['table'])
 
     # ── 解析各章节边界 ────────────────────────────────
@@ -2640,4 +2639,5 @@ def knowledge_page():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5200, debug=False)
+    port = int(os.environ.get("PORT", "5200"))
+    app.run(host="0.0.0.0", port=port, debug=False)
