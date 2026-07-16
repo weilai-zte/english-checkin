@@ -2213,7 +2213,7 @@ document.addEventListener('input', function(e) {
                 return '<div class="d-item" data-idx="' + i + '" data-word="' + escapeHtml(w.word) + '" data-cn="' + escapeHtml(w.cn || '') + '" style="padding:10px 0;border-bottom:1px solid #f0f0f0;">' +
                   '<div style="display:flex;align-items:center;gap:8px;">' +
                     '<span style="font-family:monospace;font-size:20px;font-weight:bold;color:var(--accent);letter-spacing:2px;">' + escapeHtml(masked) + '</span>' +
-                    '<button class="btn btn-secondary speak-btn" data-word="' + escapeHtml(w.word) + '" style="min-width:48px;">🔊</button>' +
+                    '<button class="btn btn-secondary speak-btn" data-word="' + escapeHtml(w.word) + '">🔊</button>' +
                   '</div>' +
                   '<input type="text" class="d-input" data-check="' + escapeHtml(w.word) + '" style="width:100%;padding:8px;margin-top:8px;border:2px solid #ddd;border-radius:6px;font-size:16px;" placeholder="拼写…" autocomplete="off" autocapitalize="off" spellcheck="false">' +
                   '<div class="d-feedback" style="font-size:12px;margin-top:4px;color:#4a5568;">' + escapeHtml(w.cn || '') + '</div>' +
