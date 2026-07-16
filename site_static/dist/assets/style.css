@@ -714,11 +714,11 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
-.tr-input.correct {
+.card .tr-input.correct {
   border-color: var(--success);
   background: color-mix(in srgb, var(--success) 12%, var(--bg-card));
 }
-.tr-input.wrong {
+.card .tr-input.wrong {
   border-color: var(--danger);
   background: color-mix(in srgb, var(--danger) 12%, var(--bg-card));
 }

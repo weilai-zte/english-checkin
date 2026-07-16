@@ -1091,9 +1091,10 @@ document.addEventListener('input', function(e) {
       card.querySelectorAll('.tr-input').forEach((inp, blankIndex) => {
         const expected = blanks[blankIndex].word;
         inp.addEventListener('input', () => {
-          const isCorrect = cleanAnswer(inp.value) === cleanAnswer(expected);
+          const value = cleanAnswer(inp.value);
+          const isCorrect = value === cleanAnswer(expected);
           inp.classList.toggle('correct', isCorrect);
-          inp.classList.remove('wrong');
+          inp.classList.toggle('wrong', value.length > 0 && !isCorrect);
           if (isCorrect && inp.dataset.completed !== 'true') {
             inp.dataset.completed = 'true';
             const allInputs = [...app.querySelectorAll('.tr-input')];

@@ -223,8 +223,12 @@ def test_active_difficulty_buttons_use_white_text():
 def test_translate_live_validation_and_compact_result():
     block = _function_block('renderTranslate')
     assert "classList.toggle('correct'" in block
+    assert "classList.toggle('wrong'" in block
     assert 'nextInput.focus()' in block
     assert 'tr-full' in block and 'tr-wrong-list' in block
+    css = STYLE.read_text(encoding='utf-8')
+    assert '.card .tr-input.correct' in css
+    assert '.card .tr-input.wrong' in css
 
 
 def test_mcq_checked_state_has_dark_mode_contrast():
