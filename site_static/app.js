@@ -1050,7 +1050,7 @@ document.addEventListener('input', function(e) {
         <div class="card-title">第 ${qi+1} 题</div>
         <div class="tr-sentence">${escapeHtml(s.cn)}</div>
         ${s.hint ? `<div class="tr-hint">💡 ${escapeHtml(s.hint)}</div>` : ''}
-        <div class="tr-answer">${tokens}</div>
+        <div class="tr-line">${tokens}</div>
         <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:10px;"></div>
       `;
       list.appendChild(card);

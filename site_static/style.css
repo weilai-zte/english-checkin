@@ -623,70 +623,70 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 }
 
 
-/* ===== Translate (中译英) page layout ===== */
+
+
+
+/* ===== Translate (中译英) page layout (v4 - underline only) ===== */
 .tr-card {
-  padding: 18px 16px;
+  padding: 14px 16px 16px;
   margin-bottom: 14px;
 }
 .tr-sentence {
   background: var(--bg-tag);
-  padding: 14px 16px;
-  border-radius: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border-left: 4px solid var(--accent);
   font-size: 16px;
   line-height: 1.5;
   color: var(--text-1);
-  margin-bottom: 12px;
-  border-left: 4px solid var(--accent);
+  margin-bottom: 8px;
 }
 .tr-hint {
   font-size: 12px;
   color: var(--text-2);
-  padding: 6px 0 10px;
-  margin-bottom: 10px;
-  border-bottom: 1px dashed var(--border);
+  padding: 0 4px 10px;
 }
-.tr-answer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 10px;
-  align-items: center;
-  padding: 12px 14px;
-  background: var(--bg-page);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 16px;
-  line-height: 1.6;
+.tr-line {
+  font-size: 17px;
+  line-height: 2.8;
+  color: var(--text-1);
+  padding: 4px 2px 0;
 }
 .tr-anchor {
   font-weight: 700;
-  color: var(--text-1);
-  padding: 2px 4px;
+  margin-right: 6px;
 }
 .tr-input {
-  width: var(--w, 70px);
-  min-width: 48px;
-  max-width: 140px;
-  padding: 6px 8px;
-  border: 2px solid var(--border-input);
-  border-radius: 8px;
-  background: var(--bg-card);
+  display: inline-block;
+  width: var(--w, 72px);
+  min-width: 32px;
+  max-width: 130px;
+  margin: 0 4px;
+  padding: 0 4px 4px;
+  border: none;
+  border-bottom: 2px solid var(--border-input);
+  border-radius: 0;
+  background: transparent;
   color: var(--text-1);
-  font-size: 15px;
+  font-size: 16px;
   font-family: inherit;
   text-align: center;
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color 0.15s, background 0.15s;
+  vertical-align: baseline;
 }
 .tr-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  border-bottom-color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 4px;
 }
 .tr-input.correct {
-  border-color: var(--success);
-  background: color-mix(in srgb, var(--success) 12%, var(--bg-card));
+  border-bottom-color: var(--success);
+  background: color-mix(in srgb, var(--success) 12%, transparent);
+  border-radius: 4px;
 }
 .tr-input.wrong {
-  border-color: var(--danger);
-  background: color-mix(in srgb, var(--danger) 12%, var(--bg-card));
+  border-bottom-color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+  border-radius: 4px;
 }
-.tr-input:disabled { cursor: default; opacity: 0.85; }
