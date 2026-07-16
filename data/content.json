@@ -3,17 +3,17 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 2959,
+    "total": 3036,
     "type_count": {
       "vocab": 2882,
-      "grammar": 18,
-      "translate": 36,
-      "tense": 23
+      "grammar": 45,
+      "translate": 66,
+      "tense": 43
     },
     "grade_count": {
-      "L1": 1081,
-      "L2": 1061,
-      "L3": 817
+      "L1": 1118,
+      "L2": 1087,
+      "L3": 831
     },
     "filter_attrs": [
       "type",
@@ -41234,6 +41234,1770 @@
       "answer": "worse and worse",
       "hint": "比较级 + and + 比较级：越来越...",
       "src": "app.HARD_TENSE_QUESTIONS"
+    },
+    {
+      "id": "g_pres_3rd",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "一般现在时",
+      "title": "一般现在时（第三人称单数）",
+      "rule": "主语为第三人称单数（he/she/it/单数名词）时,动词末尾加 -s/-es",
+      "examples": [
+        {
+          "句": "He plays football every day.",
+          "翻译": "他每天踢足球。"
+        },
+        {
+          "句": "She watches TV in the evening.",
+          "翻译": "她晚上看电视。"
+        },
+        {
+          "句": "My mother cooks dinner for us.",
+          "翻译": "我妈妈为我们做晚饭。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "She ____ (go) to school by bus.",
+          "答案": "goes",
+          "提示": "第三人称单数,go → goes"
+        },
+        {
+          "题": "Tom ____ (have) a pet dog.",
+          "答案": "has",
+          "提示": "第三人称单数,have → has"
+        },
+        {
+          "题": "My father ____ (read) newspapers every morning.",
+          "答案": "reads",
+          "提示": "read 末尾加 s,发音 /z/"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_yes_no_q",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "一般疑问句",
+      "title": "一般疑问句（Do/Does）",
+      "rule": "一般现在时一般疑问句: Do + 主语 + 动原（Does 用于第三人称单数）",
+      "examples": [
+        {
+          "句": "Do you like apples?",
+          "翻译": "你喜欢苹果吗?"
+        },
+        {
+          "句": "Does she speak English?",
+          "翻译": "她会讲英语吗?"
+        },
+        {
+          "句": "Do they play basketball after school?",
+          "翻译": "他们放学后打篮球吗?"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ your brother like swimming?",
+          "答案": "Does",
+          "提示": "your brother 是第三人称单数,用 Does"
+        },
+        {
+          "题": "____ they live in Beijing?",
+          "答案": "Do",
+          "提示": "they 是复数,用 Do"
+        },
+        {
+          "题": "— ____ he play piano? — Yes, he does.",
+          "答案": "Does",
+          "提示": "he 是第三人称单数"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_wh_q",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "特殊疑问句",
+      "title": "特殊疑问句（What/Where/When/Who/How）",
+      "rule": "疑问词 + 一般疑问句语序（疑问词 + be/助动词 + 主语 + 动原）",
+      "examples": [
+        {
+          "句": "What do you do on Sundays?",
+          "翻译": "你周日做什么?"
+        },
+        {
+          "句": "Where does she live?",
+          "翻译": "她住在哪里?"
+        },
+        {
+          "句": "How old are you?",
+          "翻译": "你多大了?"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ is your favourite colour?",
+          "答案": "What",
+          "提示": "问颜色用 What"
+        },
+        {
+          "题": "____ do you get up every morning?",
+          "答案": "What time",
+          "提示": "问时间用 What time"
+        },
+        {
+          "题": "____ are those boys over there?",
+          "答案": "Who",
+          "提示": "问人用 Who"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_noun_possessive",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "名词所有格",
+      "title": "名词所有格 ('s / of)",
+      "rule": "表示所属关系: 单数名词 + 's; 复数名词有 s 时只加 '; 无生命事物用 of",
+      "examples": [
+        {
+          "句": "This is Tom's book.",
+          "翻译": "这是汤姆的书。"
+        },
+        {
+          "句": "The boys' classroom is on the second floor.",
+          "翻译": "男孩们的教室在二楼。"
+        },
+        {
+          "句": "The cover of the book is red.",
+          "翻译": "这本书的封面是红色的。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "This is my ____ (sister) bag.",
+          "答案": "sister's",
+          "提示": "单数名词所有格,加's"
+        },
+        {
+          "题": "The ____ (children) toys are everywhere.",
+          "答案": "children's",
+          "提示": "children 是不规则复数,加's"
+        },
+        {
+          "题": "The colour ____ the sky is blue.",
+          "答案": "of",
+          "提示": "无生命事物用 of"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_plural_regular",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "名词复数",
+      "title": "可数名词复数（规则变化）",
+      "rule": "一般加 -s; 以 s/x/ch/sh 结尾加 -es; 以辅音字母 + y 结尾变 y 为 i 加 -es; 以 f/fe 结尾变 f 为 v 加 -es",
+      "examples": [
+        {
+          "句": "I have three books in my bag.",
+          "翻译": "我书包里有三本书。"
+        },
+        {
+          "句": "There are many boxes in the room.",
+          "翻译": "房间里有很多盒子。"
+        },
+        {
+          "句": "The children are playing in the park.",
+          "翻译": "孩子们在公园里玩。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "There are two ____ (baby) in the family.",
+          "答案": "babies",
+          "提示": "baby → babies (y 变 i 加 es)"
+        },
+        {
+          "题": "I bought three ____ (tomato) yesterday.",
+          "答案": "tomatoes",
+          "提示": "tomato 结尾是 o,前有辅音,加 es"
+        },
+        {
+          "题": "The ____ (leaf) on the tree turn yellow in autumn.",
+          "答案": "leaves",
+          "提示": "leaf → leaves (f 变 v 加 es)"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_plural_irregular",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "名词复数",
+      "title": "可数名词复数（不规则变化）",
+      "rule": "常见不规则复数: man→men, woman→women, child→children, foot→feet, tooth→teeth, mouse→mice",
+      "examples": [
+        {
+          "句": "There are three children in the park.",
+          "翻译": "公园里有三个孩子。"
+        },
+        {
+          "句": "Those women are doctors.",
+          "翻译": "那些女士是医生。"
+        },
+        {
+          "句": "My feet hurt after the long walk.",
+          "翻译": "走长路后我的脚疼。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "Two ____ (man) are talking under the tree.",
+          "答案": "men",
+          "提示": "man → men"
+        },
+        {
+          "题": "The ____ (child) are playing games.",
+          "答案": "children",
+          "提示": "child → children"
+        },
+        {
+          "题": "I brush my ____ (tooth) twice a day.",
+          "答案": "teeth",
+          "提示": "tooth → teeth"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_conj_basic",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "并列连词",
+      "title": "并列连词（and/but/or/so/because）",
+      "rule": "and 表并列,but 表转折,or 表选择,so 表结果,because 表原因",
+      "examples": [
+        {
+          "句": "I like tea and coffee.",
+          "翻译": "我喜欢茶和咖啡。"
+        },
+        {
+          "句": "He is young but smart.",
+          "翻译": "他虽年轻但聪明。"
+        },
+        {
+          "句": "I was tired, so I went to bed early.",
+          "翻译": "我很累,所以早早睡了。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "She is poor ____ she is happy.",
+          "答案": "but",
+          "提示": "转折关系用 but"
+        },
+        {
+          "题": "Study hard, ____ you will pass the exam.",
+          "答案": "or",
+          "提示": "or 连接两个相反结果"
+        },
+        {
+          "题": "____ it was raining, we stayed at home.",
+          "答案": "Because",
+          "提示": "原因用 Because 引导"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_adj_compare_reg",
+      "level": "初一下",
+      "grade": "L2",
+      "topic": "形容词比较级",
+      "title": "形容词比较级（规则变化）",
+      "rule": "短形容词 + er; 长形容词 more + 原级",
+      "examples": [
+        {
+          "句": "Tom is taller than Jack.",
+          "翻译": "汤姆比杰克高。"
+        },
+        {
+          "句": "This book is more interesting than that one.",
+          "翻译": "这本书比那本更有趣。"
+        },
+        {
+          "句": "She runs faster than me.",
+          "翻译": "她比我跑得快。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "Today is ____ (warm) than yesterday.",
+          "答案": "warmer",
+          "提示": "warm → warmer"
+        },
+        {
+          "题": "This question is ____ (difficult) than that one.",
+          "答案": "more difficult",
+          "提示": "长形容词用 more + 原级"
+        },
+        {
+          "题": "Anna is ____ (busy) than her sister.",
+          "答案": "busier",
+          "提示": "辅音字母 + y 结尾,变 y 为 i 加 er"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_adj_compare_irreg",
+      "level": "初一下",
+      "grade": "L2",
+      "topic": "形容词比较级",
+      "title": "形容词比较级（不规则变化）",
+      "rule": "good/well → better; bad/badly → worse; many/much → more; little → less; far → farther/further",
+      "examples": [
+        {
+          "句": "Your English is better than mine.",
+          "翻译": "你的英语比我的好。"
+        },
+        {
+          "句": "The weather today is worse than yesterday.",
+          "翻译": "今天的天气比昨天差。"
+        },
+        {
+          "句": "I have more friends than before.",
+          "翻译": "我比以前有更多朋友。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "Tom is ____ (good) at math than his brother.",
+          "答案": "better",
+          "提示": "good 的比较级是 better"
+        },
+        {
+          "题": "The food is ____ (bad) than before.",
+          "答案": "worse",
+          "提示": "bad 的比较级是 worse"
+        },
+        {
+          "题": "There is ____ (little) rain this year than last year.",
+          "答案": "less",
+          "提示": "little 的比较级是 less"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_superlative",
+      "level": "初一下",
+      "grade": "L2",
+      "topic": "形容词最高级",
+      "title": "形容词最高级",
+      "rule": "用于三者或以上比较: the + 最高级 (+ 范围 of/in)",
+      "examples": [
+        {
+          "句": "Tom is the tallest in our class.",
+          "翻译": "汤姆是我们班最高的。"
+        },
+        {
+          "句": "Mount Qomolangma is the highest mountain in the world.",
+          "翻译": "珠穆朗玛峰是世界上最高的山。"
+        },
+        {
+          "句": "This is the most beautiful place I have ever seen.",
+          "翻译": "这是我见过的最美的地方。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "Anna is ____ (tall) of the three sisters.",
+          "答案": "the tallest",
+          "提示": "三者以上用最高级 the tallest"
+        },
+        {
+          "题": "This is ____ (interesting) book I have ever read.",
+          "答案": "the most interesting",
+          "提示": "长形容词最高级 the most + 原级"
+        },
+        {
+          "题": "He is ____ (good) student in his class.",
+          "答案": "the best",
+          "提示": "good 的最高级是 best"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_future_will",
+      "level": "初二上",
+      "grade": "L2",
+      "topic": "一般将来时",
+      "title": "一般将来时（will + 动原）",
+      "rule": "表示将来发生的动作或状态: 主语 + will + 动原",
+      "examples": [
+        {
+          "句": "I will visit my grandparents next week.",
+          "翻译": "我下周要去看望爷爷奶奶。"
+        },
+        {
+          "句": "It will rain tomorrow.",
+          "翻译": "明天会下雨。"
+        },
+        {
+          "句": "Will you help me with my homework?",
+          "翻译": "你愿意帮我做作业吗?"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "I think it ____ (be) sunny tomorrow.",
+          "答案": "will be",
+          "提示": "will + be 原形"
+        },
+        {
+          "题": "They ____ (travel) to Japan next month.",
+          "答案": "will travel",
+          "提示": "will + 动原"
+        },
+        {
+          "题": "____ you ____ (come) to my birthday party?",
+          "答案": "will, come",
+          "提示": "一般将来时一般疑问句: Will + 主语 + 动原"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_future_goingto",
+      "level": "初二上",
+      "grade": "L2",
+      "topic": "一般将来时",
+      "title": "一般将来时（be going to + 动原）",
+      "rule": "表示已经计划好或打算做某事: 主语 + be + going to + 动原",
+      "examples": [
+        {
+          "句": "I am going to be a doctor.",
+          "翻译": "我打算成为一名医生。"
+        },
+        {
+          "句": "Look at the clouds. It is going to rain.",
+          "翻译": "看那些云,快要下雨了。"
+        },
+        {
+          "句": "We are going to have a picnic this weekend.",
+          "翻译": "我们这个周末要去野餐。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "She ____ (visit) her aunt this Sunday.",
+          "答案": "is going to visit",
+          "提示": "第三人称单数用 is going to"
+        },
+        {
+          "题": "They ____ (play) football after school.",
+          "答案": "are going to play",
+          "提示": "复数用 are going to"
+        },
+        {
+          "题": "What ____ you ____ (do) tomorrow?",
+          "答案": "are, going to do",
+          "提示": "be going to 疑问句把 be 提前"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_modal_can",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "情态动词",
+      "title": "情态动词 can/could（能力/许可）",
+      "rule": "can + 动原; 表能力 could 是 can 的过去式; 表请求 could 比 can 更委婉",
+      "examples": [
+        {
+          "句": "I can swim very well.",
+          "翻译": "我游泳游得很好。"
+        },
+        {
+          "句": "She could ride a bike when she was five.",
+          "翻译": "她五岁时就会骑自行车。"
+        },
+        {
+          "句": "Could you please pass me the salt?",
+          "翻译": "请把盐递给我好吗?"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "He ____ (can) speak three languages.",
+          "答案": "can",
+          "提示": "主语是第三人称单数,can 不变"
+        },
+        {
+          "题": "When I was young, I ____ (can) climb trees.",
+          "答案": "could",
+          "提示": "过去的能力用 could"
+        },
+        {
+          "题": "____ you please open the window?",
+          "答案": "Could",
+          "提示": "委婉请求用 Could you...?"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_modal_must",
+      "level": "初二上",
+      "grade": "L2",
+      "topic": "情态动词",
+      "title": "情态动词 must/have to（必须）",
+      "rule": "must 表主观必须; have to 表客观需要; must not 禁止; don't have to 不必要",
+      "examples": [
+        {
+          "句": "You must finish your homework before 9 pm.",
+          "翻译": "你必须在晚上9点前完成作业。"
+        },
+        {
+          "句": "I have to wear a uniform at school.",
+          "翻译": "我在学校必须穿校服。"
+        },
+        {
+          "句": "You mustn't talk loudly in the library.",
+          "翻译": "在图书馆里禁止大声说话。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "We ____ (must) wear seat belts in the car.",
+          "答案": "must",
+          "提示": "主观必须"
+        },
+        {
+          "题": "She ____ (have to) get up early every day.",
+          "答案": "has to",
+          "提示": "第三人称单数 has to"
+        },
+        {
+          "题": "You ____ (don't have to) come if you are busy.",
+          "答案": "don't have to",
+          "提示": "不必要"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_modal_should",
+      "level": "初二上",
+      "grade": "L2",
+      "topic": "情态动词",
+      "title": "情态动词 should/ought to（应该）",
+      "rule": "should + 动原; 表建议或责任",
+      "examples": [
+        {
+          "句": "You should see a doctor.",
+          "翻译": "你应该去看医生。"
+        },
+        {
+          "句": "We should protect the environment.",
+          "翻译": "我们应该保护环境。"
+        },
+        {
+          "句": "You ought to be more careful.",
+          "翻译": "你应该更细心些。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "You ____ (should) drink more water every day.",
+          "答案": "should",
+          "提示": "建议用 should"
+        },
+        {
+          "题": "He ____ (ought to) apologize to her.",
+          "答案": "ought to",
+          "提示": "ought to 后接动原"
+        },
+        {
+          "题": "____ (should) I bring some food to the party?",
+          "答案": "Should",
+          "提示": "should 疑问句"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_exclam",
+      "level": "初一下",
+      "grade": "L1",
+      "topic": "感叹句",
+      "title": "感叹句（What/How）",
+      "rule": "What + (a/an) + 形容词 + 名词 + 主语 + 谓语; How + 形容词/副词 + 主语 + 谓语",
+      "examples": [
+        {
+          "句": "What a beautiful day!",
+          "翻译": "多么美好的一天!"
+        },
+        {
+          "句": "How fast he runs!",
+          "翻译": "他跑得多快啊!"
+        },
+        {
+          "句": "What an interesting book it is!",
+          "翻译": "多有趣的一本书啊!"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ (What/How) beautiful flowers they are!",
+          "答案": "What",
+          "提示": "修饰名词用 What"
+        },
+        {
+          "题": "____ (What/How) carefully she works!",
+          "答案": "How",
+          "提示": "修饰副词 carefully 用 How"
+        },
+        {
+          "题": "____ (What/How) a clever boy he is!",
+          "答案": "What",
+          "提示": "修饰带 a/an 的名词用 What"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_imperative",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "祈使句",
+      "title": "祈使句",
+      "rule": "动词原形开头,省略主语 You; 否定式: Don't + 动原",
+      "examples": [
+        {
+          "句": "Open your books, please.",
+          "翻译": "请打开书。"
+        },
+        {
+          "句": "Be quiet!",
+          "翻译": "安静点!"
+        },
+        {
+          "句": "Don't look out of the window.",
+          "翻译": "不要往窗外看。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ (close) the door, please.",
+          "答案": "Close",
+          "提示": "祈使句以动词原形开头"
+        },
+        {
+          "题": "____ (not run) in the hallway.",
+          "答案": "Don't run",
+          "提示": "否定祈使句用 Don't + 动原"
+        },
+        {
+          "题": "____ (let) us play together.",
+          "答案": "Let",
+          "提示": "Let's 句型 Let us..."
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_adv_freq",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "频率副词",
+      "title": "频率副词（always/usually/often/sometimes/never）",
+      "rule": "频率副词位置: be 动词之后,行为动词之前",
+      "examples": [
+        {
+          "句": "I am always late for school.",
+          "翻译": "我上学总是迟到。"
+        },
+        {
+          "句": "She often reads books in the evening.",
+          "翻译": "她经常在晚上看书。"
+        },
+        {
+          "句": "He never eats meat.",
+          "翻译": "他从来不吃肉。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "My father ____ (always) reads newspapers after dinner.",
+          "答案": "always",
+          "提示": "频率副词 always 放行为动词前"
+        },
+        {
+          "题": "She is ____ (sometimes) late for class.",
+          "答案": "sometimes",
+          "提示": "频率副词放 be 动词后"
+        },
+        {
+          "题": "They ____ (never) go to bed before 10 pm.",
+          "答案": "never",
+          "提示": "never 放行为动词前"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_pres_cont_wh",
+      "level": "初二上",
+      "grade": "L2",
+      "topic": "现在进行时",
+      "title": "现在进行时（特殊疑问句形式）",
+      "rule": "疑问词 + be + 主语 + 动-ing",
+      "examples": [
+        {
+          "句": "What are you doing now?",
+          "翻译": "你现在在做什么?"
+        },
+        {
+          "句": "Where is she going?",
+          "翻译": "她要去哪里?"
+        },
+        {
+          "句": "Who are they waiting for?",
+          "翻译": "他们在等谁?"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "What ____ she ____ (read) right now?",
+          "答案": "is, reading",
+          "提示": "现在进行时特殊疑问句: 疑问词 + is + 动-ing"
+        },
+        {
+          "题": "Where ____ they ____ (go)?",
+          "答案": "are, going",
+          "提示": "复数用 are + going"
+        },
+        {
+          "题": "Who ____ he ____ (talk) to?",
+          "答案": "is, talking",
+          "提示": "第三人称单数 is + talking"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_prep_time",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "时间介词",
+      "title": "时间介词（in/on/at）",
+      "rule": "in + 年/月/季节/上午下午晚上; on + 具体日期/星期; at + 钟点/夜晚/中午",
+      "examples": [
+        {
+          "句": "I was born in 2010.",
+          "翻译": "我出生于2010年。"
+        },
+        {
+          "句": "We have a party on Saturday.",
+          "翻译": "我们周六有个聚会。"
+        },
+        {
+          "句": "The meeting starts at 8 o'clock.",
+          "翻译": "会议8点开始。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "My birthday is ____ (in/on) May.",
+          "答案": "in",
+          "提示": "月份前用 in"
+        },
+        {
+          "题": "We have no class ____ (in/on) Friday afternoon.",
+          "答案": "on",
+          "提示": "具体星期用 on"
+        },
+        {
+          "题": "He goes to bed ____ (in/at) 9 pm.",
+          "答案": "at",
+          "提示": "钟点前用 at"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_prep_place",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "地点介词",
+      "title": "地点介词（in/on/at/under/over/between/behind）",
+      "rule": "in 在…里; on 在…上(接触); at 在…小地点; under 在…下; over 在…上方; between 在…之间",
+      "examples": [
+        {
+          "句": "There is a ball under the bed.",
+          "翻译": "床下有一个球。"
+        },
+        {
+          "句": "The book is on the table.",
+          "翻译": "书在桌子上。"
+        },
+        {
+          "句": "She is standing between Tom and Jack.",
+          "翻译": "她站在汤姆和杰克之间。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "The cat is hiding ____ (under/behind) the door.",
+          "答案": "behind",
+          "提示": "在门后面"
+        },
+        {
+          "题": "There is a bridge ____ (over/under) the river.",
+          "答案": "over",
+          "提示": "桥在河上方,用 over"
+        },
+        {
+          "题": "He lives ____ (in/at) Beijing.",
+          "答案": "in",
+          "提示": "大城市前用 in"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_adj_vs_adv",
+      "level": "初一下",
+      "grade": "L1",
+      "topic": "形容词与副词",
+      "title": "形容词 vs 副词",
+      "rule": "形容词修饰名词/作表语; 副词修饰动词/形容词/其他副词,大多以 -ly 结尾",
+      "examples": [
+        {
+          "句": "She is a careful girl.",
+          "翻译": "她是个细心的女孩。"
+        },
+        {
+          "句": "She speaks English carefully.",
+          "翻译": "她讲英语很细心。"
+        },
+        {
+          "句": "He runs fast.",
+          "翻译": "他跑得快。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "He is a ____ (slow) runner.",
+          "答案": "slow",
+          "提示": "修饰名词 runner 用形容词"
+        },
+        {
+          "题": "He runs ____ (slow).",
+          "答案": "slowly",
+          "提示": "修饰动词 runs 用副词 slowly"
+        },
+        {
+          "题": "She is ____ (happy) today.",
+          "答案": "happy",
+          "提示": "作表语用形容词 happy"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_reflexive",
+      "level": "初一下",
+      "grade": "L2",
+      "topic": "反身代词",
+      "title": "反身代词（myself/yourself/himself...）",
+      "rule": "反身代词 = 形容词性物主代词 + self (复数 selves)",
+      "examples": [
+        {
+          "句": "I can do it myself.",
+          "翻译": "我自己能做。"
+        },
+        {
+          "句": "He hurt himself while playing football.",
+          "翻译": "他踢足球时受了伤。"
+        },
+        {
+          "句": "They enjoyed themselves at the party.",
+          "翻译": "他们在聚会上玩得很开心。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "Please help ____ (you) to some fish.",
+          "答案": "yourself",
+          "提示": "help oneself to... 随便吃…"
+        },
+        {
+          "题": "The children can dress ____ (they) now.",
+          "答案": "themselves",
+          "提示": "复数用 themselves"
+        },
+        {
+          "题": "I taught ____ (I) to play the piano.",
+          "答案": "myself",
+          "提示": "teach oneself 自学"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_article_a_an",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "冠词",
+      "title": "不定冠词 a/an",
+      "rule": "a 用在辅音音素开头的词前; an 用在元音音素开头的词前",
+      "examples": [
+        {
+          "句": "She is a teacher.",
+          "翻译": "她是一名教师。"
+        },
+        {
+          "句": "He is an honest boy.",
+          "翻译": "他是个诚实的男孩。"
+        },
+        {
+          "句": "I have an apple and a banana.",
+          "翻译": "我有一个苹果和一根香蕉。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "This is ____ (a/an) useful book.",
+          "答案": "a",
+          "提示": "useful /ju:/ 是辅音音素"
+        },
+        {
+          "题": "____ (A/An) hour ago, I saw her.",
+          "答案": "An",
+          "提示": "hour /aʊər/ 是元音音素"
+        },
+        {
+          "题": "My father is ____ (a/an) engineer.",
+          "答案": "an",
+          "提示": "engineer 以元音音素开头"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_article_the",
+      "level": "初一上",
+      "grade": "L1",
+      "topic": "冠词",
+      "title": "定冠词 the",
+      "rule": "the 用于特指、双方都知道的人或物、序数词前、世界上独一无二的事物前",
+      "examples": [
+        {
+          "句": "The book on the desk is mine.",
+          "翻译": "桌上的那本书是我的。"
+        },
+        {
+          "句": "The sun rises in the east.",
+          "翻译": "太阳从东方升起。"
+        },
+        {
+          "句": "She is the first student to arrive.",
+          "翻译": "她是第一个到的学生。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "____ (A/The) moon is bright tonight.",
+          "答案": "The",
+          "提示": "世界上独一无二的事物前用 the"
+        },
+        {
+          "题": "He is ____ (a/the) best player in our team.",
+          "答案": "the",
+          "提示": "最高级前用 the"
+        },
+        {
+          "题": "I met ____ (a/the) girl at the gate.",
+          "答案": "a",
+          "提示": "初次提到某人用不定冠词"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_past_regular",
+      "level": "初一下",
+      "grade": "L1",
+      "topic": "一般过去时",
+      "title": "一般过去时（规则动词）",
+      "rule": "动词过去式: 一般加 -ed; 以 e 结尾加 -d; 辅音字母 + y 变 y 为 i 加 -ed; 重读闭音节双写最后字母加 -ed",
+      "examples": [
+        {
+          "句": "I played football yesterday.",
+          "翻译": "我昨天踢了足球。"
+        },
+        {
+          "句": "She watched a movie last night.",
+          "翻译": "她昨晚看了部电影。"
+        },
+        {
+          "句": "He studied English last year.",
+          "翻译": "他去年学过英语。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "I ____ (visit) my grandparents last weekend.",
+          "答案": "visited",
+          "提示": "visit → visited"
+        },
+        {
+          "题": "She ____ (stop) the car at the traffic light.",
+          "答案": "stopped",
+          "提示": "stop 双写 p 加 ed"
+        },
+        {
+          "题": "They ____ (carry) the box to the room.",
+          "答案": "carried",
+          "提示": "carry → carried (y 变 i 加 ed)"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "id": "g_past_irregular",
+      "level": "初一下",
+      "grade": "L1",
+      "topic": "一般过去时",
+      "title": "一般过去时（不规则动词）",
+      "rule": "常见不规则: am/is→was, are→were, go→went, do→did, have→had, eat→ate, see→saw, buy→bought, take→took, make→made, give→gave, come→came",
+      "examples": [
+        {
+          "句": "I went to the park yesterday.",
+          "翻译": "我昨天去了公园。"
+        },
+        {
+          "句": "She had a great time at the party.",
+          "翻译": "她在聚会上玩得很开心。"
+        },
+        {
+          "句": "He bought a new bike last month.",
+          "翻译": "他上个月买了辆新自行车。"
+        }
+      ],
+      "exercises": [
+        {
+          "题": "We ____ (go) to Beijing last summer.",
+          "答案": "went",
+          "提示": "go 的过去式是 went"
+        },
+        {
+          "题": "She ____ (eat) breakfast at 7 am.",
+          "答案": "ate",
+          "提示": "eat 的过去式是 ate"
+        },
+        {
+          "题": "They ____ (see) a film last night.",
+          "答案": "saw",
+          "提示": "see 的过去式是 saw"
+        }
+      ],
+      "type": "grammar",
+      "freq": 5,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "他每天步行上学。",
+      "en": "He walks to school every day.",
+      "hint": "一般现在时第三人称单数 + 频率副词",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm_001",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "我有两个姐姐。",
+      "en": "I have two sisters.",
+      "hint": "基数词 two + 名词复数",
+      "grade": "L1",
+      "topic": "家庭生活",
+      "difficulty": "easy",
+      "id": "t_llm_002",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "她喜欢弹钢琴。",
+      "en": "She likes playing the piano.",
+      "hint": "like + doing + the + 乐器",
+      "grade": "L1",
+      "topic": "兴趣",
+      "difficulty": "easy",
+      "id": "t_llm_003",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "桌子上有三个苹果。",
+      "en": "There are three apples on the table.",
+      "hint": "There be 复数 + 地点介词",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm_004",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "他们正在公园里跑步。",
+      "en": "They are running in the park.",
+      "hint": "现在进行时 + 地点介词",
+      "grade": "L1",
+      "topic": "运动",
+      "difficulty": "easy",
+      "id": "t_llm_005",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "我会说一点英语。",
+      "en": "I can speak a little English.",
+      "hint": "can + 动原 + a little",
+      "grade": "L1",
+      "topic": "语言",
+      "difficulty": "easy",
+      "id": "t_llm_006",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "我妈妈是护士。",
+      "en": "My mother is a nurse.",
+      "hint": "职业表达 a nurse",
+      "grade": "L1",
+      "topic": "家庭生活",
+      "difficulty": "easy",
+      "id": "t_llm_007",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "今天天气怎么样?",
+      "en": "How is the weather today?",
+      "hint": "How 引导的特殊疑问句",
+      "grade": "L1",
+      "topic": "天气",
+      "difficulty": "easy",
+      "id": "t_llm_008",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "不要在课堂上说话。",
+      "en": "Don't talk in class.",
+      "hint": "祈使句否定 Don't + 动原",
+      "grade": "L1",
+      "topic": "学校学习",
+      "difficulty": "easy",
+      "id": "t_llm_009",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "这件红色的毛衣是谁的?",
+      "en": "Whose red sweater is this?",
+      "hint": "Whose 引导的特殊疑问句",
+      "grade": "L1",
+      "topic": "衣物",
+      "difficulty": "easy",
+      "id": "t_llm_010",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "我每天刷牙两次。",
+      "en": "I brush my teeth twice a day.",
+      "hint": "频率表达 twice a day",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm_011",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "你能帮我吗?",
+      "en": "Can you help me?",
+      "hint": "Can you... 一般疑问句",
+      "grade": "L1",
+      "topic": "日常",
+      "difficulty": "easy",
+      "id": "t_llm_012",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "桌子上有一台电脑。",
+      "en": "There is a computer on the desk.",
+      "hint": "There be 单数",
+      "grade": "L1",
+      "topic": "科技信息",
+      "difficulty": "easy",
+      "id": "t_llm_013",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "这本书比那本有趣。",
+      "en": "This book is more interesting than that one.",
+      "hint": "比较级 more + 原级",
+      "grade": "L1",
+      "topic": "阅读",
+      "difficulty": "easy",
+      "id": "t_llm_014",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "他是一个诚实的男孩。",
+      "en": "He is an honest boy.",
+      "hint": "honest 以元音音素开头,用 an",
+      "grade": "L1",
+      "topic": "人物",
+      "difficulty": "easy",
+      "id": "t_llm_015",
+      "type": "translate",
+      "freq": 5,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "如果你努力学习,就会通过考试。",
+      "en": "If you study hard, you will pass the exam.",
+      "hint": "真实条件句 主将从现",
+      "grade": "L2",
+      "topic": "学习",
+      "difficulty": "medium",
+      "id": "t_llm_016",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "虽然很累,他仍然继续工作。",
+      "en": "Although he was tired, he kept on working.",
+      "hint": "although 引导让步状语从句",
+      "grade": "L2",
+      "topic": "工作",
+      "difficulty": "medium",
+      "id": "t_llm_017",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "他每天都做运动,所以身体很健康。",
+      "en": "He exercises every day, so he is very healthy.",
+      "hint": "so 引导结果状语",
+      "grade": "L2",
+      "topic": "健康",
+      "difficulty": "medium",
+      "id": "t_llm_018",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "当我到家时,我妈妈正在做饭。",
+      "en": "When I got home, my mother was cooking dinner.",
+      "hint": "过去进行时 + when 引导时间状语从句",
+      "grade": "L2",
+      "topic": "家庭生活",
+      "difficulty": "medium",
+      "id": "t_llm_019",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "这本书我已经读了三遍。",
+      "en": "I have read this book three times.",
+      "hint": "现在完成时 + 次数 three times",
+      "grade": "L2",
+      "topic": "阅读",
+      "difficulty": "medium",
+      "id": "t_llm_020",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "我打算明年去北京旅行。",
+      "en": "I am going to travel to Beijing next year.",
+      "hint": "be going to 表计划",
+      "grade": "L2",
+      "topic": "交通旅行",
+      "difficulty": "medium",
+      "id": "t_llm_021",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "他每天花一小时做作业。",
+      "en": "He spends an hour doing homework every day.",
+      "hint": "spend time (in) doing",
+      "grade": "L2",
+      "topic": "学校学习",
+      "difficulty": "medium",
+      "id": "t_llm_022",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "这部电影比那部电影更有趣。",
+      "en": "This film is more interesting than that one.",
+      "hint": "比较级 + than",
+      "grade": "L2",
+      "topic": "娱乐",
+      "difficulty": "medium",
+      "id": "t_llm_023",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "你应该每天喝八杯水。",
+      "en": "You should drink eight glasses of water every day.",
+      "hint": "should + 动原 + 数词 + 名词复数",
+      "grade": "L2",
+      "topic": "健康",
+      "difficulty": "medium",
+      "id": "t_llm_024",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "他昨天不得不加班。",
+      "en": "He had to work overtime yesterday.",
+      "hint": "had to + 动原(过去式)",
+      "grade": "L2",
+      "topic": "工作",
+      "difficulty": "medium",
+      "id": "t_llm_025",
+      "type": "translate",
+      "freq": 4,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "如果你昨天早点起床,你就会赶上公共汽车。",
+      "en": "If you had got up earlier yesterday, you would have caught the bus.",
+      "hint": "虚拟语气过去式",
+      "grade": "L3",
+      "topic": "从句",
+      "difficulty": "hard",
+      "id": "t_llm_026",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "他如此聪明,能解决任何难题。",
+      "en": "He is so smart that he can solve any difficult problem.",
+      "hint": "so...that 结果状语从句",
+      "grade": "L3",
+      "topic": "从句",
+      "difficulty": "hard",
+      "id": "t_llm_027",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "我不相信他所说的话。",
+      "en": "I don't believe what he said.",
+      "hint": "what 引导宾语从句",
+      "grade": "L3",
+      "topic": "从句",
+      "difficulty": "hard",
+      "id": "t_llm_028",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "这本书已经被翻译成多种语言。",
+      "en": "This book has been translated into many languages.",
+      "hint": "现在完成时被动",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "t_llm_029",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "cn": "他说他明天要去上海。",
+      "en": "He said that he would go to Shanghai the next day.",
+      "hint": "宾语从句 + 过去将来时",
+      "grade": "L3",
+      "topic": "从句",
+      "difficulty": "hard",
+      "id": "t_llm_030",
+      "type": "translate",
+      "freq": 3,
+      "direction": "cn2en",
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "She usually ____ (drink) coffee in the morning.",
+      "answer": "drinks",
+      "hint": "第三人称单数,drink → drinks",
+      "grade": "L1",
+      "topic": "一般现在时",
+      "difficulty": "easy",
+      "id": "tt_llm_001",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "They ____ (not like) spicy food.",
+      "answer": "don't like",
+      "hint": "复数否定: do not + 动原",
+      "grade": "L1",
+      "topic": "一般现在时",
+      "difficulty": "easy",
+      "id": "tt_llm_002",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "I ____ (meet) my old friend at the airport yesterday.",
+      "answer": "met",
+      "hint": "meet 的过去式是 met (不规则)",
+      "grade": "L1",
+      "topic": "一般过去时",
+      "difficulty": "easy",
+      "id": "tt_llm_003",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "When ____ you ____ (arrive) at the station last night?",
+      "answer": "did, arrive",
+      "hint": "过去时疑问句: did + 主语 + 动原",
+      "grade": "L1",
+      "topic": "一般过去时",
+      "difficulty": "easy",
+      "id": "tt_llm_004",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "Look at the dark clouds. It ____ (rain).",
+      "answer": "is going to rain",
+      "hint": "be going to 表预测",
+      "grade": "L2",
+      "topic": "一般将来时",
+      "difficulty": "medium",
+      "id": "tt_llm_005",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "By the time you arrive, I ____ (finish) the work.",
+      "answer": "will have finished",
+      "hint": "将来完成时 will have done",
+      "grade": "L3",
+      "topic": "将来完成时",
+      "difficulty": "hard",
+      "id": "tt_llm_006",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "Listen! The birds ____ (sing) in the tree.",
+      "answer": "are singing",
+      "hint": "现在进行时: are + 动-ing",
+      "grade": "L2",
+      "topic": "现在进行时",
+      "difficulty": "medium",
+      "id": "tt_llm_007",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "He ____ (read) a book at the moment.",
+      "answer": "is reading",
+      "hint": "第三人称单数 is + 动-ing",
+      "grade": "L2",
+      "topic": "现在进行时",
+      "difficulty": "medium",
+      "id": "tt_llm_008",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "I ____ (sleep) when the phone rang.",
+      "answer": "was sleeping",
+      "hint": "过去进行时: was + 动-ing",
+      "grade": "L2",
+      "topic": "过去进行时",
+      "difficulty": "medium",
+      "id": "tt_llm_009",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "While she ____ (cook), the baby cried.",
+      "answer": "was cooking",
+      "hint": "过去进行时 + while 引导",
+      "grade": "L2",
+      "topic": "过去进行时",
+      "difficulty": "medium",
+      "id": "tt_llm_010",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "I ____ (already, finish) my homework.",
+      "answer": "have already finished",
+      "hint": "现在完成时: have + 过去分词",
+      "grade": "L2",
+      "topic": "现在完成时",
+      "difficulty": "medium",
+      "id": "tt_llm_011",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "He ____ (live) here since 2015.",
+      "answer": "has lived",
+      "hint": "since + 时间点用现在完成时",
+      "grade": "L2",
+      "topic": "现在完成时",
+      "difficulty": "medium",
+      "id": "tt_llm_012",
+      "type": "tense",
+      "freq": 4,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "By the time I got there, he ____ (leave).",
+      "answer": "had left",
+      "hint": "过去完成时: had + 过去分词",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "difficulty": "hard",
+      "id": "tt_llm_013",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "She told me that she ____ (visit) Paris twice.",
+      "answer": "had visited",
+      "hint": "过去的过去,用过去完成时",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "difficulty": "hard",
+      "id": "tt_llm_014",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "English ____ (speak) all over the world.",
+      "answer": "is spoken",
+      "hint": "一般现在时被动: is + 过去分词",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "tt_llm_015",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "The new bridge ____ (build) last year.",
+      "answer": "was built",
+      "hint": "一般过去时被动: was + 过去分词",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "tt_llm_016",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "The letter ____ (write) by Tom now.",
+      "answer": "is being written",
+      "hint": "现在进行时被动: is being + 过去分词",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "tt_llm_017",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "It ____ (rain) for two hours. It is still raining.",
+      "answer": "has been raining",
+      "hint": "现在完成进行时: have been + 动-ing",
+      "grade": "L3",
+      "topic": "现在完成进行时",
+      "difficulty": "hard",
+      "id": "tt_llm_018",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "The work ____ (must, finish) before 5 pm.",
+      "answer": "must be finished",
+      "hint": "情态动词被动: 情态动词 + be + 过去分词",
+      "grade": "L3",
+      "topic": "被动语态",
+      "difficulty": "hard",
+      "id": "tt_llm_019",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen_2026_07"
+    },
+    {
+      "question": "He said that he ____ (come) the next day.",
+      "answer": "would come",
+      "hint": "主句过去时,从句用过去将来时",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "difficulty": "hard",
+      "id": "tt_llm_020",
+      "type": "tense",
+      "freq": 3,
+      "src": "llm_gen_2026_07"
     }
   ]
 }
