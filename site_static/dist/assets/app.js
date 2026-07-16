@@ -31,6 +31,26 @@ document.addEventListener('input', function(e) {
   const TASK_KEY = 'ck_current_task_v1';
   const USER_KEY = 'ck_user_key_v1';
 
+  // ─── 每日打卡题型目录（顺序即默认执行顺序）────────
+  const CHECKIN_TYPES = [
+    { key: 'quiz',         label: '选择题',  icon: '🎯', route: 'quiz' },
+    { key: 'tense',        label: '时态',    icon: '⏰', route: 'tense' },
+    { key: 'preposition',  label: '介词',    icon: '🔗', route: 'preposition' },
+    { key: 'translate',    label: '中译英',  icon: '🔤', route: 'translate' },
+    { key: 'dictation',    label: '听写',    icon: '✍️', route: 'dictation' },
+  ];
+  const DEFAULT_CHECKIN_TYPES = CHECKIN_TYPES.map(t => t.key);
+  function checkinTypeMeta(key) {
+    return CHECKIN_TYPES.find(t => t.key === key) || { key: key, label: key, icon: '·', route: key };
+  }
+  function checkinTypeLabel(key) {
+    const t = checkinTypeMeta(key);
+    return `${t.icon} ${t.label}`;
+  }
+  function routeForCheckinType(key) {
+    return checkinTypeMeta(key).route;
+  }
+
   // ─── Supabase ────────────────────────────────────────
   const SB_URL = 'https://qhsqkythuplxffhhmcpw.supabase.co';
   const SB_KEY = 'sb_publishable_Ea-4wpoSNGXovudWaW-AaA_u1G_0QNR';
@@ -399,6 +419,88 @@ document.addEventListener('input', function(e) {
     };
   }
 
+  // ─── 完成卡：追加"下一项/完成打卡"步骤 ──────────
+  // 在每个题型 onSubmit 末尾调用。若用户不在 checkin 流程（plan 不存在或不含此 type），什么都不做。
+  // next = 'finish' → 渲染"完成打卡"按钮（点击触发 finishMixedCheckin）
+  // next = type key → 渲染"下一项：[icon] [label]"按钮（点击 navigate 到对应路由）
+  function appendCheckinNextStep(app, type) {
+    const next = advanceCheckinPlan(type);
+    if (!next) return;
+    const container = app.querySelector('.container');
+    if (!container) return;
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.textAlign = 'center';
+    card.style.background = 'linear-gradient(135deg, #eef2ff, #dbe5ff)';
+    if (next === 'finish') {
+      const plan = progress.daily_checkin_plan || { queue: [] };
+      card.innerHTML = `
+        <div style="font-size:14px;color:var(--text-2);">✅ 本题型完成</div>
+        <div style="font-size:18px;font-weight:bold;color:var(--accent);margin:6px 0 12px;">今日打卡全部完成 🎉</div>
+        <div class="btn-row">
+          <a class="btn btn-secondary" href="#/home">返回首页</a>
+          <button class="btn btn-primary" id="checkin-finish-btn">完成打卡 ✓</button>
+        </div>
+      `;
+      container.appendChild(card);
+      card.querySelector('#checkin-finish-btn').onclick = () => {
+        finishMixedCheckin(plan.queue || []);
+        navigate('home');
+      };
+    } else {
+      const meta = checkinTypeMeta(next);
+      card.innerHTML = `
+        <div style="font-size:14px;color:var(--text-2);">✅ 本题型完成</div>
+        <div style="font-size:18px;font-weight:bold;color:var(--accent);margin:6px 0 12px;">下一项：${escapeHtml(meta.icon)} ${escapeHtml(meta.label)}</div>
+        <div class="btn-row">
+          <a class="btn btn-secondary" href="#/home">今日结束</a>
+          <button class="btn btn-primary" id="checkin-next-btn">继续 →</button>
+        </div>
+      `;
+      container.appendChild(card);
+      card.querySelector('#checkin-next-btn').onclick = () => {
+        navigate(routeForCheckinType(next));
+      };
+    }
+  }
+
+  // ─── 每日打卡队列推进 ─────────────────────
+  // 返回 'finish' 表示队列已全部完成；返回下一个 type key；返回 null 表示无 active plan。
+  function advanceCheckinPlan(type) {
+    const plan = progress.daily_checkin_plan;
+    if (!plan || plan.date !== today()) return null;
+    const idx = plan.queue.indexOf(type);
+    if (idx < 0) return null;
+    plan.completed = Array.from(new Set([...(plan.completed || []), type]));
+    saveProgress();
+    return plan.queue[idx + 1] || 'finish';
+  }
+
+  // 完成整日打卡（所有勾选题型都完成后调用一次）
+  function finishMixedCheckin(types) {
+    if (checkedInToday()) return;
+    progress.checkins.push({
+      date: today(),
+      vocab: [],
+      grammar_id: 'mixed',
+      grammar_title: types.map(checkinTypeLabel).join('+'),
+      score: `${types.length}/${types.length}`,
+      types: types.slice(),
+    });
+    progress.total_days = progress.checkins.length;
+    const last = progress.last_checkin;
+    if (last) {
+      const diff = (new Date(today()) - new Date(last)) / 86400000;
+      if (diff === 1) progress.streak = (progress.streak || 0) + 1;
+      else if (diff > 1) progress.streak = 1;
+    } else {
+      progress.streak = 1;
+    }
+    progress.last_checkin = today();
+    delete progress.daily_checkin_plan;
+    saveProgress();
+  }
+
   // ─── 提交打卡（每日任务完成后）──────────────────────
   function submitCheckin(task, correctCount) {
     const total = task.grammar.exercises.length;
@@ -461,6 +563,7 @@ document.addEventListener('input', function(e) {
     'vocab-import': renderVocabImport,
     'dictation': renderDictation,
     'vocab-list': renderVocabList,
+    'checkin-config': renderCheckinConfig,
     // 'chat': renderChat, // #12 hidden by user request 2026-07-15
   };
   function navigate(hash) { window.location.hash = '#/' + hash; }
@@ -550,7 +653,7 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary" href="#/learn">📖 继续练习（不计打卡）</a>
         </div>
         ` : `
-        <a class="btn btn-cta" href="#/learn">🚀 开始今日打卡 →</a>
+        <a class="btn btn-cta" href="#/checkin-config">🚀 开始今日打卡 →</a>
         <div class="card" style="text-align:center;">
           <div style="color:#e67e22;font-size:14px;font-weight:bold;">
             🔥 连续 <span style="font-size:28px;">${streak}</span> 天 · 完成今日任务保持！
@@ -591,6 +694,86 @@ document.addEventListener('input', function(e) {
     app.querySelectorAll('[data-d]').forEach(btn => {
       btn.onclick = () => { setDifficulty(btn.dataset.d); render(); };
     });
+  }
+
+  // ─── 视图：CheckinConfig（每日打卡 · 选题型）─────
+  function renderCheckinConfig(app) {
+    if (checkedInToday()) {
+      app.innerHTML = `${topBar('每日打卡')}<div class="container">
+        <div class="card" style="text-align:center;background:linear-gradient(135deg,#eafaf1,#d4f5e2);">
+          <div style="font-size:40px;">🎉</div>
+          <div style="color:var(--success);font-size:18px;font-weight:bold;margin-top:4px;">今日已完成打卡！</div>
+          <p style="color:var(--text-2);margin-top:8px;">如要继续练习，可直接进入下方题型。</p>
+          <div class="btn-row" style="margin-top:12px;">
+            <a class="btn btn-secondary" href="#/learn">📖 继续练习（不计打卡）</a>
+            <a class="btn btn-primary" href="#/home">返回首页</a>
+          </div>
+        </div>
+      </div>`;
+      return;
+    }
+
+    const checkedSet = new Set(
+      (progress.checkin_types && progress.checkin_types.length)
+        ? progress.checkin_types
+        : DEFAULT_CHECKIN_TYPES
+    );
+    const activeList = () => Array.from(app.querySelectorAll('.checkin-type.active')).map(el => el.dataset.key);
+
+    app.innerHTML = `
+      ${topBar('每日打卡 · 选题型')}
+      <div class="container">
+        <div class="card" style="text-align:center;">
+          <div class="card-title">📋 今日打卡</div>
+          <div style="font-size:13px;color:var(--text-2);">勾选今日想做的题型（默认全选），完成后会按顺序依次进行。</div>
+        </div>
+        <div class="card">
+          <div class="card-title">⚙️ 选择打卡题型</div>
+          <div class="checkin-types">
+            ${CHECKIN_TYPES.map(t => `
+              <label class="checkin-type ${checkedSet.has(t.key) ? 'active' : ''}" data-key="${t.key}">
+                <input type="checkbox" ${checkedSet.has(t.key) ? 'checked' : ''}>
+                <span class="checkin-icon">${t.icon}</span>
+                <span class="checkin-label">${t.label}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div style="font-size:12px;color:var(--text-2);margin-top:10px;">
+            已选 <strong id="checkin-summary">${activeList.call(app).length || DEFAULT_CHECKIN_TYPES.filter(k => checkedSet.has(k)).length}</strong> / ${CHECKIN_TYPES.length} 个题型
+          </div>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-secondary" href="#/home">取消</a>
+          <button class="btn btn-primary" id="checkin-start">🚀 开始今日打卡</button>
+        </div>
+      </div>
+    `;
+
+    const refreshSummary = () => {
+      const arr = activeList();
+      app.querySelector('#checkin-summary').textContent = arr.length;
+      app.querySelector('#checkin-start').disabled = arr.length === 0;
+      progress.checkin_types = arr;
+      saveProgress();
+    };
+
+    app.querySelectorAll('.checkin-type').forEach(el => {
+      el.addEventListener('click', (e) => {
+        // 点击 label 时浏览器自动切换 checkbox；但我们同步 .active 样式与持久化
+        setTimeout(refreshSummary, 0);
+      });
+    });
+    // 初始持久化默认勾选
+    refreshSummary();
+
+    app.querySelector('#checkin-start').onclick = () => {
+      const arr = activeList();
+      if (arr.length === 0) { toast('至少选一个题型'); return; }
+      progress.daily_checkin_plan = { date: today(), queue: arr, completed: [] };
+      saveProgress();
+      currentTask = null; // 重置 vocab 任务的内部状态
+      navigate(routeForCheckinType(arr[0]));
+    };
   }
 
   // ─── 视图：Learn（每日任务）───────────────────────
@@ -764,8 +947,8 @@ document.addEventListener('input', function(e) {
         if (!ok && hint) hint.style.display = 'block';
         inputs[i].disabled = true;
       });
-      const score = submitCheckin(t, correct);
       window._grammarResults = results;
+      const score = `${correct}/${total}`;
       toast(`完成！${score} 正确`, 3000);
       const finishDiv = document.createElement('div');
       finishDiv.className = 'card';
@@ -773,10 +956,10 @@ document.addEventListener('input', function(e) {
       finishDiv.innerHTML = `
         <div style="font-size:36px;margin-bottom:8px;">${correct >= 2 ? '🎉' : '💪'}</div>
         <div style="font-size:18px;font-weight:bold;color:var(--accent);">${score} 正确</div>
-        <div style="color:var(--text-2);margin:8px 0;">${correct >= 2 ? '已记录到打卡！' : '再接再厉！'}</div>
+        <div style="color:var(--text-2);margin:8px 0;">通用复习 · 每日打卡请到首页点击开始</div>
         <div class="btn-row">
           <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习</a>
-          <a class="btn btn-primary" href="#/home">完成</a>
+          <a class="btn btn-primary" href="#/checkin-config">🚀 开始今日打卡</a>
         </div>
       `;
       app.querySelector('.container').appendChild(finishDiv);
@@ -936,6 +1119,7 @@ document.addEventListener('input', function(e) {
       }
       progress.wrong_grammar = progress.wrong_grammar.slice(-100);
       saveProgress();
+      appendCheckinNextStep(app, 'tense');
     });
   }
 
@@ -962,6 +1146,7 @@ document.addEventListener('input', function(e) {
       }
       progress.wrong_grammar = progress.wrong_grammar.slice(-100);
       saveProgress();
+      appendCheckinNextStep(app, 'preposition');
     });
   }
 
@@ -1169,6 +1354,7 @@ document.addEventListener('input', function(e) {
       saveProgress();
       toast(`${totalCorrect}/${sents.length} 完全正确`, 2500);
       app.querySelector('#tr-submit').style.display = 'none';
+      appendCheckinNextStep(app, 'translate');
     };
   }
 
@@ -1360,21 +1546,8 @@ document.addEventListener('input', function(e) {
         }
       }
       progress.wrong_words = progress.wrong_words.slice(-200);
-      progress.checkins.push({
-        date: today(), vocab: questions.map(q => q.word), grammar_id: 'quiz',
-        grammar_title: '选择题', score: `${totalRight}/${questions.length}`,
-      });
-      progress.total_days = progress.checkins.length;
-      const last = progress.last_checkin;
-      if (last) {
-        const diff = (new Date(today()) - new Date(last)) / 86400000;
-        if (diff === 1) progress.streak = (progress.streak || 0) + 1;
-        else if (diff > 1) progress.streak = 1;
-      } else {
-        progress.streak = 1;
-      }
-      progress.last_checkin = today();
       saveProgress();
+      appendCheckinNextStep(app, 'quiz');
     });
   }
 
@@ -1655,11 +1828,17 @@ document.addEventListener('input', function(e) {
 
         <div class="card">
           <div class="card-title">最近 10 次打卡</div>
-          ${progress.checkins.slice(-10).reverse().map(c => `
+          ${progress.checkins.slice(-10).reverse().map(c => {
+            // 新字段: types 数组；老字段 fallback 到 grammar_title
+            const typesLabel = (c.types && c.types.length)
+              ? c.types.map(checkinTypeLabel).join(' · ')
+              : (c.grammar_title || '综合');
+            return `
             <div style="padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px;">
-              <strong>${c.date}</strong> · ${escapeHtml(c.grammar_title || '')} · ${c.score || ''}
+              <strong>${c.date}</strong> · ${escapeHtml(typesLabel)}${c.score ? ' · ' + escapeHtml(c.score) : ''}
             </div>
-          `).join('') || '<p style="color:var(--text-2);">还没有打卡记录</p>'}
+          `;
+          }).join('') || '<p style="color:var(--text-2);">还没有打卡记录</p>'}
         </div>
 
         <button class="btn btn-danger" id="reset-progress">⚠️ 重置所有进度</button>
@@ -2452,6 +2631,7 @@ document.addEventListener('input', function(e) {
       const r = app.querySelector('#d-result');
       r.innerHTML = '<strong>' + correct + ' / ' + total + '</strong> ' + (correct === total ? '🎉 全对!' : correct >= total * 0.6 ? '👍 不错' : '继续加油');
       r.style.color = correct >= total * 0.6 ? 'var(--success)' : '#e67e22';
+      appendCheckinNextStep(app, 'dictation');
     };
   }
 
