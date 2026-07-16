@@ -282,6 +282,19 @@ document.addEventListener('input', function(e) {
     return out.join('\n');
   }
 
+  // ─── 统一内容过滤 (D.content.items, 按属性筛选) ─────────────────
+  // 用法: D.filter({type:"vocab", grade:"L1", topic:"饮食健康"})
+  D.filter = function(attrs) {
+    if (!D.content || !D.content.items) return [];
+    return D.content.items.filter(function(it) {
+      for (var k in attrs) {
+        var v = attrs[k];
+        if (v === undefined || v === null) continue;
+        if (it[k] !== v) return false;
+      }
+      return true;
+    });
+  };
   // ─── 词库查找辅助 ──────────────────────────────────
   function findWord(en) {
     const lower = en.toLowerCase();

@@ -77,6 +77,7 @@ def export_data():
     vocab_983 = _try_load("vocab_983.json") or {"meta": {"total": 0}, "words": []}
     learning_plan = _try_load("learning_plan.json") or {"grades": []}
     grammar_outline = _try_load("grammar_outline.json") or {}
+    content = _try_load("content.json") or {"meta": {"total": 0}, "items": []}
 
     # 把 983 词按 grade 合并进 L1/L2/L3 词库,daily task 自动扩池
     GRADE_TO_KEY = {"L1": "_L1", "L2": "_L2", "L3": "_L3"}
@@ -112,6 +113,7 @@ def export_data():
         "vocab_983": vocab_983,
         "learning_plan": learning_plan,
         "grammar_outline": grammar_outline,
+        "content": content,
     }
 
     js = "/* eslint-disable */\nwindow.CHECKIN_DATA = " + json.dumps(data, ensure_ascii=False) + ";\n"
