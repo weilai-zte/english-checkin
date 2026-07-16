@@ -1728,36 +1728,105 @@ document.addEventListener('input', function(e) {
     const items = (D.content && D.content.items || []).filter(it => it.type === 'vocab');
     const grades = ['全部', 'L1', 'L2', 'L3'];
     let activeGrade = '全部';
+    let keyword = '';
+    let sortBy = 'word';  // 'word' | 'grade'
+    let page = 0;
+    const PAGE_SIZE = 50;
+
+    // 标记已学的词 (独立于 vocab_mastered,不计入打卡)
+    if (!progress.vocab_list_marked) progress.vocab_list_marked = [];
+    const marked = new Set(progress.vocab_list_marked);
+
+    function passFilter(w) {
+      if (activeGrade !== '全部' && w.grade !== activeGrade) return false;
+      if (keyword) {
+        const k = keyword.toLowerCase();
+        if (!w.word.toLowerCase().includes(k) && !(w.cn || '').includes(keyword)) return false;
+      }
+      return true;
+    }
 
     function render() {
-      const filtered = activeGrade === '全部' ? items : items.filter(it => it.grade === activeGrade);
+      const filtered = items.filter(passFilter);
+      if (sortBy === 'word') {
+        filtered.sort((a, b) => a.word.localeCompare(b.word));
+      } else {
+        filtered.sort((a, b) => (a.grade || '').localeCompare(b.grade || '') || a.word.localeCompare(b.word));
+      }
+      const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (page >= totalPages) page = totalPages - 1;
+      const slice = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+
       app.innerHTML = `
         ${topBar('📚 全部词汇 (' + items.length + ' 词)')}
         <div class="container">
-          <div class="diff-bar" style="margin-bottom:12px;">
+          <div class="diff-bar" style="margin-bottom:8px;">
             ${grades.map(g => `<button class="diff-btn ${activeGrade===g?'active-medium':''}" data-g="${g}">${g}</button>`).join('')}
           </div>
-          <div style="color:var(--text-2);font-size:13px;margin-bottom:8px;">
-            共 ${filtered.length} 词 · 点击 🔊 听发音
+          <div class="vl-toolbar">
+            <input id="vl-search" type="search" inputmode="search" placeholder="🔍 搜索 word 或中文"
+              value="${escapeHtml(keyword)}" autocomplete="off"
+              style="flex:1;min-width:120px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--surface);color:var(--text-1);">
+            <select id="vl-sort"
+              style="padding:8px 6px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text-1);">
+              <option value="word" ${sortBy==='word'?'selected':''}>按字母 A-Z</option>
+              <option value="grade" ${sortBy==='grade'?'selected':''}>按年级</option>
+            </select>
+            <button id="vl-print" class="btn-sm" style="background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;">📄 打印/PDF</button>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;">
-            ${filtered.map(w => `
-              <div class="card" style="padding:10px;margin:0;">
+          <div style="color:var(--text-2);font-size:13px;margin:8px 0;">
+            共 ${filtered.length} 词 · 已标 ⭐ ${marked.size} · 第 ${page+1}/${totalPages} 页 · 点击 ⭐ 标记已学
+          </div>
+          <div class="vl-grid">
+            ${slice.map(w => {
+              const isMarked = marked.has(w.word);
+              return `
+              <div class="card vl-card ${isMarked?'vl-marked':''}" style="padding:10px;margin:0;">
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
                   <div style="font-weight:bold;font-size:16px;color:var(--accent);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHtml(w.word)}">${escapeHtml(w.word)}</div>
-                  <button class="speak-btn" data-word="${escapeHtml(w.word)}" style="background:transparent;border:none;cursor:pointer;font-size:18px;padding:0 4px;flex-shrink:0;">🔊</button>
+                  <div style="display:flex;gap:2px;flex-shrink:0;">
+                    <button class="vl-mark" data-word="${escapeHtml(w.word)}" title="${isMarked?'取消标记':'标记已学'}"
+                      style="background:transparent;border:none;cursor:pointer;font-size:16px;padding:0 2px;">${isMarked?'⭐':'☆'}</button>
+                    <button class="speak-btn" data-word="${escapeHtml(w.word)}" style="background:transparent;border:none;cursor:pointer;font-size:18px;padding:0 2px;">🔊</button>
+                  </div>
                 </div>
                 ${w.pron ? `<div style="color:var(--text-2);font-size:11px;">${escapeHtml(w.pron)}</div>` : ''}
                 <div style="color:var(--text-1);font-size:13px;margin-top:4px;">${escapeHtml(w.cn || '')}</div>
                 <div style="color:var(--text-2);font-size:10px;margin-top:4px;">${escapeHtml(w.grade||'')} · ${escapeHtml(w._topic||w.topic||'')}</div>
               </div>
-            `).join('')}
+            `;}).join('')}
           </div>
+          ${totalPages > 1 ? `
+          <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px;">
+            <button id="vl-prev" class="btn-sm" ${page===0?'disabled':''} style="background:var(--surface);border:1px solid var(--border);padding:6px 14px;border-radius:8px;cursor:${page===0?'not-allowed':'pointer'};">← 上一页</button>
+            <span style="color:var(--text-2);font-size:13px;">${page+1} / ${totalPages}</span>
+            <button id="vl-next" class="btn-sm" ${page>=totalPages-1?'disabled':''} style="background:var(--surface);border:1px solid var(--border);padding:6px 14px;border-radius:8px;cursor:${page>=totalPages-1?'not-allowed':'pointer'};">下一页 →</button>
+          </div>` : ''}
         </div>
       `;
+
+      // 事件绑定
       app.querySelectorAll('[data-g]').forEach(btn => {
-        btn.onclick = () => { activeGrade = btn.dataset.g; render(); };
+        btn.onclick = () => { activeGrade = btn.dataset.g; page = 0; render(); };
       });
+      const searchInput = app.querySelector('#vl-search');
+      searchInput.oninput = (e) => { keyword = e.target.value; page = 0; render(); };
+      app.querySelector('#vl-sort').onchange = (e) => { sortBy = e.target.value; page = 0; render(); };
+      app.querySelector('#vl-print').onclick = () => window.print();
+      app.querySelectorAll('.vl-mark').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const w = btn.dataset.word;
+          if (marked.has(w)) marked.delete(w); else marked.add(w);
+          progress.vocab_list_marked = [...marked];
+          saveProgress();
+          render();
+        };
+      });
+      const prev = app.querySelector('#vl-prev');
+      const next = app.querySelector('#vl-next');
+      if (prev) prev.onclick = () => { if (page > 0) { page--; render(); window.scrollTo(0, 0); } };
+      if (next) next.onclick = () => { if (page < totalPages - 1) { page++; render(); window.scrollTo(0, 0); } };
     }
     render();
   }
