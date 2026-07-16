@@ -424,6 +424,49 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
 .diff-btn.active-hard   { border-color: #b91c1c; background: #b91c1c; color: #ffffff; }
 .diff-btn.active-easy:hover, .diff-btn.active-medium:hover, .diff-btn.active-hard:hover { filter: brightness(1.08); }
 
+/* 每日打卡 · 题型勾选 */
+.checkin-types {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+.checkin-type {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 2px solid var(--border, #e8ecf4);
+  border-radius: 12px;
+  background: var(--bg-card, #ffffff);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+.checkin-type:hover {
+  border-color: var(--accent, #667eea);
+}
+.checkin-type.active {
+  border-color: var(--accent, #667eea);
+  background: var(--accent, #667eea);
+  color: #ffffff;
+}
+.checkin-type.active .checkin-icon {
+  filter: brightness(0) invert(1);
+}
+.checkin-type input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--accent, #667eea);
+}
+.checkin-type.active input[type="checkbox"] {
+  accent-color: #ffffff;
+}
+.checkin-icon { font-size: 22px; }
+.checkin-label { font-size: 14px; font-weight: 600; }
+
 /* 难度说明 */
 .difficulty-hint {
   font-size: 12px;

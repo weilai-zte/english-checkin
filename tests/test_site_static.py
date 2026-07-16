@@ -271,3 +271,75 @@ def test_section_label_darker():
     # assert not the too-light #888888
     assert color.group(1).lower() != '#888888', \
         f'section-label color {color.group(1)} is too light (#888 was complaint)'
+
+
+# ─── checkin-config (题型选择页) ─────────────────────
+def test_checkin_type_picker_constants_and_route():
+    assert 'CHECKIN_TYPES' in APP_JS_SRC
+    for key in ('quiz', 'tense', 'preposition', 'translate', 'dictation'):
+        assert f"key: '{key}'" in APP_JS_SRC, f"CHECKIN_TYPES missing {key}"
+    assert "'checkin-config': renderCheckinConfig" in APP_JS_SRC
+    assert 'function renderCheckinConfig' in APP_JS_SRC
+    assert 'function appendCheckinNextStep' in APP_JS_SRC
+    assert 'function advanceCheckinPlan' in APP_JS_SRC
+    assert 'function finishMixedCheckin' in APP_JS_SRC
+
+
+def test_render_home_cta_goes_to_checkin_config():
+    block = _function_block('renderHome')
+    assert 'href="#/checkin-config"' in block, "首页 CTA 应跳转到题型选择页"
+    assert 'href="#/learn"' in block, "已打卡时仍保留 learn 入口"
+
+
+def test_render_checkin_config_renders_five_types():
+    block = _function_block('renderCheckinConfig')
+    # 模板字符串里是 ${t.key} 形式迭代 CHECKIN_TYPES
+    assert 'CHECKIN_TYPES.map' in block
+    assert 'data-key="${t.key}"' in block
+    assert 'checkin-type' in block
+    assert 'checkin-start' in block
+    assert 'daily_checkin_plan' in block
+
+
+def test_finish_mixed_checkin_writes_types_array():
+    block = _function_block('finishMixedCheckin')
+    assert 'types:' in block
+    assert "grammar_id: 'mixed'" in block
+    assert 'delete progress.daily_checkin_plan' in block
+
+
+def test_advance_checkin_plan_marks_completed():
+    block = _function_block('advanceCheckinPlan')
+    assert 'plan.completed' in block
+    assert 'plan.queue.indexOf(type)' in block
+    assert "'finish'" in block
+
+
+def test_each_exercise_routes_to_checkin_next_step():
+    for type_key in ('quiz', 'tense', 'preposition', 'translate', 'dictation'):
+        assert f"appendCheckinNextStep(app, '{type_key}')" in APP_JS_SRC, \
+            f"{type_key} onSubmit 末尾未调 appendCheckinNextStep"
+
+
+def test_checkin_type_css_has_white_text_on_active():
+    css = STYLE.read_text(encoding='utf-8')
+    m = re.search(r'\.checkin-type\.active\s*\{([^}]+)\}', css)
+    assert m, '.checkin-type.active 规则缺失'
+    body = m.group(1)
+    assert 'color: #ffffff' in body, '.checkin-type.active 必须用白字避免和 accent 背景撞色'
+    assert 'background' in body
+
+
+def test_render_progress_shows_checkin_types():
+    block = _function_block('renderProgress')
+    assert 'checkinTypeLabel' in block, 'renderProgress 应该按 types 显示打卡类型'
+
+
+def test_render_quiz_no_longer_writes_checkins_directly():
+    block = _function_block('renderQuiz')
+    assert "grammar_id: 'quiz'" not in block, "renderQuiz 不应再直接 push checkins"
+
+
+def test_render_grammar_no_longer_calls_submit_checkin():
+    block = _function_block('renderGrammar')
+    assert 'submitCheckin(' not in block, 'renderGrammar 不再调 submitCheckin（打卡走 checkin-config）'
