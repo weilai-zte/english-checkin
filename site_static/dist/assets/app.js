@@ -1167,7 +1167,7 @@ document.addEventListener('input', function(e) {
       });
       card.innerHTML = `
         <div class="card-title">第 ${qi+1} 题</div>
-        <div class="card-word-en" style="background:#eef0f5;padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;font-weight:bold;">${escapeHtml(s.en)}</div>
+        <div class="card-word-en" style="background:var(--bg-tag);padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;font-weight:bold;">${escapeHtml(s.en)}</div>
         <div class="grammar-hint">💡 ${escapeHtml(s.hint || '')}</div>
         <div style="line-height:2.4;font-size:15px;margin-top:8px;">${parts.join('')}</div>
         <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:8px;"></div>
@@ -2394,12 +2394,13 @@ document.addEventListener('input', function(e) {
         const inp = d.querySelector('.d-input');
         const val = (inp.value || '').toLowerCase().replace(/[^a-z']/g, '');
         const fb = d.querySelector('.d-feedback');
+        const cnHtml = d.dataset.cn ? ' <span style="color:var(--text-2);">(' + escapeHtml(d.dataset.cn) + ')</span>' : '';
         if (val && val === target) {
           correct++;
-          fb.innerHTML = '<span style="color:#2e7d32;">✓ ' + escapeHtml(d.dataset.word) + '</span>';
+          fb.innerHTML = '<span style="color:#2e7d32;">✓ ' + escapeHtml(d.dataset.word) + '</span>' + cnHtml;
           fsrsReview(d.dataset.word, true);
         } else {
-          fb.innerHTML = '<span style="color:#c62828;">✗ 正解: ' + escapeHtml(d.dataset.word) + '</span>';
+          fb.innerHTML = '<span style="color:#c62828;">✗ 正解: ' + escapeHtml(d.dataset.word) + '</span>' + cnHtml;
           fsrsReview(d.dataset.word, false);
           const k = (d.dataset.word || '').toLowerCase();
           progress.word_stats[k] = progress.word_stats[k] || { total: 0, correct: 0, wrong: 0 };
