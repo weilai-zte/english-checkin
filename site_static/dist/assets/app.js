@@ -503,6 +503,7 @@ document.addEventListener('input', function(e) {
         </div>
 
         ${renderDailyWordCard()}
+        ${renderLearningPlanCard()}
 
         <div class="card">
           <div class="card-title">⚙️ 练习难度</div>
@@ -1808,6 +1809,23 @@ document.addEventListener('input', function(e) {
           '<div class="dw-cn">' + escapeHtml(w.cn || '') + '</div>' +
         '</div>' +
         '<button class="speak-btn" data-word="' + escapeHtml(w.word) + '" style="margin-left:auto;padding:10px 14px;background:#fff;color:#6b46c1;border:1.5px solid #b794f4;border-radius:10px;font-size:18px;line-height:1;flex-shrink:0;">🔊</button>' +
+      '</div></div>';
+  }
+  // #14 学习路径当月主题卡 (来自 learning_plan.json)
+  function renderLearningPlanCard() {
+    const lp = D.learning_plan || {};
+    const grades = lp.grades || [];
+    if (!grades.length) return '';
+    const month = new Date().getMonth() + 1;
+    const grade = grades[0];  // ponytail: 默认七年级,年级选择留待后续
+    const plan = (grade.monthly_plan || []).find(m => m.month === month);
+    if (!plan) return '';
+    return '<div class="card learning-plan-card" style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:4px solid #f59e0b;">' +
+      '<div class="card-title" style="color:#92400e;">📅 ' + escapeHtml(grade.grade) + ' · 当月主题</div>' +
+      '<div style="font-size:18px;font-weight:bold;color:#78350f;margin:6px 0;">' + escapeHtml(plan.theme) + '</div>' +
+      '<div style="font-size:13px;color:#92400e;line-height:1.5;">' +
+        '🎯 词汇 ' + plan.vocab_count + ' · 📝 ' + escapeHtml(plan.grammar) + '<br>' +
+        '💡 ' + escapeHtml(plan.checkin_focus) +
       '</div></div>';
   }
   // attach speak handler delegation for the daily word button (existing delegation handles translate inputs only)

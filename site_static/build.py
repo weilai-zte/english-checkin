@@ -78,6 +78,23 @@ def export_data():
     learning_plan = _try_load("learning_plan.json") or {"grades": []}
     grammar_outline = _try_load("grammar_outline.json") or {}
 
+    # 把 983 词按 grade 合并进 L1/L2/L3 词库,daily task 自动扩池
+    GRADE_TO_KEY = {"L1": "_L1", "L2": "_L2", "L3": "_L3"}
+    for w in vocab_983.get("words", []):
+        key = GRADE_TO_KEY.get(w.get("grade"))
+        if not key or key not in vocab:
+            continue
+        vocab[key]["words"].append({
+            "word": w["w"],
+            "pron": w.get("phon", ""),
+            "cn": w["cn"],
+            "记忆": "",
+            "例句": w.get("example", ""),
+            "_src": "pdf983",
+            "_pos": w.get("pos", ""),
+            "_freq": w.get("freq", ""),
+        })
+
     data = {
         "vocab": vocab,
         "grammar": grammar,
