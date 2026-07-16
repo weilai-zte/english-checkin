@@ -1,0 +1,311 @@
+{
+  "meta": {
+    "title": "初中英语 3 年学习路径 V1.0",
+    "source": "基于 ChatGPT 初中英语知识大纲 + 983 核心词分类",
+    "vocab_total": 967
+  },
+  "grades": [
+    {
+      "grade": "七年级",
+      "goal": "1000 词 + 基础语法 + 简单阅读",
+      "vocab_target": "L1 必会核心 (约 600 词)",
+      "grammar_focus": [
+        "Be 动词 (am/is/are)",
+        "一般现在时",
+        "There be 句型",
+        "常用介词 (in/on/at/under)",
+        "疑问词 (what/where/when/who/how)",
+        "可数与不可数名词",
+        "名词所有格"
+      ],
+      "monthly_plan": [
+        {
+          "month": 1,
+          "theme": "家庭与问候",
+          "vocab_count": 60,
+          "grammar": "Be 动词",
+          "checkin_focus": "I am... / My name is..."
+        },
+        {
+          "month": 2,
+          "theme": "学校与课堂",
+          "vocab_count": 70,
+          "grammar": "指示代词 this/that",
+          "checkin_focus": "This is... / That is..."
+        },
+        {
+          "month": 3,
+          "theme": "时间与日期",
+          "vocab_count": 80,
+          "grammar": "数词 + 时间介词",
+          "checkin_focus": "What day is today?"
+        },
+        {
+          "month": 4,
+          "theme": "食物与健康",
+          "vocab_count": 70,
+          "grammar": "可数/不可数名词",
+          "checkin_focus": "I like... / I have..."
+        },
+        {
+          "month": 5,
+          "theme": "自然与天气",
+          "vocab_count": 70,
+          "grammar": "There be 句型",
+          "checkin_focus": "There is a... / It is..."
+        },
+        {
+          "month": 6,
+          "theme": "复习 + 阅读",
+          "vocab_count": 60,
+          "grammar": "一般现在时综合",
+          "checkin_focus": "期中小测"
+        },
+        {
+          "month": 7,
+          "theme": "暑假复习",
+          "vocab_count": 100,
+          "grammar": "音标 + 自然拼读",
+          "checkin_focus": "看图识词"
+        },
+        {
+          "month": 8,
+          "theme": "暑假复习",
+          "vocab_count": 100,
+          "grammar": "日常对话",
+          "checkin_focus": "听写"
+        },
+        {
+          "month": 9,
+          "theme": "学习与作业",
+          "vocab_count": 80,
+          "grammar": "频率副词",
+          "checkin_focus": "always/usually/often"
+        },
+        {
+          "month": 10,
+          "theme": "交通与旅行",
+          "vocab_count": 70,
+          "grammar": "一般现在时第三人称单数",
+          "checkin_focus": "He/She goes..."
+        },
+        {
+          "month": 11,
+          "theme": "购物与金钱",
+          "vocab_count": 60,
+          "grammar": "情态动词 can",
+          "checkin_focus": "I can..."
+        },
+        {
+          "month": 12,
+          "theme": "复习 + 期末",
+          "vocab_count": 80,
+          "grammar": "总复习",
+          "checkin_focus": "期终小测"
+        }
+      ]
+    },
+    {
+      "grade": "八年级",
+      "goal": "1500 词 + 全部时态 + 阅读写作",
+      "vocab_target": "L2 拓展常用 (约 800 词)",
+      "grammar_focus": [
+        "一般过去时",
+        "现在进行时",
+        "一般将来时 (will / be going to)",
+        "过去进行时",
+        "现在完成时",
+        "比较级与最高级",
+        "宾语从句",
+        "If 条件句 (真实)"
+      ],
+      "monthly_plan": [
+        {
+          "month": 1,
+          "theme": "回忆与过去",
+          "vocab_count": 70,
+          "grammar": "一般过去式规则/不规则",
+          "checkin_focus": "I went... / I saw..."
+        },
+        {
+          "month": 2,
+          "theme": "假日与旅行",
+          "vocab_count": 80,
+          "grammar": "一般过去时综合",
+          "checkin_focus": "Last weekend I..."
+        },
+        {
+          "month": 3,
+          "theme": "现在进行时",
+          "vocab_count": 60,
+          "grammar": "现在进行时",
+          "checkin_focus": "Look! She is..."
+        },
+        {
+          "month": 4,
+          "theme": "动物与自然",
+          "vocab_count": 70,
+          "grammar": "比较级",
+          "checkin_focus": "bigger than / the biggest"
+        },
+        {
+          "month": 5,
+          "theme": "科技与生活",
+          "vocab_count": 80,
+          "grammar": "用英语描述图片",
+          "checkin_focus": "There will be..."
+        },
+        {
+          "month": 6,
+          "theme": "复习 + 阅读",
+          "vocab_count": 60,
+          "grammar": "期中小测",
+          "checkin_focus": "阅读理解短文"
+        },
+        {
+          "month": 7,
+          "theme": "暑假复习",
+          "vocab_count": 120,
+          "grammar": "听力训练",
+          "checkin_focus": "听写 + 朗读"
+        },
+        {
+          "month": 8,
+          "theme": "暑假复习",
+          "vocab_count": 120,
+          "grammar": "写作入门",
+          "checkin_focus": "My Day 日记"
+        },
+        {
+          "month": 9,
+          "theme": "未来计划",
+          "vocab_count": 70,
+          "grammar": "will / be going to",
+          "checkin_focus": "I will... / I am going to..."
+        },
+        {
+          "month": 10,
+          "theme": "经历与完成",
+          "vocab_count": 80,
+          "grammar": "现在完成时",
+          "checkin_focus": "I have been to..."
+        },
+        {
+          "month": 11,
+          "theme": "条件句入门",
+          "vocab_count": 70,
+          "grammar": "If 真实条件句",
+          "checkin_focus": "If it rains..."
+        },
+        {
+          "month": 12,
+          "theme": "复习 + 期末",
+          "vocab_count": 80,
+          "grammar": "总复习",
+          "checkin_focus": "期终小测"
+        }
+      ]
+    },
+    {
+      "grade": "九年级",
+      "goal": "2000 词 + 中考题型 + 综合应用",
+      "vocab_target": "L3 拔高拓展 (约 600 词)",
+      "grammar_focus": [
+        "过去完成时",
+        "过去将来时",
+        "定语从句",
+        "状语从句",
+        "被动语态",
+        "间接引语",
+        "中考综合题型",
+        "写作模板 (书信/日记/议论文)"
+      ],
+      "monthly_plan": [
+        {
+          "month": 1,
+          "theme": "回顾过去",
+          "vocab_count": 60,
+          "grammar": "过去完成时",
+          "checkin_focus": "had done / before"
+        },
+        {
+          "month": 2,
+          "theme": "人物传记",
+          "vocab_count": 80,
+          "grammar": "定语从句 who/which/that",
+          "checkin_focus": "He is a boy who..."
+        },
+        {
+          "month": 3,
+          "theme": "科技与未来",
+          "vocab_count": 70,
+          "grammar": "状语从句 when/while/because",
+          "checkin_focus": "because / so"
+        },
+        {
+          "month": 4,
+          "theme": "环境与社会",
+          "vocab_count": 80,
+          "grammar": "被动语态",
+          "checkin_focus": "is made of / is used to"
+        },
+        {
+          "month": 5,
+          "theme": "中考题型专练",
+          "vocab_count": 60,
+          "grammar": "综合语法",
+          "checkin_focus": "单项选择"
+        },
+        {
+          "month": 6,
+          "theme": "复习 + 模拟",
+          "vocab_count": 60,
+          "grammar": "期中小测",
+          "checkin_focus": "完形填空"
+        },
+        {
+          "month": 7,
+          "theme": "暑假复习",
+          "vocab_count": 120,
+          "grammar": "阅读专练",
+          "checkin_focus": "阅读理解 4 篇"
+        },
+        {
+          "month": 8,
+          "theme": "暑假复习",
+          "vocab_count": 120,
+          "grammar": "写作模板",
+          "checkin_focus": "书信 + 话题作文"
+        },
+        {
+          "month": 9,
+          "theme": "中考真题",
+          "vocab_count": 80,
+          "grammar": "真题语法",
+          "checkin_focus": "真题专练"
+        },
+        {
+          "month": 10,
+          "theme": "中考真题",
+          "vocab_count": 80,
+          "grammar": "真题阅读",
+          "checkin_focus": "真题阅读"
+        },
+        {
+          "month": 11,
+          "theme": "中考真题",
+          "vocab_count": 80,
+          "grammar": "真题写作",
+          "checkin_focus": "真题作文"
+        },
+        {
+          "month": 12,
+          "theme": "总复习 + 中考",
+          "vocab_count": 100,
+          "grammar": "总复习",
+          "checkin_focus": "全真模拟"
+        }
+      ]
+    }
+  ]
+}

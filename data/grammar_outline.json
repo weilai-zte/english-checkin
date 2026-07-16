@@ -1,0 +1,287 @@
+{
+  "meta": {
+    "title": "初中英语语法大纲",
+    "version": "1.0",
+    "source": "ChatGPT 初中英语知识大纲 + knowledge_outline.md",
+    "note": "本大纲覆盖初中 7-9 年级语法,按\"词法→时态→从句→句法→特殊结构\"组织,可直接对接现有 grammar.json 题库"
+  },
+  "词法": {
+    "名词": {
+      "知识点": [
+        "可数名词单复数",
+        "不可数名词",
+        "名词所有格 (\"s / of)",
+        "专有名词",
+        "集合名词"
+      ],
+      "频率": "★★★★★",
+      "年级": "七年级"
+    },
+    "代词": {
+      "知识点": [
+        "人称代词 (主格/宾格)",
+        "物主代词 (形容词性/名词性)",
+        "反身代词",
+        "指示代词 (this/that/these/those)",
+        "疑问代词 (what/which/who)",
+        "不定代词 (some/any/every/no)"
+      ],
+      "频率": "★★★★★",
+      "年级": "七年级"
+    },
+    "冠词": {
+      "知识点": [
+        "不定冠词 a / an",
+        "定冠词 the",
+        "零冠词"
+      ],
+      "频率": "★★★★★",
+      "年级": "七年级"
+    },
+    "数词": {
+      "知识点": [
+        "基数词 1-100",
+        "序数词 first-twentieth",
+        "百/千/百万",
+        "分数 (1/2 = a half)"
+      ],
+      "频率": "★★★★",
+      "年级": "七年级"
+    },
+    "介词": {
+      "知识点": [
+        "时间介词 (in/on/at)",
+        "地点介词 (in/on/at/under/over)",
+        "方向介词 (to/from/into)",
+        "其他常用 (of/for/with/by)"
+      ],
+      "频率": "★★★★★",
+      "年级": "七年级"
+    },
+    "连词": {
+      "知识点": [
+        "并列连词 (and/but/or/so/because)",
+        "从属连词 (when/if/because/although)"
+      ],
+      "频率": "★★★★",
+      "年级": "八年级"
+    },
+    "形容词与副词": {
+      "知识点": [
+        "原级/比较级/最高级",
+        "不规则变化 (good/well/better/best)",
+        "形容词位置 (定语/表语/后置)",
+        "副词位置与种类"
+      ],
+      "频率": "★★★★★",
+      "年级": "八年级"
+    },
+    "动词": {
+      "知识点": [
+        "行为动词",
+        "系动词 (be/look/feel/become)",
+        "情态动词 (can/may/must/should)",
+        "助动词 (do/does/did)",
+        "短语动词 (look after / get up)"
+      ],
+      "频率": "★★★★★",
+      "年级": "七-八年级"
+    }
+  },
+  "时态": [
+    {
+      "name": "一般现在时",
+      "importance": "★★★★★",
+      "grade": "七年级",
+      "结构": "主 + 动原/三单",
+      "标志词": "always, usually, often, every day",
+      "用法": [
+        "习惯性动作",
+        "客观真理",
+        "状态描述"
+      ]
+    },
+    {
+      "name": "一般过去时",
+      "importance": "★★★★★",
+      "grade": "七年级",
+      "结构": "主 + 动过去式",
+      "标志词": "yesterday, last week, ago, in 2020",
+      "用法": [
+        "过去发生的动作",
+        "过去的状态"
+      ]
+    },
+    {
+      "name": "一般将来时",
+      "importance": "★★★★★",
+      "grade": "八年级",
+      "结构": "主 + will + 动原 / be going to + 动原",
+      "标志词": "tomorrow, next week, in the future",
+      "用法": [
+        "将来发生的动作",
+        "计划打算"
+      ]
+    },
+    {
+      "name": "现在进行时",
+      "importance": "★★★★★",
+      "grade": "八年级",
+      "结构": "主 + am/is/are + 动-ing",
+      "标志词": "now, right now, look!, listen!",
+      "用法": [
+        "此刻正在发生",
+        "现阶段持续"
+      ]
+    },
+    {
+      "name": "过去进行时",
+      "importance": "★★★★",
+      "grade": "八年级",
+      "结构": "主 + was/were + 动-ing",
+      "标志词": "at that time, when, while",
+      "用法": [
+        "过去某时正在发生"
+      ]
+    },
+    {
+      "name": "现在完成时",
+      "importance": "★★★★★",
+      "grade": "八-九年级",
+      "结构": "主 + have/has + 过去分词",
+      "标志词": "already, yet, just, ever, never, since, for",
+      "用法": [
+        "过去发生对现在有影响",
+        "经历"
+      ]
+    },
+    {
+      "name": "过去完成时",
+      "importance": "★★★",
+      "grade": "九年级",
+      "结构": "主 + had + 过去分词",
+      "标志词": "by the time, before, after, already",
+      "用法": [
+        "过去的过去"
+      ]
+    },
+    {
+      "name": "过去将来时",
+      "importance": "★★★",
+      "grade": "九年级",
+      "结构": "主 + would + 动原 / was/were going to",
+      "标志词": "next day, the following week",
+      "用法": [
+        "从过去看将来"
+      ]
+    }
+  ],
+  "从句": {
+    "宾语从句": {
+      "importance": "★★★★★",
+      "grade": "九年级",
+      "引导词": "that / if / whether / 疑问词",
+      "结构": "主句 + that + 完整句子",
+      "语序": "陈述句语序"
+    },
+    "定语从句": {
+      "importance": "★★★★",
+      "grade": "九年级",
+      "引导词": "who / whom / whose / which / that",
+      "结构": "先行词 + 引导词 + 完整句子",
+      "限制性 vs 非限制性": "中考侧重限制性"
+    },
+    "状语从句": {
+      "importance": "★★★★",
+      "grade": "九年级",
+      "类型": [
+        "时间 (when/while/before/after/until)",
+        "原因 (because/since/as)",
+        "条件 (if/unless)",
+        "让步 (although/though)",
+        "目的 (so that)"
+      ]
+    }
+  },
+  "句法": {
+    "五大基本句型": {
+      "importance": "★★★★★",
+      "grade": "七年级",
+      "类型": [
+        "主 + 谓 (SV): He runs.",
+        "主 + 谓 + 宾 (SVO): I like apples.",
+        "主 + 谓 + 宾 + 宾补 (SVOO): He gave me a book.",
+        "主 + 系 + 表 (SVP): She is happy.",
+        "主 + 谓 + 间宾 + 直宾 (SVOO): He told me a story."
+      ]
+    },
+    "There be 句型": {
+      "importance": "★★★★★",
+      "grade": "七年级",
+      "结构": "There + be + 主 + 地点/时间",
+      "注意": "就近原则 (There is a book and two pens on the desk.)"
+    },
+    "If 条件句": {
+      "importance": "★★★★",
+      "grade": "八-九年级",
+      "真实条件": "If + 一般现在时, 主语 + will + 动原",
+      "虚拟条件": "初中不要求"
+    },
+    "被动语态": {
+      "importance": "★★★★",
+      "grade": "九年级",
+      "结构": "主 + be + 过去分词 (+ by ...)",
+      "常见时态": [
+        "一般现在时被动",
+        "一般过去时被动",
+        "现在完成时被动"
+      ]
+    },
+    "感叹句": {
+      "importance": "★★★",
+      "grade": "七-八年级",
+      "结构": [
+        "What + (a/an) + 形容词 + 名词 + (主语 + 谓语)!",
+        "How + 形容词/副词 + (主语 + 谓语)!"
+      ]
+    },
+    "祈使句": {
+      "importance": "★★★",
+      "grade": "七年级",
+      "结构": "动词原形开头, 省略主语"
+    }
+  },
+  "特殊结构": {
+    "比较结构": {
+      "importance": "★★★★",
+      "grade": "八年级",
+      "类型": [
+        "as...as",
+        "not as...as",
+        "比较级 + than",
+        "the + 最高级",
+        "the more...the more"
+      ]
+    },
+    "短语动词": {
+      "importance": "★★★★",
+      "grade": "八年级",
+      "分类": [
+        "look after / look at / look for",
+        "get up / get on / get off",
+        "put on / put away",
+        "take off / take away"
+      ]
+    },
+    "常用短语": {
+      "importance": "★★★★",
+      "grade": "七-九年级",
+      "类别": [
+        "in front of / in the front of",
+        "at the same time",
+        "on the other hand",
+        "as well as"
+      ]
+    }
+  }
+}

@@ -67,6 +67,17 @@ def export_data():
     # 知识大纲 markdown
     knowledge_md = (PROJECT_ROOT / "knowledge_outline.md").read_text(encoding="utf-8")
 
+    # 983 词 + 学习路径 + 语法大纲 (基于 PDF + ChatGPT 大纲,2026-07-16 整合)
+    def _try_load(name):
+        try:
+            return json.loads((PROJECT_ROOT / "data" / name).read_text(encoding="utf-8"))
+        except FileNotFoundError:
+            return None
+
+    vocab_983 = _try_load("vocab_983.json") or {"meta": {"total": 0}, "words": []}
+    learning_plan = _try_load("learning_plan.json") or {"grades": []}
+    grammar_outline = _try_load("grammar_outline.json") or {}
+
     data = {
         "vocab": vocab,
         "grammar": grammar,
@@ -81,6 +92,9 @@ def export_data():
             for k, v in DIFFICULTY_CONFIG.items()
         },
         "knowledge_md": knowledge_md,
+        "vocab_983": vocab_983,
+        "learning_plan": learning_plan,
+        "grammar_outline": grammar_outline,
     }
 
     js = "/* eslint-disable */\nwindow.CHECKIN_DATA = " + json.dumps(data, ensure_ascii=False) + ";\n"
