@@ -42,7 +42,7 @@
   "internal_logic": {
     "summary": "3 模块 (Flask 本地版 / Netlify 静态版 / 飞书推送) + 双部署轨道 + 4 数据流 + 3 关键设计决策",
     "steps": [
-      "数据源层：vocab.json (319 词) + grammar.json (18 语法) + junior_vocab_3levels.json (三级词库) + knowledge_outline.md (17KB)",
+      "数据源层：question_bank_expansion.json（独立扩展题库）→ content.json（统一运行时汇总）+ knowledge_outline.md",
       "服务端层：Flask app.py (1589 行, 19 routes) OR site_static/app.js (客户端 SPA)",
       "进度存储层：Flask 服务端 (progress.json) OR 浏览器 localStorage (ck_progress_v1)",
       "推送层：send_daily.py + send_weekly_report.py (飞书 webhook)"
@@ -50,7 +50,7 @@
     "decision_table": [
       {
         "condition": "3 模块 (Flask 本地 / Netlify 静态 / 飞书推送)",
-        "action": "Flask 本地版和 Netlify 静态版是同一份数据的两种部署形态；不混层，单一真相源 (vocab.json/grammar.json)",
+        "action": "Flask 本地版和静态版共用结构化数据；扩展题目维护在 question_bank_expansion.json，由脚本合并进 content.json",
         "priority": 1
       },
       {
@@ -125,12 +125,12 @@
           {
             "from": "export_grammar",
             "to": "export_translate",
-            "trigger": "grammar.json 写入"
+            "trigger": "content.json 中 grammar items 读入"
           },
           {
             "from": "export_translate",
             "to": "export_knowledge",
-            "trigger": "TRANSLATE_SENTENCES + HARD_TRANSLATE 写入"
+            "trigger": "content.json 中 translate/tense items 读入"
           },
           {
             "from": "export_knowledge",
@@ -156,8 +156,8 @@
     {
       "name": "no_dual_data_source",
       "category": "data_integrity",
-      "rule": "单一真相源：词库/语法/翻译从 vocab.json/grammar.json 读取，不在 Flask + 客户端各自硬编码",
-      "metric": "build.py 验证 TRANSLATE_SENTENCES + DIFFICULTY_CONFIG 都从 app.py 导入"
+      "rule": "扩展题库维护在 question_bank_expansion.json；Python 脚本只负责校验、去重和合并，不硬编码题目",
+      "metric": "tests/test_content_bank.py 验证独立题库与合并脚本"
     }
   ],
   "failure_modes": [
@@ -212,9 +212,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.12",
-  "last_validated": "2026-06-13",
+  "version": "v0.16",
+  "last_validated": "2026-07-16",
   "evolution": [
+    {
+      "date": "2026-07-16",
+      "version": "v0.16",
+      "action": "split",
+      "what": "扩展题目从一次性 Python 脚本拆分到 question_bank_expansion.json",
+      "why": "题目作为数据独立维护，生成脚本只保留合并逻辑",
+      "by": "Codex"
+    },
     {
       "date": "2026-06-13",
       "version": "v0.12",

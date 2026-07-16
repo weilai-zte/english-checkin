@@ -31,10 +31,8 @@
       "data/vocab_983.json",
       "data/vocab.json",
       "data/grammar.json",
-      "app.TRANSLATE_SENTENCES",
-      "app.HARD_TRANSLATE",
-      "app.HARD_TENSE_QUESTIONS",
-      "curriculum_expand_2026_07"
+      "curriculum_expand_2026_07",
+      "data/question_bank_expansion.json"
     ],
     "note": "vocab 已按 (word, grade) 去重,合并 src junior/pdf983/legacy 的字段",
     "coverage_standard": "36 个初中核心知识点，每项至少 6 道练习"

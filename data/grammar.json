@@ -603,7 +603,7 @@
     "练习": [
       {"题": "There are three ____ (child) in the room.", "答案": "children", "提示": "child的复数是不规则变化children"},
       {"题": "She drank a glass of ____ (milk).", "答案": "milk", "提示": "milk是不可数名词，不用复数"},
-      {"题": "My mother's bag is new.", "翻译": "我妈妈的包是新的。"},
+      {"题": "This is my ____ (mother) bag.", "答案": "mother's", "提示": "单数名词所有格加 's"},
       {"题": "The ____ (teacher) office is large.", "答案": "teachers'", "提示": "复数名词以s结尾，所有格只加撇"},
       {"题": "I need some ____ (information) about the city.", "答案": "information", "提示": "information是不可数名词，没有复数"}
     ]
@@ -627,7 +627,7 @@
       {"题": "He is ____ honest boy.", "答案": "an", "提示": "honest以元音/h/音开头"},
       {"题": "There is ____ university near here.", "答案": "a", "提示": "university以辅音/ju:/音开头"},
       {"题": "She plays ____ piano every day.", "答案": "the", "提示": "乐器前加the"},
-      {"题": "I was born in ____ China.", "答案": "", "提示": "国名不加冠词"},
+      {"题": "We have ____ breakfast at seven. (填 no article)", "答案": "no article", "提示": "三餐前用零冠词"},
       {"题": "This is ____ most interesting book I have ever read.", "答案": "the", "提示": "最高级前必须加the"}
     ]
   },

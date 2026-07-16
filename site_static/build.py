@@ -30,16 +30,13 @@ sys.path.insert(0, str(PROJECT_ROOT))
 def export_data():
     """把所有数据打包成 data.js
 
-    词库来源：app.load_junior_vocab() 读 junior_vocab_3levels.json
-              → 归一化后 {L1: [{word, pron, cn, 记忆, 例句}], L2, L3}
+    词库来源：data/content.json
+              → 按 grade 归一化为 {L1: [{word, pron, cn, 记忆, 例句}], L2, L3}
               → 转换为 D.vocab 形如 {_L1: {topic, words}, _L2, _L3}
               → 配合 DIFFICULTY_CONFIG[diff].block_topics 屏蔽非对应 level
     """
-    # 1. 加载 app.py (会触发 flask 导入, 需要 PYTHONPATH 含 flask site-packages)
-    from app import (
-        TRANSLATE_SENTENCES, HARD_TRANSLATE, HARD_TENSE_QUESTIONS,
-        DIFFICULTY_CONFIG, load_junior_vocab,
-    )
+    # 1. 仅从 app.py 读取难度配置；题库数据全部来自 JSON。
+    from app import DIFFICULTY_CONFIG
 
     # 工具: JSON 加载
     def _try_load(name):
