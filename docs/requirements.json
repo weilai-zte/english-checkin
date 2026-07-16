@@ -2,7 +2,7 @@
   "doc_id": "requirements",
   "doc_kind": "requirements",
   "goal": {
-    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 30 编号需求 (F-019 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
+    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 31 编号需求 (F-020 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
     "why": "代码改完必须先改本文（用户驱动原则）。AI 改 send_daily.py / app.py / build.py 前必须先确认本文当前有效需求",
     "success_criteria": [
       "新增需求必须先在本文 §3 加编号 + §5 加 UC，再写代码",
@@ -26,7 +26,7 @@
   "outputs": [
     {
       "name": "functional_requirements",
-      "destination": "本文 §3 (F-001~F-019, 19 条)",
+      "destination": "本文 §3 (F-001~F-020, 20 条)",
       "type": "json"
     },
     {
@@ -125,9 +125,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.15",
+  "version": "v0.16",
   "last_validated": "2026-07-16",
   "evolution": [
+    {
+      "date": "2026-07-16",
+      "version": "v0.16",
+      "action": "change",
+      "what": "F-020 将扩展题库从一次性 Python 生成脚本拆分到独立 JSON 数据文件",
+      "why": "题目硬编码在临时脚本中不便于审阅和持续维护",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-16",
       "version": "v0.15",
@@ -292,6 +300,12 @@
         "priority": "P0",
         "statement": "统一 content.json 练习题库须支持持续打卡：语法组 ≥100 且组内练习 ≥450，中译英 ≥240，时态 ≥200；36 个初中核心知识点各至少 6 道练习；翻译和时态按 easy/medium/hard 精确读取对应题库，每日语法从组内随机抽题并对已掌握内容低频复习",
         "verification": "python3 -m pytest tests/test_content_bank.py tests/test_site_static.py -q"
+      },
+      {
+        "id": "F-020",
+        "priority": "P1",
+        "statement": "扩展题目必须保存在 data/question_bank_expansion.json，scripts/expand_question_bank.py 只负责校验、去重并合并到 content.json，不得硬编码题目列表",
+        "verification": "python3 -m pytest tests/test_content_bank.py -q"
       }
     ],
     "§4_non_functional_requirements": [

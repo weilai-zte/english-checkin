@@ -8,6 +8,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 CONTENT_PATH = ROOT / "data" / "content.json"
+EXPANSION_PATH = ROOT / "data" / "question_bank_expansion.json"
+EXPANSION_SCRIPT = ROOT / "scripts" / "expand_question_bank.py"
+LEGACY_GRAMMAR_PATH = ROOT / "data" / "grammar.json"
 CONTENT = json.loads(CONTENT_PATH.read_text(encoding="utf-8"))
 ITEMS = CONTENT["items"]
 
@@ -58,6 +61,27 @@ def _normalise(value):
 
 def _items(item_type):
     return [item for item in ITEMS if item["type"] == item_type]
+
+
+def test_question_bank_is_separate_from_generator_code():
+    bank = json.loads(EXPANSION_PATH.read_text(encoding="utf-8"))
+    script = EXPANSION_SCRIPT.read_text(encoding="utf-8")
+    source = bank["meta"]["source"]
+    generated = [item for item in ITEMS if item.get("src") == source]
+
+    assert bank["items"]
+    assert all(item.get("src") == source for item in bank["items"])
+    assert bank["meta"]["type_count"] == dict(Counter(item["type"] for item in bank["items"]))
+    assert generated == bank["items"]
+    assert "question_bank_expansion.json" in script
+    assert not re.search(r"^\s*(E|TRANSLATIONS|TENSE_ROWS)\s*=", script, re.MULTILINE)
+
+
+def test_legacy_grammar_exercises_have_answers():
+    grammar = json.loads(LEGACY_GRAMMAR_PATH.read_text(encoding="utf-8"))
+    for group in grammar:
+        for exercise in group.get("练习", []):
+            assert exercise.get("答案"), f"{group['id']} 存在空答案: {exercise.get('题')}"
 
 
 def test_content_meta_matches_items_and_ids_are_unique():

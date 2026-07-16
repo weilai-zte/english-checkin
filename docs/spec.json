@@ -2,7 +2,7 @@
   "doc_id": "spec",
   "doc_kind": "spec",
   "goal": {
-    "statement": "english-checkin 实现 spec：6 模块边界 + 14 Flask routes + 6 数据 schema + 1 build 接口 + 3 状态机 + 错误码规约 + 性能预算 + 题库覆盖约束",
+    "statement": "english-checkin 实现 spec：6 模块边界 + 14 Flask routes + 7 数据 schema + 1 build 接口 + 3 状态机 + 错误码规约 + 性能预算 + 题库覆盖约束",
     "why": "代码实现必须严格按本文对齐。AI 改 app.py 路由签名 / build.py 接口 / 数据 schema 前必须先改本文 + 跑 tests/test_bugs.py",
     "success_criteria": [
       "改任何 Flask 路由前，先改 spec.json routes[] 节",
@@ -24,7 +24,7 @@
     },
     {
       "name": "data_schemas",
-      "source": "data/{content.json, vocab.json, grammar.json, progress.json, junior_vocab_3levels.json}",
+      "source": "data/{content.json, question_bank_expansion.json, vocab.json, grammar.json, progress.json, junior_vocab_3levels.json}",
       "type": "file"
     }
   ],
@@ -36,7 +36,7 @@
     },
     {
       "name": "data_schemas",
-      "destination": "本文 internal_logic.schema (6: content/vocab/grammar/progress/junior_vocab/data_js)",
+      "destination": "本文 internal_logic.schema (7: content/question_bank_expansion/vocab/grammar/progress/junior_vocab/data_js)",
       "type": "json"
     },
     {
@@ -61,7 +61,7 @@
     }
   ],
   "internal_logic": {
-    "summary": "1) Flask 14 routes（带路由/方法/前置/返回） 2) 6 数据 Schema（content/vocab/grammar/progress/junior_vocab/data_js） 3) build 接口（content.json → static site） 4) 3 状态机（flashcard/wrong_word/netlify） 5) 错误码 5 类 12 项 6) 性能预算与题库覆盖约束 7) 依赖矩阵 8 项",
+    "summary": "1) Flask 14 routes（带路由/方法/前置/返回） 2) 7 数据 Schema（content/question_bank_expansion/vocab/grammar/progress/junior_vocab/data_js） 3) build 接口（question_bank_expansion.json → content.json → static site） 4) 3 状态机（flashcard/wrong_word/netlify） 5) 错误码 5 类 12 项 6) 性能预算与题库覆盖约束 7) 依赖矩阵 8 项",
     "interfaces": [
       {
         "name": "build_data_export",
@@ -349,7 +349,7 @@
       },
       "content_json": {
         "type": "object",
-        "description": "data/content.json - 统一词汇与练习内容真理源",
+        "description": "data/content.json - 供运行时读取的统一词汇与练习汇总文件",
         "fields": {
           "meta": "{schema_version, total, type_count, grade_count, filter_attrs, coverage_standard}",
           "items": "list[{id, type, grade, topic, knowledge_points, difficulty, ...type_fields}]",
@@ -362,6 +362,19 @@
           "grammar ≥100 组且组内练习 ≥450，translate ≥240，tense ≥200",
           "36 个核心知识点各至少 6 道可作答练习",
           "translate 与 tense 的 easy/medium/hard 各档数量达到测试下限"
+        ]
+      },
+      "question_bank_expansion_json": {
+        "type": "object",
+        "description": "data/question_bank_expansion.json - 扩展语法、翻译和时态题目的独立维护源",
+        "fields": {
+          "meta": "{schema_version, source, description, type_count}",
+          "items": "list[grammar|translate|tense]"
+        },
+        "invariants": [
+          "Python 合并脚本不得包含题目列表",
+          "items.src 必须与 meta.source 一致",
+          "scripts/expand_question_bank.py 合并后不得改变题目数量或内容"
         ]
       },
       "progress_json": {
@@ -403,7 +416,7 @@
         "description": "site_static/dist/assets/data.js - 客户端打包数据",
         "fields": {
           "vocab": "{_L1: {topic, words}, _L2: ..., _L3: ..., _legacy_{topic}: ...}",
-          "grammar": "grammar.json 内容",
+          "grammar": "content.json 中的 grammar 内容",
           "translate_sentences": "list[{cn, en}]",
           "hard_translate": "list[{cn, en}]",
           "hard_tense_questions": "list[...]",
@@ -673,9 +686,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.15",
+  "version": "v0.16",
   "last_validated": "2026-07-16",
   "evolution": [
+    {
+      "date": "2026-07-16",
+      "version": "v0.16",
+      "action": "split",
+      "what": "将 /tmp/expand_question_bank.py 内的 307 条扩展题目拆分到 data/question_bank_expansion.json，仓库脚本仅保留合并逻辑",
+      "why": "题库应作为结构化数据维护，避免与生成逻辑耦合",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-16",
       "version": "v0.15",
