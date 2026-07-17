@@ -63,7 +63,7 @@
           buildEl.innerHTML = '<div class="sb-placeholder">点击下方单词组装句子</div>';
         } else {
           buildEl.innerHTML = picked.map(function (p) {
-            return '<button class="sb-token sb-picked" data-i="' + p.idx + '">' + escapeHtml(p.tok) + '</button>';
+            return '<button class="sb-token sb-picked" data-i="' + p.idx + '">' + escapeHtml(shuffled[p.idx]) + '</button>';
           }).join('');
           buildEl.querySelectorAll('.sb-picked').forEach(function (b) {
             b.onclick = function () { unpick(parseInt(b.dataset.i, 10)); };
@@ -73,7 +73,7 @@
 
       function pick(i) {
         if (picked.some(function (p) { return p.idx === i; })) return;
-        picked.push({ idx: i, tok: tokens[i] || shuffled[i] });
+        picked.push({ idx: i, tok: shuffled[i] });
         // disable pool button
         var btn = poolEl.querySelector('button[data-i="' + i + '"]');
         if (btn) btn.disabled = true;
@@ -97,7 +97,7 @@
         refreshBuild();
       };
       body.querySelector('#sb-submit').onclick = function () {
-        var built = picked.map(function (p) { return p.tok; }).join(' ');
+        var built = picked.map(function (p) { return shuffled[p.idx]; }).join(' ');
         var expected = tokens.join(' ');
         if (built === expected) {
           msgEl.innerHTML = '<div class="sb-msg sb-ok">✓ 正确!  ' + escapeHtml(q.en) + '</div>';
