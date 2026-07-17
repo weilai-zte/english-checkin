@@ -62,7 +62,6 @@
           options.map(function (o) {
             return '<button class="pm-opt" data-w="' + escapeHtml(o.word) + '">' +
               '<span class="pm-word">' + escapeHtml(o.word) + '</span>' +
-              '<span class="pm-pron">' + escapeHtml(o.pron || '') + '</span>' +
             '</button>';
           }).join('') +
         '</div>';

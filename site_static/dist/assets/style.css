@@ -1043,7 +1043,7 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 
 /* ===== Wordle ===== */
 .wd-board { display: flex; flex-direction: column; gap: 6px; align-items: center; margin: 16px 0; }
-.wd-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; max-width: 320px; }
+.wd-row { display: grid; gap: 6px; width: 100%; max-width: 320px; }
 .wd-cell {
   aspect-ratio: 1 / 1;
   display: flex; align-items: center; justify-content: center;
@@ -1190,3 +1190,18 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   text-align: center;
 }
 .td-help { text-align: center; font-size: 12px; color: var(--text-2); margin-top: 8px; }
+
+/* ===== Wordle 提示行 ===== */
+.wd-hint-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-2);
+  margin: 8px 0 6px;
+  opacity: 0.85;
+}
+.wd-hint {
+  background: #e0e7ff !important;
+  color: #4338ca !important;
+  border-color: #818cf8 !important;
+  font-weight: 800;
+}

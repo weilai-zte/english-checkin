@@ -89,18 +89,43 @@
     }
 
     function render() {
-      body.innerHTML =
-        '<div class="td-field">' + renderField() + '<div class="td-base">🏰</div></div>' +
-        '<input id="td-input" class="td-input" placeholder="敲英文单词消灭怪物" autocomplete="off" autofocus>' +
-        '<div class="td-help">输入框: <b>' + escapeHtml(inputVal) + '</b></div>';
-      var inp = body.querySelector('#td-input');
-      inp.focus();
-      inp.oninput = function (e) {
-        inputVal = (e.target.value || '').toLowerCase().replace(/[^a-z']/g, '');
-        e.target.value = inputVal;
-        render();
-        checkHits();
-      };
+      var existingField = body.querySelector('#td-field');
+      var existingInput = body.querySelector('#td-input');
+      var existingHelp = body.querySelector('#td-help');
+      if (!existingField) {
+        // 首次渲染: 建好骨架, input 元素常驻
+        body.innerHTML =
+          '<div id="td-field" class="td-field">' + renderField() + '<div class="td-base">🏰</div></div>' +
+          '<input id="td-input" class="td-input" placeholder="敲英文单词消灭怪物" autocomplete="off" autofocus>' +
+          '<div id="td-help" class="td-help">输入框: <b></b></div>';
+        existingInput = body.querySelector('#td-input');
+        existingInput.focus();
+        existingInput.oninput = function (e) {
+          inputVal = (e.target.value || '').toLowerCase().replace(/[^a-z']/g, '');
+          e.target.value = inputVal;
+          // 只更新 help + 怪物高亮, 不重建 input (避免焦点丢失)
+          var helpB = body.querySelector('#td-help b');
+          if (helpB) helpB.textContent = inputVal;
+          updateMonsterHighlights();
+          checkHits();
+        };
+      } else {
+        // 后续帧: 只更新战场 (input 元素保持不变)
+        existingField.innerHTML = renderField() + '<div class="td-base">🏰</div></div>';
+        var helpB = body.querySelector('#td-help b');
+        if (helpB) helpB.textContent = inputVal;
+      }
+    }
+
+    function updateMonsterHighlights() {
+      var monEls = body.querySelectorAll('.td-monster');
+      Array.prototype.forEach.call(monEls, function (el) {
+        var word = (el.dataset.word || '').toLowerCase();
+        var isMatch = word === inputVal;
+        var isPrefix = word.indexOf(inputVal) === 0 && inputVal.length > 0;
+        el.classList.toggle('td-active', isPrefix && !isMatch);
+        el.classList.toggle('td-hit', isMatch);
+      });
     }
 
     function checkHits() {
