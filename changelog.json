@@ -344,6 +344,32 @@
         "已加防回归测试 test_wordle_rounds_no_hint_and_shows_guess_cn"
       ],
       "verified": "281 tests passed (280 + 1 防回归); node --check OK; build.py OK"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.15.3-tower-revamp",
+      "action": "add",
+      "what": "塔防打字: 配置页 + 升级系统 + 战斗美化",
+      "why": "用户反馈: 界面粗糙单调, 初始难度大, 速度/怪物数应可调",
+      "by": "codex",
+      "files": [
+        "site_static/games/tower.js",
+        "site_static/style.css",
+        "tests/test_site_static.py"
+      ],
+      "details": [
+        "配置页: 速度(慢/中/快) + 每波怪物数(2/3/4) 两个独立 axis 选择器, 加 开始按钮",
+        "进入战斗前默认\"中 + 3怪\", 玩家随时可挑",
+        "状态栏: 4 列 ❤️/🌊/⚡/🎯",
+        "等级条: LV 1..5, 每 5 击杀升一级, XP 进度条 + 标签",
+        "子弹按等级变粗变色: lv1 金 → lv5 紫",
+        "战场背景: 渐变天空 + 月亮 + 星空闪烁 + 草地",
+        "怪物 4 种 emoji (👾👻💀🧟), 受击黄闪 + 抖动, 命中 8-12 颗粒子飞散 + 屏幕震动",
+        "LevelUp: 金色横幅弹出, 1.4s 后消失",
+        "结算屏: 显示击杀/LV/命中率/打到波数",
+        "已加防回归测试 test_tower_has_config_level_and_polish"
+      ],
+      "verified": "282 tests passed (281 + 1 防回归); node --check OK; build.py OK"
     }
   ],
   "release_summaries": [
@@ -454,6 +480,28 @@
       ],
       "verification": [
         "281 tests passed",
+        "node --check OK",
+        "build.py OK"
+      ],
+      "breaking_changes": null,
+      "commits": []
+    },
+    {
+      "version": "v0.15.3",
+      "date": "2026-07-17",
+      "tag_sha": null,
+      "git_tag": null,
+      "summary": "塔防打字: 配置 + 升级 + 美化",
+      "highlights": [
+        "塔防整体重做: 配置/升级/美化"
+      ],
+      "sync_changes": [
+        "site_static/games/tower.js: 配置页 + 状态栏 + 等级条 + 爆破粒子",
+        "site_static/style.css: picker/style.css/scene/particle/shake/levelup",
+        "tests/test_site_static.py: 防回归"
+      ],
+      "verification": [
+        "282 tests passed",
         "node --check OK",
         "build.py OK"
       ],

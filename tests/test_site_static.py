@@ -454,3 +454,20 @@ def test_wordle_rounds_no_hint_and_shows_guess_cn():
     assert 'wd-hint"' not in src and 'wd-hint ' not in src, "Wordle 不应预填首尾字母 hint (用户希望所有格子都输入)"
     # 4) 每次猜词显示中文: guessCN / wd-guess-cn
     assert 'guessCN' in src and 'wd-guess-cn' in src, "Wordle 每次猜词后应显示 guess 的中文"
+
+
+def test_tower_has_config_level_and_polish():
+    """防塔防粗糙回归: 配置页 + 升级条 + 美化元素"""
+    src = (ROOT / 'site_static' / 'games' / 'tower.js').read_text(encoding='utf-8')
+    # 1) 配置页: 速度 + 每波怪物数 独立选择
+    assert 'SPEED_PRESETS' in src and 'WAVE_PRESETS' in src, \
+        "塔防应提供独立的速度 + 每波怪物数 选择"
+    # 2) 升级条: level / xp / kills 状态
+    assert 'var level' in src or 'let level' in src
+    assert 'xp' in src and 'kills' in src, "塔防应有升级条 (level/xp/kills)"
+    # 3) 子弹视觉随等级变化
+    assert 'td-bullet-lv' in src or 'bulletPower' in src, \
+        "子弹应按等级变化 (尺寸/颜色/动效)"
+    # 4) 命中反馈: 爆破/震动/粒子
+    assert 'spawnBurst' in src or 'td-shake' in src, \
+        "命中应有强化反馈 (粒子/震动)"
