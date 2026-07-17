@@ -9,12 +9,9 @@
 
   function renderWordle(app) {
     var GS = window.GameShared;
-    var all = (typeof allWords === 'function') ? allWords() : [];
-
-    var candidates = all.filter(function (w) {
-      var len = w.word.length;
-      return len >= 3 && len <= 6 && /^[a-z]+$/i.test(w.word);
-    });
+    // 按难度 + 长度范围抽池子 (pickGameWords 自动按 block_topics 过滤)
+    var candidates = GS.pickGameWords(200, { minLen: 3, maxLen: 10 })
+      .filter(function (w) { return /^[a-z]+$/i.test(w.word); });
     if (candidates.length < 5) {
       app.innerHTML = topBar('猜词 Wordle') +
         '<div class="container"><div class="card"><p>词库不足。</p>' +
@@ -23,9 +20,10 @@
     }
 
     var diff = (typeof window.difficulty !== 'undefined') ? window.difficulty : 'medium';
-    // 难度只决定可用的最短长度 (避免初一小孩过早遇到 6 字母生词)
-    var MIN_LEN = { easy: 3, medium: 3, hard: 3 }[diff] || 3;
-    var MAX_LEN = 6;
+    // 难度决定词长范围 (按 L1/L2/L3 难度递进)
+    var LEN_RANGE = { easy: [3, 5], medium: [4, 7], hard: [5, 10] };
+    var MIN_LEN = (LEN_RANGE[diff] || LEN_RANGE.medium)[0];
+    var MAX_LEN = (LEN_RANGE[diff] || LEN_RANGE.medium)[1];
     function pickRoundLen() { return MIN_LEN + Math.floor(Math.random() * (MAX_LEN - MIN_LEN + 1)); }
     var ROUNDS = 5;
     var PER_ROUND_TRIES = 6;
@@ -66,7 +64,7 @@
     var roundIdx = 0;
     var score = 0;
     var body = GS.gameShell(app, '🔤 猜词 Wordle', {
-      subtitle: ROUNDS + ' 个单词 · ' + MIN_LEN + '-' + MAX_LEN + ' 字母 · 每词 ' + PER_ROUND_TRIES + ' 次',
+      subtitle: ROUNDS + ' 个单词 · ' + MIN_LEN + '-' + MAX_LEN + ' 字母 (' + diff + ') · 每词 ' + PER_ROUND_TRIES + ' 次',
       score: '0'
     });
 

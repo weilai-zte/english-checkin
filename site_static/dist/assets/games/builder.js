@@ -9,7 +9,11 @@
 
   function renderSentenceBuilder(app) {
     var GS = window.GameShared;
-    var all = (typeof D !== 'undefined' && D.translate_sentences) || [];
+    // 按难度选句子池: hard 用 hard_translate (复杂句), 其他用普通 translate_sentences
+    var diff = (typeof window.difficulty !== 'undefined') ? window.difficulty : 'medium';
+    var all = (typeof D !== 'undefined')
+      ? (diff === 'hard' ? (D.hard_translate || D.translate_sentences || []) : (D.translate_sentences || []))
+      : [];
     var pool = all.length >= 5 ? sample(all.slice(), Math.min(10, all.length)) : [];
 
     if (pool.length < 3) {

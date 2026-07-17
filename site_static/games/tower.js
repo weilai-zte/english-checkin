@@ -24,10 +24,9 @@
 
   function renderTowerDefense(app) {
     var GS = window.GameShared;
-    var all = (typeof allWords === 'function') ? allWords() : [];
-    var words = all.filter(function (w) {
-      var len = w.word.length;
-      return len >= 3 && len <= 8 && /^[a-z]+$/i.test(w.word);
+    // 按难度抽取词库 (pickGameWords 自动应用 block_topics/已掌握词过滤)
+    var words = GS.pickGameWords(80, { minLen: 3, maxLen: 8 }).filter(function (w) {
+      return /^[a-z]+$/i.test(w.word);
     }).map(function (w) { return { word: w.word, cn: w.cn || '', pron: w.pron || '' }; });
 
     if (words.length < 20) {
