@@ -79,10 +79,16 @@ def test_question_bank_is_separate_from_generator_code():
 
 
 def test_legacy_grammar_exercises_have_answers():
+    """练习题必须有答案: 非空字符串 OR 空字符串 (零冠词, 题目/提示需明确 "留空")"""
     grammar = json.loads(LEGACY_GRAMMAR_PATH.read_text(encoding="utf-8"))
     for group in grammar:
         for exercise in group.get("练习", []):
-            assert exercise.get("答案"), f"{group['id']} 存在空答案: {exercise.get('题')}"
+            ans = exercise.get("答案")
+            assert ans is not None, f"{group['id']} 缺少答案字段: {exercise.get('题')}"
+            if ans == "":
+                # 零冠词题: 必须明确告知用户"留空"
+                text = (exercise.get("题", "") + " " + exercise.get("提示", ""))
+                assert "留空" in text or "no article" in text.lower(),                     f"{group['id']} 空答案题必须说明留空: {exercise.get('题')}"
 
 
 def test_content_meta_matches_items_and_ids_are_unique():

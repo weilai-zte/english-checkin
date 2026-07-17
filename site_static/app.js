@@ -985,7 +985,7 @@ document.addEventListener('input', function(e) {
       card.innerHTML = `
         <div class="card-title">第 ${i+1} 题</div>
         <div class="grammar-q">${escapeHtml(ex.question)}</div>
-        <input type="text" class="grammar-input" data-i="${i}" placeholder="输入答案" autocomplete="off">
+        <input type="text" class="grammar-input" data-i="${i}" placeholder="留空 = 无冠词 / 否则填 a / an / the" autocomplete="off">
         <div class="grammar-hint" style="display:none;">💡 ${escapeHtml(ex.hint)}</div>
         <div class="grammar-result" data-result="${i}" style="display:none;"></div>
       `;
