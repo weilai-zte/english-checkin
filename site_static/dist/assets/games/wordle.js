@@ -50,10 +50,17 @@
                     len: t.word.length, hints: pickHints(t.word.toLowerCase()),
                     guesses: [], finished: false, succeeded: false });
     }
-    // 预填 1 个字母提示 (位置随机)
+    // 预填字母提示: 3-5 字母 1 个, 6+ 字母 2 个
     function pickHints(word) {
-      var idx = Math.floor(Math.random() * word.length);
-      return { [idx]: word[idx] };
+      var n = word.length >= 6 ? 2 : 1;
+      var indices = [];
+      while (indices.length < n) {
+        var idx = Math.floor(Math.random() * word.length);
+        if (indices.indexOf(idx) === -1) indices.push(idx);
+      }
+      var hints = {};
+      indices.forEach(function (i) { hints[i] = word[i]; });
+      return hints;
     }
 
     var roundIdx = 0;
