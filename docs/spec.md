@@ -99,6 +99,11 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 | `#/achievements` | `renderAchievements` | 成就系统 10 badges |
 | `#/vocab-import` | `renderVocabImport` | 导入自定义词表 |
 | `#/vocab-list` | `renderVocabList` | 全部词汇（含收藏） |
+| `#/game/memory` | `renderMemoryMatch` | 🃏 翻牌配对（按难度 6/8/10 对） |
+| `#/game/wordle` | `renderWordle` | 🔤 猜词 Wordle（每日 1 题） |
+| `#/game/picture` | `renderPictureMatch` | 🍎 看图猜词（10 题） |
+| `#/game/builder` | `renderSentenceBuilder` | 🧩 句子拼装（10 句） |
+| `#/game/tower` | `renderTowerDefense` | ⚔️ 塔防打字（10 波 × 3 怪） |
 | `#/review` | `renderReview` | 上次打卡回顾 |
 
 ---

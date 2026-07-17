@@ -67,7 +67,7 @@
     "design"
   ],
   "downstream": [],
-  "version": "v0.14",
+  "version": "v0.15",
   "last_validated": "2026-07-17",
   "evolution": [
     {
@@ -267,6 +267,38 @@
         "新增 .btn-milestone 样式：金色渐变 + 左侧 4px 金边，区别于普通 nav 按钮"
       ],
       "verified": "272 unit tests passed; 截图验证布局平衡"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.15-games",
+      "action": "add",
+      "what": "首页 🎮 游戏区 + 5 个学习游戏",
+      "why": "用户反馈打卡单调, 加游戏化提升孩子兴趣",
+      "by": "codex",
+      "files": [
+        "site_static/games/_shared.js",
+        "site_static/games/memory.js",
+        "site_static/games/wordle.js",
+        "site_static/games/picture.js",
+        "site_static/games/builder.js",
+        "site_static/games/tower.js",
+        "site_static/app.js",
+        "site_static/style.css",
+        "site_static/build.py"
+      ],
+      "details": [
+        "🃏 翻牌配对 (Memory Match): 按难度 6/8/10 对, 步数+时间计分",
+        "🔤 猜词 Wordle: 每日 1 题(稳定 seed), 6 次机会, 字母颜色反馈",
+        "🍎 看图猜词 (Picture Match): emoji + 4 选项, 10 题, 连击加分",
+        "🧩 句子拼装 (Sentence Builder): 复用 translate 题库, 点词组装",
+        "⚔️ 塔防打字 (Tower Defense): 怪物从左走到右, 打字消灭, 10 波 5 命",
+        "架构: site_static/games/ 目录, _shared.js 共享工具, 5 个独立 IIFE, 与 app.js 解耦",
+        "app.js 顶层把 progress/difficulty/D/工具函数暴露到 window 让游戏 IIFE 可访问",
+        "build.py 自动复制 games/*.js 到 dist/assets/games/",
+        "新 progress.game_stats 字段记录每局 played/best/won",
+        "首页新增 🎮 游戏区(4 项 2×2 + 塔防独行)"
+      ],
+      "verified": "279 unit tests passed (272 + 7 游戏测试); 5 个游戏 Chrome 截图渲染验证"
     }
   ],
   "release_summaries": [

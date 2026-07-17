@@ -987,3 +987,206 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   align-items: center;
   justify-content: center;
 }
+
+/* ===== 游戏外壳 ===== */
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 4px 12px;
+  flex-wrap: wrap;
+}
+.game-sub { font-size: 13px; color: var(--text-2); flex: 0 0 auto; }
+.game-score {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 4px 14px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 14px;
+  margin-left: auto;
+}
+.game-streak { font-size: 13px; color: #f59e0b; font-weight: 700; margin-left: 8px; }
+.game-lives { font-size: 13px; font-weight: 700; }
+.game-wave { font-size: 13px; font-weight: 700; margin-left: 8px; color: var(--text-2); }
+
+/* ===== 翻牌配对 ===== */
+.mc-info {
+  display: flex; justify-content: space-around;
+  background: var(--bg-card, #fff);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-size: 14px; font-weight: 600;
+  color: var(--text-1);
+}
+.mc-grid { display: grid; gap: 8px; }
+.mc-card {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: white; font-weight: 700; font-size: 14px;
+  text-align: center; padding: 4px;
+  transition: transform 0.2s;
+  user-select: none;
+  min-height: 60px;
+}
+.mc-card:active { transform: scale(0.95); }
+.mc-card.mc-flipped { background: linear-gradient(135deg, #fff4d6, #ffe2a8); color: #7a4a00; }
+.mc-card.mc-matched { background: linear-gradient(135deg, #27ae60, #16a085); color: white; opacity: 0.85; cursor: default; }
+.mc-back { font-size: 28px; }
+.mc-text { font-size: 13px; line-height: 1.2; word-break: break-word; }
+
+/* ===== Wordle ===== */
+.wd-board { display: flex; flex-direction: column; gap: 6px; align-items: center; margin: 16px 0; }
+.wd-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; max-width: 320px; }
+.wd-cell {
+  aspect-ratio: 1 / 1;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #d4d4d8;
+  border-radius: 6px;
+  font-weight: 700; font-size: 22px;
+  text-transform: uppercase;
+  background: white;
+  color: #1f2937;
+  max-width: 60px;
+}
+.wd-correct { background: #22c55e; color: white; border-color: #16a34a; }
+.wd-present { background: #eab308; color: white; border-color: #ca8a04; }
+.wd-absent  { background: #71717a; color: white; border-color: #52525b; }
+.wd-input-row { display: flex; gap: 8px; margin: 12px 0; }
+.wd-input {
+  flex: 1; padding: 12px;
+  font-size: 18px; font-weight: 700;
+  border: 2px solid #d4d4d8; border-radius: 8px;
+  text-align: center; letter-spacing: 4px;
+  text-transform: uppercase;
+  background: white; color: #1f2937;
+}
+.wd-msg { text-align: center; padding: 12px; font-size: 14px; }
+.wd-win { color: #16a34a; font-weight: 700; }
+.wd-lose { color: #dc2626; font-weight: 700; }
+
+/* ===== 看图猜词 ===== */
+.pm-progress { text-align: center; font-size: 13px; color: var(--text-2); margin-bottom: 8px; }
+.pm-emoji { font-size: 96px; text-align: center; padding: 24px 0; line-height: 1; }
+.pm-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pm-opt {
+  background: var(--bg-card, #fff);
+  border: 2px solid var(--border, #e5e7eb);
+  border-radius: 10px;
+  padding: 12px 8px;
+  cursor: pointer;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2px;
+  font-weight: 600;
+  transition: transform 0.15s, background 0.2s;
+}
+.pm-opt:active { transform: scale(0.96); }
+.pm-opt:disabled { cursor: default; }
+.pm-word { font-size: 18px; color: var(--text-1); }
+.pm-pron { font-size: 11px; color: var(--text-2); }
+.pm-correct { background: #d1fae5 !important; border-color: #10b981 !important; }
+.pm-wrong { background: #fee2e2 !important; border-color: #ef4444 !important; }
+
+/* ===== 句子拼装 ===== */
+.sb-progress { text-align: center; font-size: 13px; color: var(--text-2); margin-bottom: 8px; }
+.sb-cn {
+  background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+  border-left: 4px solid #b794f4;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px; font-weight: 600;
+  color: #2d1a3e;
+  margin-bottom: 12px;
+}
+.sb-hint { font-size: 12px; color: #6b46c1; margin-top: 6px; font-weight: 400; }
+.sb-build {
+  background: white;
+  border: 2px dashed #d4d4d8;
+  border-radius: 10px;
+  padding: 14px;
+  min-height: 56px;
+  margin-bottom: 12px;
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+}
+.sb-placeholder { color: #9ca3af; font-size: 13px; width: 100%; text-align: center; }
+.sb-pool { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.sb-token {
+  background: linear-gradient(135deg, #fff4d6, #ffe2a8);
+  color: #7a4a00;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+.sb-token:disabled { opacity: 0.35; cursor: default; }
+.sb-picked { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-color: #764ba2; }
+.sb-actions { display: flex; gap: 8px; margin-bottom: 12px; }
+.sb-actions .btn { flex: 1; }
+.sb-msg { text-align: center; padding: 10px; font-size: 14px; font-weight: 600; border-radius: 8px; }
+.sb-ok { background: #d1fae5; color: #065f46; }
+.sb-bad { background: #fee2e2; color: #991b1b; }
+
+/* ===== 塔防打字 ===== */
+.td-field {
+  position: relative;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  min-height: 360px;
+  overflow: hidden;
+}
+.td-lane {
+  position: relative;
+  height: 100px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.td-lane:last-child { border-bottom: none; }
+.td-base {
+  position: absolute;
+  right: 6px;
+  top: 50%; transform: translateY(-50%);
+  font-size: 40px;
+}
+.td-monster {
+  position: absolute;
+  bottom: 4px;
+  display: flex; flex-direction: column; align-items: center;
+  transition: left 0.1s linear;
+  width: 80px;
+}
+.td-word {
+  background: rgba(239,68,68,0.95);
+  color: white;
+  font-size: 11px; font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.td-icon { font-size: 22px; line-height: 1; }
+.td-active .td-word { background: rgba(234,179,8,0.95); }
+.td-hit { animation: td-explode 0.3s ease-out; }
+@keyframes td-explode {
+  to { transform: scale(1.6); opacity: 0; }
+}
+.td-input {
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border: 2px solid #d4d4d8;
+  border-radius: 8px;
+  background: white;
+  color: #1f2937;
+  text-align: center;
+}
+.td-help { text-align: center; font-size: 12px; color: var(--text-2); margin-top: 8px; }

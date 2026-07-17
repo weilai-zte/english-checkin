@@ -23,7 +23,8 @@
 - **18 语法组**（时态/介词/翻译/填空）
 - **三级难度**：🌱 简单 / 🌿 中等 / 🔥 困难
 - **每日打卡题型选择（v0.13+）**：checkin-config 页 7 题型可勾选（vocab/grammar 必选）
-- **21 个 SPA 路由**：home/learn/checkin-config/vocab/grammar/quiz/translate/translate-en/tense/preposition/flashcard/dictation/errors/stats/progress/knowledge/achievements/vocab-import/vocab-list/review
+- **26 个 SPA 路由**：home/learn/checkin-config/vocab/grammar/quiz/translate/translate-en/tense/preposition/flashcard/dictation/errors/stats/progress/knowledge/achievements/vocab-import/vocab-list/review + game/memory/game/wordle/game/picture/game/builder/game/tower
+- **5 个游戏化练习**（v0.15+）：🃏 翻牌配对 / 🔤 猜词 Wordle / 🍎 看图猜词 / 🧩 句子拼装 / ⚔️ 塔防打字；共用 `site_static/games/` 模块（_shared.js + 5 个独立 IIFE），主代码与游戏解耦；游戏成绩存 `progress.game_stats`
 - **首页 4 区分类**：📚 学习（闪卡复习/知识课程/全部词汇）/ ✍️ 练习（6 题型 2×3）/ 📊 记录（错题本/统计/进度/上次回顾 + 🏆 成就里程碑）/ 🛠 工具（导入词表）
 - **错题本 + 统计**：自动记录，连续答对 3 次自动移除
 - **知识课程**：5 个 tab（介词/名词/冠词代词/从句/标志词）

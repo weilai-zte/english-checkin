@@ -93,6 +93,10 @@ document.addEventListener('input', function(e) {
   let currentQuestions = null; // 练习题（tense/preposition/quiz 时生成）
   let currentSentences = null; // 翻译题
   let currentVocabIdx = 0;
+  // 暴露到 window, 让 games/*.js (独立 IIFE) 也能访问
+  window.progress = progress;
+  window.difficulty = difficulty;
+  window.D = (typeof CHECKIN_DATA !== 'undefined') ? CHECKIN_DATA : null;
 
   function loadProgress() {
     try {
@@ -184,6 +188,16 @@ document.addEventListener('input', function(e) {
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
   }
+  // 暴露到 window, 让 games/*.js (独立 IIFE) 也能用
+  window.topBar = topBar;
+  window.escapeHtml = escapeHtml;
+  window.shuffle = shuffle;
+  window.sample = sample;
+  window.pick = pick;
+  window.speak = speak;
+  window.allWords = allWords;
+  window.getDifficultyCfg = getDifficultyCfg;
+  window.saveProgress = saveProgress;
   function toast(msg, ms = 2000) {
     const el = document.getElementById('toast');
     el.textContent = msg;
@@ -567,6 +581,11 @@ document.addEventListener('input', function(e) {
     'dictation': renderDictation,
     'vocab-list': renderVocabList,
     'checkin-config': renderCheckinConfig,
+    'game/memory': renderMemoryMatch,
+    'game/wordle': renderWordle,
+    'game/picture': renderPictureMatch,
+    'game/builder': renderSentenceBuilder,
+    'game/tower': renderTowerDefense,
     // 'chat': renderChat, // #12 hidden by user request 2026-07-15
   };
   function navigate(hash) { window.location.hash = '#/' + hash; }
@@ -578,7 +597,9 @@ document.addEventListener('input', function(e) {
   window.addEventListener('hashchange', render);
   function render() {
     const r = parseRoute();
-    const fn = routes[r.name] || renderHome;
+    // 支持子路由 (e.g. game/memory)
+    const fullName = r.params.length ? (r.name + '/' + r.params[0]) : r.name;
+    const fn = routes[fullName] || routes[r.name] || renderHome;
     const app = document.getElementById('app');
     app.innerHTML = '';
     fn(app, r.params);
@@ -680,6 +701,15 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary" href="#/translate">🔤 中译英</a>
           <a class="btn btn-secondary" href="#/translate-en">🔤 英译中</a>
         </div>
+
+        <div class="section-label">🎮 游戏</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a class="btn btn-secondary" href="#/game/memory">🃏 翻牌配对</a>
+          <a class="btn btn-secondary" href="#/game/wordle">🔤 猜词 Wordle</a>
+          <a class="btn btn-secondary" href="#/game/picture">🍎 看图猜词</a>
+          <a class="btn btn-secondary" href="#/game/builder">🧩 句子拼装</a>
+        </div>
+        <a class="btn btn-secondary" href="#/game/tower">⚔️ 塔防打字 · 边玩边练打字</a>
 
         <div class="section-label">📊 记录</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">

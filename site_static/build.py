@@ -196,6 +196,12 @@ INDEX_HTML = """<!DOCTYPE html>
 <div id="toast" class="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/data.js"></script>
+<script src="assets/games/_shared.js"></script>
+<script src="assets/games/memory.js"></script>
+<script src="assets/games/wordle.js"></script>
+<script src="assets/games/picture.js"></script>
+<script src="assets/games/builder.js"></script>
+<script src="assets/games/tower.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>
@@ -223,11 +229,20 @@ def write_netlify_config():
 # ── 复制 CSS/JS 资源（下面会写）───────────────────────────
 def copy_assets():
     ASSETS.mkdir(parents=True, exist_ok=True)
+    # main entry assets
     for f in ("style.css", "app.js"):
         src = HERE / f
         if src.exists():
             shutil.copy(src, ASSETS / f)
             print(f"  ✓ {f}")
+    # game modules: copy each .js under games/ to assets/games/
+    games_src = HERE / "games"
+    if games_src.is_dir():
+        games_dst = ASSETS / "games"
+        games_dst.mkdir(parents=True, exist_ok=True)
+        for g in sorted(games_src.glob("*.js")):
+            shutil.copy(g, games_dst / g.name)
+            print(f"  ✓ games/{g.name}")
 
 # ── main ─────────────────────────────────────────────────
 if __name__ == "__main__":

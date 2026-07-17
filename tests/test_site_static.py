@@ -371,3 +371,57 @@ def test_required_checkin_types_are_locked():
     assert "type=\"checkbox\"" in block
     assert "isRequired ? 'disabled'" in block or "'disabled'" in block
     assert "e.preventDefault()" in block
+
+
+# ─── games 模块 ──────────────────────────────────
+def test_games_directory_has_five_modules_and_shared():
+    games_dir = ROOT / 'site_static' / 'games'
+    files = sorted(p.name for p in games_dir.glob('*.js'))
+    assert '_shared.js' in files, "缺少 _shared.js"
+    for name in ('memory.js', 'wordle.js', 'picture.js', 'builder.js', 'tower.js'):
+        assert name in files, f"缺少 {name}"
+
+def test_each_game_exposes_render_function():
+    games_dir = ROOT / 'site_static' / 'games'
+    expected = {
+        'memory.js': 'window.renderMemoryMatch',
+        'wordle.js': 'window.renderWordle',
+        'picture.js': 'window.renderPictureMatch',
+        'builder.js': 'window.renderSentenceBuilder',
+        'tower.js': 'window.renderTowerDefense',
+    }
+    for fname, needle in expected.items():
+        src = (games_dir / fname).read_text(encoding='utf-8')
+        assert needle in src, f"{fname} 缺少 {needle}"
+        assert 'function render' in src, f"{fname} 缺少 render 函数"
+
+def test_shared_exposes_helpers():
+    src = (ROOT / 'site_static' / 'games' / '_shared.js').read_text(encoding='utf-8')
+    for helper in ('pickGameWords', 'WORD_EMOJI', 'gameShell', 'saveGameResult',
+                   'getGameStats', 'buildDistractors', 'showGameFinish'):
+        assert helper in src, f"_shared.js 缺少 {helper}"
+
+def test_build_copies_games_to_dist():
+    """build.py 必须把 games/ 目录整个拷到 dist/assets/games/"""
+    dist_games = ROOT / 'site_static' / 'dist' / 'assets' / 'games'
+    files = sorted(p.name for p in dist_games.glob('*.js'))
+    assert len(files) >= 6, f"dist/assets/games/ 应有 6 个文件, 实际 {files}"
+    assert '_shared.js' in files
+
+def test_index_html_includes_all_game_scripts():
+    html = (ROOT / 'site_static' / 'build.py').read_text(encoding='utf-8')
+    for name in ('_shared.js', 'memory.js', 'wordle.js', 'picture.js',
+                 'builder.js', 'tower.js'):
+        assert f'games/{name}' in html, f"build.py INDEX_HTML 缺少 games/{name}"
+
+def test_app_routes_cover_all_games():
+    src = APP_JS_SRC
+    for route in ('game/memory', 'game/wordle', 'game/picture',
+                  'game/builder', 'game/tower'):
+        assert f"'{route}':" in src, f"路由表缺少 {route}"
+
+def test_home_includes_games_section():
+    block = _function_block('renderHome')
+    assert 'section-label">🎮 游戏' in block
+    for g in ('memory', 'wordle', 'picture', 'builder', 'tower'):
+        assert f'#/game/{g}' in block, f"首页游戏区缺少 game/{g} 入口"
