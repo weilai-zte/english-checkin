@@ -995,43 +995,62 @@ document.addEventListener('input', function(e) {
     app.querySelector('#submit-grammar').onclick = () => {
       const inputs = app.querySelectorAll('.grammar-input');
       let correct = 0;
+      const wrongIdxs = [];
       const results = [];
       g.exercises.forEach((ex, i) => {
         const user = (inputs[i].value || '').trim().toLowerCase();
         const ans = ex.answer.trim().toLowerCase();
         const ok = user === ans;
-        if (ok) correct++;
+        if (ok) correct++; else wrongIdxs.push(i);
         results.push({ ok, user: inputs[i].value || '(空)', ans: ex.answer });
         const resDiv = app.querySelector(`[data-result="${i}"]`);
         const hint = app.querySelectorAll('.grammar-hint')[i + 1] || null;
         resDiv.className = 'grammar-result ' + (ok ? 'correct' : 'wrong');
         resDiv.style.display = 'block';
         resDiv.innerHTML = ok
-          ? `✅ 正确！${ok ? '答得好！' : ''}`
-          : `❌ 你答的: <strong>${escapeHtml(results[i].user)}</strong>　正确答案: <strong>${escapeHtml(ex.answer)}</strong>`;
+          ? `✅ 正确！答得好！`
+          : `❌ 你答的: <strong>${escapeHtml(results[i].user)}</strong>　正确答案: <strong>${escapeHtml(ex.answer)}</strong> · <a href="#" class="grammar-skip" data-i="${i}">跳过这题 →</a>`;
         if (!ok && hint) hint.style.display = 'block';
-        inputs[i].disabled = true;
+        // 不再 disabled 输入框, 用户可改答案再重新提交
+      });
+      // 绑定 "跳过这题" 链接: 聚焦下一题输入框
+      Array.prototype.forEach.call(app.querySelectorAll('.grammar-skip'), function (a) {
+        a.onclick = function (e) {
+          e.preventDefault();
+          var next = parseInt(a.dataset.i, 10) + 1;
+          var nextInp = app.querySelector('.grammar-input[data-i="' + next + '"]');
+          if (nextInp) { nextInp.focus(); nextInp.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+          else { app.querySelector('#submit-grammar').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        };
       });
       window._grammarResults = results;
-      const score = `${correct}/${total}`;
-      toast(`完成！${score} 正确`, 3000);
-      app.querySelector('#submit-grammar').style.display = 'none';
-      // 在打卡流程：appendCheckinNextStep 会渲染"下一项/完成打卡"卡；否则保留通用复习完成卡
+      const total2 = g.exercises.length;
+      const score = `${correct}/${total2}`;
+      const submitBtn = app.querySelector('#submit-grammar');
+      submitBtn.textContent = wrongIdxs.length ? `🔄 重新检查 (${wrongIdxs.length} 题待改)` : `✅ 全部正确 (${score}) · 可继续打卡`;
+
+      // 不管对错都渲染"下一项"卡, 答错也能继续打卡流程
+      // 移除可能存在的旧 next 节点, 保证只有一份
+      const oldNext = app.querySelector('.grammar-next-card');
+      if (oldNext) oldNext.remove();
+      const nextCard = document.createElement('div');
+      nextCard.className = 'card grammar-next-card';
+      nextCard.style.textAlign = 'center';
+      nextCard.style.background = 'linear-gradient(135deg, #eef2ff, #dbe5ff)';
+      nextCard.innerHTML = `<div style="font-size:14px;color:var(--text-2);">本次结果: <b>${score}</b>${wrongIdxs.length ? ` · 还有 ${wrongIdxs.length} 题待改` : ' · 全对 🎉'}</div>`;
+      app.querySelector('.container').appendChild(nextCard);
       if (!appendCheckinNextStep(app, 'grammar')) {
-        const finishDiv = document.createElement('div');
-        finishDiv.className = 'card';
-        finishDiv.style.textAlign = 'center';
-        finishDiv.innerHTML = `
-          <div style="font-size:36px;margin-bottom:8px;">${correct >= 2 ? '🎉' : '💪'}</div>
-          <div style="font-size:18px;font-weight:bold;color:var(--accent);">${score} 正确</div>
-          <div style="color:var(--text-2);margin:8px 0;">通用复习 · 每日打卡请到首页点击开始</div>
-          <div class="btn-row">
-            <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习</a>
-            <a class="btn btn-primary" href="#/checkin-config">🚀 开始今日打卡</a>
-          </div>
-        `;
-        app.querySelector('.container').appendChild(finishDiv);
+        const back = document.createElement('div');
+        back.style.textAlign = 'center';
+        back.style.marginTop = '12px';
+        back.innerHTML = '<a class="btn btn-primary" href="#/home">返回首页</a>';
+        nextCard.appendChild(back);
       }
+      // 滚动到下一项卡片, 让用户立即看到
+      setTimeout(function () {
+        const last = app.querySelector('.container').lastElementChild;
+        if (last) last.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
     };
   }
 
