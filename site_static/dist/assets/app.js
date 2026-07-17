@@ -681,7 +681,7 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary" href="#/translate-en">🔤 英译中</a>
         </div>
 
-        <div class="section-label">📊 学习记录</div>
+        <div class="section-label">📊 记录</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <a class="btn btn-secondary" href="#/errors">📒 错题本</a>
           <a class="btn btn-secondary" href="#/stats">📊 学习统计</a>
