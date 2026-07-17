@@ -9,7 +9,7 @@
 
 > **公网访问**: <https://weilai-zte.github.io/english-checkin>
 > **项目位置**: `~/Projects/english-checkin/`
-> **当前版本**: v0.12 (2026-06-13)
+> **当前版本**: v0.13 (2026-07-17)
 
 ---
 
@@ -22,7 +22,8 @@
 - **319 词 × 23 话题**（vocab.json）+ **2016+ 词三级词库**（junior_vocab_3levels.json）
 - **18 语法组**（时态/介词/翻译/填空）
 - **三级难度**：🌱 简单 / 🌿 中等 / 🔥 困难
-- **14 个练习页面**：home/learn/vocab/quiz/translate/translate-en/tense/preposition/errors/stats/knowledge/...
+- **每日打卡题型选择（v0.13+）**：checkin-config 页 7 题型可勾选（vocab/grammar 必选）
+- **21 个 SPA 路由**：home/learn/checkin-config/vocab/grammar/quiz/translate/translate-en/tense/preposition/flashcard/dictation/errors/stats/progress/knowledge/achievements/vocab-import/vocab-list/review
 - **错题本 + 统计**：自动记录，连续答对 3 次自动移除
 - **知识课程**：5 个 tab（介词/名词/冠词代词/从句/标志词）
 - **TTS 发音**：浏览器 Web Speech API（跨平台）
@@ -91,19 +92,22 @@ FEISHU_WEBHOOK="https://open.feishu.cn/open-apis/bot/v2/hook/af19b44a-58c6-42e9-
 ### 4.5 跑测试
 ```bash
 cd ~/Projects/english-checkin
-python3 -m pytest tests/test_bugs.py -v   # 12 单元测试
+python3 -m pytest tests/test_bugs.py -v                     # 12 单元测试
+python3 -m pytest tests/test_site_static.py -v             # 45 site_static 测试
+python3 -m pytest tests/ --ignore=tests/e2e -q             # 全量非 E2E (268 passed)
 ```
 
 ## §5 双部署轨道
 
-| | Flask 本地版 | GitHub Pages 静态版 |
+| | Flask 本地版 | site_static SPA（**当前生产**）|
 |---|---|---|
 | 访问 | `http://127.0.0.1:5200` | `https://weilai-zte.github.io/english-checkin` |
-| 用途 | 开发 / 调试 | **公网生产环境** |
-| 进度 | 服务端 `data/progress.json` | 浏览器 `localStorage` (`ck_progress_v1`) |
+| 用途 | 开发 / 调试 | **孩子日常使用** |
+| 进度 | 服务端 `data/progress.json` | 浏览器 `localStorage` (`ck_progress_v1`) + Supabase 跨设备同步 |
 | TTS | macOS `say` | 浏览器 Web Speech API |
-| 路由 | 19 Flask routes | 客户端 hash 路由 |
-| 部署源 | `~/Projects/english-checkin/app.py` | `~/Projects/english-checkin/site_static/dist/` |
+| 路由 | 19 Flask routes | 21 客户端 hash routes（v0.13+ 加 `#/checkin-config`） |
+| 部署源 | `~/Projects/english-checkin/app.py` | `~/Projects/english-checkin/site_static/dist/` → GitHub Pages |
+| 打卡链路 | `learn` 链 (vocab+grammar) → `submitCheckin` | `home → checkin-config → queue[0..N] → finishMixedCheckin` |
 
 ## §6 定时任务 (Hermes Cron)
 

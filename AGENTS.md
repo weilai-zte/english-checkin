@@ -174,3 +174,92 @@ Four push scripts, each needs `FEISHU_WEBHOOK` env var:
 2. **简洁优先** — 坚持最小可行实现，不做不必要的抽象
 3. **精准修改** — 只动必须改的地方，不顺手重构无关代码
 4. **目标驱动执行** — 给验收标准而非具体步骤，让 AI 自行循环验证
+
+---
+
+## Site Static (GitHub Pages 生产环境 — 当前实际使用)
+
+> 孩子日常使用的生产版本。Flask 本地版只用于开发调试。
+
+### 部署链路
+`site_static/app.js + style.css` (源) → `python3 site_static/build.py` (生成 dist/assets/data.js) → `git push main` → GitHub Actions CI → GitHub Pages 自动部署。**不要手动编辑 `site_static/dist/`**，改源文件后跑 build.py，再 `git restore -- site_static/dist/assets/data.js`（data.js 每次 build 都会因 Python dict 顺序差异变化 1 行，必须排除）。
+
+### Build 同步流程
+```bash
+python3 site_static/build.py
+git restore -- site_static/dist/assets/data.js   # 必须：排除 data.js
+pytest tests/ --ignore=tests/e2e -q             # 268+ passed
+node --check site_static/app.js                 # JS 语法
+git add site_static/dist/assets/app.js site_static/dist/assets/style.css
+git commit -m "build: 同步 dist 资产"
+git push origin main                            # 触发 GitHub Pages 自动部署
+```
+
+### 架构
+- 单文件 SPA（`app.js` 2800+ 行）+ hash 路由 + 浏览器 Web Speech API TTS
+- 进度存 `localStorage['ck_progress_v1']`，跨设备走 Supabase (`progress` 表 / user_key)
+- 7 个 SPA 路由：home / learn / vocab / grammar / flashcard / tense / preposition / translate / translate-en / quiz / errors / stats / progress / knowledge / review / achievements / vocab-import / dictation / vocab-list / **checkin-config** (21 active)
+
+### 每日打卡链路（v0.13+）
+`home (#/home)` → CTA → `checkin-config (#/checkin-config)` → 用户勾选题型 → 进入 queue[0] → 各题型 onSubmit 末尾调 `appendCheckinNextStep(app, type)` → 按 plan 推进或 `finishMixedCheckin(types)` 写一条 checkin（含 `types` 数组）。
+
+#### 7 种题型（CHECKIN_TYPES 常量，`app.js` 行 ~30）
+| key | label | icon | route | required |
+|-----|-------|------|-------|----------|
+| `vocab` | 词汇复习 | 🃏 | `vocab` | ✅ 必选（按难度选 L1/L2/L3 核心词） |
+| `grammar` | 语法填空 | 📝 | `grammar` | ✅ 必选（按权重选 grammar 组） |
+| `quiz` | 选择题 | 🎯 | `quiz` | |
+| `tense` | 时态 | ⏰ | `tense` | |
+| `preposition` | 介词 | 🔗 | `preposition` | |
+| `translate` | 中译英 | 🔤 | `translate` | |
+| `dictation` | 听写 | ✍️ | `dictation` | |
+
+`required: true` 的题型 disabled 复选框 + `.locked` 类 + `e.preventDefault()` 阻止 toggle。
+
+#### Progress schema 新字段（v0.13+）
+- `checkin_types`: Array<key> — 用户上次勾选的可选题型（下次进 checkin-config 默认带入）
+- `daily_checkin_plan`: `{date, queue, completed}` — 当日打卡队列，finishMixedCheckin 时清空
+- `checkins[i].types`: Array<key> — 打卡记录新增字段（兼容旧记录无此字段）
+
+### 关键 helper 函数（`app.js`）
+- `generateDailyTask()` 行 ~330 — vocab 闪卡 + grammar 选题，按 difficulty + master 状态
+- `submitCheckin(task, correctCount)` 行 ~440 — 原 learn 链调，2/3 正确算 passed（**learn 链现已不再调用此函数**，改为通用复习入口）
+- `advanceCheckinPlan(type)` — 返回下一项 type key 或 `'finish'`，不在 plan 返回 `null`
+- `appendCheckinNextStep(app, type)` — 5 种题型 onSubmit 末尾统一调用，按 plan 推进或显示"完成打卡"卡
+- `finishMixedCheckin(types)` — 全部完成后写入 checkin + 清空 plan + 更新 streak
+- `mask_sentence()` 在 `app.js` 不存在，对应逻辑在 `renderTranslate` 内部用 `inputWidth()` + `cleanAnswer()` 处理
+
+### site_static 测试
+- `tests/test_site_static.py` — 42+ 测试用例覆盖 routes/常量/CSS/调用点
+- 加新功能流程：写测试 → 实现 → 跑 `pytest tests/test_site_static.py -v` → build + 同步 + commit
+
+### 已知坑
+- `data.js` 每次 build 后会被 Python dict 顺序差异改动 1 行 → 必须 `git restore -- site_static/dist/assets/data.js` 排除
+- GitHub Pages 部署有 60–90s 延迟
+- 之前 UI 颜色事故根因：浅色模式硬编码 + 深色模式覆盖不完整。新功能必须用主题 token（`--text-1/2`、`--bg-card/tag`、`--success/danger/accent`），避免再翻车
+- 改 `app.js` 时同步改 `site_static/dist/assets/app.js`（build.py 会复制，但 dist/ 也要 commit 才能上线）
+- `progress.daily_checkin_plan` 字段已存在则视为打卡中；当日 date 不匹配视为过期，应在 checkin-config 进入时清理
+
+### Flask 与 site_static 的对应关系
+| Flask 本地版 | site_static 静态版 |
+|--------------|---------------------|
+| `GET /` | `renderHome` / `#/home` |
+| `GET /learn` | `renderLearn` / `#/learn`（已退化为通用复习入口） |
+| `GET /vocab/<idx>` | `renderVocab` / `#/vocab` |
+| `GET /grammar` | `renderGrammar` / `#/grammar` |
+| `GET /quiz` | `renderQuiz` / `#/quiz` |
+| `GET /tense` | `renderTense` / `#/tense` |
+| `GET /preposition` | `renderPreposition` / `#/preposition` |
+| `GET /translate` | `renderTranslate` / `#/translate` |
+| `GET /translate-en` | `renderTranslateEn` / `#/translate-en` |
+| `GET /flashcard` | `renderFlashcard` / `#/flashcard` |
+| `GET /dictation` | `renderDictation` / `#/dictation` |
+| `GET /errors` | `renderErrors` / `#/errors` |
+| `GET /stats` | `renderStats` / `#/stats` |
+| `GET /progress` | `renderProgress` / `#/progress` |
+| `GET /knowledge` | `renderKnowledge` / `#/knowledge` |
+| `GET /achievements` | `renderAchievements` / `#/achievements` |
+| `GET /vocab/import` | `renderVocabImport` / `#/vocab-import` |
+| `GET /vocab/list` | `renderVocabList` / `#/vocab-list` |
+| `GET /review` | `renderReview` / `#/review` |
+| — | `renderCheckinConfig` / `#/checkin-config`（**新增**） |

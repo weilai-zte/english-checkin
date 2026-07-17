@@ -2,13 +2,15 @@
   "doc_id": "spec",
   "doc_kind": "spec",
   "goal": {
-    "statement": "english-checkin 实现 spec：6 模块边界 + 14 Flask routes + 7 数据 schema + 1 build 接口 + 3 状态机 + 错误码规约 + 性能预算 + 题库覆盖约束",
+    "statement": "english-checkin 实现 spec：双部署轨道 (Flask 本地 + site_static SPA) + Flask routes + site_static SPA routes + 7 数据 schema + build 接口 + 4 状态机 + 错误码规约 + 性能预算 + 题库覆盖约束",
     "why": "代码实现必须严格按本文对齐。AI 改 app.py 路由签名 / build.py 接口 / 数据 schema 前必须先改本文 + 跑 tests/test_bugs.py",
     "success_criteria": [
       "改任何 Flask 路由前，先改 spec.json routes[] 节",
       "改任何 data/*.json schema 前，先改 spec.json schema[] 节",
       "改任何 build.py 接口前，先改 spec.json build_interface 节",
-      "5 原则 doc-as-data：本文 json 是真理源，md 是渲染"
+      "5 原则 doc-as-data：本文 json 是真理源，md 是渲染",
+      "改 site_static 任何 SPA route 前，先改 spec.json routes[] 节中 site_static 部分",
+      "改 progress_v1 schema 任何字段前，先改 spec.json schema[] 节中 progress_v1"
     ]
   },
   "inputs": [
@@ -176,6 +178,36 @@
           "msg_type='interactive' + indigo header + '错题本'/'学习概览' 按钮"
         ],
         "raises": []
+      },
+      {
+        "name": "advance_checkin_plan",
+        "module": "site_static/app.js",
+        "signature": "function advanceCheckinPlan(type: str): str | null",
+        "description": "标记 plan.completed += [type]，返回 plan.queue 中下一项 type key 或 'finish'；plan 不存在/不含 type 返回 null",
+        "invariants": [
+          "plan.date !== today() 视为过期返回 null"
+        ]
+      },
+      {
+        "name": "append_checkin_next_step",
+        "module": "site_static/app.js",
+        "signature": "function appendCheckinNextStep(app: HTMLElement, type: str): bool",
+        "description": "5 种题型 onSubmit 末尾调用；返回 true 表示在 plan 中（已渲染下一项/完成卡），false 表示不在 plan（caller 可走通用复习完成卡）",
+        "invariants": [
+          "若 next === 'finish' 渲染'完成打卡 ✓'按钮，点击触发 finishMixedCheckin",
+          "若 next 是 type key 渲染'下一项: [icon] [label]'按钮，点击 navigate(next.route)"
+        ]
+      },
+      {
+        "name": "finish_mixed_checkin",
+        "module": "site_static/app.js",
+        "signature": "function finishMixedCheckin(types: str[]): void",
+        "description": "全部题型完成后调用，写一条 checkins entry（含 types 数组）+ 更新 streak + 清空 daily_checkin_plan",
+        "invariants": [
+          "已打卡 (checkedInToday()) 时直接 return，避免重复打卡",
+          "types.slice() 入库防引用泄漏",
+          "grammar_id = 'mixed' 标记为组合打卡"
+        ]
       }
     ],
     "routes": [
@@ -311,6 +343,126 @@
         "handler": "vocab_check_endpoint()",
         "session_required": true,
         "returns": "JSON {results}"
+      },
+      {
+        "path": "#/home",
+        "framework": "site_static SPA",
+        "handler": "renderHome",
+        "returns": "首页 + 难度选择 + CTA → checkin-config"
+      },
+      {
+        "path": "#/checkin-config",
+        "framework": "site_static SPA",
+        "handler": "renderCheckinConfig",
+        "returns": "每日打卡题型勾选（vocab/grammar 必选，其余可选）"
+      },
+      {
+        "path": "#/learn",
+        "framework": "site_static SPA",
+        "handler": "renderLearn",
+        "returns": "通用复习入口（vocab 闪卡 + grammar 填空，已不调 submitCheckin）"
+      },
+      {
+        "path": "#/vocab",
+        "framework": "site_static SPA",
+        "handler": "renderVocab",
+        "returns": "词汇闪卡；最后一词后按 plan 推进"
+      },
+      {
+        "path": "#/grammar",
+        "framework": "site_static SPA",
+        "handler": "renderGrammar",
+        "returns": "语法填空；onSubmit 末尾调 appendCheckinNextStep('grammar')"
+      },
+      {
+        "path": "#/quiz",
+        "framework": "site_static SPA",
+        "handler": "renderQuiz",
+        "returns": "选择题（不直接记打卡）"
+      },
+      {
+        "path": "#/tense",
+        "framework": "site_static SPA",
+        "handler": "renderTense",
+        "returns": "时态选择题"
+      },
+      {
+        "path": "#/preposition",
+        "framework": "site_static SPA",
+        "handler": "renderPreposition",
+        "returns": "介词选择题"
+      },
+      {
+        "path": "#/translate",
+        "framework": "site_static SPA",
+        "handler": "renderTranslate",
+        "returns": "中译英填空"
+      },
+      {
+        "path": "#/translate-en",
+        "framework": "site_static SPA",
+        "handler": "renderTranslateEn",
+        "returns": "英译中填空"
+      },
+      {
+        "path": "#/flashcard",
+        "framework": "site_static SPA",
+        "handler": "renderFlashcard",
+        "returns": "闪卡复习 (FSRS 评分)"
+      },
+      {
+        "path": "#/dictation",
+        "framework": "site_static SPA",
+        "handler": "renderDictation",
+        "returns": "听写模式（10 个词）"
+      },
+      {
+        "path": "#/errors",
+        "framework": "site_static SPA",
+        "handler": "renderErrors",
+        "returns": "错题本"
+      },
+      {
+        "path": "#/stats",
+        "framework": "site_static SPA",
+        "handler": "renderStats",
+        "returns": "学习统计"
+      },
+      {
+        "path": "#/progress",
+        "framework": "site_static SPA",
+        "handler": "renderProgress",
+        "returns": "进度概览 + 最近 10 次打卡（按 types 显示）"
+      },
+      {
+        "path": "#/knowledge",
+        "framework": "site_static SPA",
+        "handler": "renderKnowledge",
+        "returns": "知识课程 5 tabs"
+      },
+      {
+        "path": "#/achievements",
+        "framework": "site_static SPA",
+        "handler": "renderAchievements",
+        "returns": "成就系统 10 badges"
+      },
+      {
+        "path": "#/vocab-import",
+        "framework": "site_static SPA",
+        "handler": "renderVocabImport",
+        "returns": "导入自定义词表"
+      },
+      {
+        "path": "#/vocab-list",
+        "framework": "site_static SPA",
+        "handler": "renderVocabList",
+        "returns": "全部词汇"
+      },
+      {
+        "path": "#/review",
+        "framework": "site_static SPA",
+        "handler": "renderReview",
+        "returns": "上次打卡回顾"
       }
     ],
     "schema": {
@@ -431,6 +583,35 @@
         "invariants": [
           "json.dumps with ensure_ascii=False (中文不转义)"
         ]
+      },
+      "progress_v1": {
+        "type": "object",
+        "description": "site_static localStorage['ck_progress_v1'] schema (浏览器端用户进度)",
+        "fields": {
+          "checkins": "list[{date, vocab, grammar_id, grammar_title, score, types?}]  types 字段为 v0.13+ 新增",
+          "vocab_mastered": "list[str]",
+          "grammar_mastered": "list[str]",
+          "streak": "int",
+          "total_days": "int",
+          "last_checkin": "date str (YYYY-MM-DD) | null",
+          "word_stats": "{word: {total, correct, wrong, first_seen?}}",
+          "wrong_words": "list[{word, cn, pron, user, date, attempts}]",
+          "wrong_grammar": "list[{type, question, answer, user, hint, date}]",
+          "flashcard_history": "list[{word, rating, date}]",
+          "custom_vocab": "list[vocab_item]",
+          "card_states": "{word: FSRS_state}",
+          "chat_history": "list",
+          "achievements_unlocked": "list[str]",
+          "learning_plan_done": "list",
+          "checkin_types": "list[str] (v0.13+ 题型勾选持久化)",
+          "daily_checkin_plan": "{date, queue, completed} | undefined (v0.13+ 当日打卡队列，finishMixedCheckin 时清空)"
+        },
+        "invariants": [
+          "wrong_words + flashcard_history 自动截断 200 条",
+          "checkin_types 默认 = CHECKIN_TYPES 全部 key（含 vocab/grammar 必选）",
+          "daily_checkin_plan.date !== today() 视为过期，UI 应自动清理或忽略",
+          "旧 checkins 记录无 types 字段时 UI 回退到 grammar_title 显示"
+        ]
       }
     },
     "state_machines": [
@@ -531,6 +712,42 @@
             "to": "done",
             "trigger": "curl 主页 200 + assets/data.js 内容正确"
           }
+        ]
+      },
+      {
+        "name": "checkin_flow",
+        "description": "每日打卡题型勾选 + 队列推进流程 (v0.13+)",
+        "states": [
+          "idle (未开始)",
+          "config (checkin-config 页面，勾选题型)",
+          "in_progress (queue 中)",
+          "finished (finishMixedCheckin 已触发)"
+        ],
+        "transitions": [
+          {
+            "from": "idle",
+            "to": "config",
+            "trigger": "home CTA → #/checkin-config"
+          },
+          {
+            "from": "config",
+            "to": "in_progress",
+            "trigger": "点'开始今日打卡'，写 daily_checkin_plan，跳转 queue[0].route"
+          },
+          {
+            "from": "in_progress",
+            "to": "in_progress",
+            "trigger": "题型 onSubmit 末尾 appendCheckinNextStep，advanceCheckinPlan 返回下一项"
+          },
+          {
+            "from": "in_progress",
+            "to": "finished",
+            "trigger": "advanceCheckinPlan 返回 'finish'，触发 finishMixedCheckin"
+          }
+        ],
+        "invariants": [
+          "checkedInToday() 时直接显示'今日已完成'卡，禁用 CTA",
+          "vocab/grammar 必选，UI 禁用复选框 + preventDefault"
         ]
       }
     ]

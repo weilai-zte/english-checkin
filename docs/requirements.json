@@ -2,7 +2,7 @@
   "doc_id": "requirements",
   "doc_kind": "requirements",
   "goal": {
-    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 31 编号需求 (F-020 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
+    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 33 编号需求 (F-021 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
     "why": "代码改完必须先改本文（用户驱动原则）。AI 改 send_daily.py / app.py / build.py 前必须先确认本文当前有效需求",
     "success_criteria": [
       "新增需求必须先在本文 §3 加编号 + §5 加 UC，再写代码",
@@ -26,7 +26,7 @@
   "outputs": [
     {
       "name": "functional_requirements",
-      "destination": "本文 §3 (F-001~F-020, 20 条)",
+      "destination": "本文 §3 (F-001~F-021, 21 条)",
       "type": "json"
     },
     {
@@ -126,7 +126,7 @@
     "changelog"
   ],
   "version": "v0.16",
-  "last_validated": "2026-07-16",
+  "last_validated": "2026-07-17",
   "evolution": [
     {
       "date": "2026-07-16",
@@ -306,6 +306,12 @@
         "priority": "P1",
         "statement": "扩展题目必须保存在 data/question_bank_expansion.json，scripts/expand_question_bank.py 只负责校验、去重并合并到 content.json，不得硬编码题目列表",
         "verification": "python3 -m pytest tests/test_content_bank.py -q"
+      },
+      {
+        "id": "F-021",
+        "priority": "P0",
+        "statement": "每日打卡题型选择页 #/checkin-config：用户可勾选本次想做的题型（vocab/grammar 必选，其余 5 项可选），按勾选顺序依次进入各题型，全部完成后记一次打卡",
+        "verification": "pytest tests/test_site_static.py -v (10 个新增用例覆盖)"
       }
     ],
     "§4_non_functional_requirements": [

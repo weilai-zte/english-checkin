@@ -2,7 +2,7 @@
   "doc_id": "changelog",
   "doc_kind": "changelog",
   "goal": {
-    "statement": "english-checkin 全量变更日志：v0.1~v0.12 每条 release 的 added/fixed/changed/verified",
+    "statement": "english-checkin 全量变更日志：v0.1~v0.13 每条 release 的 added/fixed/changed/verified",
     "why": "AI / 用户追溯'什么版本加了 X / 修了 Y / 何时重构'的真理源",
     "success_criteria": [
       "每个 release 1 条 entry",
@@ -67,9 +67,57 @@
     "design"
   ],
   "downstream": [],
-  "version": "v0.12",
-  "last_validated": "2026-06-13",
+  "version": "v0.13",
+  "last_validated": "2026-07-17",
   "evolution": [
+    {
+      "date": "2026-07-17",
+      "version": "v0.13-checkin-picker",
+      "action": "add",
+      "what": "每日打卡题型选择页 #/checkin-config：7 种题型（vocab/grammar 必选，5 项可选），按勾选顺序依次进入各题型，完成后记一次打卡",
+      "why": "用户原话「每日打卡可以让用户选择打卡的题型」；原 learn 链固定流程无法满足",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.13-checkin-picker",
+      "action": "add",
+      "what": "CHECKIN_TYPES 常量 + advanceCheckinPlan / appendCheckinNextStep / finishMixedCheckin 三个 helper",
+      "why": "题型推进逻辑集中收口，避免在 5 个题型 onSubmit 里重复实现",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.13-checkin-picker",
+      "action": "add",
+      "what": "progress_v1 新字段 checkin_types / daily_checkin_plan / checkins[i].types",
+      "why": "题型勾选 + 队列 + 打卡类型字段持久化，跨刷新/跨设备保留",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.13-checkin-picker",
+      "action": "change",
+      "what": "renderGrammar 不再调 submitCheckin，learn 链退化为通用复习入口；renderQuiz 不再直接 push checkins",
+      "why": "打卡只走 checkin-config 一条路径，避免直接进 #/quiz 时也记打卡",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.13-checkin-picker",
+      "action": "fix",
+      "what": "vocab/grammar 复选框 disabled + .locked 类 + preventDefault，标记必选",
+      "why": "vocab/grammar 是按难度调整的核心学习内容，不允许取消",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.13-checkin-picker",
+      "action": "verified",
+      "what": "tests/test_site_static.py 268 passed (10 个新增用例)；CI 5 检查全过；GitHub Pages 部署 12s",
+      "why": "上线前必须验证",
+      "by": "玄奘"
+    },
     {
       "date": "2026-06-13",
       "version": "v0.12-doc",
@@ -200,6 +248,43 @@
     }
   ],
   "release_summaries": [
+    {
+      "version": "v0.13.0",
+      "date": "2026-07-17",
+      "tag_sha": "6459ef8",
+      "git_tag": null,
+      "summary": "每日打卡题型选择页 (checkin-config) + 7 题型 CHECKIN_TYPES",
+      "highlights": [
+        "checkin-config 页：7 种题型勾选（vocab/grammar 必选 + 5 项可选）",
+        "appendCheckinNextStep 统一推进 5 题型 onSubmit 末尾",
+        "finishMixedCheckin 全部完成时写入 checkin + 清空 plan",
+        "progress_v1 新字段 checkin_types / daily_checkin_plan / checkins[i].types",
+        "learn 链退化为通用复习入口（不再调 submitCheckin）",
+        "renderQuiz 不再直接 push checkins",
+        "AGENTS.md / docs/spec.json + spec.md / docs/codemap/site_static_walkthrough.md 全部更新"
+      ],
+      "sync_changes": [
+        "AGENTS.md: 新增 Site Static 章节（部署链路 / 7 题型 / helper 函数）",
+        "docs/spec.json: routes 增 20 个 SPA 路由，interfaces 增 3 个 helper，state_machines 增 checkin_flow，schema 增 progress_v1",
+        "docs/spec.md: §3 增 SPA routes 表，§4 增 progress_v1 / content.json / chat_cfg_v1 schema，§5 增 advance/append/finish/generate/render 接口，§6 增 checkin_flow 状态机，§9 演进记录增 v0.13",
+        "docs/codemap/site_static_walkthrough.md: 行数 + 模块 Y（11 子节）",
+        "changelog.json: evolution + release_summaries 增 v0.13 条目"
+      ],
+      "verification": [
+        "✅ pytest tests/ --ignore=tests/e2e 268 passed",
+        "✅ node --check site_static/app.js",
+        "✅ GitHub Actions CI 5/5 passed",
+        "✅ GitHub Pages 部署 12s",
+        "✅ 截图确认 checkin-config 渲染（7 题型默认全选，必选 disabled）"
+      ],
+      "breaking_changes": null,
+      "commits": [
+        "147604e",
+        "4e1f289",
+        "84e2d99",
+        "6459ef8"
+      ]
+    },
     {
       "version": "v0.12.0",
       "date": "2026-06-13",

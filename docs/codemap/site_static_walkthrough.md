@@ -1,12 +1,12 @@
 # site_static/ 走查 Codemap (GitHub Pages 静态版)
 
-> Generated: 2026-07-15 (initial) / re-audited 2026-07-15
-> Source: `site_static/app.js` (2117 行) + `style.css` (443 行) + `build.py` (155 行)
-> 输出: `site_static/dist/` (Netlify 部署用)
-> 配套测试: `tests/test_site_static.py` (19 cases, 全部通过)
+> Generated: 2026-07-15 (initial) / re-audited 2026-07-15 / **2026-07-17 加 v0.13 题型选择页**
+> Source: `site_static/app.js` (~2900 行) + `style.css` (~960 行) + `build.py` (244 行)
+> 输出: `site_static/dist/` (GitHub Pages 部署用)
+> 配套测试: `tests/test_site_static.py` (45 cases, 全部通过)
 > 配套知识: `docs/knowledge/site_static_insights.md`
 >
-> **re-audit 备注**: 写 codemap 时 app.js 已增长到 2117 行 (新增 heatmap/FSRS/achievements/dictation/chat/vocab-import/daily-word/etym-roots/JSON-export 等)。最下方 §模块 X「扩展功能」补充了所有新模块。
+> **re-audit 备注**: v0.13 (2026-07-17) 新增 checkin-config 题型勾选页 + 7 种题型 CHECKIN_TYPES + advance/append/finish 三个 helper 函数。详见最下方 §模块 Y。
 
 8 字段骨架 (5 doc-as-data principles §13):
 **goal** / **inputs** / **outputs** / **internal_logic** / **constraints** / **failure_modes** / **upstream** / **downstream**
@@ -17,9 +17,9 @@
 
 | 文件 | 行数 | 角色 |
 |------|------|------|
-| `app.js` | 2117 | 客户端 SPA 主逻辑 (state + render + 24 routes + heatmap/FSRS/chat/dictation) |
-| `style.css` | 443 | 共享样式 (卡片/按钮/tab/动画) |
-| `build.py` | 155 | 静态站点生成器 (Flask → dist/) |
+| `app.js` | ~2900 | 客户端 SPA 主逻辑 (state + render + 21 routes + heatmap/FSRS/chat/dictation/checkin-config) |
+| `style.css` | ~960 | 共享样式 (卡片/按钮/tab/动画 + .checkin-type 等) |
+| `build.py` | 244 | 静态站点生成器 (Flask → dist/) |
 | `dist/index.html` | 19 | 入口 HTML (5 行, 加载 supabase-js + data.js + app.js) |
 | `dist/netlify.toml` | 8 | SPA fallback: 任意路径 → index.html (200) |
 | `dist/assets/` | - | data.js (打包的词库) + style.css + app.js |
@@ -27,7 +27,7 @@
 
 **总计**: 5 源文件 / ~2700 行 (含 dist)
 **架构**: 单文件 SPA, hash 路由, localStorage 进度, Supabase 跨设备同步
-**已实现 routes**: home / learn / vocab / grammar / flashcard / tense / preposition / translate / translate-en / quiz / errors / stats / progress / knowledge + review / chat / achievements / vocab-import / dictation (19 active)
+**已实现 routes**: home / learn / vocab / grammar / flashcard / tense / preposition / translate / translate-en / quiz / errors / stats / progress / knowledge + review / chat / achievements / vocab-import / dictation / vocab-list / **checkin-config** (21 active)
 
 ---
 
@@ -443,6 +443,119 @@ build.py (开发期)
 | 视图 | 19 (home/learn/vocab/grammar/flashcard/tense/prep/translate/translate-en/quiz/errors/stats/progress/knowledge/review/chat/achievements/vocab-import/dictation) | 部分复用 (MCQ) |
 | 扩展功能 | 13 (heatmap×2 / export/import×2 / pickDailyWord+renderDailyWordCard+speakBtn / lastCheckin+getCheckin+renderReview / fsRS×2 / achievements×3 / parsePastedVocab+renderVocabImport / findRoot + PREFIX/SUFFIX / renderDictation / CHAT_SYSTEM_PROMPT+get/setChatCfg+callLlmChat+renderChat) | 0 |
 | **总计** | **~68** | **2** (renderMCQ) |
+
+## 模块 Y: 每日打卡题型选择 (v0.13+)
+
+### Y.1 CHECKIN_TYPES 常量 (行 30-43)
+- **goal**: 定义 7 种题型（vocab/grammar 必选，其余 5 项可选）
+- **shape**:
+  ```js
+  const CHECKIN_TYPES = [
+    { key: 'vocab',       label: '词汇复习', icon: '🃏', route: 'vocab',     required: true },
+    { key: 'grammar',     label: '语法填空', icon: '📝', route: 'grammar',   required: true },
+    { key: 'quiz',        label: '选择题',   icon: '🎯', route: 'quiz' },
+    { key: 'tense',       label: '时态',     icon: '⏰', route: 'tense' },
+    { key: 'preposition', label: '介词',     icon: '🔗', route: 'preposition' },
+    { key: 'translate',   label: '中译英',   icon: '🔤', route: 'translate' },
+    { key: 'dictation',   label: '听写',     icon: '✍️', route: 'dictation' },
+  ];
+  ```
+- **invariants**:
+  - `required: true` 题型在 checkin-config UI 中 disabled 复选框 + `.locked` 类
+  - `DEFAULT_CHECKIN_TYPES = CHECKIN_TYPES.map(t => t.key)` 全选时用
+
+### Y.2 `advanceCheckinPlan(type)` (行 ~540)
+- **goal**: 标记 `plan.completed += [type]`，返回 `plan.queue` 中下一项 type key 或 `'finish'`
+- **inputs**: `type: str` 当前完成的题型 key
+- **outputs**: `str` 下一项 key / `'finish'` / `null` (plan 不存在)
+- **invariants**:
+  - `plan.date !== today()` 视为过期返回 null
+  - `plan.queue.indexOf(type) < 0` 返回 null
+
+### Y.3 `appendCheckinNextStep(app, type)` (行 ~575)
+- **goal**: 7 种题型 onSubmit/onclick 末尾统一调用，按 plan 推进或显示「完成打卡」卡
+- **inputs**: `app: HTMLElement, type: str`
+- **outputs**: `bool` true 表示在 plan 中已渲染卡，false 表示不在 plan（caller 走通用复习完成卡）
+- **invariants**:
+  - `next === 'finish'` 渲染「完成打卡 ✓」按钮 → `finishMixedCheckin(plan.queue) + navigate('home')`
+  - `next` 是 type key 渲染「下一项: [icon] [label]」按钮 → `navigate(routeForCheckinType(next))`
+  - 找不到 `.container` 时静默 noop（防御性）
+
+### Y.4 `finishMixedCheckin(types)` (行 ~610)
+- **goal**: 全部题型完成后写一条 checkin（含 types 数组）+ 更新 streak + 清空 plan
+- **inputs**: `types: str[]` 完成的题型 key 数组（顺序按 queue）
+- **outputs**: `void`，直接修改 `progress` + `saveProgress()`
+- **invariants**:
+  - `checkedInToday()` 时直接 return，避免重复打卡
+  - `grammar_id = 'mixed'` 标记为组合打卡
+  - streak 计算同 `submitCheckin`（diff=1 → +1, diff>1 → 重置 1）
+
+### Y.5 `routeForCheckinType(key)` / `checkinTypeLabel(key)` (行 ~50-55)
+- **goal**: type key → 路由 / 显示标签的简单映射
+- **shape**:
+  ```js
+  function routeForCheckinType(key) { return checkinTypeMeta(key).route; }
+  function checkinTypeLabel(key) { return `${meta.icon} ${meta.label}`; }
+  ```
+- **使用方**: renderCheckinConfig / appendCheckinNextStep / renderProgress
+
+### Y.6 `renderCheckinConfig(app)` (行 ~695-770)
+- **goal**: 渲染每日打卡题型勾选页
+- **UI 元素**:
+  - 顶部说明卡：「勾选今日想做的题型（默认全选），完成后会按顺序依次进行。」
+  - 7 个 `.checkin-type` 复选卡片（2 列 grid auto-fill）
+  - 「已选 N / 7」摘要
+  - 「取消 / 🚀 开始今日打卡」按钮
+- **关键逻辑**:
+  - `checkedInToday()` 时显示「今日已完成」卡，禁用 CTA
+  - 必选项 disabled + `e.preventDefault()` 阻止 toggle
+  - 「开始」按钮：
+    1. 写 `progress.daily_checkin_plan = {date: today(), queue: arr, completed: []}`
+    2. 若 queue 含 `vocab`/`grammar` 先 `currentTask = generateDailyTask()`
+    3. `navigate(routeForCheckinType(arr[0]))` 跳到第一题型
+
+### Y.7 `renderVocab` / `renderGrammar` 集成
+- `renderVocab` 最后一词 onclick 不再硬编码 `navigate('grammar')`：
+  ```js
+  const next = advanceCheckinPlan('vocab');
+  if (next === 'finish') { appendCheckinNextStep(app, 'vocab'); return; }
+  if (next) { navigate(routeForCheckinType(next)); return; }
+  navigate('grammar');  // fallback 到原通用复习行为
+  ```
+- `renderGrammar` onSubmit 末尾：`appendCheckinNextStep(app, 'grammar')`（返回 false 时走原 finishDiv "通用复习 · 每日打卡请到首页点击开始"）
+
+### Y.8 其他题型 onSubmit 集成点
+- `renderQuiz` (~L1500)、`renderTense` (~L1125)、`renderPreposition` (~L1145)、`renderTranslate` (~L1355)、`renderDictation` (~L2625) 各自 onSubmit/onclick 末尾都调 `appendCheckinNextStep(app, <type>)`
+- `renderQuiz` 不再直接 push checkins（避免与新打卡机制重复计数）
+
+### Y.9 CSS 样式
+- `.checkin-types` grid `repeat(auto-fill, minmax(150px, 1fr))` 适配 7 项
+- `.checkin-type` 默认白底紫边，hover 紫边
+- `.checkin-type.active` 紫底白字 + 图标反色（filter: brightness(0) invert(1)）
+- `.checkin-type.locked` cursor: default
+- `.checkin-type input[type="checkbox"]:disabled` opacity: 0.7 + cursor: not-allowed
+
+### Y.10 progress_v1 schema 增量
+| 字段 | 类型 | 用途 |
+|------|------|------|
+| `checkin_types` | `str[]` | 用户上次勾选的可选题型（checkin-config 进入时默认带入） |
+| `daily_checkin_plan` | `{date, queue, completed}` 或 undefined | 当日打卡队列（finishMixedCheckin 时清空） |
+| `checkins[i].types` | `str[]` | 打卡记录新增字段（renderProgress 按 types 显示） |
+
+### Y.11 测试覆盖 (10 个新增用例)
+`tests/test_site_static.py`:
+- `test_checkin_type_picker_constants_and_route` — CHECKIN_TYPES 7 题型 + 路由注册
+- `test_render_home_cta_goes_to_checkin_config` — 首页 CTA 改向
+- `test_render_checkin_config_renders_five_types` — 渲染 7 个 data-key
+- `test_finish_mixed_checkin_writes_types_array` — types 数组入库
+- `test_advance_checkin_plan_marks_completed` — plan.completed 推进
+- `test_each_exercise_routes_to_checkin_next_step` — 5 题型调 appendCheckinNextStep
+- `test_render_grammar_calls_next_step` — renderGrammar 集成
+- `test_render_vocab_calls_advance_plan_on_last_card` — renderVocab 最后一词集成
+- `test_checkin_config_generates_daily_task_for_vocab_grammar` — generateDailyTask 触发
+- `test_checkin_type_css_has_white_text_on_active` — 选中态白字避免撞色
+
+---
 
 ## 测试覆盖统计
 

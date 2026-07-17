@@ -12,15 +12,16 @@
 ## §1 目标
 
 ### statement
-english-checkin 实现 spec：模块边界 + **19 Flask routes** + **5 数据 schema** + **1 build 接口** + **3 状态机** + 错误码规约 + 性能预算。
+english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA) + **19 Flask routes** + **20 SPA routes** + **8 数据 schema** + **11 接口契约** + **4 状态机** + 错误码规约 + 性能预算。
 
 ### why
 代码实现必须严格按本文对齐。AI 改 app.py 路由签名 / build.py 接口 / 数据 schema 前必须先改本文 + 跑 `tests/test_bugs.py`。
 
 ### success_criteria
-- [ ] 改任何 Flask 路由前，先改 `spec.json routes[]` 节
-- [ ] 改任何 `data/*.json schema` 前，先改 `spec.json schema[]` 节
-- [ ] 改任何 `build.py` 接口前，先改 `spec.json interfaces[]` 节
+- [ ] 改任何 Flask 路由前，先改 `spec.json routes[]` 节（Flask 部分）
+- [ ] 改任何 site_static SPA 路由前，先改 `spec.json routes[]` 节（site_static 部分）
+- [ ] 改任何 `data/*.json schema` 或 `progress_v1` 字段前，先改 `spec.json schema[]` 节
+- [ ] 改任何 `build.py` / `app.js` 关键 helper 函数签名，先改 `spec.json interfaces[]` 节
 - [ ] 5 原则 doc-as-data：本文 json 是真理源，md 是渲染
 
 ---
@@ -74,9 +75,35 @@ english-checkin 实现 spec：模块边界 + **19 Flask routes** + **5 数据 sc
 | `/tense/check` | tense_check() | ✅ | JSON `{results, score}` |
 | `/preposition/check` | preposition_check() | ✅ | JSON `{results, score}` |
 
+### site_static SPA routes (20, v0.13+)
+所有路由走 `site_static/app.js` 的 `routes` 表 + hash 路由 `#/<path>`。用户进度存浏览器 `localStorage['ck_progress_v1']`。
+
+| path | handler | returns |
+|------|---------|---------|
+| `#/home` | `renderHome` | 首页 + 难度选择 + CTA → `checkin-config` |
+| `#/checkin-config` | `renderCheckinConfig` | **每日打卡题型勾选（v0.13+）** |
+| `#/learn` | `renderLearn` | 通用复习入口（已不调 submitCheckin） |
+| `#/vocab` | `renderVocab` | 词汇闪卡；最后一词后按 plan 推进 |
+| `#/grammar` | `renderGrammar` | 语法填空；onSubmit 末尾调 `appendCheckinNextStep('grammar')` |
+| `#/quiz` | `renderQuiz` | 选择题（不直接记打卡） |
+| `#/tense` | `renderTense` | 时态选择题 |
+| `#/preposition` | `renderPreposition` | 介词选择题 |
+| `#/translate` | `renderTranslate` | 中译英填空 |
+| `#/translate-en` | `renderTranslateEn` | 英译中填空 |
+| `#/flashcard` | `renderFlashcard` | 闪卡复习（FSRS 评分） |
+| `#/dictation` | `renderDictation` | 听写模式（每次 10 词） |
+| `#/errors` | `renderErrors` | 错题本 |
+| `#/stats` | `renderStats` | 学习统计 |
+| `#/progress` | `renderProgress` | 进度概览 + 最近 10 次打卡（按 types 显示） |
+| `#/knowledge` | `renderKnowledge` | 知识课程 5 tabs |
+| `#/achievements` | `renderAchievements` | 成就系统 10 badges |
+| `#/vocab-import` | `renderVocabImport` | 导入自定义词表 |
+| `#/vocab-list` | `renderVocabList` | 全部词汇（含收藏） |
+| `#/review` | `renderReview` | 上次打卡回顾 |
+
 ---
 
-## §4 数据 Schema (5 个)
+## §4 数据 Schema (8 个)
 
 ### 4.1 vocab.json (23 话题, 319 词)
 ```json
@@ -156,9 +183,44 @@ window.CHECKIN_DATA = {
 };
 ```
 
+### 4.6 progress_v1 (site_static 浏览器进度, v0.13+)
+```js
+// localStorage['ck_progress_v1'] = JSON.stringify(progress)
+{
+  checkins: [{date, vocab, grammar_id, grammar_title, score, types?}],  // types 数组 v0.13+ 新增
+  vocab_mastered: [str],
+  grammar_mastered: [str],
+  streak: int,
+  total_days: int,
+  last_checkin: "YYYY-MM-DD" | null,
+  word_stats: {word: {total, correct, wrong, first_seen?}},
+  wrong_words: [{word, cn, pron, user, date, attempts}],
+  wrong_grammar: [{type, question, answer, user, hint, date}],
+  flashcard_history: [{word, rating, date}],
+  custom_vocab: [vocab_item],
+  card_states: {word: FSRS_state},
+  chat_history: [msg],
+  achievements_unlocked: [badge_id],
+  learning_plan_done: [topic],
+  checkin_types: [type_key],                  // v0.13+ 用户上次勾选的可选题型
+  daily_checkin_plan: {date, queue, completed} | undefined,  // v0.13+ 当日打卡队列
+}
+```
+**Invariants**:
+- `wrong_words + flashcard_history` 自动截断 200 条
+- `checkin_types` 默认 = `CHECKIN_TYPES` 全部 key（含 vocab/grammar 必选）
+- `daily_checkin_plan.date !== today()` 视为过期，UI 应自动清理或忽略
+- 旧 checkins 记录无 `types` 字段时 UI 回退到 `grammar_title` 显示
+
+### 4.7 content.json (题库真理源, 2026-06 引入)
+单一 JSON 包含 vocab / grammar / tense_questions / translate_questions。`site_static/build.py` 读此源打包到 `data.js`。
+
+### 4.8 chat_cfg_v1 (LLM 配置加密, v0.12+)
+`localStorage['ck_chat_cfg_v1']` 存加密的 `{base_url, api_key, model}`；`sessionStorage['ck_chat_unlock_v1']` 标记已解锁。加密用 AES-GCM + PBKDF2 (200k iter)。
+
 ---
 
-## §5 接口契约 (6 个)
+## §5 接口契约 (11 个)
 
 ### 5.1 build_data_export (`site_static/build.py`)
 ```python
@@ -228,7 +290,7 @@ netlify deploy --dir=site_static/dist --prod
 
 ---
 
-## §6 状态机 (3 个)
+## §6 状态机 (4 个)
 
 ### 6.1 flashcard_lifecycle
 ```
@@ -250,6 +312,21 @@ correct → wrong_once → wrong_repeat → auto_removed
 ```
 edit_local → build_data → extract_creds → deploy → verify → done
 ```
+
+### 6.4 checkin_flow (v0.13+)
+```
+idle → config → in_progress → finished
+                          ↑      │
+                          └──────┘ (按 plan 推进下一题型)
+```
+- **idle**: home 页 CTA 未点击
+- **config**: `#/checkin-config` 渲染，用户勾选题型
+- **in_progress**: `daily_checkin_plan` 存在，按 `queue[queue.indexOf(currentType)+1]` 推进
+- **finished**: `advanceCheckinPlan` 返回 `'finish'`，`finishMixedCheckin` 写一条 checkin
+
+**Invariants**:
+- `checkedInToday()` 时直接显示「今日已完成」卡，禁用 CTA
+- vocab/grammar 必选，UI 禁用复选框 + `preventDefault`
 
 ---
 
@@ -296,6 +373,16 @@ edit_local → build_data → extract_creds → deploy → verify → done
 
 ## §9 演进记录
 
+### v0.13 (2026-07-17)
+- **add**: 每日打卡题型选择页 `#/checkin-config`（7 题型：vocab/grammar 必选，其余 5 项可选） — by 玄奘
+  - why: 用户原话「每日打卡可以让用户选择打卡的题型」，原 learn 链固定流程无法满足
+- **add**: `CHECKIN_TYPES` 常量 + `advanceCheckinPlan` / `appendCheckinNextStep` / `finishMixedCheckin` 三个 helper — by 玄奘
+- **add**: progress_v1 新字段 `checkin_types` / `daily_checkin_plan` / `checkins[i].types` — by 玄奘
+- **change**: `renderGrammar` 不再调 `submitCheckin`，learn 链退化为通用复习入口 — by 玄奘
+- **change**: `renderQuiz` 不再直接 push checkins（直接选择题不打卡） — by 玄奘
+- **add**: state_machine `checkin_flow` (idle → config → in_progress → finished) — by 玄奘
+- **add**: site_static SPA routes 20 个（之前只列 Flask 19 个） — by 玄奘
+
 ### v0.13 (2026-06-15)
 - **add**: mcq_option_uniqueness constraint + mcq_option_duplicate failure_mode — by 玄奘
   - why: prep_opts 含重复值 + 时态 'is'/'Is' 大小写不一致导致选项重复
@@ -306,6 +393,57 @@ edit_local → build_data → extract_creds → deploy → verify → done
 - **add**: 5 原则 doc-as-data: docs/spec.json (真理源) + docs/spec.md (渲染) — by 玄奘
 - **add**: spec 列出 19 routes (Flask) + 5 data schemas + 1 build 接口 + 3 state machines — by 玄奘
 - **add**: 7 constraints (性能预算) + 12 failure_modes (5 类) — by 玄奘
+
+---
+
+### 5.7 advance_checkin_plan (`site_static/app.js`)
+```js
+function advanceCheckinPlan(type: str): str | null
+```
+**说明**: 标记 `plan.completed += [type]`，返回 `plan.queue` 中下一项 type key 或 `'finish'`；plan 不存在/不含 type 返回 `null`。
+
+**Invariants**:
+- `plan.date !== today()` 视为过期返回 null
+
+### 5.8 append_checkin_next_step (`site_static/app.js`)
+```js
+function appendCheckinNextStep(app: HTMLElement, type: str): bool
+```
+**说明**: 7 种题型 onSubmit/onclick 末尾调用；返回 true 表示在 plan 中（已渲染下一项/完成卡），false 表示不在 plan（caller 可走通用复习完成卡）。
+
+**Invariants**:
+- `next === 'finish'` 渲染「完成打卡 ✓」按钮，点击触发 `finishMixedCheckin`
+- `next` 是 type key 渲染「下一项: [icon] [label]」按钮，点击 `navigate(next.route)`
+
+### 5.9 finish_mixed_checkin (`site_static/app.js`)
+```js
+function finishMixedCheckin(types: str[]): void
+```
+**说明**: 全部题型完成后调用，写一条 `checkins` entry（含 `types` 数组）+ 更新 streak + 清空 `daily_checkin_plan`。
+
+**Invariants**:
+- `checkedInToday()` 时直接 return，避免重复打卡
+- `types.slice()` 入库防引用泄漏
+- `grammar_id = 'mixed'` 标记为组合打卡
+
+### 5.10 generate_daily_task (`site_static/app.js`)
+```js
+function generateDailyTask(): { topic, vocab: [...], grammar: {...}, date }
+```
+**说明**: 选 5 个 vocab（按 difficulty + master 状态过滤）+ 1 组 grammar（按权重）；返回的 task 是 vocab 闪卡链路的输入。
+
+**Invariants**:
+- checkin-config 开始按钮在 queue 含 `vocab`/`grammar` 时先调此函数生成 `currentTask`
+
+### 5.11 render_checkin_config (`site_static/app.js`)
+```js
+function renderCheckinConfig(app: HTMLElement): void
+```
+**说明**: 渲染 7 种题型勾选页（vocab/grammar 必选 disabled，其余可选），点「开始」写 `progress.daily_checkin_plan` 并跳到 `queue[0].route`。
+
+**Invariants**:
+- `checkedInToday()` 时显示「今日已完成」卡，禁用 CTA
+- 必选项 disabled 复选框 + `.locked` 类 + `e.preventDefault()` 阻止 toggle
 
 ---
 
