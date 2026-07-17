@@ -31,6 +31,7 @@
     var secondPick = null;
     var matched = 0;
     var moves = 0;
+    var locked = false;
     var startedAt = 0;          // 配对阶段开始时间
     var gameStarted = false;    // 预览阶段不可点击
     var PREVIEW_SEC = 60;       // 预览秒数
