@@ -427,7 +427,7 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
 /* 每日打卡 · 题型勾选 */
 .checkin-types {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
   margin-top: 4px;
 }

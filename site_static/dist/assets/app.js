@@ -33,11 +33,13 @@ document.addEventListener('input', function(e) {
 
   // ─── 每日打卡题型目录（顺序即默认执行顺序）────────
   const CHECKIN_TYPES = [
-    { key: 'quiz',         label: '选择题',  icon: '🎯', route: 'quiz' },
-    { key: 'tense',        label: '时态',    icon: '⏰', route: 'tense' },
-    { key: 'preposition',  label: '介词',    icon: '🔗', route: 'preposition' },
-    { key: 'translate',    label: '中译英',  icon: '🔤', route: 'translate' },
-    { key: 'dictation',    label: '听写',    icon: '✍️', route: 'dictation' },
+    { key: 'vocab',        label: '词汇复习',  icon: '🃏', route: 'vocab' },
+    { key: 'grammar',      label: '语法填空',  icon: '📝', route: 'grammar' },
+    { key: 'quiz',         label: '选择题',    icon: '🎯', route: 'quiz' },
+    { key: 'tense',        label: '时态',      icon: '⏰', route: 'tense' },
+    { key: 'preposition',  label: '介词',      icon: '🔗', route: 'preposition' },
+    { key: 'translate',    label: '中译英',    icon: '🔤', route: 'translate' },
+    { key: 'dictation',    label: '听写',      icon: '✍️', route: 'dictation' },
   ];
   const DEFAULT_CHECKIN_TYPES = CHECKIN_TYPES.map(t => t.key);
   function checkinTypeMeta(key) {
@@ -425,7 +427,7 @@ document.addEventListener('input', function(e) {
   // next = type key → 渲染"下一项：[icon] [label]"按钮（点击 navigate 到对应路由）
   function appendCheckinNextStep(app, type) {
     const next = advanceCheckinPlan(type);
-    if (!next) return;
+    if (!next) return false;
     const container = app.querySelector('.container');
     if (!container) return;
     const card = document.createElement('div');
@@ -462,6 +464,7 @@ document.addEventListener('input', function(e) {
         navigate(routeForCheckinType(next));
       };
     }
+    return true;
   }
 
   // ─── 每日打卡队列推进 ─────────────────────
@@ -771,7 +774,13 @@ document.addEventListener('input', function(e) {
       if (arr.length === 0) { toast('至少选一个题型'); return; }
       progress.daily_checkin_plan = { date: today(), queue: arr, completed: [] };
       saveProgress();
-      currentTask = null; // 重置 vocab 任务的内部状态
+      currentVocabIdx = 0;
+      // vocab/grammar 依赖 currentTask；若队列含这俩先生成
+      if (arr.includes('vocab') || arr.includes('grammar')) {
+        currentTask = generateDailyTask();
+      } else {
+        currentTask = null;
+      }
       navigate(routeForCheckinType(arr[0]));
     };
   }
@@ -887,6 +896,14 @@ document.addEventListener('input', function(e) {
     app.querySelector('#next-btn').onclick = () => {
       if (!revealed) { toast('先点"揭晓"看看答案'); return; }
       currentVocabIdx++;
+      if (currentVocabIdx >= t.vocab.length) {
+        // vocab 完成：按 plan 推进；plan 中无 vocab 时保留旧行为（跳 grammar 通用复习）
+        const next = advanceCheckinPlan('vocab');
+        if (next === 'finish') { appendCheckinNextStep(app, 'vocab'); return; }
+        if (next) { navigate(routeForCheckinType(next)); return; }
+        navigate('grammar');
+        return;
+      }
       render();
     };
   }
@@ -950,20 +967,23 @@ document.addEventListener('input', function(e) {
       window._grammarResults = results;
       const score = `${correct}/${total}`;
       toast(`完成！${score} 正确`, 3000);
-      const finishDiv = document.createElement('div');
-      finishDiv.className = 'card';
-      finishDiv.style.textAlign = 'center';
-      finishDiv.innerHTML = `
-        <div style="font-size:36px;margin-bottom:8px;">${correct >= 2 ? '🎉' : '💪'}</div>
-        <div style="font-size:18px;font-weight:bold;color:var(--accent);">${score} 正确</div>
-        <div style="color:var(--text-2);margin:8px 0;">通用复习 · 每日打卡请到首页点击开始</div>
-        <div class="btn-row">
-          <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习</a>
-          <a class="btn btn-primary" href="#/checkin-config">🚀 开始今日打卡</a>
-        </div>
-      `;
-      app.querySelector('.container').appendChild(finishDiv);
       app.querySelector('#submit-grammar').style.display = 'none';
+      // 在打卡流程：appendCheckinNextStep 会渲染"下一项/完成打卡"卡；否则保留通用复习完成卡
+      if (!appendCheckinNextStep(app, 'grammar')) {
+        const finishDiv = document.createElement('div');
+        finishDiv.className = 'card';
+        finishDiv.style.textAlign = 'center';
+        finishDiv.innerHTML = `
+          <div style="font-size:36px;margin-bottom:8px;">${correct >= 2 ? '🎉' : '💪'}</div>
+          <div style="font-size:18px;font-weight:bold;color:var(--accent);">${score} 正确</div>
+          <div style="color:var(--text-2);margin:8px 0;">通用复习 · 每日打卡请到首页点击开始</div>
+          <div class="btn-row">
+            <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习</a>
+            <a class="btn btn-primary" href="#/checkin-config">🚀 开始今日打卡</a>
+          </div>
+        `;
+        app.querySelector('.container').appendChild(finishDiv);
+      }
     };
   }
 

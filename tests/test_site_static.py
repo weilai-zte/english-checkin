@@ -320,6 +320,21 @@ def test_each_exercise_routes_to_checkin_next_step():
         assert f"appendCheckinNextStep(app, '{type_key}')" in APP_JS_SRC, \
             f"{type_key} onSubmit 末尾未调 appendCheckinNextStep"
 
+def test_render_grammar_calls_next_step():
+    block = _function_block('renderGrammar')
+    assert "appendCheckinNextStep(app, 'grammar')" in block, \
+        "renderGrammar 应在 plan 中调 appendCheckinNextStep('grammar')"
+
+def test_render_vocab_calls_advance_plan_on_last_card():
+    block = _function_block('renderVocab')
+    assert "advanceCheckinPlan('vocab')" in block, \
+        "renderVocab 最后一词后应调 advanceCheckinPlan('vocab')"
+
+def test_checkin_config_generates_daily_task_for_vocab_grammar():
+    block = _function_block('renderCheckinConfig')
+    assert 'generateDailyTask()' in block, \
+        "checkin-config 开始按钮应在 queue 含 vocab/grammar 时生成 daily task"
+
 
 def test_checkin_type_css_has_white_text_on_active():
     css = STYLE.read_text(encoding='utf-8')
