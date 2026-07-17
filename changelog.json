@@ -321,6 +321,29 @@
         "游戏帮助文案改成 敲完单词按 Enter 射击"
       ],
       "verified": "node --check tower.js OK; build.py OK; 279 tests passed"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.15.2-wordle-redesign",
+      "action": "refactor",
+      "what": "Wordle 整体重设计: 5 个一组 + 按难度选词长 + 全格可输入 + 每次猜词显示中文",
+      "why": "用户反馈四点: a) 单局单词太少; b) 长度太长难检索; c) 首字母预填不能改; d) 看不到中文意思",
+      "by": "codex",
+      "files": [
+        "site_static/games/wordle.js",
+        "site_static/style.css",
+        "tests/test_site_static.py"
+      ],
+      "details": [
+        "5 个单词一组 (ROUNDS=5), 每 round 6 次, 答对/答错都进入下一个",
+        "按 difficulty 选 wordLen: easy=3, medium=4, hard=5 字母",
+        "去掉所有 hint 预填 (i===0/wordLen-1 占位 div), 所有格子都允许输入",
+        "每次提交猜测后, 该行下方显示该 guess 的中文 (.wd-guess-cn)",
+        "新增 wd-next 按钮在 round 之间切换",
+        "不再单独 target 一次猜完; progress.game_stats.wordle.rounds 字段记录",
+        "已加防回归测试 test_wordle_rounds_no_hint_and_shows_guess_cn"
+      ],
+      "verified": "281 tests passed (280 + 1 防回归); node --check OK; build.py OK"
     }
   ],
   "release_summaries": [
@@ -409,6 +432,28 @@
       ],
       "verification": [
         "279 unit tests passed",
+        "node --check OK",
+        "build.py OK"
+      ],
+      "breaking_changes": null,
+      "commits": []
+    },
+    {
+      "version": "v0.15.2",
+      "date": "2026-07-17",
+      "tag_sha": null,
+      "git_tag": null,
+      "summary": "Wordle 重设计: 多 round + 难度桶 + 全格可输入 + 猜词中文",
+      "highlights": [
+        "Wordle 整体重设计"
+      ],
+      "sync_changes": [
+        "site_static/games/wordle.js: 多 round + 全格可输入 + guessCN",
+        "site_static/style.css: .wd-progress / .wd-guess-block / .wd-guess-cn / .wd-next",
+        "tests/test_site_static.py: 防回归"
+      ],
+      "verification": [
+        "281 tests passed",
         "node --check OK",
         "build.py OK"
       ],
