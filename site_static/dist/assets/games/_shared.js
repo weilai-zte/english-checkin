@@ -105,10 +105,11 @@
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
   function pickNRandom(arr, n) { return sample(arr.slice(), n); }
-  function buildDistractors(correct, allWordsArr, n) {
+  function buildDistractors(correct, allWordsArr, n, distractorPool) {
     n = n || 3;
     var target = correct.toLowerCase();
-    var pool = allWordsArr.filter(function (w) { return w.word.toLowerCase() !== target; });
+    // 优先用调用方传入的 pool (按难度切过); fallback 全词库
+    var pool = (distractorPool || allWordsArr).filter(function (w) { return w.word.toLowerCase() !== target; });
     return pickNRandom(pool, n);
   }
   function norm(s) { return (s || '').toLowerCase().replace(/[^a-z']/g, ''); }

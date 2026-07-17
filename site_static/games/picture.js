@@ -51,8 +51,9 @@
       if (idx >= words.length) return finish();
       var correct = words[idx];
       var emoji = GS.WORD_EMOJI[correct.word.toLowerCase()] || '❓';
-      var allW = (typeof allWords === 'function') ? allWords() : [];
-      var distractors = GS.buildDistractors(correct.word, allW, 3);
+      // 干扰项池按当前难度抽 (长度跟 correct 接近), 让 hard 难度的干扰项也是 L3 拔高词
+      var distractorPool = GS.pickGameWords(80, { minLen: 2, maxLen: Math.max(correct.word.length + 1, 6) });
+      var distractors = GS.buildDistractors(correct.word, distractorPool, 3, distractorPool);
       var options = shuffle([correct].concat(distractors));
 
       body.innerHTML =
