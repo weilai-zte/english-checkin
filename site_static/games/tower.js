@@ -155,12 +155,6 @@
         '</div>' +
         '<div id="td-help" class="td-help">瞄准中: <b></b></div>';
 
-      planWaves();
-      bindUI();
-      wave = 0;
-      lastSpawnAt = Date.now() - spawnInterval + 1500;
-      lastFrameAt = 0;
-      requestAnimationFrame(tick);
 
       // 词按长度分桶
       var wordsByLen = {};
@@ -179,6 +173,13 @@
         return WAVE_LEN_BUCKETS[idx];
       }
       function isBossWave(w) { return (w + 1) % BOSS_EVERY === 0; }
+
+      bindUI();
+      wave = 0;
+      lastSpawnAt = Date.now() - spawnInterval + 1500;
+      lastFrameAt = 0;
+      planWaves();
+      requestAnimationFrame(tick);
 
       function planWaves() {
         spawnQueue = [];
