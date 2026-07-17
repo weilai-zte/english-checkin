@@ -358,3 +358,16 @@ def test_render_quiz_no_longer_writes_checkins_directly():
 def test_render_grammar_no_longer_calls_submit_checkin():
     block = _function_block('renderGrammar')
     assert 'submitCheckin(' not in block, 'renderGrammar 不再调 submitCheckin（打卡走 checkin-config）'
+
+
+def test_required_checkin_types_are_locked():
+    # vocab 和 grammar 标记 required
+    assert "required: true" in APP_JS_SRC
+    assert "key: 'vocab'" in APP_JS_SRC
+    assert "key: 'grammar'" in APP_JS_SRC
+    # renderCheckinConfig 加 disabled 属性
+    block = _function_block('renderCheckinConfig')
+    assert "requiredKeys" in block
+    assert "type=\"checkbox\"" in block
+    assert "isRequired ? 'disabled'" in block or "'disabled'" in block
+    assert "e.preventDefault()" in block

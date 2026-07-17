@@ -33,8 +33,8 @@ document.addEventListener('input', function(e) {
 
   // ─── 每日打卡题型目录（顺序即默认执行顺序）────────
   const CHECKIN_TYPES = [
-    { key: 'vocab',        label: '词汇复习',  icon: '🃏', route: 'vocab' },
-    { key: 'grammar',      label: '语法填空',  icon: '📝', route: 'grammar' },
+    { key: 'vocab',        label: '词汇复习',  icon: '🃏', route: 'vocab',     required: true },
+    { key: 'grammar',      label: '语法填空',  icon: '📝', route: 'grammar',   required: true },
     { key: 'quiz',         label: '选择题',    icon: '🎯', route: 'quiz' },
     { key: 'tense',        label: '时态',      icon: '⏰', route: 'tense' },
     { key: 'preposition',  label: '介词',      icon: '🔗', route: 'preposition' },
@@ -716,12 +716,20 @@ document.addEventListener('input', function(e) {
       return;
     }
 
-    const checkedSet = new Set(
-      (progress.checkin_types && progress.checkin_types.length)
+    // 必选项永远勾选
+    const requiredKeys = CHECKIN_TYPES.filter(t => t.required).map(t => t.key);
+    const checkedSet = new Set([
+      ...requiredKeys,
+      ...((progress.checkin_types && progress.checkin_types.length)
         ? progress.checkin_types
-        : DEFAULT_CHECKIN_TYPES
-    );
-    const activeList = () => Array.from(app.querySelectorAll('.checkin-type.active')).map(el => el.dataset.key);
+        : DEFAULT_CHECKIN_TYPES),
+    ]);
+    const activeList = () => {
+      const arr = Array.from(app.querySelectorAll('.checkin-type.active')).map(el => el.dataset.key);
+      // 必选项即使未标 active 也强制加入（防御性）
+      CHECKIN_TYPES.forEach(t => { if (t.required && !arr.includes(t.key)) arr.push(t.key); });
+      return arr;
+    };
 
     app.innerHTML = `
       ${topBar('每日打卡 · 选题型')}
@@ -733,13 +741,16 @@ document.addEventListener('input', function(e) {
         <div class="card">
           <div class="card-title">⚙️ 选择打卡题型</div>
           <div class="checkin-types">
-            ${CHECKIN_TYPES.map(t => `
-              <label class="checkin-type ${checkedSet.has(t.key) ? 'active' : ''}" data-key="${t.key}">
-                <input type="checkbox" ${checkedSet.has(t.key) ? 'checked' : ''}>
+            ${CHECKIN_TYPES.map(t => {
+              const isRequired = !!t.required;
+              const isActive = isRequired || checkedSet.has(t.key);
+              return `
+              <label class="checkin-type ${isActive ? 'active' : ''} ${isRequired ? 'locked' : ''}" data-key="${t.key}">
+                <input type="checkbox" ${isActive ? 'checked' : ''} ${isRequired ? 'disabled' : ''}>
                 <span class="checkin-icon">${t.icon}</span>
-                <span class="checkin-label">${t.label}</span>
-              </label>
-            `).join('')}
+                <span class="checkin-label">${t.label}${isRequired ? ' <span style="font-size:11px;opacity:0.7;">(必选)</span>' : ''}</span>
+              </label>`;
+            }).join('')}
           </div>
           <div style="font-size:12px;color:var(--text-2);margin-top:10px;">
             已选 <strong id="checkin-summary">${activeList.call(app).length || DEFAULT_CHECKIN_TYPES.filter(k => checkedSet.has(k)).length}</strong> / ${CHECKIN_TYPES.length} 个题型
@@ -762,7 +773,11 @@ document.addEventListener('input', function(e) {
 
     app.querySelectorAll('.checkin-type').forEach(el => {
       el.addEventListener('click', (e) => {
-        // 点击 label 时浏览器自动切换 checkbox；但我们同步 .active 样式与持久化
+        if (el.classList.contains('locked')) {
+          // 必选项：阻止 toggle（preventDefault 防止 checkbox 状态翻转）
+          e.preventDefault();
+          return;
+        }
         setTimeout(refreshSummary, 0);
       });
     });
