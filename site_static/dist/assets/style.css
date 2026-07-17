@@ -1191,6 +1191,49 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 }
 .td-help { text-align: center; font-size: 12px; color: var(--text-2); margin-top: 8px; }
 
+
+.td-input-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: stretch; }
+.td-input-row .td-input { flex: 1; }
+.td-shoot {
+  flex: 0 0 auto;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  color: white;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 6px rgba(239,68,68,0.35);
+  transition: transform 0.1s ease-out, filter 0.15s ease-out;
+}
+.td-shoot:hover { filter: brightness(1.08); }
+.td-shoot:active { transform: scale(0.97); }
+.td-miss { animation: td-miss 0.36s ease-in-out; border-color: #ef4444 !important; background: #fee2e2 !important; }
+@keyframes td-miss {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.td-bullet {
+  position: absolute;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fef9c3, #facc15 60%, #b45309);
+  box-shadow: 0 0 12px rgba(250, 204, 21, 0.95), 0 0 4px rgba(255,255,255,0.8);
+  z-index: 20;
+  pointer-events: none;
+  transition: transform 0.36s cubic-bezier(0.4, 0, 0.6, 1);
+  will-change: transform;
+}
+.td-bullet.td-bullet-explode {
+  transition: transform 0.16s ease-out, opacity 0.16s ease-out;
+  transform: scale(2.4) translate(0,0) !important;
+  opacity: 0;
+}
 /* ===== Wordle 提示行 ===== */
 .wd-hint-label {
   text-align: center;
@@ -1204,4 +1247,32 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   color: #4338ca !important;
   border-color: #818cf8 !important;
   font-weight: 800;
+}
+
+/* ===== Wordle 单元格输入 ===== */
+.wd-row-active { background: rgba(102,126,234,0.04); border-radius: 8px; }
+.wd-input-cell {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #d4d4d8;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
+  background: white;
+  color: #1f2937;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  caret-color: #667eea;
+}
+.wd-input-cell:focus {
+  outline: none;
+  border-color: #667eea;
+  background: #eef2ff;
+  box-shadow: 0 0 0 3px rgba(102,126,234,0.18);
 }

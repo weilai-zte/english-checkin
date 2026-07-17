@@ -299,6 +299,28 @@
         "首页新增 🎮 游戏区(4 项 2×2 + 塔防独行)"
       ],
       "verified": "279 unit tests passed (272 + 7 游戏测试); 5 个游戏 Chrome 截图渲染验证"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.15.1-tower-shoot-animation",
+      "action": "fix",
+      "what": "塔防打字：射击 + 子弹动画 + Enter/🔥 射击双重触发",
+      "why": "用户反馈：原来 oninput 自动消除无仪式感，按 Enter 也没反应，没动画。改为打字+按 Enter/点射击才发射子弹。",
+      "by": "codex",
+      "files": [
+        "site_static/games/tower.js",
+        "site_static/style.css"
+      ],
+      "details": [
+        "oninput 不再自动消除（仅做 prefix 高亮）",
+        "新增 onkeydown Enter 监听 + 🔥 射击按钮（移动端友好）",
+        "fireBullet：从 🏰 基地发射子弹飞到目标怪物，transform transition 0.36s",
+        "命中 360ms 后爆炸（scale 2.4 + opacity 0，0.16s）",
+        "isFiring 期间冻结战场（tick 跳过位置推进），保证子弹命中目标",
+        "未匹配：输入框 td-miss 抖动 + 红框 0.36s 反馈",
+        "游戏帮助文案改成 敲完单词按 Enter 射击"
+      ],
+      "verified": "node --check tower.js OK; build.py OK; 279 tests passed"
     }
   ],
   "release_summaries": [
@@ -371,6 +393,27 @@
         "d4935b5",
         "7f58b0a"
       ]
+    },
+    {
+      "version": "v0.15.1",
+      "date": "2026-07-17",
+      "tag_sha": null,
+      "git_tag": null,
+      "summary": "塔防打字：Enter/射击双重触发 + 子弹动画",
+      "highlights": [
+        "塔防游戏射击循环改造"
+      ],
+      "sync_changes": [
+        "site_static/games/tower.js: fireBullet + tryShoot + flashMiss",
+        "site_static/style.css: .td-bullet / .td-shoot / .td-miss"
+      ],
+      "verification": [
+        "279 unit tests passed",
+        "node --check OK",
+        "build.py OK"
+      ],
+      "breaking_changes": null,
+      "commits": []
     }
   ]
 }
