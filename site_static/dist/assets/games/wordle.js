@@ -23,8 +23,10 @@
     }
 
     var diff = (typeof window.difficulty !== 'undefined') ? window.difficulty : 'medium';
-    var LEN_BUCKETS = { easy: [3], medium: [4], hard: [5] };
-    var ROUND_LEN = LEN_BUCKETS[diff] || LEN_BUCKETS.medium;
+    // 难度只决定可用的最短长度 (避免初一小孩过早遇到 6 字母生词)
+    var MIN_LEN = { easy: 3, medium: 3, hard: 3 }[diff] || 3;
+    var MAX_LEN = 6;
+    function pickRoundLen() { return MIN_LEN + Math.floor(Math.random() * (MAX_LEN - MIN_LEN + 1)); }
     var ROUNDS = 5;
     var PER_ROUND_TRIES = 6;
 
@@ -40,18 +42,24 @@
       return '';
     }
 
-    // 预生成每轮的 target
+    // 预生成每轮的 target: 长度独立随机
     var rounds = [];
     for (var r = 0; r < ROUNDS; r++) {
-      var t = pickTarget(ROUND_LEN[0]); // bucket 同长度, 一组 round 同长度
+      var t = pickTarget(pickRoundLen());
       rounds.push({ target: t.word.toLowerCase(), cn: t.cn || '', pron: t.pron || '',
+                    len: t.word.length, hints: pickHints(t.word.toLowerCase()),
                     guesses: [], finished: false, succeeded: false });
+    }
+    // 预填 1 个字母提示 (位置随机)
+    function pickHints(word) {
+      var idx = Math.floor(Math.random() * word.length);
+      return { [idx]: word[idx] };
     }
 
     var roundIdx = 0;
     var score = 0;
     var body = GS.gameShell(app, '🔤 猜词 Wordle', {
-      subtitle: ROUNDS + ' 个单词 · ' + ROUND_LEN[0] + ' 字母 · 每词 ' + PER_ROUND_TRIES + ' 次',
+      subtitle: ROUNDS + ' 个单词 · ' + MIN_LEN + '-' + MAX_LEN + ' 字母 · 每词 ' + PER_ROUND_TRIES + ' 次',
       score: '0'
     });
 
@@ -83,13 +91,21 @@
       for (var m = 0; m < len; m++) out += '<div class="wd-cell"></div>';
       return out;
     }
-    function inputCellsHtml(len) {
+    function inputCellsHtml(len, hints) {
+      hints = hints || {};
       var out = '';
       for (var i = 0; i < len; i++) {
-        out += '<input class="wd-input-cell" type="text" maxlength="1" data-i="' + i +
-          '" autocomplete="off" autocapitalize="none" spellcheck="false">';
+        var v = hints[i];
+        if (v) {
+          out += '<input class="wd-input-cell wd-input-hint" type="text" maxlength="1" data-i="' + i +
+            '" value="' + v + '" autocomplete="off" autocapitalize="none" spellcheck="false" disabled>';
+        } else {
+          out += '<input class="wd-input-cell" type="text" maxlength="1" data-i="' + i +
+            '" autocomplete="off" autocapitalize="none" spellcheck="false">';
+        }
       }
-      return '<div class="wd-row wd-row-active" style="grid-template-columns:repeat(' + len + ',1fr);">' + out + '</div>';
+      return '<div class="wd-row wd-row-active" style="grid-template-columns:repeat(' + len + ',1fr);">' + out + '</div>' +
+        '<button class="btn btn-primary wd-submit" id="wd-submit" type="button">✓ 提交 (Enter)</button>';
     }
 
     function render() {
@@ -110,7 +126,7 @@
 
       var remaining = PER_ROUND_TRIES - rnd.guesses.length;
       if (!rnd.finished) {
-        gridHtml += inputCellsHtml(len);
+        gridHtml += inputCellsHtml(len, rnd.hints);
         remaining--;
       }
       for (var k = 0; k < remaining; k++) gridHtml += rowHtml(emptyCells(len), len);
@@ -129,7 +145,7 @@
           ? '<button class="btn btn-primary wd-next" id="wd-next">下一个 ⏭</button>'
           : '');
       } else {
-        msg = '<div class="wd-msg wd-hint-line">💡 ' + len + ' 字母单词, 输入完自动提交</div>';
+        msg = '<div class="wd-msg wd-hint-line">💡 ' + len + ' 字母 · 已提示 1 个字母 · 按 Enter 或点 ✓ 提交</div>';
       }
 
       body.innerHTML =
@@ -150,32 +166,30 @@
     }
 
     function attachInputHandlers(len) {
-      var inputs = body.querySelectorAll('.wd-input-cell');
+      var inputs = body.querySelectorAll('.wd-input-cell:not(:disabled)');
       if (!inputs.length) return;
       inputs[0].focus();
+      function submitNow() { submit(len); }
       Array.prototype.forEach.call(inputs, function (inp, idx) {
         inp.oninput = function (e) {
           e.target.value = (e.target.value || '').replace(/[^a-zA-Z]/g, '').toLowerCase().slice(0, 1);
-          if (e.target.value && idx < inputs.length - 1) {
-            inputs[idx + 1].focus();
-          }
-          if (filledAll(len)) submit(len);
         };
         inp.onkeydown = function (e) {
-          if (e.key === 'Backspace' && !e.target.value && idx > 0) {
-            inputs[idx - 1].focus();
-            inputs[idx - 1].value = '';
-            e.preventDefault();
+          if (e.key === 'Enter') { e.preventDefault(); submitNow(); return; }
+          if (e.key === 'Backspace' && !e.target.value) {
+            // 跳到上一个非 hint 格子
+            for (var k = idx - 1; k >= 0; k--) {
+              if (!inputs[k].disabled) { inputs[k].focus(); e.preventDefault(); break; }
+            }
           }
         };
       });
-    }
-
-    function filledAll(len) {
-      var inputs = body.querySelectorAll('.wd-input-cell');
-      if (inputs.length !== len) return false;
-      for (var i = 0; i < inputs.length; i++) if (!inputs[i].value) return false;
-      return true;
+      // 全局 Enter 也可提交 (即使焦点在 body 上)
+      body.onkeydown = function (e) {
+        if (e.key === 'Enter' && !rounds[roundIdx].finished) { e.preventDefault(); submitNow(); }
+      };
+      var submitBtn = body.querySelector('#wd-submit');
+      if (submitBtn) submitBtn.onclick = submitNow;
     }
 
     function submit(len) {
@@ -183,7 +197,8 @@
       if (rnd.finished) return;
       var inputs = body.querySelectorAll('.wd-input-cell');
       var val = '';
-      for (var i = 0; i < len; i++) val += (inputs[i].value || '').toLowerCase();
+      for (var i = 0; i < len; i++) val += ((inputs[i].value || '').toLowerCase());
+      // 所有格子都填了字母 (含 disabled hint) 才提交
       if (val.length !== len) return;
       var res = scoreGuess(val, rnd.target, len);
       rnd.guesses.push({ guess: val, res: res, guessCN: findCN(val) });

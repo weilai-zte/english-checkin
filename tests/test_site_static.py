@@ -448,16 +448,18 @@ def test_builder_uses_shuffled_for_token_lookup():
     )
 
 
-def test_wordle_rounds_no_hint_and_shows_guess_cn():
-    """防 Wordle 设计回归: 5 个一组 + 不预填首字母 + 每次猜词显示中文"""
+def test_wordle_rounds_one_hint_and_shows_guess_cn():
+    """防 Wordle 设计回归: 5 个一组 + 预填 1 个随机位置字母 + 每次猜词显示中文"""
     src = (ROOT / 'site_static' / 'games' / 'wordle.js').read_text(encoding='utf-8')
     # 1) 多 round: 有 ROUNDS 计数, 多个 target
     assert 'ROUNDS' in src, "Wordle 应该是多 round (>=3 个单词一组)"
-    # 2) 难度桶: 根据 difficulty 选 wordLen, 而不是单一固定值/不限长度
-    assert 'LEN_BUCKETS' in src or 'lenBucket' in src, "Wordle 应按难度选词长 bucket"
-    # 3) 不预填: 不再有 i === 0 填充 hint 的逻辑
-    assert 'wd-hint"' not in src and 'wd-hint ' not in src, "Wordle 不应预填首尾字母 hint (用户希望所有格子都输入)"
-    # 4) 每次猜词显示中文: guessCN / wd-guess-cn
+    # 2) 长度桶: 根据 difficulty/随机 选 wordLen
+    assert 'LEN_BUCKETS' in src or 'pickRoundLen' in src or 'MIN_LEN' in src, "Wordle 应按难度选词长 bucket"
+    # 3) 预填 1 个字母 hint (用户希望至少知道单词中某个字母, 位置随机)
+    assert 'pickHints' in src or 'wd-input-hint' in src, "Wordle 应预填 1 个字母 hint"
+    # 4) 不强制自动提交: 没有 'filledAll(len) submit(len)' 这种自动提交调用
+    assert 'filledAll' not in src, "Wordle 不应再输满自动提交, 改由 Enter/提交按钮触发"
+    # 5) 每次猜词显示中文: guessCN / wd-guess-cn
     assert 'guessCN' in src and 'wd-guess-cn' in src, "Wordle 每次猜词后应显示 guess 的中文"
 
 

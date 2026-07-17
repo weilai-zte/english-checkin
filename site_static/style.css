@@ -1593,3 +1593,19 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   background: #eef2ff;
   box-shadow: 0 0 0 3px rgba(102,126,234,0.18);
 }
+
+/* Wordle 提示格 (预填字母) */
+.wd-input-cell.wd-input-hint {
+  background: #fde68a;
+  border-color: #f59e0b;
+  color: #78350f;
+  cursor: not-allowed;
+}
+.wd-input-cell.wd-input-hint:disabled { opacity: 1; } /* 覆盖默认 0.4 */
+
+.wd-submit {
+  margin-top: 12px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 700;
+}
