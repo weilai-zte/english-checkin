@@ -1342,7 +1342,7 @@ document.addEventListener('input', function(e) {
 
   function renderTranslate(app) {
     const pool = translationPoolForDifficulty();
-    const sents = sample(pool, Math.min(8, pool.length));
+    const sents = sample(pool, Math.min(5, pool.length));
     const cleanAnswer = value => value.toLowerCase().replace(/[^a-z']/g, '');
 
     app.innerHTML = `
@@ -1473,7 +1473,7 @@ document.addEventListener('input', function(e) {
   // ─── 视图：Translate-En (EN→CN 填空) ─────────────
   function renderTranslateEn(app) {
     const pool = translationPoolForDifficulty();
-    const sents = sample(pool, Math.min(8, pool.length));
+    const sents = sample(pool, Math.min(5, pool.length));
     const normPunct = s => s.replace(/[\s。？！、，；：""''（）【】《》]/g, '');
 
     app.innerHTML = `
