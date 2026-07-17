@@ -46,12 +46,14 @@
       var t = pickTarget(pickRoundLen());
       rounds.push({ target: t.word.toLowerCase(), cn: t.cn || '', pron: t.pron || '',
                     len: t.word.length, hints: pickHints(t.word.toLowerCase()),
-                    guesses: [], finished: false, succeeded: false });
+                    hintsUsed: 0, guesses: [], finished: false, succeeded: false });
     }
-    // 预填字母提示: 3-5 字母 1 个, 6+ 字母 2 个
+    // 预填字母提示: <6 字母 1 个随机, 6-7 字母 2 个(必含首字母), 8-10 字母 3 个(必含首字母)
     function pickHints(word) {
-      var n = word.length >= 6 ? 2 : 1;
+      var n = word.length >= 8 ? 3 : word.length >= 6 ? 2 : 1;
       var indices = [];
+      // 6+ 字母必含首字母 (idx 0)
+      if (word.length >= 6) indices.push(0);
       while (indices.length < n) {
         var idx = Math.floor(Math.random() * word.length);
         if (indices.indexOf(idx) === -1) indices.push(idx);
@@ -96,7 +98,8 @@
       for (var m = 0; m < len; m++) out += '<div class="wd-cell"></div>';
       return out;
     }
-    function inputCellsHtml(len, hints) {
+    var MAX_HINTS = 2;  // 每轮最多 2 次提示机会
+    function inputCellsHtml(len, hints, hintsUsed) {
       hints = hints || {};
       var out = '';
       for (var i = 0; i < len; i++) {
@@ -109,8 +112,13 @@
             '" autocomplete="off" autocapitalize="none" spellcheck="false">';
         }
       }
+      var hintLeft = MAX_HINTS - (hintsUsed || 0);
+      var hintBtn = hintLeft > 0
+        ? '<button class="btn btn-secondary wd-hint" id="wd-hint" type="button">💡 提示 (' + hintLeft + '/' + MAX_HINTS + ')</button>'
+        : '<button class="btn btn-secondary wd-hint" id="wd-hint" type="button" disabled>💡 提示已用完</button>';
       return '<div class="wd-row wd-row-active" style="grid-template-columns:repeat(' + len + ',1fr);">' + out + '</div>' +
-        '<button class="btn btn-primary wd-submit" id="wd-submit" type="button">✓ 提交 (Enter)</button>';
+        '<div class="wd-action-row">' + hintBtn +
+        '<button class="btn btn-primary wd-submit" id="wd-submit" type="button">✓ 提交 (Enter)</button></div>';
     }
 
     function render() {
@@ -131,7 +139,7 @@
 
       var remaining = PER_ROUND_TRIES - rnd.guesses.length;
       if (!rnd.finished) {
-        gridHtml += inputCellsHtml(len, rnd.hints);
+        gridHtml += inputCellsHtml(len, rnd.hints, rnd.hintsUsed);
         remaining--;
       }
       for (var k = 0; k < remaining; k++) gridHtml += rowHtml(emptyCells(len), len);
@@ -195,6 +203,23 @@
       };
       var submitBtn = body.querySelector('#wd-submit');
       if (submitBtn) submitBtn.onclick = submitNow;
+      // 💡 提示按钮: 从未 hint 的位置随机补 1 个字母
+      var hintBtn = body.querySelector('#wd-hint');
+      if (hintBtn && !hintBtn.disabled) {
+        hintBtn.onclick = function () {
+          var rnd2 = rounds[roundIdx];
+          if (rnd2.finished) return;
+          if (rnd2.hintsUsed >= MAX_HINTS) return;
+          // 找出未 hint 的位置
+          var candidates = [];
+          for (var p2 = 0; p2 < len; p2++) { if (!rnd2.hints[p2]) candidates.push(p2); }
+          if (!candidates.length) return;
+          var pos = candidates[Math.floor(Math.random() * candidates.length)];
+          rnd2.hints[pos] = rnd2.target[pos];
+          rnd2.hintsUsed++;
+          render();  // 重渲染以锁定新 hint 格子 + 更新按钮文案
+        };
+      }
     }
 
     function submit(len) {

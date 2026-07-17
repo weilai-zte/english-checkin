@@ -1609,3 +1609,12 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   font-size: 15px;
   font-weight: 700;
 }
+
+/* Wordle 提示/提交按钮并排 */
+.wd-action-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.wd-action-row .wd-hint { flex: 1; font-size: 14px; }
+.wd-action-row .wd-submit { flex: 1.5; font-size: 15px; font-weight: 700; margin-top: 0; }
