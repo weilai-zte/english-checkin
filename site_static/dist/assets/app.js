@@ -664,33 +664,34 @@ document.addEventListener('input', function(e) {
         </div>
         `}
 
-        <div class="section-label">📚 练习</div>
+        <div class="section-label">📚 学习</div>
         <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习 (${cfg.flashcard_count} 张)</a>
-        <a class="btn btn-secondary" href="#/quiz">🎯 选择题练习</a>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a class="btn btn-secondary" href="#/knowledge">📖 知识课程</a>
+          <a class="btn btn-secondary" href="#/vocab-list">📚 全部词汇</a>
+        </div>
+
+        <div class="section-label">✍️ 练习</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a class="btn btn-secondary" href="#/quiz">🎯 选择题</a>
+          <a class="btn btn-secondary" href="#/dictation">✍️ 听写</a>
           <a class="btn btn-secondary" href="#/tense">⏰ 时态</a>
           <a class="btn btn-secondary" href="#/preposition">🔗 介词</a>
           <a class="btn btn-secondary" href="#/translate">🔤 中译英</a>
           <a class="btn btn-secondary" href="#/translate-en">🔤 英译中</a>
         </div>
 
-        <div class="section-label">📈 学习记录</div>
+        <div class="section-label">📊 学习记录</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <a class="btn btn-secondary" href="#/errors">📒 错题本</a>
           <a class="btn btn-secondary" href="#/stats">📊 学习统计</a>
           <a class="btn btn-secondary" href="#/progress">📈 进度概览</a>
-          <a class="btn btn-secondary" href="#/knowledge">📖 知识课程</a>
-          <a class="btn btn-secondary" href="#/vocab-list">📚 全部词汇</a>
+          <a class="btn btn-secondary" href="#/review">🔄 上次回顾</a>
         </div>
+        <a class="btn btn-secondary btn-milestone" href="#/achievements">🏆 成就 · 已解锁 ${Object.keys(progress.achievements_unlocked || {}).length}/${(typeof ACHIEVEMENTS !== 'undefined' ? ACHIEVEMENTS.length : 10)}</a>
 
         <div class="section-label">🛠 工具</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <a class="btn btn-secondary" href="#/review">🔄 上次回顾</a>
-          <a class="btn btn-secondary" href="#/achievements">🏆 成就</a>
-          <a class="btn btn-secondary" href="#/vocab-import">📥 导入词表</a>
-          <a class="btn btn-secondary" href="#/dictation">✍️ 听写</a>
-          <!-- #12 AI 对话 hidden by user request 2026-07-15 -->
-        </div>
+        <a class="btn btn-secondary" href="#/vocab-import">📥 导入词表</a>
       </div>
     `;
 

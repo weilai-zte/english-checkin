@@ -80,7 +80,7 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 
 | path | handler | returns |
 |------|---------|---------|
-| `#/home` | `renderHome` | 首页 + 难度选择 + CTA → `checkin-config` |
+| `#/home` | `renderHome` | 首页 + 难度选择 + CTA → `checkin-config`；分 4 区：📚 学习（闪卡复习/知识课程/全部词汇）/ ✍️ 练习（选择题/听写/时态/介词/中译英/英译中 6 项 2×3 网格）/ 📊 学习记录（错题本/学习统计/进度概览/上次回顾 2×2 + 🏆 成就里程碑样式独行）/ 🛠 工具（导入词表） |
 | `#/checkin-config` | `renderCheckinConfig` | **每日打卡题型勾选（v0.13+）** |
 | `#/learn` | `renderLearn` | 通用复习入口（已不调 submitCheckin） |
 | `#/vocab` | `renderVocab` | 词汇闪卡；最后一词后按 plan 推进 |

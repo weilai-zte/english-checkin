@@ -67,7 +67,7 @@
     "design"
   ],
   "downstream": [],
-  "version": "v0.13",
+  "version": "v0.14",
   "last_validated": "2026-07-17",
   "evolution": [
     {
@@ -245,6 +245,28 @@
       "what": "v0.5 早期 Flask 版本 (词库 200 词, 5 个页面)",
       "why": "项目诞生",
       "by": "玄奘"
+    },
+    {
+      "date": "2026-07-17",
+      "version": "v0.14-home-recategorize",
+      "action": "refactor",
+      "what": "首页 4 区分类重组 + 成就里程碑样式",
+      "why": "用户反馈：知识课程/全部词汇不应在'学习记录'，成就/上次回顾/听写不应在'工具'",
+      "by": "codex",
+      "files": [
+        "site_static/app.js",
+        "site_static/style.css",
+        "docs/spec.md",
+        "readme.md"
+      ],
+      "details": [
+        "📚 学习（3 项）：闪卡复习（全宽）+ 知识课程/全部词汇（2 列）",
+        "✍️ 练习（6 项）：选择题/听写/时态/介词/中译英/英译中（2×3 整齐网格）",
+        "📊 学习记录（4 + 1）：错题本/学习统计/进度概览/上次回顾（2×2）+ 🏆 成就作为里程碑独行（金色渐变）",
+        "🛠 工具（1 项）：导入词表（全宽）",
+        "新增 .btn-milestone 样式：金色渐变 + 左侧 4px 金边，区别于普通 nav 按钮"
+      ],
+      "verified": "272 unit tests passed; 截图验证布局平衡"
     }
   ],
   "release_summaries": [
