@@ -428,14 +428,16 @@ def test_home_includes_games_section():
 
 
 def test_builder_uses_shuffled_for_token_lookup():
-    """防"选了 tom 显示 than"回归：pool i 对应词必须从 shuffled 取，不是 tokens"""
+    """防"选了 tom 显示 than"回归: pool 渲染路径必须从 shuffled 取 token"""
     src = (ROOT / 'site_static' / 'games' / 'builder.js').read_text(encoding='utf-8')
-    # 触发本次 bug 的反模式: tokens[i] 出现在 push/渲染路径
+    # 反模式: tokens[i] 用 pool 下标 i 当原序下标 (typo bug)
     assert 'tokens[i]' not in src, (
         "builder.js 不应再用 tokens[i] 作为 pool 按钮 token; "
         "pool 按钮 i 是 shuffled 下标, 应统一用 shuffled[i]"
     )
-    # 正向断言三处关键位置都用 shuffled[i]
-    assert 'tok: shuffled[i]' in src, "pick() 仍需从 shuffled[i] 取 token"
-    assert 'shuffled[p.idx]' in src, "build 区域渲染应基于 shuffled 重算"
-    assert 'return shuffled[p.idx]' in src, "submit 拼接应基于 shuffled"
+    # 正向: render 路径必须查 shuffled, 不能从 picked 里读缓存的 .tok
+    assert 'shuffled[i]' in src, "pool 渲染/查表仍需从 shuffled 取"
+    assert 'shuffled[p.idx]' not in src, (
+        "新结构把 picked 改为存纯 idx, 渲染路径统一 shuffled[i]; "
+        "若出现 shuffled[p.idx] 说明改回了老的 picked.tok 写法"
+    )

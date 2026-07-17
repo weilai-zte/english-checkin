@@ -1134,6 +1134,27 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 .sb-ok { background: #d1fae5; color: #065f46; }
 .sb-bad { background: #fee2e2; color: #991b1b; }
 
+
+.sb-section-label {
+  font-size: 12px;
+  color: var(--text-2);
+  margin: 8px 0 6px;
+  font-weight: 600;
+}
+.sb-picked-on {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-color: #764ba2;
+  opacity: 0.55;
+}
+.sb-picked-on:hover { filter: brightness(1.05); }
+.sb-check {
+  display: inline-block;
+  margin-right: 4px;
+  font-weight: 700;
+  font-size: 11px;
+  vertical-align: 1px;
+}
 /* ===== 塔防打字 ===== */
 .td-field {
   position: relative;
