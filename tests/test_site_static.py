@@ -113,8 +113,13 @@ def test_achievements_count():
     # not a function but a const; match differently
     m = re.search(r'const\s+ACHIEVEMENTS\s*=\s*\[(.*?)\];', APP_JS_SRC, re.DOTALL)
     assert m, 'ACHIEVEMENTS const not found'
-    items = re.findall(r'\{[^}]*id:', m.group(1))
-    assert len(items) == 10, f'expected 10 achievements, got {len(items)}'
+    # 直接用 id: 'xxx' 模式抽取 (不分嵌套 — game 类用 function 而里面又含 {})
+    items = re.findall(r"id:\s*'([^']+)'", m.group(1))
+    assert len(items) >= 10, f'expected at least 10 achievements, got {len(items)}'
+    # 至少 2 个明显跟游戏相关
+    game_keys = ('game_', 'tower', 'wordle', 'memory')
+    game_items = [i for i in items if any(k in i for k in game_keys)]
+    assert len(game_items) >= 2, f'expected >=2 game-related achievements, got {len(game_items)} from {items}'
 
 
 # ─── #6 vocab import: parsePastedVocab handles 3 formats ─────────
@@ -471,3 +476,19 @@ def test_tower_has_config_level_and_polish():
     # 4) 命中反馈: 爆破/震动/粒子
     assert 'spawnBurst' in src or 'td-shake' in src, \
         "命中应有强化反馈 (粒子/震动)"
+
+
+def test_flashcard_errors_route_and_helper_refactor():
+    """错题本一键复习: 必须有 flashcard-errors 路由 + helper 抽取"""
+    src = (ROOT / 'site_static' / 'app.js').read_text(encoding='utf-8')
+    # 1) 路由注册
+    assert "'flashcard-errors': renderFlashcardErrors" in src, \
+        "app.js 路由表缺少 flashcard-errors"
+    # 2) 抽取的 helper
+    assert 'function runFlashcardSession' in src, \
+        "应抽出 runFlashcardSession helper 让两个 flashcard 视图复用"
+    assert 'function pickFlashcardWords' in src, \
+        "应抽出 pickFlashcardWords helper"
+    # 3) 错题本按钮
+    assert 'flashcard-errors' in src and '用这些错题复习' in src, \
+        "错题本顶部应有 用这些错题复习 按钮"

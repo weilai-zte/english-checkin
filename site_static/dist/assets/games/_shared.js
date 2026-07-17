@@ -91,6 +91,10 @@
     if (result.won === false) s.lost = (s.lost || 0) + 1;
     s.last_played = new Date().toISOString();
     if (typeof saveProgress === 'function') saveProgress();
+    // 触发成就再评估 (可能新增解锁)
+    if (typeof window !== 'undefined' && typeof window.evaluateAchievements === 'function') {
+      try { window.evaluateAchievements(); } catch (e) { /* ignore */ }
+    }
   }
   function getGameStats(gameId) {
     ensureGameStats();

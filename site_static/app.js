@@ -198,6 +198,7 @@ document.addEventListener('input', function(e) {
   window.allWords = allWords;
   window.getDifficultyCfg = getDifficultyCfg;
   window.saveProgress = saveProgress;
+  window.evaluateAchievements = evaluateAchievements;
   function toast(msg, ms = 2000) {
     const el = document.getElementById('toast');
     el.textContent = msg;
@@ -566,6 +567,7 @@ document.addEventListener('input', function(e) {
     'vocab': renderVocab,
     'grammar': renderGrammar,
     'flashcard': renderFlashcard,
+    'flashcard-errors': renderFlashcardErrors,
     'tense': renderTense,
     'preposition': renderPreposition,
     'translate': renderTranslate,
@@ -1034,29 +1036,32 @@ document.addEventListener('input', function(e) {
   }
 
   // ─── 视图：Flashcard ──────────────────────────────
-  function renderFlashcard(app) {
+  function pickFlashcardWords() {
     const cfg = getDifficultyCfg();
     const blockTopics = new Set(cfg.block_topics);
     const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
     const mastered = new Set(progress.vocab_mastered.map(w => w.toLowerCase()));
-
     const allW = allWords().filter(w => {
       const simple = w.topic.split('(')[0].trim();
       if (blockTopics.has(simple)) return false;
       const wl = w.word.toLowerCase();
       return !mastered.has(wl) && !blockWords.has(wl);
     });
-    const words = sample(allW, cfg.flashcard_count);
+    return sample(allW, cfg.flashcard_count);
+  }
+  function runFlashcardSession(app, words, opts) {
+    opts = opts || {};
     if (!words.length) {
-      app.innerHTML = `${topBar('闪卡复习')}<div class="container"><div class="card">
-        <p>没有可复习的词了！</p>
-        <a class="btn btn-primary" href="#/home">返回</a>
+      app.innerHTML = `${topBar(opts.title || '闪卡复习')}<div class="container"><div class="card">
+        <p>${opts.emptyMsg || '没有可复习的词了！'}</p>
+        <a class="btn btn-primary" href="${opts.back || '#/home'}">返回</a>
       </div></div>`;
       return;
     }
-
     let idx = 0;
     let flipped = false;
+    const title = opts.title || '闪卡复习';
+    const back = opts.back || '#/home';
 
     function renderCard() {
       const w = words[idx];
@@ -1126,19 +1131,41 @@ document.addEventListener('input', function(e) {
       idx++;
       flipped = false;
       if (idx >= words.length) {
-        app.innerHTML = `${topBar('闪卡复习')}<div class="container"><div class="card" style="text-align:center;">
+        app.innerHTML = `${topBar(title)}<div class="container"><div class="card" style="text-align:center;">
           <div style="font-size:48px;">🎉</div>
           <h2>复习完成！</h2>
           <p>本轮共复习 ${words.length} 张卡片</p>
-          <a class="btn btn-primary" href="#/home">返回首页</a>
+          <a class="btn btn-primary" href="${back}">返回${opts.backLabel || '首页'}</a>
         </div></div>`;
         return;
       }
       renderCard();
     }
 
-    app.innerHTML = `${topBar('闪卡复习')}<div class="container"><div id="fc-content"></div></div>`;
+    app.innerHTML = `${topBar(title)}<div class="container"><div id="fc-content"></div></div>`;
     renderCard();
+  }
+  function renderFlashcard(app) {
+    return runFlashcardSession(app, pickFlashcardWords(), { back: '#/home' });
+  }
+  function renderFlashcardErrors(app) {
+    const wrongWords = (progress.wrong_words || [])
+      .map(e => ({ word: e.word, cn: e.cn || '', pron: e.pron || '' }))
+      .filter(w => w.word);
+    const fulls = wrongWords.map(w => findWord(w.word) || w).slice(0, 30);
+    if (!fulls.length) {
+      app.innerHTML = `${topBar('错题复习')}<div class="container"><div class="card">
+        <p>错题本是空的,先去练习练出一些错题吧</p>
+        <a class="btn btn-primary" href="#/errors">回错题本</a>
+      </div></div>`;
+      return;
+    }
+    return runFlashcardSession(app, fulls, {
+      title: '错题复习',
+      back: '#/errors',
+      backLabel: '错题本',
+      emptyMsg: '没有可复习的错题'
+    });
   }
 
   // ─── 视图：Tense ──────────────────────────────────
@@ -1634,7 +1661,10 @@ document.addEventListener('input', function(e) {
       ${topBar('错题本')}
       <div class="container">
         <div class="card">
-          <div class="card-title">📒 词汇错题 (${wrong.length})</div>
+          <div class="card-title-row">
+            <div class="card-title">📒 词汇错题 (${wrong.length})</div>
+            ${wrong.length ? '<a class="btn btn-primary btn-revise-errors" href="#/flashcard-errors">📝 用这些错题复习</a>' : ''}
+          </div>
           ${wrong.length ? wrong.slice(0, 30).map(e => `
             <div class="error-item">
               <button data-s="${escapeHtml(e.word)}" style="background:none;border:none;font-size:18px;cursor:pointer;">🔊</button>
@@ -2329,6 +2359,12 @@ document.addEventListener('input', function(e) {
     { id: 'grammar_30', name: '语法入门', desc: '掌握 30 个语法点', check: p => p.grammar_mastered.length >= 30 },
     { id: 'flashcard_50', name: '闪卡熟练', desc: '闪卡练习 50 次', check: p => (p.flashcard_history || []).length >= 50 },
     { id: 'imported_vocab', name: '自力更生', desc: '导入自定义词表', check: p => (p.custom_vocab || []).length > 0 },
+    // 游戏类成就 (基于 progress.game_stats)
+    { id: 'game_first', name: '游戏入门', desc: '玩过任意一个游戏', check: function (p) { var gs = p.game_stats || {}; return Object.keys(gs).some(function (k) { return (gs[k].played || 0) >= 1; }); } },
+    { id: 'game_explorer', name: '游戏集邮', desc: '5 个游戏都玩过', check: function (p) { var gs = p.game_stats || {}; return ['memory','wordle','picture','builder','tower'].every(function (k) { return (gs[k] && gs[k].played >= 1); }); } },
+    { id: 'tower_champion', name: '塔防守城', desc: '塔防打通胜利', check: function (p) { return ((p.game_stats || {}).tower || {}).won >= 1; } },
+    { id: 'wordle_pro', name: 'Wordle 单词王', desc: 'Wordle 累计答对 5 轮', check: function (p) { return ((p.game_stats || {}).wordle || {}).won >= 5; } },
+    { id: 'memory_master', name: '翻牌高手', desc: '翻牌配对最佳分 900+', check: function (p) { return ((p.game_stats || {}).memory || {}).best >= 900; } },
   ];
   function evaluateAchievements() {
     const unlocked = progress.achievements_unlocked = progress.achievements_unlocked || {};

@@ -19,6 +19,8 @@
   ];
   var MAX_LEVEL = 5;
   var XP_PER_LEVEL = 5; // 每 5 击杀升一级
+  var BOSS_EVERY = 5;  // 每 5 波一只 BOSS (HP=3, 速度慢)
+  var WAVE_LEN_BUCKETS = [3, 4, 5, 5, 6]; // 随波次推进词长 (3→6)
 
   function renderTowerDefense(app) {
     var GS = window.GameShared;
@@ -160,14 +162,47 @@
       lastFrameAt = 0;
       requestAnimationFrame(tick);
 
+      // 词按长度分桶
+      var wordsByLen = {};
+      for (var i = 0; i < words.length; i++) {
+        var wlen = words[i].word.length;
+        if (!wordsByLen[wlen]) wordsByLen[wlen] = [];
+        wordsByLen[wlen].push(words[i]);
+      }
+      function pickWordForWave(wlen) {
+        var bucket = wordsByLen[wlen] || words;
+        if (!bucket.length) return words[Math.floor(Math.random() * words.length)];
+        return bucket[Math.floor(Math.random() * bucket.length)];
+      }
+      function waveLenFor(w) {
+        var idx = Math.min(WAVE_LEN_BUCKETS.length - 1, Math.floor(w / 3));
+        return WAVE_LEN_BUCKETS[idx];
+      }
+      function isBossWave(w) { return (w + 1) % BOSS_EVERY === 0; }
+
       function planWaves() {
         spawnQueue = [];
-        var shuffled = shuffle(words.slice());
         for (var w = 0; w < maxWaves; w++) {
           var batch = [];
-          for (var l = 0; l < lanes; l++) {
-            var idx = (w * lanes + l) % shuffled.length;
-            batch.push({ word: shuffled[idx].word, cn: shuffled[idx].cn, lane: l, hp: 1 });
+          var isBoss = isBossWave(w);
+          var len = waveLenFor(w);
+          if (isBoss) {
+            // BOSS: 1 只居中道, HP 3, 词长 +1 (比本波常规 +1)
+            var bossLen = Math.min(7, len + 1);
+            var bossWord = pickWordForWave(bossLen);
+            batch.push({ word: bossWord.word, cn: bossWord.cn, lane: Math.floor(lanes / 2), hp: 3, isBoss: true });
+            // 顺便补 normal 怪在其他道
+            for (var l = 0; l < lanes; l++) {
+              if (l !== Math.floor(lanes / 2)) {
+                var bw = pickWordForWave(len);
+                batch.push({ word: bw.word, cn: bw.cn, lane: l, hp: 1, isBoss: false });
+              }
+            }
+          } else {
+            for (var l = 0; l < lanes; l++) {
+              var wd = pickWordForWave(len);
+              batch.push({ word: wd.word, cn: wd.cn, lane: l, hp: 1, isBoss: false });
+            }
           }
           spawnQueue.push(batch);
         }
@@ -192,18 +227,24 @@
         var batch = spawnQueue[wave - 1];
         if (!batch) return;
         batch.forEach(function (b) {
+          var emoji = b.isBoss ? '🐲'
+            : ['👾', '👻', '💀', '🧟'][Math.floor(Math.random() * 4)];
           monsters.push({
-            word: b.word, cn: b.cn, lane: b.lane, x: 0, id: Math.random().toString(36).slice(2, 8),
-            emoji: ['👾', '👻', '💀', '🧟'][Math.floor(Math.random() * 4)]
+            word: b.word, cn: b.cn, lane: b.lane, x: 0, hp: b.hp, maxHp: b.hp, isBoss: b.isBoss,
+            id: Math.random().toString(36).slice(2, 8),
+            emoji: emoji, flashAt: 0
           });
         });
       }
 
       function monsterHtml(m) {
-        var isActive = inputVal.length > 0 && m.word.toLowerCase().startsWith(inputVal.toLowerCase()) && !m.matched;
-        var cls = 'td-monster' + (m.matched ? ' td-hit' : isActive ? ' td-active' : '');
+        var isActive = inputVal.length > 0 && m.word.toLowerCase().startsWith(inputVal.toLowerCase()) && m.hp > 0;
+        var cls = 'td-monster' + (m.isBoss ? ' td-boss' : '') + (isActive ? ' td-active' : '');
         var pulse = m.flashAt && (Date.now() - m.flashAt) < 200 ? ' td-flash' : '';
+        var hpBar = m.isBoss ? '<div class="td-hpbar"><div class="td-hpfill" style="width:' +
+          Math.max(0, m.hp / m.maxHp * 100) + '%"></div></div>' : '';
         return '<div class="' + cls + pulse + '" data-mid="' + m.id + '" style="left:' + (m.x * 100) + '%;">' +
+          hpBar +
           '<div class="td-icon">' + m.emoji + '</div>' +
           '<div class="td-word">' + escapeHtml(m.word) + '</div>' +
         '</div>';
@@ -320,42 +361,73 @@
       function killMonster(target) {
         hits++;
         var field = body.querySelector('#td-field');
+        var burstScale = 1;
         if (field) {
           var monEl = field.querySelector('[data-mid="' + target.id + '"]');
           if (monEl) {
-            // 视觉爆破: 在怪物位置放出粒子碎片
             var rect = monEl.getBoundingClientRect();
             var fieldRect = field.getBoundingClientRect();
             var cx = (rect.left + rect.width / 2) - fieldRect.left;
             var cy = (rect.top + rect.height / 2) - fieldRect.top;
-            spawnBurst(cx, cy);
+            // BOSS 粒子大、多、金色; 普通怪小、橙
+            if (target.isBoss && target.hp <= 1) burstScale = 2;
+            spawnBurst(cx, cy, burstScale);
             field.classList.add('td-shake');
             setTimeout(function () { field.classList.remove('td-shake'); }, 220);
+            // 标记受击 flash, 200ms 后会通过 CSS + JS 自动清除
+            var hitMon = monsters.find(function (m) { return m.id === target.id; });
+            if (hitMon) hitMon.flashAt = Date.now();
           }
         }
+
+        // BOSS 多次击破: hp-- 后重新渲染, 不算击杀, 不升级
+        var liveMon = monsters.find(function (m) { return m.id === target.id; });
+        if (liveMon && liveMon.hp > 1) {
+          liveMon.hp--;
+          score += 5; // 半击得分
+          clearInputValue();
+          refreshStatus();
+          render();
+          return;
+        }
+
+        // 普通怪 / BOSS 最后击破
         monsters = monsters.filter(function (m) { return m.id !== target.id; });
         kills++;
         xp++;
-        score += 10;
+        score += target.isBoss ? 30 : 10;
         if (xp >= XP_PER_LEVEL && level < MAX_LEVEL) {
           xp = 0;
           level++;
           showLevelUp();
+        }
+        if (target.isBoss) {
+          // BOSS 击杀额外炸一波大粒子
+          setTimeout(function () {
+            var f = body.querySelector('#td-field');
+            if (!f) return;
+            var any = body.querySelector('[data-mid]');
+            if (!any) return;
+            var r = any.getBoundingClientRect();
+            var fr = f.getBoundingClientRect();
+            spawnBurst((r.left + r.width / 2) - fr.left, (r.top + r.height / 2) - fr.top, 2.4);
+          }, 60);
         }
         clearInputValue();
         refreshStatus();
         render();
       }
 
-      function spawnBurst(cx, cy) {
+      function spawnBurst(cx, cy, scale) {
+        scale = scale || 1;
         var field = body.querySelector('#td-field');
         if (!field) return;
-        var n = 8 + level * 2;
+        var n = (8 + level * 2) | 0;
         for (var i = 0; i < n; i++) {
           var p = document.createElement('div');
-          p.className = 'td-particle';
+          p.className = 'td-particle' + (scale >= 2 ? ' td-particle-big' : '');
           var angle = (Math.PI * 2 * i) / n;
-          var dist = 30 + Math.random() * 30;
+          var dist = (30 + Math.random() * 30) * scale;
           var dx = Math.cos(angle) * dist;
           var dy = Math.sin(angle) * dist;
           p.style.left = cx + 'px';
@@ -380,7 +452,7 @@
         var dt = lastFrameAt ? Math.min((now - lastFrameAt) / 1000, 0.1) : 0.016;
         lastFrameAt = now;
         if (isFiring) { raf = requestAnimationFrame(tick); return; }
-        monsters.forEach(function (m) { m.x += monsterSpeed * dt; });
+        monsters.forEach(function (m) { m.x += monsterSpeed * (m.isBoss ? 0.7 : 1) * dt; });
         var escaped = monsters.filter(function (m) { return m.x >= 0.92; });
         if (escaped.length) {
           lives -= escaped.length;
