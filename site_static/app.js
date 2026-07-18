@@ -166,7 +166,10 @@ document.addEventListener('input', function(e) {
   }
   function setDifficulty(level) {
     difficulty = level;
+    window.difficulty = level;  // 同步全局, 游戏 IIFE 才能读到最新值
     localStorage.setItem(DIFF_KEY, level);
+    const labels = { easy: '🌱 简单 L1', medium: '🌿 中等 L2', hard: '🔥 困难 L3' };
+    if (typeof toast === 'function') toast('🎚️ 词汇难度已切换到 ' + (labels[level] || level) + ' · 下次游戏/打卡生效', 2500);
   }
 
   // ─── Utils ───────────────────────────────────────────
