@@ -2690,7 +2690,17 @@ document.addEventListener('input', function(e) {
 
   // #5 dictation
   function renderDictation(app) {
-    const all = allWords().filter(w => !(progress.vocab_mastered || []).includes(w.word));
+    // 按难度筛词库 (复用 quiz/flashcard 同样的过滤规则)
+    const cfg = getDifficultyCfg();
+    const blockTopics = new Set(cfg.block_topics);
+    const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
+    const mastered = new Set((progress.vocab_mastered || []).map(w => w.toLowerCase()));
+    const all = allWords().filter(w => {
+      const simple = w.topic.split('(')[0].trim();
+      if (blockTopics.has(simple)) return false;
+      const wl = w.word.toLowerCase();
+      return !mastered.has(wl) && !blockWords.has(wl);
+    });
     const pool = all.length ? sample(all, Math.min(10, all.length)) : [];
     app.innerHTML = topBar('听写模式') +
       '<div class="container">' +
