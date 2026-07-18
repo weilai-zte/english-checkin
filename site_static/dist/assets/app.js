@@ -910,7 +910,7 @@ document.addEventListener('input', function(e) {
       '<div style="font-size:12px;color:var(--text-2);margin-top:6px;text-align:center;">' +
         '⏱ 累计学习约 ' + learnMin + ' 分钟 · ✓ 答对 ' + correctQs + ' 题 · 正确率 ' + accuracy + '%' +
       '</div>' +
-      '<a class="btn btn-secondary btn-milestone" href="#/achievements" style="margin-top:10px;">🎖 查看全部成就</a>' +
+      '<a class="btn btn-secondary btn-milestone" href="#/achievements" style="margin-top:10px;">🏆 成就 · 已解锁 ' + unlocked + '/' + totalAch + '</a>' +
     '</div>';
   }
 
@@ -933,8 +933,8 @@ document.addEventListener('input', function(e) {
 
         ${renderPersonalStatsCard(streak, totalDays, mastered)}
 
-        ${renderDailyWordCard()}
         ${renderLearningPlanCard()}
+        ${renderDailyWordCard()}
 
         <div class="card">
           <div class="card-title">⚙️ 练习难度</div>
