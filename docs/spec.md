@@ -12,7 +12,7 @@
 ## §1 目标
 
 ### statement
-english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA) + **19 Flask routes** + **20 SPA routes** + **8 数据 schema** + **11 接口契约** + **4 状态机** + 错误码规约 + 性能预算。
+english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA) + **19 Flask routes** + **20 SPA routes** + **8 数据 schema** + **15 接口契约** + **5 状态机** + 错误码规约 + 性能预算。
 
 ### why
 代码实现必须严格按本文对齐。AI 改 app.py 路由签名 / build.py 接口 / 数据 schema 前必须先改本文 + 跑 `tests/test_bugs.py`。
@@ -225,7 +225,7 @@ window.CHECKIN_DATA = {
 
 ---
 
-## §5 接口契约 (11 个)
+## §5 接口契约 (15 个)
 
 ### 5.1 build_data_export (`site_static/build.py`)
 ```python
@@ -295,7 +295,7 @@ netlify deploy --dir=site_static/dist --prod
 
 ---
 
-## §6 状态机 (4 个)
+## §6 状态机 (5 个)
 
 ### 6.1 flashcard_lifecycle
 ```
@@ -331,6 +331,25 @@ idle → config → in_progress → finished
 
 **Invariants**:
 - `checkedInToday()` 时直接显示「今日已完成」卡，禁用 CTA
+- vocab/grammar 必选，UI 禁用复选框 + `preventDefault`
+
+### 6.5 account_sync (v0.17+)
+```
+anonymous → nickname_bound
+                          ↑
+legacy_uuid → nickname_with_legacy
+                                ↓
+                          nickname_bound (重置保留 bound_devices)
+```
+- **anonymous**: 本机无昵称，无旧 USER_KEY；用户首次输入昵称时进入 `nickname_bound`
+- **legacy_uuid**: 设备携带旧 `ck_user_key_v1`（UUID v4）但本机无昵称；`switchAccount(name)` 自动拉旧数据并合并后进入 `nickname_with_legacy`
+- **nickname_bound**: 已设昵称；进度页「合并旧记录」按钮调用 `mergeLegacyDevice(id)` 后进入 `nickname_with_legacy`
+- **nickname_with_legacy**: `bound_devices` 包含多个 UUID；任何一台设备改动都会通过 `mergeProgress` union 合并到其他设备
+
+**Invariants**:
+- `bound_devices` 永远包含当前设备 ID + 历史上所有绑定过的 UUID
+- `user_name` 优先用本地（避免远端覆盖用户当前输入）
+- `difficulty` / `checkin_types` / `daily_checkin_plan` 按 `progress._updated_at` 较新者胜
 - vocab/grammar 必选，UI 禁用复选框 + `preventDefault`
 
 ---
@@ -377,6 +396,19 @@ idle → config → in_progress → finished
 ---
 
 ## §9 演进记录
+
+### v0.17 (2026-07-18)
+- **add**: F-022 账号云端同步 + 旧设备无损迁移 — by Codex
+  - **add**: `mergeProgress(local, remote)` 13 字段 union 合并（vocab_mastered / grammar_mastered / checkins / wrong_words / wrong_grammar / flashcard_history / custom_vocab / card_states / chat_history / achievements_unlocked / vocab_list_marked / game_stats / user_name / bound_devices）；word_stats 取 max(total/correct/wrong)；setting 类（difficulty / checkin_types / daily_checkin_plan）按 `_updated_at` 较新者胜
+  - **add**: `DEVICE_KEY = 'ck_device_id_v1'` 与 USER_KEY 解耦；`getDeviceId()` 升级时沿用旧 USER_KEY 或 `bound_devices` 中的 UUID
+  - **add**: `switchAccount(name, legacyDeviceId?)` 自动遍历 4 个 key 拉取并 union 合并
+  - **add**: `mergeLegacyDevice(legacyId)` 手动合并入口；进度页提供「合并旧记录」按钮 + UUID 输入
+  - **add**: `saveProgress()` 写 `_updated_at` + 同步 `window.progress` 引用（修复 games/_shared.js 写进度后窗口引用不同步的 bug）
+  - **add**: progress_v1 schema 新增 `user_name` / `bound_devices` / `difficulty` / `game_stats` / `vocab_list_marked` / `_updated_at`
+  - **add**: state_machine `account_sync` (anonymous / legacy_uuid / nickname_bound / nickname_with_legacy)
+  - **fix**: 进度页 `'当前账号: ' + escapeHtml(progress.user_name || '(未设置)') + ' ...'` 模板字符串拼接 bug（页面直接显示源码）
+  - **change**: 「重置所有进度」与「导入 JSON」改为保留账号绑定（user_name / bound_devices / difficulty / checkin_types），不再清空
+  - why: 用户原话「凡是要记录的信息都应该和账号关联」「为什么换个浏览器打卡记录就没了」「进度页显示出源代码字符串」
 
 ### v0.13 (2026-07-17)
 - **add**: 每日打卡题型选择页 `#/checkin-config`（7 题型：vocab/grammar 必选，其余 5 项可选） — by 玄奘
@@ -449,6 +481,49 @@ function renderCheckinConfig(app: HTMLElement): void
 **Invariants**:
 - `checkedInToday()` 时显示「今日已完成」卡，禁用 CTA
 - 必选项 disabled 复选框 + `.locked` 类 + `e.preventDefault()` 阻止 toggle
+
+### 5.12 mergeProgress (`site_static/app.js`)
+```js
+function mergeProgress(local: object, remote: object): object
+```
+**说明**: Union merge：13 个持久化字段全部去重合并；返回新对象，不修改入参；空 remote 仍返回完整 defaultProgress 副本。
+
+**Invariants**:
+- `wrong_words` + `flashcard_history` 自动截断 200 条
+- `local.user_name` 永远优先于 `remote.user_name`
+- `bound_devices` 去重并保留所有出现过的 UUID
+- 设置类字段（`difficulty` / `checkin_types` / `daily_checkin_plan`）按 `progress._updated_at` 较新者胜
+
+### 5.13 switchAccount (`site_static/app.js`)
+```js
+async function switchAccount(name: string, legacyDeviceId?: string): Promise<void>
+```
+**说明**: 切换/绑定账号昵称：先 `backupProgress()` → 拉 4 个 key（昵称 key / 旧 USER_KEY / 当前设备 ID / 传入的旧 UUID）→ 逐个 union merge → 写入 `bound_devices` → `applyAccountSettings()` 恢复难度。
+
+**Invariants**:
+- 切换前必须先 `backupProgress()`
+- 传入 `legacyDeviceId` 时一并尝试合并旧 UUID；找不到远端进度视为空数据
+- 完成后必须 `applyAccountSettings()` 写回 `progress.difficulty`
+
+### 5.14 mergeLegacyDevice (`site_static/app.js`)
+```js
+async function mergeLegacyDevice(legacyId: string): Promise<{merged: boolean, remote_words: number}>
+```
+**说明**: 手动合并入口；进度页「合并旧记录」按钮调用；拉取旧 UUID 对应远端进度 union merge；找不到时返回 `{merged: false}`。
+
+**Invariants**:
+- 旧 UUID 必须形如 UUID v4，否则 throw
+- 成功后必须 union `bound_devices` 并 `saveProgress()`
+
+### 5.15 saveProgress (`site_static/app.js`)
+```js
+function saveProgress(): void
+```
+**说明**: 本地持久化：写 `localStorage['ck_progress_v1']` + 同步 `window.progress` 引用 + 写 `_updated_at = new Date().toISOString()` + 触发 `syncToSupabase()` debounce 300ms。
+
+**Invariants**:
+- 每次写入必须更新 `progress._updated_at`
+- 必须同步 `window.progress` 引用（`games/_shared.js` 等子模块能看到最新值）
 
 ---
 

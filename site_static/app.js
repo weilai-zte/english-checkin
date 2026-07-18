@@ -30,6 +30,7 @@ document.addEventListener('input', function(e) {
   const DIFF_KEY = 'ck_difficulty_v1';
   const TASK_KEY = 'ck_current_task_v1';
   const USER_KEY = 'ck_user_key_v1';
+  const DEVICE_KEY = 'ck_device_id_v1';
 
   // ─── 每日打卡题型目录（顺序即默认执行顺序）────────
   const CHECKIN_TYPES = [
@@ -63,10 +64,34 @@ document.addEventListener('input', function(e) {
     }
   } catch (e) { console.warn('Supabase init failed:', e); }
 
+  function isNicknameKey(key) {
+    return typeof key === 'string' && key.startsWith('nk_');
+  }
+  function createDeviceId() {
+    return crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
+  }
+  // 设备 ID 永久独立于账号 key。升级旧版本时优先沿用原 UUID。
+  function getDeviceId() {
+    let deviceId = localStorage.getItem(DEVICE_KEY);
+    if (deviceId) return deviceId;
+
+    const oldUserKey = localStorage.getItem(USER_KEY);
+    if (oldUserKey && !isNicknameKey(oldUserKey)) deviceId = oldUserKey;
+
+    if (!deviceId) {
+      try {
+        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        deviceId = (stored.bound_devices || []).find(id => id && !isNicknameKey(id)) || '';
+      } catch (e) { /* 使用新设备 ID */ }
+    }
+    if (!deviceId) deviceId = createDeviceId();
+    localStorage.setItem(DEVICE_KEY, deviceId);
+    return deviceId;
+  }
   function getUserKey() {
     let key = localStorage.getItem(USER_KEY);
     if (!key) {
-      key = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
+      key = getDeviceId();
       localStorage.setItem(USER_KEY, key);
     }
     return key;
@@ -88,7 +113,8 @@ document.addEventListener('input', function(e) {
 
   // ─── State ───────────────────────────────────────────
   let progress = loadProgress();
-  let difficulty = localStorage.getItem(DIFF_KEY) || 'medium';
+  let difficulty = ['easy', 'medium', 'hard'].includes(progress.difficulty)
+    ? progress.difficulty : (localStorage.getItem(DIFF_KEY) || 'medium');
   let currentTask = null;     // 每日任务（learn 时生成）
   let currentQuestions = null; // 练习题（tense/preposition/quiz 时生成）
   let currentSentences = null; // 翻译题
@@ -121,6 +147,8 @@ document.addEventListener('input', function(e) {
       card_states: {},           // #1 FSRS (SM-2)
       chat_history: [],          // #12 AI dialogue
       achievements_unlocked: {}, // #7 achievements
+      game_stats: {},            // 游戏成绩与次数
+      vocab_list_marked: [],     // 全部词汇中的收藏
       user_name: '', // #account nickname (跨设备账号标识)
       bound_devices: [], // #account 本账号绑定的设备 ID 列表
     };
@@ -139,42 +167,56 @@ document.addEventListener('input', function(e) {
     }
     return 'nk_' + s.split('').reduce(function (a, c) { return ((a << 5) - a + c.charCodeAt(0)) | 0; }, 0).toString(36);
   }
-  // Union merge: 不丢本地, 两边数据按规则合并
+  // Union merge: 本地和账号云端的所有持久化信息都不能被覆盖丢失。
   function mergeProgress(local, remote) {
-    if (!remote) return local;
-    var out = Object.assign({}, remote);
+    local = local || {};
+    remote = remote || {};
+    var out = Object.assign({}, remote, local);
+    function unionStrings(a, b, normalize) {
+      var values = new Map();
+      [].concat(a || [], b || []).forEach(function (value) {
+        if (value == null) return;
+        var key = normalize ? normalize(value) : String(value);
+        if (key) values.set(key, value);
+      });
+      return Array.from(values.values());
+    }
+    function unionObjects(a, b, keyFn, limit) {
+      var values = new Map();
+      [].concat(a || [], b || []).forEach(function (value) {
+        if (!value) return;
+        var key = keyFn(value);
+        if (key) values.set(key, value);
+      });
+      var result = Array.from(values.values());
+      return limit ? result.slice(-limit) : result;
+    }
     // vocab_mastered: union
-    var vm = new Set();
-    (local.vocab_mastered || []).forEach(function (w) { vm.add(w.toLowerCase()); });
-    (remote.vocab_mastered || []).forEach(function (w) { vm.add(w.toLowerCase()); });
-    out.vocab_mastered = Array.from(vm);
+    out.vocab_mastered = unionStrings(remote.vocab_mastered, local.vocab_mastered, function (w) {
+      return String(w).toLowerCase();
+    }).map(function (w) { return String(w).toLowerCase(); });
     // grammar_mastered: union
-    var gm = new Set();
-    (local.grammar_mastered || []).forEach(function (g) { gm.add(typeof g === 'string' ? g : g.id || JSON.stringify(g)); });
-    (remote.grammar_mastered || []).forEach(function (g) { gm.add(typeof g === 'string' ? g : g.id || JSON.stringify(g)); });
-    out.grammar_mastered = Array.from(gm);
-    // checkins: 按 date+types 去重 (保留较新的 score)
-    var ckMap = new Map();
-    function ckKey(c) { return c.date + '|' + ((c.types || []).join(',')); }
-    [].concat(remote.checkins || [], local.checkins || []).forEach(function (c) {
-      var k = ckKey(c);
-      var exist = ckMap.get(k);
-      if (!exist) ckMap.set(k, c);
-      // 保留 total_days 较大 (即打卡次数多) 的那个
+    out.grammar_mastered = unionObjects(remote.grammar_mastered, local.grammar_mastered, function (g) {
+      return typeof g === 'string' ? g : (g.id || JSON.stringify(g));
     });
-    out.checkins = Array.from(ckMap.values()).sort(function (a, b) { return (a.date || '').localeCompare(b.date || ''); });
+    // checkins: 按日期和题型去重，同一条记录保留本地版本。
+    out.checkins = unionObjects(remote.checkins, local.checkins, function (c) {
+      return (c.date || '') + '|' + (c.types || []).slice().sort().join(',');
+    }).sort(function (a, b) { return (a.date || '').localeCompare(b.date || ''); });
     // word_stats: 同一词取 max(total/correct/wrong)
     var ws = {};
     function mergeStats(w) {
       var k = w.toLowerCase();
       var a = (local.word_stats || {})[k] || {};
       var b = (remote.word_stats || {})[k] || {};
-      ws[k] = {
-        total: Math.max(a.total || 0, b.total || 0),
-        correct: Math.max(a.correct || 0, b.correct || 0),
-        wrong: Math.max(a.wrong || 0, b.wrong || 0),
-        last: (a.last || '').localeCompare(b.last || '') > 0 ? a.last : b.last,
-      };
+      var stat = Object.assign({}, b, a);
+      stat.total = Math.max(a.total || 0, b.total || 0);
+      stat.correct = Math.max(a.correct || 0, b.correct || 0);
+      stat.wrong = Math.max(a.wrong || 0, b.wrong || 0);
+      stat.last = (a.last || '').localeCompare(b.last || '') > 0 ? a.last : b.last;
+      var firstSeen = [a.first_seen, b.first_seen].filter(Boolean).sort();
+      if (firstSeen.length) stat.first_seen = firstSeen[0];
+      ws[k] = stat;
     }
     Object.keys(Object.assign({}, local.word_stats || {}, remote.word_stats || {})).forEach(mergeStats);
     out.word_stats = ws;
@@ -185,7 +227,9 @@ document.addEventListener('input', function(e) {
       var exist = wwMap.get(w.word.toLowerCase());
       if (!exist || (w.date || '') > (exist.date || '')) wwMap.set(w.word.toLowerCase(), w);
     });
-    out.wrong_words = Array.from(wwMap.values()).slice(-50);
+    out.wrong_words = Array.from(wwMap.values()).sort(function (a, b) {
+      return (a.date || '').localeCompare(b.date || '');
+    }).slice(-200);
     // wrong_grammar: union by question+type
     var wgKey = function (e) { return (e.type || '') + '|' + (e.question || ''); };
     var wgMap = new Map();
@@ -195,21 +239,69 @@ document.addEventListener('input', function(e) {
       var ex = wgMap.get(k);
       if (!ex || (e.date || '') > (ex.date || '')) wgMap.set(k, e);
     });
-    out.wrong_grammar = Array.from(wgMap.values()).slice(-50);
-    // 累计天数: 取 max
-    out.total_days = Math.max(local.total_days || 0, remote.total_days || 0);
+    out.wrong_grammar = Array.from(wgMap.values()).sort(function (a, b) {
+      return (a.date || '').localeCompare(b.date || '');
+    }).slice(-100);
+
+    // 学习历史、自定义词表、复习状态、聊天、收藏和成就均归属于账号。
+    out.flashcard_history = unionObjects(remote.flashcard_history, local.flashcard_history, function (h) {
+      return [h.word || '', h.date || '', h.rating == null ? '' : h.rating, h.source || ''].join('|');
+    }, 200);
+    out.custom_vocab = unionObjects(remote.custom_vocab, local.custom_vocab, function (w) {
+      return (w.word || '').trim().toLowerCase();
+    });
+    var cardStates = Object.assign({}, remote.card_states || {});
+    Object.keys(local.card_states || {}).forEach(function (word) {
+      var localCard = local.card_states[word] || {};
+      var remoteCard = cardStates[word] || {};
+      cardStates[word] = (localCard.reviews || 0) >= (remoteCard.reviews || 0) ? localCard : remoteCard;
+    });
+    out.card_states = cardStates;
+    out.chat_history = unionObjects(remote.chat_history, local.chat_history, function (message) {
+      return JSON.stringify(message);
+    }, 200);
+    out.achievements_unlocked = Object.assign({}, remote.achievements_unlocked || {}, local.achievements_unlocked || {});
+    out.vocab_list_marked = unionStrings(remote.vocab_list_marked, local.vocab_list_marked, function (w) {
+      return String(w).toLowerCase();
+    });
+
+    var gameStats = {};
+    var gameIds = new Set(Object.keys(remote.game_stats || {}).concat(Object.keys(local.game_stats || {})));
+    gameIds.forEach(function (gameId) {
+      var a = (local.game_stats || {})[gameId] || {};
+      var b = (remote.game_stats || {})[gameId] || {};
+      var mergedGame = Object.assign({}, b, a);
+      ['played', 'won', 'lost', 'best'].forEach(function (field) {
+        mergedGame[field] = Math.max(a[field] || 0, b[field] || 0);
+      });
+      mergedGame.last_played = (a.last_played || '').localeCompare(b.last_played || '') >= 0 ? a.last_played : b.last_played;
+      mergedGame.history = unionObjects(b.history, a.history, function (entry) { return JSON.stringify(entry); }, 100);
+      gameStats[gameId] = mergedGame;
+    });
+    out.game_stats = gameStats;
+
+    // 累计天数: 至少覆盖两边以及合并后不同的打卡日期数。
+    var checkinDays = new Set(out.checkins.map(function (c) { return c.date; }).filter(Boolean)).size;
+    out.total_days = Math.max(local.total_days || 0, remote.total_days || 0, checkinDays);
     // streak: 取 max
     out.streak = Math.max(local.streak || 0, remote.streak || 0);
     // last_checkin: 取较新的
     out.last_checkin = (remote.last_checkin || '').localeCompare(local.last_checkin || '') > 0 ? remote.last_checkin : local.last_checkin;
-    // user_name: 保留 remote (用户主动选的昵称)
-    out.user_name = remote.user_name || local.user_name || '';
+    out.user_name = local.user_name || remote.user_name || '';
     // bound_devices: union
     var bd = new Set();
     (local.bound_devices || []).forEach(function (d) { bd.add(d); });
     (remote.bound_devices || []).forEach(function (d) { bd.add(d); });
     out.bound_devices = Array.from(bd);
-    // 其他字段 (flashcard_history / card_states / custom_vocab / chat_history / achievements_unlocked) 用 remote
+    // 设置类字段按整个进度对象的更新时间选择，避免旧设备覆盖新设置。
+    var remoteIsNewer = (remote._updated_at || '').localeCompare(local._updated_at || '') > 0;
+    ['difficulty', 'checkin_types', 'daily_checkin_plan'].forEach(function (field) {
+      if (remoteIsNewer && remote[field] != null) out[field] = remote[field];
+      else if (local[field] != null) out[field] = local[field];
+      else if (remote[field] != null) out[field] = remote[field];
+    });
+    out._updated_at = (local._updated_at || '').localeCompare(remote._updated_at || '') >= 0
+      ? local._updated_at : remote._updated_at;
     return out;
   }
   // 切换前本地备份到 backup 槽位 (防止意外丢失)
@@ -226,6 +318,8 @@ document.addEventListener('input', function(e) {
     } catch (e) { console.warn('backup failed', e); }
   }
   function saveProgress() {
+    progress._updated_at = new Date().toISOString();
+    window.progress = progress;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
     syncToSupabase();
   }
@@ -251,25 +345,68 @@ document.addEventListener('input', function(e) {
     if (!sb) return;
     try {
       const key = getUserKey();
-      const { data, error } = await sb.from('progress')
-        .select('data,updated_at')
-        .eq('user_key', key)
-        .maybeSingle();
-      if (error || !data) return;
-      const local = localStorage.getItem(STORAGE_KEY);
-      const localTs = local ? JSON.parse(local)._updated_at || '' : '';
-      const remoteTs = data.updated_at || '';
-      if (remoteTs > localTs) {
-        progress = Object.assign(defaultProgress(), data.data);
-        progress._updated_at = data.updated_at;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+      let foundRemote = false;
+      let latestRemoteTs = '';
+      let merged = progress;
+
+      const accountRow = await loadFromRemoteByKey(key);
+      if (accountRow && accountRow.data) {
+        const accountData = Object.assign({}, accountRow.data, {
+          _updated_at: (accountRow.data._updated_at || '').localeCompare(accountRow.updated_at || '') >= 0
+            ? accountRow.data._updated_at : accountRow.updated_at,
+        });
+        merged = mergeProgress(progress, accountData);
+        latestRemoteTs = accountRow.updated_at || '';
+        foundRemote = true;
       }
+
+      // 已切换到昵称账号的老用户，启动时也自动合并绑定过的旧 UUID 行。
+      if (isNicknameKey(key)) {
+        const legacyIds = Array.from(new Set([getDeviceId()].concat(merged.bound_devices || [])))
+          .filter(id => id && !isNicknameKey(id) && id !== key)
+          .slice(0, 20);
+        for (const legacyId of legacyIds) {
+          try {
+            const legacyRow = await loadFromRemoteByKey(legacyId);
+            if (!legacyRow || !legacyRow.data) continue;
+            const legacyData = Object.assign({}, legacyRow.data, {
+              _updated_at: (legacyRow.data._updated_at || '').localeCompare(legacyRow.updated_at || '') >= 0
+                ? legacyRow.data._updated_at : legacyRow.updated_at,
+            });
+            merged = mergeProgress(merged, legacyData);
+            latestRemoteTs = (latestRemoteTs || '').localeCompare(legacyRow.updated_at || '') >= 0
+              ? latestRemoteTs : legacyRow.updated_at;
+            foundRemote = true;
+          } catch (e) { console.warn('旧设备进度读取失败:', legacyId, e); }
+        }
+        const devices = new Set(merged.bound_devices || []);
+        devices.add(getDeviceId());
+        merged.bound_devices = Array.from(devices);
+      }
+
+      if (!foundRemote) return;
+      progress = Object.assign(defaultProgress(), merged);
+      progress._updated_at = (progress._updated_at || '').localeCompare(latestRemoteTs) >= 0
+        ? progress._updated_at : latestRemoteTs;
+      window.progress = progress;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+      applyAccountSettings();
+      // 如果本地有云端没有的记录，把合并结果回写到当前账号。
+      syncToSupabase();
     } catch (e) { console.warn('Supabase fetch failed:', e); }
+  }
+  function applyAccountSettings() {
+    if (!['easy', 'medium', 'hard'].includes(progress.difficulty)) return;
+    difficulty = progress.difficulty;
+    window.difficulty = difficulty;
+    localStorage.setItem(DIFF_KEY, difficulty);
   }
   function setDifficulty(level) {
     difficulty = level;
     window.difficulty = level;  // 同步全局, 游戏 IIFE 才能读到最新值
     localStorage.setItem(DIFF_KEY, level);
+    progress.difficulty = level;
+    saveProgress();
     const labels = { easy: '🌱 简单 L1', medium: '🌿 中等 L2', hard: '🔥 困难 L3' };
     if (typeof toast === 'function') toast('🎚️ 词汇难度已切换到 ' + (labels[level] || level) + ' · 下次游戏/打卡生效', 2500);
   }
@@ -2069,17 +2206,18 @@ document.addEventListener('input', function(e) {
             <button id="edit-account-btn" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">✏ 修改</button>
           </div>
           <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
-            当前账号: <b id="user-name-display" style="color:var(--accent);">' + escapeHtml(progress.user_name || '(未设置)') + '</b>
-            <span style="font-size:11px;color:var(--text-2);"> · 绑定设备数: <b id="bound-devices-count">' + ((progress.bound_devices || []).length) + '</b></span>
+            当前账号: <b id="user-name-display" style="color:var(--accent);">${escapeHtml(progress.user_name || '(未设置)')}</b>
+            <span style="font-size:11px;color:var(--text-2);"> · 绑定设备数: <b id="bound-devices-count">${(progress.bound_devices || []).length}</b></span>
           </div>
           <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
-            在另一台设备的进度概览输入相同昵称即可同步 (已掌握词/打卡/错题自动合并, 不会丢本地进度)。
+            在另一台设备设置相同昵称，即可同步打卡、成就、游戏和其他账号记录。
           </div>
-          <div style="display:flex;gap:6px;">
-            <input id="migrate-key-input" type="text" placeholder="输入另一个设备的昵称..." style="flex:1;padding:8px;border:1.5px solid #d0d5e0;border-radius:8px;font-size:13px;" />
-            <button id="migrate-key-btn" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;">🔄 同步此账号</button>
+          <div style="font-size:11px;color:var(--text-2);margin-bottom:6px;">以前使用设备 ID 同步过，可在这里将旧记录合并到当前账号：</div>
+          <div class="account-legacy-row">
+            <input id="migrate-key-input" type="text" placeholder="粘贴旧设备 ID..." style="flex:1;padding:8px;border:1.5px solid #d0d5e0;border-radius:8px;font-size:13px;min-width:0;" />
+            <button id="migrate-key-btn" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">合并旧记录</button>
           </div>
-          <div style="font-size:11px;color:var(--text-2);margin-top:6px;">切换前会自动备份本地数据, 合并后保留较新的进度。</div>
+          <div style="font-size:11px;color:var(--text-2);margin-top:6px;">合并前会自动备份本地数据，原设备记录也会保留。</div>
         </div>
       </div>
     `;
@@ -2087,35 +2225,39 @@ document.addEventListener('input', function(e) {
     // "修改" 按钮: 打开账号 modal (改名/新建)
     const eab = app.querySelector('#edit-account-btn');
     if (eab) eab.onclick = () => openAccountModal('edit');
-    // 同步此账号: 输入昵称 → union merge → 切换
+    // 兼容旧版：把旧设备 UUID 对应的云端记录合并进当前昵称账号。
     const mib = app.querySelector('#migrate-key-input');
     const mbtn = app.querySelector('#migrate-key-btn');
     if (mbtn) mbtn.onclick = async () => {
-      const name = (mib.value || '').trim();
-      if (!name) { toast('请输入昵称'); return; }
+      const legacyId = (mib.value || '').trim();
+      if (!legacyId) { toast('请输入旧设备 ID'); return; }
       if (!progress.user_name) {
-        // 还没建账号, 直接当创建处理
-        await switchAccount(name);
-        render();
+        toast('请先点击“修改”设置昵称');
         return;
       }
-      if (name === progress.user_name) { toast('这就是当前账号'); return; }
-      mbtn.disabled = true; mbtn.textContent = '... 同步中';
+      mbtn.disabled = true; mbtn.textContent = '合并中...';
       try {
-        // union merge, switchAccount 内部已经做了备份
-        const oldName = progress.user_name;
-        await switchAccount(name);
-        toast('已合并 ' + oldName + ' → ' + name, 2500);
+        const found = await mergeLegacyDevice(legacyId);
+        if (!found) { toast('云端没有找到这个旧设备 ID'); return; }
+        toast('旧设备记录已合并到 ' + progress.user_name, 2500);
         render();
       } catch (e) {
-        toast('同步失败: ' + (e.message || e));
+        toast('合并失败: ' + (e.message || e));
       } finally {
-        mbtn.disabled = false; mbtn.textContent = '🔄 同步此账号';
+        mbtn.disabled = false; mbtn.textContent = '合并旧记录';
       }
     };
     app.querySelector('#reset-progress').onclick = () => {
       if (confirm('确定要重置所有进度？包括打卡、错题、掌握记录。此操作不可恢复！')) {
-        progress = defaultProgress();
+        backupCurrentProgress();
+        const accountState = {
+          user_name: progress.user_name || '',
+          bound_devices: (progress.bound_devices || []).slice(),
+          difficulty: progress.difficulty,
+          checkin_types: (progress.checkin_types || []).slice(),
+        };
+        progress = Object.assign(defaultProgress(), accountState);
+        window.progress = progress;
         saveProgress();
         render();
         toast('已重置');
@@ -2325,15 +2467,21 @@ document.addEventListener('input', function(e) {
         if (!data || typeof data !== 'object' || !Array.isArray(data.checkins)) {
           toast('格式不对', 2500); return;
         }
-        if (!confirm('确定覆盖当前进度吗？建议先导出当前进度作为备份。')) return;
-        progress = Object.assign(defaultProgress(), data);
-        progress.card_states = data.card_states || {};
-        progress.custom_vocab = data.custom_vocab || [];
-        progress.chat_history = data.chat_history || [];
-        progress.achievements_unlocked = data.achievements_unlocked || {};
+        if (!confirm('确定把备份记录合并到当前账号吗？现有记录不会被覆盖。')) return;
+        backupCurrentProgress();
+        const accountName = progress.user_name || data.user_name || '';
+        const merged = mergeProgress(progress, data);
+        merged.user_name = accountName;
+        const devices = new Set(merged.bound_devices || []);
+        devices.add(getDeviceId());
+        merged.bound_devices = Array.from(devices);
+        progress = Object.assign(defaultProgress(), merged);
+        window.progress = progress;
+        if (accountName) localStorage.setItem(USER_KEY, nicknameToKey(accountName));
+        applyAccountSettings();
         saveProgress();
         render();
-        toast('已导入');
+        toast('备份记录已合并');
       } catch (e) { toast('解析失败: ' + e.message, 3000); }
     };
     r.readAsText(file, 'utf-8');
@@ -3004,7 +3152,7 @@ document.addEventListener('input', function(e) {
               '<button class="btn btn-primary" id="acct-save-btn">💾 保存</button>' +
               (cur ? '<button class="btn btn-secondary" id="acct-cancel-btn">取消</button>' : '') +
             '</div>' +
-            (cur ? '<div style="margin-top:14px;padding-top:12px;border-top:1px solid #eee;font-size:12px;color:var(--text-2);">当前昵称: <b>' + escapeHtml(cur) + '</b><br>本设备 ID: <code style="font-size:10px;">' + escapeHtml(getUserKey()) + '</code></div>' : '') +
+            (cur ? '<div style="margin-top:14px;padding-top:12px;border-top:1px solid #eee;font-size:12px;color:var(--text-2);">当前昵称: <b>' + escapeHtml(cur) + '</b><br>本设备 ID: <code style="font-size:10px;word-break:break-all;">' + escapeHtml(getDeviceId()) + '</code></div>' : '') +
           '</div>' +
         '</div>';
       wrap.querySelector('#acct-x').onclick = closeAccountModal;
@@ -3032,36 +3180,62 @@ document.addEventListener('input', function(e) {
     const el = document.getElementById('account-modal');
     if (el) el.remove();
   }
-  // 切换到昵称 name: 备份本地 → 加载云端 → union merge → 保存
-  async function switchAccount(name) {
+  // 切换到昵称 name: 同时读取昵称账号和旧设备 UUID，union 后再保存。
+  async function switchAccount(name, legacyDeviceId) {
     name = (name || '').trim();
     if (!name) return;
     const oldName = progress.user_name || '';
     const newKey = nicknameToKey(name);
+    const previousKey = getUserKey();
+    const deviceId = getDeviceId();
     // 1) 备份本地 (避免覆盖丢数据)
     backupCurrentProgress();
-    // 2) 拉云端 (用 nickname 派生的 key)
-    let remoteData = null;
-    let remoteTs = '';
-    try {
-      if (sb) {
-        const r = await sb.from('progress').select('data,updated_at').eq('user_key', newKey).maybeSingle();
-        if (r.data) { remoteData = r.data.data; remoteTs = r.data.updated_at || ''; }
-      }
-    } catch (e) { console.warn('load remote failed', e); }
-    // 3) union merge
-    const merged = mergeProgress(progress, remoteData);
+    // 2) 拉昵称账号、当前旧 key、本设备 UUID；失败不阻止本地创建账号。
+    let merged = mergeProgress(progress, null);
+    const sourceKeys = Array.from(new Set([newKey, previousKey, deviceId, legacyDeviceId].filter(Boolean)));
+    for (const sourceKey of sourceKeys) {
+      try {
+        const remote = await loadFromRemoteByKey(sourceKey);
+        if (remote && remote.data) merged = mergeProgress(merged, remote.data);
+      } catch (e) { console.warn('load account source failed:', sourceKey, e); }
+    }
+    // 3) 明确使用用户刚输入的昵称，避免旧数据中的账号名覆盖。
     merged.user_name = name;
-    // 4) 绑定本设备到新账号
-    const devId = getUserKey();
+    // 4) 绑定本设备和参与迁移的旧设备 ID。
     const bd = new Set(merged.bound_devices || []);
-    bd.add(devId);
+    bd.add(deviceId);
+    sourceKeys.filter(key => !isNicknameKey(key)).forEach(key => bd.add(key));
     merged.bound_devices = Array.from(bd);
     progress = Object.assign(defaultProgress(), merged);
+    window.progress = progress;
     // 5) 保存到本地 + 云端 (用 newKey)
     localStorage.setItem(USER_KEY, newKey);
+    applyAccountSettings();
     saveProgress();
     if (typeof toast === 'function') toast(oldName && oldName !== name ? '已切换到 ' + name : '账号已创建: ' + name, 2500);
+  }
+  async function mergeLegacyDevice(legacyDeviceId) {
+    legacyDeviceId = (legacyDeviceId || '').trim();
+    if (!legacyDeviceId) return false;
+    if (!progress.user_name) throw new Error('请先设置昵称');
+
+    const remote = await loadFromRemoteByKey(legacyDeviceId);
+    if (!remote || !remote.data) return false;
+
+    backupCurrentProgress();
+    const accountName = progress.user_name;
+    const merged = mergeProgress(progress, remote.data);
+    merged.user_name = accountName;
+    const bd = new Set(merged.bound_devices || []);
+    bd.add(getDeviceId());
+    bd.add(legacyDeviceId);
+    merged.bound_devices = Array.from(bd);
+    progress = Object.assign(defaultProgress(), merged);
+    window.progress = progress;
+    localStorage.setItem(USER_KEY, nicknameToKey(accountName));
+    applyAccountSettings();
+    saveProgress();
+    return true;
   }
   async function openLlmSettingsModal(mode) {
     mode = mode || 'auto';

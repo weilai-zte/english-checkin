@@ -8,7 +8,8 @@
       "新增需求必须先在本文 §3 加编号 + §5 加 UC，再写代码",
       "代码与本文冲突时改本文（用户驱动）",
       "5 原则 doc-as-data：本文 json 是真理源，md 是渲染",
-      "改任何 §3/§4/§5 编号需求前先看本文 decision_table 优先级"
+      "改任何 §3/§4/§5 编号需求前先看本文 decision_table 优先级",
+      "F-022 全字段随账号云端同步：改任何持久化字段前先看 progress_v1 schema + mergeProgress invariant"
     ]
   },
   "inputs": [
@@ -125,9 +126,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.16",
-  "last_validated": "2026-07-17",
+  "version": "v0.17",
+  "last_validated": "2026-07-18",
   "evolution": [
+    {
+      "date": "2026-07-18",
+      "version": "v0.17",
+      "action": "add",
+      "what": "F-022 账号云端同步 + 旧设备无损迁移：mergeProgress 13 字段 union 合并；DEVICE_KEY 与 USER_KEY 解耦；switchAccount / mergeLegacyDevice 入口；进度页模板 bug 修复；N-007 敏感数据仅本机",
+      "why": "用户原话「成就系统等等凡是要记录的信息都应该和账号关联」「为什么换个浏览器打卡记录就没了」",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-16",
       "version": "v0.16",
@@ -312,6 +321,12 @@
         "priority": "P0",
         "statement": "每日打卡题型选择页 #/checkin-config：用户可勾选本次想做的题型（vocab/grammar 必选，其余 5 项可选），按勾选顺序依次进入各题型，全部完成后记一次打卡",
         "verification": "pytest tests/test_site_static.py -v (10 个新增用例覆盖)"
+      },
+      {
+        "id": "F-022",
+        "priority": "P0",
+        "statement": "账号云端同步 + 旧设备无损迁移：进度页字符串拼接模板 bug 修复；所有持久化字段（vocab_mastered/grammar_mastered/checkins/wrong_words/wrong_grammar/flashcard_history/custom_vocab/card_states/chat_history/achievements_unlocked/vocab_list_marked/game_stats/user_name/bound_devices/difficulty/checkin_types/daily_checkin_plan/word_stats/total_days/streak/last_checkin）通过 mergeProgress union 合并；首次设昵称时自动遍历 bound_devices 中旧 UUID 拉取合并；进度页提供手动合并入口支持粘贴旧 UUID；重置/导入 JSON 不再清空账号绑定",
+        "verification": "pytest tests/test_account_sync.py -v（6 个新增用例：模板不再拼接、DEVICE_KEY 独立、mergeProgress 13 字段 union、旧设备自动/手动迁移、难度+syncFromSupabase union 合并、导入/重置保留账号绑定）"
       }
     ],
     "§4_non_functional_requirements": [
@@ -344,6 +359,11 @@
         "id": "N-006",
         "category": "ux",
         "statement": "知识课程页面文字可读性：markdown 正文对比度 ≥7:1 + 代码块背景色 #e8e8ed + 引用块背景 #f0f0f5"
+      },
+      {
+        "id": "N-007",
+        "category": "privacy",
+        "statement": "账号敏感数据仅留本机：LLM API key 仍存 localStorage（ck_llm_key_v1），不上传 Supabase；云端 progress 只保存用户昵称和派生 user_key（djb2 + salt），昵称本身可重命名但合并时按 user_key 路由"
       }
     ],
     "§5_use_cases": [

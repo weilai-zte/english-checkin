@@ -646,6 +646,11 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 .fab:active { transform: scale(0.95); }
 .fab.hidden { opacity: 0; pointer-events: none; }
 
+.account-legacy-row { display: flex; gap: 6px; }
+@media (max-width: 520px) {
+  .account-legacy-row { padding-right: 48px; }
+}
+
 /* B. home section dividers */
 .section-label {
   font-size: 12px;
