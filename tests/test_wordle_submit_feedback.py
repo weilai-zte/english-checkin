@@ -68,3 +68,23 @@ def test_oninput_autofocuses_next_unfilled_cell():
     # 必须排除已 disabled / 已填的格子
     assert "inputs[k].disabled" in block
     assert "inputs[k].value" in block
+
+
+def test_findCN_uses_candidates_not_all():
+    """findCN 必须引用 candidates (而非未定义的 all)。"""
+    block = _fn("findCN")
+    assert "candidates" in block, "findCN 未引用 candidates"
+    assert "all.length" not in block, "findCN 仍引用未定义的 'all' 变量"
+
+
+def test_attachInputHandlers_does_not_early_return_when_all_disabled():
+    """3 字母 round 全 hint 时 inputs.length===0, attachInputHandlers 必须继续执行。
+    否则 submitBtn.onclick 没绑 + refreshSubmit 没调, 按钮停在初始文案。"""
+    block = _fn("attachInputHandlers")
+    # 不能有 'if (!inputs.length) return;' 这种早返回
+    assert "if (!inputs.length) return;" not in block, (
+        "attachInputHandlers 在所有 input 都 disabled 时早返回, submitBtn.onclick 没绑"
+    )
+    # 必须仍然绑定 submit button 和 refresh
+    assert "submitBtn.onclick = submitNow" in block
+    assert "refreshSubmit(len)" in block
