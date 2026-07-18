@@ -43,6 +43,12 @@ document.addEventListener('input', function(e) {
     { key: 'dictation',    label: '听写',      icon: '✍️', route: 'dictation' },
   ];
   const DEFAULT_CHECKIN_TYPES = CHECKIN_TYPES.map(t => t.key);
+  const AVATAR_CHOICES = [
+    '🦊', '🐱', '🐰', '🦁', '🐼',
+    '🐶', '🐯', '🐨', '🐸', '🦄',
+    '🚀', '⭐', '🌈', '⚽', '🎨',
+    '🎸', '📚', '🎯', '🏆', '💡',
+  ];
   function checkinTypeMeta(key) {
     return CHECKIN_TYPES.find(t => t.key === key) || { key: key, label: key, icon: '·', route: key };
   }
@@ -151,6 +157,7 @@ document.addEventListener('input', function(e) {
       vocab_list_marked: [],     // 全部词汇中的收藏
       user_name: '', // #account nickname (跨设备账号标识)
       bound_devices: [], // #account 本账号绑定的设备 ID 列表
+      avatar: AVATAR_CHOICES[0], // #account emoji 头像
     };
   }
   // 把 nickname 转成稳定的 user_key (云端 user_key 字段)
@@ -295,7 +302,7 @@ document.addEventListener('input', function(e) {
     out.bound_devices = Array.from(bd);
     // 设置类字段按整个进度对象的更新时间选择，避免旧设备覆盖新设置。
     var remoteIsNewer = (remote._updated_at || '').localeCompare(local._updated_at || '') > 0;
-    ['difficulty', 'checkin_types', 'daily_checkin_plan'].forEach(function (field) {
+    ['difficulty', 'checkin_types', 'daily_checkin_plan', 'avatar'].forEach(function (field) {
       if (remoteIsNewer && remote[field] != null) out[field] = remote[field];
       else if (local[field] != null) out[field] = local[field];
       else if (remote[field] != null) out[field] = remote[field];
@@ -818,6 +825,7 @@ document.addEventListener('input', function(e) {
     'errors': renderErrors,
     'stats': renderStats,
     'progress': renderProgress,
+    'profile': renderProfile,
     'knowledge': renderKnowledge,
     'review': renderReview,
     'achievements': renderAchievements,
@@ -862,16 +870,43 @@ document.addEventListener('input', function(e) {
   }
 
   // ─── 视图：顶部栏 ──────────────────────────────────
-  // 根据 streak/今日打卡/昵称 返回个性化鼓励语; ponytail: 静态文案,未接 LLM,add when 想要动态生成
-  function pickCheerline(streak, doneToday, totalDays, nickname) {
-    if (!nickname) return '✏️ 先点上方设置昵称,让这个 App 认识你';
-    if (doneToday) return '🎉 今天已经打卡完成,休息一下,明天继续!';
-    if (streak >= 30) return '🔥 已连续打卡 ' + streak + ' 天!你比 99% 的同学都更能坚持';
-    if (streak >= 7) return '🔥 连续 ' + streak + ' 天,坚持就是胜利,继续!';
-    if (streak >= 3) return '✨ 连续 ' + streak + ' 天,好习惯正在养成';
-    if (streak >= 1) return '💪 昨天打卡了,今天也别断,加油!';
-    if (totalDays === 0) return '🌱 第一次来?点下方开始今天的学习吧';
-    return '📚 今天学一点,每天进步一点';
+  // ponytail: 静态文案池；需要每日联网生成不同主题时再接 LLM。
+  const QUOTE_POOLS = {
+    first: [
+      '🌱 从一个单词开始，今天就是进步的第一天',
+      '✨ 勇敢开始，比等到准备好更重要',
+      '📖 每学会一点，都在为未来积蓄力量',
+      '🎯 先完成今天的小目标，再去挑战更大的目标',
+      '🚀 新的学习旅程，从今天出发',
+    ],
+    done: [
+      '🎉 今天的任务完成了，认真坚持的你很棒',
+      '🏆 今日目标已达成，努力已经变成了收获',
+      '⭐ 又完成了一次积累，明天继续保持',
+      '💪 今天没有辜负自己，去好好休息吧',
+      '🌈 今天的学习圆满完成，为自己鼓掌',
+    ],
+    mid: [
+      '📚 今天学一点，每天进步一点',
+      '💡 不怕暂时不会，只怕停止尝试',
+      '🎯 专注完成眼前这一题，进步自然会发生',
+      '✨ 认真练习过的知识，都会在需要时帮到你',
+      '🚀 坚持把小事做好，就是很了不起的能力',
+    ],
+    high: [
+      '好习惯正在成为你的超能力',
+      '坚持这么久，你已经证明了自己的毅力',
+      '稳定前进，比偶尔冲刺更了不起',
+      '每一次坚持，都让下一个目标更近一点',
+      '继续保持，你正在创造自己的新纪录',
+    ],
+  };
+  function pickQuote(streak, doneToday, totalDays, nickname) {
+    if (!nickname) return '✏️ 点头像设置昵称，让这个 App 认识你';
+    if (doneToday) return pick(QUOTE_POOLS.done);
+    if (totalDays === 0) return pick(QUOTE_POOLS.first);
+    if (streak >= 7) return '🔥 连续 ' + streak + ' 天 · ' + pick(QUOTE_POOLS.high);
+    return (streak > 0 ? '连续 ' + streak + ' 天 · ' : '') + pick(QUOTE_POOLS.mid);
   }
 
   function topBar(title, showBack = true) {
@@ -926,9 +961,9 @@ document.addEventListener('input', function(e) {
       ${topBar('初一英语打卡', false)}
       <div class="container">
         <div class="hero-block" style="text-align:center;">
-          <div class="hero-icon">📚</div>
+          <a class="hero-avatar" href="#/profile" aria-label="打开个人设置" title="个人设置">${escapeHtml(progress.avatar || AVATAR_CHOICES[0])}</a>
           <h1 class="hero-title">${(progress.user_name || '').trim() ? '你好,' + escapeHtml(progress.user_name.trim()) : '初一英语打卡'}</h1>
-          <div class="hero-cheer">${pickCheerline(streak, done, totalDays, (progress.user_name || '').trim())}</div>
+          <div class="hero-cheer">${pickQuote(streak, done, totalDays, (progress.user_name || '').trim())}</div>
         </div>
 
         ${renderPersonalStatsCard(streak, totalDays, mastered)}
@@ -2274,9 +2309,9 @@ document.addEventListener('input', function(e) {
       </div>
     `;
 
-    // "修改" 按钮: 打开账号 modal (改名/新建)
+    // 账号、头像和设备统一在个人设置页管理。
     const eab = app.querySelector('#edit-account-btn');
-    if (eab) eab.onclick = () => openAccountModal('edit');
+    if (eab) eab.onclick = () => navigate('profile');
     // 兼容旧版：把旧设备 UUID 对应的云端记录合并进当前昵称账号。
     const mib = app.querySelector('#migrate-key-input');
     const mbtn = app.querySelector('#migrate-key-btn');
@@ -2305,6 +2340,7 @@ document.addEventListener('input', function(e) {
         const accountState = {
           user_name: progress.user_name || '',
           bound_devices: (progress.bound_devices || []).slice(),
+          avatar: progress.avatar || AVATAR_CHOICES[0],
           difficulty: progress.difficulty,
           checkin_types: (progress.checkin_types || []).slice(),
         };
@@ -2316,6 +2352,94 @@ document.addEventListener('input', function(e) {
       }
     };
     app.querySelectorAll('.bd-unbind').forEach(btn => { btn.onclick = () => unbindDevice(btn.dataset.id); });
+  }
+
+  // ─── 视图：Profile（个人设置）──────────────────────
+  function setAvatar(avatar) {
+    if (!AVATAR_CHOICES.includes(avatar) || progress.avatar === avatar) return;
+    progress.avatar = avatar;
+    saveProgress();
+    render();
+    toast('头像已更新');
+  }
+
+  function renderProfile(app) {
+    const avatar = AVATAR_CHOICES.includes(progress.avatar) ? progress.avatar : AVATAR_CHOICES[0];
+    const devices = (progress.bound_devices || []).filter(id => id && !isNicknameKey(id));
+    const displayName = (progress.user_name || '').trim() || '还没有设置昵称';
+
+    app.innerHTML = `
+      ${topBar('个人设置')}
+      <div class="container">
+        <div class="card profile-summary">
+          <div class="profile-avatar-preview" aria-hidden="true">${escapeHtml(avatar)}</div>
+          <div class="profile-summary-text">
+            <strong>${escapeHtml(displayName)}</strong>
+            <span>${progress.user_name ? '学习进度已关联到当前账号' : '设置昵称后可在多台设备同步'}</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">选择头像</div>
+          <div class="avatar-grid" role="group" aria-label="头像选择">
+            ${AVATAR_CHOICES.map(item => `<button type="button" class="avatar-cell ${item === avatar ? 'selected' : ''}" data-avatar="${item}" aria-label="选择头像 ${item}" aria-pressed="${item === avatar}">${item}</button>`).join('')}
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">基本信息</div>
+          <label class="profile-label" for="profile-name">昵称</label>
+          <div class="profile-name-row">
+            <input id="profile-name" class="profile-input" type="text" autocomplete="off" maxlength="20" placeholder="例如：小明" value="${escapeHtml(progress.user_name || '')}">
+            <button id="profile-save" class="btn-sm profile-save" type="button">保存</button>
+          </div>
+          <div id="profile-error" class="profile-error" role="alert"></div>
+          <div class="profile-help">同一昵称的设备会自动合并打卡、成就、游戏和其他学习记录。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">设备与同步</div>
+          <div class="profile-device-current">
+            <span>当前设备</span>
+            <code title="${escapeHtml(getDeviceId())}">${escapeHtml(getDeviceId())}</code>
+          </div>
+          <div class="profile-help">已绑定 ${devices.length} 台设备</div>
+          ${devices.length ? `<div class="bd-items profile-devices">
+            ${devices.map(id => {
+              const isCurrent = id === getDeviceId();
+              return `<div class="bd-item">
+                <code class="bd-uuid" title="${escapeHtml(id)}">${escapeHtml(id.slice(0,8))}…${escapeHtml(id.slice(-4))}</code>
+                ${isCurrent ? '<span class="bd-tag">本机</span>' : `<button class="btn-sm bd-unbind" data-id="${escapeHtml(id)}">解绑</button>`}
+              </div>`;
+            }).join('')}
+          </div>` : '<div class="profile-empty">设置昵称后，本设备会自动加入账号。</div>'}
+        </div>
+      </div>
+    `;
+
+    app.querySelectorAll('.avatar-cell').forEach(btn => {
+      btn.onclick = () => setAvatar(btn.dataset.avatar);
+    });
+    app.querySelectorAll('.bd-unbind').forEach(btn => {
+      btn.onclick = () => unbindDevice(btn.dataset.id);
+    });
+
+    const input = app.querySelector('#profile-name');
+    const save = app.querySelector('#profile-save');
+    const error = app.querySelector('#profile-error');
+    save.onclick = async () => {
+      const name = (input.value || '').trim();
+      if (!name) { error.textContent = '请输入昵称'; return; }
+      if (/[<>:"|?*\\]/.test(name)) { error.textContent = '昵称不能含特殊字符 < > : " | ? * \\'; return; }
+      error.textContent = '';
+      save.disabled = true;
+      save.textContent = '保存中';
+      await switchAccount(name);
+      render();
+    };
+    input.addEventListener('keydown', event => {
+      if (event.key === 'Enter') save.click();
+    });
   }
 
   // ─── 视图：Knowledge（知识课程）──────────────────

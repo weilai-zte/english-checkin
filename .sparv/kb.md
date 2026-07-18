@@ -52,6 +52,7 @@ else:
 - [2026-05-09]: SIMPLE_WORDS set (663 words) filters basic vocabulary across all difficulty levels
 - [2026-05-09]: Feishu webhook for daily (19:30) and weekly (Sat 9AM) push notifications
 - [2026-05-09]: Hard mode translations use complex structures: conditionals, subjunctive, it-cleft
+- [2026-07-18]: SPA 个人设置集中管理昵称、emoji 头像和绑定设备；`avatar` 与难度一样按 `_updated_at` 参与账号设置合并，重置学习记录时必须保留
 
 ---
 

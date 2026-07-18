@@ -678,9 +678,84 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 
 /* I. hero density */
 .hero-block { padding: 16px 0 4px; }
-.hero-icon { font-size: 44px; }
+.hero-avatar {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg-card);
+  color: var(--text-1);
+  box-shadow: 0 4px 14px rgba(45, 55, 72, 0.1);
+  font-size: 44px;
+  line-height: 1;
+  text-decoration: none;
+}
+.hero-avatar:hover { border-color: var(--accent); }
+.hero-avatar:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .hero-title { font-size: 22px; }
 .hero-cheer { font-size: 13px; color: #4a5568; margin-top: 6px; line-height: 1.5; padding: 0 12px; }
+
+/* 个人设置 */
+.profile-summary { display: flex; align-items: center; gap: 14px; }
+.profile-avatar-preview {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg-surface);
+  font-size: 40px;
+  line-height: 1;
+}
+.profile-summary-text { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.profile-summary-text strong { color: var(--text-1); font-size: 18px; overflow-wrap: anywhere; }
+.profile-summary-text span { color: var(--text-2); font-size: 12px; line-height: 1.4; }
+.avatar-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.avatar-cell {
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 0;
+  padding: 0;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-surface);
+  color: var(--text-1);
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 1;
+}
+.avatar-cell:hover { border-color: var(--accent); background: var(--bg-hover); }
+.avatar-cell.selected { border-color: var(--accent); background: var(--bg-hover); box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.18); }
+.avatar-cell:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.profile-label { display: block; margin-bottom: 6px; color: var(--text-2); font-size: 12px; font-weight: 700; }
+.profile-name-row { display: flex; gap: 8px; }
+.profile-input {
+  min-width: 0;
+  flex: 1;
+  padding: 9px 10px;
+  border: 1.5px solid var(--border-input);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-1);
+  font: inherit;
+  font-size: 14px;
+}
+.profile-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.18); }
+.profile-save { flex: 0 0 auto; padding: 8px 15px !important; border: 0; border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
+.profile-save:disabled { opacity: 0.65; cursor: wait; }
+.profile-error { min-height: 18px; margin-top: 5px; color: var(--danger); font-size: 12px; }
+.profile-help { color: var(--text-2); font-size: 11px; line-height: 1.5; }
+.profile-device-current { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; color: var(--text-2); font-size: 12px; }
+.profile-device-current code { color: var(--text-1); font-size: 11px; overflow-wrap: anywhere; }
+.profile-devices { margin-top: 8px; }
+.profile-empty { margin-top: 8px; padding: 9px 10px; border-radius: 6px; background: var(--bg-surface); color: var(--text-2); font-size: 12px; }
 
 /* D. daily word card — softened to fit palette */
 .daily-word-card {

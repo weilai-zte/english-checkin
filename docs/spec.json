@@ -213,7 +213,7 @@
         "name": "mergeProgress",
         "module": "site_static/app.js",
         "signature": "function mergeProgress(local: object, remote: object): object",
-        "description": "Union merge：vocab_mastered/grammar_mastered/checkins/wrong_words/wrong_grammar/flashcard_history/custom_vocab/card_states/chat_history/achievements_unlocked/vocab_list_marked/game_stats/word_stats/user_name/bound_devices 全部去重合并；设置类 (difficulty/checkin_types/daily_checkin_plan) 按 _updated_at 较新者胜；返回新对象不修改入参",
+        "description": "Union merge：vocab_mastered/grammar_mastered/checkins/wrong_words/wrong_grammar/flashcard_history/custom_vocab/card_states/chat_history/achievements_unlocked/vocab_list_marked/game_stats/word_stats/user_name/bound_devices 全部去重合并；设置类 (difficulty/checkin_types/daily_checkin_plan/avatar) 按 _updated_at 较新者胜；返回新对象不修改入参",
         "invariants": [
           "remote === null/undefined 时仍返回完整 defaultProgress 副本",
           "wrong_words + flashcard_history 自动截断 200 条",
@@ -262,6 +262,38 @@
           "isNicknameKey(deviceId) 时拒绝（保护账号标识）",
           "解绑前必须 backupCurrentProgress()",
           "解绑后必须 saveProgress() + render() 让 UI 立即反映"
+        ]
+      },
+      {
+        "name": "pickQuote",
+        "module": "site_static/app.js",
+        "signature": "function pickQuote(streak: number, doneToday: boolean, totalDays: number, nickname: string): string",
+        "description": "首页随机励志语：按首次学习、日常学习、连续 7 天以上和今日已完成四类静态文案池选择",
+        "invariants": [
+          "nickname 为空时返回设置昵称提示，不随机展示无关文案",
+          "doneToday 优先于累计天数和连续天数",
+          "连续 7 天以上的文案必须显示当前 streak"
+        ]
+      },
+      {
+        "name": "setAvatar",
+        "module": "site_static/app.js",
+        "signature": "function setAvatar(avatar: string): void",
+        "description": "保存个人 emoji 头像并立即刷新当前页面",
+        "invariants": [
+          "仅接受 AVATAR_CHOICES 中的值",
+          "值发生变化后必须 saveProgress() + render()"
+        ]
+      },
+      {
+        "name": "renderProfile",
+        "module": "site_static/app.js",
+        "signature": "function renderProfile(app: HTMLElement): void",
+        "description": "渲染 #/profile 个人设置页：头像选择、昵称设置、当前设备及绑定设备管理",
+        "invariants": [
+          "昵称保存必须复用 switchAccount()，确保本地与云端记录 union merge",
+          "头像按钮必须提供 aria-label 和 aria-pressed",
+          "非当前设备的解绑操作必须复用 unbindDevice()"
         ]
       }
     ],
@@ -466,6 +498,12 @@
         "returns": "闪卡复习 (FSRS 评分)"
       },
       {
+        "path": "#/flashcard-errors",
+        "framework": "site_static SPA",
+        "handler": "renderFlashcardErrors",
+        "returns": "错词专项闪卡复习"
+      },
+      {
         "path": "#/dictation",
         "framework": "site_static SPA",
         "handler": "renderDictation",
@@ -490,6 +528,12 @@
         "returns": "进度概览 + 最近 10 次打卡（按 types 显示）"
       },
       {
+        "path": "#/profile",
+        "framework": "site_static SPA",
+        "handler": "renderProfile",
+        "returns": "个人设置：头像、昵称和绑定设备管理"
+      },
+      {
         "path": "#/knowledge",
         "framework": "site_static SPA",
         "handler": "renderKnowledge",
@@ -512,6 +556,36 @@
         "framework": "site_static SPA",
         "handler": "renderVocabList",
         "returns": "全部词汇"
+      },
+      {
+        "path": "#/game/memory",
+        "framework": "site_static SPA",
+        "handler": "renderMemoryMatch",
+        "returns": "翻牌配对游戏"
+      },
+      {
+        "path": "#/game/wordle",
+        "framework": "site_static SPA",
+        "handler": "renderWordle",
+        "returns": "猜词 Wordle 游戏"
+      },
+      {
+        "path": "#/game/picture",
+        "framework": "site_static SPA",
+        "handler": "renderPictureMatch",
+        "returns": "看图猜词游戏"
+      },
+      {
+        "path": "#/game/builder",
+        "framework": "site_static SPA",
+        "handler": "renderSentenceBuilder",
+        "returns": "句子拼装游戏"
+      },
+      {
+        "path": "#/game/tower",
+        "framework": "site_static SPA",
+        "handler": "renderTowerDefense",
+        "returns": "塔防打字游戏"
       },
       {
         "path": "#/review",
@@ -662,6 +736,7 @@
           "daily_checkin_plan": "{date, queue, completed} | undefined (v0.13+ 当日打卡队列，finishMixedCheckin 时清空)",
           "user_name": "str (v0.17+ 账号昵称)",
           "bound_devices": "list[str] (v0.17+ 本账号绑定过的所有设备 UUID)",
+          "avatar": "str (v0.18+ emoji 头像，默认 '🦊')",
           "difficulty": "str (v0.17+ 'easy'|'medium'|'hard'，按 _updated_at 较新者胜)",
           "game_stats": "{game_id: {played, won, lost, best, last_played, history[]}} (v0.17+ 各游戏成绩按 max 合并)",
           "vocab_list_marked": "list[str] (v0.17+ 全部词汇页的收藏/标记)",
@@ -672,8 +747,8 @@
           "checkin_types 默认 = CHECKIN_TYPES 全部 key（含 vocab/grammar 必选）",
           "daily_checkin_plan.date !== today() 视为过期，UI 应自动清理或忽略",
           "旧 checkins 记录无 types 字段时 UI 回退到 grammar_title 显示",
-          "mergeProgress(local, remote) 必须 union 合并 13 个持久化字段，user_name 优先用本地",
-          "设置类字段 (difficulty/checkin_types/daily_checkin_plan) 按整个 progress._updated_at 较新者胜",
+          "mergeProgress(local, remote) 必须 union 合并全部账号持久化字段，user_name 优先用本地",
+          "设置类字段 (difficulty/checkin_types/daily_checkin_plan/avatar) 按整个 progress._updated_at 较新者胜",
           "game_stats[i].played/won/lost/best 取 max(a,b)，history 按 max 100 截断",
           "_updated_at 由 saveProgress 自动写入 ISO 时间；reader 不必关心"
         ]
@@ -999,9 +1074,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.17.1",
+  "version": "v0.18",
   "last_validated": "2026-07-18",
   "evolution": [
+    {
+      "date": "2026-07-18",
+      "version": "v0.18",
+      "action": "add",
+      "what": "新增 #/profile 个人设置页、20 个 emoji 头像、首页随机励志语；avatar 纳入 progress_v1 并按 _updated_at 参与账号同步，进度重置时保留",
+      "why": "让首页更具个人归属感，并把昵称、头像、设备管理集中到个人设置中",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-18",
       "version": "v0.17.1",

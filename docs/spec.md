@@ -12,7 +12,7 @@
 ## §1 目标
 
 ### statement
-english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA) + **19 Flask routes** + **20 SPA routes** + **8 数据 schema** + **16 接口契约** + **5 状态机** + 错误码规约 + 性能预算。
+english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA) + **19 Flask routes** + **27 SPA routes** + **8 数据 schema** + **19 接口契约** + **5 状态机** + 错误码规约 + 性能预算。
 
 ### why
 代码实现必须严格按本文对齐。AI 改 app.py 路由签名 / build.py 接口 / 数据 schema 前必须先改本文 + 跑 `tests/test_bugs.py`。
@@ -75,7 +75,7 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 | `/tense/check` | tense_check() | ✅ | JSON `{results, score}` |
 | `/preposition/check` | preposition_check() | ✅ | JSON `{results, score}` |
 
-### site_static SPA routes (20, v0.13+)
+### site_static SPA routes (27, v0.18+)
 所有路由走 `site_static/app.js` 的 `routes` 表 + hash 路由 `#/<path>`。用户进度存浏览器 `localStorage['ck_progress_v1']`。
 
 | path | handler | returns |
@@ -91,10 +91,12 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 | `#/translate` | `renderTranslate` | 中译英填空 |
 | `#/translate-en` | `renderTranslateEn` | 英译中填空 |
 | `#/flashcard` | `renderFlashcard` | 闪卡复习（FSRS 评分） |
+| `#/flashcard-errors` | `renderFlashcardErrors` | 错词专项闪卡复习 |
 | `#/dictation` | `renderDictation` | 听写模式（每次 10 词） |
 | `#/errors` | `renderErrors` | 错题本 |
 | `#/stats` | `renderStats` | 学习统计 |
 | `#/progress` | `renderProgress` | 进度概览 + 最近 10 次打卡（按 types 显示） |
+| `#/profile` | `renderProfile` | 个人设置：头像、昵称和绑定设备管理 |
 | `#/knowledge` | `renderKnowledge` | 知识课程 5 tabs |
 | `#/achievements` | `renderAchievements` | 成就系统 10 badges |
 | `#/vocab-import` | `renderVocabImport` | 导入自定义词表 |
@@ -209,6 +211,13 @@ window.CHECKIN_DATA = {
   learning_plan_done: [topic],
   checkin_types: [type_key],                  // v0.13+ 用户上次勾选的可选题型
   daily_checkin_plan: {date, queue, completed} | undefined,  // v0.13+ 当日打卡队列
+  user_name: str,                             // v0.17+ 账号昵称
+  bound_devices: [str],                       // v0.17+ 绑定设备 UUID
+  avatar: str,                                // v0.18+ emoji 头像，默认 🦊
+  difficulty: "easy" | "medium" | "hard",  // v0.17+ 账号级难度
+  game_stats: {game_id: {...}},               // v0.17+ 游戏记录
+  vocab_list_marked: [str],                   // v0.17+ 全部词汇收藏
+  _updated_at: ISO_datetime,                  // v0.17+ 设置冲突判定
 }
 ```
 **Invariants**:
@@ -216,6 +225,7 @@ window.CHECKIN_DATA = {
 - `checkin_types` 默认 = `CHECKIN_TYPES` 全部 key（含 vocab/grammar 必选）
 - `daily_checkin_plan.date !== today()` 视为过期，UI 应自动清理或忽略
 - 旧 checkins 记录无 `types` 字段时 UI 回退到 `grammar_title` 显示
+- `difficulty` / `checkin_types` / `daily_checkin_plan` / `avatar` 按 `_updated_at` 较新者胜
 
 ### 4.7 content.json (题库真理源, 2026-06 引入)
 单一 JSON 包含 vocab / grammar / tense_questions / translate_questions。`site_static/build.py` 读此源打包到 `data.js`。
@@ -225,7 +235,7 @@ window.CHECKIN_DATA = {
 
 ---
 
-## §5 接口契约 (16 个)
+## §5 接口契约 (19 个)
 
 ### 5.1 build_data_export (`site_static/build.py`)
 ```python
@@ -349,7 +359,7 @@ legacy_uuid → nickname_with_legacy
 **Invariants**:
 - `bound_devices` 永远包含当前设备 ID + 历史上所有绑定过的 UUID
 - `user_name` 优先用本地（避免远端覆盖用户当前输入）
-- `difficulty` / `checkin_types` / `daily_checkin_plan` 按 `progress._updated_at` 较新者胜
+- `difficulty` / `checkin_types` / `daily_checkin_plan` / `avatar` 按 `progress._updated_at` 较新者胜
 - vocab/grammar 必选，UI 禁用复选框 + `preventDefault`
 
 ---
@@ -396,6 +406,12 @@ legacy_uuid → nickname_with_legacy
 ---
 
 ## §9 演进记录
+
+### v0.18 (2026-07-18)
+- **add**: 新增 `#/profile` 个人设置页，集中设置昵称、20 个 emoji 头像并管理绑定设备 — by Codex
+- **add**: 首页头像替代固定图标，励志语按学习状态从四类静态文案池随机展示
+- **add**: `progress_v1.avatar` 作为账号级设置参与 `_updated_at` 冲突合并，重置学习进度时保留
+- why: 提升孩子进入应用时的个人归属感，并把个人信息集中到明确的设置入口
 
 ### v0.17.1 (2026-07-18)
 - **add**: 进度页加「查看设备详情」折叠区，列出 `bound_devices` 中所有设备 UUID（昵称 key 不显示）；本机标「本机」，其他设备附「解绑」按钮 — by Codex
@@ -491,13 +507,13 @@ function renderCheckinConfig(app: HTMLElement): void
 ```js
 function mergeProgress(local: object, remote: object): object
 ```
-**说明**: Union merge：13 个持久化字段全部去重合并；返回新对象，不修改入参；空 remote 仍返回完整 defaultProgress 副本。
+**说明**: Union merge：全部账号持久化字段去重合并；返回新对象，不修改入参；空 remote 仍返回完整 defaultProgress 副本。
 
 **Invariants**:
 - `wrong_words` + `flashcard_history` 自动截断 200 条
 - `local.user_name` 永远优先于 `remote.user_name`
 - `bound_devices` 去重并保留所有出现过的 UUID
-- 设置类字段（`difficulty` / `checkin_types` / `daily_checkin_plan`）按 `progress._updated_at` 较新者胜
+- 设置类字段（`difficulty` / `checkin_types` / `daily_checkin_plan` / `avatar`）按 `progress._updated_at` 较新者胜
 
 ### 5.13 switchAccount (`site_static/app.js`)
 ```js
@@ -542,6 +558,38 @@ function unbindDevice(deviceId: string): void
 - 解绑前必须 `backupCurrentProgress()`
 - 解绑后必须 `saveProgress()` + `render()` 让 UI 立即反映
 
+### 5.17 pickQuote (`site_static/app.js`)
+```js
+function pickQuote(streak: number, doneToday: boolean, totalDays: number, nickname: string): string
+```
+**说明**: 首页按首次学习、日常学习、连续 7 天以上和今日已完成四类静态文案池随机展示励志语。
+
+**Invariants**:
+- 未设置昵称时固定提示设置昵称
+- 今日已完成优先于其他学习状态
+- 连续 7 天以上的文案包含当前 `streak`
+
+### 5.18 setAvatar (`site_static/app.js`)
+```js
+function setAvatar(avatar: string): void
+```
+**说明**: 校验并保存个人 emoji 头像，随后立即刷新当前页面。
+
+**Invariants**:
+- 仅接受 `AVATAR_CHOICES` 中的值
+- 头像变化后必须 `saveProgress()` + `render()`
+
+### 5.19 renderProfile (`site_static/app.js`)
+```js
+function renderProfile(app: HTMLElement): void
+```
+**说明**: 渲染 `#/profile` 个人设置页，集中管理头像、昵称及绑定设备。
+
+**Invariants**:
+- 昵称保存复用 `switchAccount()`
+- 头像按钮提供 `aria-label` 和 `aria-pressed`
+- 非当前设备解绑复用 `unbindDevice()`
+
 ---
 
 ## 🔗 相关文档
@@ -584,4 +632,3 @@ def build_card(words, llm_resp, week_start, today) -> dict:
 - 复用 `send_wrong_words.load_llm_config / call_llm / parse_llm_json / send_webhook / lookup_word_meta`
 - 时间窗 = `[today - 7 days, today]`（含今天）
 - 已掌握词（vocab_mastered）与本周跨天去重
-

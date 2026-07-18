@@ -18,16 +18,15 @@ def _function_block(name):
     return APP_JS_SRC[m.start():i]
 
 
-def test_pick_cheerline_handles_all_states():
-    fn = _function_block("pickCheerline")
-    # 必须按优先级覆盖 6 个分支
+def test_pick_quote_randomizes_messages_for_learning_states():
+    fn = _function_block("pickQuote")
+    # 必须根据账号、完成状态和学习进度选择不同文案池
     assert "doneToday" in fn
     assert "nickname" in fn
-    assert "streak >= 30" in fn
     assert "streak >= 7" in fn
-    assert "streak >= 3" in fn
-    assert "streak >= 1" in fn
     assert "totalDays === 0" in fn
+    assert "QUOTE_POOLS" in fn
+    assert "pick(" in fn
 
 
 def test_home_renders_personalized_greeting():
@@ -35,7 +34,10 @@ def test_home_renders_personalized_greeting():
     # 必须用 progress.user_name + escapeHtml 渲染问候
     assert "progress.user_name" in rh
     assert "escapeHtml" in rh
-    # 必须调用 pickCheerline
-    assert "pickCheerline(" in rh
+    # 必须调用随机励志语 helper
+    assert "pickQuote(" in rh
     # UI 必须有 hero-cheer class
     assert "hero-cheer" in rh
+    # 首页头像来自账号数据，并可进入个人设置
+    assert "progress.avatar" in rh
+    assert '#/profile' in rh
