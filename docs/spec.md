@@ -407,6 +407,12 @@ legacy_uuid → nickname_with_legacy
 
 ## §9 演进记录
 
+### v0.18.4 (2026-07-18)
+- **change**: `#/tense` 干扰项改为同词根生成 — by Codex
+  - **add**: `tenseDistractors(question, answer, allAnswers, fallback)` —— 优先级 (1) 题干 `(verb)` 提取 → (2) 答案剥离助动词还原核心动词 → (3) 同档位答案池 → (4) 通用 fallback
+  - **add**: 内置 80+ 不规则动词表 (be/have/go/see/take/make/read/...) + 规则变形 `_thirdPerson` / `_pastForm` / `_ingForm` (含 CVC 双写、e 去 e、y 改 i)
+- why: 用户反馈"其他三个都不是题目给的动词一眼就能看出答案" —— 例 `If it (be) sunny → is` 现干扰项是 `are/am/was` (3/4 同词根)
+
 ### v0.18.3 (2026-07-18)
 - **fix**: 新浏览器按昵称自动发现旧 UUID 行并 union 迁移到昵称账号行，旧行保留不删除 — by Codex
 - **fix**: 所有云端 upsert 前先读取账号行并合并；读取失败时禁止写入，避免空本地状态覆盖历史

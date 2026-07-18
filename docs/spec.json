@@ -1097,7 +1097,7 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.3",
+  "version": "v0.18.4",
   "last_validated": "2026-07-18",
   "evolution": [
     {
@@ -1210,6 +1210,14 @@
       "action": "add",
       "what": "新增 send_wrong_words / send_weekly_wrong_words: 玄奘 LLM 生成针对性巩固例句，飞书卡片推送今日/本周错词；Supabase progress 表按 user_key 过滤单行；删 __pycache__ 入库",
       "why": "F-017/F-018 错词巩固推送 + 反模式修正 (多用户合并 + TLS 旁路 + 手搓 YAML)",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.4",
+      "action": "change",
+      "what": "时态题 (#/tense) 干扰项改为同词根生成：新增 tenseDistractors() 优先从题干 (verb) 提取 be/have/finish/know 等不规则动词表 + 规则变形 (thirdPerson/pastForm/ingForm)，回退到答案剥离助动词 → 同档位答案池 → 通用 fallback",
+      "why": "用户反馈：原 4 选项中其他三个都是不同动词的不同时态，词根都不同，一眼排除；改为至少 2 个选项与正确答案同词根",
       "by": "Codex"
     }
   ]

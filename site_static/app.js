@@ -510,6 +510,162 @@ document.addEventListener('input', function(e) {
   }
   function sample(arr, n) { return shuffle(arr).slice(0, n); }
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  // 时态题干扰项：优先从题干 (verb) 提取同词根不同形态，
+  // 避免出现"答案之外的完全不相关动词"作为干扰项（用户反馈：其他三个一眼排除）。
+  // 优先级：题干 (verb) → 答案剥离助动词 → 同档位答案池 → 通用 fallback 池。
+  const IRREGULAR_VERBS = {
+    be: ['is','are','am','was','were','been','being'],
+    have: ['have','has','had','having'],
+    do: ['do','does','did','doing','done'],
+    go: ['go','goes','went','gone','going'],
+    see: ['see','sees','saw','seen','seeing'],
+    take: ['take','takes','took','taken','taking'],
+    make: ['make','makes','made','making'],
+    give: ['give','gives','gave','given','giving'],
+    get: ['get','gets','got','gotten','getting'],
+    come: ['come','comes','came','coming'],
+    run: ['run','runs','ran','running'],
+    write: ['write','writes','wrote','written','writing'],
+    read: ['read','reads','reading'],
+    say: ['say','says','said','saying'],
+    tell: ['tell','tells','told','telling'],
+    think: ['think','thinks','thought','thinking'],
+    know: ['know','knows','knew','known','knowing'],
+    find: ['find','finds','found','finding'],
+    put: ['put','puts','putting'],
+    set: ['set','sets','setting'],
+    let: ['let','lets','letting'],
+    begin: ['begin','begins','began','begun','beginning'],
+    break: ['break','breaks','broke','broken','breaking'],
+    choose: ['choose','chooses','chose','chosen','choosing'],
+    eat: ['eat','eats','ate','eaten','eating'],
+    fall: ['fall','falls','fell','fallen','falling'],
+    feel: ['feel','feels','felt','feeling'],
+    fly: ['fly','flies','flew','flown','flying'],
+    forget: ['forget','forgets','forgot','forgotten','forgetting'],
+    grow: ['grow','grows','grew','grown','growing'],
+    hold: ['hold','holds','held','holding'],
+    keep: ['keep','keeps','kept','keeping'],
+    leave: ['leave','leaves','left','leaving'],
+    lose: ['lose','loses','lost','losing'],
+    meet: ['meet','meets','met','meeting'],
+    pay: ['pay','pays','paid','paying'],
+    ride: ['ride','rides','rode','ridden','riding'],
+    rise: ['rise','rises','rose','risen','rising'],
+    sell: ['sell','sells','sold','selling'],
+    send: ['send','sends','sent','sending'],
+    show: ['show','shows','showed','shown','showing'],
+    sing: ['sing','sings','sang','sung','singing'],
+    sit: ['sit','sits','sat','sitting'],
+    sleep: ['sleep','sleeps','slept','sleeping'],
+    speak: ['speak','speaks','spoke','spoken','speaking'],
+    spend: ['spend','spends','spent','spending'],
+    stand: ['stand','stands','stood','standing'],
+    swim: ['swim','swims','swam','swum','swimming'],
+    teach: ['teach','teaches','taught','teaching'],
+    throw: ['throw','throws','threw','thrown','throwing'],
+    understand: ['understand','understands','understood','understanding'],
+    wear: ['wear','wears','wore','worn','wearing'],
+    win: ['win','wins','won','winning'],
+    buy: ['buy','buys','bought','buying'],
+    catch: ['catch','catches','caught','catching'],
+    bring: ['bring','brings','brought','bringing'],
+    build: ['build','builds','built','building'],
+    cut: ['cut','cuts','cutting'],
+    draw: ['draw','draws','drew','drawn','drawing'],
+    drink: ['drink','drinks','drank','drunk','drinking'],
+    drive: ['drive','drives','drove','driven','driving'],
+    finish: ['finish','finishes','finished','finishing'],
+    rain: ['rain','rains','rained','raining'],
+    wait: ['wait','waits','waited','waiting'],
+    live: ['live','lives','lived','living'],
+    work: ['work','works','worked','working'],
+    study: ['study','studies','studied','studying'],
+    play: ['play','plays','played','playing'],
+    walk: ['walk','walks','walked','walking'],
+    talk: ['talk','talks','talked','talking'],
+    look: ['look','looks','looked','looking'],
+    watch: ['watch','watches','watched','watching'],
+    like: ['like','likes','liked','liking'],
+    want: ['want','wants','wanted','wanting'],
+    learn: ['learn','learns','learned','learnt','learning'],
+    will: ['will','would'],
+    shall: ['shall','should'],
+    may: ['may','might'],
+    can: ['can','could'],
+  };
+  function _thirdPerson(verb) {
+    if (/(s|x|z|ch|sh)$/.test(verb)) return verb + 'es';
+    if (/[^aeiou]y$/.test(verb)) return verb.slice(0, -1) + 'ies';
+    return verb + 's';
+  }
+  function _pastForm(verb) {
+    if (/e$/.test(verb)) return verb + 'd';
+    if (/[^aeiou]y$/.test(verb)) return verb.slice(0, -1) + 'ied';
+    return verb + 'ed';
+  }
+  function _ingForm(verb) {
+    // CVC pattern: 双写最后辅音 + ing (sit -> sitting)
+    if (/[^aeiou][aeiou][^aeiouwxy]$/.test(verb)) return verb + verb.slice(-1) + 'ing';
+    // e 结尾去 e（特例：ee/oe/ye 不去 e）
+    if (/e$/.test(verb) && !/(ee|oe|ye)$/.test(verb)) return verb.slice(0, -1) + 'ing';
+    return verb + 'ing';
+  }
+  function _verbForms(verb) {
+    if (!verb) return [];
+    const lower = verb.toLowerCase();
+    if (IRREGULAR_VERBS[lower]) return IRREGULAR_VERBS[lower].slice();
+    const forms = new Set([lower]);
+    forms.add(_thirdPerson(lower));
+    forms.add(_pastForm(lower));
+    forms.add(_ingForm(lower));
+    return Array.from(forms);
+  }
+  // 从答案中剥离助动词 (will/would/has/have/been...) 还原核心动词。
+  // 例: "has been read" -> "read"; "will have finished" -> "finished"; "was" -> ""。
+  function _stripAux(answer) {
+    const aux = /\b(will|would|shall|should|may|might|can|could|must|has|have|had|having|is|are|am|was|were|been|being|do|does|did)\b/gi;
+    return String(answer || '').replace(aux, '').replace(/\s+/g, ' ').trim();
+  }
+  function tenseDistractors(question, answer, allAnswers, fallback) {
+    const ans = String(answer || '').trim();
+    const ansLower = ans.toLowerCase();
+    const result = [];
+    const seen = new Set([ansLower]);
+    const push = (opt) => {
+      if (!opt) return;
+      const t = String(opt).trim();
+      if (!t) return;
+      const l = t.toLowerCase();
+      if (seen.has(l)) return;
+      seen.add(l);
+      result.push(t);
+    };
+    // 1) 优先从题干 (verb) 提取同词根变体
+    const m = String(question || '').match(/\(([a-z]+)\)/);
+    if (m) {
+      for (const f of _verbForms(m[1])) push(f);
+    }
+    // 2) 从答案剥离助动词，尝试把核心动词的常见形态作为变体
+    const core = _stripAux(ans);
+    if (core) {
+      for (const part of core.split(/\s+/)) {
+        for (const f of _verbForms(part)) push(f);
+      }
+    }
+    // 3) 同档位答案池补充（弱匹配：不去重太多，长度差异合理即可）
+    for (const a of (allAnswers || [])) {
+      push(a);
+      if (result.length >= 6) break;
+    }
+    // 4) 通用 fallback 兜底
+    for (const f of (fallback || [])) {
+      push(f);
+      if (result.length >= 6) break;
+    }
+    return result.slice(0, 3);
+  }
+
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -1589,21 +1745,27 @@ document.addEventListener('input', function(e) {
       }
     }
 
+    const fallback = ['is','are','am','was','were','have','has','had','do','does','did','will','would','can','could','must','should'];
+    // 同档位答案池（供 tenseDistractors 第 3 步弱匹配补充）
+    const allAnswers = all.map(x => x.a);
     const questions = sample(all, 10).map(q => {
-      // 大小写归一化去重（"is" vs "Is" 视为相同）
-      const qaLower = q.a.toLowerCase();
-      const uniqueAnswers = [...new Set(all.map(x => x.a).filter(a => a.toLowerCase() !== qaLower).map(a => a.toLowerCase()))];
-      const opts = shuffle([q.a, ...sample(uniqueAnswers, Math.min(3, uniqueAnswers.length))]);
-      if (uniqueAnswers.length < 3) {
-        // 回退到通用 tense 干扰词池
-        const fallback = ['is','are','am','was','were','have','has','had','do','does','did','will','would','can','could','must','should'];
-        for (const f of fallback) {
-          if (opts.length >= 4) break;
-          if (f.toLowerCase() !== qaLower && !opts.includes(f)) opts.push(f);
-        }
-      }
+      // 优先从题干 (verb) / 答案剥离助动词生成同词根变体作为干扰项；
+      // 不足时回退到同档位答案池 + 通用 fallback。
+      const distractors = tenseDistractors(q.q, q.a, allAnswers, fallback);
+      const opts = shuffle([q.a, ...distractors]);
       while (opts.length < 4) opts.push('');
-      return { ...q, options: [...new Set(opts.filter(Boolean))].slice(0, 4) };
+      // 大小写归一化去重（"Is" 与 "is" 视为相同）
+      const seen = new Set();
+      const deduped = [];
+      for (const o of opts) {
+        if (!o) continue;
+        const key = String(o).toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        deduped.push(o);
+        if (deduped.length >= 4) break;
+      }
+      return { ...q, options: deduped };
     });
     currentQuestions = questions;
     renderMCQ(app, '时态专项', questions, (correct, results) => {
