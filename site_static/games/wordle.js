@@ -204,15 +204,6 @@
       };
       var submitBtn = body.querySelector('#wd-submit');
       if (submitBtn) submitBtn.onclick = submitNow;
-      function refreshSubmit(n) {
-        var btn = body.querySelector('#wd-submit');
-        if (!btn) return;
-        var ins = body.querySelectorAll('.wd-input-cell');
-        var filled = 0;
-        for (var i = 0; i < ins.length; i++) if (ins[i].value) filled++;
-        if (filled >= n) { btn.disabled = false; btn.textContent = '✓ 提交 (Enter)'; }
-        else { btn.disabled = true; btn.textContent = '还需 ' + (n - filled) + ' 个字母'; }
-      }
       refreshSubmit(len);
       // 💡 提示按钮: 从未 hint 的位置随机补 1 个字母
       var hintBtn = body.querySelector('#wd-hint');
@@ -233,14 +224,23 @@
       }
     }
 
+    function refreshSubmit(len) {
+      var btn = body.querySelector('#wd-submit');
+      if (!btn) return;
+      var ins = body.querySelectorAll('.wd-input-cell');
+      var filled = 0;
+      for (var i = 0; i < ins.length; i++) if (ins[i].value) filled++;
+      if (filled >= len) { btn.disabled = false; btn.textContent = '✓ 提交 (Enter)'; }
+      else { btn.disabled = true; btn.textContent = '还差 ' + (len - filled) + ' 个字母'; }
+    }
     function submit(len) {
       var rnd = rounds[roundIdx];
       if (rnd.finished) return;
       var inputs = body.querySelectorAll('.wd-input-cell');
       var val = '';
       for (var i = 0; i < len; i++) val += ((inputs[i].value || '').toLowerCase());
-      // 所有格子都填了字母 (含 disabled hint) 才提交
-      if (val.length !== len) return;
+      // 未填满时同步按钮状态, 让用户看到为什么不能提交 (而不是静默 return)
+      if (val.length !== len) { refreshSubmit(len); return; }
       var res = scoreGuess(val, rnd.target, len);
       rnd.guesses.push({ guess: val, res: res, guessCN: findCN(val) });
       if (val === rnd.target) {
