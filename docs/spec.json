@@ -222,14 +222,36 @@
         ]
       },
       {
+        "name": "loadRemoteRowsByNickname",
+        "module": "site_static/app.js",
+        "signature": "async function loadRemoteRowsByNickname(name: string): Promise<RemoteProgressRow[]>",
+        "description": "按 data.user_name 查找昵称相同的历史进度行，用于新浏览器自动发现旧 UUID 行",
+        "invariants": [
+          "昵称为空或 Supabase 未连接时返回空数组",
+          "最多读取 20 行，旧 UUID 行只读不删除"
+        ]
+      },
+      {
+        "name": "syncToSupabaseNow",
+        "module": "site_static/app.js",
+        "signature": "async function syncToSupabaseNow(): Promise<boolean>",
+        "description": "立即执行云端同步：先读取账号行并 union merge，再 upsert 合并结果；本地是离线缓存，账号云端行是跨设备真理源",
+        "invariants": [
+          "任何 upsert 前必须先成功 loadFromRemoteByKey(key)",
+          "远端读取失败时返回 false 且禁止 upsert，避免空数据覆盖历史",
+          "并发保存通过 _syncInFlight/_syncPending 串行补写"
+        ]
+      },
+      {
         "name": "switchAccount",
         "module": "site_static/app.js",
         "signature": "async function switchAccount(name: string, legacyDeviceId?: string): Promise<void>",
-        "description": "切换/绑定账号昵称：备份本地 → 拉 4 个 key（昵称 key / 旧 USER_KEY / 当前设备 ID / 传入的旧 UUID）→ 逐个 union merge → 写入 bound_devices → applyAccountSettings() 恢复难度",
+        "description": "切换/绑定账号昵称：备份本地 → 拉昵称 key / 旧 USER_KEY / 当前设备 ID / 传入旧 UUID → 按昵称发现其他旧 UUID 行 → union merge → 写入 bound_devices → 恢复难度",
         "invariants": [
           "switchAccount 前必须先 backupProgress()",
           "传入 legacyDeviceId 时一并尝试合并旧 UUID；找不到远端进度视为空数据",
-          "完成后调用 applyAccountSettings() 写回 progress.difficulty"
+          "完成后调用 applyAccountSettings() 写回 progress.difficulty",
+          "昵称账号读取失败时 saveProgress({sync:false})，只保留本地缓存且禁止覆盖云端"
         ]
       },
       {
@@ -245,8 +267,8 @@
       {
         "name": "saveProgress",
         "module": "site_static/app.js",
-        "signature": "function saveProgress(): void",
-        "description": "本地持久化：写 localStorage[ck_progress_v1] + 同步 window.progress + 写 _updated_at + 触发 syncToSupabase()",
+        "signature": "function saveProgress(options?: {sync?: boolean}): void",
+        "description": "本地缓存持久化：写 localStorage[ck_progress_v1] + 同步 window.progress + 写 _updated_at；默认触发 syncToSupabase()，云端读取失败时可显式禁用本次上传",
         "invariants": [
           "每次写入必须更新 progress._updated_at = new Date().toISOString()",
           "必须同步 window.progress 引用（_shared.js 等子模块能看到最新值）"
@@ -1075,9 +1097,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.2",
+  "version": "v0.18.3",
   "last_validated": "2026-07-18",
   "evolution": [
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.3",
+      "action": "change",
+      "what": "跨浏览器同步改为云端账号行优先：按昵称自动发现并迁移旧 UUID 记录；写入前先读远端做 union merge；慢同步完成后刷新页面；个人设置页新增立即同步入口",
+      "why": "修复新浏览器输入相同昵称后仍无进度，以及空本地状态可能覆盖云端历史的问题",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-18",
       "version": "v0.18.2",

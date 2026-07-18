@@ -172,7 +172,7 @@ def test_account_sync_includes_difficulty_and_uses_union_on_cloud_load():
     assert "saveProgress()" in difficulty_block
 
     cloud_load_block = _function_block("syncFromSupabase")
-    assert "mergeProgress(progress, accountData)" in cloud_load_block
+    assert "mergeProgress(merged, remoteData)" in cloud_load_block
     assert "window.progress = progress" in cloud_load_block
     assert "bound_devices" in cloud_load_block
 
@@ -208,3 +208,216 @@ def test_unbind_device_removes_target_and_protects_nickname_keys():
     assert "getDeviceId()" in profile_block
     assert "isNicknameKey" in profile_block
     assert "unbindDevice" in profile_block
+
+
+def test_nickname_account_discovers_legacy_device_rows():
+    """新浏览器只知道昵称时，也必须能找到旧 UUID 下的历史记录。"""
+    legacy_loader = _function_block("loadRemoteRowsByNickname")
+    assert "data->>user_name" in legacy_loader
+
+    switch_block = _function_block("switchAccount")
+    assert "loadRemoteRowsByNickname(name)" in switch_block
+    assert "remote.user_key" in switch_block
+    assert "bound_devices" in switch_block
+
+
+def test_boot_sync_migrates_legacy_uuid_key_to_nickname_account():
+    """旧浏览器升级后要把 UUID 行增量迁移到昵称账号行，而不是继续只写 UUID。"""
+    cloud_load_block = _function_block("syncFromSupabase")
+    assert "nicknameToKey(accountName)" in cloud_load_block
+    assert "setUserKey(accountKey)" in cloud_load_block
+    assert "loadRemoteRowsByNickname(accountName)" in cloud_load_block
+    assert "previousKey" in cloud_load_block
+
+
+def test_cloud_write_reads_and_merges_remote_before_upsert():
+    """空的新浏览器不能直接覆盖已有云端进度。"""
+    cloud_write_block = _function_block("syncToSupabaseNow")
+    assert "loadFromRemoteByKey(key)" in cloud_write_block
+    assert "mergeProgress(progress, remoteData)" in cloud_write_block
+    assert cloud_write_block.index("loadFromRemoteByKey(key)") < cloud_write_block.index(".upsert(")
+
+
+def test_cloud_restore_repaints_after_slow_boot_sync():
+    """同步超过启动超时时，拉到的记录仍要立刻反映在当前页面。"""
+    cloud_load_block = _function_block("syncFromSupabase")
+    assert "render()" in cloud_load_block
+
+
+def test_legacy_device_history_survives_nickname_merge():
+    """已知旧设备 b650... 的历史必须增量保留，不能被新浏览器空数据覆盖。"""
+    merge_fn = _function_block("mergeProgress")
+    result = _run_node(
+        merge_fn
+        + r"""
+const freshBrowser = {
+  user_name: '魏晨宇',
+  bound_devices: ['new-browser'],
+  checkins: [], vocab_mastered: [], wrong_words: [], word_stats: {},
+  achievements_unlocked: {}, game_stats: {}, _updated_at: '2026-07-18T09:00:00Z'
+};
+const legacyDevice = {
+  user_name: '魏晨宇',
+  bound_devices: ['b650b7f6-22f9-4426-bb92-be832866ba2d'],
+  checkins: [{date: '2026-07-17', types: ['vocab'], score: '5/5'}],
+  vocab_mastered: ['apple'],
+  wrong_words: [{word: 'banana', date: '2026-07-16'}],
+  word_stats: {apple: {total: 4, correct: 4, wrong: 0}},
+  achievements_unlocked: {first_checkin: '2026-07-01'},
+  game_stats: {tower: {played: 3, won: 2, best: 80}},
+  _updated_at: '2026-07-17T09:00:00Z'
+};
+const merged = mergeProgress(freshBrowser, legacyDevice);
+console.log(JSON.stringify({
+  checkins: merged.checkins.length,
+  mastered: merged.vocab_mastered,
+  wrongWords: merged.wrong_words.map(x => x.word),
+  devices: merged.bound_devices.sort(),
+  achievements: Object.keys(merged.achievements_unlocked),
+  towerPlayed: merged.game_stats.tower.played
+}));
+"""
+    )
+    assert result == {
+        "checkins": 1,
+        "mastered": ["apple"],
+        "wrongWords": ["banana"],
+        "devices": ["b650b7f6-22f9-4426-bb92-be832866ba2d", "new-browser"],
+        "achievements": ["first_checkin"],
+        "towerPlayed": 3,
+    }
+
+
+def test_new_browser_switch_restores_history_found_by_nickname():
+    """端到端模拟：新浏览器输入昵称后，从旧 UUID 行恢复完整历史。"""
+    blocks = "\n".join(
+        _function_block(name)
+        for name in (
+            "defaultProgress",
+            "nicknameToKey",
+            "mergeProgress",
+            "remoteRowProgress",
+            "switchAccount",
+        )
+    )
+    result = _run_node(
+        r"""
+const AVATAR_CHOICES = ['avatar'];
+const USER_KEY = 'user-key';
+const window = {};
+const localStorage = {values: {}, setItem(k, v) { this.values[k] = v; }};
+let progress = {
+  user_name: '', bound_devices: [], checkins: [], vocab_mastered: [],
+  grammar_mastered: [], wrong_words: [], word_stats: {}, wrong_grammar: [],
+  flashcard_history: [], custom_vocab: [], card_states: {}, chat_history: [],
+  achievements_unlocked: {}, game_stats: {}, vocab_list_marked: []
+};
+function getUserKey() { return 'new-browser'; }
+function getDeviceId() { return 'new-browser'; }
+function backupCurrentProgress() {}
+function isNicknameKey(key) { return String(key || '').startsWith('nk_'); }
+async function loadFromRemoteByKey() { return null; }
+async function loadRemoteRowsByNickname(name) {
+  return [{
+    user_key: 'b650b7f6-22f9-4426-bb92-be832866ba2d',
+    updated_at: '2026-07-17T09:00:00Z',
+    data: {
+      user_name: name,
+      bound_devices: ['b650b7f6-22f9-4426-bb92-be832866ba2d'],
+      checkins: [{date: '2026-07-17', types: ['vocab'], score: '5/5'}],
+      vocab_mastered: ['apple'], wrong_words: [{word: 'banana', date: '2026-07-16'}],
+      word_stats: {}, achievements_unlocked: {first_checkin: '2026-07-01'},
+      game_stats: {}, _updated_at: '2026-07-17T09:00:00Z'
+    }
+  }];
+}
+function applyAccountSettings() {}
+let savedOptions = null;
+function saveProgress(options) { savedOptions = options; }
+function toast() {}
+"""
+        + blocks
+        + r"""
+(async () => {
+  await switchAccount('魏晨宇');
+  console.log(JSON.stringify({
+    checkins: progress.checkins.length,
+    mastered: progress.vocab_mastered,
+    devices: progress.bound_devices.sort(),
+    userKey: localStorage.values[USER_KEY],
+    syncEnabled: savedOptions.sync
+  }));
+})();
+"""
+    )
+    assert result == {
+        "checkins": 1,
+        "mastered": ["apple"],
+        "devices": ["b650b7f6-22f9-4426-bb92-be832866ba2d", "new-browser"],
+        "userKey": "nk_1cpxtd3",
+        "syncEnabled": True,
+    }
+
+
+def test_safe_cloud_write_preserves_existing_remote_history():
+    """端到端模拟：新浏览器写账号行前，必须带上已有云端历史。"""
+    blocks = "\n".join(
+        _function_block(name)
+        for name in ("defaultProgress", "mergeProgress", "remoteRowProgress", "syncToSupabaseNow")
+    )
+    result = _run_node(
+        r"""
+const AVATAR_CHOICES = ['avatar'];
+const STORAGE_KEY = 'progress';
+const window = {};
+const localStorage = {setItem() {}};
+let progress = {
+  user_name: '魏晨宇', bound_devices: ['new-browser'], checkins: [], vocab_mastered: [],
+  grammar_mastered: [], wrong_words: [], word_stats: {}, wrong_grammar: [],
+  flashcard_history: [], custom_vocab: [], card_states: {}, chat_history: [],
+  achievements_unlocked: {}, game_stats: {}, vocab_list_marked: [],
+  _updated_at: '2026-07-18T09:00:00Z'
+};
+let _syncInFlight = null;
+let _syncPending = false;
+let _syncTimer = null;
+let uploaded = null;
+const sb = {from() { return {upsert(payload) { uploaded = payload; return Promise.resolve(); }}; }};
+function nicknameToKey() { return 'nk-account'; }
+function getUserKey() { return 'new-browser'; }
+function setUserKey() {}
+function applyAccountSettings() {}
+function syncToSupabase() {}
+async function loadFromRemoteByKey() {
+  return {
+    updated_at: '2026-07-17T09:00:00Z',
+    data: {
+      user_name: '魏晨宇', bound_devices: ['old-browser'],
+      checkins: [{date: '2026-07-17', types: ['vocab'], score: '5/5'}],
+      vocab_mastered: ['apple'], grammar_mastered: [], wrong_words: [],
+      word_stats: {}, wrong_grammar: [], flashcard_history: [], custom_vocab: [],
+      card_states: {}, chat_history: [], achievements_unlocked: {}, game_stats: {},
+      vocab_list_marked: [], _updated_at: '2026-07-17T09:00:00Z'
+    }
+  };
+}
+"""
+        + blocks
+        + r"""
+(async () => {
+  const ok = await syncToSupabaseNow();
+  console.log(JSON.stringify({
+    ok,
+    checkins: uploaded.data.checkins.length,
+    mastered: uploaded.data.vocab_mastered,
+    devices: uploaded.data.bound_devices.sort()
+  }));
+})();
+"""
+    )
+    assert result == {
+        "ok": True,
+        "checkins": 1,
+        "mastered": ["apple"],
+        "devices": ["new-browser", "old-browser"],
+    }

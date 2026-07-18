@@ -57,10 +57,14 @@ def test_profile_route_edits_name_avatar_and_bound_devices():
     assert "unbindDevice" in fn
     assert "migrate-key-input" in fn
     assert "mergeLegacyDevice" in fn
+    assert "profile-sync-now" in fn
+    assert "syncFromSupabase" in fn
+    assert "syncToSupabaseNow" in fn
 
 
 def test_profile_styles_are_responsive_and_have_selected_state():
     assert ".hero-avatar" in STYLE_SRC
     assert ".avatar-grid" in STYLE_SRC
     assert ".avatar-cell.selected" in STYLE_SRC
+    assert ".profile-sync-row" in STYLE_SRC
     assert "grid-template-columns: repeat(5" in STYLE_SRC

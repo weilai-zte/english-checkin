@@ -116,6 +116,23 @@ document.addEventListener('input', function(e) {
     if (!data) return null;
     return data;
   }
+  async function loadRemoteRowsByNickname(name) {
+    name = (name || '').trim();
+    if (!sb || !name) return [];
+    const { data, error } = await sb.from('progress')
+      .select('user_key,data,updated_at')
+      .eq('data->>user_name', name)
+      .limit(20);
+    if (error) throw error;
+    return data || [];
+  }
+  function remoteRowProgress(row) {
+    if (!row || !row.data) return null;
+    const data = Object.assign({}, row.data);
+    data._updated_at = (data._updated_at || '').localeCompare(row.updated_at || '') >= 0
+      ? data._updated_at : row.updated_at;
+    return data;
+  }
 
   // ─── State ───────────────────────────────────────────
   let progress = loadProgress();
@@ -324,83 +341,144 @@ document.addEventListener('input', function(e) {
       }
     } catch (e) { console.warn('backup failed', e); }
   }
-  function saveProgress() {
+  function saveProgress(options) {
+    options = options || {};
     progress._updated_at = new Date().toISOString();
     window.progress = progress;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-    syncToSupabase();
+    if (options.sync !== false) syncToSupabase();
   }
 
   // ─── Supabase sync ───────────────────────────────────
   let _syncTimer = null;
+  let _syncInFlight = null;
+  let _syncPending = false;
   function syncToSupabase() {
     if (!sb) return;
+    _syncPending = true;
     clearTimeout(_syncTimer);
-    _syncTimer = setTimeout(async () => {
+    _syncTimer = setTimeout(syncToSupabaseNow, 300);
+  }
+  async function syncToSupabaseNow() {
+    if (!sb) return false;
+    clearTimeout(_syncTimer);
+    _syncTimer = null;
+    if (_syncInFlight) {
+      _syncPending = true;
+      return _syncInFlight;
+    }
+    _syncPending = false;
+    _syncInFlight = (async () => {
       try {
-        const key = getUserKey();
+        const accountName = (progress.user_name || '').trim();
+        const key = accountName ? nicknameToKey(accountName) : getUserKey();
+        if (accountName) setUserKey(key);
+
+        // 云端是账号数据的真理源。写入前先做 union，避免新浏览器空数据覆盖历史。
+        const remote = await loadFromRemoteByKey(key);
+        if (remote && remote.data) {
+          const remoteData = remoteRowProgress(remote);
+          progress = Object.assign(defaultProgress(), mergeProgress(progress, remoteData));
+          if (accountName) progress.user_name = accountName;
+          window.progress = progress;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+          applyAccountSettings();
+        }
         await sb.from('progress').upsert({
           user_key: key,
           data: progress,
           updated_at: new Date().toISOString(),
         }, { onConflict: 'user_key' });
-      } catch (e) { console.warn('Supabase upsert failed:', e); }
-    }, 300);
+        return true;
+      } catch (e) {
+        console.warn('Supabase upsert failed:', e);
+        return false;
+      }
+    })();
+    try {
+      return await _syncInFlight;
+    } finally {
+      _syncInFlight = null;
+      if (_syncPending) syncToSupabase();
+    }
   }
 
   async function syncFromSupabase() {
-    if (!sb) return;
+    if (!sb) return false;
     try {
-      const key = getUserKey();
+      const previousKey = getUserKey();
+      const accountName = (progress.user_name || '').trim();
+      const accountKey = accountName ? nicknameToKey(accountName) : previousKey;
       let foundRemote = false;
       let latestRemoteTs = '';
       let merged = progress;
+      const legacyKeys = new Set();
 
-      const accountRow = await loadFromRemoteByKey(key);
-      if (accountRow && accountRow.data) {
-        const accountData = Object.assign({}, accountRow.data, {
-          _updated_at: (accountRow.data._updated_at || '').localeCompare(accountRow.updated_at || '') >= 0
-            ? accountRow.data._updated_at : accountRow.updated_at,
-        });
-        merged = mergeProgress(progress, accountData);
-        latestRemoteTs = accountRow.updated_at || '';
+      // 同时读取昵称账号行和升级前的 UUID 行。
+      const sourceKeys = Array.from(new Set([accountKey, previousKey].filter(Boolean)));
+      for (const sourceKey of sourceKeys) {
+        const row = await loadFromRemoteByKey(sourceKey);
+        const remoteData = remoteRowProgress(row);
+        if (!remoteData) continue;
+        merged = mergeProgress(merged, remoteData);
+        latestRemoteTs = (latestRemoteTs || '').localeCompare(row.updated_at || '') >= 0
+          ? latestRemoteTs : row.updated_at;
         foundRemote = true;
+        if (!isNicknameKey(sourceKey)) legacyKeys.add(sourceKey);
       }
 
-      // 已切换到昵称账号的老用户，启动时也自动合并绑定过的旧 UUID 行。
-      if (isNicknameKey(key)) {
+      if (accountName) {
+        // 新浏览器并不知道旧 UUID，按旧行中的昵称发现并自动迁移。
+        const nicknameRows = await loadRemoteRowsByNickname(accountName);
+        for (const remote of nicknameRows) {
+          const remoteData = remoteRowProgress(remote);
+          if (!remoteData) continue;
+          merged = mergeProgress(merged, remoteData);
+          latestRemoteTs = (latestRemoteTs || '').localeCompare(remote.updated_at || '') >= 0
+            ? latestRemoteTs : remote.updated_at;
+          foundRemote = true;
+          if (remote.user_key && !isNicknameKey(remote.user_key)) legacyKeys.add(remote.user_key);
+        }
+
+        // 已绑定过的旧 UUID 仍逐个读取；旧行不删除，作为迁移备份。
         const legacyIds = Array.from(new Set([getDeviceId()].concat(merged.bound_devices || [])))
-          .filter(id => id && !isNicknameKey(id) && id !== key)
+          .filter(id => id && !isNicknameKey(id) && id !== accountKey)
           .slice(0, 20);
         for (const legacyId of legacyIds) {
           try {
             const legacyRow = await loadFromRemoteByKey(legacyId);
-            if (!legacyRow || !legacyRow.data) continue;
-            const legacyData = Object.assign({}, legacyRow.data, {
-              _updated_at: (legacyRow.data._updated_at || '').localeCompare(legacyRow.updated_at || '') >= 0
-                ? legacyRow.data._updated_at : legacyRow.updated_at,
-            });
+            const legacyData = remoteRowProgress(legacyRow);
+            if (!legacyData) continue;
             merged = mergeProgress(merged, legacyData);
             latestRemoteTs = (latestRemoteTs || '').localeCompare(legacyRow.updated_at || '') >= 0
               ? latestRemoteTs : legacyRow.updated_at;
             foundRemote = true;
+            legacyKeys.add(legacyId);
           } catch (e) { console.warn('旧设备进度读取失败:', legacyId, e); }
         }
         const devices = new Set(merged.bound_devices || []);
         devices.add(getDeviceId());
+        legacyKeys.forEach(id => devices.add(id));
         merged.bound_devices = Array.from(devices);
+        merged.user_name = accountName;
+        setUserKey(accountKey);
       }
 
-      if (!foundRemote) return;
+      if (!foundRemote && !accountName) return false;
       progress = Object.assign(defaultProgress(), merged);
       progress._updated_at = (progress._updated_at || '').localeCompare(latestRemoteTs) >= 0
         ? progress._updated_at : latestRemoteTs;
       window.progress = progress;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
       applyAccountSettings();
-      // 如果本地有云端没有的记录，把合并结果回写到当前账号。
-      syncToSupabase();
-    } catch (e) { console.warn('Supabase fetch failed:', e); }
+      if (document.readyState !== 'loading' && document.getElementById('app')) render();
+      // 旧 UUID 或本地新增记录只增量回写到昵称账号行。
+      if (accountName) syncToSupabase();
+      return foundRemote;
+    } catch (e) {
+      console.warn('Supabase fetch failed:', e);
+      return false;
+    }
   }
   function applyAccountSettings() {
     if (!['easy', 'medium', 'hard'].includes(progress.difficulty)) return;
@@ -2336,6 +2414,10 @@ document.addEventListener('input', function(e) {
             <span>当前设备</span>
             <code title="${escapeHtml(getDeviceId())}">${escapeHtml(getDeviceId())}</code>
           </div>
+          <div class="profile-sync-row">
+            <span>学习记录保存在云端账号，本地仅保留离线缓存。</span>
+            <button id="profile-sync-now" class="btn-sm profile-sync-now" type="button">立即同步</button>
+          </div>
           <div class="profile-help">已绑定 ${devices.length} 台设备</div>
           ${devices.length ? `<div class="bd-items profile-devices">
             ${devices.map(id => {
@@ -2364,6 +2446,17 @@ document.addEventListener('input', function(e) {
     app.querySelectorAll('.bd-unbind').forEach(btn => {
       btn.onclick = () => unbindDevice(btn.dataset.id);
     });
+
+    const syncButton = app.querySelector('#profile-sync-now');
+    syncButton.onclick = async () => {
+      if (!progress.user_name) { toast('请先设置昵称'); return; }
+      syncButton.disabled = true;
+      syncButton.textContent = '同步中';
+      await syncFromSupabase();
+      const synced = await syncToSupabaseNow();
+      render();
+      toast(synced ? '云端进度已同步' : '云端暂不可用，本地记录已保留', 2500);
+    };
 
     const migrateInput = app.querySelector('#migrate-key-input');
     const migrateButton = app.querySelector('#migrate-key-btn');
@@ -3331,27 +3424,44 @@ document.addEventListener('input', function(e) {
     backupCurrentProgress();
     // 2) 拉昵称账号、当前旧 key、本设备 UUID；失败不阻止本地创建账号。
     let merged = mergeProgress(progress, null);
+    let accountReadSucceeded = false;
     const sourceKeys = Array.from(new Set([newKey, previousKey, deviceId, legacyDeviceId].filter(Boolean)));
     for (const sourceKey of sourceKeys) {
       try {
         const remote = await loadFromRemoteByKey(sourceKey);
-        if (remote && remote.data) merged = mergeProgress(merged, remote.data);
+        if (sourceKey === newKey) accountReadSucceeded = true;
+        const remoteData = remoteRowProgress(remote);
+        if (remoteData) merged = mergeProgress(merged, remoteData);
       } catch (e) { console.warn('load account source failed:', sourceKey, e); }
     }
+    const discoveredLegacyKeys = new Set();
+    try {
+      const nicknameRows = await loadRemoteRowsByNickname(name);
+      for (const remote of nicknameRows) {
+        const remoteData = remoteRowProgress(remote);
+        if (remoteData) merged = mergeProgress(merged, remoteData);
+        if (remote.user_key && !isNicknameKey(remote.user_key)) discoveredLegacyKeys.add(remote.user_key);
+      }
+    } catch (e) { console.warn('load nickname legacy rows failed:', name, e); }
     // 3) 明确使用用户刚输入的昵称，避免旧数据中的账号名覆盖。
     merged.user_name = name;
     // 4) 绑定本设备和参与迁移的旧设备 ID。
     const bd = new Set(merged.bound_devices || []);
     bd.add(deviceId);
     sourceKeys.filter(key => !isNicknameKey(key)).forEach(key => bd.add(key));
+    discoveredLegacyKeys.forEach(key => bd.add(key));
     merged.bound_devices = Array.from(bd);
     progress = Object.assign(defaultProgress(), merged);
     window.progress = progress;
     // 5) 保存到本地 + 云端 (用 newKey)
     localStorage.setItem(USER_KEY, newKey);
     applyAccountSettings();
-    saveProgress();
-    if (typeof toast === 'function') toast(oldName && oldName !== name ? '已切换到 ' + name : '账号已创建: ' + name, 2500);
+    // 昵称账号读取失败时只保存在本机，避免断网状态把空数据覆盖到云端。
+    saveProgress({ sync: accountReadSucceeded });
+    if (typeof toast === 'function') {
+      if (!accountReadSucceeded) toast('已保存在本机，云端连接恢复后会自动同步', 3000);
+      else toast(oldName && oldName !== name ? '已切换到 ' + name : '账号已同步: ' + name, 2500);
+    }
   }
   // 解除绑定某个设备 (仅从本账号 bound_devices 中移除,云端数据保留,随时可重绑)
   function unbindDevice(deviceId) {
@@ -3655,7 +3765,7 @@ document.addEventListener('input', function(e) {
     if (progress.user_name) return;
     // 给 600ms 让 home 渲染完, 再弹 modal (避免盖住首页)
     setTimeout(() => {
-      if (!document.getElementById('account-modal')) openAccountModal('create');
+      if (!progress.user_name && !document.getElementById('account-modal')) openAccountModal('create');
     }, 600);
   }
   // race the supabase sync against a short timeout so unlock prompt never gets blocked by network

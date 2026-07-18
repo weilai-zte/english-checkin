@@ -53,6 +53,7 @@ else:
 - [2026-05-09]: Feishu webhook for daily (19:30) and weekly (Sat 9AM) push notifications
 - [2026-05-09]: Hard mode translations use complex structures: conditionals, subjunctive, it-cleft
 - [2026-07-18]: SPA 个人设置集中管理昵称、emoji 头像和绑定设备；`avatar` 与难度一样按 `_updated_at` 参与账号设置合并，重置学习记录时必须保留
+- [2026-07-18]: SPA 跨浏览器进度以昵称账号行 (`nk_*`) 为云端真理源，localStorage 仅作离线缓存；旧 UUID 行只读保留并按昵称自动迁移
 
 ---
 
@@ -66,3 +67,4 @@ else:
 - [make_response import]: Must be at module level, not inside function (Flask requirement)
 - [mistune import]: Located at line 1148 (module top-level) but only used in `/knowledge` route — could be lazy imported
 - [stats_page division by zero]: Guard `max_wrong or 1` for empty topic lists
+- [account sync overwrite]: Supabase upsert 前必须先读取账号行并 `mergeProgress()`；读取失败时禁止写入，避免新浏览器空进度覆盖历史

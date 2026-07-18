@@ -407,6 +407,13 @@ legacy_uuid → nickname_with_legacy
 
 ## §9 演进记录
 
+### v0.18.3 (2026-07-18)
+- **fix**: 新浏览器按昵称自动发现旧 UUID 行并 union 迁移到昵称账号行，旧行保留不删除 — by Codex
+- **fix**: 所有云端 upsert 前先读取账号行并合并；读取失败时禁止写入，避免空本地状态覆盖历史
+- **fix**: Supabase 慢于启动超时时，同步完成后立即刷新当前页面
+- **add**: 个人设置页新增「立即同步」，并明确云端账号为跨设备真理源、本地存储为离线缓存
+- why: 修复相同昵称在另一浏览器看不到进度，以及旧设备历史可能无法自动迁移的问题
+
 ### v0.18.2 (2026-07-18)
 - **change**: 首页将今日打卡 CTA 移到学习主题之后，连续天数统一保留在我的成就中并删除重复卡片 — by Codex
 - why: 让学习主题与开始动作连续，减少连续天数的重复展示
@@ -523,18 +530,40 @@ function mergeProgress(local: object, remote: object): object
 - `bound_devices` 去重并保留所有出现过的 UUID
 - 设置类字段（`difficulty` / `checkin_types` / `daily_checkin_plan` / `avatar`）按 `progress._updated_at` 较新者胜
 
-### 5.13 switchAccount (`site_static/app.js`)
+### 5.13 loadRemoteRowsByNickname (`site_static/app.js`)
+```js
+async function loadRemoteRowsByNickname(name: string): Promise<RemoteProgressRow[]>
+```
+**说明**: 按 `data.user_name` 查找昵称相同的历史进度行，让新浏览器在不知道旧 UUID 时也能自动恢复旧设备记录。
+
+**Invariants**:
+- 昵称为空或 Supabase 未连接时返回空数组
+- 最多读取 20 行；旧 UUID 行只读不删除，继续作为迁移备份
+
+### 5.14 syncToSupabaseNow (`site_static/app.js`)
+```js
+async function syncToSupabaseNow(): Promise<boolean>
+```
+**说明**: 立即执行云端同步。每次 upsert 前先读取账号行并 `mergeProgress()`，避免新浏览器空数据覆盖已有历史；本地存储只作离线缓存。
+
+**Invariants**:
+- upsert 前必须成功读取当前账号行（账号行不存在也算读取成功）
+- 远端读取失败时返回 `false`，禁止 upsert
+- `_syncInFlight` / `_syncPending` 保证并发保存完成后补写最新状态
+
+### 5.15 switchAccount (`site_static/app.js`)
 ```js
 async function switchAccount(name: string, legacyDeviceId?: string): Promise<void>
 ```
-**说明**: 切换/绑定账号昵称：先 `backupProgress()` → 拉 4 个 key（昵称 key / 旧 USER_KEY / 当前设备 ID / 传入的旧 UUID）→ 逐个 union merge → 写入 `bound_devices` → `applyAccountSettings()` 恢复难度。
+**说明**: 切换/绑定账号昵称：先备份本地 → 拉昵称 key / 旧 USER_KEY / 当前设备 ID / 传入旧 UUID → 按昵称发现其他旧 UUID 行 → union merge → 写入 `bound_devices` → 恢复难度。
 
 **Invariants**:
 - 切换前必须先 `backupProgress()`
 - 传入 `legacyDeviceId` 时一并尝试合并旧 UUID；找不到远端进度视为空数据
 - 完成后必须 `applyAccountSettings()` 写回 `progress.difficulty`
+- 昵称账号读取失败时只保存本地缓存，不触发云端写入
 
-### 5.14 mergeLegacyDevice (`site_static/app.js`)
+### 5.16 mergeLegacyDevice (`site_static/app.js`)
 ```js
 async function mergeLegacyDevice(legacyId: string): Promise<{merged: boolean, remote_words: number}>
 ```
@@ -544,17 +573,17 @@ async function mergeLegacyDevice(legacyId: string): Promise<{merged: boolean, re
 - 旧 UUID 必须形如 UUID v4，否则 throw
 - 成功后必须 union `bound_devices` 并 `saveProgress()`
 
-### 5.15 saveProgress (`site_static/app.js`)
+### 5.17 saveProgress (`site_static/app.js`)
 ```js
-function saveProgress(): void
+function saveProgress(options?: {sync?: boolean}): void
 ```
-**说明**: 本地持久化：写 `localStorage['ck_progress_v1']` + 同步 `window.progress` 引用 + 写 `_updated_at = new Date().toISOString()` + 触发 `syncToSupabase()` debounce 300ms。
+**说明**: 本地离线缓存：写 `localStorage['ck_progress_v1']` + 同步 `window.progress` 引用 + 写 `_updated_at = new Date().toISOString()`；默认触发 `syncToSupabase()` debounce 300ms，云端读取失败时可禁用本次上传。
 
 **Invariants**:
 - 每次写入必须更新 `progress._updated_at`
 - 必须同步 `window.progress` 引用（`games/_shared.js` 等子模块能看到最新值）
 
-### 5.16 unbindDevice (`site_static/app.js`)
+### 5.18 unbindDevice (`site_static/app.js`)
 ```js
 function unbindDevice(deviceId: string): void
 ```
@@ -566,7 +595,7 @@ function unbindDevice(deviceId: string): void
 - 解绑前必须 `backupCurrentProgress()`
 - 解绑后必须 `saveProgress()` + `render()` 让 UI 立即反映
 
-### 5.17 pickQuote (`site_static/app.js`)
+### 5.19 pickQuote (`site_static/app.js`)
 ```js
 function pickQuote(streak: number, doneToday: boolean, totalDays: number, nickname: string): string
 ```
@@ -577,7 +606,7 @@ function pickQuote(streak: number, doneToday: boolean, totalDays: number, nickna
 - 今日已完成优先于其他学习状态
 - 连续 7 天以上的文案包含当前 `streak`
 
-### 5.18 setAvatar (`site_static/app.js`)
+### 5.20 setAvatar (`site_static/app.js`)
 ```js
 function setAvatar(avatar: string): void
 ```

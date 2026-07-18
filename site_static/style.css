@@ -767,6 +767,9 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 .profile-help { color: var(--text-2); font-size: 11px; line-height: 1.5; }
 .profile-device-current { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; color: var(--text-2); font-size: 12px; }
 .profile-device-current code { color: var(--text-1); font-size: 11px; overflow-wrap: anywhere; }
+.profile-sync-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 10px 0; padding: 9px 10px; border-radius: 6px; background: var(--bg-surface); color: var(--text-2); font-size: 11px; line-height: 1.45; }
+.profile-sync-now { flex: 0 0 auto; padding: 7px 11px !important; border: 1px solid var(--accent); border-radius: 8px; background: var(--bg-card); color: var(--accent); cursor: pointer; }
+.profile-sync-now:disabled { opacity: 0.65; cursor: wait; }
 .profile-devices { margin-top: 8px; }
 .profile-empty { margin-top: 8px; padding: 9px 10px; border-radius: 6px; background: var(--bg-surface); color: var(--text-2); font-size: 12px; }
 .profile-legacy { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); }
