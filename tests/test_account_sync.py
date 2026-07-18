@@ -39,10 +39,10 @@ def _run_node(script):
     return json.loads(result.stdout)
 
 
-def test_progress_account_values_use_template_interpolation():
-    block = _function_block("renderProgress")
-    assert "${escapeHtml(progress.user_name || '(未设置)')}" in block
-    assert "${(progress.bound_devices || []).length}" in block
+def test_profile_account_values_use_template_interpolation():
+    block = _function_block("renderProfile")
+    assert "${escapeHtml(displayName)}" in block
+    assert "${devices.length}" in block
     assert "' + escapeHtml(progress.user_name" not in block
     assert "' + ((progress.bound_devices" not in block
 
@@ -161,9 +161,9 @@ def test_old_device_progress_has_automatic_and_manual_merge_paths():
     assert "mergeProgress" in manual_block
     assert "bound_devices" in manual_block
 
-    progress_block = _function_block("renderProgress")
-    assert "旧设备 ID" in progress_block
-    assert "mergeLegacyDevice" in progress_block
+    profile_block = _function_block("renderProfile")
+    assert "旧设备 ID" in profile_block
+    assert "mergeLegacyDevice" in profile_block
 
 
 def test_account_sync_includes_difficulty_and_uses_union_on_cloud_load():
@@ -202,9 +202,9 @@ def test_unbind_device_removes_target_and_protects_nickname_keys():
     assert "getDeviceId()" in fn
     # 拒绝解绑 nickname key（防止把账号标识误删）
     assert "isNicknameKey" in fn
-    # UI 必须真实列出 bound_devices 并给非本机 UUID 渲染解绑按钮
-    progress_block = _function_block("renderProgress")
-    assert "bd-unbind" in progress_block
-    assert "getDeviceId()" in progress_block
-    assert "isNicknameKey" in progress_block
-    assert "unbindDevice" in progress_block
+    # 个人设置页必须真实列出 bound_devices 并给非本机 UUID 渲染解绑按钮
+    profile_block = _function_block("renderProfile")
+    assert "bd-unbind" in profile_block
+    assert "getDeviceId()" in profile_block
+    assert "isNicknameKey" in profile_block
+    assert "unbindDevice" in profile_block

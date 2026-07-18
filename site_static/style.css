@@ -756,6 +756,10 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 .profile-device-current code { color: var(--text-1); font-size: 11px; overflow-wrap: anywhere; }
 .profile-devices { margin-top: 8px; }
 .profile-empty { margin-top: 8px; padding: 9px 10px; border-radius: 6px; background: var(--bg-surface); color: var(--text-2); font-size: 12px; }
+.profile-legacy { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); }
+.profile-legacy .account-legacy-row { padding-right: 0; }
+.profile-merge { padding: 8px 14px !important; border: 0; border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
+.profile-merge:disabled { opacity: 0.65; cursor: wait; }
 
 /* D. daily word card — softened to fit palette */
 .daily-word-card {

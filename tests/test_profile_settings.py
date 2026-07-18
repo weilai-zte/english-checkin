@@ -55,6 +55,8 @@ def test_profile_route_edits_name_avatar_and_bound_devices():
     assert "getDeviceId()" in fn
     assert "bound_devices" in fn
     assert "unbindDevice" in fn
+    assert "migrate-key-input" in fn
+    assert "mergeLegacyDevice" in fn
 
 
 def test_profile_styles_are_responsive_and_have_selected_state():

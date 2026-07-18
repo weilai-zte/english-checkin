@@ -2273,67 +2273,9 @@ document.addEventListener('input', function(e) {
         </div>
 
         <button class="btn btn-danger" id="reset-progress">⚠️ 重置所有进度</button>
-
-        <div class="card" style="margin-top:16px;">
-          <div class="card-title-row">
-            <div class="card-title">☁️ 跨设备同步</div>
-            <button id="edit-account-btn" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">✏ 修改</button>
-          </div>
-          <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
-            当前账号: <b id="user-name-display" style="color:var(--accent);">${escapeHtml(progress.user_name || '(未设置)')}</b>
-            <span style="font-size:11px;color:var(--text-2);"> · 绑定设备数: <b id="bound-devices-count">${(progress.bound_devices || []).length}</b></span>
-            ${(progress.bound_devices || []).filter(id => !isNicknameKey(id)).length > 0 ? `
-            <details class="bd-list"><summary>查看设备详情</summary>
-              <div class="bd-items">
-                ${(progress.bound_devices || []).filter(id => !isNicknameKey(id)).map(id => {
-                  const isCurrent = id === getDeviceId();
-                  return `<div class="bd-item">
-                    <code class="bd-uuid" title="${escapeHtml(id)}">${escapeHtml(id.slice(0,8))}…${escapeHtml(id.slice(-4))}</code>
-                    ${isCurrent ? '<span class="bd-tag">本机</span>' : `<button class="btn-sm bd-unbind" data-id="${escapeHtml(id)}">解绑</button>`}
-                  </div>`;
-                }).join('')}
-              </div>
-              <div style="font-size:11px;color:var(--text-2);margin-top:6px;">解绑后该设备仍可独立使用；再次设置相同昵称可重新合并。</div>
-            </details>` : ''}
-          </div>
-          <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
-            在另一台设备设置相同昵称，即可同步打卡、成就、游戏和其他账号记录。
-          </div>
-          <div style="font-size:11px;color:var(--text-2);margin-bottom:6px;">以前使用设备 ID 同步过，可在这里将旧记录合并到当前账号：</div>
-          <div class="account-legacy-row">
-            <input id="migrate-key-input" type="text" placeholder="粘贴旧设备 ID..." style="flex:1;padding:8px;border:1.5px solid #d0d5e0;border-radius:8px;font-size:13px;min-width:0;" />
-            <button id="migrate-key-btn" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">合并旧记录</button>
-          </div>
-          <div style="font-size:11px;color:var(--text-2);margin-top:6px;">合并前会自动备份本地数据，原设备记录也会保留。</div>
-        </div>
       </div>
     `;
 
-    // 账号、头像和设备统一在个人设置页管理。
-    const eab = app.querySelector('#edit-account-btn');
-    if (eab) eab.onclick = () => navigate('profile');
-    // 兼容旧版：把旧设备 UUID 对应的云端记录合并进当前昵称账号。
-    const mib = app.querySelector('#migrate-key-input');
-    const mbtn = app.querySelector('#migrate-key-btn');
-    if (mbtn) mbtn.onclick = async () => {
-      const legacyId = (mib.value || '').trim();
-      if (!legacyId) { toast('请输入旧设备 ID'); return; }
-      if (!progress.user_name) {
-        toast('请先点击“修改”设置昵称');
-        return;
-      }
-      mbtn.disabled = true; mbtn.textContent = '合并中...';
-      try {
-        const found = await mergeLegacyDevice(legacyId);
-        if (!found) { toast('云端没有找到这个旧设备 ID'); return; }
-        toast('旧设备记录已合并到 ' + progress.user_name, 2500);
-        render();
-      } catch (e) {
-        toast('合并失败: ' + (e.message || e));
-      } finally {
-        mbtn.disabled = false; mbtn.textContent = '合并旧记录';
-      }
-    };
     app.querySelector('#reset-progress').onclick = () => {
       if (confirm('确定要重置所有进度？包括打卡、错题、掌握记录。此操作不可恢复！')) {
         backupCurrentProgress();
@@ -2351,7 +2293,6 @@ document.addEventListener('input', function(e) {
         toast('已重置');
       }
     };
-    app.querySelectorAll('.bd-unbind').forEach(btn => { btn.onclick = () => unbindDevice(btn.dataset.id); });
   }
 
   // ─── 视图：Profile（个人设置）──────────────────────
@@ -2413,6 +2354,14 @@ document.addEventListener('input', function(e) {
               </div>`;
             }).join('')}
           </div>` : '<div class="profile-empty">设置昵称后，本设备会自动加入账号。</div>'}
+          <div class="profile-legacy">
+            <div class="profile-help">以前使用设备 ID 同步过，可将旧记录合并到当前账号：</div>
+            <div class="account-legacy-row">
+              <input id="migrate-key-input" class="profile-input" type="text" autocomplete="off" placeholder="粘贴旧设备 ID...">
+              <button id="migrate-key-btn" class="btn-sm profile-merge" type="button">合并旧记录</button>
+            </div>
+            <div class="profile-help">合并前会自动备份本地数据，原设备记录也会保留。</div>
+          </div>
         </div>
       </div>
     `;
@@ -2423,6 +2372,27 @@ document.addEventListener('input', function(e) {
     app.querySelectorAll('.bd-unbind').forEach(btn => {
       btn.onclick = () => unbindDevice(btn.dataset.id);
     });
+
+    const migrateInput = app.querySelector('#migrate-key-input');
+    const migrateButton = app.querySelector('#migrate-key-btn');
+    migrateButton.onclick = async () => {
+      const legacyId = (migrateInput.value || '').trim();
+      if (!legacyId) { toast('请输入旧设备 ID'); return; }
+      if (!progress.user_name) { toast('请先设置昵称'); return; }
+      migrateButton.disabled = true;
+      migrateButton.textContent = '合并中...';
+      try {
+        const found = await mergeLegacyDevice(legacyId);
+        if (!found) { toast('云端没有找到这个旧设备 ID'); return; }
+        toast('旧设备记录已合并到 ' + progress.user_name, 2500);
+        render();
+      } catch (e) {
+        toast('合并失败: ' + (e.message || e));
+      } finally {
+        migrateButton.disabled = false;
+        migrateButton.textContent = '合并旧记录';
+      }
+    };
 
     const input = app.querySelector('#profile-name');
     const save = app.querySelector('#profile-save');

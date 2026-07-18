@@ -289,11 +289,12 @@
         "name": "renderProfile",
         "module": "site_static/app.js",
         "signature": "function renderProfile(app: HTMLElement): void",
-        "description": "渲染 #/profile 个人设置页：头像选择、昵称设置、当前设备及绑定设备管理",
+        "description": "渲染 #/profile 个人设置页：头像选择、昵称设置、当前设备、绑定设备管理及旧设备记录合并",
         "invariants": [
           "昵称保存必须复用 switchAccount()，确保本地与云端记录 union merge",
           "头像按钮必须提供 aria-label 和 aria-pressed",
-          "非当前设备的解绑操作必须复用 unbindDevice()"
+          "非当前设备的解绑操作必须复用 unbindDevice()",
+          "旧设备记录合并必须复用 mergeLegacyDevice()"
         ]
       }
     ],
@@ -531,7 +532,7 @@
         "path": "#/profile",
         "framework": "site_static SPA",
         "handler": "renderProfile",
-        "returns": "个人设置：头像、昵称和绑定设备管理"
+        "returns": "个人设置：头像、昵称、绑定设备管理和旧设备记录合并"
       },
       {
         "path": "#/knowledge",
@@ -1074,9 +1075,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18",
+  "version": "v0.18.1",
   "last_validated": "2026-07-18",
   "evolution": [
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.1",
+      "action": "change",
+      "what": "将绑定设备管理和旧设备记录合并入口统一迁入 #/profile，#/progress 只保留学习进度与打卡记录",
+      "why": "个人信息和账号同步属于个人设置，避免同一类设置分散在进度页与个人设置页",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-18",
       "version": "v0.18",

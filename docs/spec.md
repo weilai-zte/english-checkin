@@ -96,7 +96,7 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 | `#/errors` | `renderErrors` | 错题本 |
 | `#/stats` | `renderStats` | 学习统计 |
 | `#/progress` | `renderProgress` | 进度概览 + 最近 10 次打卡（按 types 显示） |
-| `#/profile` | `renderProfile` | 个人设置：头像、昵称和绑定设备管理 |
+| `#/profile` | `renderProfile` | 个人设置：头像、昵称、绑定设备管理和旧设备记录合并 |
 | `#/knowledge` | `renderKnowledge` | 知识课程 5 tabs |
 | `#/achievements` | `renderAchievements` | 成就系统 10 badges |
 | `#/vocab-import` | `renderVocabImport` | 导入自定义词表 |
@@ -407,6 +407,10 @@ legacy_uuid → nickname_with_legacy
 
 ## §9 演进记录
 
+### v0.18.1 (2026-07-18)
+- **change**: 将绑定设备管理和旧设备记录合并入口统一迁入 `#/profile`，`#/progress` 只保留学习进度与打卡记录 — by Codex
+- why: 个人信息和账号同步属于个人设置，避免同一类设置分散在进度页与个人设置页
+
 ### v0.18 (2026-07-18)
 - **add**: 新增 `#/profile` 个人设置页，集中设置昵称、20 个 emoji 头像并管理绑定设备 — by Codex
 - **add**: 首页头像替代固定图标，励志语按学习状态从四类静态文案池随机展示
@@ -583,12 +587,13 @@ function setAvatar(avatar: string): void
 ```js
 function renderProfile(app: HTMLElement): void
 ```
-**说明**: 渲染 `#/profile` 个人设置页，集中管理头像、昵称及绑定设备。
+**说明**: 渲染 `#/profile` 个人设置页，集中管理头像、昵称、绑定设备及旧设备记录合并。
 
 **Invariants**:
 - 昵称保存复用 `switchAccount()`
 - 头像按钮提供 `aria-label` 和 `aria-pressed`
 - 非当前设备解绑复用 `unbindDevice()`
+- 旧设备记录合并复用 `mergeLegacyDevice()`
 
 ---
 
