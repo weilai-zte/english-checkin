@@ -2586,7 +2586,7 @@ document.addEventListener('input', function(e) {
     const plan = (grade.monthly_plan || []).find(m => m.month === month);
     if (!plan) return '';
     return '<div class="card learning-plan-card" style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:4px solid #f59e0b;">' +
-      '<div class="card-title" style="color:#92400e;">📅 ' + escapeHtml(grade.grade) + ' · 当月主题</div>' +
+      '<div class="card-title" style="color:#92400e;">📅 ' + ((progress.user_name || '').trim() ? escapeHtml((progress.user_name || '').trim()) + '的' : '') + escapeHtml(grade.grade) + ' · 当月主题</div>' +
       '<div style="font-size:18px;font-weight:bold;color:#78350f;margin:6px 0;">' + escapeHtml(plan.theme) + '</div>' +
       '<div style="font-size:13px;color:#92400e;line-height:1.5;">' +
         '🎯 词汇 ' + plan.vocab_count + ' · 📝 ' + escapeHtml(plan.grammar) + '<br>' +
