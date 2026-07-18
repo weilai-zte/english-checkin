@@ -121,7 +121,109 @@ document.addEventListener('input', function(e) {
       card_states: {},           // #1 FSRS (SM-2)
       chat_history: [],          // #12 AI dialogue
       achievements_unlocked: {}, // #7 achievements
+      user_name: '', // #account nickname (跨设备账号标识)
+      bound_devices: [], // #account 本账号绑定的设备 ID 列表
     };
+  }
+  // 把 nickname 转成稳定的 user_key (云端 user_key 字段)
+  function nicknameToKey(name) {
+    var n = (name || '').trim();
+    if (!n) return '';
+    // 加 salt 避免和 UUID 冲突; SHA-256 hex 前 32 位
+    var s = 'eng-checkin-account-v1:' + n;
+    if (typeof crypto !== 'undefined' && crypto.subtle) {
+      // sync 简化: 用 djb2 hash (够用, 不要求密码学安全)
+      var h = 5381;
+      for (var i = 0; i < s.length; i++) h = ((h << 5) + h) + s.charCodeAt(i);
+      return 'nk_' + (h >>> 0).toString(36);
+    }
+    return 'nk_' + s.split('').reduce(function (a, c) { return ((a << 5) - a + c.charCodeAt(0)) | 0; }, 0).toString(36);
+  }
+  // Union merge: 不丢本地, 两边数据按规则合并
+  function mergeProgress(local, remote) {
+    if (!remote) return local;
+    var out = Object.assign({}, remote);
+    // vocab_mastered: union
+    var vm = new Set();
+    (local.vocab_mastered || []).forEach(function (w) { vm.add(w.toLowerCase()); });
+    (remote.vocab_mastered || []).forEach(function (w) { vm.add(w.toLowerCase()); });
+    out.vocab_mastered = Array.from(vm);
+    // grammar_mastered: union
+    var gm = new Set();
+    (local.grammar_mastered || []).forEach(function (g) { gm.add(typeof g === 'string' ? g : g.id || JSON.stringify(g)); });
+    (remote.grammar_mastered || []).forEach(function (g) { gm.add(typeof g === 'string' ? g : g.id || JSON.stringify(g)); });
+    out.grammar_mastered = Array.from(gm);
+    // checkins: 按 date+types 去重 (保留较新的 score)
+    var ckMap = new Map();
+    function ckKey(c) { return c.date + '|' + ((c.types || []).join(',')); }
+    [].concat(remote.checkins || [], local.checkins || []).forEach(function (c) {
+      var k = ckKey(c);
+      var exist = ckMap.get(k);
+      if (!exist) ckMap.set(k, c);
+      // 保留 total_days 较大 (即打卡次数多) 的那个
+    });
+    out.checkins = Array.from(ckMap.values()).sort(function (a, b) { return (a.date || '').localeCompare(b.date || ''); });
+    // word_stats: 同一词取 max(total/correct/wrong)
+    var ws = {};
+    function mergeStats(w) {
+      var k = w.toLowerCase();
+      var a = (local.word_stats || {})[k] || {};
+      var b = (remote.word_stats || {})[k] || {};
+      ws[k] = {
+        total: Math.max(a.total || 0, b.total || 0),
+        correct: Math.max(a.correct || 0, b.correct || 0),
+        wrong: Math.max(a.wrong || 0, b.wrong || 0),
+        last: (a.last || '').localeCompare(b.last || '') > 0 ? a.last : b.last,
+      };
+    }
+    Object.keys(Object.assign({}, local.word_stats || {}, remote.word_stats || {})).forEach(mergeStats);
+    out.word_stats = ws;
+    // wrong_words: 合并按 word 去重, 保留较新
+    var wwMap = new Map();
+    [].concat(remote.wrong_words || [], local.wrong_words || []).forEach(function (w) {
+      if (!w || !w.word) return;
+      var exist = wwMap.get(w.word.toLowerCase());
+      if (!exist || (w.date || '') > (exist.date || '')) wwMap.set(w.word.toLowerCase(), w);
+    });
+    out.wrong_words = Array.from(wwMap.values()).slice(-50);
+    // wrong_grammar: union by question+type
+    var wgKey = function (e) { return (e.type || '') + '|' + (e.question || ''); };
+    var wgMap = new Map();
+    [].concat(remote.wrong_grammar || [], local.wrong_grammar || []).forEach(function (e) {
+      if (!e) return;
+      var k = wgKey(e);
+      var ex = wgMap.get(k);
+      if (!ex || (e.date || '') > (ex.date || '')) wgMap.set(k, e);
+    });
+    out.wrong_grammar = Array.from(wgMap.values()).slice(-50);
+    // 累计天数: 取 max
+    out.total_days = Math.max(local.total_days || 0, remote.total_days || 0);
+    // streak: 取 max
+    out.streak = Math.max(local.streak || 0, remote.streak || 0);
+    // last_checkin: 取较新的
+    out.last_checkin = (remote.last_checkin || '').localeCompare(local.last_checkin || '') > 0 ? remote.last_checkin : local.last_checkin;
+    // user_name: 保留 remote (用户主动选的昵称)
+    out.user_name = remote.user_name || local.user_name || '';
+    // bound_devices: union
+    var bd = new Set();
+    (local.bound_devices || []).forEach(function (d) { bd.add(d); });
+    (remote.bound_devices || []).forEach(function (d) { bd.add(d); });
+    out.bound_devices = Array.from(bd);
+    // 其他字段 (flashcard_history / card_states / custom_vocab / chat_history / achievements_unlocked) 用 remote
+    return out;
+  }
+  // 切换前本地备份到 backup 槽位 (防止意外丢失)
+  function backupCurrentProgress() {
+    try {
+      var ts = Date.now();
+      var raw = JSON.stringify(progress);
+      localStorage.setItem('ck_progress_backup_' + ts, raw);
+      // 仅保留最近 5 个备份
+      var keys = Object.keys(localStorage).filter(function (k) { return k.startsWith('ck_progress_backup_'); }).sort();
+      while (keys.length > 5) {
+        localStorage.removeItem(keys.shift());
+      }
+    } catch (e) { console.warn('backup failed', e); }
   }
   function saveProgress() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
@@ -1962,56 +2064,53 @@ document.addEventListener('input', function(e) {
         <button class="btn btn-danger" id="reset-progress">⚠️ 重置所有进度</button>
 
         <div class="card" style="margin-top:16px;">
-          <div class="card-title">☁️ 跨设备同步</div>
-          <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
-            当前 ID: <code id="user-key-display" style="font-size:11px;background:var(--bg-page);padding:2px 6px;border-radius:4px;word-break:break-all;"></code>
-            <button id="copy-user-key" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;margin-left:4px;">📋 复制</button>
+          <div class="card-title-row">
+            <div class="card-title">☁️ 跨设备同步</div>
+            <button id="edit-account-btn" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;">✏ 修改</button>
           </div>
           <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
-            在另一台设备的同一浏览器粘贴此 ID 即可看到同步进度。
+            当前账号: <b id="user-name-display" style="color:var(--accent);">' + escapeHtml(progress.user_name || '(未设置)') + '</b>
+            <span style="font-size:11px;color:var(--text-2);"> · 绑定设备数: <b id="bound-devices-count">' + ((progress.bound_devices || []).length) + '</b></span>
+          </div>
+          <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
+            在另一台设备的进度概览输入相同昵称即可同步 (已掌握词/打卡/错题自动合并, 不会丢本地进度)。
           </div>
           <div style="display:flex;gap:6px;">
-            <input id="migrate-key-input" type="text" placeholder="粘贴另一个设备的 ID..." style="flex:1;padding:8px;border:1.5px solid #d0d5e0;border-radius:8px;font-size:13px;" />
-            <button id="migrate-key-btn" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;">📥 切换到此 ID</button>
+            <input id="migrate-key-input" type="text" placeholder="输入另一个设备的昵称..." style="flex:1;padding:8px;border:1.5px solid #d0d5e0;border-radius:8px;font-size:13px;" />
+            <button id="migrate-key-btn" class="btn-sm" style="background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;">🔄 同步此账号</button>
           </div>
-          <div style="font-size:11px;color:#6b7280;margin-top:6px;">⚠ 切换 ID 会从云端拉取对应进度，本地数据将被覆盖。</div>
+          <div style="font-size:11px;color:var(--text-2);margin-top:6px;">切换前会自动备份本地数据, 合并后保留较新的进度。</div>
         </div>
       </div>
     `;
 
-    const ukd = app.querySelector('#user-key-display');
-    if (ukd) ukd.textContent = getUserKey();
-    const cup = app.querySelector('#copy-user-key');
-    if (cup) cup.onclick = () => {
-      const k = getUserKey();
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(k).then(() => toast('ID 已复制')).catch(() => toast('复制失败，手动选择'));
-      } else {
-        // fallback: select the text in the code element
-        const r = document.createRange(); r.selectNode(ukd); window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
-        toast('请按 ⌘/Ctrl+C 复制选中文字');
-      }
-    };
+    // "修改" 按钮: 打开账号 modal (改名/新建)
+    const eab = app.querySelector('#edit-account-btn');
+    if (eab) eab.onclick = () => openAccountModal('edit');
+    // 同步此账号: 输入昵称 → union merge → 切换
     const mib = app.querySelector('#migrate-key-input');
     const mbtn = app.querySelector('#migrate-key-btn');
     if (mbtn) mbtn.onclick = async () => {
-      const k = (mib.value || '').trim();
-      if (!k) { toast('请粘贴一个 ID'); return; }
-      mbtn.disabled = true; mbtn.textContent = '...';
+      const name = (mib.value || '').trim();
+      if (!name) { toast('请输入昵称'); return; }
+      if (!progress.user_name) {
+        // 还没建账号, 直接当创建处理
+        await switchAccount(name);
+        render();
+        return;
+      }
+      if (name === progress.user_name) { toast('这就是当前账号'); return; }
+      mbtn.disabled = true; mbtn.textContent = '... 同步中';
       try {
-        const remote = await loadFromRemoteByKey(k);
-        if (!remote) { toast('云端没找到这个 ID'); return; }
-        if (!confirm('将从云端拉取该 ID 的进度并覆盖本地数据，确认？')) return;
-        progress = Object.assign(defaultProgress(), remote.data);
-        progress._updated_at = remote.updated_at;
-        saveProgress();
-        localStorage.setItem(USER_KEY, k);
-        toast('已切换并加载');
+        // union merge, switchAccount 内部已经做了备份
+        const oldName = progress.user_name;
+        await switchAccount(name);
+        toast('已合并 ' + oldName + ' → ' + name, 2500);
         render();
       } catch (e) {
-        toast('加载失败: ' + (e.message || e));
+        toast('同步失败: ' + (e.message || e));
       } finally {
-        mbtn.disabled = false; mbtn.textContent = '📥 切换到此 ID';
+        mbtn.disabled = false; mbtn.textContent = '🔄 同步此账号';
       }
     };
     app.querySelector('#reset-progress').onclick = () => {
@@ -2883,6 +2982,87 @@ document.addEventListener('input', function(e) {
   }
   // ─── LLM settings modal (unlock / setup / change / clear) ───
   // Mounts a full-screen overlay. Pass mode to bias the first screen.
+  // ─── 账号 modal (昵称创建/切换) ─────────────────────
+  function openAccountModal(mode) {
+    mode = mode || 'auto';
+    closeAccountModal();
+    const wrap = document.createElement('div');
+    wrap.id = 'account-modal';
+    wrap.className = 'modal-overlay';
+    document.body.appendChild(wrap);
+    const cur = progress.user_name || '';
+    function renderInner() {
+      wrap.innerHTML =
+        '<div class="modal-card">' +
+          '<div class="modal-head"><span>👤 账号设置</span><button class="modal-x" id="acct-x">×</button></div>' +
+          '<div class="modal-body">' +
+            '<p class="modal-p">输入一个昵称(如 小明),即可在多台设备上同步你的打卡进度。<br><span style="color:var(--text-2);font-size:12px;">同一个昵称的设备会自动合并进度 (已掌握词/打卡记录/错题本)。</span></p>' +
+            '<label class="modal-lbl">昵称</label>' +
+            '<input type="text" id="acct-name" class="modal-input" autocomplete="off" placeholder="例如:小明" maxlength="20" value="' + escapeHtml(cur) + '">' +
+            '<div class="modal-err" id="acct-err" style="min-height:18px;color:#c62828;font-size:12px;margin-top:6px;"></div>' +
+            '<div class="modal-actions">' +
+              '<button class="btn btn-primary" id="acct-save-btn">💾 保存</button>' +
+              (cur ? '<button class="btn btn-secondary" id="acct-cancel-btn">取消</button>' : '') +
+            '</div>' +
+            (cur ? '<div style="margin-top:14px;padding-top:12px;border-top:1px solid #eee;font-size:12px;color:var(--text-2);">当前昵称: <b>' + escapeHtml(cur) + '</b><br>本设备 ID: <code style="font-size:10px;">' + escapeHtml(getUserKey()) + '</code></div>' : '') +
+          '</div>' +
+        '</div>';
+      wrap.querySelector('#acct-x').onclick = closeAccountModal;
+      const cancel = wrap.querySelector('#acct-cancel-btn');
+      if (cancel) cancel.onclick = closeAccountModal;
+      wrap.querySelector('#acct-save-btn').onclick = async () => {
+        const name = (wrap.querySelector('#acct-name').value || '').trim();
+        const err = wrap.querySelector('#acct-err');
+        if (!name) { err.textContent = '请输入昵称'; return; }
+        if (name.length > 20) { err.textContent = '昵称太长(≤20)'; return; }
+        if (/[<>:"|?*\\]/.test(name)) { err.textContent = '昵称不能含特殊字符 < > : " | ? * \\'; return; }
+        err.textContent = '';
+        wrap.querySelector('#acct-save-btn').disabled = true;
+        wrap.querySelector('#acct-save-btn').textContent = '... 保存中';
+        await switchAccount(name);
+        closeAccountModal();
+        if (typeof render === 'function') render();
+      };
+      const inp = wrap.querySelector('#acct-name');
+      if (inp) { inp.focus(); inp.select(); inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') wrap.querySelector('#acct-save-btn').click(); }); }
+    }
+    renderInner();
+  }
+  function closeAccountModal() {
+    const el = document.getElementById('account-modal');
+    if (el) el.remove();
+  }
+  // 切换到昵称 name: 备份本地 → 加载云端 → union merge → 保存
+  async function switchAccount(name) {
+    name = (name || '').trim();
+    if (!name) return;
+    const oldName = progress.user_name || '';
+    const newKey = nicknameToKey(name);
+    // 1) 备份本地 (避免覆盖丢数据)
+    backupCurrentProgress();
+    // 2) 拉云端 (用 nickname 派生的 key)
+    let remoteData = null;
+    let remoteTs = '';
+    try {
+      if (sb) {
+        const r = await sb.from('progress').select('data,updated_at').eq('user_key', newKey).maybeSingle();
+        if (r.data) { remoteData = r.data.data; remoteTs = r.data.updated_at || ''; }
+      }
+    } catch (e) { console.warn('load remote failed', e); }
+    // 3) union merge
+    const merged = mergeProgress(progress, remoteData);
+    merged.user_name = name;
+    // 4) 绑定本设备到新账号
+    const devId = getUserKey();
+    const bd = new Set(merged.bound_devices || []);
+    bd.add(devId);
+    merged.bound_devices = Array.from(bd);
+    progress = Object.assign(defaultProgress(), merged);
+    // 5) 保存到本地 + 云端 (用 newKey)
+    localStorage.setItem(USER_KEY, newKey);
+    saveProgress();
+    if (typeof toast === 'function') toast(oldName && oldName !== name ? '已切换到 ' + name : '账号已创建: ' + name, 2500);
+  }
   async function openLlmSettingsModal(mode) {
     mode = mode || 'auto';
     const raw = getChatCfgRaw();
@@ -3144,9 +3324,17 @@ document.addEventListener('input', function(e) {
       maybeMigrateLegacyCfg();
     }
   }
+  // 首次访问引导: 没昵称就弹创建对话框 (children 用户友好)
+  function _maybePromptNickname() {
+    if (progress.user_name) return;
+    // 给 600ms 让 home 渲染完, 再弹 modal (避免盖住首页)
+    setTimeout(() => {
+      if (!document.getElementById('account-modal')) openAccountModal('create');
+    }, 600);
+  }
   // race the supabase sync against a short timeout so unlock prompt never gets blocked by network
   Promise.race([syncFromSupabase(), new Promise(r => setTimeout(r, 1500))])
-    .then(_postBoot)
-    .catch(e => { console.warn('[boot-sync-fail]', e); _postBoot(); });
+    .then(() => { _postBoot(); _maybePromptNickname(); })
+    .catch(e => { console.warn('[boot-sync-fail]', e); _postBoot(); _maybePromptNickname(); });
 })();
           // Bug 3b: 不再把答案写到 DOM, 提交后服务端返回判定再渲染

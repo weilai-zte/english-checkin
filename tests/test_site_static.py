@@ -211,11 +211,16 @@ def test_content_filter_supports_array_attributes():
 
 
 def test_render_progress_has_cross_device_card():
+    """跨设备同步卡使用昵称 (而非 UUID), 用户友好"""
     block = _function_block('renderProgress')
     assert '跨设备同步' in block
-    assert 'user-key-display' in block
-    assert 'copy-user-key' in block
+    assert 'edit-account-btn' in block
     assert 'migrate-key-input' in block
+    # 应包含 union merge 函数 + 切换 modal 函数 (而非旧的直接覆盖)
+    src = (ROOT / 'site_static' / 'app.js').read_text(encoding='utf-8')
+    assert 'function mergeProgress' in src, "必须有 union merge 函数防止丢本地进度"
+    assert 'function switchAccount' in src, "必须有 switchAccount 处理昵称切换"
+    assert 'backupCurrentProgress' in src, "切换账号前必须本地备份"
 
 
 def test_active_difficulty_buttons_use_white_text():
