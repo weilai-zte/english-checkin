@@ -697,7 +697,20 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 .hero-avatar:hover { border-color: var(--accent); }
 .hero-avatar:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .hero-title { font-size: 22px; }
-.hero-cheer { font-size: 13px; color: #4a5568; margin-top: 6px; line-height: 1.5; padding: 0 12px; }
+.hero-cheer {
+  display: inline-block;
+  box-sizing: border-box;
+  width: min(100%, 520px);
+  margin: 8px auto 0;
+  padding: 7px 14px;
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #44356f;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.55;
+}
 
 /* 个人设置 */
 .profile-summary { display: flex; align-items: center; gap: 14px; }

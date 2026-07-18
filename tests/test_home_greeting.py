@@ -41,3 +41,14 @@ def test_home_renders_personalized_greeting():
     # 首页头像来自账号数据，并可进入个人设置
     assert "progress.avatar" in rh
     assert '#/profile' in rh
+
+
+def test_home_cheer_is_visually_emphasized():
+    css = (ROOT / "site_static/style.css").read_text(encoding="utf-8")
+    block = re.search(r"\.hero-cheer\s*\{([^}]+)\}", css)
+    assert block, "hero-cheer style missing"
+    rules = block.group(1)
+    assert "font-size: 15px" in rules
+    assert "font-weight: 700" in rules
+    assert "background:" in rules
+    assert "border-left:" in rules
