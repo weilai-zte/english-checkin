@@ -651,6 +651,16 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   .account-legacy-row { padding-right: 48px; }
 }
 
+.bd-list { margin-top: 6px; font-size: 12px; }
+.bd-list summary { cursor: pointer; color: var(--text-2); user-select: none; }
+.bd-list summary:hover { color: var(--accent); }
+.bd-items { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; }
+.bd-item { display: flex; align-items: center; gap: 8px; padding: 4px 6px; background: #f6f8fc; border-radius: 6px; }
+.bd-uuid { font-size: 11px; color: #2d3748; flex: 1; font-family: ui-monospace, monospace; }
+.bd-tag { font-size: 10px; color: white; background: var(--accent); padding: 1px 6px; border-radius: 8px; }
+.bd-unbind { font-size: 11px !important; padding: 3px 8px !important; background: #e2e8f0 !important; color: #4a5568 !important; }
+.bd-unbind:hover { background: #fed7d7 !important; color: #c62828 !important; }
+
 /* B. home section dividers */
 .section-label {
   font-size: 12px;

@@ -251,6 +251,18 @@
           "每次写入必须更新 progress._updated_at = new Date().toISOString()",
           "必须同步 window.progress 引用（_shared.js 等子模块能看到最新值）"
         ]
+      },
+      {
+        "name": "unbindDevice",
+        "module": "site_static/app.js",
+        "signature": "function unbindDevice(deviceId: string): void",
+        "description": "解除绑定某个设备：仅从本账号 bound_devices 中移除目标 UUID；云端数据保留，可随时通过相同昵称重新合并；拒绝解绑当前设备与 nickname key",
+        "invariants": [
+          "deviceId === getDeviceId() 时拒绝并 toast",
+          "isNicknameKey(deviceId) 时拒绝（保护账号标识）",
+          "解绑前必须 backupCurrentProgress()",
+          "解绑后必须 saveProgress() + render() 让 UI 立即反映"
+        ]
       }
     ],
     "routes": [
@@ -987,9 +999,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.17",
+  "version": "v0.17.1",
   "last_validated": "2026-07-18",
   "evolution": [
+    {
+      "date": "2026-07-18",
+      "version": "v0.17.1",
+      "action": "add",
+      "what": "进度页加「查看设备详情」折叠区，列出 bound_devices 中所有设备 UUID（昵称 key 不显示），本机标「本机」，其他设备附「解绑」按钮；新增 unbindDevice(id) 拒绝解绑本机/昵称 key，解绑前自动备份；cloud 端数据保留可重绑",
+      "why": "目标「整体考虑一下」的自然延伸——用户能看到并管理绑了哪些设备，而不是只看到数字",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-18",
       "version": "v0.17",

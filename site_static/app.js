@@ -2208,6 +2208,19 @@ document.addEventListener('input', function(e) {
           <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
             当前账号: <b id="user-name-display" style="color:var(--accent);">${escapeHtml(progress.user_name || '(未设置)')}</b>
             <span style="font-size:11px;color:var(--text-2);"> · 绑定设备数: <b id="bound-devices-count">${(progress.bound_devices || []).length}</b></span>
+            ${(progress.bound_devices || []).filter(id => !isNicknameKey(id)).length > 0 ? `
+            <details class="bd-list"><summary>查看设备详情</summary>
+              <div class="bd-items">
+                ${(progress.bound_devices || []).filter(id => !isNicknameKey(id)).map(id => {
+                  const isCurrent = id === getDeviceId();
+                  return `<div class="bd-item">
+                    <code class="bd-uuid" title="${escapeHtml(id)}">${escapeHtml(id.slice(0,8))}…${escapeHtml(id.slice(-4))}</code>
+                    ${isCurrent ? '<span class="bd-tag">本机</span>' : `<button class="btn-sm bd-unbind" data-id="${escapeHtml(id)}">解绑</button>`}
+                  </div>`;
+                }).join('')}
+              </div>
+              <div style="font-size:11px;color:var(--text-2);margin-top:6px;">解绑后该设备仍可独立使用；再次设置相同昵称可重新合并。</div>
+            </details>` : ''}
           </div>
           <div style="font-size:12px;color:#4a5568;line-height:1.5;margin-bottom:8px;">
             在另一台设备设置相同昵称，即可同步打卡、成就、游戏和其他账号记录。
@@ -2263,6 +2276,7 @@ document.addEventListener('input', function(e) {
         toast('已重置');
       }
     };
+    app.querySelectorAll('.bd-unbind').forEach(btn => { btn.onclick = () => unbindDevice(btn.dataset.id); });
   }
 
   // ─── 视图：Knowledge（知识课程）──────────────────
@@ -3214,6 +3228,19 @@ document.addEventListener('input', function(e) {
     saveProgress();
     if (typeof toast === 'function') toast(oldName && oldName !== name ? '已切换到 ' + name : '账号已创建: ' + name, 2500);
   }
+  // 解除绑定某个设备 (仅从本账号 bound_devices 中移除,云端数据保留,随时可重绑)
+  function unbindDevice(deviceId) {
+    if (!deviceId || isNicknameKey(deviceId)) { toast('无效设备 ID'); return; }
+    if (deviceId === getDeviceId()) { toast('不能解绑当前设备;如需更换请清空账号', 3000); return; }
+    if (!confirm('确定要解绑设备 ' + deviceId.slice(0,8) + '…?\n该设备的云端数据不会被删除,可随时通过相同昵称重新合并。')) return;
+    backupCurrentProgress();
+    progress.bound_devices = (progress.bound_devices || []).filter(id => id !== deviceId);
+    window.progress = progress;
+    saveProgress();
+    render();
+    toast('已解绑', 1800);
+  }
+
   async function mergeLegacyDevice(legacyDeviceId) {
     legacyDeviceId = (legacyDeviceId || '').trim();
     if (!legacyDeviceId) return false;

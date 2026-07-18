@@ -12,7 +12,7 @@
 ## §1 目标
 
 ### statement
-english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA) + **19 Flask routes** + **20 SPA routes** + **8 数据 schema** + **15 接口契约** + **5 状态机** + 错误码规约 + 性能预算。
+english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA) + **19 Flask routes** + **20 SPA routes** + **8 数据 schema** + **16 接口契约** + **5 状态机** + 错误码规约 + 性能预算。
 
 ### why
 代码实现必须严格按本文对齐。AI 改 app.py 路由签名 / build.py 接口 / 数据 schema 前必须先改本文 + 跑 `tests/test_bugs.py`。
@@ -225,7 +225,7 @@ window.CHECKIN_DATA = {
 
 ---
 
-## §5 接口契约 (15 个)
+## §5 接口契约 (16 个)
 
 ### 5.1 build_data_export (`site_static/build.py`)
 ```python
@@ -397,6 +397,11 @@ legacy_uuid → nickname_with_legacy
 
 ## §9 演进记录
 
+### v0.17.1 (2026-07-18)
+- **add**: 进度页加「查看设备详情」折叠区，列出 `bound_devices` 中所有设备 UUID（昵称 key 不显示）；本机标「本机」，其他设备附「解绑」按钮 — by Codex
+  - **add**: `unbindDevice(id)` 拒绝解绑本机 / nickname key；解绑前自动备份；云端数据保留可重绑
+  - why: 目标「整体考虑一下」的自然延伸 —— 用户能看到并管理绑了哪些设备
+
 ### v0.17 (2026-07-18)
 - **add**: F-022 账号云端同步 + 旧设备无损迁移 — by Codex
   - **add**: `mergeProgress(local, remote)` 13 字段 union 合并（vocab_mastered / grammar_mastered / checkins / wrong_words / wrong_grammar / flashcard_history / custom_vocab / card_states / chat_history / achievements_unlocked / vocab_list_marked / game_stats / user_name / bound_devices）；word_stats 取 max(total/correct/wrong)；setting 类（difficulty / checkin_types / daily_checkin_plan）按 `_updated_at` 较新者胜
@@ -524,6 +529,18 @@ function saveProgress(): void
 **Invariants**:
 - 每次写入必须更新 `progress._updated_at`
 - 必须同步 `window.progress` 引用（`games/_shared.js` 等子模块能看到最新值）
+
+### 5.16 unbindDevice (`site_static/app.js`)
+```js
+function unbindDevice(deviceId: string): void
+```
+**说明**: 解除绑定某个设备：仅从本账号 `bound_devices` 中移除目标 UUID；云端数据保留，可随时通过相同昵称重新合并。
+
+**Invariants**:
+- `deviceId === getDeviceId()` 时拒绝并 toast（提示「请清空账号」）
+- `isNicknameKey(deviceId)` 时拒绝（保护账号标识）
+- 解绑前必须 `backupCurrentProgress()`
+- 解绑后必须 `saveProgress()` + `render()` 让 UI 立即反映
 
 ---
 

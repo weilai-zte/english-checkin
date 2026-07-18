@@ -184,3 +184,23 @@ def test_import_and_reset_keep_account_binding():
     assert "accountState" in reset_handler
     assert "user_name" in reset_handler
     assert "bound_devices" in reset_handler
+
+
+def test_unbind_device_removes_target_and_protects_nickname_keys():
+    fn = _function_block("unbindDevice")
+    # 必须先备份 + 写回 bound_devices + 触发 saveProgress
+    assert "backupCurrentProgress()" in fn
+    assert "saveProgress()" in fn
+    assert "progress.bound_devices" in fn
+    # 必须过滤出目标 UUID（filter(id => id !== deviceId)）
+    assert "id !== deviceId" in fn
+    # 拒绝解绑当前设备
+    assert "getDeviceId()" in fn
+    # 拒绝解绑 nickname key（防止把账号标识误删）
+    assert "isNicknameKey" in fn
+    # UI 必须真实列出 bound_devices 并给非本机 UUID 渲染解绑按钮
+    progress_block = _function_block("renderProgress")
+    assert "bd-unbind" in progress_block
+    assert "getDeviceId()" in progress_block
+    assert "isNicknameKey" in progress_block
+    assert "unbindDevice" in progress_block
