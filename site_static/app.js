@@ -889,6 +889,31 @@ document.addEventListener('input', function(e) {
   }
 
   // ─── 视图：Home ────────────────────────────────────
+  // 个人成就 / 学习时长卡 — ponytail: 累计题数 * 0.5min 粗估,add when 接入精确计时
+  function renderPersonalStatsCard(streak, totalDays, mastered) {
+    var unlocked = Object.keys(progress.achievements_unlocked || {}).length;
+    var totalAch = (typeof ACHIEVEMENTS !== 'undefined' ? ACHIEVEMENTS.length : 15);
+    var totalQs = 0, correctQs = 0;
+    var ws = progress.word_stats || {};
+    Object.keys(ws).forEach(function (k) { totalQs += (ws[k].total || 0); correctQs += (ws[k].correct || 0); });
+    var learnMin = Math.round(totalQs * 0.5);
+    if (totalDays === 0 && mastered === 0 && unlocked === 0 && totalQs === 0) return '';
+    var accuracy = totalQs ? Math.round(correctQs * 100 / totalQs) : 0;
+    return '<div class="card personal-stats-card">' +
+      '<div class="card-title">🏆 我的成就</div>' +
+      '<div class="stat-row stat-4">' +
+        '<div class="stat"><div class="stat-num">' + streak + '</div><div class="stat-label">连续 🔥</div></div>' +
+        '<div class="stat"><div class="stat-num">' + totalDays + '</div><div class="stat-label">打卡</div></div>' +
+        '<div class="stat"><div class="stat-num">' + mastered + '</div><div class="stat-label">掌握词</div></div>' +
+        '<div class="stat"><div class="stat-num">' + unlocked + '/' + totalAch + '</div><div class="stat-label">成就 🏆</div></div>' +
+      '</div>' +
+      '<div style="font-size:12px;color:var(--text-2);margin-top:6px;text-align:center;">' +
+        '⏱ 累计学习约 ' + learnMin + ' 分钟 · ✓ 答对 ' + correctQs + ' 题 · 正确率 ' + accuracy + '%' +
+      '</div>' +
+      '<a class="btn btn-secondary btn-milestone" href="#/achievements" style="margin-top:10px;">🎖 查看全部成就</a>' +
+    '</div>';
+  }
+
   function renderHome(app) {
     const cfg = getDifficultyCfg();
     const done = checkedInToday();
@@ -905,6 +930,8 @@ document.addEventListener('input', function(e) {
           <h1 class="hero-title">${(progress.user_name || '').trim() ? '你好,' + escapeHtml(progress.user_name.trim()) : '初一英语打卡'}</h1>
           <div class="hero-cheer">${pickCheerline(streak, done, totalDays, (progress.user_name || '').trim())}</div>
         </div>
+
+        ${renderPersonalStatsCard(streak, totalDays, mastered)}
 
         ${renderDailyWordCard()}
         ${renderLearningPlanCard()}
