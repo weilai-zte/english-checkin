@@ -969,6 +969,17 @@ document.addEventListener('input', function(e) {
         ${renderPersonalStatsCard(streak, totalDays, mastered)}
 
         ${renderLearningPlanCard()}
+
+        ${done ? `
+        <div class="card" style="text-align:center;background:linear-gradient(135deg,#eafaf1,#d4f5e2);">
+          <div style="font-size:40px;">🎉</div>
+          <div style="color:var(--success);font-size:18px;font-weight:bold;margin-top:4px;">今日已完成打卡！</div>
+          <a class="btn btn-secondary" href="#/learn">📖 继续练习（不计打卡）</a>
+        </div>
+        ` : `
+        <a class="btn btn-cta" href="#/checkin-config">🚀 开始今日打卡 →</a>
+        `}
+
         ${renderDailyWordCard()}
 
         <div class="card">
@@ -984,25 +995,6 @@ document.addEventListener('input', function(e) {
             ${difficulty==='hard'?'抽象/学术词汇，复杂语法':''}
           </div>
         </div>
-
-        ${done ? `
-        <div class="card" style="text-align:center;background:linear-gradient(135deg,#eafaf1,#d4f5e2);">
-          <div style="font-size:40px;">🎉</div>
-          <div style="color:var(--success);font-size:18px;font-weight:bold;margin-top:4px;">今日已完成打卡！</div>
-          <div class="stat-row">
-            <div class="stat"><div class="stat-num">${streak}</div><div class="stat-label">连续天数 🔥</div></div>
-            <div class="stat"><div class="stat-num">${totalDays}</div><div class="stat-label">累计打卡</div></div>
-          </div>
-          <a class="btn btn-secondary" href="#/learn">📖 继续练习（不计打卡）</a>
-        </div>
-        ` : `
-        <a class="btn btn-cta" href="#/checkin-config">🚀 开始今日打卡 →</a>
-        <div class="card" style="text-align:center;">
-          <div style="color:#e67e22;font-size:14px;font-weight:bold;">
-            🔥 连续 <span style="font-size:28px;">${streak}</span> 天 · 完成今日任务保持！
-          </div>
-        </div>
-        `}
 
         <div class="section-label">📚 学习</div>
         <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习 (${cfg.flashcard_count} 张)</a>

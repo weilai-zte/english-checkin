@@ -18,12 +18,20 @@ def _function_block(name):
     return APP_JS_SRC[m.start():i]
 
 
-def test_home_order_plan_before_daily_word():
+def test_home_order_plan_checkin_daily_word_and_difficulty():
     rh = _function_block("renderHome")
     plan_pos = rh.find("renderLearningPlanCard()")
+    checkin_pos = rh.find("开始今日打卡")
     daily_pos = rh.find("renderDailyWordCard()")
-    assert plan_pos > 0 and daily_pos > 0, "both must render"
-    assert plan_pos < daily_pos, "学习计划卡必须在每日一词之前"
+    difficulty_pos = rh.find("练习难度")
+    assert min(plan_pos, checkin_pos, daily_pos, difficulty_pos) > 0, "all home blocks must render"
+    assert plan_pos < checkin_pos < daily_pos < difficulty_pos
+
+
+def test_home_has_no_standalone_streak_card():
+    rh = _function_block("renderHome")
+    assert "完成今日任务保持" not in rh
+    assert "连续天数" not in rh
 
 
 def test_personal_stats_button_shows_unlocked_progress():

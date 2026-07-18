@@ -80,7 +80,7 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 
 | path | handler | returns |
 |------|---------|---------|
-| `#/home` | `renderHome` | 首页 + 难度选择 + CTA → `checkin-config`；分 4 区：📚 学习（闪卡复习/知识课程/全部词汇）/ ✍️ 练习（选择题/听写/时态/介词/中译英/英译中 6 项 2×3 网格）/ 📊 记录（错题本/学习统计/进度概览/上次回顾 2×2 + 🏆 成就里程碑样式独行）/ 🛠 工具（导入词表） |
+| `#/home` | `renderHome` | 首页顺序：个人成就 → 学习主题 → 今日打卡 CTA → 每日一词 → 难度选择；CTA → `checkin-config`；分 4 区：📚 学习（闪卡复习/知识课程/全部词汇）/ ✍️ 练习（选择题/听写/时态/介词/中译英/英译中 6 项 2×3 网格）/ 📊 记录（错题本/学习统计/进度概览/上次回顾 2×2 + 🏆 成就里程碑样式独行）/ 🛠 工具（导入词表） |
 | `#/checkin-config` | `renderCheckinConfig` | **每日打卡题型勾选（v0.13+）** |
 | `#/learn` | `renderLearn` | 通用复习入口（已不调 submitCheckin） |
 | `#/vocab` | `renderVocab` | 词汇闪卡；最后一词后按 plan 推进 |
@@ -406,6 +406,10 @@ legacy_uuid → nickname_with_legacy
 ---
 
 ## §9 演进记录
+
+### v0.18.2 (2026-07-18)
+- **change**: 首页将今日打卡 CTA 移到学习主题之后，连续天数统一保留在我的成就中并删除重复卡片 — by Codex
+- why: 让学习主题与开始动作连续，减少连续天数的重复展示
 
 ### v0.18.1 (2026-07-18)
 - **change**: 将绑定设备管理和旧设备记录合并入口统一迁入 `#/profile`，`#/progress` 只保留学习进度与打卡记录 — by Codex

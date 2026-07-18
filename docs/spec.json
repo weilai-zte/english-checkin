@@ -436,7 +436,7 @@
         "path": "#/home",
         "framework": "site_static SPA",
         "handler": "renderHome",
-        "returns": "首页 + 难度选择 + CTA → checkin-config"
+        "returns": "首页：个人成就 → 学习主题 → 今日打卡 CTA → 每日一词 → 难度选择；CTA 跳转 checkin-config"
       },
       {
         "path": "#/checkin-config",
@@ -1075,9 +1075,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.1",
+  "version": "v0.18.2",
   "last_validated": "2026-07-18",
   "evolution": [
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.2",
+      "action": "change",
+      "what": "首页将今日打卡 CTA 移到学习主题之后，连续天数统一保留在我的成就中并删除重复卡片",
+      "why": "让学习主题与开始动作连续，减少连续天数的重复展示",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-18",
       "version": "v0.18.1",
