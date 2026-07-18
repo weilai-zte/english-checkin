@@ -862,6 +862,18 @@ document.addEventListener('input', function(e) {
   }
 
   // ─── 视图：顶部栏 ──────────────────────────────────
+  // 根据 streak/今日打卡/昵称 返回个性化鼓励语; ponytail: 静态文案,未接 LLM,add when 想要动态生成
+  function pickCheerline(streak, doneToday, totalDays, nickname) {
+    if (!nickname) return '✏️ 先点上方设置昵称,让这个 App 认识你';
+    if (doneToday) return '🎉 今天已经打卡完成,休息一下,明天继续!';
+    if (streak >= 30) return '🔥 已连续打卡 ' + streak + ' 天!你比 99% 的同学都更能坚持';
+    if (streak >= 7) return '🔥 连续 ' + streak + ' 天,坚持就是胜利,继续!';
+    if (streak >= 3) return '✨ 连续 ' + streak + ' 天,好习惯正在养成';
+    if (streak >= 1) return '💪 昨天打卡了,今天也别断,加油!';
+    if (totalDays === 0) return '🌱 第一次来?点下方开始今天的学习吧';
+    return '📚 今天学一点,每天进步一点';
+  }
+
   function topBar(title, showBack = true) {
     const streak = (typeof progress !== 'undefined' && progress) ? (progress.streak || 0) : 0;
     const streakBadge = streak > 0
@@ -890,7 +902,8 @@ document.addEventListener('input', function(e) {
       <div class="container">
         <div class="hero-block" style="text-align:center;">
           <div class="hero-icon">📚</div>
-          <h1 class="hero-title">初一英语打卡</h1>
+          <h1 class="hero-title">${(progress.user_name || '').trim() ? '你好,' + escapeHtml(progress.user_name.trim()) : '初一英语打卡'}</h1>
+          <div class="hero-cheer">${pickCheerline(streak, done, totalDays, (progress.user_name || '').trim())}</div>
         </div>
 
         ${renderDailyWordCard()}

@@ -677,6 +677,7 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 .hero-block { padding: 16px 0 4px; }
 .hero-icon { font-size: 44px; }
 .hero-title { font-size: 22px; }
+.hero-cheer { font-size: 13px; color: #4a5568; margin-top: 6px; line-height: 1.5; padding: 0 12px; }
 
 /* D. daily word card — softened to fit palette */
 .daily-word-card {
