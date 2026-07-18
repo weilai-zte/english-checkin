@@ -118,7 +118,7 @@
         : '<button class="btn btn-secondary wd-hint" id="wd-hint" type="button" disabled>💡 提示已用完</button>';
       return '<div class="wd-row wd-row-active" style="grid-template-columns:repeat(' + len + ',1fr);">' + out + '</div>' +
         '<div class="wd-action-row">' + hintBtn +
-        '<button class="btn btn-primary wd-submit" id="wd-submit" type="button">✓ 提交 (Enter)</button></div>';
+        '<button class="btn btn-primary wd-submit" id="wd-submit" type="button" disabled>还需 ' + len + ' 个字母</button></div>';
     }
 
     function render() {
@@ -186,6 +186,7 @@
       Array.prototype.forEach.call(inputs, function (inp, idx) {
         inp.oninput = function (e) {
           e.target.value = (e.target.value || '').replace(/[^a-zA-Z]/g, '').toLowerCase().slice(0, 1);
+          refreshSubmit(len);
         };
         inp.onkeydown = function (e) {
           if (e.key === 'Enter') { e.preventDefault(); submitNow(); return; }
@@ -203,6 +204,16 @@
       };
       var submitBtn = body.querySelector('#wd-submit');
       if (submitBtn) submitBtn.onclick = submitNow;
+      function refreshSubmit(n) {
+        var btn = body.querySelector('#wd-submit');
+        if (!btn) return;
+        var ins = body.querySelectorAll('.wd-input-cell');
+        var filled = 0;
+        for (var i = 0; i < ins.length; i++) if (ins[i].value) filled++;
+        if (filled >= n) { btn.disabled = false; btn.textContent = '✓ 提交 (Enter)'; }
+        else { btn.disabled = true; btn.textContent = '还需 ' + (n - filled) + ' 个字母'; }
+      }
+      refreshSubmit(len);
       // 💡 提示按钮: 从未 hint 的位置随机补 1 个字母
       var hintBtn = body.querySelector('#wd-hint');
       if (hintBtn && !hintBtn.disabled) {
