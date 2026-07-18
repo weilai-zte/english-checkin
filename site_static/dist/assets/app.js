@@ -928,8 +928,10 @@ document.addEventListener('input', function(e) {
     if (!next) return false;
     const container = app.querySelector('.container');
     if (!container) return;
+    // 同一题型重复提交(如 grammar/dictation 提交按钮未隐藏)时, 移除旧完成卡, 避免堆叠。
+    container.querySelectorAll('.checkin-step-card').forEach(n => n.remove());
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'card checkin-step-card';
     card.style.textAlign = 'center';
     card.style.background = 'linear-gradient(135deg, #eef2ff, #dbe5ff)';
     if (next === 'finish') {

@@ -1097,7 +1097,7 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.4",
+  "version": "v0.18.5",
   "last_validated": "2026-07-18",
   "evolution": [
     {
@@ -1218,6 +1218,14 @@
       "action": "change",
       "what": "时态题 (#/tense) 干扰项改为同词根生成：新增 tenseDistractors() 优先从题干 (verb) 提取 be/have/finish/know 等不规则动词表 + 规则变形 (thirdPerson/pastForm/ingForm)，回退到答案剥离助动词 → 同档位答案池 → 通用 fallback",
       "why": "用户反馈：原 4 选项中其他三个都是不同动词的不同时态，词根都不同，一眼排除；改为至少 2 个选项与正确答案同词根",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.5",
+      "action": "change",
+      "what": "appendCheckinNextStep 入口清理旧完成卡 (.checkin-step-card) 避免堆叠；grammar/dictation 提交按钮未隐藏导致重复提交时完成卡堆叠",
+      "why": "用户反馈：打卡完成时点几次会弹出几个完成卡",
       "by": "Codex"
     }
   ]

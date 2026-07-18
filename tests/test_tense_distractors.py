@@ -383,3 +383,21 @@ process.stdout.write(JSON.stringify(report));
         f"仅 {same_root_count}/{examined}={ratio:.0%} 题满足'4 选项中至少 2 个同词根'。"
         f"未达标题目: {bad[:3]}"
     )
+
+
+def test_appendCheckinNextStep_removes_previous_step_card():
+    """回归：完成打卡卡片在重复调用时不应堆叠。
+    根因：grammar/dictation 提交按钮未隐藏, 用户多次提交
+    导致每轮 appendCheckinNextStep 都新建一张完成卡。
+    修复: 入口处 querySelectorAll('.checkin-step-card') + remove,
+    以及创建新卡时打上 checkin-step-card 类名供下次清理。
+    """
+    block = _function_block("appendCheckinNextStep")
+    # 必须在创建 card 之前移除旧 .checkin-step-card
+    assert "querySelectorAll('.checkin-step-card')" in block, \
+        "appendCheckinNextStep 缺少旧完成卡清理逻辑"
+    assert "checkin-step-card" in block, \
+        "appendCheckinNextStep 创建的完成卡未打上 checkin-step-card 类"
+    # 必须真 append 而非 replace, 即新卡创建 + 旧卡 remove 都要有
+    assert "appendChild(card)" in block
+    assert ".remove()" in block

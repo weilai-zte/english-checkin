@@ -407,6 +407,10 @@ legacy_uuid → nickname_with_legacy
 
 ## §9 演进记录
 
+### v0.18.5 (2026-07-18)
+- **fix**: `#/tense`/grammar/dictation 完成卡不再堆叠 —— `appendCheckinNextStep` 入口 `querySelectorAll('.checkin-step-card') + remove`，新建的完成卡打同 class 供下次清理 — by Codex
+- why: 用户反馈"打卡完成点几次都弹出几个完成卡"，根因是 grammar/dictation 提交按钮提交后未隐藏，可重复触发；renderMCQ (tense/quiz/...) 提交后会隐藏按钮所以原本无事
+
 ### v0.18.4 (2026-07-18)
 - **change**: `#/tense` 干扰项改为同词根生成 — by Codex
   - **add**: `tenseDistractors(question, answer, allAnswers, fallback)` —— 优先级 (1) 题干 `(verb)` 提取 → (2) 答案剥离助动词还原核心动词 → (3) 同档位答案池 → (4) 通用 fallback
