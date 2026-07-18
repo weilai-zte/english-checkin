@@ -187,6 +187,12 @@
         inp.oninput = function (e) {
           e.target.value = (e.target.value || '').replace(/[^a-zA-Z]/g, '').toLowerCase().slice(0, 1);
           refreshSubmit(len);
+          // 输入有效字母后自动跳到下一个未填的非 disabled 格子
+          if (e.target.value) {
+            for (var k = idx + 1; k < inputs.length; k++) {
+              if (!inputs[k].disabled && !inputs[k].value) { inputs[k].focus(); break; }
+            }
+          }
         };
         inp.onkeydown = function (e) {
           if (e.key === 'Enter') { e.preventDefault(); submitNow(); return; }

@@ -58,3 +58,13 @@ def test_wordle_js_syntax_ok():
     r = subprocess.run(["node", "--check", str(ROOT / "site_static" / "games" / "wordle.js")],
                        capture_output=True, text=True)
     assert r.returncode == 0, f"wordle.js 语法错: {r.stderr}"
+
+
+def test_oninput_autofocuses_next_unfilled_cell():
+    """输入有效字母后光标应跳到下一个未填的非 disabled 格子。"""
+    block = _fn("attachInputHandlers")
+    # 必须包含 inputs[k].focus() 在 oninput 内
+    assert "inputs[k].focus()" in block, "oninput 内未自动 focus 下一个空格子"
+    # 必须排除已 disabled / 已填的格子
+    assert "inputs[k].disabled" in block
+    assert "inputs[k].value" in block
