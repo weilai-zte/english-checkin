@@ -180,8 +180,7 @@
 
     function attachInputHandlers(len) {
       var inputs = body.querySelectorAll('.wd-input-cell:not(:disabled)');
-      if (!inputs.length) return;
-      inputs[0].focus();
+      if (inputs.length) inputs[0].focus();
       function submitNow() { submit(len); }
       Array.prototype.forEach.call(inputs, function (inp, idx) {
         inp.oninput = function (e) {
