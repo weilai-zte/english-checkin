@@ -1002,7 +1002,6 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary" href="#/progress">📈 进度概览</a>
           <a class="btn btn-secondary" href="#/review">🔄 上次回顾</a>
         </div>
-        <a class="btn btn-secondary btn-milestone" href="#/achievements">🏆 成就 · 已解锁 ${Object.keys(progress.achievements_unlocked || {}).length}/${(typeof ACHIEVEMENTS !== 'undefined' ? ACHIEVEMENTS.length : 10)}</a>
 
         <div class="section-label">🛠 工具</div>
         <a class="btn btn-secondary" href="#/vocab-import">📥 导入词表</a>
