@@ -34,8 +34,8 @@
       return pool[Math.floor(Math.random() * pool.length)];
     }
     function findCN(word) {
-      for (var i = 0; i < all.length; i++) {
-        if (all[i].word.toLowerCase() === word) return all[i].cn || '';
+      for (var i = 0; i < candidates.length; i++) {
+        if (candidates[i].word.toLowerCase() === word) return candidates[i].cn || '';
       }
       return '';
     }
