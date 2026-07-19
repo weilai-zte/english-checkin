@@ -622,10 +622,13 @@ def test_auth_login_routes_and_helpers():
     assert 'saveProgressToAuth(userId)' in APP_JS_SRC
     # 旧 progress 表路径保留 (兜底)
     assert "from('progress').upsert" in APP_JS_SRC
-    # profile 页有登录入口
+    # profile 页: 账号登录卡片必须在选择头像之前 (用户提过一次找不到)
     block = _function_block('renderProfile')
     assert 'href="#/login"' in block
     assert 'href="#/logout"' in block
+    pos_login = block.index('<div class="card">\n          <div class="card-title">账号登录</div>')
+    pos_avatar = block.index('<div class="card">\n          <div class="card-title">选择头像</div>')
+    assert pos_login < pos_avatar, '账号登录 必须在 选择头像 之前'
     # 启动时刷新 session
     assert 'refreshAuthSession().then' in APP_JS_SRC
 

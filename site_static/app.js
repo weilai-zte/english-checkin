@@ -2889,6 +2889,26 @@ document.addEventListener('input', function(e) {
         </div>
 
         <div class="card">
+          <div class="card-title">账号登录</div>
+          ${_authSession && _authSession.user ? `
+            <div class="profile-device-current">
+              <span>已登录</span>
+              <code>${escapeHtml(_authSession.user.email || '')}</code>
+            </div>
+            <div class="profile-help">数据已同步到云端, 可在任意设备登录同一邮箱查看。</div>
+            <div class="btn-row" style="margin-top:8px;">
+              <button id="profile-change-pw" class="btn-sm profile-sync-now" type="button">🔑 修改密码</button>
+              <a class="btn-sm profile-sync-now" href="#/logout" style="color:var(--danger);">退出登录</a>
+            </div>
+          ` : `
+            <div class="profile-help">用邮箱 + 密码注册, 跨设备自动同步 (旧 nickname 也能继续用)。</div>
+            <div class="btn-row" style="margin-top:8px;">
+              <a class="btn btn-primary" href="#/login">🔐 登录 / 注册</a>
+            </div>
+          `}
+        </div>
+
+        <div class="card">
           <div class="card-title">选择头像</div>
           <div class="avatar-grid" role="group" aria-label="头像选择">
             ${AVATAR_CHOICES.map(item => `<button type="button" class="avatar-cell ${item === avatar ? 'selected' : ''}" data-avatar="${item}" aria-label="选择头像 ${item}" aria-pressed="${item === avatar}">${item}</button>`).join('')}
@@ -2904,26 +2924,6 @@ document.addEventListener('input', function(e) {
           </div>
           <div id="profile-error" class="profile-error" role="alert"></div>
           <div class="profile-help">同一昵称的设备会自动合并打卡、成就、游戏和其他学习记录。</div>
-        </div>
-
-        <div class="card">
-          <div class="card-title">账号登录</div>
-          ${_authSession && _authSession.user ? `
-            <div class="profile-device-current">
-              <span>已登录</span>
-              <code>${escapeHtml(_authSession.user.email || '')}</code>
-            </div>
-            <div class="profile-help">数据已同步到云端, 可在任意设备登录同一邮箱查看。</div>
-            <div class="btn-row" style="margin-top:8px;">
-              <button id="profile-change-pw" class="btn-sm profile-sync-now" type="button">🔑 修改密码</button>
-              <a class="btn-sm profile-sync-now" href="#/logout" style="color:var(--danger);">退出登录</a>
-            </div>
-          ` : `
-            <div class="profile-help">注册或登录后, 学习数据会按账号同步到云端, 跨设备自动合并。</div>
-            <div class="btn-row" style="margin-top:8px;">
-              <a class="btn btn-primary" href="#/login">🔐 登录 / 注册</a>
-            </div>
-          `}
         </div>
 
         <div class="card">
