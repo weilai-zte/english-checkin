@@ -415,6 +415,23 @@ def test_shared_exposes_helpers():
                    'getGameStats', 'buildDistractors', 'showGameFinish'):
         assert helper in src, f"_shared.js 缺少 {helper}"
 
+
+def test_game_picker_uses_unified_vocab_grade():
+    """游戏词池必须使用 content.json 的 grade，不能让 legacy 词绕过难度过滤。"""
+    src = (ROOT / 'site_static' / 'games' / '_shared.js').read_text(encoding='utf-8')
+    assert 'D.content.items' in src, '游戏词池应从统一 content.json 读取'
+    assert "item.type === 'vocab'" in src, '游戏词池只能抽词汇内容'
+    assert 'item.grade === levelKey' in src, '游戏词池必须按当前难度对应的 grade 过滤'
+
+
+def test_picture_game_uses_same_difficulty_pool_and_feedback():
+    """看图题的干扰项要同档位，答题后要显示词义，不能只闪过图标。"""
+    src = (ROOT / 'site_static' / 'games' / 'picture.js').read_text(encoding='utf-8')
+    assert 'requireEmoji: true' in src
+    assert 'minLen' in src and 'maxLen' in src, '看图题应限制干扰项长度，增加有效辨析'
+    assert 'correct.cn' in src, '答题反馈应显示中文含义'
+    assert 'pm-feedback' in src, '答题反馈应有独立呈现区域'
+
 def test_build_copies_games_to_dist():
     """build.py 必须把 games/ 目录整个拷到 dist/assets/games/"""
     dist_games = ROOT / 'site_static' / 'dist' / 'assets' / 'games'

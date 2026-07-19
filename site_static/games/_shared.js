@@ -11,13 +11,43 @@
   function pickGameWords(n, opts) {
     opts = opts || {};
     var cfg = (typeof getDifficultyCfg === 'function') ? getDifficultyCfg() : { block_topics: [], extra_block: [], flashcard_count: 20 };
+    var levelKey = cfg.level_key || '';
     var blockTopics = new Set(cfg.block_topics || []);
     var blockWords = new Set([].concat(
       (typeof D !== 'undefined' && D.simple_words) || [],
       cfg.extra_block || []
-    ));
+    ).map(function (w) { return String(w).toLowerCase(); }));
     var mastered = new Set(((progress && progress.vocab_mastered) || []).map(function (w) { return w.toLowerCase(); }));
-    var allW = (typeof allWords === 'function') ? allWords() : [];
+    var allW = [];
+    // 游戏必须和全局词汇难度共用 content.json。旧版 vocab.json 只做兼容展示，
+    // 其中没有 grade，不能再混入游戏词池，否则会绕过 L1/L2/L3 过滤。
+    if (typeof D !== 'undefined' && D.content && Array.isArray(D.content.items) && levelKey) {
+      var seen = new Set();
+      allW = D.content.items.filter(function (item) {
+        return item.type === 'vocab' && item.grade === levelKey;
+      }).map(function (item) {
+        var word = String(item.word || '');
+        var lower = word.toLowerCase();
+        if (!word || seen.has(lower)) return null;
+        seen.add(lower);
+        return {
+          word: word,
+          pron: item.pron || '',
+          cn: item.cn || '',
+          例句: item.example || '',
+          topic: item.topic || '',
+          grade: item.grade
+        };
+      }).filter(Boolean);
+    } else if (typeof allWords === 'function') {
+      allW = allWords();
+    }
+    // 用户自定义词没有年级标签，保留在所有难度中，且仍受掌握状态过滤。
+    if (levelKey && typeof progress !== 'undefined' && Array.isArray(progress.custom_vocab)) {
+      allW = allW.concat(progress.custom_vocab.map(function (w) {
+        return Object.assign({}, w, { topic: '__custom__', 例句: w.例句 || w.example || '' });
+      }));
+    }
     var candidates = allW.filter(function (w) {
       var simple = (w.topic || '').split('(')[0].trim();
       if (blockTopics.has(simple)) return false;
@@ -32,7 +62,7 @@
     return sample(candidates, Math.min(n, candidates.length));
   }
 
-  // ── Emoji 词库 (常用 ~80 词, 看图猜词用) ─────────────
+  // ── 图片线索词库 (emoji 作为跨设备可用的本地图片线索) ─────────────
   var WORD_EMOJI = {
     'apple':'🍎','banana':'🍌','orange':'🍊','grape':'🍇','strawberry':'🍓',
     'pear':'🍐','peach':'🍑','cherry':'🍒','lemon':'🍋','watermelon':'🍉',
@@ -85,7 +115,15 @@
     'trumpet':'🎺',
     'map':'🗺️','binoculars':'🔭','flashlight':'🔦',
     'tooth':'🦷','bone':'🦴','brain':'🧠','leg':'🦵','arm':'💪',
-    'hair':'💇','finger':'👆','nail':'💅'
+    'hair':'💇','finger':'👆','nail':'💅',
+    // L3 科技、实验与社会主题词，确保困难档也有足够的可视化词汇。
+    'rocket':'🚀','spaceship':'🛸','astronaut':'👨‍🚀','satellite':'🛰️','drone':'🚁',
+    'planet':'🪐','globe':'🌐','universe':'🌌','laboratory':'🧪','experiment':'🧫',
+    'website':'🌐','webpage':'🖥️','browser':'🌐','keyboard':'⌨️','mouse':'🖱️',
+    'printer':'🖨️','scanner':'📠','speaker':'🔊','data':'📊','database':'🗄️',
+    'algorithm':'🧮','code':'💻','software':'💿','hardware':'🧰','robot':'🤖',
+    'factory':'🏭','scientist':'🧑‍🔬','engineer':'👷','architect':'📐','camera':'📷',
+    'lawyer':'⚖️','judge':'👩‍⚖️','detective':'🕵️','firefighter':'🧑‍🚒','doctor':'🧑‍⚕️'
   };
 
   // ── 游戏外壳 ─────────────────────────────────────

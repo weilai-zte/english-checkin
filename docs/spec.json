@@ -596,7 +596,7 @@
         "path": "#/game/picture",
         "framework": "site_static SPA",
         "handler": "renderPictureMatch",
-        "returns": "看图猜词游戏"
+        "returns": "看图猜词游戏：图片线索词库按 difficulty_config.level_key 读取 L1/L2/L3，选项使用同档位相近长度词，答题后显示中文释义"
       },
       {
         "path": "#/game/builder",
@@ -1226,6 +1226,14 @@
       "action": "change",
       "what": "appendCheckinNextStep 入口清理旧完成卡 (.checkin-step-card) 避免堆叠；grammar/dictation 提交按钮未隐藏导致重复提交时完成卡堆叠",
       "why": "用户反馈：打卡完成时点几次会弹出几个完成卡",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-19",
+      "version": "v0.18.6",
+      "action": "change",
+      "what": "看图猜词改用 content.json 的 grade 分级词池，扩充 L3 图片线索词；干扰项限制为同难度相近长度，答题后显示中文释义",
+      "why": "用户反馈：看图猜词过于简单，且练习难度切换没有同步到看图词库",
       "by": "Codex"
     }
   ]

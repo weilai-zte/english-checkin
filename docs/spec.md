@@ -103,7 +103,7 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 | `#/vocab-list` | `renderVocabList` | 全部词汇（含收藏） |
 | `#/game/memory` | `renderMemoryMatch` | 🃏 翻牌配对（按难度 6/8/10 对） |
 | `#/game/wordle` | `renderWordle` | 🔤 猜词 Wordle（每日 1 题） |
-| `#/game/picture` | `renderPictureMatch` | 🍎 看图猜词（10 题） |
+| `#/game/picture` | `renderPictureMatch` | 🍎 看图猜词（10 题；按 L1/L2/L3 词库切换、相近长度干扰项、答题后显示中文释义） |
 | `#/game/builder` | `renderSentenceBuilder` | 🧩 句子拼装（10 句） |
 | `#/game/tower` | `renderTowerDefense` | ⚔️ 塔防打字（10 波 × 3 怪） |
 | `#/review` | `renderReview` | 上次打卡回顾 |
@@ -406,6 +406,10 @@ legacy_uuid → nickname_with_legacy
 ---
 
 ## §9 演进记录
+
+### v0.18.6 (2026-07-19)
+- **change**: `#/game/picture` 改用 `content.json` 的 `grade` 分级词池，新增 L3 科技/实验/社会主题图片线索；干扰项限定为同难度相近长度词，答题后保留中文释义 — by Codex
+- why: 用户反馈“看图猜词过于简单，且练习难度切换没有同步到看图词库”
 
 ### v0.18.5 (2026-07-18)
 - **fix**: `#/tense`/grammar/dictation 完成卡不再堆叠 —— `appendCheckinNextStep` 入口 `querySelectorAll('.checkin-step-card') + remove`，新建的完成卡打同 class 供下次清理 — by Codex
