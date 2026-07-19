@@ -1159,6 +1159,25 @@ document.addEventListener('input', function(e) {
     return progress.checkins.some(c => c.date === today());
   }
 
+  // 撤销今日打卡 — 用户误触完成按钮后可补做, 删除今天最后一条 checkin.
+  // ponytail: streak 简单 -1 (保底 0), last_checkin 取剩余最后一条; 不重算连续天数历史.
+  function undoTodayCheckin() {
+    const list = progress.checkins;
+    const i = list.findLastIndex(c => c.date === today());
+    if (i === -1) return false;
+    list.splice(i, 1);
+    if (list.length === 0) {
+      progress.streak = 0;
+      progress.last_checkin = null;
+    } else {
+      progress.streak = Math.max(0, (progress.streak || 1) - 1);
+      progress.last_checkin = list[list.length - 1].date;
+    }
+    progress.total_days = list.length;
+    saveProgress();
+    return true;
+  }
+
   // ─── 视图：Home ────────────────────────────────────
   // 个人成就 / 学习时长卡 — ponytail: 累计题数 * 0.5min 粗估,add when 接入精确计时
   function renderPersonalStatsCard(streak, totalDays, mastered) {
@@ -1286,10 +1305,16 @@ document.addEventListener('input', function(e) {
           <p style="color:var(--text-2);margin-top:8px;">如要继续练习，可直接进入下方题型。</p>
           <div class="btn-row" style="margin-top:12px;">
             <a class="btn btn-secondary" href="#/learn">📖 继续练习（不计打卡）</a>
+            <button class="btn btn-secondary" id="checkin-undo" style="color:var(--danger);">↩ 撤销今日打卡（补打）</button>
             <a class="btn btn-primary" href="#/home">返回首页</a>
           </div>
         </div>
       </div>`;
+      const undoBtn = app.querySelector('#checkin-undo');
+      if (undoBtn) undoBtn.onclick = () => {
+        if (!confirm('撤销今日打卡？已记录的成绩会被删除，可重新打卡。')) return;
+        if (undoTodayCheckin()) { toast('已撤销，可重新打卡'); render(); }
+      };
       return;
     }
 

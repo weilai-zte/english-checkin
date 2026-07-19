@@ -558,3 +558,13 @@ def test_checkin_config_defaults_to_all_selected():
     assert "checkedSet = new Set([...requiredKeys, ...DEFAULT_CHECKIN_TYPES])" in block
     # 不能让旧 checkin_types 直接覆盖默认值
     assert "progress.checkin_types : DEFAULT_CHECKIN_TYPES" not in block
+
+def test_undo_today_checkin_helper_present():
+    src = APP_JS_SRC
+    # 撤销函数 + 按钮 + 绑定都到位
+    assert "function undoTodayCheckin()" in src
+    assert "id=\"checkin-undo\"" in src
+    # 防御: 找不到今天的 checkin 应当直接 return, 不抛
+    assert "if (i === -1) return false" in src
+    # streak 兜底为 0
+    assert "progress.streak = Math.max(0," in src
