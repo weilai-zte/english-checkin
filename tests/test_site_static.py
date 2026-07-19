@@ -550,3 +550,11 @@ def test_vocab_import_merges_instead_of_overwriting():
     # 旧写法 (直接赋值) 不能再出现在保存/导入分支
     save_branch = block.split('vocab-save-btn')[1].split('vocab-clear-btn')[0]
     assert 'progress.custom_vocab = parsed;' not in save_branch
+
+def test_checkin_config_defaults_to_all_selected():
+    # 进 checkin-config 页面时, 无论 progress.checkin_types 之前存了什么,
+    # 可选项必须默认全选. 之前只看旧值导致用户永远只看到上次的子集.
+    block = _function_block('renderCheckinConfig')
+    assert "checkedSet = new Set([...requiredKeys, ...DEFAULT_CHECKIN_TYPES])" in block
+    # 不能让旧 checkin_types 直接覆盖默认值
+    assert "progress.checkin_types : DEFAULT_CHECKIN_TYPES" not in block

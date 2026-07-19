@@ -1293,14 +1293,10 @@ document.addEventListener('input', function(e) {
       return;
     }
 
-    // 必选项永远勾选
+    // 必选项永远勾选; 可选项默认全选(不受 progress.checkin_types 旧值影响,
+    // 否则上次只勾了 2 个, 后续打开就永远是 2 个).
     const requiredKeys = CHECKIN_TYPES.filter(t => t.required).map(t => t.key);
-    const checkedSet = new Set([
-      ...requiredKeys,
-      ...((progress.checkin_types && progress.checkin_types.length)
-        ? progress.checkin_types
-        : DEFAULT_CHECKIN_TYPES),
-    ]);
+    const checkedSet = new Set([...requiredKeys, ...DEFAULT_CHECKIN_TYPES]);
     const activeList = () => {
       const arr = Array.from(app.querySelectorAll('.checkin-type.active')).map(el => el.dataset.key);
       // 必选项即使未标 active 也强制加入（防御性）
