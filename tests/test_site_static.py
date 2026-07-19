@@ -536,3 +536,17 @@ def test_translate_toast_text_varies_with_score():
     assert "totalCorrect === sents.length ? ' 完全正确' : ' 答对'" in APP_JS_SRC
     # And must not have the old unconditional variant left over
     assert "完全正确`.toast" not in APP_JS_SRC  # no unconditional toast left
+
+def test_vocab_import_merges_instead_of_overwriting():
+    # 粘词表 / OCR 两条路径都覆盖了 progress.custom_vocab, 再次导入会清空历史。
+    # 修复: 复用 unionObjects 按 word 去重追加。
+    block = _function_block('renderVocabImport')
+    # 粘词表保存分支
+    assert 'custom_vocab = unionObjects(progress.custom_vocab, parsed' in block
+    # OCR 导入分支
+    assert 'custom_vocab = unionObjects(progress.custom_vocab, pendingStructured' in block
+    # 清空仍然允许
+    assert "progress.custom_vocab = []" in block
+    # 旧写法 (直接赋值) 不能再出现在保存/导入分支
+    save_branch = block.split('vocab-save-btn')[1].split('vocab-clear-btn')[0]
+    assert 'progress.custom_vocab = parsed;' not in save_branch

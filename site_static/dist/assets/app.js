@@ -3173,7 +3173,7 @@ document.addEventListener('input', function(e) {
       const text = app.querySelector('#vocab-textarea').value;
       const parsed = parsePastedVocab(text);
       if (!parsed.length) { document.getElementById('vocab-status').textContent = '没解析到任何词，检查格式'; return; }
-      progress.custom_vocab = parsed;
+      progress.custom_vocab = unionObjects(progress.custom_vocab, parsed, w => (w.word || '').trim().toLowerCase());
       progress.card_states = progress.card_states || {};
       saveProgress();
       toast('已导入 ' + parsed.length + ' 个词');
@@ -3285,7 +3285,7 @@ document.addEventListener('input', function(e) {
           '</div>';
         app.querySelector('#vocab-ocr-cancel').onclick = resetImage;
         app.querySelector('#vocab-ocr-confirm').onclick = () => {
-          progress.custom_vocab = pendingStructured;
+          progress.custom_vocab = unionObjects(progress.custom_vocab, pendingStructured, w => (w.word || '').trim().toLowerCase());
           progress.card_states = progress.card_states || {};
           saveProgress();
           toast('已导入 ' + pendingStructured.length + ' 个词');
