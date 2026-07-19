@@ -527,3 +527,12 @@ def test_flashcard_errors_route_and_helper_refactor():
     # 3) 错题本按钮
     assert 'flashcard-errors' in src and '用这些错题复习' in src, \
         "错题本顶部应有 用这些错题复习 按钮"
+
+def test_translate_toast_text_varies_with_score():
+    # Toast for 中译英 should not call itself "完全正确" when score < total.
+    # Root cause: 0/5 showed "0/5 完全正确" (always appended 完全正确).
+    assert "完全正确" in APP_JS_SRC  # still used for per-question allOk result
+    # Toast line must conditionally pick 答对 when not all correct
+    assert "totalCorrect === sents.length ? ' 完全正确' : ' 答对'" in APP_JS_SRC
+    # And must not have the old unconditional variant left over
+    assert "完全正确`.toast" not in APP_JS_SRC  # no unconditional toast left

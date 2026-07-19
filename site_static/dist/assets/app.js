@@ -2015,7 +2015,7 @@ document.addEventListener('input', function(e) {
       });
       progress.wrong_grammar = progress.wrong_grammar.slice(-100);
       saveProgress();
-      toast(`${totalCorrect}/${sents.length} 完全正确`, 2500);
+      toast(`${totalCorrect}/${sents.length}` + (totalCorrect === sents.length ? ' 完全正确' : ' 答对'), 2500);
       app.querySelector('#tr-submit').style.display = 'none';
       appendCheckinNextStep(app, 'translate');
     };
@@ -2105,7 +2105,7 @@ document.addEventListener('input', function(e) {
       });
       progress.wrong_grammar = progress.wrong_grammar.slice(-100);
       saveProgress();
-      toast(`${totalCorrect}/${sents.length} 完全正确`, 2500);
+      toast(`${totalCorrect}/${sents.length}` + (totalCorrect === sents.length ? ' 完全正确' : ' 答对'), 2500);
       app.querySelector('#tr-submit').style.display = 'none';
     };
   }
