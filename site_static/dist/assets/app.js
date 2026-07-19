@@ -2839,8 +2839,28 @@ document.addEventListener('input', function(e) {
         if (mode==='signup' && password.length < 6) { errEl.textContent = '密码至少 6 位'; return; }
         submit.disabled = true; submit.textContent = '处理中…';
         try {
-          if (mode === 'signin') await signInWithEmail(email, password);
-          else await signUpWithEmail(email, password);
+          let result;
+          if (mode === 'signin') result = await signInWithEmail(email, password);
+          else result = await signUpWithEmail(email, password);
+          // ponytail: 注册时若 Supabase Confirm email 开着, result.session 为 null 但 result.user 已建
+          // 此时不能直接跳首页 (登录态没建立), 必须等用户点验证链接
+          if (result && result.user && !result.session) {
+            submit.style.display = 'none';
+            errEl.style.color = 'var(--text-2)';
+            errEl.innerHTML = '验证邮件已发到 <b>' + escapeHtml(email) + '</b>, 请点击邮件里的链接完成验证后再回此页登录。<br><br><button id="login-resend" class="btn-sm" type="button">📧 没收到? 重发验证邮件</button> <button id="login-skip" class="btn-sm" type="button">⏭ 已验证, 重试登录</button>';
+            const resendBtn = app.querySelector('#login-resend');
+            if (resendBtn) resendBtn.onclick = async () => {
+              resendBtn.disabled = true; resendBtn.textContent = '发送中…';
+              try {
+                const { error } = await sb.auth.resend({ type: 'signup', email });
+                if (error) throw error;
+                resendBtn.textContent = '已重发, 请查收';
+              } catch (e) { resendBtn.textContent = '重发失败: ' + (e.message || e); }
+            };
+            const skipBtn = app.querySelector('#login-skip');
+            if (skipBtn) skipBtn.onclick = () => { submit.style.display = ''; mode = 'signin'; renderForm(); };
+            return;
+          }
           toast('登录成功, 同步中…');
           await maybeImportLegacyData();
           navigate('home');
