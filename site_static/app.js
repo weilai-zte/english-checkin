@@ -2790,11 +2790,29 @@ document.addEventListener('input', function(e) {
               <span style="color:var(--text-3);">登录后会自动检查本地是否有旧设备记录, 提示合并。</span>
             </div>
           </div>
+
+          <div class="card" style="margin-top:12px;">
+            <div class="card-title">其他登录方式</div>
+            <button id="login-by-device" class="btn btn-secondary" style="width:100%;margin-top:8px;">🆔 用本机设备 ID 继续</button>
+            <div class="profile-help">无需邮箱密码。本机进度用设备 ID 自动同步, 换浏览器后用同一设备 ID 可恢复。</div>
+            <button id="login-by-phone" class="btn btn-secondary" style="width:100%;margin-top:8px;" disabled title="需先在 Supabase 控制台启用 Phone provider">📱 手机号登录（待开通）</button>
+            <div class="profile-help">需在 Supabase 控制台开启 Phone provider 并配置 Twilio, 开通后此处可启用。</div>
+          </div>
         </div>
       `;
       app.querySelector('#login-tab-signin').onclick = () => { mode='signin'; renderForm(); };
       app.querySelector('#login-tab-signup').onclick = () => { mode='signup'; renderForm(); };
       const errEl = app.querySelector('#login-error');
+      const byDeviceBtn = app.querySelector('#login-by-device');
+      if (byDeviceBtn) byDeviceBtn.onclick = () => {
+        // ponytail: 设备 ID 已在 getUserKey() 中维护, 直接进 fallback 即可, 不写任何云端表
+        toast('已用本机设备 ID 继续');
+        navigate('home');
+      };
+      const byPhoneBtn = app.querySelector('#login-by-phone');
+      if (byPhoneBtn) byPhoneBtn.onclick = () => {
+        toast('手机号登录需先在 Supabase 控制台配置 Phone provider');
+      };
       const submit = app.querySelector('#login-submit');
       const forgotBtn = app.querySelector('#login-forgot');
       if (forgotBtn) forgotBtn.onclick = async () => {
