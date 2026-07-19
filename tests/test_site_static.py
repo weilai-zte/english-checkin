@@ -607,3 +607,24 @@ def test_unfamiliar_words_feature_present():
     assert pos_card > pos_tool, 'unfamiliar card should be after 工具 section'
     # home 末尾绑定事件
     assert "inputEl.addEventListener('keydown'" in block
+
+def test_auth_login_routes_and_helpers():
+    # 路由表
+    assert "'login': renderLogin" in APP_JS_SRC
+    assert "'logout': renderLogout" in APP_JS_SRC
+    # auth helpers
+    for fn in ['signUpWithEmail', 'signInWithEmail', 'signOutAuth',
+               'loadProgressFromAuth', 'saveProgressToAuth',
+               'maybeImportLegacyData', 'refreshAuthSession', 'subscribeAuth']:
+        assert f'function {fn}' in APP_JS_SRC, f'missing {fn}'
+    # sync 分支: 有 auth session 时走 user_progress 表
+    assert 'loadProgressFromAuth(userId)' in APP_JS_SRC
+    assert 'saveProgressToAuth(userId)' in APP_JS_SRC
+    # 旧 progress 表路径保留 (兜底)
+    assert "from('progress').upsert" in APP_JS_SRC
+    # profile 页有登录入口
+    block = _function_block('renderProfile')
+    assert 'href="#/login"' in block
+    assert 'href="#/logout"' in block
+    # 启动时刷新 session
+    assert 'refreshAuthSession().then' in APP_JS_SRC

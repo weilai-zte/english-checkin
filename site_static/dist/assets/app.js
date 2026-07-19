@@ -73,6 +73,62 @@ document.addEventListener('input', function(e) {
   function isNicknameKey(key) {
     return typeof key === 'string' && key.startsWith('nk_');
   }
+
+  // ─── Supabase Auth (邮箱+密码) ──────────────────────
+  // ponytail: 旧 user_key 模式保留兜底, 新注册/登录走 auth.users, 数据落到 user_progress 表.
+  let _authSession = null;
+  let _authSubscribed = false;
+  function getAuthSession() { return _authSession; }
+  async function refreshAuthSession() {
+    if (!sb) return null;
+    try {
+      const { data } = await sb.auth.getSession();
+      _authSession = data && data.session ? data.session : null;
+    } catch (e) { _authSession = null; }
+    return _authSession;
+  }
+  function subscribeAuth() {
+    if (!sb || _authSubscribed) return;
+    _authSubscribed = true;
+    sb.auth.onAuthStateChange((_event, session) => {
+      _authSession = session || null;
+      // 登录/登出后重渲染当前页 (UI 状态变化: 登录/退出按钮等)
+      if (typeof render === 'function') render();
+    });
+  }
+  async function signUpWithEmail(email, password) {
+    if (!sb) throw new Error('云端未连接');
+    const { data, error } = await sb.auth.signUp({ email, password });
+    if (error) throw error;
+    _authSession = data && data.session ? data.session : null;
+    return data;
+  }
+  async function signInWithEmail(email, password) {
+    if (!sb) throw new Error('云端未连接');
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    _authSession = data && data.session ? data.session : null;
+    return data;
+  }
+  async function signOutAuth() {
+    if (!sb) return;
+    await sb.auth.signOut();
+    _authSession = null;
+  }
+  async function loadProgressFromAuth(userId) {
+    if (!sb || !userId) return null;
+    const { data, error } = await sb.from('user_progress').select('data,updated_at').eq('user_id', userId).maybeSingle();
+    if (error) throw error;
+    return data || null;
+  }
+  async function saveProgressToAuth(userId) {
+    if (!sb || !userId) return;
+    await sb.from('user_progress').upsert({
+      user_id: userId,
+      data: progress,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'user_id' });
+  }
   function createDeviceId() {
     return crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
   }
@@ -146,6 +202,12 @@ document.addEventListener('input', function(e) {
   window.progress = progress;
   window.difficulty = difficulty;
   window.D = (typeof CHECKIN_DATA !== 'undefined') ? CHECKIN_DATA : null;
+
+  // 启动时尝试恢复 auth session (Supabase 自动从 localStorage 恢复)
+  refreshAuthSession().then(() => {
+    subscribeAuth();
+    if (_authSession) { syncToSupabase(); render(); }
+  });
 
   function loadProgress() {
     try {
@@ -371,6 +433,25 @@ document.addEventListener('input', function(e) {
     _syncPending = false;
     _syncInFlight = (async () => {
       try {
+        // 优先: 邮箱+密码登录的账号, 走 user_progress 表 (auth 用户)
+        if (_authSession && _authSession.user && _authSession.user.id) {
+          const userId = _authSession.user.id;
+          const remote = await loadProgressFromAuth(userId);
+          if (remote && remote.data) {
+            const remoteData = remoteRowProgress(remote);
+            progress = Object.assign(defaultProgress(), mergeProgress(progress, remoteData));
+            // 邮箱优先作为 user_name (空昵称用户也能看到自己)
+            if (!progress.user_name && _authSession.user.email) {
+              progress.user_name = _authSession.user.email.split('@')[0];
+            }
+            window.progress = progress;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+            applyAccountSettings();
+          }
+          await saveProgressToAuth(userId);
+          return true;
+        }
+        // 兜底: 旧 nickname / 设备 ID 模式, 走 progress 表
         const accountName = (progress.user_name || '').trim();
         const key = accountName ? nicknameToKey(accountName) : getUserKey();
         if (accountName) setUserKey(key);
@@ -1063,6 +1144,8 @@ document.addEventListener('input', function(e) {
     'stats': renderStats,
     'progress': renderProgress,
     'profile': renderProfile,
+    'login': renderLogin,
+    'logout': renderLogout,
     'knowledge': renderKnowledge,
     'review': renderReview,
     'achievements': renderAchievements,
@@ -2589,6 +2672,109 @@ document.addEventListener('input', function(e) {
     toast('头像已更新');
   }
 
+  // ─── 视图：Login (邮箱+密码) ────────────────────────
+  // ponytail: 单一页面, 注册/登录 tab 切换, 错误内联, 不跳转中间页.
+  function renderLogin(app) {
+    if (_authSession && _authSession.user) {
+      // 已登录直接回首页
+      navigate('home');
+      return;
+    }
+    let mode = 'signin'; // 'signin' | 'signup'
+    const renderForm = () => {
+      app.innerHTML = `
+        ${topBar('账号登录', true)}
+        <div class="container">
+          <div class="card" style="text-align:center;">
+            <div style="font-size:42px;">🔐</div>
+            <div class="card-title">${mode === 'signin' ? '登录账号' : '注册新账号'}</div>
+            <div style="font-size:12px;color:var(--text-2);">${mode === 'signin' ? '用邮箱 + 密码在多设备同步进度' : '用邮箱 + 密码注册, 后续跨设备自动同步'}</div>
+          </div>
+          <div class="card">
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+              <button id="login-tab-signin" class="btn ${mode==='signin'?'btn-primary':'btn-secondary'}" style="flex:1;">登录</button>
+              <button id="login-tab-signup" class="btn ${mode==='signup'?'btn-primary':'btn-secondary'}" style="flex:1;">注册</button>
+            </div>
+            <label style="font-size:13px;color:var(--text-2);">邮箱</label>
+            <input id="login-email" type="email" autocomplete="email" placeholder="you@example.com" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;margin-top:4px;">
+            <label style="font-size:13px;color:var(--text-2);margin-top:8px;display:block;">密码 <span style="color:var(--text-3);">(${mode==='signup' ? '至少 6 位' : ''})</span></label>
+            <input id="login-password" type="password" autocomplete="${mode==='signup' ? 'new-password' : 'current-password'}" placeholder="••••••" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;margin-top:4px;">
+            <div id="login-error" style="color:var(--danger);font-size:12px;margin-top:8px;min-height:18px;"></div>
+            <button id="login-submit" class="btn btn-primary" style="width:100%;margin-top:12px;">${mode==='signin' ? '登录' : '注册并登录'}</button>
+            <div style="font-size:12px;color:var(--text-3);margin-top:12px;text-align:center;">登录后会自动检查本地是否有旧设备记录, 提示合并。</div>
+          </div>
+        </div>
+      `;
+      app.querySelector('#login-tab-signin').onclick = () => { mode='signin'; renderForm(); };
+      app.querySelector('#login-tab-signup').onclick = () => { mode='signup'; renderForm(); };
+      const errEl = app.querySelector('#login-error');
+      const submit = app.querySelector('#login-submit');
+      submit.onclick = async () => {
+        const email = (app.querySelector('#login-email').value || '').trim();
+        const password = app.querySelector('#login-password').value || '';
+        errEl.textContent = '';
+        if (!email || !password) { errEl.textContent = '请输入邮箱和密码'; return; }
+        if (mode==='signup' && password.length < 6) { errEl.textContent = '密码至少 6 位'; return; }
+        submit.disabled = true; submit.textContent = '处理中…';
+        try {
+          if (mode === 'signin') await signInWithEmail(email, password);
+          else await signUpWithEmail(email, password);
+          toast('登录成功, 同步中…');
+          await maybeImportLegacyData();
+          navigate('home');
+        } catch (e) {
+          errEl.textContent = (e && e.message) ? e.message : String(e);
+        } finally {
+          submit.disabled = false; submit.textContent = mode==='signin' ? '登录' : '注册并登录';
+        }
+      };
+    };
+    renderForm();
+  }
+
+  // 退出登录: 清 session, 保留本地数据, 回首页
+  async function renderLogout(app) {
+    if (!_authSession) { navigate('home'); return; }
+    if (!confirm('确定要退出登录吗? 本地数据保留, 退出后无法在云端同步。')) return;
+    try {
+      await signOutAuth();
+      toast('已退出登录');
+    } catch (e) {
+      toast('退出失败: ' + (e.message || e));
+    }
+    navigate('home');
+  }
+
+  // 登录后弹窗: 是否把当前 localStorage 里的旧数据合并到新账号?
+  // ponytail: 只弹一次, 且仅当云端 user_progress 为空 + 本地有非空数据.
+  async function maybeImportLegacyData() {
+    if (!_authSession || !_authSession.user) return;
+    const userId = _authSession.user.id;
+    let cloud;
+    try { cloud = await loadProgressFromAuth(userId); } catch (e) { return; }
+    if (cloud && cloud.data) return; // 云端已有数据, 不覆盖
+    const hasLocal = (progress.checkins && progress.checkins.length)
+      || (progress.word_stats && Object.keys(progress.word_stats).length)
+      || (progress.wrong_words && progress.wrong_words.length)
+      || (progress.vocab_mastered && progress.vocab_mastered.length)
+      || (progress.wrong_grammar && progress.wrong_grammar.length)
+      || (progress.unfamiliar_words && progress.unfamiliar_words.length);
+    if (!hasLocal) return;
+    const stats = [
+      progress.checkins && progress.checkins.length,
+      Object.keys(progress.word_stats || {}).length,
+      progress.wrong_words && progress.wrong_words.length,
+      progress.vocab_mastered && progress.vocab_mastered.length,
+    ].filter(n => n > 0).join(' / ');
+    if (!confirm('检测到本地有学习数据 (打卡 ' + stats + ' 条), 是否导入到新账号?\n\n选"确定"= 上传到云端\n选"取消"= 丢弃本地数据, 后续以云端为准')) return;
+    try {
+      await saveProgressToAuth(userId);
+      toast('已导入本地数据到新账号');
+    } catch (e) {
+      toast('导入失败: ' + (e.message || e));
+    }
+  }
+
   function renderProfile(app) {
     const avatar = AVATAR_CHOICES.includes(progress.avatar) ? progress.avatar : AVATAR_CHOICES[0];
     const devices = (progress.bound_devices || []).filter(id => id && !isNicknameKey(id));
@@ -2621,6 +2807,25 @@ document.addEventListener('input', function(e) {
           </div>
           <div id="profile-error" class="profile-error" role="alert"></div>
           <div class="profile-help">同一昵称的设备会自动合并打卡、成就、游戏和其他学习记录。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">账号登录</div>
+          ${_authSession && _authSession.user ? `
+            <div class="profile-device-current">
+              <span>已登录</span>
+              <code>${escapeHtml(_authSession.user.email || '')}</code>
+            </div>
+            <div class="profile-help">数据已同步到云端, 可在任意设备登录同一邮箱查看。</div>
+            <div class="btn-row" style="margin-top:8px;">
+              <a class="btn-sm profile-sync-now" href="#/logout" style="color:var(--danger);">退出登录</a>
+            </div>
+          ` : `
+            <div class="profile-help">注册或登录后, 学习数据会按账号同步到云端, 跨设备自动合并。</div>
+            <div class="btn-row" style="margin-top:8px;">
+              <a class="btn btn-primary" href="#/login">🔐 登录 / 注册</a>
+            </div>
+          `}
         </div>
 
         <div class="card">
