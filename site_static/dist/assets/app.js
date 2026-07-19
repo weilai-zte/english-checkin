@@ -172,6 +172,7 @@ document.addEventListener('input', function(e) {
       achievements_unlocked: {}, // #7 achievements
       game_stats: {},            // 游戏成绩与次数
       vocab_list_marked: [],     // 全部词汇中的收藏
+      unfamiliar_words: [],       // 孩子不熟悉的词 (打卡后家长录入, 后续针对训练)
       user_name: '', // #account nickname (跨设备账号标识)
       bound_devices: [], // #account 本账号绑定的设备 ID 列表
       avatar: AVATAR_CHOICES[0], // #account emoji 头像
@@ -1240,6 +1241,8 @@ document.addEventListener('input', function(e) {
 
         ${renderDailyWordCard()}
 
+        ${renderUnfamiliarCard()}
+
         <div class="card">
           <div class="card-title">⚙️ 练习难度</div>
           <div class="diff-bar">
@@ -1301,6 +1304,19 @@ document.addEventListener('input', function(e) {
       if (!confirm('撤销今日打卡？已记录的成绩会被删除，可重新打卡。')) return;
       if (undoTodayCheckin()) { toast('已撤销，可重新打卡'); render(); }
     };
+    const addBtn = app.querySelector('#unfamiliar-add');
+    const inputEl = app.querySelector('#unfamiliar-input');
+    const doAdd = () => {
+      if (!inputEl) return;
+      const n = addUnfamiliarWords(inputEl.value);
+      if (n > 0) { toast('已加入 ' + n + ' 个词'); inputEl.value = ''; render(); }
+      else if (inputEl.value.trim()) { toast('已是已收录词'); inputEl.value = ''; }
+    };
+    if (addBtn) addBtn.onclick = doAdd;
+    if (inputEl) inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') doAdd(); });
+    app.querySelectorAll('.btn-unfamiliar-del').forEach(b => {
+      b.onclick = () => { removeUnfamiliarWord(b.dataset.word); render(); };
+    });
   }
 
   // ─── 视图：CheckinConfig（每日打卡 · 选题型）─────
@@ -2954,6 +2970,52 @@ document.addEventListener('input', function(e) {
         '</div>' +
         '<button class="speak-btn" data-word="' + escapeHtml(w.word) + '" style="margin-left:auto;padding:10px 14px;background:#fff;color:#6b46c1;border:1.5px solid #b794f4;border-radius:10px;font-size:18px;line-height:1;flex-shrink:0;">🔊</button>' +
       '</div></div>';
+  }
+  // 孩子不熟悉词卡 — 打卡后家长录入, 后续可以针对性训练
+  // ponytail: 先做录入/显示/删除; 训练入口直接复用 vocab-list 筛选, add when 数据 > 30 条.
+  function renderUnfamiliarCard() {
+    const list = progress.unfamiliar_words || [];
+    const items = list.slice(-20).reverse().map(w =>
+      '<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border);">' +
+        '<span style="flex:1;">' + escapeHtml(w.word) + (w.cn ? ' <span style="color:var(--text-3);font-size:12px;">' + escapeHtml(w.cn) + '</span>' : '') + '</span>' +
+        '<button class="btn-unfamiliar-del" data-word="' + escapeHtml(w.word) + '" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:16px;padding:0 4px;" title="移除">×</button>' +
+      '</div>'
+    ).join('');
+    return '<div class="card unfamiliar-card">' +
+      '<div class="card-title">📝 今日不熟悉词 <span style="font-weight:normal;font-size:12px;color:var(--text-3);">(' + list.length + ')</span></div>' +
+      '<div style="display:flex;gap:6px;margin-top:6px;">' +
+        '<input id="unfamiliar-input" type="text" placeholder="空格分隔, 如 review receive email" ' +
+        'style="flex:1;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;">' +
+        '<button id="unfamiliar-add" class="btn btn-primary" style="padding:8px 12px;">加入</button>' +
+      '</div>' +
+      (list.length ? '<div style="margin-top:8px;">' + items + '</div>' : '<div style="margin-top:8px;font-size:12px;color:var(--text-3);">打卡后把不熟的词录进来, 后续针对训练。</div>') +
+    '</div>';
+  }
+  function addUnfamiliarWords(raw) {
+    // ponytail: 接受空格/逗号/换行分隔; 去重 (大小写不敏感); 尝试从词库补 cn.
+    const tok = (raw || '').split(/[\s,;，；]+/).map(s => s.trim()).filter(Boolean);
+    if (!tok.length) return 0;
+    const seen = new Set((progress.unfamiliar_words || []).map(w => w.word.toLowerCase()));
+    const allDict = allWords();
+    const findCn = (wd) => {
+      const hit = allDict.find(x => (x.word || '').toLowerCase() === wd.toLowerCase());
+      return hit ? (hit.cn || '') : '';
+    };
+    let added = 0;
+    progress.unfamiliar_words = progress.unfamiliar_words || [];
+    for (const w of tok) {
+      if (seen.has(w.toLowerCase())) continue;
+      seen.add(w.toLowerCase());
+      progress.unfamiliar_words.push({ word: w, cn: findCn(w), added_at: today() });
+      added++;
+    }
+    if (added) saveProgress();
+    return added;
+  }
+  function removeUnfamiliarWord(word) {
+    const before = (progress.unfamiliar_words || []).length;
+    progress.unfamiliar_words = (progress.unfamiliar_words || []).filter(w => w.word.toLowerCase() !== word.toLowerCase());
+    if (progress.unfamiliar_words.length !== before) saveProgress();
   }
   // #14 学习路径当月主题卡 (来自 learning_plan.json)
   function renderLearningPlanCard() {

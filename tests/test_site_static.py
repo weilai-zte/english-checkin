@@ -588,3 +588,19 @@ def test_preposition_options_normalize_case():
     assert "return { ...q, a: normA, options: opts }" in block
     # pool 也小写
     assert "pool.filter(p => p.toLowerCase() !== normA).map(p => p.toLowerCase())" in block
+
+def test_unfamiliar_words_feature_present():
+    # 数据字段
+    assert 'unfamiliar_words: []' in APP_JS_SRC
+    # 渲染卡片
+    assert 'function renderUnfamiliarCard()' in APP_JS_SRC
+    # 增/删 helper
+    assert 'function addUnfamiliarWords(' in APP_JS_SRC
+    assert 'function removeUnfamiliarWord(' in APP_JS_SRC
+    # 默认 progress 里加过
+    assert "unknown_words: []" not in APP_JS_SRC  # 没有写错名字
+    # home 卡片调用
+    block = _function_block('renderHome')
+    assert 'renderUnfamiliarCard()' in block
+    # home 末尾绑定事件
+    assert "inputEl.addEventListener('keydown'" in block
