@@ -434,8 +434,15 @@ document.addEventListener('input', function(e) {
     _syncInFlight = (async () => {
       try {
         // 优先: 邮箱+密码登录的账号, 走 user_progress 表 (auth 用户)
-        if (_authSession && _authSession.user && _authSession.user.id) {
+        if (typeof _authSession !== 'undefined' && _authSession && _authSession.user && _authSession.user.id) {
           const userId = _authSession.user.id;
+          // 登录后自动把当前设备加入账号绑定列表 (账号/昵称/设备三者关联)
+          if (typeof getDeviceId === 'function') {
+            const myDeviceId = getDeviceId();
+            if (myDeviceId && !(progress.bound_devices || []).includes(myDeviceId)) {
+              progress.bound_devices = (progress.bound_devices || []).concat([myDeviceId]);
+            }
+          }
           const remote = await loadProgressFromAuth(userId);
           if (remote && remote.data) {
             const remoteData = remoteRowProgress(remote);
@@ -2898,7 +2905,10 @@ document.addEventListener('input', function(e) {
             <div class="profile-help">数据已同步到云端, 可在任意设备登录同一邮箱查看。</div>
             <div class="btn-row" style="margin-top:8px;">
               <button id="profile-change-pw" class="btn-sm profile-sync-now" type="button">🔑 修改密码</button>
+              <button id="profile-switch-account" class="btn-sm profile-sync-now" type="button">🔄 切换账号</button>
               <a class="btn-sm profile-sync-now" href="#/logout" style="color:var(--danger);">退出登录</a>
+            </div>
+            <div class="profile-help">切换账号 = 退出登录并清空本机昵称/设备绑定, 云端进度保留, 重新登录同一邮箱可恢复。
             </div>
           ` : `
             <div class="profile-help">用邮箱 + 密码注册, 跨设备自动同步 (旧 nickname 也能继续用)。</div>
@@ -2963,6 +2973,22 @@ document.addEventListener('input', function(e) {
     });
     const changePwBtn = app.querySelector('#profile-change-pw');
     if (changePwBtn) changePwBtn.onclick = () => openChangePasswordModal();
+    const switchBtn = app.querySelector('#profile-switch-account');
+    if (switchBtn) switchBtn.onclick = async () => {
+      if (!confirm('切换账号?\n\n将退出当前账号并清空本机的昵称/设备绑定 (云端进度保留, 重新登录同一邮箱可恢复)。')) return;
+      try {
+        await signOutAuth();
+        progress.user_name = '';
+        progress.bound_devices = [];
+        window.progress = progress;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+        localStorage.removeItem(USER_KEY);
+        toast('已切换账号');
+        navigate('login');
+      } catch (e) {
+        toast('切换失败: ' + (e.message || e));
+      }
+    };
     app.querySelectorAll('.bd-unbind').forEach(btn => {
       btn.onclick = () => unbindDevice(btn.dataset.id);
     });
