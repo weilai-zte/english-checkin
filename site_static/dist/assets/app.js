@@ -2845,7 +2845,17 @@ document.addEventListener('input', function(e) {
           await maybeImportLegacyData();
           navigate('home');
         } catch (e) {
-          errEl.textContent = (e && e.message) ? e.message : String(e);
+          // ponytail: Supabase 控制台关掉 email signup 时抛英文错误, 这里翻译 + 给配置路径
+          const raw = (e && e.message) ? e.message : String(e);
+          if (/signups? (are|is) disabled/i.test(raw)) {
+            errEl.textContent = '邮箱注册未开启: 请到 Supabase 控制台 → Authentication → Providers → Email → 打开 "Allow new users to sign up"。无邮箱可改用下方 🆔 用本机设备 ID 继续。';
+          } else if (/email.*not confirmed/i.test(raw) || /email_not_confirmed/i.test(raw)) {
+            errEl.textContent = '邮箱未验证: 请先查收验证邮件 (含垃圾箱), 或在 Supabase 控制台关闭 "Confirm email" 后重试。';
+          } else if (/invalid login credentials/i.test(raw)) {
+            errEl.textContent = '邮箱或密码错误, 请重试。忘记密码可点上方 "忘记密码"。';
+          } else {
+            errEl.textContent = raw;
+          }
         } finally {
           submit.disabled = false; submit.textContent = mode==='signin' ? '登录' : '注册并登录';
         }
