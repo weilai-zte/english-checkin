@@ -96,9 +96,13 @@ document.addEventListener('input', function(e) {
       if (typeof render === 'function') render();
     });
   }
-  async function signUpWithEmail(email, password) {
+  async function signUpWithEmail(email, password, options) {
     if (!sb) throw new Error('云端未连接');
-    const { data, error } = await sb.auth.signUp({ email, password });
+    const opts = Object.assign({
+      // ponytail: 验证邮件默认跳到站点根 (GitHub Pages 404), 强制跳到 app 子路径
+      redirectTo: window.location.origin + window.location.pathname + '#/login',
+    }, options || {});
+    const { data, error } = await sb.auth.signUp({ email, password, options: opts });
     if (error) throw error;
     _authSession = data && data.session ? data.session : null;
     return data;
@@ -203,8 +207,30 @@ document.addEventListener('input', function(e) {
   window.difficulty = difficulty;
   window.D = (typeof CHECKIN_DATA !== 'undefined') ? CHECKIN_DATA : null;
 
-  // 启动时尝试恢复 auth session (Supabase 自动从 localStorage 恢复)
-  refreshAuthSession().then(() => {
+  // 启动时: 1) 兜底处理邮件链接里的 access_token (用户可能从 Supabase 默认 redirect 跳到 404)
+  //          2) 恢复 auth session  3) 订阅 auth 变化
+  refreshAuthSession().then(async () => {
+    try {
+      const hash = (window.location.hash || '');
+      const search = (window.location.search || '');
+      const blob = hash + '&' + search;
+      const params = {};
+      blob.replace(/[#?&](access_token|refresh_token|type)=([^&]+)/g, (_, k, v) => { params[k] = decodeURIComponent(v); });
+      if (params.access_token && params.refresh_token && sb) {
+        const { data, error } = await sb.auth.setSession({
+          access_token: params.access_token,
+          refresh_token: params.refresh_token,
+        });
+        if (!error && data && data.session) _authSession = data.session;
+        // ponytail: 清掉 URL 里的 token (避免刷新重复处理), 保留 path + 路由 hash
+        try {
+          const cleanHash = (window.location.hash || '').split('?')[0];
+          const cleanSearch = (window.location.search || '').replace(/[?&](access_token|refresh_token|type|expires_at|expires_in|sb|token_type)=[^&]*/g, '');
+          const cleanUrl = window.location.pathname + (cleanHash || '') + (cleanSearch || '');
+          window.history.replaceState(null, '', cleanUrl);
+        } catch (e) {}
+      }
+    } catch (e) { console.warn('access_token fallback failed:', e); }
     subscribeAuth();
     if (_authSession) { syncToSupabase(); render(); }
   });
