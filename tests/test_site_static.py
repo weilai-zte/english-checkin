@@ -561,9 +561,10 @@ def test_checkin_config_defaults_to_all_selected():
 
 def test_undo_today_checkin_helper_present():
     src = APP_JS_SRC
-    # 撤销函数 + 按钮 + 绑定都到位
+    # 撤销函数 + 两个入口 (checkin-config + home) + 绑定都到位
     assert "function undoTodayCheckin()" in src
-    assert "id=\"checkin-undo\"" in src
+    assert 'id="checkin-undo"' in src
+    assert 'id="home-undo"' in src
     # 防御: 找不到今天的 checkin 应当直接 return, 不抛
     assert "if (i === -1) return false" in src
     # streak 兜底为 0

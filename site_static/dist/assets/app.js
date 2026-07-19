@@ -1229,7 +1229,10 @@ document.addEventListener('input', function(e) {
         <div class="card" style="text-align:center;background:linear-gradient(135deg,#eafaf1,#d4f5e2);">
           <div style="font-size:40px;">🎉</div>
           <div style="color:var(--success);font-size:18px;font-weight:bold;margin-top:4px;">今日已完成打卡！</div>
-          <a class="btn btn-secondary" href="#/learn">📖 继续练习（不计打卡）</a>
+          <div class="btn-row" style="margin-top:8px;">
+            <a class="btn btn-secondary" href="#/learn">📖 继续练习（不计打卡）</a>
+            <button class="btn btn-secondary" id="home-undo" style="color:var(--danger);">↩ 撤销今日打卡（补打）</button>
+          </div>
         </div>
         ` : `
         <a class="btn btn-cta" href="#/checkin-config">🚀 开始今日打卡 →</a>
@@ -1293,6 +1296,11 @@ document.addEventListener('input', function(e) {
     app.querySelectorAll('[data-d]').forEach(btn => {
       btn.onclick = () => { setDifficulty(btn.dataset.d); render(); };
     });
+    const homeUndo = app.querySelector('#home-undo');
+    if (homeUndo) homeUndo.onclick = () => {
+      if (!confirm('撤销今日打卡？已记录的成绩会被删除，可重新打卡。')) return;
+      if (undoTodayCheckin()) { toast('已撤销，可重新打卡'); render(); }
+    };
   }
 
   // ─── 视图：CheckinConfig（每日打卡 · 选题型）─────
