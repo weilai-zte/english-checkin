@@ -569,3 +569,13 @@ def test_undo_today_checkin_helper_present():
     assert "if (i === -1) return false" in src
     # streak 兜底为 0
     assert "progress.streak = Math.max(0," in src
+
+def test_render_preposition_uses_combined_pool():
+    # 用户反馈"每天重复同一题": 之前 renderPreposition 只用 prepositions 一项 (46 道),
+    # 现合并 4 个 prepositions 相关 grammar item, 池子从 46 -> 61, 多样性显著提升.
+    block = _function_block('renderPreposition')
+    assert "['prepositions', 'prep_time', 'prep_place', 'prep_combined', 'curr_prepositions']" in block
+    # 不能回退到只用一个 grammar item
+    assert "const prepG = D.grammar.find(g => g.id === 'prepositions');" not in block
+    # 题干不能直接 map prepG.练习, 而是用 items 合并
+    assert "items.map(g => (g.练习 || [])" in block

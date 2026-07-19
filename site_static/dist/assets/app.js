@@ -1817,10 +1817,13 @@ document.addEventListener('input', function(e) {
 
   // ─── 视图：Preposition ────────────────────────────
   function renderPreposition(app) {
-    const prepG = D.grammar.find(g => g.id === 'prepositions');
-    if (!prepG) { navigate('home'); return; }
+    // ponytail: 合并 4 个 prepositions 相关 grammar item (46+3+3+3+6=61 道),
+    // 之前只取 prepositions 一个, 用户反馈每天题面太集中.
+    const prepIds = ['prepositions', 'prep_time', 'prep_place', 'prep_combined', 'curr_prepositions'];
+    const items = prepIds.map(id => D.grammar.find(g => g.id === id)).filter(Boolean);
+    if (!items.length) { navigate('home'); return; }
     const pool = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'under', 'near', 'behind', 'between', 'into', 'from', 'to', 'of', 'over', 'after', 'before', 'above', 'below', 'along', 'since', 'until', 'through', 'across', 'next to', 'out of', 'in front of', 'because of'];
-    const all = (prepG.练习 || []).map(ex => ({ q: ex.题, a: ex.答案, hint: ex.提示 }));
+    const all = [].concat(...items.map(g => (g.练习 || []).map(ex => ({ q: ex.题, a: ex.答案, hint: ex.提示, gid: g.id }))));
     const questions = sample(all, 10).map(q => {
       const uniquePool = [...new Set(pool.filter(p => p.toLowerCase() !== q.a.toLowerCase()))];
       const opts = shuffle([q.a, ...sample(uniquePool, Math.min(3, uniquePool.length))]);
