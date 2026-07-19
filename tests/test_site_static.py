@@ -387,6 +387,13 @@ def test_required_checkin_types_are_locked():
     assert "e.preventDefault()" in block
 
 
+def test_optional_checkin_checkbox_updates_active_state():
+    """取消可选题型时必须同步 active，否则它仍会进入打卡队列。"""
+    block = _function_block('renderCheckinConfig')
+    assert "input.addEventListener('change'" in block
+    assert "el.classList.toggle('active', input.checked)" in block
+
+
 # ─── games 模块 ──────────────────────────────────
 def test_games_directory_has_five_modules_and_shared():
     games_dir = ROOT / 'site_static' / 'games'

@@ -1349,13 +1349,14 @@ document.addEventListener('input', function(e) {
     };
 
     app.querySelectorAll('.checkin-type').forEach(el => {
-      el.addEventListener('click', (e) => {
-        if (el.classList.contains('locked')) {
-          // 必选项：阻止 toggle（preventDefault 防止 checkbox 状态翻转）
-          e.preventDefault();
-          return;
-        }
-        setTimeout(refreshSummary, 0);
+      const input = el.querySelector('input');
+      if (el.classList.contains('locked')) {
+        el.addEventListener('click', e => e.preventDefault());
+        return;
+      }
+      input.addEventListener('change', () => {
+        el.classList.toggle('active', input.checked);
+        refreshSummary();
       });
     });
     // 初始持久化默认勾选
