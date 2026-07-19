@@ -2674,6 +2674,83 @@ document.addEventListener('input', function(e) {
 
   // ─── 视图：Login (邮箱+密码) ────────────────────────
   // ponytail: 单一页面, 注册/登录 tab 切换, 错误内联, 不跳转中间页.
+  // 模态 helper: 单按钮确认/取消
+  function showModal({ title, body, confirmText = '确定', cancelText = '取消', danger = false }) {
+    return new Promise((resolve) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'modal-wrap';
+      wrap.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px;';
+      wrap.innerHTML = `
+        <div class="card" style="max-width:420px;width:100%;background:var(--bg-card);">
+          <div class="card-title">${escapeHtml(title)}</div>
+          <div style="margin:8px 0;font-size:14px;color:var(--text-2);">${body}</div>
+          <div class="btn-row" style="margin-top:12px;justify-content:flex-end;gap:8px;">
+            <button class="btn btn-secondary" id="modal-cancel">${escapeHtml(cancelText)}</button>
+            <button class="btn ${danger ? 'btn-danger' : 'btn-primary'}" id="modal-confirm">${escapeHtml(confirmText)}</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(wrap);
+      const close = (v) => { document.body.removeChild(wrap); resolve(v); };
+      wrap.querySelector('#modal-cancel').onclick = () => close(false);
+      wrap.querySelector('#modal-confirm').onclick = () => close(true);
+    });
+  }
+
+  // 已登录状态下修改密码
+  async function openChangePasswordModal() {
+    if (!_authSession || !_authSession.user) { navigate('login'); return; }
+    const wrap = document.createElement('div');
+    wrap.className = 'modal-wrap';
+    wrap.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px;';
+    wrap.innerHTML = `
+      <div class="card" style="max-width:420px;width:100%;background:var(--bg-card);">
+        <div class="card-title">🔑 修改密码</div>
+        <label style="font-size:13px;color:var(--text-2);">当前密码</label>
+        <input id="cp-old" type="password" autocomplete="current-password" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;margin-top:4px;">
+        <label style="font-size:13px;color:var(--text-2);margin-top:8px;display:block;">新密码 <span style="color:var(--text-3);">(至少 6 位)</span></label>
+        <input id="cp-new" type="password" autocomplete="new-password" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;margin-top:4px;">
+        <label style="font-size:13px;color:var(--text-2);margin-top:8px;display:block;">确认新密码</label>
+        <input id="cp-new2" type="password" autocomplete="new-password" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;margin-top:4px;">
+        <div id="cp-err" style="color:var(--danger);font-size:12px;margin-top:8px;min-height:18px;"></div>
+        <div class="btn-row" style="margin-top:12px;justify-content:flex-end;gap:8px;">
+          <button class="btn btn-secondary" id="cp-cancel">取消</button>
+          <button class="btn btn-primary" id="cp-submit">修改</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(wrap);
+    const errEl = wrap.querySelector('#cp-err');
+    const close = () => document.body.removeChild(wrap);
+    wrap.querySelector('#cp-cancel').onclick = close;
+    wrap.querySelector('#cp-submit').onclick = async () => {
+      const oldPw = wrap.querySelector('#cp-old').value;
+      const newPw = wrap.querySelector('#cp-new').value;
+      const newPw2 = wrap.querySelector('#cp-new2').value;
+      errEl.textContent = '';
+      if (!oldPw || !newPw) { errEl.textContent = '请填写完整'; return; }
+      if (newPw.length < 6) { errEl.textContent = '新密码至少 6 位'; return; }
+      if (newPw !== newPw2) { errEl.textContent = '两次输入的新密码不一致'; return; }
+      // Supabase updateUser 需要当前 session 有效; 先用旧密码 reauth
+      const submitBtn = wrap.querySelector('#cp-submit');
+      submitBtn.disabled = true; submitBtn.textContent = '修改中…';
+      try {
+        const email = _authSession.user.email;
+        if (!email) throw new Error('当前账号无邮箱, 无法验证旧密码');
+        // 用旧密码登录一次刷新 session (避免 updateUser 报 "Auth session missing")
+        const { error: reauthErr } = await sb.auth.signInWithPassword({ email, password: oldPw });
+        if (reauthErr) throw new Error('当前密码错误: ' + (reauthErr.message || reauthErr));
+        const { error } = await sb.auth.updateUser({ password: newPw });
+        if (error) throw error;
+        toast('密码已修改');
+        close();
+      } catch (e) {
+        errEl.textContent = e.message || String(e);
+        submitBtn.disabled = false; submitBtn.textContent = '修改';
+      }
+    };
+  }
+
   function renderLogin(app) {
     if (_authSession && _authSession.user) {
       // 已登录直接回首页
@@ -2701,7 +2778,10 @@ document.addEventListener('input', function(e) {
             <input id="login-password" type="password" autocomplete="${mode==='signup' ? 'new-password' : 'current-password'}" placeholder="••••••" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;margin-top:4px;">
             <div id="login-error" style="color:var(--danger);font-size:12px;margin-top:8px;min-height:18px;"></div>
             <button id="login-submit" class="btn btn-primary" style="width:100%;margin-top:12px;">${mode==='signin' ? '登录' : '注册并登录'}</button>
-            <div style="font-size:12px;color:var(--text-3);margin-top:12px;text-align:center;">登录后会自动检查本地是否有旧设备记录, 提示合并。</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:10px;">
+              ${mode==='signin' ? '<button id="login-forgot" style="background:transparent;border:none;color:var(--text-2);cursor:pointer;padding:0;text-decoration:underline;">忘记密码?</button>' : '<span></span>'}
+              <span style="color:var(--text-3);">登录后会自动检查本地是否有旧设备记录, 提示合并。</span>
+            </div>
           </div>
         </div>
       `;
@@ -2709,6 +2789,23 @@ document.addEventListener('input', function(e) {
       app.querySelector('#login-tab-signup').onclick = () => { mode='signup'; renderForm(); };
       const errEl = app.querySelector('#login-error');
       const submit = app.querySelector('#login-submit');
+      const forgotBtn = app.querySelector('#login-forgot');
+      if (forgotBtn) forgotBtn.onclick = async () => {
+        const email = (app.querySelector('#login-email').value || '').trim();
+        if (!email) { errEl.textContent = '请先在上方输入邮箱, 再点忘记密码'; return; }
+        if (!sb) { errEl.textContent = '云端未连接'; return; }
+        try {
+          const { error } = await sb.auth.resetPasswordForEmail(email, {
+            redirectTo: window.location.origin + window.location.pathname + '#/reset-password',
+          });
+          if (error) throw error;
+          errEl.style.color = 'var(--success)';
+          errEl.textContent = '重置链接已发到 ' + email + ', 请查收邮件 (含垃圾箱)。';
+        } catch (e) {
+          errEl.style.color = 'var(--danger)';
+          errEl.textContent = '发送失败: ' + (e.message || e) + ' (需 Supabase SMTP 已配置)';
+        }
+      };
       submit.onclick = async () => {
         const email = (app.querySelector('#login-email').value || '').trim();
         const password = app.querySelector('#login-password').value || '';
@@ -2818,6 +2915,7 @@ document.addEventListener('input', function(e) {
             </div>
             <div class="profile-help">数据已同步到云端, 可在任意设备登录同一邮箱查看。</div>
             <div class="btn-row" style="margin-top:8px;">
+              <button id="profile-change-pw" class="btn-sm profile-sync-now" type="button">🔑 修改密码</button>
               <a class="btn-sm profile-sync-now" href="#/logout" style="color:var(--danger);">退出登录</a>
             </div>
           ` : `
@@ -2863,6 +2961,8 @@ document.addEventListener('input', function(e) {
     app.querySelectorAll('.avatar-cell').forEach(btn => {
       btn.onclick = () => setAvatar(btn.dataset.avatar);
     });
+    const changePwBtn = app.querySelector('#profile-change-pw');
+    if (changePwBtn) changePwBtn.onclick = () => openChangePasswordModal();
     app.querySelectorAll('.bd-unbind').forEach(btn => {
       btn.onclick = () => unbindDevice(btn.dataset.id);
     });

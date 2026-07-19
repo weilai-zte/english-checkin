@@ -628,3 +628,16 @@ def test_auth_login_routes_and_helpers():
     assert 'href="#/logout"' in block
     # 启动时刷新 session
     assert 'refreshAuthSession().then' in APP_JS_SRC
+
+def test_auth_password_change_and_reset():
+    # 修改密码入口: profile 有按钮 + 函数
+    assert "function openChangePasswordModal()" in APP_JS_SRC
+    assert 'id="profile-change-pw"' in APP_JS_SRC
+    # 用旧密码 reauth + updateUser (双保险)
+    assert "signInWithPassword({ email, password: oldPw })" in APP_JS_SRC
+    assert "sb.auth.updateUser({ password: newPw })" in APP_JS_SRC
+    # 忘记密码: login 页面有入口, 调用 resetPasswordForEmail
+    assert 'id="login-forgot"' in APP_JS_SRC
+    assert "sb.auth.resetPasswordForEmail(email" in APP_JS_SRC
+    # 错误提示让用户知道是 SMTP 问题
+    assert "Supabase SMTP 已配置" in APP_JS_SRC
