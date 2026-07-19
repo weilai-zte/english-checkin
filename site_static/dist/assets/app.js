@@ -1825,9 +1825,12 @@ document.addEventListener('input', function(e) {
     const pool = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'under', 'near', 'behind', 'between', 'into', 'from', 'to', 'of', 'over', 'after', 'before', 'above', 'below', 'along', 'since', 'until', 'through', 'across', 'next to', 'out of', 'in front of', 'because of'];
     const all = [].concat(...items.map(g => (g.练习 || []).map(ex => ({ q: ex.题, a: ex.答案, hint: ex.提示, gid: g.id }))));
     const questions = sample(all, 10).map(q => {
-      const uniquePool = [...new Set(pool.filter(p => p.toLowerCase() !== q.a.toLowerCase()))];
-      const opts = shuffle([q.a, ...sample(uniquePool, Math.min(3, uniquePool.length))]);
-      return { ...q, options: opts };
+      // 句首大写的答案 (如 "By the end of...") 跟小写干扰项混在一起时一眼可辨.
+      // ponytail: 全统一小写, 介词在选择题中大写无意义. 缩写/专名不会出现, 无需白名单.
+      const normA = q.a.toLowerCase();
+      const uniquePool = [...new Set(pool.filter(p => p.toLowerCase() !== normA).map(p => p.toLowerCase()))];
+      const opts = shuffle([normA, ...sample(uniquePool, Math.min(3, uniquePool.length))]);
+      return { ...q, a: normA, options: opts };
     });
     currentQuestions = questions;
     renderMCQ(app, '介词专项', questions, (correct, results) => {

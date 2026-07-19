@@ -579,3 +579,12 @@ def test_render_preposition_uses_combined_pool():
     assert "const prepG = D.grammar.find(g => g.id === 'prepositions');" not in block
     # 题干不能直接 map prepG.练习, 而是用 items 合并
     assert "items.map(g => (g.练习 || [])" in block
+
+def test_preposition_options_normalize_case():
+    # 根因: 答案 "By" 大写, 干扰项 "at"/"over"/"out of" 小写, 一眼看出.
+    # 修法: 生成选项时全统一小写, 并在 correct/判分时也走小写 (a: normA).
+    block = _function_block('renderPreposition')
+    assert "const normA = q.a.toLowerCase()" in block
+    assert "return { ...q, a: normA, options: opts }" in block
+    # pool 也小写
+    assert "pool.filter(p => p.toLowerCase() !== normA).map(p => p.toLowerCase())" in block
