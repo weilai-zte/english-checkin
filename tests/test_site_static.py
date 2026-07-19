@@ -599,8 +599,11 @@ def test_unfamiliar_words_feature_present():
     assert 'function removeUnfamiliarWord(' in APP_JS_SRC
     # 默认 progress 里加过
     assert "unknown_words: []" not in APP_JS_SRC  # 没有写错名字
-    # home 卡片调用
+    # home 卡片调用: 必须放在 '工具' section 之后 (用户要求挪到工具里)
     block = _function_block('renderHome')
     assert 'renderUnfamiliarCard()' in block
+    pos_card = block.index('renderUnfamiliarCard()')
+    pos_tool = block.index('🛠 工具')
+    assert pos_card > pos_tool, 'unfamiliar card should be after 工具 section'
     # home 末尾绑定事件
     assert "inputEl.addEventListener('keydown'" in block

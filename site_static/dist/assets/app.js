@@ -1241,8 +1241,6 @@ document.addEventListener('input', function(e) {
 
         ${renderDailyWordCard()}
 
-        ${renderUnfamiliarCard()}
-
         <div class="card">
           <div class="card-title">⚙️ 练习难度</div>
           <div class="diff-bar">
@@ -1293,6 +1291,7 @@ document.addEventListener('input', function(e) {
 
         <div class="section-label">🛠 工具</div>
         <a class="btn btn-secondary" href="#/vocab-import">📥 导入词表</a>
+        ${renderUnfamiliarCard()}
       </div>
     `;
 
