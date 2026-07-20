@@ -40831,6 +40831,42 @@
           "题": "My father ____ (read) newspapers every morning.",
           "答案": "reads",
           "提示": "read 末尾加 s,发音 /z/"
+        },
+        {
+          "题": "My cat ____ (drink) milk every morning.",
+          "答案": "drinks",
+          "提示": "第三人称单数加 s",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ (wash) her hands before meals.",
+          "答案": "washes",
+          "提示": "sh 加 es",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Tom usually ____ (go) to school by bus.",
+          "答案": "goes",
+          "提示": "go 加 es",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ (fix) the broken bike himself.",
+          "答案": "fixes",
+          "提示": "x 加 es",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My aunt ____ (teach) us English.",
+          "答案": "teaches",
+          "提示": "ch 加 es",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ (do) her homework at 7 every evening.",
+          "答案": "does",
+          "提示": "do 变 does",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -40877,6 +40913,42 @@
           "题": "— ____ he play piano? — Yes, he does.",
           "答案": "Does",
           "提示": "he 是第三人称单数"
+        },
+        {
+          "题": "____ you like ice cream?",
+          "答案": "Do",
+          "提示": "一般现在时用 do",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ they play basketball after school?",
+          "答案": "Do",
+          "提示": "复数用 do",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ she speak French?",
+          "答案": "Does",
+          "提示": "she 是单三用 does",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ Tom go to school on Sundays?",
+          "答案": "Does",
+          "提示": "Tom 是第三人称单数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ your sister know the answer?",
+          "答案": "Does",
+          "提示": "know 是实义动词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ you and your friends have lunch at noon?",
+          "答案": "Do",
+          "提示": "you 用 do",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -40923,6 +40995,48 @@
           "题": "____ are those boys over there?",
           "答案": "Who",
           "提示": "问人用 Who"
+        },
+        {
+          "题": "____ is your favorite subject at school?",
+          "答案": "What",
+          "提示": "问事物",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ does your mother work?",
+          "答案": "Where",
+          "提示": "问地点",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ do you usually get up in the morning?",
+          "答案": "When",
+          "提示": "问时间",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ is the boy in the red T-shirt?",
+          "答案": "Who",
+          "提示": "问人",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ old is your younger brother?",
+          "答案": "How",
+          "提示": "问年龄",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ is the weather like today?",
+          "答案": "How",
+          "提示": "How is the weather...?",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ color do you like best, red or blue?",
+          "答案": "What",
+          "提示": "问颜色/事物",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -40970,6 +41084,42 @@
           "题": "The colour ____ the sky is blue.",
           "答案": "of",
           "提示": "无生命事物用 of"
+        },
+        {
+          "题": "The ____ (boy) name is Tom.",
+          "答案": "boy's",
+          "提示": "单数名词加 's",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The ____ (children) room is big.",
+          "答案": "children's",
+          "提示": "复数不规则名词加 's",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I like the cover ____ the book.",
+          "答案": "of",
+          "提示": "无生命用 of",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The ____ (teachers) office is on the second floor.",
+          "答案": "teachers'",
+          "提示": "复数名词只加 '",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "This is the name ____ the new movie.",
+          "答案": "of",
+          "提示": "无生命用 of",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My ____ (parents) car is blue.",
+          "答案": "parents'",
+          "提示": "复数名词 + '",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41015,6 +41165,48 @@
           "题": "The ____ (leaf) on the tree turn yellow in autumn.",
           "答案": "leaves",
           "提示": "leaf → leaves (f 变 v 加 es)"
+        },
+        {
+          "题": "I have three ____ (box) in my room.",
+          "答案": "boxes",
+          "提示": "x 结尾加 es",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There are five ____ (baby) in the photo.",
+          "答案": "babies",
+          "提示": "y 改 ies",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We saw many ____ (monkey) at the zoo.",
+          "答案": "monkeys",
+          "提示": "y 前是元音加 s",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She bought two ____ (bottle) of milk.",
+          "答案": "bottles",
+          "提示": "普通名词加 s",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He has a lot of ____ (key) on his desk.",
+          "答案": "keys",
+          "提示": "y 前是元音加 s",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There are ten ____ (student) in the classroom.",
+          "答案": "students",
+          "提示": "普通名词加 s",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I have two ____ (watch).",
+          "答案": "watches",
+          "提示": "ch 加 es",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41060,6 +41252,42 @@
           "题": "I brush my ____ (tooth) twice a day.",
           "答案": "teeth",
           "提示": "tooth → teeth"
+        },
+        {
+          "题": "I saw two ____ (mouse) in the kitchen.",
+          "答案": "mice",
+          "提示": "mouse -> mice",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He has two ____ (foot) of size.",
+          "答案": "feet",
+          "提示": "foot -> feet",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "These ____ (man) are workers.",
+          "答案": "men",
+          "提示": "man -> men",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Those ____ (woman) are teachers.",
+          "答案": "women",
+          "提示": "woman -> women",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I lost my ____ (tooth) yesterday.",
+          "答案": "teeth",
+          "提示": "tooth -> teeth",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "These are my two ____ (deer).",
+          "答案": "deer",
+          "提示": "deer 单复数同形",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41105,6 +41333,48 @@
           "题": "____ it was raining, we stayed at home.",
           "答案": "Because",
           "提示": "原因用 Because 引导"
+        },
+        {
+          "题": "I like apples ____ bananas.",
+          "答案": "and",
+          "提示": "并列用 and",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is young ____ he is very clever.",
+          "答案": "but",
+          "提示": "转折用 but",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Would you like tea ____ coffee?",
+          "答案": "or",
+          "提示": "选择用 or",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "It was raining, ____ we stayed home.",
+          "答案": "so",
+          "提示": "因果用 so",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I was late ____ I missed the bus.",
+          "答案": "because",
+          "提示": "原因用 because",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Hurry up, ____ you'll miss the train.",
+          "答案": "or",
+          "提示": "警告用 or",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is poor ____ happy.",
+          "答案": "but",
+          "提示": "转折用 but",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41150,6 +41420,48 @@
           "题": "Anna is ____ (busy) than her sister.",
           "答案": "busier",
           "提示": "辅音字母 + y 结尾,变 y 为 i 加 er"
+        },
+        {
+          "题": "Tom is ____ (tall) than his brother.",
+          "答案": "taller",
+          "提示": "加 er",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "This book is ____ (cheap) than that one.",
+          "答案": "cheaper",
+          "提示": "辅音字母重复 + er",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is ____ (busy) than me today.",
+          "答案": "busier",
+          "提示": "y 改 i + er",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Today is ____ (hot) than yesterday.",
+          "答案": "hotter",
+          "提示": "辅音重复 + er",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "This exercise is ____ (easy) than the last one.",
+          "答案": "easier",
+          "提示": "y 改 i + er",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My room is ____ (clean) than yours.",
+          "答案": "cleaner",
+          "提示": "直接 + er",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He runs ____ (fast) than his classmates.",
+          "答案": "faster",
+          "提示": "直接 + er",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41196,6 +41508,48 @@
           "题": "There is ____ (little) rain this year than last year.",
           "答案": "less",
           "提示": "little 的比较级是 less"
+        },
+        {
+          "题": "She is ____ (good) at math than me.",
+          "答案": "better",
+          "提示": "good -> better",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "This book is ____ (bad) than that one.",
+          "答案": "worse",
+          "提示": "bad -> worse",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My English is ____ (far) from perfect.",
+          "答案": "far",
+          "提示": "far 比较级不变 (farther/further)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Tom has ____ (many) apples than Jack.",
+          "答案": "more",
+          "提示": "many/much -> more",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He has ____ (little) time than me.",
+          "答案": "less",
+          "提示": "little -> less",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I feel ____ (bad) today than yesterday.",
+          "答案": "worse",
+          "提示": "bad -> worse",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "This restaurant is ____ (good) than that one.",
+          "答案": "better",
+          "提示": "good -> better",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41242,6 +41596,42 @@
           "题": "He is ____ (good) student in his class.",
           "答案": "the best",
           "提示": "good 的最高级是 best"
+        },
+        {
+          "题": "Mt. Everest is ____ (high) mountain in the world.",
+          "答案": "the highest",
+          "提示": "形容词最高级 + the",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is ____ (tall) girl in her class.",
+          "答案": "the tallest",
+          "提示": "tall + est",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is ____ (clever) boy in the school.",
+          "答案": "the cleverest",
+          "提示": "短形容词 + est",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Today is ____ (hot) day of the year.",
+          "答案": "the hottest",
+          "提示": "辅音重复 + est",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is ____ (beautiful) girl I have ever seen.",
+          "答案": "the most beautiful",
+          "提示": "长形容词 most",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is ____ (good) player on the team.",
+          "答案": "the best",
+          "提示": "good -> best 不规则",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41288,6 +41678,36 @@
           "题": "____ you ____ (come) to my birthday party?",
           "答案": "will, come",
           "提示": "一般将来时一般疑问句: Will + 主语 + 动原"
+        },
+        {
+          "题": "She ____ (be) 15 years old next year.",
+          "答案": "will be",
+          "提示": "will + be 原形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We ____ (have) a picnic next Sunday.",
+          "答案": "will have",
+          "提示": "have 变原形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ (come) to the party next Friday.",
+          "答案": "will come",
+          "提示": "will + 原形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I think it ____ (snow) tomorrow.",
+          "答案": "will snow",
+          "提示": "天气预测",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ (call) you when she arrives.",
+          "答案": "will call",
+          "提示": "主将从现",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41333,6 +41753,42 @@
           "题": "What ____ you ____ (do) tomorrow?",
           "答案": "are, going to do",
           "提示": "be going to 疑问句把 be 提前"
+        },
+        {
+          "题": "Look at the clouds. It ____ (rain).",
+          "答案": "is going to rain",
+          "提示": "be going to + 原形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I ____ (study) harder from now on.",
+          "答案": "am going to study",
+          "提示": "I 用 am",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ (visit) Paris this summer.",
+          "答案": "is going to visit",
+          "提示": "已计划的将来",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We ____ (have) a party next Saturday.",
+          "答案": "are going to have",
+          "提示": "we 用 are",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ (fix) his bike this afternoon.",
+          "答案": "is going to fix",
+          "提示": "已安排",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "They ____ (move) to Shanghai next month.",
+          "答案": "are going to move",
+          "提示": "复数用 are",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41378,6 +41834,42 @@
           "题": "____ you please open the window?",
           "答案": "Could",
           "提示": "委婉请求用 Could you...?"
+        },
+        {
+          "题": "____ you swim when you were five?",
+          "答案": "Could",
+          "提示": "过去能力用 could",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ I borrow your pen, please?",
+          "答案": "Can",
+          "提示": "请求许可",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ play the piano very well.",
+          "答案": "can",
+          "提示": "can 表示能力",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ you help me with this math problem?",
+          "答案": "Can",
+          "提示": "请求帮助",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ run faster than any other girl in her class.",
+          "答案": "can",
+          "提示": "can 表示能力",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I ____ come to your party tonight.",
+          "答案": "can",
+          "提示": "can 表示许可/可能",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41423,6 +41915,36 @@
           "题": "You ____ (don't have to) come if you are busy.",
           "答案": "don't have to",
           "提示": "不必要"
+        },
+        {
+          "题": "We ____ wear a uniform at school.",
+          "答案": "have to",
+          "提示": "have to 表示不得不",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ get up early tomorrow.",
+          "答案": "has to",
+          "提示": "第三人称单数 has to",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I ____ go to the dentist this afternoon.",
+          "答案": "have to",
+          "提示": "have to 表示义务",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Drivers ____ stop at red lights.",
+          "答案": "must",
+          "提示": "must 表示必须",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ take medicine every day.",
+          "答案": "has to",
+          "提示": "单三 has to",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41468,6 +41990,48 @@
           "题": "____ (should) I bring some food to the party?",
           "答案": "Should",
           "提示": "should 疑问句"
+        },
+        {
+          "题": "You ____ eat more vegetables to stay healthy.",
+          "答案": "should",
+          "提示": "should 表示建议",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ see a doctor if he feels sick.",
+          "答案": "should",
+          "提示": "should 表示建议",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "You ____ not stay up too late.",
+          "答案": "should",
+          "提示": "should not 表示劝告",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We ____ protect the environment.",
+          "答案": "should",
+          "提示": "should 表示应该",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ apologize for being late.",
+          "答案": "should",
+          "提示": "should 表示应该",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Students ____ listen to the teacher carefully.",
+          "答案": "should",
+          "提示": "should 表示建议",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "You ____ be more careful next time.",
+          "答案": "should",
+          "提示": "should 表示劝告",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41513,6 +42077,48 @@
           "题": "____ (What/How) a clever boy he is!",
           "答案": "What",
           "提示": "修饰带 a/an 的名词用 What"
+        },
+        {
+          "题": "____ beautiful flowers they are!",
+          "答案": "What",
+          "提示": "What + 名词 + 主 + be",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ cold it is today!",
+          "答案": "How",
+          "提示": "How + 形容词 + 主 + be",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ tall the building is!",
+          "答案": "How",
+          "提示": "How + 形容词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ nice day it is!",
+          "答案": "What a",
+          "提示": "What + a/an + 名词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ well she sings!",
+          "答案": "How",
+          "提示": "How + 副词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ interesting the movie is!",
+          "答案": "How",
+          "提示": "How + 形容词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ clever boy he is!",
+          "答案": "What a",
+          "提示": "What + a + 单数名词",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41560,6 +42166,30 @@
           "题": "____ (let) us play together.",
           "答案": "Let",
           "提示": "Let's 句型 Let us..."
+        },
+        {
+          "题": "____ the door, please. It's cold outside.",
+          "答案": "Close",
+          "提示": "祈使句动词原形开头",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ careful when crossing the road.",
+          "答案": "Be",
+          "提示": "Be careful 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ your hands before meals.",
+          "答案": "Wash",
+          "提示": "动词原形开头",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ run in the hallway.",
+          "答案": "Don't",
+          "提示": "否定祈使句",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41605,6 +42235,48 @@
           "题": "They ____ (never) go to bed before 10 pm.",
           "答案": "never",
           "提示": "never 放行为动词前"
+        },
+        {
+          "题": "He ____ goes to bed before 10 p.m.",
+          "答案": "always",
+          "提示": "always 表示总是",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ plays the piano in the afternoon.",
+          "答案": "usually",
+          "提示": "usually 通常",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "They ____ visit their grandparents on weekends.",
+          "答案": "often",
+          "提示": "often 经常",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I ____ eat breakfast at 7 every morning.",
+          "答案": "sometimes",
+          "提示": "sometimes 有时",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Tom ____ watches TV in the evening.",
+          "答案": "never",
+          "提示": "never 从不",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My father ____ reads newspapers after dinner.",
+          "答案": "often",
+          "提示": "often 经常",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We ____ go hiking on holidays.",
+          "答案": "usually",
+          "提示": "usually 通常",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41651,6 +42323,48 @@
           "题": "Who ____ he ____ (talk) to?",
           "答案": "is, talking",
           "提示": "第三人称单数 is + talking"
+        },
+        {
+          "题": "What ____ you ____ (do) now?",
+          "答案": "are doing",
+          "提示": "现在进行时特殊疑问",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Where ____ your father ____ (work) now?",
+          "答案": "is working",
+          "提示": "第三人称单数 is working",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Who ____ she ____ (talk) to on the phone?",
+          "答案": "is talking",
+          "提示": "现在进行时",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "What ____ the children ____ (play) at the moment?",
+          "答案": "are playing",
+          "提示": "复数 are playing",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Why ____ you ____ (laugh) now?",
+          "答案": "are laughing",
+          "提示": "现在进行时",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Which book ____ he ____ (read) right now?",
+          "答案": "is reading",
+          "提示": "现在进行时单三",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "What ____ Tom ____ (eat) for breakfast now?",
+          "答案": "is eating",
+          "提示": "现在进行时",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41877,6 +42591,48 @@
           "题": "She is ____ (happy) today.",
           "答案": "happy",
           "提示": "作表语用形容词 happy"
+        },
+        {
+          "题": "She sings ____ (beautiful).",
+          "答案": "beautifully",
+          "提示": "修饰动词用副词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is a ____ (careful) driver.",
+          "答案": "careful",
+          "提示": "修饰名词用形容词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Tom runs very ____ (fast).",
+          "答案": "fast",
+          "提示": "fast 形副同形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is ____ (slow) than her sister.",
+          "答案": "slower",
+          "提示": "修饰 be 动词用形容词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He speaks English ____ (fluent).",
+          "答案": "fluently",
+          "提示": "修饰动词用副词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is a ____ (slow) learner.",
+          "答案": "slow",
+          "提示": "修饰名词用形容词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The rain fell ____ (heavy).",
+          "答案": "heavily",
+          "提示": "修饰动词用副词",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41923,6 +42679,48 @@
           "题": "I taught ____ (I) to play the piano.",
           "答案": "myself",
           "提示": "teach oneself 自学"
+        },
+        {
+          "题": "I hurt ____ when I fell off the bike.",
+          "答案": "myself",
+          "提示": "第一人称单数 myself",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She taught ____ to play the piano.",
+          "答案": "herself",
+          "提示": "she 用 herself",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He made the dress by ____.",
+          "答案": "himself",
+          "提示": "he 用 himself",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We enjoyed ____ at the party.",
+          "答案": "ourselves",
+          "提示": "we 用 ourselves",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "They built the house by ____.",
+          "答案": "themselves",
+          "提示": "they 用 themselves",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "You should take care of ____.",
+          "答案": "yourself",
+          "提示": "you 单数 yourself",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The kids can dress ____ now.",
+          "答案": "themselves",
+          "提示": "复数 themselves",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -41970,6 +42768,42 @@
           "题": "My father is ____ (a/an) engineer.",
           "答案": "an",
           "提示": "engineer 以元音音素开头"
+        },
+        {
+          "题": "I bought ____ umbrella yesterday.",
+          "答案": "an",
+          "提示": "umbrella 元音开头",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is ____ apple on the table.",
+          "答案": "an",
+          "提示": "apple 元音开头",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is ____ university student.",
+          "答案": "a",
+          "提示": "university 辅音开头 (ju 音)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She has ____ European friend.",
+          "答案": "a",
+          "提示": "European 辅音开头",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I want to be ____ doctor when I grow up.",
+          "答案": "a",
+          "提示": "辅音开头",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We need ____ hour to finish the work.",
+          "答案": "an",
+          "提示": "hour 元音开头 (h 不发音)",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -42015,6 +42849,42 @@
           "题": "I met ____ (a/the) girl at the gate.",
           "答案": "a",
           "提示": "初次提到某人用不定冠词"
+        },
+        {
+          "题": "____ sun rises in the east.",
+          "答案": "The",
+          "提示": "世界上独一无二的事物",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is ____ best player in our team.",
+          "答案": "the",
+          "提示": "形容词最高级前",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ United States is in North America.",
+          "答案": "The",
+          "提示": "复数国名前",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ Nile is the longest river in Africa.",
+          "答案": "The",
+          "提示": "河流名",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ same boy came to see me yesterday.",
+          "答案": "The",
+          "提示": "same 前用 the",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ teacher wants to talk to you.",
+          "答案": "The",
+          "提示": "特指",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -42061,6 +42931,42 @@
           "题": "They ____ (carry) the box to the room.",
           "答案": "carried",
           "提示": "carry → carried (y 变 i 加 ed)"
+        },
+        {
+          "题": "I ____ (play) soccer yesterday afternoon.",
+          "答案": "played",
+          "提示": "规则动词过去式 + ed",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ (wash) her clothes last night.",
+          "答案": "washed",
+          "提示": "wash + ed",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "They ____ (watch) a movie last weekend.",
+          "答案": "watched",
+          "提示": "watch + ed",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ (study) English two hours ago.",
+          "答案": "studied",
+          "提示": "y 改 i + ed",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Tom ____ (cook) dinner for his family.",
+          "答案": "cooked",
+          "提示": "cook + ed",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ (clean) her room this morning.",
+          "答案": "cleaned",
+          "提示": "clean + ed",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -42106,6 +43012,48 @@
           "题": "They ____ (see) a film last night.",
           "答案": "saw",
           "提示": "see 的过去式是 saw"
+        },
+        {
+          "题": "I ____ (go) to the park yesterday.",
+          "答案": "went",
+          "提示": "go -> went",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ (eat) an apple this morning.",
+          "答案": "ate",
+          "提示": "eat -> ate",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "They ____ (buy) a new car last month.",
+          "答案": "bought",
+          "提示": "buy -> bought",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ (see) a bird in the tree.",
+          "答案": "saw",
+          "提示": "see -> saw",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We ____ (have) a great time at the party.",
+          "答案": "had",
+          "提示": "have -> had",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Tom ____ (make) a cake for her birthday.",
+          "答案": "made",
+          "提示": "make -> made",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I ____ (read) an interesting book last week.",
+          "答案": "read",
+          "提示": "read -> read (音变)",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -54200,6 +55148,48 @@
           "题": "The man ____ car was stolen called the police.",
           "答案": "whose",
           "提示": "表所属关系用 whose"
+        },
+        {
+          "题": "The man ____ is wearing a hat is my uncle.",
+          "答案": "who",
+          "提示": "指人用 who",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I like the book ____ you gave me.",
+          "答案": "that",
+          "提示": "物可用 that",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The girl ____ mother is a doctor sits beside me.",
+          "答案": "whose",
+          "提示": "所有格 whose",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "This is the movie ____ I watched yesterday.",
+          "答案": "which",
+          "提示": "物用 which",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The boy ____ lives next door is very friendly.",
+          "答案": "who",
+          "提示": "指人用 who",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The car ____ he bought is very expensive.",
+          "答案": "which",
+          "提示": "物用 which/that",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I know the student ____ passed the exam.",
+          "答案": "who",
+          "提示": "指人用 who",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "freq": 5,
@@ -54247,6 +55237,42 @@
           "题": "Don't leave ____ (until/before) I tell you to.",
           "答案": "until",
           "提示": "until 直到…为止"
+        },
+        {
+          "题": "I was reading a book ____ the phone rang.",
+          "答案": "when",
+          "提示": "突然发生用 when",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ I was walking home, I met Tom.",
+          "答案": "While",
+          "提示": "持续动作用 while",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Wash your hands ____ you eat.",
+          "答案": "before",
+          "提示": "之前用 before",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He went to bed ____ he finished his homework.",
+          "答案": "after",
+          "提示": "之后用 after",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Wait here ____ I come back.",
+          "答案": "until",
+          "提示": "直到用 until",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She was cooking ____ her husband arrived.",
+          "答案": "when",
+          "提示": "突然发生用 when",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "freq": 5,
@@ -54293,6 +55319,42 @@
           "题": "Speak louder ____ (so that/in case) everyone can hear you.",
           "答案": "so that",
           "提示": "表目的用 so that"
+        },
+        {
+          "题": "____ it was raining, we took an umbrella.",
+          "答案": "Because",
+          "提示": "原因状语从句",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ he is young, he can't drive.",
+          "答案": "Because",
+          "提示": "原因",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I like summer ____ I can go swimming.",
+          "答案": "because",
+          "提示": "原因",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ he was tired, he went to bed early.",
+          "答案": "Because",
+          "提示": "原因",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ she was ill, she didn't go to school.",
+          "答案": "Because",
+          "提示": "原因",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We left early ____ we wanted to catch the train.",
+          "答案": "because",
+          "提示": "原因",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "freq": 5,
@@ -54338,6 +55400,48 @@
           "题": "____ (That/What) the earth moves around the sun is true.",
           "答案": "That",
           "提示": "that 引导陈述句主语从句"
+        },
+        {
+          "题": "____ he said is true.",
+          "答案": "What",
+          "提示": "what 引导主语从句",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ surprised me was his honesty.",
+          "答案": "What",
+          "提示": "what 引导",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "It is clear ____ he is right.",
+          "答案": "that",
+          "提示": "that 引导主语从句",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ he will come is unknown.",
+          "答案": "Whether",
+          "提示": "whether 引导",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ makes him happy is his family.",
+          "答案": "What",
+          "提示": "what 引导",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "It is a fact ____ the earth goes around the sun.",
+          "答案": "that",
+          "提示": "that 引导",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ she passed the exam is great news.",
+          "答案": "That",
+          "提示": "that 引导主语从句",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "freq": 4,
@@ -54513,6 +55617,42 @@
           "题": "If I ____ (have) more money, I would buy a bigger house.",
           "答案": "had",
           "提示": "与现在相反: 从句用过去式 had"
+        },
+        {
+          "题": "If I ____ (be) a bird, I could fly freely.",
+          "答案": "were",
+          "提示": "虚拟现在时 be 用 were",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "If it ____ (be) Sunday tomorrow, we would go hiking.",
+          "答案": "were",
+          "提示": "与将来事实相反用 were",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "If I ____ (have) wings, I would visit you now.",
+          "答案": "had",
+          "提示": "虚拟现在时, 过去式",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "If she ____ (know) the answer, she would tell us.",
+          "答案": "knew",
+          "提示": "虚拟现在时动词过去式",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "If we ____ (be) rich, we would travel the world.",
+          "答案": "were",
+          "提示": "be 动词永远 were",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He talks as if he ____ (know) everything.",
+          "答案": "knew",
+          "提示": "as if 引导虚拟",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "freq": 4,

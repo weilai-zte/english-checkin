@@ -15,7 +15,9 @@ CONTENT = ROOT / "data" / "content.json"
 # ponytail: 全局题面指纹, 用于跨 group 去重 (避免 g_prepositions 跟 g_prep_place 撞题)
 _GLOBAL_SIGS = set()
 def _sig(q):
-    s = re.sub(r"\W+", "", q.get("题", ""))[:20].lower()
+    # ponytail: 支持 grammar 题 / tense question / translate cn/en 字段
+    text = q.get("题") or q.get("question") or q.get("cn") or q.get("en") or ""
+    s = re.sub(r"\W+", "", text)[:20].lower()
     return s if len(s) >= 8 else None
 def is_dup(q: dict, existing: list) -> bool:
     s = _sig(q)
@@ -39,16 +41,25 @@ def main():
     # ponytail: 先扫一遍已有 exercises + question_bank_expansion.json 建全局指纹, 跨 group/跨来源去重
     _GLOBAL_SIGS.clear()
     for it in content.get("items", []):
-        for ex in it.get("exercises", []):
-            s = _sig(ex)
+        # ponytail: 跨 type 收集题面指纹 (grammar exercises + tense question + translate cn/en)
+        if it.get("exercises"):
+            for ex in it["exercises"]:
+                s = _sig(ex)
+                if s: _GLOBAL_SIGS.add(s)
+        else:
+            s = _sig(it)
             if s: _GLOBAL_SIGS.add(s)
     qbe_path = ROOT / "data" / "question_bank_expansion.json"
     if qbe_path.exists():
         try:
             qbe = json.loads(qbe_path.read_text(encoding="utf-8"))
             for it in qbe.get("items", []):
-                for ex in it.get("exercises", []):
-                    s = _sig(ex)
+                if it.get("exercises"):
+                    for ex in it["exercises"]:
+                        s = _sig(ex)
+                        if s: _GLOBAL_SIGS.add(s)
+                else:
+                    s = _sig(it)
                     if s: _GLOBAL_SIGS.add(s)
         except Exception as e:
             print(f"warn: load question_bank_expansion.json failed: {e}")
