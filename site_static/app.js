@@ -235,6 +235,23 @@ document.addEventListener('input', function(e) {
     if (_authSession) { syncToSupabase(); render(); }
   });
 
+  // ponytail: 移动端切后台/换 app 时浏览器可能冻结或被杀进程, 切回时记录会丢.
+  // 这里挂两个兜底 listener: visibilitychange (iOS/Android 切后台触发) + pagehide (关闭/跳转)
+  // 只 flush 当前 progress 到 localStorage, 不触发云端同步 (网络可能不通).
+  function _persistNow() {
+    try {
+      progress._updated_at = new Date().toISOString();
+      window.progress = progress;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    } catch (e) { /* quota/private mode 时静默 */ }
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') _persistNow();
+  });
+  window.addEventListener('pagehide', _persistNow);
+  // 兜底再写一次: 答题过程中单题变化也触发 (修 Bug 2 - 切回来题目和选项不一致的根因之一)
+  window.addEventListener('beforeunload', _persistNow);
+
   function loadProgress() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
