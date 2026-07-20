@@ -641,6 +641,35 @@ document.addEventListener('input', function(e) {
     return a;
   }
   function sample(arr, n) { return shuffle(arr).slice(0, n); }
+  // ponytail: 按 progress.question_seen_count 加权 sample, 没见过/易错的题优先 (上限 ceil(2n) 重抽)
+  function sampleUnseen(arr, n, keyFn) {
+    if (arr.length <= n) return shuffle(arr);
+    const seen = (progress && progress.question_seen_count) || {};
+    function weight(item) {
+      const k = keyFn(item);
+      const c = seen[k] || 0;
+      // 错题 (wrong_count > 0) 加 3x 权重; 否则按 1/(1+c) 衰减
+      const wc = (progress.wrong_grammar || []).filter(w => w && keyFn({ q: w.question, gid: w.type }) === k).length;
+      const base = 1 / (1 + c);
+      return base * (1 + Math.min(wc, 3) * 0.8);
+    }
+    const pool = arr.slice();
+    const picked = [];
+    for (let round = 0; round < n && pool.length; round++) {
+      const weights = pool.map(weight);
+      const sum = weights.reduce((a, b) => a + b, 0);
+      let r = Math.random() * sum;
+      let idx = 0;
+      for (let i = 0; i < pool.length; i++) { r -= weights[i]; if (r <= 0) { idx = i; break; } }
+      picked.push(pool[idx]);
+      pool.splice(idx, 1);
+    }
+    return picked;
+  }
+  function bumpSeenCount(key, delta) {
+    if (!progress.question_seen_count) progress.question_seen_count = {};
+    progress.question_seen_count[key] = (progress.question_seen_count[key] || 0) + (delta || 1);
+  }
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
   // 时态题干扰项：优先从题干 (verb) 提取同词根不同形态，
   // 避免出现"答案之外的完全不相关动词"作为干扰项（用户反馈：其他三个一眼排除）。
@@ -1928,7 +1957,7 @@ document.addEventListener('input', function(e) {
     const fallback = ['is','are','am','was','were','have','has','had','do','does','did','will','would','can','could','must','should'];
     // 同档位答案池（供 tenseDistractors 第 3 步弱匹配补充）
     const allAnswers = all.map(x => x.a);
-    const questions = sample(all, 10).map(q => {
+    const questions = sampleUnseen(all, 10, q => 'tense::' + (q.gid || '') + '::' + q.q).map(q => ({ ...q, _seenKey: 'tense::' + (q.gid || '') + '::' + q.q })).map(q => {
       // 优先从题干 (verb) / 答案剥离助动词生成同词根变体作为干扰项；
       // 不足时回退到同档位答案池 + 通用 fallback。
       const distractors = tenseDistractors(q.q, q.a, allAnswers, fallback);
@@ -1972,7 +2001,7 @@ document.addEventListener('input', function(e) {
     if (!items.length) { navigate('home'); return; }
     const pool = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'under', 'near', 'behind', 'between', 'into', 'from', 'to', 'of', 'over', 'after', 'before', 'above', 'below', 'along', 'since', 'until', 'through', 'across', 'next to', 'out of', 'in front of', 'because of'];
     const all = [].concat(...items.map(g => (g.练习 || []).map(ex => ({ q: ex.题, a: ex.答案, hint: ex.提示, gid: g.id }))));
-    const questions = sample(all, 10).map(q => {
+    const questions = sampleUnseen(all, 10, q => 'prep::' + (q.gid || '') + '::' + q.q).map(q => ({ ...q, _seenKey: 'prep::' + (q.gid || '') + '::' + q.q })).map(q => {
       // 句首大写的答案 (如 "By the end of...") 跟小写干扰项混在一起时一眼可辨.
       // ponytail: 全统一小写, 介词在选择题中大写无意义. 缩写/专名不会出现, 无需白名单.
       const normA = q.a.toLowerCase();
@@ -2060,6 +2089,8 @@ document.addEventListener('input', function(e) {
         app.querySelectorAll(`input[name="q${i}"]`).forEach(inp => inp.disabled = true);
       });
       toast(`${correct}/${questions.length} 正确`, 2500);
+      // ponytail: 累计题目出现次数, 下次 sampleUnseen 降低权重避免重复
+      questions.forEach(q => bumpSeenCount(q._seenKey || ('mcq::' + (q.q || q.word || ''))), 1);
       onSubmit(correct, results);
       app.querySelector('#mcq-submit').style.display = 'none';
     };
@@ -2346,7 +2377,7 @@ document.addEventListener('input', function(e) {
       </div></div>`;
       return;
     }
-    const picks = sample(candidates, cfg.quiz_count);
+    const picks = sampleUnseen(candidates, cfg.quiz_count, w => 'quiz::' + w.word.toLowerCase()).map(w => ({ ...w, _seenKey: 'quiz::' + w.word.toLowerCase() }));
     const questions = picks.map(target => {
       const others = candidates.filter(c => c.word !== target.word);
       // 去重：不同单词可能有相同中文释义，确保 4 个选项中文不重复
