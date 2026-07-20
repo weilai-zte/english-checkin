@@ -5,8 +5,8 @@
     "description": "初中英语扩展语法、翻译和时态题库；由合并脚本写入 content.json",
     "type_count": {
       "grammar": 36,
-      "tense": 137,
-      "translate": 134
+      "translate": 134,
+      "tense": 137
     }
   },
   "items": [
@@ -243,6 +243,54 @@
           "题": "This present is ____ my best friend.",
           "答案": "for",
           "提示": "给某人的礼物用 for"
+        },
+        {
+          "题": "She always arrives ____ school early.",
+          "答案": "at",
+          "提示": "at school 表示在校",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I will meet you ____ the bus stop.",
+          "答案": "at",
+          "提示": "小地点前用 at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He went to Beijing ____ plane last week.",
+          "答案": "by",
+          "提示": "by + 交通工具",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We often talk ____ the phone.",
+          "答案": "on",
+          "提示": "on the phone 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is good ____ playing the piano.",
+          "答案": "at",
+          "提示": "be good at 表示擅长",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I'm afraid ____ dogs.",
+          "答案": "of",
+          "提示": "be afraid of 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is interested ____ science.",
+          "答案": "in",
+          "提示": "be interested in 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The meeting will start ____ 8 o'clock sharp.",
+          "答案": "at",
+          "提示": "钟点前用 at",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "knowledge_points": [

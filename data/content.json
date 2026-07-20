@@ -37982,6 +37982,54 @@
           "题": "You and I ____ friends.",
           "答案": "are",
           "提示": "You和I都是复数概念"
+        },
+        {
+          "题": "My father ____ a teacher.",
+          "答案": "is",
+          "提示": "father 是第三人称单数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We ____ students at No. 7 Middle School.",
+          "答案": "are",
+          "提示": "we 是复数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The weather ____ nice today.",
+          "答案": "is",
+          "提示": "weather 永远是单数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I ____ twelve years old.",
+          "答案": "am",
+          "提示": "I 配 am",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Tom and Jerry ____ friends.",
+          "答案": "are",
+          "提示": "两个人用 are",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "This ____ my new pen.",
+          "答案": "is",
+          "提示": "this 配 is",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "These books ____ mine.",
+          "答案": "are",
+          "提示": "these 是复数指示代词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ from Australia.",
+          "答案": "is",
+          "提示": "she 是第三人称单数",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38023,6 +38071,54 @@
           "题": "My mother ____ (cook) dinner.",
           "答案": "cooks",
           "提示": "母亲是第三人称单数"
+        },
+        {
+          "题": "He always ____ to school on foot.",
+          "答案": "walks",
+          "提示": "第三人称单数加 es",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I ____ English every morning.",
+          "答案": "read",
+          "提示": "第一人称用动词原形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My sister ____ the piano well.",
+          "答案": "plays",
+          "提示": "play 加 s, 元音加 s",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "They ____ to the park on Sundays.",
+          "答案": "go",
+          "提示": "go 用原形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Water ____ at 100 degrees.",
+          "答案": "boils",
+          "提示": "主语是不可数名词也当单数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ up at six every day.",
+          "答案": "gets",
+          "提示": "get 加 s",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Tom ____ like milk.",
+          "答案": "doesn't",
+          "提示": "否定句借助 does",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ your father work in a hospital?",
+          "答案": "Does",
+          "提示": "一般疑问句借助于 Does",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38065,6 +38161,54 @@
           "题": "He ____ (make) a cake.",
           "答案": "is making",
           "提示": "make去e加ing"
+        },
+        {
+          "题": "Look! It ____ outside.",
+          "答案": "is raining",
+          "提示": "now 出现用进行时",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Listen! She ____ in the next room.",
+          "答案": "is singing",
+          "提示": "Listen 暗示进行时",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We ____ English right now.",
+          "答案": "are studying",
+          "提示": "right now 标志词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "They ____ soccer at the moment.",
+          "答案": "are playing",
+          "提示": "at the moment 标志",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I ____ my homework now.",
+          "答案": "am doing",
+          "提示": "now 标志",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "What ____ you ____ now?",
+          "答案": "are doing",
+          "提示": "现在进行时问句",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The kids ____ TV at the moment.",
+          "答案": "are watching",
+          "提示": "watch 加 ing",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He can't answer the phone. He ____ a shower.",
+          "答案": "is taking",
+          "提示": "can't 暗示正在忙",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38107,6 +38251,54 @@
           "题": "They ____ (go) home after school.",
           "答案": "went",
           "提示": "go的过去式是went"
+        },
+        {
+          "题": "I ____ to the cinema yesterday.",
+          "答案": "went",
+          "提示": "go 的过去式 went",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ a beautiful song last night.",
+          "答案": "sang",
+          "提示": "sing 的过去式不规则",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "They ____ a new car last month.",
+          "答案": "bought",
+          "提示": "buy 的过去式不规则",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We ____ very happy to see you.",
+          "答案": "were",
+          "提示": "be 动词过去式",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ the window just now.",
+          "答案": "broke",
+          "提示": "break 的过去式不规则",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Did you ____ a good time last weekend?",
+          "答案": "have",
+          "提示": "Did 后动词用原形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I ____ my keys this morning.",
+          "答案": "lost",
+          "提示": "lose 的过去式不规则",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "What ____ you do last Sunday?",
+          "答案": "did",
+          "提示": "过去时疑问句借助于 did",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38364,6 +38556,138 @@
           "题": "The boy jumped ____ the wall.",
           "答案": "over",
           "提示": "over 跳过…"
+        },
+        {
+          "题": "I was born ____ a small village in the south.",
+          "答案": "in",
+          "提示": "村镇前用 in",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She lives ____ her parents in Beijing.",
+          "答案": "with",
+          "提示": "和……一起用 with",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He arrived ____ the airport very early.",
+          "答案": "at",
+          "提示": "at + 小地点 (机场/车站)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We will meet ____ 7 p.m. outside the school gate.",
+          "答案": "at",
+          "提示": "钟点前用 at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The cat jumped ____ the wall and ran away.",
+          "答案": "over",
+          "提示": "从一面到另一面用 over",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Tom is sitting ____ Lucy and Lily.",
+          "答案": "between",
+          "提示": "两者之间",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is a supermarket ____ the corner of the street.",
+          "答案": "at",
+          "提示": "at the corner 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The dog is hiding ____ the bushes.",
+          "答案": "behind",
+          "提示": "在……后面",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My grandparents live ____ a farm in the country.",
+          "答案": "on",
+          "提示": "on a farm 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He went to school ____ foot this morning.",
+          "答案": "on",
+          "提示": "on foot 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is good ____ playing volleyball.",
+          "答案": "at",
+          "提示": "be good at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I am fond ____ classical music.",
+          "答案": "of",
+          "提示": "be fond of",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We stayed ____ a small hotel for two nights.",
+          "答案": "at",
+          "提示": "at a hotel",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is interested ____ collecting stamps.",
+          "答案": "in",
+          "提示": "be interested in",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My sister is afraid ____ the dark.",
+          "答案": "of",
+          "提示": "be afraid of",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I usually go to bed ____ 10 o'clock.",
+          "答案": "at",
+          "提示": "钟点用 at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The shop is ____ the left of the bank.",
+          "答案": "on",
+          "提示": "on the left",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Don't look out ____ the window in class.",
+          "答案": "of",
+          "提示": "out of 从……里向外",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He fell ____ the bike and hurt his knee.",
+          "答案": "off",
+          "提示": "从车上摔下用 off",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is a big tree ____ front of the house.",
+          "答案": "in",
+          "提示": "in front of 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The cat ran ____ the room quickly.",
+          "答案": "out of",
+          "提示": "从里面跑出来用 out of",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I will wait ____ you at the school gate.",
+          "答案": "for",
+          "提示": "wait for 等某人/某物",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38408,6 +38732,54 @@
           "题": "____ there any milk in the fridge?",
           "答案": "Is",
           "提示": "milk不可数用Is开头"
+        },
+        {
+          "题": "____ a bank near your house?",
+          "答案": "Is there",
+          "提示": "单数名词用 Is there",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There ____ many students in the classroom.",
+          "答案": "are",
+          "提示": "students 是复数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There ____ a book and two pens on the desk.",
+          "答案": "is",
+          "提示": "就近原则, 第一个是单数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There ____ some milk in the bottle.",
+          "答案": "is",
+          "提示": "milk 不可数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There aren't ____ apples in the box.",
+          "答案": "any",
+          "提示": "否定句用 any",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is a river ____ the village.",
+          "答案": "near",
+          "提示": "在村庄附近",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ there any water in the glass?",
+          "答案": "Is",
+          "提示": "water 不可数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There ____ a lot of people in the park yesterday.",
+          "答案": "were",
+          "提示": "过去时复数用 were",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38455,6 +38827,48 @@
           "题": "____ is your birthday? It's in May.",
           "答案": "When",
           "提示": "回答是时间"
+        },
+        {
+          "题": "____ is your favorite color?",
+          "答案": "What",
+          "提示": "问事物用 What",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ old are you?",
+          "答案": "How",
+          "提示": "问年龄用 How old",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ does your father work?",
+          "答案": "Where",
+          "提示": "问地点用 Where",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ is your best friend?",
+          "答案": "Who",
+          "提示": "问人用 Who",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ book is this, yours or mine?",
+          "答案": "Whose",
+          "提示": "问所属用 Whose",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ did you buy the present? Last Sunday.",
+          "答案": "When",
+          "提示": "问时间用 When",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ are the oranges? Three yuan a kilo.",
+          "答案": "How much",
+          "提示": "问价格用 How much",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38501,6 +38915,54 @@
           "题": "You ____ play with fire. It's dangerous.",
           "答案": "mustn't",
           "提示": "禁止用mustn't"
+        },
+        {
+          "题": "____ I use your pen, please?",
+          "答案": "May",
+          "提示": "请求许可用 May",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She ____ speak three languages.",
+          "答案": "can",
+          "提示": "can 表示能力",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "You ____ finish your homework before 9 p.m.",
+          "答案": "must",
+          "提示": "must 表示必须",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ you help me, please?",
+          "答案": "Can",
+          "提示": "请求帮助用 Can",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He ____ swim when he was five.",
+          "答案": "could",
+          "提示": "过去能力用 could",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "You ____ not talk loudly in the library.",
+          "答案": "must",
+          "提示": "禁止/必须用 must",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "It ____ rain tomorrow, I'm not sure.",
+          "答案": "may",
+          "提示": "may 表示可能性",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We ____ wear sports shoes for P.E. class.",
+          "答案": "have to",
+          "提示": "不得不做用 have to",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38553,6 +39015,42 @@
           "题": "I need some ____ (information) about the city.",
           "答案": "information",
           "提示": "information是不可数名词，没有复数"
+        },
+        {
+          "题": "I have two ____ (baby).",
+          "答案": "babies",
+          "提示": "y 结尾改 ies",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She bought five ____ (tomato) at the market.",
+          "答案": "tomatoes",
+          "提示": "o 结尾加 es",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is much ____ (water) in the bottle.",
+          "答案": "water",
+          "提示": "water 不可数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I have a piece of ____ (paper) for you.",
+          "答案": "paper",
+          "提示": "paper 不可数, 用 a piece of",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "These ____ (photo) are very beautiful.",
+          "答案": "photos",
+          "提示": "photo 加 s",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My sister's ____ (friend) came to see her.",
+          "答案": "friends",
+          "提示": "所有格 + 复数名词",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38605,6 +39103,54 @@
           "题": "This is ____ most interesting book I have ever read.",
           "答案": "the",
           "提示": "最高级前必须加the"
+        },
+        {
+          "题": "I saw ____ elephant at the zoo yesterday.",
+          "答案": "an",
+          "提示": "elephant 元音开头",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is ____ honest girl.",
+          "答案": "an",
+          "提示": "honest 元音开头 (h 不发音)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ sun is bright today.",
+          "答案": "The",
+          "提示": "世界上独一无二的事物",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He plays ____ piano after dinner.",
+          "答案": "the",
+          "提示": "乐器前用 the",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I had ____ egg and a glass of milk for breakfast.",
+          "答案": "an",
+          "提示": "egg 元音开头",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We usually have ____ lunch at 12.",
+          "答案": "/",
+          "提示": "三餐前用零冠词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ Beijing is the capital of China.",
+          "答案": "/",
+          "提示": "专名城市/国家不加 the",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is ____ tallest boy in his class.",
+          "答案": "the",
+          "提示": "形容词最高级前用 the",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38657,6 +39203,54 @@
           "题": "____ is the capital of China.",
           "答案": "It",
           "提示": "指代Beijing用It"
+        },
+        {
+          "题": "This is not my book. ____ is over there.",
+          "答案": "Mine",
+          "提示": "名词性物主代词单独用",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She teaches ____ English every day.",
+          "答案": "herself",
+          "提示": "她自己用 herself",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ of the two boys is your brother?",
+          "答案": "Which",
+          "提示": "两者中哪一个用 Which",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There are ____ apples in the basket.",
+          "答案": "some",
+          "提示": "肯定句中可数复数用 some",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He hurt ____ when he fell down.",
+          "答案": "himself",
+          "提示": "他自己",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I have ____ friends in this city.",
+          "答案": "a few",
+          "提示": "几个朋友 (肯定)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There isn't ____ milk in the fridge.",
+          "答案": "any",
+          "提示": "否定句用 any",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "This is my bag. That one is ____.",
+          "答案": "yours",
+          "提示": "名词性物主代词单独用",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38755,6 +39349,54 @@
           "题": "I have ____ friends. I feel lonely.",
           "答案": "few",
           "提示": "few暗含消极（几乎没有朋友，感到孤独）"
+        },
+        {
+          "题": "Would you like ____ coffee?",
+          "答案": "some",
+          "提示": "请求/邀请用 some",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There aren't ____ eggs left.",
+          "答案": "any",
+          "提示": "否定句用 any",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He has ____ money in his pocket.",
+          "答案": "some",
+          "提示": "肯定句用 some",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Are there ____ students in the classroom?",
+          "答案": "any",
+          "提示": "一般疑问句用 any",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I don't have ____ friends in this school.",
+          "答案": "any",
+          "提示": "否定句用 any",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She bought ____ apples and some oranges.",
+          "答案": "a few",
+          "提示": "几个可数 (肯定)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is only ____ milk in the cup.",
+          "答案": "a little",
+          "提示": "一些不可数 (肯定)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Can I have ____ water, please?",
+          "答案": "some",
+          "提示": "请求用 some",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38802,6 +39444,54 @@
           "题": "Let's ____ (go) shopping.",
           "答案": "go",
           "提示": "Let's后用动词原形"
+        },
+        {
+          "题": "____ quiet in the library, please.",
+          "答案": "Be",
+          "提示": "祈使句以动词原形开头, Be quiet 表状态",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ your seat belt before driving.",
+          "答案": "Fasten",
+          "提示": "祈使句用动词原形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Don't ____ in class.",
+          "答案": "talk",
+          "提示": "否定祈使句 Don't + 动词原形",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ a good time on your trip!",
+          "答案": "Have",
+          "提示": "Have a good time 是常用表达",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ careful! The road is slippery.",
+          "答案": "Be",
+          "提示": "Be careful 表示警告",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ the door when you leave.",
+          "答案": "Close",
+          "提示": "祈使句",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "What ____ beautiful flowers they are!",
+          "答案": "are",
+          "提示": "What + 名词 + 主语 + be!",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "____ how tall the building is!",
+          "答案": "Look",
+          "提示": "Look + how + 形容词 + 主语 + be!",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38850,6 +39540,54 @@
           "题": "I wonder ____ she likes the movie.",
           "答案": "if",
           "提示": "if表示是否，引导宾语从句"
+        },
+        {
+          "题": "I believe ____ he said is true.",
+          "答案": "what",
+          "提示": "what 引导宾语从句作 believe 的宾语",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She told me ____ she would come tomorrow.",
+          "答案": "that",
+          "提示": "that 引导宾语从句 (可省略)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Do you know ____ he is from?",
+          "答案": "where",
+          "提示": "where 引导宾语从句",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I wonder ____ they will win the game.",
+          "答案": "whether",
+          "提示": "whether 引导宾语从句 (是否)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He asked me ____ I liked coffee.",
+          "答案": "if",
+          "提示": "if 引导宾语从句 (是否)",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I don't know ____ he is waiting for.",
+          "答案": "who",
+          "提示": "who 引导宾语从句作 for 的宾语",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "Can you tell me ____ the library is?",
+          "答案": "where",
+          "提示": "where 引导",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She said ____ she was reading a book.",
+          "答案": "that",
+          "提示": "that 引导",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38893,6 +39631,48 @@
           "题": "If he had studied harder, he ____ (would have passed / will pass) the exam.",
           "答案": "would have passed",
           "提示": "与过去事实相反，从句had done，主句would have done"
+        },
+        {
+          "题": "If I ____ (be) you, I would take the bus.",
+          "答案": "were",
+          "提示": "与现在事实相反, be 用 were",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "If he studies hard, he ____ (pass) the exam.",
+          "答案": "will pass",
+          "提示": "主将从现",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "If I had studied harder, I ____ (pass) the exam.",
+          "答案": "would have passed",
+          "提示": "与过去事实相反, 过去完成 / would have done",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "If you heat water, it ____ (boil).",
+          "答案": "boils",
+          "提示": "主将从现, 真理性陈述",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "If she ____ (come), please call me.",
+          "答案": "comes",
+          "提示": "主将从现",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We would have won if we ____ (play) better.",
+          "答案": "had played",
+          "提示": "过去完成时, 与过去相反",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "If it is fine tomorrow, we ____ (go) hiking.",
+          "答案": "will go",
+          "提示": "主将从现",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38940,6 +39720,42 @@
           "题": "The homework ____ (finish) already.",
           "答案": "has been finished",
           "提示": "现在完成时被动：has been + 过去分词"
+        },
+        {
+          "题": "A new bridge ____ (build) in our city now.",
+          "答案": "is being built",
+          "提示": "现在进行被动",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "This book ____ (write) by Lu Xun in 1921.",
+          "答案": "was written",
+          "提示": "一般过去被动",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The cake ____ (make) by my mother every Sunday.",
+          "答案": "is made",
+          "提示": "一般现在被动, 经常性动作",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The thief ____ (catch) by the police last night.",
+          "答案": "was caught",
+          "提示": "不规则动词 catch 过去分词 caught",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "These machines ____ (make) in China.",
+          "答案": "are made",
+          "提示": "一般现在被动, 复数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The letter ____ (send) tomorrow morning.",
+          "答案": "will be sent",
+          "提示": "一般将来被动",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -38984,6 +39800,54 @@
           "题": "____ there any interesting films on TV last night?",
           "答案": "Were",
           "提示": "last night是一般过去时，any films是复数，用Were"
+        },
+        {
+          "题": "There is a cat ____ under the table.",
+          "答案": "sleeping",
+          "提示": "现在分词作后置定语",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There are many books ____ on the shelf.",
+          "答案": "lying",
+          "提示": "现在分词表状态",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There ____ (be) a party next Sunday.",
+          "答案": "will be",
+          "提示": "一般将来",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There ____ (be) a concert in the park yesterday.",
+          "答案": "was",
+          "提示": "过去时, 单数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There ____ (be) lots of people waiting in line.",
+          "答案": "are",
+          "提示": "people 是复数",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is no need ____ (worry) about it.",
+          "答案": "to worry",
+          "提示": "不定式作定语",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is a boy ____ (read) in the corner.",
+          "答案": "reading",
+          "提示": "现在分词",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There used to ____ (be) a cinema here.",
+          "答案": "be",
+          "提示": "used to do 结构",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "src": "grammar_json",
@@ -40833,6 +41697,54 @@
           "题": "He goes to bed ____ (in/at) 9 pm.",
           "答案": "at",
           "提示": "钟点前用 at"
+        },
+        {
+          "题": "I usually get up ____ 6:30 in the morning.",
+          "答案": "at",
+          "提示": "钟点前用 at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We have a meeting ____ Monday.",
+          "答案": "on",
+          "提示": "星期几前用 on",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She was born ____ 2010.",
+          "答案": "in",
+          "提示": "年份前用 in",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The shop opens ____ 9 a.m. and closes at 9 p.m.",
+          "答案": "at",
+          "提示": "钟点前用 at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "My birthday is ____ July 15th.",
+          "答案": "on",
+          "提示": "具体日期用 on",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He always reads books ____ the evening.",
+          "答案": "in",
+          "提示": "某一段早晨/晚上/下午前用 in",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There will be a test ____ next Friday.",
+          "答案": "on",
+          "提示": "next + 星期几用 on",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We have lunch ____ noon.",
+          "答案": "at",
+          "提示": "中午用 at",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -40878,6 +41790,48 @@
           "题": "He lives ____ (in/at) Beijing.",
           "答案": "in",
           "提示": "大城市前用 in"
+        },
+        {
+          "题": "There is a park ____ the school.",
+          "答案": "behind",
+          "提示": "在……后面用 behind",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The picture hangs ____ the wall.",
+          "答案": "on",
+          "提示": "在墙面上用 on",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She lives ____ a small village.",
+          "答案": "in",
+          "提示": "在小地方/城镇前用 in",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The book is ____ the table.",
+          "答案": "on",
+          "提示": "在桌面上用 on",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is standing ____ his mother.",
+          "答案": "beside",
+          "提示": "在旁边用 beside",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is a bridge ____ the river.",
+          "答案": "over",
+          "提示": "在……上方越过用 over",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The bank is ____ the post office and the library.",
+          "答案": "between",
+          "提示": "两者之间用 between",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "type": "grammar",
@@ -54412,6 +55366,54 @@
           "题": "He arrived ____ (in/at) Beijing yesterday.",
           "答案": "in",
           "提示": "大城市前用 in"
+        },
+        {
+          "题": "He will arrive ____ 5 o'clock ____ the morning.",
+          "答案": "at",
+          "提示": "钟点 + 早午晚, 前者用 at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She was born ____ a small town ____ 1995.",
+          "答案": "in",
+          "提示": "城镇 + 年份都可用 in",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We will meet ____ the park ____ Sunday afternoon.",
+          "答案": "on",
+          "提示": "某日下午用 on",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "There is a lamp ____ the desk.",
+          "答案": "on",
+          "提示": "在桌面用 on",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He started working ____ the age of 18.",
+          "答案": "at",
+          "提示": "年龄前用 at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The meeting is ____ 3 p.m. ____ Tuesday.",
+          "答案": "on",
+          "提示": "具体星期 + 时间",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I will be there ____ half past eight.",
+          "答案": "at",
+          "提示": "半点时刻用 at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She left ____ a cold morning ____ December.",
+          "答案": "on",
+          "提示": "具体某日早晨用 on",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "freq": 4,
@@ -55716,6 +56718,54 @@
           "题": "This present is ____ my best friend.",
           "答案": "for",
           "提示": "给某人的礼物用 for"
+        },
+        {
+          "题": "She always arrives ____ school early.",
+          "答案": "at",
+          "提示": "at school 表示在校",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I will meet you ____ the bus stop.",
+          "答案": "at",
+          "提示": "小地点前用 at",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He went to Beijing ____ plane last week.",
+          "答案": "by",
+          "提示": "by + 交通工具",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "We often talk ____ the phone.",
+          "答案": "on",
+          "提示": "on the phone 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "She is good ____ playing the piano.",
+          "答案": "at",
+          "提示": "be good at 表示擅长",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "I'm afraid ____ dogs.",
+          "答案": "of",
+          "提示": "be afraid of 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "He is interested ____ science.",
+          "答案": "in",
+          "提示": "be interested in 固定搭配",
+          "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The meeting will start ____ 8 o'clock sharp.",
+          "答案": "at",
+          "提示": "钟点前用 at",
+          "src": "ai_expand_2026-07-20"
         }
       ],
       "knowledge_points": [

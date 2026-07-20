@@ -12,13 +12,17 @@ ROOT = Path(__file__).parent.parent
 CONTENT = ROOT / "data" / "content.json"
 
 
+# ponytail: 全局题面指纹, 用于跨 group 去重 (避免 g_prepositions 跟 g_prep_place 撞题)
+_GLOBAL_SIGS = set()
+def _sig(q):
+    s = re.sub(r"\W+", "", q.get("题", ""))[:20].lower()
+    return s if len(s) >= 8 else None
 def is_dup(q: dict, existing: list) -> bool:
-    sig = re.sub(r"\W+", "", q.get("题", ""))[:20].lower()
-    if not sig:
-        return True
+    s = _sig(q)
+    if not s: return True
+    if s in _GLOBAL_SIGS: return True
     for ex in existing:
-        if re.sub(r"\W+", "", ex.get("题", ""))[:20].lower() == sig:
-            return True
+        if _sig(ex) == s: return True
     return False
 
 
@@ -32,6 +36,22 @@ def main():
     content = json.loads(CONTENT.read_text(encoding="utf-8"))
     by_id = {it["id"]: it for it in content.get("items", [])}
 
+    # ponytail: 先扫一遍已有 exercises + question_bank_expansion.json 建全局指纹, 跨 group/跨来源去重
+    _GLOBAL_SIGS.clear()
+    for it in content.get("items", []):
+        for ex in it.get("exercises", []):
+            s = _sig(ex)
+            if s: _GLOBAL_SIGS.add(s)
+    qbe_path = ROOT / "data" / "question_bank_expansion.json"
+    if qbe_path.exists():
+        try:
+            qbe = json.loads(qbe_path.read_text(encoding="utf-8"))
+            for it in qbe.get("items", []):
+                for ex in it.get("exercises", []):
+                    s = _sig(ex)
+                    if s: _GLOBAL_SIGS.add(s)
+        except Exception as e:
+            print(f"warn: load question_bank_expansion.json failed: {e}")
     total_added = 0
     total_skipped = 0
     per_group = []
@@ -57,6 +77,8 @@ def main():
             if is_dup(q, existing):
                 total_skipped += 1
                 continue
+            # ponytail: 标注来源, 方便 question_bank_expansion 风格审计
+            q.setdefault("src", f"ai_expand_{date.today().isoformat()}")
             existing.append(q)
             added += 1
         g["exercises"] = existing
@@ -80,6 +102,30 @@ def main():
     CONTENT.write_text(json.dumps(content, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\n✅ saved {CONTENT}")
     print(f"   +{total_added} new exercises, skipped {total_skipped} dups across {len(per_group)} groups")
+
+    # ponytail: 同步更新 question_bank_expansion.json (doc-as-data 真理源, 测试要求与 content.json 一致)
+    qbe_path = ROOT / "data" / "question_bank_expansion.json"
+    if qbe_path.exists():
+        try:
+            qbe = json.loads(qbe_path.read_text(encoding="utf-8"))
+            qbe_by_id = {it["id"]: it for it in qbe.get("items", [])}
+            qbe_src = qbe.get("meta", {}).get("source", "curriculum_expand_2026_07")
+            for gid, before, after, added in per_group:
+                if not added: continue
+                # ponytail: 不在 qbe 创建新 group (那些 group src != qbe source, 测试只比较 src == source 的 items)
+                src_item = next((it for it in content["items"] if it["id"] == gid), None)
+                if not src_item: continue
+                if gid in qbe_by_id:
+                    qbe_by_id[gid]["exercises"] = list(src_item.get("exercises", []))
+            type_count = {}
+            for it in qbe.get("items", []):
+                t = it.get("type", "unknown")
+                type_count[t] = type_count.get(t, 0) + 1
+            qbe.setdefault("meta", {})["type_count"] = type_count
+            qbe_path.write_text(json.dumps(qbe, ensure_ascii=False, indent=2), encoding="utf-8")
+            print(f"   ✅ synced question_bank_expansion.json ({sum(type_count.values())} items)")
+        except Exception as e:
+            print(f"   ⚠️  sync question_bank_expansion.json failed: {e}")
 
     # 触发 build 同步 dist
     print("\nrunning build.py to sync dist/data.js ...")
