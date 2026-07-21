@@ -98,9 +98,14 @@ document.addEventListener('input', function(e) {
   }
   async function signUpWithEmail(email, password, options) {
     if (!sb) throw new Error('云端未连接');
+    // ponytail: 验证邮件默认跳到 origin + pathname + '#/login'
+    // pathname 已经包含子路径 (GitHub Pages 上是 '/english-checkin/')
+    // origin + pathname 把 hash 给丢了, 浏览器接收的链接是 '/english-checkin/' 不带 hash
+    // 我们手动保留 #/login: pathname 去掉末尾斜杠 + '#/login'
+    const basePath = (window.location.pathname || '/').replace(/\/?$/, '/');
+    const defaultRedirect = window.location.origin + basePath + '#/login';
     const opts = Object.assign({
-      // ponytail: 验证邮件默认跳到站点根 (GitHub Pages 404), 强制跳到 app 子路径
-      redirectTo: window.location.origin + window.location.pathname + '#/login',
+      redirectTo: defaultRedirect,
     }, options || {});
     const { data, error } = await sb.auth.signUp({ email, password, options: opts });
     if (error) throw error;
@@ -1252,8 +1257,31 @@ document.addEventListener('input', function(e) {
     const fullName = r.params.length ? (r.name + '/' + r.params[0]) : r.name;
     const fn = routes[fullName] || routes[r.name] || renderHome;
     const app = document.getElementById('app');
+    if (!app) return;
     app.innerHTML = '';
-    fn(app, r.params);
+    // ponytail: data.js 没加载/throw 时, 不再静默白屏, 直接展示错误卡 (用户看得见能截图反馈)
+    if (!D) {
+      app.innerHTML = `${topBar('加载失败')}<div class="container"><div class="card">
+        <div class="card-title">😵 题库没加载到</div>
+        <p style="color:var(--text-2);font-size:13px;">网络不稳或浏览器拦截了 assets/data.js。请检查网络后点下方按钮重试。</p>
+        <button class="btn btn-primary" onclick="location.reload()">🔄 重新加载</button>
+      </div></div>`;
+      return;
+    }
+    try {
+      fn(app, r.params);
+    } catch (e) {
+      console.error('[render]', r.name, e);
+      app.innerHTML = `${topBar('出错了')}<div class="container"><div class="card">
+        <div class="card-title">😵 页面渲染失败</div>
+        <p style="color:var(--text-2);font-size:13px;">${escapeHtml((e && e.message) || String(e))}</p>
+        <p style="color:var(--text-2);font-size:11px;">${escapeHtml((e && e.stack) || '').split('\n').slice(0,3).join('<br>')}</p>
+        <div class="btn-row" style="margin-top:10px;">
+          <button class="btn btn-primary" onclick="location.reload()">🔄 重新加载</button>
+          <a class="btn btn-secondary" href="#/home">🏠 回首页</a>
+        </div>
+      </div></div>`;
+    }
     // F. FAB: show on non-home routes
     let fab = document.getElementById('fab-home');
     if (!fab) {
@@ -4466,8 +4494,17 @@ document.addEventListener('input', function(e) {
   function _postBoot() {
     if (parseRoute().name === 'home') {
       const app = document.getElementById('app');
+      if (!app) return;
+      if (!D) return;  // data.js 没加载完, 等 render() 兜底渲染
       app.innerHTML = '';
-      renderHome(app);
+      try { renderHome(app); } catch (e) {
+        console.error('[postBoot renderHome]', e);
+        app.innerHTML = `<div class="container"><div class="card">
+          <div class="card-title">😵 首页加载失败</div>
+          <p style="color:var(--text-2);font-size:13px;">${escapeHtml((e && e.message) || String(e))}</p>
+          <button class="btn btn-primary" onclick="location.reload()">🔄 重新加载</button>
+        </div></div>`;
+      }
     }
     if (parseRoute().name === 'home' || parseRoute().name === 'vocab-import' || parseRoute().name === 'chat') {
       maybePromptUnlock();

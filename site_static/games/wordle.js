@@ -9,6 +9,27 @@
 
   function renderWordle(app) {
     var GS = window.GameShared;
+
+    // 切后台/换 app 后 WebView 被杀, 回来从存档恢复 (避免题目/进度丢失)
+    var STATE_KEY = 'ck_wordle_state_v1';
+    var STALE_MS = 6 * 60 * 60 * 1000;  // 6 小时内有效
+    function saveState() {
+      try {
+        var snap = {
+          v: 1, diff: diff, roundIdx: roundIdx, score: score,
+          rounds: rounds.map(function (r) {
+            return { target: r.target, cn: r.cn, pron: r.pron, len: r.len,
+                     hints: r.hints, hintsUsed: r.hintsUsed,
+                     guesses: r.guesses, finished: r.finished, succeeded: r.succeeded };
+          }),
+          savedAt: Date.now()
+        };
+        window.localStorage.setItem(STATE_KEY, JSON.stringify(snap));
+      } catch (e) {}
+    }
+    function clearState() {
+      try { window.localStorage.removeItem(STATE_KEY); } catch (e) {}
+    }
     // 按难度 + 长度范围抽池子 (pickGameWords 自动按 block_topics 过滤)
     var candidates = GS.pickGameWords(200, { minLen: 3, maxLen: 10 })
       .filter(function (w) { return /^[a-z]+$/i.test(w.word); });
@@ -48,6 +69,23 @@
                     len: t.word.length, hints: pickHints(t.word.toLowerCase()),
                     hintsUsed: 0, guesses: [], finished: false, succeeded: false });
     }
+
+    // 恢复上次会话 (同难度 + 6 小时内)
+    var restored = false;
+    try {
+      var raw = window.localStorage.getItem(STATE_KEY);
+      var snap = raw ? JSON.parse(raw) : null;
+      if (snap && snap.v === 1 && snap.diff === diff &&
+          Array.isArray(snap.rounds) && snap.rounds.length === ROUNDS &&
+          typeof snap.savedAt === 'number' &&
+          (Date.now() - snap.savedAt) <= STALE_MS &&
+          typeof snap.roundIdx === 'number') {
+        rounds = snap.rounds;
+        roundIdx = Math.max(0, Math.min(ROUNDS - 1, snap.roundIdx));
+        score = snap.score || 0;
+        restored = true;
+      }
+    } catch (e) {}
     // 预填字母提示: <6 字母 1 个随机, 6-7 字母 2 个(必含首字母), 8-10 字母 3 个(必含首字母)
     function pickHints(word) {
       var n = word.length >= 8 ? 3 : word.length >= 6 ? 2 : 1;
@@ -69,6 +107,13 @@
       subtitle: ROUNDS + ' 个单词 · ' + MIN_LEN + '-' + MAX_LEN + ' 字母 (' + diff + ') · 每词 ' + PER_ROUND_TRIES + ' 次',
       score: '0'
     });
+    // 恢复时同步顶部分数显示
+    if (restored) {
+      try {
+        var sEl = body.parentNode && body.parentNode.querySelector('.game-score');
+        if (sEl) sEl.textContent = score;
+      } catch (e) {}
+    }
 
     function scoreGuess(guess, ans, len) {
       var res = [];
@@ -173,6 +218,7 @@
         if (nextBtn) nextBtn.onclick = function () {
           roundIdx++;
           if (roundIdx >= ROUNDS) return finish();
+          saveState();
           render();
         };
       }
@@ -224,6 +270,7 @@
           var pos = candidates[Math.floor(Math.random() * candidates.length)];
           rnd2.hints[pos] = rnd2.target[pos];
           rnd2.hintsUsed++;
+          saveState();
           render();  // 重渲染以锁定新 hint 格子 + 更新按钮文案
         };
       }
@@ -261,10 +308,12 @@
       if (rnd.finished) {
         GS.saveGameResult('wordle', { score: score, won: rnd.succeeded, rounds: ROUNDS });
       }
+      saveState();
       render();
     }
 
     function finish() {
+      clearState();
       var won = rounds.filter(function (r) { return r.succeeded; }).length;
       GS.saveGameResult('wordle', { score: score, won: won >= Math.ceil(ROUNDS / 2), rounds: ROUNDS });
       GS.showGameFinish(app, {

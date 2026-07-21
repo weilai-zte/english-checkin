@@ -88,3 +88,44 @@ def test_attachInputHandlers_does_not_early_return_when_all_disabled():
     # 必须仍然绑定 submit button 和 refresh
     assert "submitBtn.onclick = submitNow" in block
     assert "refreshSubmit(len)" in block
+
+
+# ── 持久化 (切后台/换 App 后回来不应丢失进度) ──────────────
+def _has(name):
+    body = WORDLE
+    return name in body
+
+
+def test_wordle_persistence_infrastructure_present():
+    """必须有 STATE_KEY / saveState / clearState / restored, 否则 WebView 被杀后回到游戏又变成全新词。"""
+    assert _has("STATE_KEY"), "缺少 STATE_KEY 常量"
+    assert _has("function saveState"), "缺少 saveState 函数"
+    assert _has("function clearState"), "缺少 clearState 函数"
+    assert _has("var restored"), "缺少 restored 标志"
+    assert "localStorage" in WORDLE, "未使用 localStorage"
+
+
+def test_wordle_saveState_called_at_state_changes():
+    """submit / hint / next 三处都必须调 saveState, 否则一次操作后存档丢失。"""
+    src = WORDLE
+    # 至少出现 3 次 saveState (submit + hint + next)
+    assert src.count("saveState();") >= 3, (
+        f"saveState() 调用次数不足: {src.count('saveState();')} (submit/hint/next 都要调)"
+    )
+
+
+def test_wordle_clearState_on_finish():
+    """游戏正常完成后必须清空存档, 避免下次进来误以为是中断的进度。"""
+    finish_block = _fn("finish")
+    assert "clearState()" in finish_block, "finish() 未清空存档"
+
+
+def test_wordle_restored_syncs_score_dom():
+    """恢复存档时要把 score 同步到顶部 .game-score 元素, 否则 UI 显示 0 与实际不匹配。"""
+    assert "if (restored)" in WORDLE, "未对 restored 场景做特殊处理"
+    assert ".game-score" in WORDLE, "未引用 .game-score"
+    # 必须同时出现 restored 判断 + game-score 更新
+    save_state_block_start = WORDLE.find("var restored = false;")
+    score_update_block = WORDLE[save_state_block_start:]
+    assert "if (restored)" in score_update_block
+    assert "sEl.textContent = score" in score_update_block

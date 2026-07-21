@@ -644,3 +644,47 @@ def test_auth_password_change_and_reset():
     assert "sb.auth.resetPasswordForEmail(email" in APP_JS_SRC
     # 错误提示让用户知道是 SMTP 问题
     assert "Supabase SMTP 已配置" in APP_JS_SRC
+
+
+# ─── 白屏根因修复 (render() 必须兜底) ────────────────────────
+def test_render_function_has_try_catch():
+    """render() 必须 try/catch fn(app) — 否则子路由 throw 会留下 innerHTML='' 的白屏卡片。"""
+    block = _function_block('render')
+    assert 'try {' in block, "render() 缺少 try (throw 会让 app.innerHTML 永远空白, 即 '白屏')"
+    assert 'fn(app, r.params);' in block, "render() 没调用 fn(app, r.params)"
+    assert 'catch' in block, "render() 缺少 catch"
+    # 兜底必须给出可见的"重试/回首页"按钮
+    assert 'location.reload' in block, "render() 兜底缺少重新加载按钮"
+    assert '#/home' in block, "render() 兜底缺少回首页链接"
+
+
+def test_render_guards_missing_D():
+    """D (CHECKIN_DATA) 未加载时, render() 不能继续走 fn(app) — 那样会立刻 throw 然后落进 catch 显示通用错误,
+    但用户更需要明确告知'题库没加载到'。"""
+    block = _function_block('render')
+    assert 'if (!D)' in block, "render() 缺少 D 未加载守卫"
+    assert 'data.js' in block or '题库没加载' in block, (
+        "render() 缺少明确的 data.js 加载失败提示文案"
+    )
+
+
+def test_postboot_rendersafely():
+    """_postBoot() 直接调 renderHome(app) 而不走 render(), 必须独立 try/catch 否则照样白屏。"""
+    block = _function_block('_postBoot')
+    assert 'renderHome(app)' in block, "_postBoot 没调 renderHome"
+    # 必须 try 包住
+    assert 'try { renderHome(app); }' in block or 'try{renderHome(app);}' in block, (
+        "_postBoot 调 renderHome 没 try/catch, 失败仍白屏"
+    )
+
+
+def test_signup_redirect_preserves_app_subpath():
+    """邮件确认 redirect 必须保留 hash (#/login)。origin + pathname 会丢 hash, 邮件链接一律落到子路径根, login 页签进不去。
+    修复: pathname 强保留 + 手动拼 '#/login'。"""
+    block = _function_block('signUpWithEmail')
+    assert "'#/login'" in block, "signUpWithEmail 末尾手动拼 '#/login' 被丢"
+    assert 'basePath' in block or 'pathname.replace' in block, "signUpWithEmail 没保留 pathname 子路径"
+    # 不能仍用 origin+pathname+'#/login' 这种丢 hash 的写法
+    assert "window.location.origin + window.location.pathname + '#/login'" not in block, (
+        "signUpWithEmail 仍用 origin+pathname+'#/login' (会丢 hash)"
+    )
