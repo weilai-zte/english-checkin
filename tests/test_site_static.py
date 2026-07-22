@@ -732,3 +732,32 @@ def test_sync_buttons_show_last_sync_time():
     """profile 必须显示上次同步时间, 让用户判断按钮是否起效。"""
     assert 'profile-last-sync' in APP_JS_SRC, "缺上次同步时间显示节点 id"
     assert '_updated_at' in APP_JS_SRC, "缺 _updated_at 字段 (已有, 这里防退化)"
+
+
+# ─── 不熟悉的词跨设备同步 (mergeProgress 必须包含 unfamiliar_words) ──
+def test_mergeProgress_handles_unfamiliar_words():
+    """mergeProgress 必须 union remote.unfamiliar_words + local.unfamiliar_words,
+    否则 saveProgress → syncToSupabaseNow 走 Object.assign(defaultProgress(), merged) 会把
+    录入的不熟词清回 [], 录入一次同步即丢失.
+    """
+    block = _function_block('mergeProgress')
+    assert 'unfamiliar_words' in block, (
+        "mergeProgress 未处理 unfamiliar_words: 跨设备同步时会被 defaultProgress() 默认值 [] 覆盖, "
+        "录入一次后立刻丢"
+    )
+    # 必须用 union (新加的比旧更全), 不能是赋值/覆盖
+    assert 'unionObjects(remote.unfamiliar_words' in block, (
+        "unfamiliar_words 没用 unionObjects 按 word 去重合并, 会被最后一个参数覆盖掉"
+    )
+
+
+def test_defaultProgress_has_unfamiliar_words_key():
+    """defaultProgress 必须包含 unfamiliar_words: [] 默认值, 否则 _persistNow 等路径序列化漏字段。"""
+    block = _function_block('defaultProgress')
+    assert 'unfamiliar_words' in block, "defaultProgress 缺 unfamiliar_words 默认值字段"
+
+
+def test_addUnfamiliarWords_triggers_save():
+    """录入不熟词必须 saveProgress() (→ 本地 + 300ms 后云端), 否则跨设备看不到。"""
+    block = _function_block('addUnfamiliarWords')
+    assert 'saveProgress()' in block, "addUnfamiliarWords 没 saveProgress, 录入不写盘"

@@ -334,6 +334,12 @@ document.addEventListener('input', function(e) {
     out.grammar_mastered = unionObjects(remote.grammar_mastered, local.grammar_mastered, function (g) {
       return typeof g === 'string' ? g : (g.id || JSON.stringify(g));
     });
+    // ponytail: unfamiliar_words union (按 word 小写去重, added_at 较新的胜), 否则 defaultProgress() 默认 [] 会吞掉本地录入
+    out.unfamiliar_words = unionObjects(remote.unfamiliar_words, local.unfamiliar_words, function (w) {
+      return String(w.word || '').toLowerCase();
+    }).map(function (w) {
+      return { word: w.word, cn: w.cn || '', added_at: w.added_at || today() };
+    });
     // checkins: 按日期和题型去重，同一条记录保留本地版本。
     out.checkins = unionObjects(remote.checkins, local.checkins, function (c) {
       return (c.date || '') + '|' + (c.types || []).slice().sort().join(',');
