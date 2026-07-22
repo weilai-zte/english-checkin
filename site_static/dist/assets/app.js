@@ -3094,9 +3094,14 @@ document.addEventListener('input', function(e) {
           </div>
           <div class="profile-sync-row">
             <span>学习记录保存在云端账号，本地仅保留离线缓存。</span>
-            <button id="profile-sync-now" class="btn-sm profile-sync-now" type="button">立即同步</button>
           </div>
-          <div class="profile-help">已绑定 ${devices.length} 台设备</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
+            <button id="profile-pull-cloud" class="btn-sm profile-sync-now" type="button" title="把云端记录拉回本地合并">⬇️ 从云端下载</button>
+            <button id="profile-push-cloud" class="btn-sm profile-sync-now" type="button" title="把本地记录合并后推上云端">⬆️ 上传到云端</button>
+          </div>
+          <div class="profile-help" style="margin-top:6px;">
+            上次同步: <code id="profile-last-sync">${escapeHtml(progress._updated_at || '从未')}</code> · 已绑定 ${devices.length} 台设备
+          </div>
           ${devices.length ? `<div class="bd-items profile-devices">
             ${devices.map(id => {
               const isCurrent = id === getDeviceId();
@@ -3143,16 +3148,38 @@ document.addEventListener('input', function(e) {
       btn.onclick = () => unbindDevice(btn.dataset.id);
     });
 
-    const syncButton = app.querySelector('#profile-sync-now');
-    syncButton.onclick = async () => {
+    const pullBtn = app.querySelector('#profile-pull-cloud');
+    const pushBtn = app.querySelector('#profile-push-cloud');
+    async function _doPull() {
       if (!progress.user_name) { toast('请先设置昵称'); return; }
-      syncButton.disabled = true;
-      syncButton.textContent = '同步中';
-      await syncFromSupabase();
-      const synced = await syncToSupabaseNow();
-      render();
-      toast(synced ? '云端进度已同步' : '云端暂不可用，本地记录已保留', 2500);
-    };
+      pullBtn.disabled = true; pullBtn.textContent = '下载中...';
+      try {
+        await syncFromSupabase();
+        render();
+        toast('已从云端合并到本地', 2000);
+      } catch (e) {
+        toast('下载失败: ' + (e.message || e), 2500);
+      } finally {
+        pullBtn.disabled = false; pullBtn.textContent = '⬇️ 从云端下载';
+      }
+    }
+    async function _doPush() {
+      if (!progress.user_name) { toast('请先设置昵称'); return; }
+      pushBtn.disabled = true; pushBtn.textContent = '上传中...';
+      try {
+        const ok = await syncToSupabaseNow();
+        // 更新显示的上次同步时间
+        const el = app.querySelector('#profile-last-sync');
+        if (el) el.textContent = progress._updated_at || new Date().toISOString();
+        toast(ok ? '已把本地推上云端' : '云端暂不可用，本地记录已保留', 2500);
+      } catch (e) {
+        toast('上传失败: ' + (e.message || e), 2500);
+      } finally {
+        pushBtn.disabled = false; pushBtn.textContent = '⬆️ 上传到云端';
+      }
+    }
+    if (pullBtn) pullBtn.onclick = _doPull;
+    if (pushBtn) pushBtn.onclick = _doPush;
 
     const migrateInput = app.querySelector('#migrate-key-input');
     const migrateButton = app.querySelector('#migrate-key-btn');

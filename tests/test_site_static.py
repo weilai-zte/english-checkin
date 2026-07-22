@@ -688,3 +688,47 @@ def test_signup_redirect_preserves_app_subpath():
     assert "window.location.origin + window.location.pathname + '#/login'" not in block, (
         "signUpWithEmail 仍用 origin+pathname+'#/login' (会丢 hash)"
     )
+
+
+# ─── 云端手动同步入口 (⬇️ 下载 / ⬆️ 上传) ─────────────────────
+def test_profile_has_explicit_pull_and_push_buttons():
+    """profile 页面必须有「从云端下载」和「上传到云端」两个明确方向的按钮 —
+    旧版本「立即同步」不分方向, 用户看不出是拉还是推。"""
+    app = APP_JS_SRC
+    assert 'profile-pull-cloud' in app, "缺少「从云端下载」按钮 id"
+    assert 'profile-push-cloud' in app, "缺少「上传到云端」按钮 id"
+    # 不能仍用「profile-sync-now」当作入口 (排除旧不一致命名)
+    assert "id=\"profile-sync-now\" class=\"btn-sm profile-sync-now\"" not in app, "旧「立即同步」按钮还在, 要拆成两个方向"
+
+    # 文案必须明显区分方向
+    for label in ('从云端下载', '上传到云端'):
+        assert label in app, f"按钮文案缺少「{label}」"
+
+    # handler 必须分别调用 syncFromSupabase / syncToSupabaseNow
+    assert '_doPull' in app, "pull handler 未命名 _doPull"
+    assert '_doPush' in app, "push handler 未命名 _doPush"
+
+
+def test_pull_handler_calls_syncFromSupabase_only():
+    """⬇️ 下载按钮必须只调 syncFromSupabase, 不能顺带又推一次。"""
+    # 找到 _doPull 函数体
+    m = re.search(r'async function _doPull\(\)\s*\{(.+?)^\s*\}', APP_JS_SRC, re.DOTALL | re.MULTILINE)
+    assert m, "_doPull 函数体找不到"
+    body = m.group(1)
+    assert 'syncFromSupabase' in body, "_doPull 必须调 syncFromSupabase"
+    assert 'syncToSupabaseNow' not in body, "_doPull 误推了云端 (用户期望是只下载)"
+
+
+def test_push_handler_calls_syncToSupabaseNow_only():
+    """⬆️ 上传按钮必须只调 syncToSupabaseNow, 不能先拉再推。"""
+    m = re.search(r'async function _doPush\(\)\s*\{(.+?)^\s*\}', APP_JS_SRC, re.DOTALL | re.MULTILINE)
+    assert m, "_doPush 函数体找不到"
+    body = m.group(1)
+    assert 'syncToSupabaseNow' in body, "_doPush 必须调 syncToSupabaseNow"
+    assert 'syncFromSupabase' not in body, "_doPush 误下载了 (用户期望只上传)"
+
+
+def test_sync_buttons_show_last_sync_time():
+    """profile 必须显示上次同步时间, 让用户判断按钮是否起效。"""
+    assert 'profile-last-sync' in APP_JS_SRC, "缺上次同步时间显示节点 id"
+    assert '_updated_at' in APP_JS_SRC, "缺 _updated_at 字段 (已有, 这里防退化)"
