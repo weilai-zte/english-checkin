@@ -660,7 +660,7 @@ document.addEventListener('input', function(e) {
       const k = keyFn(item);
       const c = seen[k] || 0;
       // 错题 (wrong_count > 0) 加 3x 权重; 否则按 1/(1+c) 衰减
-      const wc = (progress.wrong_grammar || []).filter(w => w && keyFn({ q: w.question, gid: w.type }) === k).length;
+      const wc = (progress.wrong_grammar || []).filter(w => w && w.question && k.endsWith('::' + w.question)).length;
       const base = 1 / (1 + c);
       return base * (1 + Math.min(wc, 3) * 0.8);
     }
