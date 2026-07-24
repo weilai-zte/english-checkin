@@ -369,6 +369,12 @@ def test_render_quiz_no_longer_writes_checkins_directly():
     assert "grammar_id: 'quiz'" not in block, "renderQuiz 不应再直接 push checkins"
 
 
+def test_sample_unseen_does_not_pass_grammar_errors_to_quiz_key_fn():
+    block = _function_block('sampleUnseen')
+    assert "keyFn({ q: w.question, gid: w.type })" not in block
+    assert "k.endsWith('::' + w.question)" in block
+
+
 def test_render_grammar_no_longer_calls_submit_checkin():
     block = _function_block('renderGrammar')
     assert 'submitCheckin(' not in block, 'renderGrammar 不再调 submitCheckin（打卡走 checkin-config）'
