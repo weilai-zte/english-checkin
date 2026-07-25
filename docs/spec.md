@@ -97,7 +97,7 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 | `#/stats` | `renderStats` | 学习统计 |
 | `#/progress` | `renderProgress` | 进度概览 + 最近 10 次打卡（按 types 显示） |
 | `#/profile` | `renderProfile` | 个人设置：头像、昵称、绑定设备管理和旧设备记录合并 |
-| `#/knowledge` | `renderKnowledge` | 知识课程 9 tabs（文字大纲 + 学习海报） |
+| `#/knowledge` | `renderKnowledge` | 知识课程 9 tabs（主题色 Hero + HTML 正文 + 学习海报 + 上下模块导航） |
 | `#/achievements` | `renderAchievements` | 成就系统 10 badges |
 | `#/vocab-import` | `renderVocabImport` | 导入自定义词表 |
 | `#/vocab-list` | `renderVocabList` | 全部词汇（含收藏） |
@@ -186,7 +186,7 @@ window.CHECKIN_DATA = {
   simple_words: [],  // 已 deprecated, [] for junior_vocab
   junior_vocab_meta: {L1: int, L2: int, L3: int},
   difficulty_config: {easy: {...}, medium: {...}, hard: {...}},
-  knowledge_md: "..."
+  knowledge_modules: {module1: "<p>...</p>", ..., module9: "<p>...</p>"}
 };
 ```
 
@@ -250,7 +250,7 @@ def export_data() -> None:
 - vocab 必须含 `_L1` / `_L2` / `_L3` 三级 (junior_vocab_3levels.json 导出)
 - vocab 可含 `_legacy_{topic}` (兼容老 vocab.json 兜底)
 - grammar 必须含 TRANSLATE_SENTENCES + HARD_TRANSLATE + HARD_TENSE_QUESTIONS
-- knowledge_md 必须包含 `## 模块1：英语时态体系（8种时态）` 至 `## 模块9：高级核心语法体系` 九个模块标记
+- `knowledge_modules` 必须包含 `module1` 至 `module9`，值为 Mistune 从 `knowledge_outline.md` 对应章节生成的 HTML
 - difficulty_config 必须含 `block_topics (list)` + `extra_block (list)`
 
 ### 5.2 send_daily (`send_daily.py`)
@@ -398,7 +398,7 @@ legacy_uuid → nickname_with_legacy
 
 ### UI 类
 - `speech_recognition_safari_bug`: Safari onend 不触发 → 6 秒 listenTimeout
-- `knowledge_md_split_wrong`: 九个模块标题标记缺失或不一致 → 对应知识模块显示空
+- `knowledge_module_build_empty`: 九个模块标题标记缺失或不一致 → 对应 tab 显示“本模块内容暂不可用”
 - `mask_sentence_wrong_call`: 双参数调用 → 主语消失，全空白 input
 - `build_venv_missing`: site_static/.venv/ 缺失 → 手动 python3 -m venv
 - `mcq_option_duplicate`: prep_opts 含重复值 或 时态大小写不一致 或 quiz 同中文释义 → Set 去重 + .toLowerCase() 归一化
@@ -406,6 +406,10 @@ legacy_uuid → nickname_with_legacy
 ---
 
 ## §9 演进记录
+
+### v0.18.7 (2026-07-25)
+- **change**: 恢复 `spec.json` 规格真理源；知识课程数据契约从 `knowledge_md` 更新为 9 段 `knowledge_modules` HTML；`#/knowledge` 增加主题色 Hero、结构化正文和上下模块导航 — by Codex
+  - why: 避免浏览器端正则解析 Markdown 造成结构混乱，并修复此前知识课程变更误覆盖规格文档的问题
 
 ### v0.18.6 (2026-07-19)
 - **change**: `#/game/picture` 改用 `content.json` 的 `grade` 分级词池，新增 L3 科技/实验/社会主题图片线索；干扰项限定为同难度相近长度词，答题后保留中文释义 — by Codex

@@ -1,496 +1,1249 @@
 {
-    "doc_id": "requirements",
-    "doc_kind": "requirements",
-    "goal": {
-        "statement": "english-checkin \u9700\u6c42\u771f\u7406\u6e90\uff1a5 actor \u00d7 13 use case \u00d7 33 \u7f16\u53f7\u9700\u6c42 (F-021 \u529f\u80fd + N-006 \u975e\u529f\u80fd + C-003 \u7ea6\u675f + 2 \u9a8c\u6536\u539f\u5219)",
-        "why": "\u4ee3\u7801\u6539\u5b8c\u5fc5\u987b\u5148\u6539\u672c\u6587\uff08\u7528\u6237\u9a71\u52a8\u539f\u5219\uff09\u3002AI \u6539 send_daily.py / app.py / build.py \u524d\u5fc5\u987b\u5148\u786e\u8ba4\u672c\u6587\u5f53\u524d\u6709\u6548\u9700\u6c42",
-        "success_criteria": [
-            "\u65b0\u589e\u9700\u6c42\u5fc5\u987b\u5148\u5728\u672c\u6587 \u00a73 \u52a0\u7f16\u53f7 + \u00a75 \u52a0 UC\uff0c\u518d\u5199\u4ee3\u7801",
-            "\u4ee3\u7801\u4e0e\u672c\u6587\u51b2\u7a81\u65f6\u6539\u672c\u6587\uff08\u7528\u6237\u9a71\u52a8\uff09",
-            "5 \u539f\u5219 doc-as-data\uff1a\u672c\u6587 json \u662f\u771f\u7406\u6e90\uff0cmd \u662f\u6e32\u67d3",
-            "\u6539\u4efb\u4f55 \u00a73/\u00a74/\u00a75 \u7f16\u53f7\u9700\u6c42\u524d\u5148\u770b\u672c\u6587 decision_table \u4f18\u5148\u7ea7",
-            "F-022 \u5168\u5b57\u6bb5\u968f\u8d26\u53f7\u4e91\u7aef\u540c\u6b65\uff1a\u6539\u4efb\u4f55\u6301\u4e45\u5316\u5b57\u6bb5\u524d\u5148\u770b progress_v1 schema + mergeProgress invariant"
-        ]
+  "doc_id": "spec",
+  "doc_kind": "spec",
+  "goal": {
+    "statement": "english-checkin 实现 spec：双部署轨道 (Flask 本地 + site_static SPA) + Flask routes + site_static SPA routes + 7 数据 schema + build 接口 + 4 状态机 + 错误码规约 + 性能预算 + 题库覆盖约束",
+    "why": "代码实现必须严格按本文对齐。AI 改 app.py 路由签名 / build.py 接口 / 数据 schema 前必须先改本文 + 跑 tests/test_bugs.py",
+    "success_criteria": [
+      "改任何 Flask 路由前，先改 spec.json routes[] 节",
+      "改任何 data/*.json schema 前，先改 spec.json schema[] 节",
+      "改任何 build.py 接口前，先改 spec.json build_interface 节",
+      "5 原则 doc-as-data：本文 json 是真理源，md 是渲染",
+      "改 site_static 任何 SPA route 前，先改 spec.json routes[] 节中 site_static 部分",
+      "改 progress_v1 schema 任何字段前，先改 spec.json schema[] 节中 progress_v1"
+    ]
+  },
+  "inputs": [
+    {
+      "name": "requirements_truth",
+      "source": "docs/requirements.json",
+      "type": "file"
     },
-    "inputs": [
-        {
-            "name": "user_pain_points",
-            "source": "\u9b4f\u6765\u53e3\u5934\u9700\u6c42\uff08\u98de\u4e66\u6d88\u606f / 1:1 \u6c9f\u901a\uff09",
-            "type": "feishu"
-        },
-        {
-            "name": "v0.1~v0.11 \u5386\u53f2\u9700\u6c42",
-            "source": "git log + changelog.json",
-            "type": "file"
-        }
-    ],
-    "outputs": [
-        {
-            "name": "functional_requirements",
-            "destination": "\u672c\u6587 \u00a73 (F-001~F-021, 21 \u6761)",
-            "type": "json"
-        },
-        {
-            "name": "non_functional_requirements",
-            "destination": "\u672c\u6587 \u00a74 (N-001~N-005, 5 \u6761)",
-            "type": "json"
-        },
-        {
-            "name": "use_cases",
-            "destination": "\u672c\u6587 \u00a75 (13 UC across 5 actor)",
-            "type": "json"
-        },
-        {
-            "name": "constraints",
-            "destination": "\u672c\u6587 \u00a77 (C-001~C-003)",
-            "type": "json"
-        }
-    ],
-    "internal_logic": {
-        "summary": "\u7528\u6237\u9a71\u52a8\u539f\u5219\uff1a\u7528\u6237\u63d0\u9700\u6c42 \u2192 \u5148\u6539\u672c\u6587 \u2192 \u518d\u6539\u4ee3\u7801\u3002\u4ee3\u7801\u4e0e\u672c\u6587\u51b2\u7a81\u65f6\u6539\u672c\u6587\uff08\u4e0d\u662f\u6539\u4ee3\u7801\uff09",
-        "steps": [
-            "\u7528\u6237\u63d0\u9700\u6c42\uff08\u98de\u4e66/\u53e3\u5934\uff09",
-            "Hermes Agent \u8bfb\u672c\u6587\u5b9a\u4f4d\u5bf9\u5e94 \u00a7",
-            "\u52a0\u65b0\u7f16\u53f7\uff08F-/N-/C-/UC-\uff09",
-            "\u5728\u5bf9\u5e94 UC \u52a0 Actor/\u524d\u7f6e/\u4e3b\u6d41\u7a0b/\u540e\u7f6e/\u5f02\u5e38",
-            "\u6539\u4ee3\u7801",
-            "\u52a0\u6d4b\u8bd5\uff08tests/test_bugs.py\uff09",
-            "\u5728 evolution \u8868\u52a0 add/change/deprecate \u6761\u76ee"
-        ],
-        "decision_table": [
-            {
-                "condition": "\u7528\u6237\u63d0\u65b0\u9700\u6c42",
-                "action": "\u5148\u6539\u672c\u6587\u6863 \u00a73/\u00a74/\u00a75/\u00a77\uff0c\u52a0\u7f16\u53f7\uff0c\u518d\u5199\u4ee3\u7801",
-                "priority": 1
-            },
-            {
-                "condition": "\u4ee3\u7801\u4e0e\u672c\u6587\u51b2\u7a81",
-                "action": "\u4ee3\u7801\u662f ground truth\uff0c\u7acb\u5373\u6539\u672c\u6587\uff08\u4e0d\u662f\u56de\u6eda\u4ee3\u7801\uff09",
-                "priority": 2
-            },
-            {
-                "condition": "\u65b0\u589e use case",
-                "action": "\u5fc5\u987b\u542b Actor/\u524d\u7f6e/\u4e3b\u6d41\u7a0b/\u540e\u7f6e/\u5f02\u5e38 5 \u5b57\u6bb5",
-                "priority": 3
-            },
-            {
-                "condition": "P0 \u9700\u6c42 (\u6838\u5fc3\u529f\u80fd)",
-                "action": "\u5fc5\u987b\u6709\u5b9e\u73b0+\u6d4b\u8bd5+\u6587\u6863+\u9a8c\u8bc1 4 \u9a8c\u6536",
-                "priority": 4
-            }
-        ],
-        "interfaces": [],
-        "schema": {
-            "functional_requirements": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "required": [
-                        "id",
-                        "priority",
-                        "statement",
-                        "verification"
-                    ]
-                }
-            },
-            "use_cases": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "required": [
-                        "id",
-                        "actor",
-                        "precondition",
-                        "main_flow",
-                        "postcondition",
-                        "exception"
-                    ]
-                }
-            }
-        },
-        "state_machines": []
+    {
+      "name": "code_signatures",
+      "source": "app.py + send_daily.py + send_weekly_report.py + site_static/build.py + site_static/app.js + send_wrong_words.py + send_weekly_wrong_words.py",
+      "type": "file"
     },
-    "constraints": [
-        {
-            "name": "doc_as_data_8_fields",
-            "category": "compliance",
-            "rule": "\u672c\u6587\u5fc5\u987b\u542b 8 \u5b57\u6bb5 (doc_id/goal/inputs/outputs/internal_logic/constraints/failure_modes+upstream/downstream/version/last_validated/evolution)",
-            "metric": "5 \u539f\u5219 #3 \u5f3a\u5236"
-        }
-    ],
-    "failure_modes": [],
-    "upstream": [],
-    "downstream": [
-        "spec",
-        "design",
-        "readme",
-        "changelog"
-    ],
-    "version": "v0.17",
-    "last_validated": "2026-07-18",
-    "evolution": [
-        {
-            "date": "2026-07-18",
-            "version": "v0.17",
-            "action": "add",
-            "what": "F-022 \u8d26\u53f7\u4e91\u7aef\u540c\u6b65 + \u65e7\u8bbe\u5907\u65e0\u635f\u8fc1\u79fb\uff1amergeProgress 13 \u5b57\u6bb5 union \u5408\u5e76\uff1bDEVICE_KEY \u4e0e USER_KEY \u89e3\u8026\uff1bswitchAccount / mergeLegacyDevice \u5165\u53e3\uff1b\u8fdb\u5ea6\u9875\u6a21\u677f bug \u4fee\u590d\uff1bN-007 \u654f\u611f\u6570\u636e\u4ec5\u672c\u673a",
-            "why": "\u7528\u6237\u539f\u8bdd\u300c\u6210\u5c31\u7cfb\u7edf\u7b49\u7b49\u51e1\u662f\u8981\u8bb0\u5f55\u7684\u4fe1\u606f\u90fd\u5e94\u8be5\u548c\u8d26\u53f7\u5173\u8054\u300d\u300c\u4e3a\u4ec0\u4e48\u6362\u4e2a\u6d4f\u89c8\u5668\u6253\u5361\u8bb0\u5f55\u5c31\u6ca1\u4e86\u300d",
-            "by": "Codex"
-        },
-        {
-            "date": "2026-07-16",
-            "version": "v0.16",
-            "action": "change",
-            "what": "F-020 \u5c06\u6269\u5c55\u9898\u5e93\u4ece\u4e00\u6b21\u6027 Python \u751f\u6210\u811a\u672c\u62c6\u5206\u5230\u72ec\u7acb JSON \u6570\u636e\u6587\u4ef6",
-            "why": "\u9898\u76ee\u786c\u7f16\u7801\u5728\u4e34\u65f6\u811a\u672c\u4e2d\u4e0d\u4fbf\u4e8e\u5ba1\u9605\u548c\u6301\u7eed\u7ef4\u62a4",
-            "by": "Codex"
-        },
-        {
-            "date": "2026-07-16",
-            "version": "v0.15",
-            "action": "add",
-            "what": "F-019 \u7edf\u4e00\u9898\u5e93\u6269\u5bb9\u300136 \u4e2a\u6838\u5fc3\u77e5\u8bc6\u70b9\u8986\u76d6\u53ca\u6309\u96be\u5ea6\u8bfb\u53d6\u8981\u6c42",
-            "why": "\u7528\u6237\u53cd\u9988\u591a\u6b21\u6253\u5361\u540e\u9898\u76ee\u4e0d\u8db3\uff0c\u5e76\u8981\u6c42\u5173\u952e\u77e5\u8bc6\u70b9\u5b8c\u6574\u8986\u76d6",
-            "by": "Codex"
-        },
-        {
-            "date": "2026-06-15",
-            "version": "v0.13",
-            "action": "add",
-            "what": "F-014 MCQ \u9009\u9879\u53bb\u91cd\uff1aprep_opts \u6c60\u53bb\u91cd + \u65f6\u6001\u5e72\u6270\u9879\u5927\u5c0f\u5199\u5f52\u4e00\u5316 + quiz \u4e2d\u6587\u91ca\u4e49\u53bb\u91cd\uff08Flask + SPA \u53cc\u7aef\uff09",
-            "why": "\u7528\u6237\u53d1\u73b0\u65f6\u6001\u9009\u9879\u4e2d 'is'/'Is' \u91cd\u590d\u51fa\u73b0",
-            "by": "\u7384\u5958"
-        },
-        {
-            "date": "2026-06-15",
-            "version": "v0.13",
-            "action": "add",
-            "what": "F-015 \u5b66\u4e60\u7edf\u8ba1\u8bdd\u9898\u5206\u5c42\u5f52\u7c7b\uff1a8 \u7236\u7c7b CATEGORY_TREE + <details>/<summary> \u6298\u53e0\u5c55\u5f00",
-            "why": "75 \u4e2a\u6241\u5e73\u5b50\u7c7b\u5168\u90e8\u5e73\u94fa\u663e\u793a\u53ef\u8bfb\u6027\u5dee\uff0c\u7528\u6237\u8981\u6c42\u7236\u5b50\u5c42\u7ea7\u5f52\u7c7b",
-            "by": "\u7384\u5958"
-        },
-        {
-            "date": "2026-06-15",
-            "version": "v0.13",
-            "action": "change",
-            "what": "F-009 \u9875\u9762\u6570 14\u219214\uff08\u65e0\u65b0\u589e\u9875\u9762\uff0c\u7edf\u8ba1\u9875 UI \u91cd\u6784\uff09",
-            "why": "\u7edf\u8ba1\u9875\u4ece 75 \u6241\u5e73\u5206\u7c7b\u91cd\u6784\u4e3a 8 \u7236\u7c7b\u5206\u5c42\u663e\u793a",
-            "by": "\u7384\u5958"
-        },
-        {
-            "date": "2026-06-13",
-            "version": "v0.12",
-            "action": "add",
-            "what": "5 \u539f\u5219 doc-as-data \u6539\u9020\uff1adocs/requirements.json \u662f\u771f\u7406\u6e90\uff0cdocs/requirements.md \u662f\u6e32\u67d3",
-            "why": "\u7528\u6237\u8981\u6c42 doc-as-data\uff1a\u6587\u4ef6\u5373\u6570\u636e\uff0cAI \u53ef\u673a\u5668\u8bfb\u53d6",
-            "by": "\u7384\u5958"
-        },
-        {
-            "date": "2026-06-13",
-            "version": "v0.12",
-            "action": "add",
-            "what": "\u5de5\u7a0b\u8fc1\u79fb ~/english-checkin \u2192 ~/Projects/english-checkin",
-            "why": "\u7528\u6237\u8981\u6c42\u628a\u5de5\u7a0b\u653e\u5728 Projects \u4e0b\u7edf\u4e00\u7ba1\u7406",
-            "by": "\u7384\u5958"
-        }
-    ],
-    "details": {
-        "\u00a73_functional_requirements": [
-            {
-                "id": "F-001",
-                "priority": "P0",
-                "statement": "\u6bcf\u5929\u65e9\u6668 08:00 cron \u63a8\u9001\u98de\u4e66\u6253\u5361\u63d0\u9192\uff08\u65e9\u6668\u4efb\u52a1\uff09",
-                "verification": "tests/cron_daily_morning.py"
-            },
-            {
-                "id": "F-002",
-                "priority": "P0",
-                "statement": "\u6bcf\u5929\u665a\u4e0a 19:00 cron \u63a8\u9001\u98de\u4e66\u6253\u5361\u63d0\u9192\uff08\u665a\u95f4\u4efb\u52a1\uff09",
-                "verification": "cron job f461006984b2 \u5df2 scheduled"
-            },
-            {
-                "id": "F-003",
-                "priority": "P1",
-                "statement": "\u6bcf\u5468\u516d 09:00 cron \u63a8\u9001\u5b66\u4e60\u62a5\u544a",
-                "verification": "send_weekly_report.py \u5b9e\u6d4b\u53ef\u63a8\u9001"
-            },
-            {
-                "id": "F-004",
-                "priority": "P0",
-                "statement": "\u516c\u7f51\u5730\u5740\u6c38\u4e45\u56fa\u5b9a\uff08weilai-zte.github.io/english-checkin\uff09",
-                "verification": "send_daily.py PUBLIC_URL \u5df2\u786c\u7f16\u7801"
-            },
-            {
-                "id": "F-005",
-                "priority": "P0",
-                "statement": "TTS \u7528\u6d4f\u89c8\u5668 Web Speech API\uff08\u8de8\u5e73\u53f0\uff0c\u4e0d\u4f9d\u8d56 macOS say\uff09",
-                "verification": "site_static/app.js speak() \u51fd\u6570"
-            },
-            {
-                "id": "F-006",
-                "priority": "P0",
-                "statement": "\u8fdb\u5ea6\u5b58\u6d4f\u89c8\u5668 localStorage\uff08ck_progress_v1\uff09",
-                "verification": "site_static/app.js loadProgress() \u51fd\u6570"
-            },
-            {
-                "id": "F-007",
-                "priority": "P1",
-                "statement": "\u4e09\u7ea7\u96be\u5ea6\uff08easy/medium/hard\uff09",
-                "verification": "DIFFICULTY_CONFIG in app.py"
-            },
-            {
-                "id": "F-008",
-                "priority": "P1",
-                "statement": "\u8bcd\u5e93 319 \u8bcd\uff08vocab.json 23 \u8bdd\u9898\uff09+ \u4e09\u7ea7\u8bcd\u5e93 2016+ \u8bcd\uff08junior_vocab_3levels.json\uff09",
-                "verification": "vocab-check.py \u5b9e\u6d4b 319 \u8bcd"
-            },
-            {
-                "id": "F-009",
-                "priority": "P0",
-                "statement": "14 \u4e2a\u9875\u9762\uff08home/learn/vocab/quiz/translate/translate-en/tense/preposition/errors/stats/knowledge/...\uff09",
-                "verification": "templates/ \u76ee\u5f55 14 \u4e2a HTML"
-            },
-            {
-                "id": "F-010",
-                "priority": "P2",
-                "statement": "\u9519\u9898\u81ea\u52a8\u8bb0\u5f55 + \u8fde\u7eed\u7b54\u5bf9 3 \u6b21\u81ea\u52a8\u79fb\u9664 + 200 \u6761\u81ea\u52a8\u622a\u65ad",
-                "verification": "app.py progress.json schema"
-            },
-            {
-                "id": "F-011",
-                "priority": "P1",
-                "statement": "\u77e5\u8bc6\u8bfe\u7a0b 9 \u4e2a tab\uff08\u65f6\u6001/\u4ecb\u8bcd/\u51a0\u8bcd/\u540d\u8bcd/\u5199\u4f5c/\u53e5\u5b50\u7ed3\u6784/\u6570\u91cf\u8bcd/\u6838\u5fc3\u53e5\u578b/\u9ad8\u7ea7\u8bed\u6cd5\uff09\uff0c\u6bcf\u4e2a\u6a21\u5757\u5305\u542b\u6587\u5b57\u5927\u7eb2\u4e0e\u5b66\u4e60\u6d77\u62a5",
-                "verification": "knowledge_outline.md \u542b\u6a21\u57571\u81f3\u6a21\u57579\u6807\u9898 + site_static/assets/knowledge/m1.png \u81f3 m9.png"
-            },
-            {
-                "id": "F-012",
-                "priority": "P1",
-                "statement": "TTS \u53d1\u97f3\u6309\u94ae\uff08vocab/quiz \u9875\u9762\uff09",
-                "verification": "site_static/app.js speak() \u8c03\u7528"
-            },
-            {
-                "id": "F-013",
-                "priority": "P0",
-                "statement": "\u98de\u4e66 Webhook \u63a8\u9001\uff08send_daily.py / send_weekly_report.py\uff09",
-                "verification": "FEISHU_WEBHOOK env var \u63a5\u5165"
-            },
-            {
-                "id": "F-014",
-                "priority": "P1",
-                "statement": "MCQ \u9009\u62e9\u9898 4 \u4e2a\u9009\u9879\u5fc5\u987b\u5168\u90e8\u4e0d\u540c\uff1aprep_opts \u6c60\u53bb\u91cd + \u65f6\u6001\u5e72\u6270\u9879\u5927\u5c0f\u5199\u5f52\u4e00\u5316\u53bb\u91cd + \u8bcd\u6c47\u6d4b\u8bd5\u4e2d\u6587\u91ca\u4e49\u53bb\u91cd\uff08Flask + SPA \u53cc\u7aef\u4fee\u590d\uff09",
-                "verification": "\u8089\u773c\u68c0\u67e5\u65f6\u6001/\u4ecb\u8bcd/quiz \u9875\u9762\u65e0\u91cd\u590d\u9009\u9879"
-            },
-            {
-                "id": "F-015",
-                "priority": "P1",
-                "statement": "\u5b66\u4e60\u7edf\u8ba1\u9875\u8bdd\u9898\u5206\u5c42\u5f52\u7c7b\uff1a8 \u7236\u7c7b CATEGORY_TREE \u6620\u5c04 75 \u5b50\u7c7b + <details>/<summary> \u539f\u751f\u6298\u53e0\u5c55\u5f00\uff0c\u9ed8\u8ba4\u663e\u793a\u7236\u7c7b",
-                "verification": "/stats \u9875\u9762\u663e\u793a 8 \u4e2a\u53ef\u6298\u53e0\u7236\u7c7b\uff0c\u70b9\u51fb\u5c55\u5f00\u5b50\u7c7b\u660e\u7ec6"
-            },
-            {
-                "id": "F-016",
-                "priority": "P2",
-                "statement": "\u77e5\u8bc6\u8bfe\u7a0b\u9875\u9762\u6587\u5b57\u5bf9\u6bd4\u5ea6\u63d0\u5347\uff1amarkdown \u6b63\u6587 #1a1a2e + \u6807\u9898 #2d3748 + \u4ee3\u7801\u5757 #e8e8ed + \u6697\u8272\u6a21\u5f0f\u8986\u76d6",
-                "verification": "/knowledge \u9875\u9762\u6587\u5b57\u6e05\u6670\u53ef\u8bfb"
-            },
-            {
-                "id": "F-017",
-                "priority": "P1",
-                "statement": "\u6bcf\u65e5 20:00 \u63a8\u9001\u4eca\u65e5\u9519\u8bcd\u7684\u9488\u5bf9\u6027\u5de9\u56fa\u63d0\u793a\uff1a\u7384\u5958 LLM \u751f\u6210 tip/example\uff0c\u6309 word \u53bb\u91cd\uff1b\u8c03 Supabase progress.user_key='ck_user_key_v1' \u5355\u884c\uff1bFEISHU_WEBHOOK env",
-                "verification": "send_wrong_words.sh cron \u89e6\u53d1\uff1bDRY_RUN=1 \u8f93\u51fa interactive \u5361\u7247 JSON\uff1bF-010 wrong_words \u5b57\u6bb5\u5339\u914d"
-            },
-            {
-                "id": "F-018",
-                "priority": "P1",
-                "statement": "\u6bcf\u5468\u65e5 20:00 \u63a8\u9001\u672c\u5468\u9519\u8bcd TOP 10 \u6c47\u603b + LLM \u8001\u5e08\u9f13\u52b1/\u5206\u6790\uff08\u6309 attempts \u964d\u5e8f\u3001\u5df2\u638c\u63e1\u8bcd\u8fc7\u6ee4\uff09",
-                "verification": "send_weekly_wrong_words.sh cron \u89e6\u53d1\uff1bDRY_RUN=1 \u8f93\u51fa\u5361\u7247 JSON\uff1b\u672c\u5468\u65f6\u95f4\u7a97 = today - 7 \u5929"
-            },
-            {
-                "id": "F-019",
-                "priority": "P0",
-                "statement": "\u7edf\u4e00 content.json \u7ec3\u4e60\u9898\u5e93\u987b\u652f\u6301\u6301\u7eed\u6253\u5361\uff1a\u8bed\u6cd5\u7ec4 \u2265100 \u4e14\u7ec4\u5185\u7ec3\u4e60 \u2265450\uff0c\u4e2d\u8bd1\u82f1 \u2265240\uff0c\u65f6\u6001 \u2265200\uff1b36 \u4e2a\u521d\u4e2d\u6838\u5fc3\u77e5\u8bc6\u70b9\u5404\u81f3\u5c11 6 \u9053\u7ec3\u4e60\uff1b\u7ffb\u8bd1\u548c\u65f6\u6001\u6309 easy/medium/hard \u7cbe\u786e\u8bfb\u53d6\u5bf9\u5e94\u9898\u5e93\uff0c\u6bcf\u65e5\u8bed\u6cd5\u4ece\u7ec4\u5185\u968f\u673a\u62bd\u9898\u5e76\u5bf9\u5df2\u638c\u63e1\u5185\u5bb9\u4f4e\u9891\u590d\u4e60",
-                "verification": "python3 -m pytest tests/test_content_bank.py tests/test_site_static.py -q"
-            },
-            {
-                "id": "F-020",
-                "priority": "P1",
-                "statement": "\u6269\u5c55\u9898\u76ee\u5fc5\u987b\u4fdd\u5b58\u5728 data/question_bank_expansion.json\uff0cscripts/expand_question_bank.py \u53ea\u8d1f\u8d23\u6821\u9a8c\u3001\u53bb\u91cd\u5e76\u5408\u5e76\u5230 content.json\uff0c\u4e0d\u5f97\u786c\u7f16\u7801\u9898\u76ee\u5217\u8868",
-                "verification": "python3 -m pytest tests/test_content_bank.py -q"
-            },
-            {
-                "id": "F-021",
-                "priority": "P0",
-                "statement": "\u6bcf\u65e5\u6253\u5361\u9898\u578b\u9009\u62e9\u9875 #/checkin-config\uff1a\u7528\u6237\u53ef\u52fe\u9009\u672c\u6b21\u60f3\u505a\u7684\u9898\u578b\uff08vocab/grammar \u5fc5\u9009\uff0c\u5176\u4f59 5 \u9879\u53ef\u9009\uff09\uff0c\u6309\u52fe\u9009\u987a\u5e8f\u4f9d\u6b21\u8fdb\u5165\u5404\u9898\u578b\uff0c\u5168\u90e8\u5b8c\u6210\u540e\u8bb0\u4e00\u6b21\u6253\u5361",
-                "verification": "pytest tests/test_site_static.py -v (10 \u4e2a\u65b0\u589e\u7528\u4f8b\u8986\u76d6)"
-            },
-            {
-                "id": "F-022",
-                "priority": "P0",
-                "statement": "\u8d26\u53f7\u4e91\u7aef\u540c\u6b65 + \u65e7\u8bbe\u5907\u65e0\u635f\u8fc1\u79fb\uff1a\u8fdb\u5ea6\u9875\u5b57\u7b26\u4e32\u62fc\u63a5\u6a21\u677f bug \u4fee\u590d\uff1b\u6240\u6709\u6301\u4e45\u5316\u5b57\u6bb5\uff08vocab_mastered/grammar_mastered/checkins/wrong_words/wrong_grammar/flashcard_history/custom_vocab/card_states/chat_history/achievements_unlocked/vocab_list_marked/game_stats/user_name/bound_devices/difficulty/checkin_types/daily_checkin_plan/word_stats/total_days/streak/last_checkin\uff09\u901a\u8fc7 mergeProgress union \u5408\u5e76\uff1b\u9996\u6b21\u8bbe\u6635\u79f0\u65f6\u81ea\u52a8\u904d\u5386 bound_devices \u4e2d\u65e7 UUID \u62c9\u53d6\u5408\u5e76\uff1b\u8fdb\u5ea6\u9875\u63d0\u4f9b\u624b\u52a8\u5408\u5e76\u5165\u53e3\u652f\u6301\u7c98\u8d34\u65e7 UUID\uff1b\u91cd\u7f6e/\u5bfc\u5165 JSON \u4e0d\u518d\u6e05\u7a7a\u8d26\u53f7\u7ed1\u5b9a",
-                "verification": "pytest tests/test_account_sync.py -v\uff086 \u4e2a\u65b0\u589e\u7528\u4f8b\uff1a\u6a21\u677f\u4e0d\u518d\u62fc\u63a5\u3001DEVICE_KEY \u72ec\u7acb\u3001mergeProgress 13 \u5b57\u6bb5 union\u3001\u65e7\u8bbe\u5907\u81ea\u52a8/\u624b\u52a8\u8fc1\u79fb\u3001\u96be\u5ea6+syncFromSupabase union \u5408\u5e76\u3001\u5bfc\u5165/\u91cd\u7f6e\u4fdd\u7559\u8d26\u53f7\u7ed1\u5b9a\uff09"
-            }
-        ],
-        "\u00a74_non_functional_requirements": [
-            {
-                "id": "N-001",
-                "category": "availability",
-                "statement": "\u516c\u7f51\u5730\u5740\u6c38\u4e45\u7a33\u5b9a\uff08\u5df2\u5347 Netlify \u5957\u9910\uff0c\u7981\u6b62 trycloudflare \u4e34\u65f6 URL\uff09"
-            },
-            {
-                "id": "N-002",
-                "category": "ux",
-                "statement": "\u79fb\u52a8\u7aef\u53cb\u597d\uff08\u624b\u673a\u6d4f\u89c8\u5668\u76f4\u63a5\u8bbf\u95ee\uff0cSafari \u6dfb\u52a0\u5230\u4e3b\u5c4f\u5e55\uff09"
-            },
-            {
-                "id": "N-003",
-                "category": "privacy",
-                "statement": "\u79bb\u7ebf\u53cb\u597d\uff08localStorage \u4e0d\u4f9d\u8d56\u670d\u52a1\u7aef\uff0c\u6240\u6709\u6570\u636e\u5728\u6d4f\u89c8\u5668\uff09"
-            },
-            {
-                "id": "N-004",
-                "category": "deployability",
-                "statement": "\u90e8\u7f72\u53ef\u91cd\u73b0\uff08build.py \u2192 data.js \u2192 dist/index.html\uff09"
-            },
-            {
-                "id": "N-005",
-                "category": "performance",
-                "statement": "\u9759\u6001\u7248 index.html < 50KB\uff08\u5df2 SPA \u5316 + \u8d44\u6e90 inlined\uff09"
-            },
-            {
-                "id": "N-006",
-                "category": "ux",
-                "statement": "\u77e5\u8bc6\u8bfe\u7a0b\u9875\u9762\u6587\u5b57\u53ef\u8bfb\u6027\uff1amarkdown \u6b63\u6587\u5bf9\u6bd4\u5ea6 \u22657:1 + \u4ee3\u7801\u5757\u80cc\u666f\u8272 #e8e8ed + \u5f15\u7528\u5757\u80cc\u666f #f0f0f5"
-            },
-            {
-                "id": "N-007",
-                "category": "privacy",
-                "statement": "\u8d26\u53f7\u654f\u611f\u6570\u636e\u4ec5\u7559\u672c\u673a\uff1aLLM API key \u4ecd\u5b58 localStorage\uff08ck_llm_key_v1\uff09\uff0c\u4e0d\u4e0a\u4f20 Supabase\uff1b\u4e91\u7aef progress \u53ea\u4fdd\u5b58\u7528\u6237\u6635\u79f0\u548c\u6d3e\u751f user_key\uff08djb2 + salt\uff09\uff0c\u6635\u79f0\u672c\u8eab\u53ef\u91cd\u547d\u540d\u4f46\u5408\u5e76\u65f6\u6309 user_key \u8def\u7531"
-            }
-        ],
-        "\u00a75_use_cases": [
-            {
-                "id": "UC-01",
-                "actor": "\u5b69\u5b50",
-                "precondition": "\u98de\u4e66\u7fa4\u5df2\u52a0 Bot",
-                "main_flow": "\u6bcf\u5929 19:00 \u6536\u5230\u98de\u4e66\u6253\u5361\u5361\u7247 \u2192 \u70b9\u51fb\"\u5f00\u59cb\u6253\u5361\"\u6309\u94ae \u2192 \u8df3\u8f6c\u516c\u7f51 URL",
-                "postcondition": "\u5b69\u5b50\u8fdb\u5165\u5b66\u4e60\u9875\u9762",
-                "exception": "Bot \u672a\u52a0\u7fa4 \u2192 \u7528\u6237\u6536\u4e0d\u5230\u63a8\u9001\uff08cron \u4ecd\u89e6\u53d1\uff0c\u4f46 feishu webhook \u8fd4\u56de 4xx\uff09"
-            },
-            {
-                "id": "UC-02",
-                "actor": "\u5b69\u5b50",
-                "precondition": "\u516c\u7f51 URL \u53ef\u8bbf\u95ee",
-                "main_flow": "\u6d4f\u89c8\u5668\u6253\u5f00 weilai-zte.github.io/english-checkin \u2192 \u9996\u9875\u96be\u5ea6\u9009\u62e9 \u2192 \u70b9 /learn",
-                "postcondition": "\u8fdb\u5165\u6bcf\u65e5\u5b66\u4e60\u4efb\u52a1",
-                "exception": "URL \u4e0d\u53ef\u8bbf\u95ee \u2192 \u8054\u7cfb\u7236\u4eb2\u68c0\u67e5 Netlify \u90e8\u7f72"
-            },
-            {
-                "id": "UC-03",
-                "actor": "\u5b69\u5b50",
-                "precondition": "\u5df2 /learn",
-                "main_flow": "5 \u4e2a\u8bcd\u6c47\u95ea\u5361\uff08\u4e2d\u2192\u82f1\uff09\u2192 \u7ffb\u9762\u770b\u7b54\u6848 \u2192 \u70b9\"\u8bb0\u4f4f\"/\"\u5fd8\u4e86\"/\"\u592a\u7b80\u5355\"",
-                "postcondition": "\u8fdb\u5ea6\u66f4\u65b0\u5230 localStorage",
-                "exception": "localStorage \u6ee1 \u2192 \u81ea\u52a8\u622a\u65ad flashcard_history 200 \u6761"
-            },
-            {
-                "id": "UC-04",
-                "actor": "\u5b69\u5b50",
-                "precondition": "\u5df2 /learn \u6216\u76f4\u63a5\u8bbf\u95ee /quiz",
-                "main_flow": "\u542c\u82f1\u6587\u53d1\u97f3 \u2192 \u9009 4 \u4e2a\u4e2d\u6587\u610f\u601d \u2192 \u70b9\"\u4e0b\u4e00\u9898\"",
-                "postcondition": "\u5f97\u5206\u226560% \u6807\u8bb0\u8be5\u8bcd\u5df2\u638c\u63e1",
-                "exception": "\u6d4f\u89c8\u5668\u4e0d\u652f\u6301 SpeechRecognition\uff08Safari \u6709 bug\uff09\u2192 \u663e\u793a\u9ea6\u514b\u98ce\u6309\u94ae\u4f46\u4e0d\u5de5\u4f5c"
-            },
-            {
-                "id": "UC-05",
-                "actor": "\u5b69\u5b50",
-                "precondition": "\u5df2 /learn",
-                "main_flow": "8 \u79cd\u65f6\u6001\u9009\u62e9\u9898 \u2192 \u9009\u7b54\u6848 \u2192 \u63d0\u4ea4",
-                "postcondition": "\u9519\u9898\u81ea\u52a8\u5165 wrong_grammar \u6570\u7ec4",
-                "exception": "\u96be\u5ea6=hard \u2192 \u5207\u6362\u5230 HARD_TENSE_QUESTIONS"
-            },
-            {
-                "id": "UC-06",
-                "actor": "\u5b69\u5b50",
-                "precondition": "\u5df2 /learn",
-                "main_flow": "\u770b\u4e2d\u6587\u53e5\u5b50 \u2192 \u6574\u8bcd\u586b\u7a7a \u2192 \u5b9e\u65f6\u53d8\u7eff \u2192 \u63d0\u4ea4",
-                "postcondition": "\u9519\u9898\u5165 wrong_words",
-                "exception": "mask_sentence() \u8c03\u7528\u7b7e\u540d\u9519\u8bef \u2192 \u4e3b\u8bed\u6d88\u5931\uff082026-05-18 \u4fee\u590d\uff09"
-            },
-            {
-                "id": "UC-07",
-                "actor": "\u5b69\u5b50",
-                "precondition": "\u81f3\u5c11 1 \u4e2a\u9519\u9898",
-                "main_flow": "/errors \u2192 \u6309\u9519\u8bef\u6b21\u6570\u5012\u5e8f\u663e\u793a \u2192 \u53ef\u70b9 \ud83d\udd0a \u53d1\u97f3",
-                "postcondition": "\u590d\u4e60\u9519\u9898",
-                "exception": "\u65e0\u9519\u9898 \u2192 \u663e\u793a\u7a7a\u72b6\u6001"
-            },
-            {
-                "id": "UC-08",
-                "actor": "\u5b69\u5b50",
-                "precondition": "\u6709\u6253\u5361\u8bb0\u5f55",
-                "main_flow": "/stats \u2192 \u663e\u793a\u6b63\u786e\u7387 + 8 \u7236\u7c7b\u5206\u5c42\u8bdd\u9898\u9519\u9898\u5206\u5e03\uff08\u53ef\u6298\u53e0\u5c55\u5f00\uff09 + \u8fd1 7 \u5929\u6253\u5361\u65e5\u5386",
-                "postcondition": "\u770b\u5230\u5b66\u4e60\u6570\u636e\uff0c\u53ef\u6309\u7236\u7c7b\u5c55\u5f00\u67e5\u770b\u5b50\u7c7b\u660e\u7ec6",
-                "exception": "\u65e0\u6570\u636e \u2192 \u663e\u793a\"\u4eca\u5929\u5f00\u59cb\u7b2c\u4e00\u6b21\u6253\u5361\""
-            },
-            {
-                "id": "UC-09",
-                "actor": "\u5b69\u5b50",
-                "precondition": "\u516c\u7f51 URL \u53ef\u8bbf\u95ee",
-                "main_flow": "/knowledge \u2192 9 \u4e2a tab\uff08\u65f6\u6001/\u4ecb\u8bcd/\u51a0\u8bcd/\u540d\u8bcd/\u5199\u4f5c/\u53e5\u5b50\u7ed3\u6784/\u6570\u91cf\u8bcd/\u6838\u5fc3\u53e5\u578b/\u9ad8\u7ea7\u8bed\u6cd5\uff09",
-                "postcondition": "\u6d4f\u89c8\u77e5\u8bc6\u8bfe\u7a0b",
-                "exception": "\u624b\u673a\u7aef\u6298\u53e0 accordion"
-            },
-            {
-                "id": "UC-10",
-                "actor": "\u7236\u4eb2\uff08\u9b4f\u6765\uff09",
-                "precondition": "\u5468\u516d 09:00 cron \u89e6\u53d1",
-                "main_flow": "send_weekly_report.py \u8bfb\u53d6 progress.json \u2192 \u751f\u6210\u5361\u7247 \u2192 \u98de\u4e66\u63a8\u9001",
-                "postcondition": "\u7236\u4eb2\u6536\u5230\u672c\u5468\u5b66\u4e60\u62a5\u544a",
-                "exception": "progress.json \u7a7a \u2192 \u62a5\u544a\u5185\u5bb9\u4e3a\"\u4eca\u5929\u5f00\u59cb\u7b2c\u4e00\u6b21\u6253\u5361\""
-            },
-            {
-                "id": "UC-11",
-                "actor": "\u7236\u4eb2\uff08\u9b4f\u6765\uff09",
-                "precondition": "Hermes cron \u7cfb\u7edf\u8fd0\u884c",
-                "main_flow": "hermes cron list \u2192 \u4fee\u6539 jobs.json \u2192 enable/disable job",
-                "postcondition": "cron \u72b6\u6001\u53d8\u5316",
-                "exception": "jobs.json JSON \u89e3\u6790\u5931\u8d25 \u2192 cron \u9759\u9ed8\u8df3\u8fc7"
-            },
-            {
-                "id": "UC-12",
-                "actor": "\u7236\u4eb2\uff08\u9b4f\u6765\uff09",
-                "precondition": "site_static/dist/ \u6709\u65b0 build",
-                "main_flow": "export NETLIFY_AUTH_TOKEN + NETLIFY_SITE_ID \u2192 netlify deploy --dir=dist --prod",
-                "postcondition": "\u516c\u7f51 URL \u66f4\u65b0",
-                "exception": "\u672c\u673a\u65e0\u6cd5\u8bbf\u95ee GitHub \u2192 dist \u5206\u652f\u4e0d\u80fd push\uff0c\u81ea\u52a8\u90e8\u7f72\u5931\u6548"
-            },
-            {
-                "id": "UC-13",
-                "actor": "\u7236\u4eb2\uff08\u9b4f\u6765\uff09",
-                "precondition": "vocab-check.py \u9a8c\u8bc1\u901a\u8fc7",
-                "main_flow": "\u7f16\u8f91 data/vocab.json \u6216 data/grammar.json \u2192 python3 site_static/build.py \u2192 netlify deploy",
-                "postcondition": "\u8bcd\u5e93\u66f4\u65b0\u5230\u7ebf\u4e0a",
-                "exception": "vocab.json \u542b\u91cd\u590d\u8bcd \u2192 vocab-check.py \u62a5\u8b66"
-            }
-        ],
-        "\u00a77_constraints": [
-            {
-                "id": "C-001",
-                "category": "deploy",
-                "rule": "Netlify \u9759\u6001\u6258\u7ba1\uff08\u4e0d\u80fd\u6709\u670d\u52a1\u7aef session / \u670d\u52a1\u7aef progress.json\uff09",
-                "metric": "site_static/ \u5168\u90e8\u5ba2\u6237\u7aef\u5316"
-            },
-            {
-                "id": "C-002",
-                "category": "compatibility",
-                "rule": "\u6d4f\u89c8\u5668\u517c\u5bb9\u6027\uff1aiOS Safari 16+ / Android Chrome / Desktop Chrome / Edge",
-                "metric": "Web Speech API + localStorage 100% \u8986\u76d6"
-            },
-            {
-                "id": "C-003",
-                "category": "data_integrity",
-                "rule": "\u8bcd\u5e93\u82f1\u6587\u4e0d\u6df7\u6742\u4e2d\u6587\uff08\u4e2d\u6587\u91ca\u4e49\u4e0d\u542b\u5b8c\u6574\u82f1\u6587\u5355\u8bcd\uff09",
-                "metric": "vocab-check.py \u81ea\u52a8\u9a8c\u8bc1"
-            }
-        ]
+    {
+      "name": "data_schemas",
+      "source": "data/{content.json, question_bank_expansion.json, vocab.json, grammar.json, progress.json, junior_vocab_3levels.json}",
+      "type": "file"
     }
+  ],
+  "outputs": [
+    {
+      "name": "flask_routes",
+      "destination": "本文 internal_logic.routes (14 routes)",
+      "type": "json"
+    },
+    {
+      "name": "data_schemas",
+      "destination": "本文 internal_logic.schema (7: content/question_bank_expansion/vocab/grammar/progress/junior_vocab/data_js)",
+      "type": "json"
+    },
+    {
+      "name": "build_interface",
+      "destination": "本文 internal_logic.interfaces (1: build_data_export)",
+      "type": "json"
+    },
+    {
+      "name": "state_machines",
+      "destination": "本文 internal_logic.state_machines (3: flashcard/wrong_word_upgrade/netlify_deploy)",
+      "type": "json"
+    },
+    {
+      "name": "performance_budget",
+      "destination": "本文 constraints (6 项 NFR 数值)",
+      "type": "json"
+    },
+    {
+      "name": "error_codes",
+      "destination": "本文 failure_modes (5 类 12 项)",
+      "type": "json"
+    }
+  ],
+  "internal_logic": {
+    "summary": "1) Flask 14 routes（带路由/方法/前置/返回） 2) 7 数据 Schema（content/question_bank_expansion/vocab/grammar/progress/junior_vocab/data_js） 3) build 接口（question_bank_expansion.json → content.json → static site） 4) 3 状态机（flashcard/wrong_word/netlify） 5) 错误码 5 类 12 项 6) 性能预算与题库覆盖约束 7) 依赖矩阵 8 项",
+    "interfaces": [
+      {
+        "name": "build_data_export",
+        "module": "site_static/build.py",
+        "signature": "export_data() -> None (write site_static/dist/assets/data.js)",
+        "returns": "None（写盘副作用）",
+        "invariants": [
+          "vocab 必须含 _L1 / _L2 / _L3 三级 (junior_vocab_3levels.json 导出)",
+          "vocab 可含 _legacy_{topic} (兼容老 vocab.json 兜底)",
+          "grammar / translate_questions / tense_questions 必须全部从 content.json 导出",
+          "translate_questions 与 tense_questions 必须保留 difficulty 和 knowledge_points 供前端筛选",
+          "knowledge_modules 必须包含 module1 至 module9，值为 Mistune 从 knowledge_outline.md 对应章节生成的 HTML",
+          "difficulty_config 必须含 block_topics (list) + extra_block (list)",
+          "app.js 必须含 CATEGORY_TREE 常量 (8 父类 → 子类, stats 页分层展示用)"
+        ],
+        "raises": [
+          "data/*.json 解析失败 → print 警告 + 继续"
+        ]
+      },
+      {
+        "name": "send_daily",
+        "module": "send_daily.py",
+        "signature": "build_msg() -> dict; send(msg) -> dict (urllib POST)",
+        "returns": "dict (Feishu API response, 含 StatusCode)",
+        "invariants": [
+          "WEBHOOK 从 FEISHU_WEBHOOK env var 读取 (空则 raise ValueError)",
+          "PUBLIC_URL 默认 https://weilai-zte.github.io/english-checkin (env 可覆盖)",
+          "msg_type='interactive' + 紫色 header + '开始打卡'/'闪卡复习' 两个按钮",
+          "进度从 data/progress.json 读取 (streak/total_days)"
+        ],
+        "raises": [
+          "urllib.error.URLError (DNS 失败) → 走 DNS 旁路 (curl --resolve)"
+        ]
+      },
+      {
+        "name": "send_weekly_report",
+        "module": "send_weekly_report.py",
+        "signature": "build_msg() -> dict; send(msg) -> dict",
+        "returns": "dict (Feishu API response)",
+        "invariants": [
+          "本周 = 上周六 ~ 本周五 (weekday + 1 days offset)",
+          "汇总本周打卡天数 + 整体正确率 + 薄弱话题 TOP5 + 新掌握词汇",
+          "LOCAL_URL = 'http://127.0.0.1:5200' (Flask 本地版链接)"
+        ],
+        "raises": []
+      },
+      {
+        "name": "mask_sentence",
+        "module": "app.py",
+        "signature": "mask_sentence(en: str) -> tuple[list[dict], list[dict]]",
+        "returns": "(words_display, blanks_info)",
+        "invariants": [
+          "仅保留句首第 1 个词（主语锚点）",
+          "其余词一整词一空，无预填",
+          "len(words) < 2 → 整句作为 text 返回，blanks 为空"
+        ],
+        "raises": []
+      },
+      {
+        "name": "vocab_check",
+        "module": "~/.hermes/skills/english-checkin/scripts/vocab-check.py",
+        "signature": "main() -> None (print 报告)",
+        "returns": "None（打印副作用）",
+        "invariants": [
+          "检查 1: 重复 (word, cn) 对，按 topic 分组",
+          "检查 2: cn 含英文且 len > 8 → cn_with_en 列表",
+          "PROJECT_ROOT = Path.home() / 'Projects' / 'english-checkin'"
+        ],
+        "raises": []
+      },
+      {
+        "name": "netlify_deploy",
+        "module": "shell command",
+        "signature": "netlify deploy --dir=site_static/dist --prod",
+        "returns": "stdout 含 'Deploy URL' + 'Website URL'",
+        "invariants": [
+          "NETLIFY_AUTH_TOKEN 必须从 publish.sh grep 提取 (PAT)",
+          "NETLIFY_SITE_ID 必须从 publish.sh grep 提取 (e263ee9b-e3e8-41ee-b605-9b8d6f58ea1a)",
+          "site ID 错误 → 部署到错误网站"
+        ],
+        "raises": [
+          "AUTH_TOKEN 过期 → 重新 netlify login"
+        ]
+      },
+      {
+        "name": "send_wrong_words",
+        "module": "send_wrong_words.py",
+        "signature": "main() -> int; build_prompt(words) -> str; call_llm(prompt, cfg) -> str; parse_llm_json(raw) -> list; build_card(words, llm_tips, today) -> dict; send_webhook(msg) -> (bool, dict)",
+        "returns": "0 推送成功 / 1 失败 (sys.exit code)",
+        "invariants": [
+          "WEBHOOK 从 FEISHU_WEBHOOK env var 读取 (空则 raise RuntimeError)",
+          "进度优先从 Supabase progress 表 (user_key=ck_user_key_v1) 读；失败回落 data/progress.json",
+          "调玄奘默认 LLM (~/.hermes/config.yaml: model.provider=minimax-cn) 生成针对性巩固例句；无 api_key 抛 RuntimeError",
+          "DRY_RUN=1 仅打印卡片 JSON 不真推",
+          "msg_type='interactive' + 橙色 header + '错题本'/'闪卡复习' 按钮",
+          "PyYAML 必需；缺失时 RuntimeError 提示 pip install pyyaml"
+        ],
+        "raises": [
+          "urllib.error.URLError (DNS 失败) → 走 DNS 旁路",
+          "yaml.YAMLError → RuntimeError 路径解析失败"
+        ]
+      },
+      {
+        "name": "send_weekly_wrong_words",
+        "module": "send_weekly_wrong_words.py",
+        "signature": "main() -> int; collect_weekly_wrong() -> (list, date, date); build_prompt_weekly(words, ws, today) -> str; build_card(words, llm_resp, ws, today) -> dict",
+        "returns": "0 推送成功 / 1 失败",
+        "invariants": [
+          "近 7 天 wrong_words 去重聚合 + 按 attempts 降序，截取 TOP 10 在卡片展示",
+          "复用 send_wrong_words 的 load_llm_config / call_llm / parse_llm_json / send_webhook / lookup_word_meta",
+          "supabase 读到空走本地 progress.json 兜底",
+          "msg_type='interactive' + indigo header + '错题本'/'学习概览' 按钮"
+        ],
+        "raises": []
+      },
+      {
+        "name": "advance_checkin_plan",
+        "module": "site_static/app.js",
+        "signature": "function advanceCheckinPlan(type: str): str | null",
+        "description": "标记 plan.completed += [type]，返回 plan.queue 中下一项 type key 或 'finish'；plan 不存在/不含 type 返回 null",
+        "invariants": [
+          "plan.date !== today() 视为过期返回 null"
+        ]
+      },
+      {
+        "name": "append_checkin_next_step",
+        "module": "site_static/app.js",
+        "signature": "function appendCheckinNextStep(app: HTMLElement, type: str): bool",
+        "description": "5 种题型 onSubmit 末尾调用；返回 true 表示在 plan 中（已渲染下一项/完成卡），false 表示不在 plan（caller 可走通用复习完成卡）",
+        "invariants": [
+          "若 next === 'finish' 渲染'完成打卡 ✓'按钮，点击触发 finishMixedCheckin",
+          "若 next 是 type key 渲染'下一项: [icon] [label]'按钮，点击 navigate(next.route)"
+        ]
+      },
+      {
+        "name": "finish_mixed_checkin",
+        "module": "site_static/app.js",
+        "signature": "function finishMixedCheckin(types: str[]): void",
+        "description": "全部题型完成后调用，写一条 checkins entry（含 types 数组）+ 更新 streak + 清空 daily_checkin_plan",
+        "invariants": [
+          "已打卡 (checkedInToday()) 时直接 return，避免重复打卡",
+          "types.slice() 入库防引用泄漏",
+          "grammar_id = 'mixed' 标记为组合打卡"
+        ]
+      },
+      {
+        "name": "mergeProgress",
+        "module": "site_static/app.js",
+        "signature": "function mergeProgress(local: object, remote: object): object",
+        "description": "Union merge：vocab_mastered/grammar_mastered/checkins/wrong_words/wrong_grammar/flashcard_history/custom_vocab/card_states/chat_history/achievements_unlocked/vocab_list_marked/game_stats/word_stats/user_name/bound_devices 全部去重合并；设置类 (difficulty/checkin_types/daily_checkin_plan/avatar) 按 _updated_at 较新者胜；返回新对象不修改入参",
+        "invariants": [
+          "remote === null/undefined 时仍返回完整 defaultProgress 副本",
+          "wrong_words + flashcard_history 自动截断 200 条",
+          "local.user_name 永远优先于 remote.user_name",
+          "bound_devices 去重并保留所有出现过的 UUID"
+        ]
+      },
+      {
+        "name": "loadRemoteRowsByNickname",
+        "module": "site_static/app.js",
+        "signature": "async function loadRemoteRowsByNickname(name: string): Promise<RemoteProgressRow[]>",
+        "description": "按 data.user_name 查找昵称相同的历史进度行，用于新浏览器自动发现旧 UUID 行",
+        "invariants": [
+          "昵称为空或 Supabase 未连接时返回空数组",
+          "最多读取 20 行，旧 UUID 行只读不删除"
+        ]
+      },
+      {
+        "name": "syncToSupabaseNow",
+        "module": "site_static/app.js",
+        "signature": "async function syncToSupabaseNow(): Promise<boolean>",
+        "description": "立即执行云端同步：先读取账号行并 union merge，再 upsert 合并结果；本地是离线缓存，账号云端行是跨设备真理源",
+        "invariants": [
+          "任何 upsert 前必须先成功 loadFromRemoteByKey(key)",
+          "远端读取失败时返回 false 且禁止 upsert，避免空数据覆盖历史",
+          "并发保存通过 _syncInFlight/_syncPending 串行补写"
+        ]
+      },
+      {
+        "name": "switchAccount",
+        "module": "site_static/app.js",
+        "signature": "async function switchAccount(name: string, legacyDeviceId?: string): Promise<void>",
+        "description": "切换/绑定账号昵称：备份本地 → 拉昵称 key / 旧 USER_KEY / 当前设备 ID / 传入旧 UUID → 按昵称发现其他旧 UUID 行 → union merge → 写入 bound_devices → 恢复难度",
+        "invariants": [
+          "switchAccount 前必须先 backupProgress()",
+          "传入 legacyDeviceId 时一并尝试合并旧 UUID；找不到远端进度视为空数据",
+          "完成后调用 applyAccountSettings() 写回 progress.difficulty",
+          "昵称账号读取失败时 saveProgress({sync:false})，只保留本地缓存且禁止覆盖云端"
+        ]
+      },
+      {
+        "name": "mergeLegacyDevice",
+        "module": "site_static/app.js",
+        "signature": "async function mergeLegacyDevice(legacyId: string): Promise<{merged: boolean, remote_words: number}>",
+        "description": "手动合并入口：进度页「合并旧记录」按钮调用；拉取旧 UUID 对应远端进度 union merge；找不到时返回 {merged: false}",
+        "invariants": [
+          "旧 UUID 必须形如 UUID v4，否则 throw",
+          "成功后必须 union bound_devices 并保存"
+        ]
+      },
+      {
+        "name": "saveProgress",
+        "module": "site_static/app.js",
+        "signature": "function saveProgress(options?: {sync?: boolean}): void",
+        "description": "本地缓存持久化：写 localStorage[ck_progress_v1] + 同步 window.progress + 写 _updated_at；默认触发 syncToSupabase()，云端读取失败时可显式禁用本次上传",
+        "invariants": [
+          "每次写入必须更新 progress._updated_at = new Date().toISOString()",
+          "必须同步 window.progress 引用（_shared.js 等子模块能看到最新值）"
+        ]
+      },
+      {
+        "name": "unbindDevice",
+        "module": "site_static/app.js",
+        "signature": "function unbindDevice(deviceId: string): void",
+        "description": "解除绑定某个设备：仅从本账号 bound_devices 中移除目标 UUID；云端数据保留，可随时通过相同昵称重新合并；拒绝解绑当前设备与 nickname key",
+        "invariants": [
+          "deviceId === getDeviceId() 时拒绝并 toast",
+          "isNicknameKey(deviceId) 时拒绝（保护账号标识）",
+          "解绑前必须 backupCurrentProgress()",
+          "解绑后必须 saveProgress() + render() 让 UI 立即反映"
+        ]
+      },
+      {
+        "name": "pickQuote",
+        "module": "site_static/app.js",
+        "signature": "function pickQuote(streak: number, doneToday: boolean, totalDays: number, nickname: string): string",
+        "description": "首页随机励志语：按首次学习、日常学习、连续 7 天以上和今日已完成四类静态文案池选择",
+        "invariants": [
+          "nickname 为空时返回设置昵称提示，不随机展示无关文案",
+          "doneToday 优先于累计天数和连续天数",
+          "连续 7 天以上的文案必须显示当前 streak"
+        ]
+      },
+      {
+        "name": "setAvatar",
+        "module": "site_static/app.js",
+        "signature": "function setAvatar(avatar: string): void",
+        "description": "保存个人 emoji 头像并立即刷新当前页面",
+        "invariants": [
+          "仅接受 AVATAR_CHOICES 中的值",
+          "值发生变化后必须 saveProgress() + render()"
+        ]
+      },
+      {
+        "name": "renderProfile",
+        "module": "site_static/app.js",
+        "signature": "function renderProfile(app: HTMLElement): void",
+        "description": "渲染 #/profile 个人设置页：头像选择、昵称设置、当前设备、绑定设备管理及旧设备记录合并",
+        "invariants": [
+          "昵称保存必须复用 switchAccount()，确保本地与云端记录 union merge",
+          "头像按钮必须提供 aria-label 和 aria-pressed",
+          "非当前设备的解绑操作必须复用 unbindDevice()",
+          "旧设备记录合并必须复用 mergeLegacyDevice()"
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "path": "/",
+        "method": "GET",
+        "handler": "home_page()",
+        "session_required": false,
+        "returns": "home.html + 难度选择器"
+      },
+      {
+        "path": "/learn",
+        "method": "GET",
+        "handler": "learn_page()",
+        "session_required": true,
+        "returns": "learn.html + 5 词任务建立"
+      },
+      {
+        "path": "/vocab/<int:idx>",
+        "method": "GET",
+        "handler": "vocab_page(idx)",
+        "session_required": true,
+        "returns": "vocab.html + 闪卡"
+      },
+      {
+        "path": "/quiz",
+        "method": "GET",
+        "handler": "quiz_page()",
+        "session_required": false,
+        "returns": "quiz.html + 选择题"
+      },
+      {
+        "path": "/quiz/check",
+        "method": "POST",
+        "handler": "quiz_check()",
+        "session_required": true,
+        "returns": "JSON {score, results}"
+      },
+      {
+        "path": "/translate",
+        "method": "GET",
+        "handler": "translate_page()",
+        "session_required": true,
+        "returns": "translate.html + 中译英"
+      },
+      {
+        "path": "/translate/check",
+        "method": "POST",
+        "handler": "translate_check()",
+        "session_required": true,
+        "returns": "JSON {results, score}"
+      },
+      {
+        "path": "/translate-en",
+        "method": "GET",
+        "handler": "translate_en_page()",
+        "session_required": true,
+        "returns": "translate_en.html + 英译中"
+      },
+      {
+        "path": "/translate-en/check",
+        "method": "POST",
+        "handler": "translate_en_check()",
+        "session_required": true,
+        "returns": "JSON {results, score}"
+      },
+      {
+        "path": "/tense",
+        "method": "GET",
+        "handler": "tense_page()",
+        "session_required": true,
+        "returns": "tense.html + 时态"
+      },
+      {
+        "path": "/tense/check",
+        "method": "POST",
+        "handler": "tense_check()",
+        "session_required": true,
+        "returns": "JSON {results, score}"
+      },
+      {
+        "path": "/preposition",
+        "method": "GET",
+        "handler": "preposition_page()",
+        "session_required": true,
+        "returns": "preposition.html + 介词"
+      },
+      {
+        "path": "/preposition/check",
+        "method": "POST",
+        "handler": "preposition_check()",
+        "session_required": true,
+        "returns": "JSON {results, score}"
+      },
+      {
+        "path": "/knowledge",
+        "method": "GET",
+        "handler": "knowledge_page()",
+        "session_required": false,
+        "returns": "knowledge.html + 9 tabs（HTML 正文 + 学习海报）"
+      },
+      {
+        "path": "/errors",
+        "method": "GET",
+        "handler": "errors_page()",
+        "session_required": false,
+        "returns": "errors.html + 错题本"
+      },
+      {
+        "path": "/stats",
+        "method": "GET",
+        "handler": "stats_page()",
+        "session_required": false,
+        "returns": "stats.html + 统计"
+      },
+      {
+        "path": "/difficulty/<level>",
+        "method": "GET",
+        "handler": "set_difficulty(level)",
+        "session_required": false,
+        "returns": "redirect to home"
+      },
+      {
+        "path": "/tts",
+        "method": "GET",
+        "handler": "tts()",
+        "session_required": false,
+        "returns": "audio/wav (Flask 本地版 only)"
+      },
+      {
+        "path": "/vocab-check",
+        "method": "POST",
+        "handler": "vocab_check_endpoint()",
+        "session_required": true,
+        "returns": "JSON {results}"
+      },
+      {
+        "path": "#/home",
+        "framework": "site_static SPA",
+        "handler": "renderHome",
+        "returns": "首页：个人成就 → 学习主题 → 今日打卡 CTA → 每日一词 → 难度选择；CTA 跳转 checkin-config"
+      },
+      {
+        "path": "#/checkin-config",
+        "framework": "site_static SPA",
+        "handler": "renderCheckinConfig",
+        "returns": "每日打卡题型勾选（vocab/grammar 必选，其余可选）"
+      },
+      {
+        "path": "#/learn",
+        "framework": "site_static SPA",
+        "handler": "renderLearn",
+        "returns": "通用复习入口（vocab 闪卡 + grammar 填空，已不调 submitCheckin）"
+      },
+      {
+        "path": "#/vocab",
+        "framework": "site_static SPA",
+        "handler": "renderVocab",
+        "returns": "词汇闪卡；最后一词后按 plan 推进"
+      },
+      {
+        "path": "#/grammar",
+        "framework": "site_static SPA",
+        "handler": "renderGrammar",
+        "returns": "语法填空；onSubmit 末尾调 appendCheckinNextStep('grammar')"
+      },
+      {
+        "path": "#/quiz",
+        "framework": "site_static SPA",
+        "handler": "renderQuiz",
+        "returns": "选择题（不直接记打卡）"
+      },
+      {
+        "path": "#/tense",
+        "framework": "site_static SPA",
+        "handler": "renderTense",
+        "returns": "时态选择题"
+      },
+      {
+        "path": "#/preposition",
+        "framework": "site_static SPA",
+        "handler": "renderPreposition",
+        "returns": "介词选择题"
+      },
+      {
+        "path": "#/translate",
+        "framework": "site_static SPA",
+        "handler": "renderTranslate",
+        "returns": "中译英填空"
+      },
+      {
+        "path": "#/translate-en",
+        "framework": "site_static SPA",
+        "handler": "renderTranslateEn",
+        "returns": "英译中填空"
+      },
+      {
+        "path": "#/flashcard",
+        "framework": "site_static SPA",
+        "handler": "renderFlashcard",
+        "returns": "闪卡复习 (FSRS 评分)"
+      },
+      {
+        "path": "#/flashcard-errors",
+        "framework": "site_static SPA",
+        "handler": "renderFlashcardErrors",
+        "returns": "错词专项闪卡复习"
+      },
+      {
+        "path": "#/dictation",
+        "framework": "site_static SPA",
+        "handler": "renderDictation",
+        "returns": "听写模式（10 个词）"
+      },
+      {
+        "path": "#/errors",
+        "framework": "site_static SPA",
+        "handler": "renderErrors",
+        "returns": "错题本"
+      },
+      {
+        "path": "#/stats",
+        "framework": "site_static SPA",
+        "handler": "renderStats",
+        "returns": "学习统计"
+      },
+      {
+        "path": "#/progress",
+        "framework": "site_static SPA",
+        "handler": "renderProgress",
+        "returns": "进度概览 + 最近 10 次打卡（按 types 显示）"
+      },
+      {
+        "path": "#/profile",
+        "framework": "site_static SPA",
+        "handler": "renderProfile",
+        "returns": "个人设置：头像、昵称、绑定设备管理和旧设备记录合并"
+      },
+      {
+        "path": "#/knowledge",
+        "framework": "site_static SPA",
+        "handler": "renderKnowledge",
+        "returns": "知识课程 9 tabs（主题色 Hero + HTML 正文 + 上下模块导航）"
+      },
+      {
+        "path": "#/achievements",
+        "framework": "site_static SPA",
+        "handler": "renderAchievements",
+        "returns": "成就系统 10 badges"
+      },
+      {
+        "path": "#/vocab-import",
+        "framework": "site_static SPA",
+        "handler": "renderVocabImport",
+        "returns": "导入自定义词表"
+      },
+      {
+        "path": "#/vocab-list",
+        "framework": "site_static SPA",
+        "handler": "renderVocabList",
+        "returns": "全部词汇"
+      },
+      {
+        "path": "#/game/memory",
+        "framework": "site_static SPA",
+        "handler": "renderMemoryMatch",
+        "returns": "翻牌配对游戏"
+      },
+      {
+        "path": "#/game/wordle",
+        "framework": "site_static SPA",
+        "handler": "renderWordle",
+        "returns": "猜词 Wordle 游戏"
+      },
+      {
+        "path": "#/game/picture",
+        "framework": "site_static SPA",
+        "handler": "renderPictureMatch",
+        "returns": "看图猜词游戏：图片线索词库按 difficulty_config.level_key 读取 L1/L2/L3，选项使用同档位相近长度词，答题后显示中文释义"
+      },
+      {
+        "path": "#/game/builder",
+        "framework": "site_static SPA",
+        "handler": "renderSentenceBuilder",
+        "returns": "句子拼装游戏"
+      },
+      {
+        "path": "#/game/tower",
+        "framework": "site_static SPA",
+        "handler": "renderTowerDefense",
+        "returns": "塔防打字游戏"
+      },
+      {
+        "path": "#/review",
+        "framework": "site_static SPA",
+        "handler": "renderReview",
+        "returns": "上次打卡回顾"
+      }
+    ],
+    "schema": {
+      "vocab_json": {
+        "type": "object",
+        "description": "data/vocab.json - 23 话题, 319 词, 初中覆盖",
+        "example_keys": [
+          "_L1_Colors",
+          "_L1_Animals",
+          "_L2_Sports",
+          "_L3_Advanced"
+        ],
+        "fields": {
+          "topic": "str (e.g. 'L1 Colors (10 词)')",
+          "words": "list[{word, pron, cn, 记忆, 例句}]"
+        },
+        "invariants": [
+          "23 话题, 总 319 词",
+          "无重复 (word, cn) 对",
+          "cn 字段不含完整英文单词"
+        ]
+      },
+      "grammar_json": {
+        "type": "object",
+        "description": "data/grammar.json - 18 语法组",
+        "fields": {
+          "id": "str (e.g. 'simple_past')",
+          "name": "str (中文名)",
+          "rules": "list[str]",
+          "examples": "list[{en, cn}]"
+        },
+        "invariants": [
+          "18 语法组",
+          "每组至少 1 个 example"
+        ]
+      },
+      "content_json": {
+        "type": "object",
+        "description": "data/content.json - 供运行时读取的统一词汇与练习汇总文件",
+        "fields": {
+          "meta": "{schema_version, total, type_count, grade_count, filter_attrs, coverage_standard}",
+          "items": "list[{id, type, grade, topic, knowledge_points, difficulty, ...type_fields}]",
+          "grammar_fields": "{title, rule, examples, exercises:[{题,答案,提示}]}",
+          "translate_fields": "{cn, en, hint, direction}",
+          "tense_fields": "{question, answer, hint}"
+        },
+        "invariants": [
+          "所有 id 唯一，所有练习题面+答案组合去重",
+          "grammar ≥100 组且组内练习 ≥450，translate ≥240，tense ≥200",
+          "36 个核心知识点各至少 6 道可作答练习",
+          "translate 与 tense 的 easy/medium/hard 各档数量达到测试下限"
+        ]
+      },
+      "question_bank_expansion_json": {
+        "type": "object",
+        "description": "data/question_bank_expansion.json - 扩展语法、翻译和时态题目的独立维护源",
+        "fields": {
+          "meta": "{schema_version, source, description, type_count}",
+          "items": "list[grammar|translate|tense]"
+        },
+        "invariants": [
+          "Python 合并脚本不得包含题目列表",
+          "items.src 必须与 meta.source 一致",
+          "scripts/expand_question_bank.py 合并后不得改变题目数量或内容"
+        ]
+      },
+      "progress_json": {
+        "type": "object",
+        "description": "data/progress.json - Flask 本地版进度",
+        "fields": {
+          "streak": "int (连续天数)",
+          "total_days": "int (累计天数)",
+          "last_checkin": "str (YYYY-MM-DD) | null",
+          "vocab_mastered": "list[str] (已掌握词)",
+          "grammar_mastered": "list[str] (已掌握语法)",
+          "checkins": "list[{date, vocab, quiz, tense, preposition}]",
+          "wrong_words": "list[{word, cn, wrong_count, last_wrong_date}]",
+          "word_stats": "{word: {total, correct, wrong, first_seen}}",
+          "wrong_grammar": "list[{grammar_id, wrong_count, last_wrong_date}]",
+          "flashcard_history": "list[{date, word, action, difficulty}]"
+        },
+        "invariants": [
+          "wrong_words + flashcard_history 自动截断 200 条",
+          "连续答对 3 次 → wrong_words 自动移除",
+          "level='hard' 词自动移入 vocab_mastered"
+        ]
+      },
+      "junior_vocab_3levels_json": {
+        "type": "object",
+        "description": "data/junior_vocab_3levels.json - 三级平铺 (L1/L2/L3)",
+        "fields": {
+          "L1": "list[{w, cn, l1_cat}] (基础, 小学覆盖)",
+          "L2": "list[{w, cn, l2_cat}] (拓展, 日常)",
+          "L3": "list[{w, cn, l3_cat}] (拔高, 高级)"
+        },
+        "invariants": [
+          "L1 词不在 L2/L3",
+          "总词数 2016+"
+        ]
+      },
+      "data_js_frontend": {
+        "type": "object",
+        "description": "site_static/dist/assets/data.js - 客户端打包数据",
+        "fields": {
+          "vocab": "{_L1: {topic, words}, _L2: ..., _L3: ..., _legacy_{topic}: ...}",
+          "grammar": "content.json 中的 grammar 内容",
+          "translate_sentences": "list[{cn, en}]",
+          "hard_translate": "list[{cn, en}]",
+          "hard_tense_questions": "list[...]",
+          "translate_questions": "list[{id, cn, en, hint, grade, topic, difficulty, knowledge_points}]",
+          "tense_questions": "list[{id, question, answer, hint, grade, topic, difficulty, knowledge_points}]",
+          "content": "content.json 完整内容（供 D.filter 按标量或数组属性过滤）",
+          "simple_words": "list[str] (已 deprecated, [] for junior_vocab)",
+          "junior_vocab_meta": "{L1: int, L2: int, L3: int}",
+          "difficulty_config": "{easy: {...}, medium: {...}, hard: {...}}",
+          "knowledge_modules": "{module1: html, ..., module9: html}（knowledge_outline.md 构建时转换）"
+        },
+        "invariants": [
+          "json.dumps with ensure_ascii=False (中文不转义)",
+          "knowledge_modules 必须恰好覆盖 module1 至 module9，且每段 HTML 包含对应学习海报"
+        ]
+      },
+      "progress_v1": {
+        "type": "object",
+        "description": "site_static localStorage['ck_progress_v1'] schema (浏览器端用户进度)",
+        "fields": {
+          "checkins": "list[{date, vocab, grammar_id, grammar_title, score, types?}]  types 字段为 v0.13+ 新增",
+          "vocab_mastered": "list[str]",
+          "grammar_mastered": "list[str]",
+          "streak": "int",
+          "total_days": "int",
+          "last_checkin": "date str (YYYY-MM-DD) | null",
+          "word_stats": "{word: {total, correct, wrong, first_seen?}}",
+          "wrong_words": "list[{word, cn, pron, user, date, attempts}]",
+          "wrong_grammar": "list[{type, question, answer, user, hint, date}]",
+          "flashcard_history": "list[{word, rating, date}]",
+          "custom_vocab": "list[vocab_item]",
+          "card_states": "{word: FSRS_state}",
+          "chat_history": "list",
+          "achievements_unlocked": "list[str]",
+          "learning_plan_done": "list",
+          "checkin_types": "list[str] (v0.13+ 题型勾选持久化)",
+          "daily_checkin_plan": "{date, queue, completed} | undefined (v0.13+ 当日打卡队列，finishMixedCheckin 时清空)",
+          "user_name": "str (v0.17+ 账号昵称)",
+          "bound_devices": "list[str] (v0.17+ 本账号绑定过的所有设备 UUID)",
+          "avatar": "str (v0.18+ emoji 头像，默认 '🦊')",
+          "difficulty": "str (v0.17+ 'easy'|'medium'|'hard'，按 _updated_at 较新者胜)",
+          "game_stats": "{game_id: {played, won, lost, best, last_played, history[]}} (v0.17+ 各游戏成绩按 max 合并)",
+          "vocab_list_marked": "list[str] (v0.17+ 全部词汇页的收藏/标记)",
+          "_updated_at": "ISO datetime (v0.17+ saveProgress 写入，用于跨设备同步时按时间选较新设置)"
+        },
+        "invariants": [
+          "wrong_words + flashcard_history 自动截断 200 条",
+          "checkin_types 默认 = CHECKIN_TYPES 全部 key（含 vocab/grammar 必选）",
+          "daily_checkin_plan.date !== today() 视为过期，UI 应自动清理或忽略",
+          "旧 checkins 记录无 types 字段时 UI 回退到 grammar_title 显示",
+          "mergeProgress(local, remote) 必须 union 合并全部账号持久化字段，user_name 优先用本地",
+          "设置类字段 (difficulty/checkin_types/daily_checkin_plan/avatar) 按整个 progress._updated_at 较新者胜",
+          "game_stats[i].played/won/lost/best 取 max(a,b)，history 按 max 100 截断",
+          "_updated_at 由 saveProgress 自动写入 ISO 时间；reader 不必关心"
+        ]
+      }
+    },
+    "state_machines": [
+      {
+        "name": "flashcard_lifecycle",
+        "states": [
+          "new",
+          "learning",
+          "forgot",
+          "mastered"
+        ],
+        "transitions": [
+          {
+            "from": "new",
+            "to": "learning",
+            "trigger": "用户首次查看闪卡"
+          },
+          {
+            "from": "learning",
+            "to": "forgot",
+            "trigger": "用户点'忘了'按钮"
+          },
+          {
+            "from": "learning",
+            "to": "mastered",
+            "trigger": "用户点'太简单' ≥3 次"
+          },
+          {
+            "from": "forgot",
+            "to": "mastered",
+            "trigger": "连续答对 3 次"
+          }
+        ]
+      },
+      {
+        "name": "wrong_word_upgrade",
+        "states": [
+          "correct",
+          "wrong_once",
+          "wrong_repeat",
+          "auto_removed"
+        ],
+        "transitions": [
+          {
+            "from": "correct",
+            "to": "wrong_once",
+            "trigger": "用户答错 1 次"
+          },
+          {
+            "from": "wrong_once",
+            "to": "correct",
+            "trigger": "用户答对 1 次"
+          },
+          {
+            "from": "wrong_once",
+            "to": "wrong_repeat",
+            "trigger": "用户再答错 1 次"
+          },
+          {
+            "from": "wrong_repeat",
+            "to": "auto_removed",
+            "trigger": "连续答对 3 次"
+          }
+        ]
+      },
+      {
+        "name": "netlify_deploy",
+        "states": [
+          "edit_local",
+          "build_data",
+          "extract_creds",
+          "deploy",
+          "verify"
+        ],
+        "transitions": [
+          {
+            "from": "edit_local",
+            "to": "build_data",
+            "trigger": "data/*.json 修改"
+          },
+          {
+            "from": "build_data",
+            "to": "extract_creds",
+            "trigger": "python3 build.py 成功"
+          },
+          {
+            "from": "extract_creds",
+            "to": "deploy",
+            "trigger": "grep publish.sh 拿 token/site ID"
+          },
+          {
+            "from": "deploy",
+            "to": "verify",
+            "trigger": "netlify deploy --dir=dist --prod"
+          },
+          {
+            "from": "verify",
+            "to": "done",
+            "trigger": "curl 主页 200 + assets/data.js 内容正确"
+          }
+        ]
+      },
+      {
+        "name": "checkin_flow",
+        "description": "每日打卡题型勾选 + 队列推进流程 (v0.13+)",
+        "states": [
+          "idle (未开始)",
+          "config (checkin-config 页面，勾选题型)",
+          "in_progress (queue 中)",
+          "finished (finishMixedCheckin 已触发)"
+        ],
+        "transitions": [
+          {
+            "from": "idle",
+            "to": "config",
+            "trigger": "home CTA → #/checkin-config"
+          },
+          {
+            "from": "config",
+            "to": "in_progress",
+            "trigger": "点'开始今日打卡'，写 daily_checkin_plan，跳转 queue[0].route"
+          },
+          {
+            "from": "in_progress",
+            "to": "in_progress",
+            "trigger": "题型 onSubmit 末尾 appendCheckinNextStep，advanceCheckinPlan 返回下一项"
+          },
+          {
+            "from": "in_progress",
+            "to": "finished",
+            "trigger": "advanceCheckinPlan 返回 'finish'，触发 finishMixedCheckin"
+          }
+        ],
+        "invariants": [
+          "checkedInToday() 时直接显示'今日已完成'卡，禁用 CTA",
+          "vocab/grammar 必选，UI 禁用复选框 + preventDefault"
+        ]
+      },
+      {
+        "name": "account_sync",
+        "states": [
+          "anonymous",
+          "legacy_uuid",
+          "nickname_bound",
+          "nickname_with_legacy"
+        ],
+        "transitions": [
+          {
+            "from": "anonymous",
+            "to": "nickname_bound",
+            "trigger": "用户首次输入昵称 switchAccount(name)"
+          },
+          {
+            "from": "nickname_bound",
+            "to": "nickname_with_legacy",
+            "trigger": "用户在进度页粘贴旧 UUID 并 mergeLegacyDevice(id)"
+          },
+          {
+            "from": "legacy_uuid",
+            "to": "nickname_with_legacy",
+            "trigger": "设备携带旧 USER_KEY 但本机无昵称；switchAccount 完成后进入"
+          },
+          {
+            "from": "nickname_with_legacy",
+            "to": "nickname_bound",
+            "trigger": "用户重置账号但保留 bound_devices"
+          }
+        ]
+      }
+    ]
+  },
+  "constraints": [
+    {
+      "name": "flask_routes_count",
+      "category": "compliance",
+      "rule": "Flask routes 数 ≤ 19 (当前 14 + 5 POST check)",
+      "metric": "实测 14 GET + 5 POST = 19 routes"
+    },
+    {
+      "name": "vocab_count",
+      "category": "data_integrity",
+      "rule": "vocab.json 总词数 = 319",
+      "metric": "vocab-check.py 实测"
+    },
+    {
+      "name": "content_question_bank",
+      "category": "data_integrity",
+      "rule": "content.json: grammar ≥100/练习 ≥450，translate ≥240，tense ≥200，36 个核心知识点各 ≥6 题",
+      "metric": "tests/test_content_bank.py"
+    },
+    {
+      "name": "junior_vocab_size",
+      "category": "performance",
+      "rule": "junior_vocab_3levels.json 总词数 ≥ 2016",
+      "metric": "L1 + L2 + L3 三级合计"
+    },
+    {
+      "name": "static_site_size",
+      "category": "performance",
+      "rule": "site_static/dist/ 总大小 ≤ 3MB",
+      "metric": "实测约 2.2MB (主要为 data.js 统一内容库)"
+    },
+    {
+      "name": "build_time",
+      "category": "performance",
+      "rule": "python3 build.py < 5s",
+      "metric": "实测 ~3s (data.js 导出)"
+    },
+    {
+      "name": "flask_startup",
+      "category": "performance",
+      "rule": "Flask 启动 < 3s",
+      "metric": "实测 ~2s"
+    },
+    {
+      "name": "mcq_option_uniqueness",
+      "category": "data_integrity",
+      "rule": "MCQ 4 选项必须全部不同：prep_opts 无重复值 + 时态干扰项 case-insensitive 去重 + quiz 中文释义去重",
+      "metric": "肉眼检查 4 个选项无重复；prep_opts len == len(set(prep_opts))"
+    }
+  ],
+  "failure_modes": [
+    {
+      "name": "flask_session_overflow",
+      "trigger": "session cookie > 4KB (Flask 3.1 Samesite=Lax)",
+      "fallback": "redirect 回 /learn",
+      "recovered_by": "清理 session",
+      "alert": "无"
+    },
+    {
+      "name": "vocab_duplicate",
+      "trigger": "vocab-check.py 发现 (word, cn) 重复",
+      "fallback": "报警并打印删除脚本",
+      "recovered_by": "用户手动删除",
+      "alert": "stderr 提示"
+    },
+    {
+      "name": "feishu_dns_fail",
+      "trigger": "urllib.error.URLError (DNS 解析失败)",
+      "fallback": "Python 退化为 JSON 生成器 + curl 直连 (--resolve IP)",
+      "recovered_by": "DNS 恢复或换 IP",
+      "alert": "logs/send_daily_*.log"
+    },
+    {
+      "name": "feishu_timeout",
+      "trigger": "TimeoutError (SSL read timeout)",
+      "fallback": "走 send_daily_safe.sh (curl with --connect-timeout)",
+      "recovered_by": "网络恢复",
+      "alert": "logs/send_daily_*.log"
+    },
+    {
+      "name": "feishu_400_bad_request",
+      "trigger": "FEISHU_ALLOWED_USERS 含多个 open_id",
+      "fallback": "脚本已 .split(',')[0] 自动取第一个",
+      "recovered_by": "用户改 env var",
+      "alert": "stderr"
+    },
+    {
+      "name": "netlify_token_expired",
+      "trigger": "401 Unauthorized",
+      "fallback": "重新 netlify login + 更新 publish.sh",
+      "recovered_by": "用户重新登录",
+      "alert": "stderr"
+    },
+    {
+      "name": "build_data_missing",
+      "trigger": "data/*.json 不存在",
+      "fallback": "try/except 警告 + legacy fallback",
+      "recovered_by": "用户补文件",
+      "alert": "stderr"
+    },
+    {
+      "name": "speech_recognition_safari_bug",
+      "trigger": "Safari SpeechRecognition.onend 不触发",
+      "fallback": "6 秒 listenTimeout 强制停止",
+      "recovered_by": "用户用 Chrome",
+      "alert": "无"
+    },
+    {
+      "name": "knowledge_module_build_empty",
+      "trigger": "knowledge_outline.md 的任一模块标题缺失或不一致",
+      "fallback": "对应 tab 显示“本模块内容暂不可用”",
+      "recovered_by": "补齐模块标题后重新运行 site_static/build.py",
+      "alert": "无"
+    },
+    {
+      "name": "localstorage_quota",
+      "trigger": "localStorage.setItem 抛 QuotaExceededError",
+      "fallback": "自动截断 flashcard_history/wrong_words 200 条",
+      "recovered_by": "用户清浏览器",
+      "alert": "无"
+    },
+    {
+      "name": "mask_sentence_wrong_call",
+      "trigger": "调用 mask_sentence(en, difficulty) 双参数",
+      "fallback": "主语消失，全空白 input",
+      "recovered_by": "用户改回单参数",
+      "alert": "无 (UI 报错隐式)"
+    },
+    {
+      "name": "build_venv_missing",
+      "trigger": "site_static/.venv/ 不存在 (首次部署)",
+      "fallback": "用户手动 python3 -m venv .venv && pip install mistune",
+      "recovered_by": "用户重装",
+      "alert": "stderr"
+    },
+    {
+      "name": "mcq_option_duplicate",
+      "trigger": "prep_opts 含重复值 或 时态干扰项大小写不一致 或 quiz 选项同中文释义",
+      "fallback": "Set 去重 + .toLowerCase() 归一化 + .cn Set 去重",
+      "recovered_by": "肉眼确认 4 选项全不同",
+      "alert": "用户截图反馈（无自动告警）"
+    }
+  ],
+  "upstream": [
+    "requirements"
+  ],
+  "downstream": [
+    "design",
+    "readme",
+    "changelog"
+  ],
+  "version": "v0.18.7",
+  "last_validated": "2026-07-25",
+  "evolution": [
+    {
+      "date": "2026-07-25",
+      "version": "v0.18.7",
+      "action": "change",
+      "what": "恢复 spec.json 规格真理源，并将知识课程数据契约从 knowledge_md 更新为 9 段 knowledge_modules HTML；#/knowledge 增加主题色 Hero、结构化正文和上下模块导航",
+      "why": "避免浏览器端正则解析 Markdown 造成结构混乱，并修复此前知识课程变更误覆盖规格文档的问题",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.3",
+      "action": "change",
+      "what": "跨浏览器同步改为云端账号行优先：按昵称自动发现并迁移旧 UUID 记录；写入前先读远端做 union merge；慢同步完成后刷新页面；个人设置页新增立即同步入口",
+      "why": "修复新浏览器输入相同昵称后仍无进度，以及空本地状态可能覆盖云端历史的问题",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.2",
+      "action": "change",
+      "what": "首页将今日打卡 CTA 移到学习主题之后，连续天数统一保留在我的成就中并删除重复卡片",
+      "why": "让学习主题与开始动作连续，减少连续天数的重复展示",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.1",
+      "action": "change",
+      "what": "将绑定设备管理和旧设备记录合并入口统一迁入 #/profile，#/progress 只保留学习进度与打卡记录",
+      "why": "个人信息和账号同步属于个人设置，避免同一类设置分散在进度页与个人设置页",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.18",
+      "action": "add",
+      "what": "新增 #/profile 个人设置页、20 个 emoji 头像、首页随机励志语；avatar 纳入 progress_v1 并按 _updated_at 参与账号同步，进度重置时保留",
+      "why": "让首页更具个人归属感，并把昵称、头像、设备管理集中到个人设置中",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.17.1",
+      "action": "add",
+      "what": "进度页加「查看设备详情」折叠区，列出 bound_devices 中所有设备 UUID（昵称 key 不显示），本机标「本机」，其他设备附「解绑」按钮；新增 unbindDevice(id) 拒绝解绑本机/昵称 key，解绑前自动备份；cloud 端数据保留可重绑",
+      "why": "目标「整体考虑一下」的自然延伸——用户能看到并管理绑了哪些设备，而不是只看到数字",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.17",
+      "action": "add",
+      "what": "账号云端同步 + 旧设备无损迁移：mergeProgress 13 字段 union 合并；DEVICE_KEY 与 USER_KEY 解耦；switchAccount/mergeLegacyDevice/saveProgress 三个接口；state_machine account_sync (anonymous/legacy_uuid/nickname_bound/nickname_with_legacy)；进度页模板字符串 bug 修复",
+      "why": "用户原话「凡是要记录的信息都应该和账号关联」「换浏览器就看不到记录」",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-16",
+      "version": "v0.16",
+      "action": "split",
+      "what": "将 /tmp/expand_question_bank.py 内的 307 条扩展题目拆分到 data/question_bank_expansion.json，仓库脚本仅保留合并逻辑",
+      "why": "题库应作为结构化数据维护，避免与生成逻辑耦合",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-16",
+      "version": "v0.15",
+      "action": "change",
+      "what": "新增 content_json schema；data.js 导出分级 translate_questions/tense_questions；题库规模、去重和 36 知识点覆盖纳入约束",
+      "why": "统一题库已成为静态站练习的真实来源，旧 grammar.json/Flask 常量描述不再反映运行时行为",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-06-15",
+      "version": "v0.13",
+      "action": "add",
+      "what": "新增 mcq_option_uniqueness constraint + mcq_option_duplicate failure_mode",
+      "why": "prep_opts 含重复值 'until'/'along' + 时态 'is'/'Is' 大小写不一致导致选项重复",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-15",
+      "version": "v0.13",
+      "action": "add",
+      "what": "build_interface invariants 增加 app.js CATEGORY_TREE 常量检查",
+      "why": "统计页 75 子类 → 8 父类分层，CATEGORY_TREE 是新增数据结构",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "5 原则 doc-as-data: docs/spec.json (真理源) + docs/spec.md (渲染)",
+      "why": "用户要求 doc-as-data",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "spec 列出 14 routes (Flask) + 5 data schemas + 1 build 接口 + 3 state machines",
+      "why": "v0.11 起工程跨 19 routes + 5 数据 schema, AI 改之前需要 spec 对齐",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-06-13",
+      "version": "v0.12",
+      "action": "add",
+      "what": "spec.json 含 6 constraints (性能预算) + 12 failure_modes (5 类: session/data/feishu/netlify/UI)",
+      "why": "覆盖 2026-05~06 已踩过的 12 个坑",
+      "by": "玄奘"
+    },
+    {
+      "date": "2026-07-15",
+      "version": "v0.14",
+      "action": "add",
+      "what": "新增 send_wrong_words / send_weekly_wrong_words: 玄奘 LLM 生成针对性巩固例句，飞书卡片推送今日/本周错词；Supabase progress 表按 user_key 过滤单行；删 __pycache__ 入库",
+      "why": "F-017/F-018 错词巩固推送 + 反模式修正 (多用户合并 + TLS 旁路 + 手搓 YAML)",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.4",
+      "action": "change",
+      "what": "时态题 (#/tense) 干扰项改为同词根生成：新增 tenseDistractors() 优先从题干 (verb) 提取 be/have/finish/know 等不规则动词表 + 规则变形 (thirdPerson/pastForm/ingForm)，回退到答案剥离助动词 → 同档位答案池 → 通用 fallback",
+      "why": "用户反馈：原 4 选项中其他三个都是不同动词的不同时态，词根都不同，一眼排除；改为至少 2 个选项与正确答案同词根",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-18",
+      "version": "v0.18.5",
+      "action": "change",
+      "what": "appendCheckinNextStep 入口清理旧完成卡 (.checkin-step-card) 避免堆叠；grammar/dictation 提交按钮未隐藏导致重复提交时完成卡堆叠",
+      "why": "用户反馈：打卡完成时点几次会弹出几个完成卡",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-19",
+      "version": "v0.18.6",
+      "action": "change",
+      "what": "看图猜词改用 content.json 的 grade 分级词池，扩充 L3 图片线索词；干扰项限制为同难度相近长度，答题后显示中文释义",
+      "why": "用户反馈：看图猜词过于简单，且练习难度切换没有同步到看图词库",
+      "by": "Codex"
+    }
+  ]
 }

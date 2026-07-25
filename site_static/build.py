@@ -18,6 +18,8 @@ import sys
 import shutil
 from pathlib import Path
 
+import mistune
+
 # 路径
 HERE = Path(__file__).parent
 PROJECT_ROOT = HERE.parent  # ~/english-checkin/
@@ -113,8 +115,29 @@ def export_data():
         if g.get("id") not in legacy_ids:
             grammar.append(g)
 
-    # 知识大纲 markdown
+    # 知识课程在构建阶段转成 HTML，浏览器只负责展示。
     knowledge_md = (PROJECT_ROOT / "knowledge_outline.md").read_text(encoding="utf-8")
+    module_titles = [
+        "模块1：英语时态体系（8种时态）",
+        "模块2：介词体系",
+        "模块3：冠词体系",
+        "模块4：名词体系",
+        "模块5：代词体系",
+        "模块6：形容词与副词体系",
+        "模块7：数量词体系",
+        "模块8：核心句型体系",
+        "模块9：高级核心语法体系",
+    ]
+    sections = {}
+    for part in re.split(r"\n(?=## 模块\d+：)", knowledge_md):
+        heading, _, body = part.partition("\n")
+        if heading.startswith("## "):
+            sections[heading.removeprefix("## ").strip()] = body
+    markdown = mistune.create_markdown(plugins=["table"])
+    knowledge_modules = {
+        f"module{i}": markdown(sections.get(title, ""))
+        for i, title in enumerate(module_titles, 1)
+    }
 
     # 983 词 + 学习路径 + 语法大纲 (基于 PDF + ChatGPT 大纲,2026-07-16 整合)
     def _try_load(name):
@@ -165,7 +188,7 @@ def export_data():
             k: {**v, "block_topics": list(v["block_topics"]), "extra_block": list(v.get("extra_block", set()))}
             for k, v in DIFFICULTY_CONFIG.items()
         },
-        "knowledge_md": knowledge_md,
+        "knowledge_modules": knowledge_modules,
         "vocab_983": vocab_983,
         "learning_plan": learning_plan,
         "grammar_outline": grammar_outline,

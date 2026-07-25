@@ -919,63 +919,6 @@ document.addEventListener('input', function(e) {
     window.speechSynthesis.speak(u);
   }
 
-  // ─── 简单 Markdown 渲染（支持标题/列表/代码/表格/引用）──
-  function renderMarkdown(md) {
-    if (!md) return '';
-    let html = escapeHtml(md);
-
-    // 代码块 ```...```
-    html = html.replace(/```([\s\S]*?)```/g, (_, code) => `<pre>${code}</pre>`);
-    // 行内代码
-    html = html.replace(/`([^`\n]+)`/g, '<code>$1</code>');
-    // 图片（知识课程资源由构建脚本复制到 assets/knowledge/）
-    html = html.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, '<img src="$2" alt="$1" loading="lazy">');
-
-    // 表格
-    html = html.replace(/((?:\|[^\n]+\|\n)+)/g, (block) => {
-      const rows = block.trim().split('\n');
-      if (rows.length < 2) return block;
-      const sep = rows[1];
-      if (!/^\|?[\s\-:|]+\|?$/.test(sep)) return block;
-      const ths = rows[0].split('|').slice(1, -1).map(s => `<th>${s.trim()}</th>`).join('');
-      const tds = rows.slice(2).map(r => {
-        const cells = r.split('|').slice(1, -1);
-        return '<tr>' + cells.map(c => `<td>${c.trim()}</td>`).join('') + '</tr>';
-      }).join('');
-      return `<table><thead><tr>${ths}</tr></thead><tbody>${tds}</tbody></table>`;
-    });
-
-    // 标题（## 在前）
-    html = html.split('\n');
-    const out = [];
-    let inList = false;
-    let listType = null;
-    const closeList = () => {
-      if (inList) { out.push(`</${listType}>`); inList = false; listType = null; }
-    };
-    for (const line of html) {
-      if (/^### /.test(line)) { closeList(); out.push(`<h3>${line.slice(4)}</h3>`); continue; }
-      if (/^## /.test(line))  { closeList(); out.push(`<h2>${line.slice(3)}</h2>`); continue; }
-      if (/^# /.test(line))   { closeList(); out.push(`<h1>${line.slice(2)}</h1>`); continue; }
-      if (/^\d+\. /.test(line)) {
-        if (listType !== 'ol') { closeList(); out.push('<ol>'); inList = true; listType = 'ol'; }
-        out.push(`<li>${line.replace(/^\d+\. /, '')}</li>`);
-        continue;
-      }
-      if (/^- /.test(line)) {
-        if (listType !== 'ul') { closeList(); out.push('<ul>'); inList = true; listType = 'ul'; }
-        out.push(`<li>${line.slice(2)}</li>`);
-        continue;
-      }
-      if (/^> /.test(line)) { closeList(); out.push(`<blockquote>${line.slice(2)}</blockquote>`); continue; }
-      if (line.trim() === '') { closeList(); out.push(''); continue; }
-      closeList();
-      out.push(`<p>${line}</p>`);
-    }
-    closeList();
-    return out.join('\n');
-  }
-
   // ─── 统一内容过滤 (D.content.items, 按属性筛选) ─────────────────
   // 用法: D.filter({type:"vocab", grade:"L1", topic:"饮食健康"})
   function filterContent(attrs) {
@@ -3229,49 +3172,118 @@ document.addEventListener('input', function(e) {
   }
 
   // ─── 视图：Knowledge（知识课程）──────────────────
+  const KB_MODULES = [
+    { key: 'module1', n: 1, label: '时态',      icon: '⏰', accent: '#3b82f6',
+      title: '英语时态体系', desc: '掌握 8 种时态的构成、用法与时间标志词' },
+    { key: 'module2', n: 2, label: '介词',      icon: '📍', accent: '#06b6d4',
+      title: '介词体系',     desc: '时间 / 地点 / 方向 / 其他介词的精准搭配' },
+    { key: 'module3', n: 3, label: '冠词',      icon: '🔤', accent: '#8b5cf6',
+      title: '冠词体系',     desc: 'a / an / the / 零冠词的使用规则' },
+    { key: 'module4', n: 4, label: '名词',      icon: '📦', accent: '#ec4899',
+      title: '名词体系',     desc: '可数 / 不可数 / 所有格 / 专有名词全梳理' },
+    { key: 'module5', n: 5, label: '代词',      icon: '👥', accent: '#f59e0b',
+      title: '代词体系',     desc: '人称 / 物主 / 反身 / 指示 / 疑问 / 不定代词' },
+    { key: 'module6', n: 6, label: '形副词',    icon: '🎨', accent: '#f97316',
+      title: '形容词与副词', desc: '修饰规则 / 构成 / 比较级 / 最高级' },
+    { key: 'module7', n: 7, label: '数量',      icon: '🔢', accent: '#10b981',
+      title: '数量词体系',   desc: '基数词 / 序数词 / 数量限定 / 单位表达' },
+    { key: 'module8', n: 8, label: '句型',      icon: '🧩', accent: '#6366f1',
+      title: '核心句型体系', desc: '五大基本句型 + There be + 祈使句 + 感叹句' },
+    { key: 'module9', n: 9, label: '进阶',      icon: '🚀', accent: '#f43f5e',
+      title: '高级核心语法', desc: '宾语从句 / 条件句 / 被动语态 / 情态动词 / 非谓语' },
+  ];
+
   function renderKnowledge(app) {
+    const tabsHtml = KB_MODULES.map((m, i) => `
+      <button class="tab-btn ${i === 0 ? 'active' : ''}" data-kb-tab="${m.key}"
+              style="--accent:${m.accent}" role="tab" aria-controls="kb-content"
+              aria-selected="${i === 0}">
+        <span class="tab-icon" aria-hidden="true">${m.icon}</span>
+        <span class="tab-num">${m.n}</span>
+        <span class="tab-label">${m.label}</span>
+      </button>
+    `).join('');
+
     app.innerHTML = `
       ${topBar('知识课程')}
-      <div class="tab-bar">
-        <button class="tab-btn active" data-tab="module1">1 时态</button>
-        <button class="tab-btn" data-tab="module2">2 介词</button>
-        <button class="tab-btn" data-tab="module3">3 冠词</button>
-        <button class="tab-btn" data-tab="module4">4 名词</button>
-        <button class="tab-btn" data-tab="module5">5 代词</button>
-        <button class="tab-btn" data-tab="module6">6 形副词</button>
-        <button class="tab-btn" data-tab="module7">7 数量词</button>
-        <button class="tab-btn" data-tab="module8">8 核心句型</button>
-        <button class="tab-btn" data-tab="module9">9 高级语法</button>
-      </div>
-      <div class="container">
-        <div id="kb-content" class="markdown"></div>
+      <div class="kb-tab-bar" role="tablist" aria-label="知识课程模块">${tabsHtml}</div>
+      <div class="kb-stage">
+        <div id="kb-hero"></div>
+        <article id="kb-content" class="markdown" role="tabpanel"></article>
+        <div id="kb-nav"></div>
       </div>
     `;
-    const tabContent = {
-      module1: extractSection('模块1：英语时态体系（8种时态）'),
-      module2: extractSection('模块2：介词体系'),
-      module3: extractSection('模块3：冠词体系'),
-      module4: extractSection('模块4：名词体系'),
-      module5: extractSection('模块5：代词体系'),
-      module6: extractSection('模块6：形容词与副词体系'),
-      module7: extractSection('模块7：数量词体系'),
-      module8: extractSection('模块8：核心句型体系'),
-      module9: extractSection('模块9：高级核心语法体系'),
-    };
-    function show(tab) {
-      app.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-      app.querySelector('#kb-content').innerHTML = renderMarkdown(tabContent[tab] || '');
+
+    function renderHero(m) {
+      return `
+        <section class="kb-hero" aria-labelledby="kb-hero-title">
+          <div class="kb-hero-icon" aria-hidden="true">${m.icon}</div>
+          <div class="kb-hero-meta">
+            <div class="kb-hero-eyebrow">模块 ${m.n} / 9</div>
+            <h1 id="kb-hero-title" class="kb-hero-title">${m.title}</h1>
+            <p class="kb-hero-desc">${m.desc}</p>
+          </div>
+        </section>
+      `;
     }
-    app.querySelectorAll('.tab-btn').forEach(b => b.onclick = () => show(b.dataset.tab));
-    show('module1');
-  }
-  function extractSection(title) {
-    const md = D.knowledge_md;
-    const idx = md.indexOf('## ' + title);
-    if (idx < 0) return '';
-    const rest = md.slice(idx);
-    const next = rest.indexOf('\n## ', 4);
-    return next < 0 ? rest : rest.slice(0, next);
+
+    function renderNav(idx) {
+      const prev = idx > 0 ? KB_MODULES[idx - 1] : null;
+      const next = idx < KB_MODULES.length - 1 ? KB_MODULES[idx + 1] : null;
+      return `
+        <div class="kb-nav">
+          ${prev ? `<button class="kb-nav-btn kb-prev" data-kb-tab="${prev.key}" aria-label="上一模块：${prev.title}">
+            <span class="kb-nav-arrow" aria-hidden="true">←</span>
+            <span class="kb-nav-meta"><small>上一模块</small><b>${prev.label}</b></span>
+          </button>` : '<span></span>'}
+          <button class="kb-nav-btn kb-top" aria-label="返回顶部" title="返回顶部">
+            <span aria-hidden="true">↑</span>
+          </button>
+          ${next ? `<button class="kb-nav-btn kb-next" data-kb-tab="${next.key}" aria-label="下一模块：${next.title}">
+            <span class="kb-nav-meta"><small>下一模块</small><b>${next.label}</b></span>
+            <span class="kb-nav-arrow" aria-hidden="true">→</span>
+          </button>` : '<span></span>'}
+        </div>
+      `;
+    }
+
+    function show(tab, scroll = true) {
+      const idx = KB_MODULES.findIndex(m => m.key === tab);
+      if (idx < 0) return;
+      const m = KB_MODULES[idx];
+      app.querySelector('.kb-stage').style.setProperty('--accent', m.accent);
+      app.querySelectorAll('.tab-btn').forEach(b => {
+        const active = b.dataset.kbTab === tab;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active);
+      });
+      app.querySelector('#kb-hero').innerHTML = renderHero(m);
+      const content = app.querySelector('#kb-content');
+      content.innerHTML = (D.knowledge_modules && D.knowledge_modules[tab]) || '<p>本模块内容暂不可用。</p>';
+      app.querySelector('#kb-nav').innerHTML = renderNav(idx);
+      content.querySelectorAll('blockquote').forEach(bq => {
+        const t = bq.textContent.trim();
+        if (t.startsWith('❌')) bq.classList.add('callout-bad');
+        else if (t.startsWith('✅')) bq.classList.add('callout-good');
+        else if (t.startsWith('⚠')) bq.classList.add('callout-warn');
+        else bq.classList.add('callout-tip');
+      });
+      content.querySelectorAll('table').forEach(table => {
+        const wrap = document.createElement('div');
+        wrap.className = 'kb-table-wrap';
+        table.before(wrap);
+        wrap.append(table);
+      });
+      content.querySelectorAll('img').forEach(img => { img.loading = 'lazy'; img.decoding = 'async'; });
+      if (scroll) window.scrollTo({ top: 0 });
+    }
+
+    app.addEventListener('click', event => {
+      const tabButton = event.target.closest('[data-kb-tab]');
+      if (tabButton) show(tabButton.dataset.kbTab);
+      else if (event.target.closest('.kb-top')) window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    show('module1', false);
   }
 
 
@@ -3381,10 +3393,6 @@ document.addEventListener('input', function(e) {
       if (next) next.onclick = () => { if (page < totalPages - 1) { page++; render(); window.scrollTo(0, 0); } };
     }
     render();
-  }
-
-  function extractSections(titles) {
-    return titles.map(extractSection).filter(Boolean).join('\n\n');
   }
 
 // ─── Borrowed features (batch 1-3) ──────────────────

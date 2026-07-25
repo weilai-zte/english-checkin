@@ -59,7 +59,7 @@ english-checkin 是初一英语每日打卡系统：每天通过飞书推送练�
 | **F-008** | P1 | 词库 319 词 (vocab.json 23 话题) + 三级词库 2016+ 词 | vocab-check.py 实测 319 词 |
 | **F-009** | P0 | 14 个页面（home/learn/vocab/quiz/translate/...） | templates/ 目录 14 个 HTML |
 | **F-010** | P2 | 错题自动记录 + 连续答对 3 次自动移除 + 200 条自动截断 | app.py progress.json schema |
-| **F-011** | P1 | 知识课程 9 个 tab（时态/介词/冠词/名词/代词/形容副词/数量词/核心句型/高级语法），每个模块包含文字大纲与学习海报；模块 8/9 末尾追加「写作能力扩展」与「句子结构与语篇扩展」综合应用章节 | knowledge_outline.md 含模块1至模块9标题 + site_static/assets/knowledge/m1.png 至 m9.png |
+| **F-011** | P1 | 知识课程 9 个 tab（时态/介词/冠词/名词/代词/形容副词/数量词/核心句型/高级语法），正文在构建时转为 HTML，并以主题色 Hero、结构化标题/表格/提示块和上下模块导航展示；每个模块包含文字大纲与学习海报，模块 8/9 末尾追加综合应用章节 | `dist/assets/data.js` 的 `knowledge_modules.module1` 至 `module9` 均含 HTML；浏览器中 9 张海报的 `naturalWidth` 均大于 0 |
 | **F-012** | P1 | TTS 发音按钮（vocab/quiz 页面） | site_static/app.js speak() 调用 |
 | **F-013** | P0 | 飞书 Webhook 推送（send_daily.py / send_weekly_report.py） | FEISHU_WEBHOOK env var 接入 |
 | **F-014** | P1 | MCQ 选择题 4 选项必须全部不同：prep_opts 池去重 + 时态大小写归一化 + 词汇中文释义去重 | 肉眼检查无重复选项 |
@@ -149,9 +149,9 @@ english-checkin 是初一英语每日打卡系统：每天通过飞书推送练�
 ### UC-09 — 知识课程浏览（孩子）
 - **Actor**: 孩子
 - **前置**: 公网 URL 可访问
-- **主流程**: /knowledge → 9 个 tab（时态/介词/冠词/名词/代词/形容副词/数量词/核心句型/高级语法）+ 模块8/9 扩展综合应用
+- **主流程**: /knowledge → 选择 9 个主题色 tab → 阅读 Hero、HTML 正文与学习海报 → 通过上一模块/下一模块继续浏览
 - **后置**: 浏览知识课程
-- **异常**: 手机端折叠 accordion
+- **异常**: 手机端 9 个 tab 保持单屏可见；宽表格横向滚动
 
 ### UC-10 — 每周学习报告（父亲）
 - **Actor**: 父亲（魏来）
@@ -215,6 +215,10 @@ english-checkin 是初一英语每日打卡系统：每天通过飞书推送练�
 ---
 
 ## §9 演进记录
+
+### v0.18.7 (2026-07-25)
+- **change**: F-011 知识课程改为构建时 Mistune HTML，并升级为 9 模块主题色 Hero、结构化正文、上下模块导航和响应式表格 — by Codex
+  - why: 用户反馈 Markdown 格式杂乱，希望改成更友好的 HTML 展示并提升界面质感
 
 ### v0.17 (2026-07-18)
 - **add**: F-022 账号云端同步 + 旧设备无损迁移：`mergeProgress` 13 字段 union 合并；`DEVICE_KEY` 与 `USER_KEY` 解耦；`switchAccount` / `mergeLegacyDevice` / `saveProgress` 三个接口；state_machine `account_sync` (anonymous / legacy_uuid / nickname_bound / nickname_with_legacy)；进度页模板字符串 bug 修复 — by Codex

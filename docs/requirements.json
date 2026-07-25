@@ -126,9 +126,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.17",
-  "last_validated": "2026-07-18",
+  "version": "v0.18.7",
+  "last_validated": "2026-07-25",
   "evolution": [
+    {
+      "date": "2026-07-25",
+      "version": "v0.18.7",
+      "action": "change",
+      "what": "F-011 知识课程改为构建时 Mistune HTML，并升级为 9 模块主题色 Hero、结构化正文、上下模块导航和响应式表格",
+      "why": "用户反馈 Markdown 格式杂乱，希望改成更友好的 HTML 展示并提升界面质感",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-18",
       "version": "v0.17",
@@ -259,8 +267,8 @@
       {
         "id": "F-011",
         "priority": "P1",
-        "statement": "知识课程 9 个 tab（时态/介词/冠词/名词/代词/形容副词/数量词/核心句型/高级语法），每个模块包含文字大纲与学习海报；模块 8/9 末尾追加「写作能力扩展」与「句子结构与语篇扩展」综合应用章节",
-        "verification": "knowledge_outline.md 含模块1至模块9标题 + site_static/assets/knowledge/m1.png 至 m9.png"
+        "statement": "知识课程 9 个 tab（时态/介词/冠词/名词/代词/形容副词/数量词/核心句型/高级语法），正文在构建时转为 HTML，并以主题色 Hero、结构化标题/表格/提示块和上下模块导航展示；每个模块包含文字大纲与学习海报，模块 8/9 末尾追加综合应用章节",
+        "verification": "dist/assets/data.js 的 knowledge_modules.module1 至 module9 均含 HTML；浏览器切换 9 个模块时 m1.png 至 m9.png 的 naturalWidth 均大于 0"
       },
       {
         "id": "F-012",
@@ -435,9 +443,9 @@
         "id": "UC-09",
         "actor": "孩子",
         "precondition": "公网 URL 可访问",
-        "main_flow": "/knowledge → 9 个 tab（时态/介词/冠词/名词/代词/形容副词/数量词/核心句型/高级语法）+ 模块8/9 扩展综合应用",
+        "main_flow": "/knowledge → 选择 9 个主题色 tab → 阅读 Hero、HTML 正文与学习海报 → 通过上一模块/下一模块继续浏览",
         "postcondition": "浏览知识课程",
-        "exception": "手机端折叠 accordion"
+        "exception": "手机端 9 个 tab 保持单屏可见；宽表格横向滚动"
       },
       {
         "id": "UC-10",

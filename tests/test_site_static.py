@@ -176,6 +176,16 @@ def test_dist_app_js_has_new_features():
         assert marker in dist_js, f"dist app.js missing {marker}"
 
 
+def test_knowledge_uses_build_time_html():
+    """知识课程应由 mistune 构建 HTML，不能退回不完整的前端正则解析。"""
+    build_src = (ROOT / "site_static" / "build.py").read_text(encoding="utf-8")
+    knowledge_block = _function_block("renderKnowledge")
+    assert 'mistune.create_markdown(plugins=["table"])' in build_src
+    assert '"knowledge_modules": knowledge_modules' in build_src
+    assert "D.knowledge_modules" in knowledge_block
+    assert "renderMarkdown(" not in knowledge_block
+
+
 def test_setUserKey_helper_present():
     assert 'function setUserKey' in APP_JS_SRC
     assert 'localStorage.setItem(USER_KEY' in APP_JS_SRC
