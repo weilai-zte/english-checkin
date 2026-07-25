@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-初一英语打卡 - 静态站点生成器
+初中英语打卡 - 静态站点生成器
 
 输入：~/english-checkin/ 下的 Flask app + data + templates
 输出：site_static/dist/ 静态站点（index.html + assets/）
@@ -210,7 +210,7 @@ INDEX_HTML = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#667eea">
-<title>初一英语打卡</title>
+<title>初中英语打卡</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 </head>

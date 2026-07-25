@@ -126,9 +126,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.7",
-  "last_validated": "2026-07-25",
+  "version": "v0.18.8",
+  "last_validated": "2026-07-26",
   "evolution": [
+    {
+      "date": "2026-07-26",
+      "version": "v0.18.8",
+      "action": "add",
+      "what": "F-023 账号年级与初中英语打卡标题：首次选择年级，个人设置可修改，学习内容按年级过滤",
+      "why": "用户要求账号按所在年级展示主题并匹配学习内容",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-25",
       "version": "v0.18.7",
@@ -335,6 +343,12 @@
         "priority": "P0",
         "statement": "账号云端同步 + 旧设备无损迁移：进度页字符串拼接模板 bug 修复；所有持久化字段（vocab_mastered/grammar_mastered/checkins/wrong_words/wrong_grammar/flashcard_history/custom_vocab/card_states/chat_history/achievements_unlocked/vocab_list_marked/game_stats/user_name/bound_devices/difficulty/checkin_types/daily_checkin_plan/word_stats/total_days/streak/last_checkin）通过 mergeProgress union 合并；首次设昵称时自动遍历 bound_devices 中旧 UUID 拉取合并；进度页提供手动合并入口支持粘贴旧 UUID；重置/导入 JSON 不再清空账号绑定",
         "verification": "pytest tests/test_account_sync.py -v（6 个新增用例：模板不再拼接、DEVICE_KEY 独立、mergeProgress 13 字段 union、旧设备自动/手动迁移、难度+syncFromSupabase union 合并、导入/重置保留账号绑定）"
+      },
+      {
+        "id": "F-023",
+        "priority": "P0",
+        "statement": "站点统一命名为‘初中英语打卡’；注册或首次使用时选择七、八、九年级，个人设置可查看修改；school_grade 随账号同步，并用于首页月度主题、词汇、语法、时态、翻译和游戏题库过滤",
+        "verification": "python3 -m pytest tests/test_site_static.py -q"
       }
     ],
     "§4_non_functional_requirements": [

@@ -1,4 +1,4 @@
-/* 初一英语打卡 - 客户端应用逻辑 */
+/* 初中英语打卡 - 客户端应用逻辑 */
 
 // Document-level event delegation for translate input validation
 // (attached once, catches all dynamically created translate inputs)
@@ -49,6 +49,13 @@ document.addEventListener('input', function(e) {
     '🚀', '⭐', '🌈', '⚽', '🎨',
     '🎸', '📚', '🎯', '🏆', '💡',
   ];
+  const SCHOOL_GRADES = { g7: '七年级', g8: '八年级', g9: '九年级' };
+  function schoolGradeLevel() { return { g7: 'L1', g8: 'L2', g9: 'L3' }[progress.school_grade] || 'L1'; }
+  function schoolGradeLabel() { return SCHOOL_GRADES[progress.school_grade] || '七年级'; }
+  function schoolGradePool(items, minimum) {
+    const selected = (items || []).filter(item => item.grade === schoolGradeLevel());
+    return selected.length >= (minimum || 1) ? selected : (items || []);
+  }
   function checkinTypeMeta(key) {
     return CHECKIN_TYPES.find(t => t.key === key) || { key: key, label: key, icon: '·', route: key };
   }
@@ -284,6 +291,7 @@ document.addEventListener('input', function(e) {
       vocab_list_marked: [],     // 全部词汇中的收藏
       unfamiliar_words: [],       // 孩子不熟悉的词 (打卡后家长录入, 后续针对训练)
       user_name: '', // #account nickname (跨设备账号标识)
+      school_grade: '', // #account g7/g8/g9，首次使用时选择
       bound_devices: [], // #account 本账号绑定的设备 ID 列表
       avatar: AVATAR_CHOICES[0], // #account emoji 头像
     };
@@ -436,7 +444,7 @@ document.addEventListener('input', function(e) {
     out.bound_devices = Array.from(bd);
     // 设置类字段按整个进度对象的更新时间选择，避免旧设备覆盖新设置。
     var remoteIsNewer = (remote._updated_at || '').localeCompare(local._updated_at || '') > 0;
-    ['difficulty', 'checkin_types', 'daily_checkin_plan', 'avatar'].forEach(function (field) {
+    ['difficulty', 'checkin_types', 'daily_checkin_plan', 'avatar', 'school_grade'].forEach(function (field) {
       if (remoteIsNewer && remote[field] != null) out[field] = remote[field];
       else if (local[field] != null) out[field] = local[field];
       else if (remote[field] != null) out[field] = remote[field];
@@ -952,8 +960,10 @@ document.addEventListener('input', function(e) {
   }
   function allWords() {
     const arr = [];
-    for (const t of Object.values(D.vocab)) {
-      for (const w of t.words) arr.push({ ...w, topic: t.topic });
+    const level = schoolGradeLevel();
+    for (const [key, t] of Object.entries(D.vocab)) {
+      if (progress.school_grade && key !== '_' + level) continue;
+      for (const w of t.words) arr.push({ ...w, topic: t.topic, grade: key.replace(/^_/, '') });
     }
     if (progress.custom_vocab && progress.custom_vocab.length) {
       for (const w of progress.custom_vocab) {
@@ -974,6 +984,7 @@ document.addEventListener('input', function(e) {
     // 收集候选词
     const candidates = [];
     for (const [k, t] of Object.entries(D.vocab)) {
+      if (progress.school_grade && k !== '_' + schoolGradeLevel()) continue;
       const simple = t.topic.split('(')[0].trim();
       if (blockTopics.has(simple)) continue;
       for (const w of t.words) {
@@ -998,7 +1009,8 @@ document.addEventListener('input', function(e) {
     // 选语法（按权重）
     const masteredG = new Set(progress.grammar_mastered);
     const recentTitles = new Set(progress.checkins.slice(-7).map(c => c.grammar_title));
-    const weights = D.grammar.map(g => {
+    const grammarPool = schoolGradePool(D.grammar);
+    const weights = grammarPool.map(g => {
       let w = 1;
       if (masteredG.has(g.id)) w = 0.15;
       if (recentTitles.has(g.title)) w *= 0.3;
@@ -1008,10 +1020,10 @@ document.addEventListener('input', function(e) {
     const sum = weights.reduce((a, b) => a + b, 0) || 1;
     const norm = weights.map(w => w / sum);
     let r = Math.random();
-    let gram = D.grammar[0];
+    let gram = grammarPool[0];
     for (let i = 0; i < norm.length; i++) {
       r -= norm[i];
-      if (r <= 0) { gram = D.grammar[i]; break; }
+      if (r <= 0) { gram = grammarPool[i]; break; }
     }
 
     const exercises = sample(gram.练习 || [], Math.min(3, (gram.练习 || []).length)).map(ex => ({
@@ -1355,11 +1367,12 @@ document.addEventListener('input', function(e) {
     const allWordsCount = allWords().length;
 
     app.innerHTML = `
-      ${topBar('初一英语打卡', false)}
+      ${topBar('初中英语打卡', false)}
       <div class="container">
         <div class="hero-block" style="text-align:center;">
           <a class="hero-avatar" href="#/profile" aria-label="打开个人设置" title="个人设置">${escapeHtml(progress.avatar || AVATAR_CHOICES[0])}</a>
-          <h1 class="hero-title">${(progress.user_name || '').trim() ? '你好,' + escapeHtml(progress.user_name.trim()) : '初一英语打卡'}</h1>
+          <h1 class="hero-title">${(progress.user_name || '').trim() ? '你好，' + escapeHtml(progress.user_name.trim()) : '初中英语打卡'}</h1>
+          <div style="font-size:13px;color:var(--text-2);margin-top:4px;">${escapeHtml(schoolGradeLabel())}主题打卡</div>
           <div class="hero-cheer">${pickQuote(streak, done, totalDays, (progress.user_name || '').trim())}</div>
         </div>
 
@@ -1920,7 +1933,7 @@ document.addEventListener('input', function(e) {
   // ─── 视图：Tense ──────────────────────────────────
   function renderTense(app) {
     const bank = Array.isArray(D.tense_questions) ? D.tense_questions : [];
-    const selected = bank.filter(q => q.difficulty === difficulty);
+    const selected = schoolGradePool(bank.filter(q => q.difficulty === difficulty));
     const all = selected.map(q => ({
       q: q.question, a: q.answer, hint: q.hint,
       gid: q.id, gtitle: q.topic || '时态专项',
@@ -2078,7 +2091,7 @@ document.addEventListener('input', function(e) {
   // ─── 视图：Translate (CN→EN 填空) ────────────────
   function translationPoolForDifficulty() {
     const bank = Array.isArray(D.translate_questions) ? D.translate_questions : [];
-    const selected = bank.filter(q => q.difficulty === difficulty);
+    const selected = schoolGradePool(bank.filter(q => q.difficulty === difficulty));
     if (selected.length) return selected;
     const cfg = getDifficultyCfg();
     return cfg.translate_complex ? D.hard_translate : D.translate_sentences;
@@ -2711,6 +2724,7 @@ document.addEventListener('input', function(e) {
           user_name: progress.user_name || '',
           bound_devices: (progress.bound_devices || []).slice(),
           avatar: progress.avatar || AVATAR_CHOICES[0],
+          school_grade: progress.school_grade || '',
           difficulty: progress.difficulty,
           checkin_types: (progress.checkin_types || []).slice(),
         };
@@ -2836,6 +2850,10 @@ document.addEventListener('input', function(e) {
             <input id="login-email" type="email" autocomplete="email" placeholder="you@example.com" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;margin-top:4px;">
             <label style="font-size:13px;color:var(--text-2);margin-top:8px;display:block;">密码 <span style="color:var(--text-3);">(${mode==='signup' ? '至少 6 位' : ''})</span></label>
             <input id="login-password" type="password" autocomplete="${mode==='signup' ? 'new-password' : 'current-password'}" placeholder="••••••" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;margin-top:4px;">
+            ${mode==='signup' ? `<label style="font-size:13px;color:var(--text-2);margin-top:8px;display:block;" for="login-grade">年级</label>
+            <select id="login-grade" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;margin-top:4px;background:var(--bg-card);color:var(--text-1);">
+              <option value="">请选择年级</option><option value="g7">七年级</option><option value="g8">八年级</option><option value="g9">九年级</option>
+            </select>` : ''}
             <div id="login-error" style="color:var(--danger);font-size:12px;margin-top:8px;min-height:18px;"></div>
             <button id="login-submit" class="btn btn-primary" style="width:100%;margin-top:12px;">${mode==='signin' ? '登录' : '注册并登录'}</button>
             <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:10px;">
@@ -2887,14 +2905,20 @@ document.addEventListener('input', function(e) {
       submit.onclick = async () => {
         const email = (app.querySelector('#login-email').value || '').trim();
         const password = app.querySelector('#login-password').value || '';
+        const grade = mode === 'signup' ? (app.querySelector('#login-grade').value || '') : '';
         errEl.textContent = '';
         if (!email || !password) { errEl.textContent = '请输入邮箱和密码'; return; }
         if (mode==='signup' && password.length < 6) { errEl.textContent = '密码至少 6 位'; return; }
+        if (mode==='signup' && !grade) { errEl.textContent = '请选择年级'; return; }
         submit.disabled = true; submit.textContent = '处理中…';
         try {
           let result;
           if (mode === 'signin') result = await signInWithEmail(email, password);
-          else result = await signUpWithEmail(email, password);
+          else {
+            progress.school_grade = grade;
+            saveProgress();
+            result = await signUpWithEmail(email, password);
+          }
           // ponytail: 注册时若 Supabase Confirm email 开着, result.session 为 null 但 result.user 已建
           // 此时不能直接跳首页 (登录态没建立), 必须等用户点验证链接
           if (result && result.user && !result.session) {
@@ -3033,6 +3057,12 @@ document.addEventListener('input', function(e) {
             <input id="profile-name" class="profile-input" type="text" autocomplete="off" maxlength="20" placeholder="例如：小明" value="${escapeHtml(progress.user_name || '')}">
             <button id="profile-save" class="btn-sm profile-save" type="button">保存</button>
           </div>
+          <label class="profile-label" for="profile-grade" style="margin-top:12px;">年级</label>
+          <select id="profile-grade" class="profile-input">
+            <option value="g7" ${progress.school_grade === 'g7' ? 'selected' : ''}>七年级</option>
+            <option value="g8" ${progress.school_grade === 'g8' ? 'selected' : ''}>八年级</option>
+            <option value="g9" ${progress.school_grade === 'g9' ? 'selected' : ''}>九年级</option>
+          </select>
           <div id="profile-error" class="profile-error" role="alert"></div>
           <div class="profile-help">同一昵称的设备会自动合并打卡、成就、游戏和其他学习记录。</div>
         </div>
@@ -3154,6 +3184,7 @@ document.addEventListener('input', function(e) {
     };
 
     const input = app.querySelector('#profile-name');
+    const gradeInput = app.querySelector('#profile-grade');
     const save = app.querySelector('#profile-save');
     const error = app.querySelector('#profile-error');
     save.onclick = async () => {
@@ -3161,6 +3192,8 @@ document.addEventListener('input', function(e) {
       if (!name) { error.textContent = '请输入昵称'; return; }
       if (/[<>:"|?*\\]/.test(name)) { error.textContent = '昵称不能含特殊字符 < > : " | ? * \\'; return; }
       error.textContent = '';
+      progress.school_grade = gradeInput.value;
+      progress._updated_at = new Date().toISOString();
       save.disabled = true;
       save.textContent = '保存中';
       await switchAccount(name);
@@ -3554,7 +3587,7 @@ document.addEventListener('input', function(e) {
     const grades = lp.grades || [];
     if (!grades.length) return '';
     const month = new Date().getMonth() + 1;
-    const grade = grades[0];  // ponytail: 默认七年级,年级选择留待后续
+    const grade = grades.find(item => item.grade === schoolGradeLabel()) || grades[0];
     const plan = (grade.monthly_plan || []).find(m => m.month === month);
     if (!plan) return '';
     return '<div class="card learning-plan-card" style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-left:4px solid #f59e0b;">' +
@@ -4172,6 +4205,10 @@ document.addEventListener('input', function(e) {
             '<p class="modal-p">输入一个昵称(如 小明),即可在多台设备上同步你的打卡进度。<br><span style="color:var(--text-2);font-size:12px;">同一个昵称的设备会自动合并进度 (已掌握词/打卡记录/错题本)。</span></p>' +
             '<label class="modal-lbl">昵称</label>' +
             '<input type="text" id="acct-name" class="modal-input" autocomplete="off" placeholder="例如:小明" maxlength="20" value="' + escapeHtml(cur) + '">' +
+            '<label class="modal-lbl" style="margin-top:10px;">年级</label>' +
+            '<select id="acct-grade" class="modal-input"><option value="">请选择年级</option>' +
+              Object.keys(SCHOOL_GRADES).map(function (key) { return '<option value="' + key + '"' + (progress.school_grade === key ? ' selected' : '') + '>' + SCHOOL_GRADES[key] + '</option>'; }).join('') +
+            '</select>' +
             '<div class="modal-err" id="acct-err" style="min-height:18px;color:#c62828;font-size:12px;margin-top:6px;"></div>' +
             '<div class="modal-actions">' +
               '<button class="btn btn-primary" id="acct-save-btn">💾 保存</button>' +
@@ -4185,13 +4222,17 @@ document.addEventListener('input', function(e) {
       if (cancel) cancel.onclick = closeAccountModal;
       wrap.querySelector('#acct-save-btn').onclick = async () => {
         const name = (wrap.querySelector('#acct-name').value || '').trim();
+        const grade = wrap.querySelector('#acct-grade').value;
         const err = wrap.querySelector('#acct-err');
         if (!name) { err.textContent = '请输入昵称'; return; }
+        if (!grade) { err.textContent = '请选择年级'; return; }
         if (name.length > 20) { err.textContent = '昵称太长(≤20)'; return; }
         if (/[<>:"|?*\\]/.test(name)) { err.textContent = '昵称不能含特殊字符 < > : " | ? * \\'; return; }
         err.textContent = '';
         wrap.querySelector('#acct-save-btn').disabled = true;
         wrap.querySelector('#acct-save-btn').textContent = '... 保存中';
+        progress.school_grade = grade;
+        progress._updated_at = new Date().toISOString();
         await switchAccount(name);
         closeAccountModal();
         if (typeof render === 'function') render();
@@ -4562,12 +4603,12 @@ document.addEventListener('input', function(e) {
       maybeMigrateLegacyCfg();
     }
   }
-  // 首次访问引导: 没昵称就弹创建对话框 (children 用户友好)
+  // 首次访问引导: 昵称和年级都属于账号基本信息。
   function _maybePromptNickname() {
-    if (progress.user_name) return;
+    if (progress.user_name && progress.school_grade) return;
     // 给 600ms 让 home 渲染完, 再弹 modal (避免盖住首页)
     setTimeout(() => {
-      if (!progress.user_name && !document.getElementById('account-modal')) openAccountModal('create');
+      if ((!progress.user_name || !progress.school_grade) && !document.getElementById('account-modal')) openAccountModal('create');
     }, 600);
   }
   // race the supabase sync against a short timeout so unlock prompt never gets blocked by network

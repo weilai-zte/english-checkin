@@ -11,7 +11,7 @@
   function pickGameWords(n, opts) {
     opts = opts || {};
     var cfg = (typeof getDifficultyCfg === 'function') ? getDifficultyCfg() : { block_topics: [], extra_block: [], flashcard_count: 20 };
-    var levelKey = cfg.level_key || '';
+    var levelKey = (typeof progress !== 'undefined' && { g7: 'L1', g8: 'L2', g9: 'L3' }[progress.school_grade]) || cfg.level_key || '';
     var blockTopics = new Set(cfg.block_topics || []);
     var blockWords = new Set([].concat(
       (typeof D !== 'undefined' && D.simple_words) || [],

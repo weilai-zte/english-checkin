@@ -43,9 +43,34 @@ def test_all_helper_functions_present():
 # ─── Schema: defaultProgress adds new fields ────────────────────
 def test_default_progress_has_new_fields():
     block = _function_block('defaultProgress')
-    for f in ('custom_vocab', 'card_states', 'chat_history', 'achievements_unlocked'):
+    for f in ('custom_vocab', 'card_states', 'chat_history', 'achievements_unlocked', 'school_grade'):
         assert f + ':' in block or f + ',' in block or f + ' ' in block, \
             f"defaultProgress missing field {f}"
+
+
+def test_school_grade_is_account_setting_and_required_on_first_visit():
+    merge = _function_block('mergeProgress')
+    prompt = _function_block('_maybePromptNickname')
+    assert "'school_grade'" in merge
+    assert '!progress.school_grade' in prompt
+    assert 'openAccountModal' in prompt
+
+
+def test_profile_and_signup_can_select_school_grade():
+    profile = _function_block('renderProfile')
+    login = _function_block('renderLogin')
+    assert 'profile-grade' in profile and '年级' in profile
+    assert 'login-grade' in login and "mode==='signup'" in login
+
+
+def test_learning_plan_uses_selected_school_grade():
+    block = _function_block('renderLearningPlanCard')
+    assert 'schoolGradeLabel' in block
+
+
+def test_site_title_is_junior_english_checkin():
+    build = (ROOT / 'site_static' / 'build.py').read_text(encoding='utf-8')
+    assert '<title>初中英语打卡</title>' in build
 
 
 # ─── #3 heatmap: 5 levels, correct count for 16 weeks ───────────
