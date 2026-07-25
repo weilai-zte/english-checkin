@@ -566,7 +566,7 @@
         "path": "#/achievements",
         "framework": "site_static SPA",
         "handler": "renderAchievements",
-        "returns": "成就收藏册：打卡/词汇/语法/复习/游戏 5 个 Tab，30 个 SVG 勋章，点击显示含义、条件与解锁日期"
+        "returns": "三年成就收藏册：打卡/词汇/语法/复习/游戏 5 个 Tab，60 个 SVG 勋章；长期目标覆盖 1095 天，卡片和详情显示当前进度"
       },
       {
         "path": "#/vocab-import",
@@ -1099,9 +1099,25 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.9",
+  "version": "v0.18.11",
   "last_validated": "2026-07-26",
   "evolution": [
+    {
+      "date": "2026-07-26",
+      "version": "v0.18.11",
+      "action": "change",
+      "what": "移除 _postBoot 的 LLM 自动解锁提示，renderVocabImport 在点击识别并整理时按需调用 openLlmSettingsModal",
+      "why": "解锁提示应与实际 LLM 操作绑定，不能干扰登录和普通浏览",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-26",
+      "version": "v0.18.10",
+      "action": "change",
+      "what": "成就系统扩展到 60 个里程碑，achievementMetricValue 统一计算长期指标，最长覆盖 1095 天",
+      "why": "建立至少三年的成长统计与渐进式目标",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-26",
       "version": "v0.18.9",

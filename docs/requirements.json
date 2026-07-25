@@ -126,9 +126,25 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.9",
+  "version": "v0.18.11",
   "last_validated": "2026-07-26",
   "evolution": [
+    {
+      "date": "2026-07-26",
+      "version": "v0.18.11",
+      "action": "change",
+      "what": "F-025 LLM 解锁改为按需触发，启动和登录不再自动弹窗",
+      "why": "避免每次登录打断用户，只有识别整理词表时才需要解锁",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-07-26",
+      "version": "v0.18.10",
+      "action": "change",
+      "what": "F-024 从 30 个扩展到 60 个成就，增加 1095 天三年成长路线与可视化进度",
+      "why": "短期成就几天即可完成，需要覆盖至少三年的长期目标",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-26",
       "version": "v0.18.9",
@@ -361,7 +377,13 @@
       {
         "id": "F-024",
         "priority": "P1",
-        "statement": "成就系统扩展为不少于 30 个成就，按打卡、词汇、语法、复习、游戏分类为 5 个 Tab；每个成就显示本地勋章图片，点击可查看达成条件、勋章含义和解锁日期",
+        "statement": "成就系统扩展为不少于 60 个成就，按打卡、词汇、语法、复习、游戏分类为 5 个 Tab；每个成就显示本地勋章图片，点击可查看达成条件、当前进度、勋章含义和解锁日期；长期指标至少覆盖 1095 天（三年）",
+        "verification": "python3 -m pytest tests/test_site_static.py -q"
+      },
+      {
+        "id": "F-025",
+        "priority": "P1",
+        "statement": "加密 LLM 配置不得在登录、启动或普通页面自动弹出解锁框；仅在用户点击图片词表的‘识别并整理’等实际需要 LLM 的操作时提示解锁或配置",
         "verification": "python3 -m pytest tests/test_site_static.py -q"
       }
     ],

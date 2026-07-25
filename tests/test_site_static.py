@@ -140,7 +140,7 @@ def test_achievements_count():
     assert m, 'ACHIEVEMENTS const not found'
     # 直接用 id: 'xxx' 模式抽取 (不分嵌套 — game 类用 function 而里面又含 {})
     items = re.findall(r"id:\s*'([^']+)'", m.group(1))
-    assert len(items) >= 30, f'expected at least 30 achievements, got {len(items)}'
+    assert len(items) >= 60, f'expected at least 60 achievements, got {len(items)}'
     # 至少 2 个明显跟游戏相关
     game_keys = ('game_', 'tower', 'wordle', 'memory')
     game_items = [i for i in items if any(k in i for k in game_keys)]
@@ -151,12 +151,23 @@ def test_achievements_have_categories_badges_and_details():
     m = re.search(r'const\s+ACHIEVEMENTS\s*=\s*\[(.*?)\];', APP_JS_SRC, re.DOTALL)
     assert m
     block = m.group(1)
-    assert block.count('category:') >= 30
-    assert block.count('badge:') >= 30
+    assert block.count('category:') >= 60
+    assert block.count('badge:') >= 60
     render = _function_block('renderAchievements')
     assert 'achievement-tab' in render
     assert 'showAchievementDetail' in render
     assert 'ACHIEVEMENT_CATEGORIES' in APP_JS_SRC
+
+
+def test_achievements_cover_three_year_growth():
+    m = re.search(r'const\s+ACHIEVEMENTS\s*=\s*\[(.*?)\];', APP_JS_SRC, re.DOTALL)
+    assert m
+    block = m.group(1)
+    assert "id: 'checkin_1095'" in block
+    assert 'target: 1095' in block
+    render = _function_block('renderAchievements')
+    assert 'achievement-progress' in render
+    assert '三年成长路线' in render
 
 
 def test_achievement_badge_assets_exist():
@@ -609,6 +620,13 @@ def test_vocab_import_merges_instead_of_overwriting():
     # 旧写法 (直接赋值) 不能再出现在保存/导入分支
     save_branch = block.split('vocab-save-btn')[1].split('vocab-clear-btn')[0]
     assert 'progress.custom_vocab = parsed;' not in save_branch
+
+
+def test_llm_unlock_is_prompted_only_when_ocr_is_requested():
+    boot = _function_block('_postBoot')
+    vocab_import = _function_block('renderVocabImport')
+    assert 'maybePromptUnlock()' not in boot
+    assert "openLlmSettingsModal(llmRaw.encrypted ? 'unlock' : 'setup')" in vocab_import
 
 def test_checkin_config_defaults_to_all_selected():
     # 进 checkin-config 页面时, 无论 progress.checkin_types 之前存了什么,

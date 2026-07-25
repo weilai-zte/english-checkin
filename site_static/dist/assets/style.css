@@ -1160,6 +1160,7 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   color: var(--text-1);
 }
 .achievement-summary strong { font-size: 18px; }
+.achievement-summary small { display: block; margin-top: 3px; color: var(--text-2); font-size: 11px; font-weight: 400; }
 .achievement-summary span { color: var(--text-2); font-size: 13px; }
 .achievement-tabs {
   display: grid;
@@ -1194,7 +1195,7 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 }
 .achievement-card {
   min-width: 0;
-  min-height: 178px;
+  min-height: 205px;
   padding: 10px 7px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -1217,6 +1218,30 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
   color: var(--text-2);
   font-size: 10px;
   line-height: 1.4;
+}
+.achievement-progress {
+  position: relative;
+  display: block;
+  height: 4px;
+  margin: 9px 3px 20px;
+  border-radius: 4px;
+  background: var(--bg-input);
+}
+.achievement-progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+.achievement-progress em {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 100%;
+  color: var(--text-2);
+  font-size: 9px;
+  font-style: normal;
+  white-space: nowrap;
 }
 .achievement-card.locked { background: var(--bg-surface); }
 .achievement-card.locked .achievement-badge { filter: grayscale(1); opacity: 0.48; }
@@ -1282,7 +1307,7 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 
 @media (max-width: 360px) {
   .achievement-grid { gap: 7px; }
-  .achievement-card { min-height: 170px; padding-left: 4px; padding-right: 4px; }
+  .achievement-card { min-height: 198px; padding-left: 4px; padding-right: 4px; }
   .achievement-badge { width: 70px; height: 84px; }
   .achievement-icon { top: 20px; font-size: 24px; }
 }

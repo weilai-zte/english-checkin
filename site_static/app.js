@@ -3690,6 +3690,17 @@ document.addEventListener('input', function(e) {
       return ratio ? Number(ratio[1]) === Number(ratio[2]) : parseFloat(c.score) >= 90;
     }).length;
   }
+  function achievementMetricValue(achievement, p) {
+    switch (achievement.metric) {
+      case 'total_days': return p.total_days || 0;
+      case 'streak': return p.streak || 0;
+      case 'vocab': return (p.vocab_mastered || []).length;
+      case 'grammar': return (p.grammar_mastered || []).length;
+      case 'card_reviews': return Object.values(p.card_states || {}).reduce(function (n, card) { return n + (card.reviews || 0); }, 0);
+      case 'game_plays': return Object.values(p.game_stats || {}).reduce(function (n, game) { return n + (game.played || 0); }, 0);
+      default: return 0;
+    }
+  }
   const ACHIEVEMENTS = [
     { id: 'first_checkin', category: 'checkin', badge: 'checkin', icon: '🌱', name: '初出茅庐', desc: '完成第一次打卡', meaning: '迈出第一步，比站在原地更接近目标。', check: p => (p.total_days || 0) >= 1 },
     { id: 'streak_3', category: 'checkin', badge: 'checkin', icon: '🔥', name: '三日火苗', desc: '连续打卡 3 天', meaning: '小火苗已经点燃，学习节奏正在形成。', check: p => (p.streak || 0) >= 3 },
@@ -3697,6 +3708,12 @@ document.addEventListener('input', function(e) {
     { id: 'checkin_30', category: 'checkin', badge: 'checkin', icon: '🗓️', name: '月度旅人', desc: '累计打卡 30 天', meaning: '三十次出发，已经走出一条自己的学习路线。', check: p => (p.total_days || 0) >= 30 },
     { id: 'streak_30', category: 'checkin', badge: 'checkin', icon: '🚀', name: '不间断引擎', desc: '连续打卡 30 天', meaning: '连续一个月保持动力，习惯已经成为你的引擎。', check: p => (p.streak || 0) >= 30 },
     { id: 'checkin_100', category: 'checkin', badge: 'checkin', icon: '💯', name: '百日远征', desc: '累计打卡 100 天', meaning: '一百天的积累，是认真坚持留下的勋章。', check: p => (p.total_days || 0) >= 100 },
+    { id: 'checkin_180', category: 'checkin', badge: 'checkin', icon: '🛶', name: '半年航程', desc: '累计打卡 180 天', meaning: '走过半年的学习航程，稳定已经成为优势。', metric: 'total_days', target: 180, unit: '天' },
+    { id: 'checkin_365', category: 'checkin', badge: 'checkin', icon: '🎂', name: '一周年', desc: '累计打卡 365 天', meaning: '四季轮转，英语学习陪你走完了完整一年。', metric: 'total_days', target: 365, unit: '天' },
+    { id: 'streak_100', category: 'checkin', badge: 'checkin', icon: '🌋', name: '百日不熄', desc: '连续打卡 100 天', meaning: '连续一百天保持火种，这是极少见的专注力。', metric: 'streak', target: 100, unit: '天' },
+    { id: 'checkin_730', category: 'checkin', badge: 'checkin', icon: '🪐', name: '双年星轨', desc: '累计打卡 730 天', meaning: '两年的轨迹清晰可见，每一天都算数。', metric: 'total_days', target: 730, unit: '天' },
+    { id: 'streak_365', category: 'checkin', badge: 'checkin', icon: '🌠', name: '四季守望', desc: '连续打卡 365 天', meaning: '完整一年从未中断，这是自律的传奇纪录。', metric: 'streak', target: 365, unit: '天' },
+    { id: 'checkin_1095', category: 'checkin', badge: 'checkin', icon: '🏔️', name: '三年同行', desc: '累计打卡 1095 天', meaning: '三年长期主义抵达峰顶，这枚勋章记录真正的成长。', metric: 'total_days', target: 1095, unit: '天' },
 
     { id: 'vocab_10', category: 'vocab', badge: 'vocab', icon: '🔤', name: '十词起步', desc: '掌握 10 个词', meaning: '第一个十词小队已经集合完毕。', check: p => (p.vocab_mastered || []).length >= 10 },
     { id: 'vocab_50', category: 'vocab', badge: 'vocab', icon: '🌿', name: '词汇新秀', desc: '掌握 50 个词', meaning: '词汇树长出了第一片茂密的枝叶。', check: p => (p.vocab_mastered || []).length >= 50 },
@@ -3704,6 +3721,12 @@ document.addEventListener('input', function(e) {
     { id: 'vocab_500', category: 'vocab', badge: 'vocab', icon: '👑', name: '词汇大师', desc: '掌握 500 个词', meaning: '五百词里程碑，真正的词汇收藏家。', check: p => (p.vocab_mastered || []).length >= 500 },
     { id: 'imported_vocab', category: 'vocab', badge: 'vocab', icon: '🧰', name: '自建词库', desc: '导入自定义词表', meaning: '主动选择自己的学习材料，是学习主理人的开始。', check: p => (p.custom_vocab || []).length > 0 },
     { id: 'marked_20', category: 'vocab', badge: 'vocab', icon: '⭐', name: '星标收藏家', desc: '收藏 20 个重点词', meaning: '知道哪些词值得重点关注，也是一种能力。', check: p => (p.vocab_list_marked || []).length >= 20 },
+    { id: 'vocab_800', category: 'vocab', badge: 'vocab', icon: '🌳', name: '词汇森林', desc: '掌握 800 个词', meaning: '八百个词已连成森林，日常表达更加从容。', metric: 'vocab', target: 800, unit: '词' },
+    { id: 'vocab_1200', category: 'vocab', badge: 'vocab', icon: '🧭', name: '千词领航', desc: '掌握 1200 个词', meaning: '越过千词关口，阅读理解有了更可靠的导航。', metric: 'vocab', target: 1200, unit: '词' },
+    { id: 'vocab_1800', category: 'vocab', badge: 'vocab', icon: '🏙️', name: '词汇之城', desc: '掌握 1800 个词', meaning: '词汇不再是孤岛，已经形成互相连接的城市。', metric: 'vocab', target: 1800, unit: '词' },
+    { id: 'vocab_2400', category: 'vocab', badge: 'vocab', icon: '🌍', name: '阅读行者', desc: '掌握 2400 个词', meaning: '足够广阔的词汇量，带你进入更多英文世界。', metric: 'vocab', target: 2400, unit: '词' },
+    { id: 'vocab_3000', category: 'vocab', badge: 'vocab', icon: '🛰️', name: '三千星图', desc: '掌握 3000 个词', meaning: '三千个词如同星图，让复杂表达也有坐标。', metric: 'vocab', target: 3000, unit: '词' },
+    { id: 'vocab_3600', category: 'vocab', badge: 'vocab', icon: '🏆', name: '全库征服者', desc: '掌握 3600 个词', meaning: '完成初中核心词库的长期征程。', metric: 'vocab', target: 3600, unit: '词' },
 
     { id: 'grammar_5', category: 'grammar', badge: 'grammar', icon: '🧱', name: '规则筑基', desc: '掌握 5 个语法点', meaning: '语法地基已经打好，句子会越来越稳。', check: p => (p.grammar_mastered || []).length >= 5 },
     { id: 'grammar_15', category: 'grammar', badge: 'grammar', icon: '🧭', name: '句法领航员', desc: '掌握 15 个语法点', meaning: '开始看懂句子的方向与结构。', check: p => (p.grammar_mastered || []).length >= 15 },
@@ -3711,6 +3734,12 @@ document.addEventListener('input', function(e) {
     { id: 'first_perfect', category: 'grammar', badge: 'grammar', icon: '🎯', name: '满分首秀', desc: '首次获得 90% 以上或全对', meaning: '第一次精准命中，值得记住。', check: p => perfectCheckins(p) >= 1 },
     { id: 'perfect_5', category: 'grammar', badge: 'grammar', icon: '⚡', name: '精准五连', desc: '累计 5 次高分或全对', meaning: '稳定的准确率，比偶然满分更难得。', check: p => perfectCheckins(p) >= 5 },
     { id: 'perfect_10', category: 'grammar', badge: 'grammar', icon: '💎', name: '十全十美', desc: '累计 10 次高分或全对', meaning: '十次高质量完成，实力已经经得起重复检验。', check: p => perfectCheckins(p) >= 10 },
+    { id: 'grammar_45', category: 'grammar', badge: 'grammar', icon: '🛠️', name: '结构工匠', desc: '掌握 45 个语法组', meaning: '能熟练处理更多句子结构，准确表达想法。', metric: 'grammar', target: 45, unit: '组' },
+    { id: 'grammar_60', category: 'grammar', badge: 'grammar', icon: '⚙️', name: '规则引擎', desc: '掌握 60 个语法组', meaning: '规则开始自动运转，判断句型更加迅速。', metric: 'grammar', target: 60, unit: '组' },
+    { id: 'grammar_75', category: 'grammar', badge: 'grammar', icon: '🔭', name: '句法观测站', desc: '掌握 75 个语法组', meaning: '可以从更高视角看清复杂句子的组成。', metric: 'grammar', target: 75, unit: '组' },
+    { id: 'grammar_90', category: 'grammar', badge: 'grammar', icon: '🧠', name: '语法智库', desc: '掌握 90 个语法组', meaning: '大部分初中语法已进入你的知识库。', metric: 'grammar', target: 90, unit: '组' },
+    { id: 'grammar_100', category: 'grammar', badge: 'grammar', icon: '💯', name: '百法贯通', desc: '掌握 100 个语法组', meaning: '百个语法组融会贯通，距离全掌握只差一步。', metric: 'grammar', target: 100, unit: '组' },
+    { id: 'grammar_108', category: 'grammar', badge: 'grammar', icon: '🎓', name: '语法毕业礼', desc: '掌握全部 108 个语法组', meaning: '完成整套初中语法体系，获得最高阶语法勋章。', metric: 'grammar', target: 108, unit: '组' },
 
     { id: 'flashcard_10', category: 'review', badge: 'review', icon: '🃏', name: '翻卡热身', desc: '完成 10 次闪卡复习', meaning: '记忆需要重逢，十次复习是好的开场。', check: p => (p.flashcard_history || []).length >= 10 },
     { id: 'flashcard_50', category: 'review', badge: 'review', icon: '🔄', name: '闪卡熟练', desc: '完成 50 次闪卡复习', meaning: '反复练习让陌生逐渐变成熟悉。', check: p => (p.flashcard_history || []).length >= 50 },
@@ -3718,6 +3747,12 @@ document.addEventListener('input', function(e) {
     { id: 'review_100', category: 'review', badge: 'review', icon: '⏳', name: '复习时间官', desc: '卡片累计复习 100 次', meaning: '按节奏复习，让时间成为记忆的助手。', check: function (p) { return Object.values(p.card_states || {}).reduce(function (n, c) { return n + (c.reviews || 0); }, 0) >= 100; } },
     { id: 'wrong_words_10', category: 'review', badge: 'review', icon: '🔍', name: '错词侦探', desc: '累计记录 10 个错词', meaning: '敢于发现问题，才能把薄弱点变成突破口。', check: p => (p.wrong_words || []).length >= 10 },
     { id: 'unfamiliar_10', category: 'review', badge: 'review', icon: '🗺️', name: '未知探索者', desc: '标记 10 个不熟悉的词', meaning: '把未知清楚地标出来，学习地图就更完整。', check: p => (p.unfamiliar_words || []).length >= 10 },
+    { id: 'review_250', category: 'review', badge: 'review', icon: '🪴', name: '记忆培育员', desc: '累计完成 250 次卡片复习', meaning: '耐心照料记忆，知识会像植物一样扎根。', metric: 'card_reviews', target: 250, unit: '次' },
+    { id: 'review_500', category: 'review', badge: 'review', icon: '🧲', name: '记忆磁场', desc: '累计完成 500 次卡片复习', meaning: '五百次主动回忆，让知识之间产生更强连接。', metric: 'card_reviews', target: 500, unit: '次' },
+    { id: 'review_1000', category: 'review', badge: 'review', icon: '🧬', name: '千次重逢', desc: '累计完成 1000 次卡片复习', meaning: '一千次与知识重逢，长期记忆正在成形。', metric: 'card_reviews', target: 1000, unit: '次' },
+    { id: 'review_2000', category: 'review', badge: 'review', icon: '🗃️', name: '记忆档案馆', desc: '累计完成 2000 次卡片复习', meaning: '两千次整理与提取，记忆档案越来越可靠。', metric: 'card_reviews', target: 2000, unit: '次' },
+    { id: 'review_3000', category: 'review', badge: 'review', icon: '🌌', name: '三千记忆星', desc: '累计完成 3000 次卡片复习', meaning: '三千次复习点亮一片属于你的记忆星空。', metric: 'card_reviews', target: 3000, unit: '次' },
+    { id: 'review_5000', category: 'review', badge: 'review', icon: '🏅', name: '长期记忆大师', desc: '累计完成 5000 次卡片复习', meaning: '五千次复习证明你掌握了长期记忆的真正方法。', metric: 'card_reviews', target: 5000, unit: '次' },
 
     { id: 'game_first', category: 'games', badge: 'games', icon: '🕹️', name: '游戏入门', desc: '玩过任意一个游戏', meaning: '用另一种方式练英语，学习也可以很好玩。', check: function (p) { var gs = p.game_stats || {}; return Object.keys(gs).some(function (k) { return (gs[k].played || 0) >= 1; }); } },
     { id: 'game_explorer', category: 'games', badge: 'games', icon: '🧳', name: '游戏集邮', desc: '5 个游戏都玩过', meaning: '每一种玩法都体验过，真正的游戏探索家。', check: function (p) { var gs = p.game_stats || {}; return ['memory','wordle','picture','builder','tower'].every(function (k) { return gs[k] && gs[k].played >= 1; }); } },
@@ -3725,12 +3760,19 @@ document.addEventListener('input', function(e) {
     { id: 'tower_champion', category: 'games', badge: 'games', icon: '🏰', name: '塔防守城', desc: '塔防打通胜利', meaning: '用单词守住城门，策略和词汇缺一不可。', check: function (p) { return ((p.game_stats || {}).tower || {}).won >= 1; } },
     { id: 'wordle_pro', category: 'games', badge: 'games', icon: '🟩', name: 'Wordle 单词王', desc: 'Wordle 累计答对 5 轮', meaning: '字母线索在你眼里已经有迹可循。', check: function (p) { return ((p.game_stats || {}).wordle || {}).won >= 5; } },
     { id: 'memory_master', category: 'games', badge: 'games', icon: '🪄', name: '翻牌高手', desc: '翻牌配对最佳分达到 900', meaning: '速度、记忆和词义连接都达到了高手水平。', check: function (p) { return ((p.game_stats || {}).memory || {}).best >= 900; } },
+    { id: 'game_50', category: 'games', badge: 'games', icon: '🎪', name: '游乐场常客', desc: '累计完成 50 局游戏', meaning: '五十局练习，让快乐和积累同时发生。', metric: 'game_plays', target: 50, unit: '局' },
+    { id: 'game_100', category: 'games', badge: 'games', icon: '🎲', name: '百局玩家', desc: '累计完成 100 局游戏', meaning: '百局里程碑，游戏技巧和英语能力一起提升。', metric: 'game_plays', target: 100, unit: '局' },
+    { id: 'game_200', category: 'games', badge: 'games', icon: '🧿', name: '全能挑战者', desc: '累计完成 200 局游戏', meaning: '两百次挑战培养了速度、判断与坚持。', metric: 'game_plays', target: 200, unit: '局' },
+    { id: 'game_365', category: 'games', badge: 'games', icon: '🎡', name: '年度玩家', desc: '累计完成 365 局游戏', meaning: '平均每天一局的练习量，足以见证一年的成长。', metric: 'game_plays', target: 365, unit: '局' },
+    { id: 'game_730', category: 'games', badge: 'games', icon: '🛸', name: '双年挑战家', desc: '累计完成 730 局游戏', meaning: '两年尺度的游戏练习，已经成为真正的挑战专家。', metric: 'game_plays', target: 730, unit: '局' },
+    { id: 'game_1095', category: 'games', badge: 'games', icon: '🏁', name: '三年大满贯', desc: '累计完成 1095 局游戏', meaning: '三年长期挑战抵达终点，获得游戏类终极勋章。', metric: 'game_plays', target: 1095, unit: '局' },
   ];
   function evaluateAchievements() {
     const unlocked = progress.achievements_unlocked = progress.achievements_unlocked || {};
     let changed = false;
     for (const a of ACHIEVEMENTS) {
-      if (!unlocked[a.id] && a.check(progress)) { unlocked[a.id] = new Date().toISOString(); changed = true; }
+      const achieved = a.check ? a.check(progress) : achievementMetricValue(a, progress) >= a.target;
+      if (!unlocked[a.id] && achieved) { unlocked[a.id] = new Date().toISOString(); changed = true; }
     }
     if (changed) saveProgress();
     return unlocked;
@@ -3739,7 +3781,7 @@ document.addEventListener('input', function(e) {
     const unlocked = evaluateAchievements();
     let activeCategory = ACHIEVEMENT_CATEGORIES[0].id;
     app.innerHTML = topBar('成就系统') + '<div class="container achievements-page">' +
-      '<div class="achievement-summary"><strong>勋章收藏册</strong><span>已解锁 ' + Object.keys(unlocked).length + ' / ' + ACHIEVEMENTS.length + '</span></div>' +
+      '<div class="achievement-summary"><div><strong>三年成长路线</strong><small>从第一次打卡到 1095 天</small></div><span>已解锁 ' + Object.keys(unlocked).length + ' / ' + ACHIEVEMENTS.length + '</span></div>' +
       '<div class="achievement-tabs" role="tablist">' + ACHIEVEMENT_CATEGORIES.map(function (category, index) {
         return '<button class="achievement-tab' + (index === 0 ? ' active' : '') + '" data-category="' + category.id + '" role="tab" aria-selected="' + (index === 0) + '">' + category.icon + '<span>' + category.label + '</span></button>';
       }).join('') + '</div><div id="achievement-grid" class="achievement-grid"></div></div>';
@@ -3749,9 +3791,12 @@ document.addEventListener('input', function(e) {
       const items = ACHIEVEMENTS.filter(function (a) { return a.category === activeCategory; });
       grid.innerHTML = items.map(function (a) {
         const got = !!unlocked[a.id];
+        const current = a.target ? achievementMetricValue(a, progress) : 0;
+        const percent = a.target ? Math.min(100, Math.round(current / a.target * 100)) : 0;
         return '<button class="achievement-card' + (got ? ' unlocked' : ' locked') + '" data-achievement="' + a.id + '" type="button">' +
           '<span class="achievement-badge"><img src="' + achievementBadge(a.badge) + '" alt=""><span class="achievement-icon">' + a.icon + '</span>' + (got ? '' : '<span class="achievement-lock">🔒</span>') + '</span>' +
-          '<strong>' + escapeHtml(a.name) + '</strong><span>' + escapeHtml(a.desc) + '</span></button>';
+          '<strong>' + escapeHtml(a.name) + '</strong><span>' + escapeHtml(a.desc) + '</span>' +
+          (a.target ? '<span class="achievement-progress"><i style="width:' + percent + '%"></i><em>' + Math.min(current, a.target) + ' / ' + a.target + ' ' + escapeHtml(a.unit || '') + '</em></span>' : '') + '</button>';
       }).join('');
       grid.querySelectorAll('.achievement-card').forEach(function (button) {
         button.onclick = function () {
@@ -3778,10 +3823,12 @@ document.addEventListener('input', function(e) {
     if (!achievement) return;
     const wrap = document.createElement('div');
     wrap.className = 'modal-overlay achievement-detail';
+    const current = achievement.target ? achievementMetricValue(achievement, progress) : 0;
     wrap.innerHTML = '<div class="modal-card"><div class="modal-head"><span>勋章详情</span><button class="modal-x" aria-label="关闭">×</button></div>' +
       '<div class="modal-body"><div class="achievement-detail-badge"><img src="' + achievementBadge(achievement.badge) + '" alt="' + escapeHtml(achievement.name) + '勋章"><span>' + achievement.icon + '</span></div>' +
       '<h2>' + escapeHtml(achievement.name) + '</h2><div class="achievement-detail-status ' + (unlockedAt ? 'unlocked' : '') + '">' + (unlockedAt ? '已解锁 · ' + escapeHtml(String(unlockedAt).split('T')[0]) : '尚未解锁') + '</div>' +
       '<div class="achievement-detail-section"><strong>达成条件</strong><p>' + escapeHtml(achievement.desc) + '</p></div>' +
+      (achievement.target ? '<div class="achievement-detail-section"><strong>当前进度</strong><p>' + Math.min(current, achievement.target) + ' / ' + achievement.target + ' ' + escapeHtml(achievement.unit || '') + '</p></div>' : '') +
       '<div class="achievement-detail-section"><strong>勋章含义</strong><p>' + escapeHtml(achievement.meaning) + '</p></div>' +
       '<button class="btn btn-primary achievement-detail-close" type="button">知道了</button></div></div>';
     document.body.appendChild(wrap);
@@ -3984,7 +4031,8 @@ document.addEventListener('input', function(e) {
     ocrBtn.onclick = async () => {
       if (!pendingFile) return;
       if (!getChatCfg() || !getChatCfg().base_url) {
-        ocrStatus.innerHTML = '<span style="color:var(--danger);">⚠ 需要先在 AI 对话页配置 LLM（base_url / api_key / model）</span>';
+        ocrStatus.innerHTML = '<span style="color:var(--danger);">需要先解锁或配置 LLM 才能识别并整理</span>';
+        openLlmSettingsModal(llmRaw.encrypted ? 'unlock' : 'setup');
         return;
       }
       ocrBtn.disabled = true;
@@ -4551,15 +4599,6 @@ document.addEventListener('input', function(e) {
     const el = document.getElementById('llm-modal');
     if (el) el.remove();
   }
-  // Auto-prompt unlock at boot if encrypted config exists but session not unlocked.
-  function maybePromptUnlock() {
-    const raw = getChatCfgRaw();
-    if (!raw.exists) return;
-    if (!raw.encrypted) return; // legacy plaintext: handled by migration banner
-    if (isUnlocked()) return;
-    // Defer one tick so the page can paint first.
-    setTimeout(() => openLlmSettingsModal('unlock'), 100);
-  }
   // Migration: legacy plaintext localStorage entries. Re-saves as encrypted.
   async function maybeMigrateLegacyCfg() {
     const raw = _readRawStore();
@@ -4671,7 +4710,6 @@ document.addEventListener('input', function(e) {
       }
     }
     if (parseRoute().name === 'home' || parseRoute().name === 'vocab-import' || parseRoute().name === 'chat') {
-      maybePromptUnlock();
       maybeMigrateLegacyCfg();
     }
   }
