@@ -40,17 +40,30 @@
   /* Tab switcher */
   .tab-bar {
     display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
     background: #f5f5f7;
     border-bottom: 2px solid #e8ecf4;
     position: sticky;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  @media (max-width: 720px) {
+    .tab-btn { min-width: 0; flex: 1 1 0; padding: 10px 2px; font-size: 13px; }
+  }
+  @media (min-width: 721px) {
+    .tab-btn { min-width: 70px; }
+  }
+  .tab-bar-wrap {
+    display: flex;
+    flex-wrap: nowrap;
     top: 52px;
     z-index: 99;
     overflow-x: auto;
   }
   .tab-btn {
     flex: 0 0 auto;
-    min-width: 78px;
-    padding: 12px 4px;
+    padding: 10px 6px;
     text-align: center;
     font-size: 14px;
     font-weight: bold;
@@ -164,8 +177,8 @@
   <button class="tab-btn" onclick="showTab('module2')">2 介词</button>
   <button class="tab-btn" onclick="showTab('module3')">3 冠词</button>
   <button class="tab-btn" onclick="showTab('module4')">4 名词</button>
-  <button class="tab-btn" onclick="showTab('module5')">5 写作</button>
-  <button class="tab-btn" onclick="showTab('module6')">6 句子结构</button>
+  <button class="tab-btn" onclick="showTab('module5')">5 代词</button>
+  <button class="tab-btn" onclick="showTab('module6')">6 形副词</button>
   <button class="tab-btn" onclick="showTab('module7')">7 数量词</button>
   <button class="tab-btn" onclick="showTab('module8')">8 核心句型</button>
   <button class="tab-btn" onclick="showTab('module9')">9 高级语法</button>
@@ -211,20 +224,20 @@
     <div class="md-content">{{ module4_html|safe }}</div>
   </div>
 
-  <!-- 模块5：写作 -->
+  <!-- 模块5：代词 -->
   <div id="tab-module5" class="tab-content">
     <div class="section-intro">
-      <h2>✍️ 写作能力体系</h2>
-      <p>单词 → 句子 → 段落 → 篇章 → 中考作文</p>
+      <h2>👥 代词体系</h2>
+      <p>人称 · 物主 · 反身 · 指示 · 疑问 · 不定</p>
     </div>
     <div class="md-content">{{ module5_html|safe }}</div>
   </div>
 
-  <!-- 模块6：句子结构与语篇 -->
+  <!-- 模块6：形容词与副词 -->
   <div id="tab-module6" class="tab-content">
     <div class="section-intro">
-      <h2>🧠 句子结构与语篇</h2>
-      <p>五大句型 · 成分分析 · 长难句拆解 · 阅读结构</p>
+      <h2>🎨 形容词与副词</h2>
+      <p>修饰规则 · 构成 · 比较级 · 最高级</p>
     </div>
     <div class="md-content">{{ module6_html|safe }}</div>
   </div>

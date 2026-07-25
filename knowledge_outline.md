@@ -713,19 +713,7 @@ play the piano
 
 ---
 
-下面生成：
 
-### 模块3：冠词体系学习图片
-
-图片设计：
-
-- 左侧：a/an 使用规则
-- 中间：the 使用场景
-- 右侧：零冠词场景
-- 底部：易错对比口诀
-- 风格：初中英语打卡卡片
-
-（下一模块继续：**模块4--名词体系（可数名词/不可数名词/所有格/单复数）**）
 
 ![模块3：冠词体系学习海报](assets/knowledge/m3.png)
 
@@ -1444,472 +1432,1020 @@ children
 
 ---
 
-下一步生成：
-
-**模块4图片：名词体系学习海报**
-
-图片包含：
-
-- 左侧：可数名词 + 复数变化
-- 中间：不可数名词 + 量词表达
-- 右侧：所有格 + 专有名词
-- 底部：many/much/few/little 对比口诀
-
-适合直接放入英语学习小程序。
-
 ![模块4：名词体系学习海报](assets/knowledge/m4.png)
 
-## 模块5：写作能力体系（Writing）
+## 模块5：代词体系
 
-### 模块5：写作能力体系（Writing Knowledge Base）
+### 模块5：代词体系（Pronouns）
 
-> 帮助学生从：单词 → 句子 → 段落 → 篇章 → 中考作文，逐步提升。
-
----
-
-### 一、模块定位
-
-**核心目标**
-
-培养学生：
-
-- 正确造句能力
-- 英语表达能力
-- 逻辑组织能力
-- 观点表达能力
-- 应试写作能力
-
-**对应中考**
-
-| 能力 | 考查 |
-|------|------|
-| 语言准确性 | 语法、拼写 |
-| 词汇丰富度 | 高级表达 |
-| 结构完整性 | 开头、主体、结尾 |
-| 逻辑性 | 连接词 |
-| 表达能力 | 观点和理由 |
+### -- 人称代词 / 物主代词 / 反身代词 / 指示代词 / 疑问代词 / 不定代词完整知识体系
 
 ---
 
-### 二、写作能力分层模型
+一、学习目标
+掌握英语中代词的核心作用：
 
-```
-English Writing Ability
-        ↓
-Level 5  篇章表达能力
-        ↓
-Level 4  段落组织能力
-        ↓
-Level 3  句型扩展能力
-        ↓
-Level 2  基础造句能力
-        ↓
-Level 1  词汇拼写能力
-```
+用一个词替代已经出现的人、事物，避免重复，让句子更加简洁。
 
-由简到难，由词到篇。
+学习完成后能够：
 
----
+- 正确区分主格和宾格
+- 掌握“我的、你的、他的”等所有关系表达
+- 理解 myself、yourself 等反身代词
+- 掌握 this / that / these / those 的区别
+- 理解 who、what、which 等疑问代词
+- 正确使用 some、any、someone、anything 等不定代词
 
-### 三、Level 1：单词拼写能力
+二、什么是代词（Pronoun）
+代词：
 
-**目标**：避免「动词原形叠加」类错误。
+代替名词的词。
 
-> ❌ I like play football.
-> 原因：like 后面不能直接接动词原形。
+例如：
 
-**1. 高频易错词**
+Tom is my friend.
 
-| 错误 | 正确 |
-|------|------|
-| becaus | because |
-| enviroment | environment |
-| diffrent | different |
-| recieve | receive |
+Tom is tall.
 
-**2. 词形变化**
+为了避免重复：
 
-```
-{
-  "word": "success",
-  "family": {
-    "noun": "success",
-    "verb": "succeed",
-    "adj": "successful",
-    "adv": "successfully"
-  }
-}
-```
+Tom is my friend.
 
----
+**He** is tall.
 
-### 四、Level 2：基础造句能力
+这里：
 
-**目标**：掌握五大基本句型（详见模块 8「核心句型」）。本模块从写作视角只列骨架，方便后续扩展。
+He = Tom
 
-| 类型 | 结构 | 例 |
-|------|------|------|
-| 1 | S + V | Birds fly. |
-| 2 | S + V + O | I like English. |
-| 3 | S + V + P（主系表） | English is interesting. |
-| 4 | S + V + IO + DO（双宾语） | My mother gives me a gift. |
-| 5 | S + V + O + C（宾补） | We keep our classroom clean. |
+三、代词分类体系
+英语代词主要分为：
 
----
+                 代词 Pronouns
 
-### 五、Level 3：句子扩展能力
+                      |
+ ------------------------------------------------
+ |          |          |          |        |       |
+人称代词  物主代词  反身代词  指示代词 疑问代词 不定代词
 
-**核心**：从简单句升级为复杂句。
+四、人称代词（Personal Pronouns）
+### 作用：
+表示：
 
-1. **添加时间**
-   - 简单：I study English.
-   - 升级：I study English every day.
+- 我
+- 你
+- 他
+- 她
+- 它
+- 我们
+- 他们
 
-2. **添加原因**
-   - 简单：I like English.
-   - 升级：I like English because it is useful.
+分为：
 
-3. **添加目的**
-   - I study hard to enter a good high school.
+### 1. 主格（做主语）
+放在：
 
-4. **添加条件**
-   - If we work hard, we can achieve our dreams.
+动作执行者位置
 
----
+例如：
 
-### 六、Level 4：段落组织能力
+I study English.
 
-**标准段落结构**
+我学习英语。
 
-```
-Topic Sentence
-        ↓
-Supporting Details
-        ↓
-Example
-        ↓
-Conclusion
-```
+He plays football.
 
-**范例**：主题 "My hobby"
+他踢足球。
 
-- **开头**：介绍兴趣 → Everyone has a hobby. My hobby is reading.
-- **中间**：原因 → Reading can help me learn more knowledge.
-- **结尾**：总结 → I think reading makes my life better.
+### 主格表：
+| 中文 | 主格 |
+|---|---|---|
+| 我 | I |
+| 你 | you |
+| 他 | he |
+| 她 | she |
+| 它 | it |
+| 我们 | we |
+| 他们 | they |
 
----
+### 2. 宾格（做宾语）
+表示：
 
-### 七、中考作文五大模板
+动作承受者。
 
-**模板 1：个人经历类**
+例如：
 
-- 主题：过去发生的事情
-- 结构：When → What happened → How I felt → What I learned
-- 关键词：experience / remember / learn / important
+I like him.
 
-**模板 2：计划安排类**（"My plan for summer vacation"）
+我喜欢他。
 
-- 结构：Plan → Activities → Reason → Expectation
+She helps me.
 
-**模板 3：观点建议类**（"How to protect environment"）
+她帮助我。
 
-- 结构：Problem → Reasons → Solutions → Hope
-- 高级连接：First / Besides / What's more / Finally
+### 宾格表：
+| 中文 | 宾格 |
+|---|---|---|
+| 我 | me |
+| 你 | you |
+| 他 | him |
+| 她 | her |
+| 它 | it |
+| 我们 | us |
+| 他们 | them |
 
-**模板 4：人物介绍类**
+### 记忆口诀：
 
-- 结构：Who → Background → Achievements → Opinion
+主语用主格，动作后面用宾格。
 
-**模板 5：说明介绍类**（"Introduce my hometown"）
+例如：
 
-- 结构：Location → History → Culture → Special things
+✅ I like him.
 
----
+❌ Me like he.
 
-### 八、高分句型库
+五、物主代词（Possessive Pronouns）
+表示：
 
-| 功能 | 基础 | 升级 |
-|------|------|------|
-| 开头句 | I think... | In my opinion, ... |
-| 原因表达 | Because... | The reason is that ... |
-| 举例 | For example | For instance, ... |
-| 总结 | In short | All in all, ... |
-| 建议 | — | It is necessary to ... |
+“谁的东西”
 
----
+分两类：
 
-### 九、作文连接词知识库
+1. 形容词性物主代词
+特点：
 
-| 类别 | 词 |
-|------|----|
-| 时间 | first / then / after that / finally |
-| 递进 | also / besides / what's more / moreover |
-| 转折 | but / however / although |
-| 因果 | because / so / therefore / as a result |
-| 总结 | in short / in conclusion / finally |
+后面必须接名词。
 
----
+结构：
 
-### 十、作文错误诊断系统
+物主代词 + 名词
 
-学生提交作文 → AI 分析 → 错误分类：
+例如：
 
-| 错误类型 | 错误示例 | 正确示例 |
-|----------|----------|----------|
-| Grammar Error | He go to school yesterday. | He went to school yesterday. |
-| Article Error | I am student. | I am a student. |
-| Word Order Error | I very like English. | I like English very much. |
-| 拼写错误 | environment → enviroment | environment |
+my book
 
----
+我的书
 
-### 十一、每日写作打卡设计
+your bag
 
-| 年级 | 目标 | 每日任务 |
-|------|------|----------|
-| 七年级 | 一句话能力 | 5 个单词 + 3 个简单句 |
-| 八年级 | 段落能力 | 5 句扩展句 + 一个 80 词段落 |
-| 九年级 | 中考作文 | 一个主题作文 + AI 批改 + 错误复盘 |
+你的包
 
----
+表格：
 
-### 模块5核心价值
+| 中文 | 形容词性 |
+|---|---|---|
+| 我的 | my |
+| 你的 | your |
+| 他的 | his |
+| 她的 | her |
+| 它的 | its |
+| 我们的 | our |
+| 他们的 | their |
 
-对于英语打卡小程序：
+2. 名词性物主代词
+特点：
 
-- 词汇解决「看懂」
-- 语法解决「正确」
-- **写作解决「输出」**
+后面不能再接名词。
 
-模块 5 实际上是把前面几个模块产生的知识能力转化成 AI 可以评价、纠错、指导、生成训练任务的写作智能层。
+例如：
+
+This book is mine.
+
+不能：
+
+❌ mine book
+
+表格：
+
+| 中文 | 名词性 |
+|---|---|---|
+| 我的 | mine |
+| 你的 | yours |
+| 他的 | his |
+| 她的 | hers |
+| 我们的 | ours |
+| 他们的 | theirs |
+
+口诀：
+
+有名词，用my；无名词，用mine。
+
+六、反身代词（Reflexive Pronouns）
+表示：
+
+“自己”
+
+强调动作执行者和承受者是同一个人。
+
+例如：
+
+I teach myself English.
+
+我自学英语。
+
+He hurt himself.
+
+他伤到了自己。
+
+表格：
+
+| 人称 | 反身代词 |
+|---|---|---|
+| 我 | myself |
+| 你 | yourself |
+| 他 | himself |
+| 她 | herself |
+| 它 | itself |
+| 我们 | ourselves |
+| 他们 | themselves |
+
+常见搭配：
+
+enjoy oneself
+
+玩得开心
+
+help oneself
+
+请自便
+
+by oneself
+
+独自
+
+七、指示代词（Demonstrative Pronouns）
+表示：
+
+“这个、那个、这些、那些”
+
+### 近距离：
+this
+
+这个（单数）
+
+these
+
+这些（复数）
+
+### 远距离：
+that
+
+那个（单数）
+
+those
+
+那些（复数）
+
+口诀：
+
+近用this，远用that；
+一个this，多个these；
+一个that，多个those。
+
+例：
+
+This is my book.
+
+这是我的书。
+
+Those are my friends.
+
+那些是我的朋友。
+
+八、疑问代词（Interrogative Pronouns）
+用于提问。
+
+### who
+谁（主语）
+
+Who is that boy?
+
+### whom
+谁（宾语）
+
+Whom do you like?
+
+### whose
+谁的
+
+Whose book is this?
+
+### what
+什么
+
+What is this?
+
+### which
+哪一个
+
+Which do you like?
+
+九、不定代词（Indefinite Pronouns）
+表示：
+
+不确定的人或事物。
+
+### 1. some 系列
+通常用于肯定句：
+
+somebody
+
+某人
+
+something
+
+某事
+
+some
+
+一些
+
+例：
+
+I have something to tell you.
+
+### 2. any 系列
+通常用于：
+
+否定句、疑问句。
+
+anyone
+
+任何人
+
+anything
+
+任何事情
+
+例：
+
+Do you have anything?
+
+### 3. every 系列
+表示：
+
+每一个。
+
+everyone
+
+每个人
+
+everything
+
+每件事
+
+### 4. no 系列
+nobody
+
+没有人
+
+nothing
+
+没有东西
+
+十、常见错误总结
+### 错误1：
+❌ He and me are students.
+
+正确：
+
+✅ He and I are students.
+
+原因：
+
+主语位置使用主格。
+
+### 错误2：
+❌ This book is my.
+
+正确：
+
+✅ This book is mine.
+
+### 错误3：
+❌ Myself went home.
+
+正确：
+
+✅ I went home myself.
+
+### 错误4：
+❌ These book
+
+正确：
+
+✅ These books
+
+these 后面接复数。
+
+十一、记忆口诀总结
+#### 人称代词：
+
+谁做事情用主格，动作对象用宾格。
+
+#### 物主代词：
+
+后面有名词用形容词性，没有名词用名词性。
+
+#### 反身代词：
+
+自己做自己，反身不能少。
+
+#### 指示代词：
+
+近this远that，多个变these/those。
+
+#### 不定代词：
+
+some肯定多，any疑问否定多。
+
+十二、打卡练习
+选择正确答案：
+
+- ___ is my brother.
+
+A. He
+
+B. Him
+
+- This book is ___.
+
+A. my
+
+B. mine
+
+- She teaches ___ English.
+
+A. herself
+
+B. her
+
+- ___ are my shoes.
+
+A. This
+
+B. These
+
+- Do you know ___?
+
+A. someone
+
+B. anyone
+
+答案：
+
+1.A
+
+2.B
+
+3.A
+
+4.B
+
+5.B
 
 图片采用 **9:16 竖版学习海报格式**。
 
-![模块5：写作能力体系学习海报](assets/knowledge/m5.png)
+![模块5：代词体系学习海报](assets/knowledge/m5.png)
 
+## 模块6：形容词与副词体系
 
-## 模块6：英语句子结构与语篇理解（Sentence & Text Understanding）
+### 模块6：形容词与副词体系（Adjectives & Adverbs）
 
-### 模块6：英语句子结构与语篇理解
-
----
-
-### 模块目标
-
-**学习目标**
-
-掌握：
-
-- 英语句子的基本规律
-- 五大基本句型
-- 句子成分分析
-- 长难句拆解方法
-- 常见错误纠正
-- 段落结构理解
-- 阅读理解思维方式
-
-**最终能力**：看到任何初中英语句子，可以快速判断：
-
-- 主语是谁？
-- 谓语是什么？
-- 时间在哪里？
-- 修饰关系是什么？
-- 为什么这样表达？
+### -- 形容词 / 副词 / 比较级 / 最高级 / 形副转换完整知识体系
 
 ---
 
-### 第一章 英语句子的核心逻辑
+一、学习目标
+掌握英语中描述“人、事物、动作状态”的两类重要词：
 
-#### 1.1 英语句子的本质
+- **形容词（Adjective）**
+- **副词（Adverb）**
 
-**核心公式**
+学习完成后能够：
 
-```
-一句英语 = 主干 + 修饰 + 补充信息
-```
+- 判断什么时候使用形容词
+- 判断什么时候使用副词
+- 掌握形容词变副词规则
+- 掌握比较级和最高级变化
+- 正确使用 more / most
+- 避免 good/well、hard/hardly 等高频错误
 
-例如：The boy who likes football is my brother.
+二、什么是形容词？
+### Adjective（形容词）
+作用：
 
-- 主干：The boy is my brother.
-- 修饰：who likes football
-- 意思：喜欢足球的那个男孩是我的哥哥。
+描述人或事物的特点、状态。
 
-#### 1.2 英语句子的最小单位
+通常翻译：
 
-一个完整句子必须包含：**主语 Subject + 谓语 Verb**
+- ……的
 
-- ✅ I run.
-- ❌ I running.（running 不是谓语）
+例如：
 
----
+beautiful 美丽的
 
-### 第二章 五大基本句型
+happy 开心的
 
-> 五大句型的完整讲解见模块 8「核心句型」。本章从「句子结构分析」视角给出速查表。
+big 大的
 
-| # | 结构 | 中文 | 高频错误 |
-|---|------|------|----------|
-| 1 | S + V | 主语 + 动词 | Birds fly. / 鸟飞。 |
-| 2 | S + V + O | 主语 + 动词 + 宾语 | I like English. |
-| 3 | S + V + P | 主语 + 系动词 + 表语 | He is a teacher. |
-| 4 | S + V + IO + DO | 主语 + 动词 + 间接宾语 + 直接宾语 | My mother gives me a gift. |
-| 5 | S + V + O + C | 主语 + 动词 + 宾语 + 宾语补足语 | We call him Tom. |
+important 重要的
 
-**常见系动词**：be / become / look / feel / seem / sound
+三、形容词的位置
+形容词主要有两个位置：
 
-**高频错误**：❌ I like study English.（两个动词冲突）
-**正确**：I like studying English. / I like to study English.
+1. 名词前（最常见）
+结构：
 
----
+形容词 + 名词
 
-### 第三章 句子成分体系
+例如：
 
-#### 3.1 主语（回答「谁？什么？」）
+a beautiful girl
 
-- **名词**：Tom works hard.
-- **代词**：He works hard.
-- **动名词**：Swimming is interesting.
+一个漂亮的女孩
 
-#### 3.2 谓语（英语核心）
+a big house
 
-- **动词**：run / eat / play
-- **动词短语**：look after / take care of / give up
+一个大房子
 
-#### 3.3 宾语（动作对象）
+2. 系动词后
+结构：
 
-- I read books. → books = 宾语
+主语 + 系动词 + 形容词
 
-#### 3.4 定语（修饰名词）
+常见系动词：
 
-- a beautiful girl → beautiful 修饰 girl
+- be
+- look
+- feel
+- sound
+- taste
+- smell
+- become
+- get
 
-#### 3.5 状语（说明时间 / 地点 / 原因 / 方式）
+例如：
 
-- I study English every day. → every day = 时间状语
+She is happy.
 
----
+她很开心。
 
-### 第四章 英语句子「三大雷区」
+The soup tastes delicious.
 
-#### 4.1 一个句子不能出现两个谓语
+汤尝起来很好喝。
 
-❌ I like play football.（like / play 两个动作冲突）
+四、常见系动词口诀
 
-**解决方法**：
+一看二听三感觉，变化保持也连接。
 
-- **方法 1（to）**：I like **to** play football.
-- **方法 2（doing）**：I like **playing** football.
+看：
 
-#### 4.2 中文思维导致缺少 be 动词
+look
 
-- 中文：他很开心
-- ❌ He happy.
-- ✅ He **is** happy.
+听：
 
-#### 4.3 名词前缺少限定词
+sound
 
-- ❌ I am student.
-- ✅ I am **a** student.
-- 原因：单数可数名词不能裸奔。
+感觉：
 
----
+feel
 
-### 第五章 长难句拆解方法
+变化：
 
-**五步法**
+become/get
 
-- **Step 1 找谓语**：The boy **who won** the game yesterday **is** my friend. → 谓语：won / is
-- **Step 2 找主干**：The boy is my friend.
-- **Step 3 找从句**：who won the game yesterday
-- **Step 4 找修饰关系**：who = The boy
-- **Step 5 翻译**：先主干，后补充。
+保持：
 
----
+keep
 
-### 第六章 从句入门
+五、副词（Adverb）
+### 什么是副词？
+副词：
 
-#### 6.1 宾语从句
+修饰动作、状态、程度的词。
 
-**结构**：主句 + 引导词 + 从句
+主要修饰：
 
-- 例：I know **what he likes**.
-- 主句：I know ｜ 从句：what he likes
+- 动词
+- 形容词
+- 其他副词
+- 整个句子
 
-#### 6.2 定语从句
+六、副词修饰动词
+例如：
 
-**作用**：修饰名词。
+He runs quickly.
 
-- 例：The book **that I bought** is interesting.
-- 核心：The book is interesting.
+quickly 修饰：
 
-#### 6.3 状语从句
+runs
 
-| 类别 | 引导词 |
-|------|--------|
-| 时间 | when / while / before / after |
-| 原因 | because / since / as |
-| 条件 | if / unless |
-| 让步 | although / though |
+说明：
 
----
+跑得快。
 
-### 第七章 阅读理解结构
+更多例子：
 
-> 文章不是一句一句看，而是：标题 → 主题 → 段落功能 → 关键词 → 答案
+She sings beautifully.
 
-**四类文章结构**
+她唱得很好听。
 
-1. **总分结构**：观点 → 解释 → 例子
-2. **时间顺序**：过去 → 现在 → 未来
-3. **对比结构**：A vs B
-4. **问题解决**：Problem → Reason → Solution
+He studies hard.
 
----
+他努力学习。
 
-### 第八章 写作句型库
+七、副词修饰形容词
+结构：
 
-| 位置 | 句型 |
-|------|------|
-| 开头 | I think that... / Nowadays, ... |
-| 连接 | Besides / What's more / However / But / Because / Since |
-| 结尾 | In my opinion, ... / I hope... |
+副词 + 形容词
 
----
+例如：
 
-### 模块 6 知识地图
+very beautiful
 
-```
-模块 6
-├── 句子基础
-│   ├── 主谓结构
-│   ├── 五大句型
-│   └── 句子成分
-├── 句子分析
-│   ├── 找主干
-│   ├── 找谓语
-│   ├── 拆修饰
-│   └── 长难句
-├── 常见错误
-│   ├── 双谓语
-│   ├── 缺 be
-│   ├── 缺冠词
-│   └── 中文式英语
-├── 从句
-│   ├── 宾语从句
-│   ├── 定语从句
-│   └── 状语从句
-└── 语篇理解
-    ├── 阅读结构
-    ├── 写作逻辑
-    └── 高分表达
-```
+非常漂亮
 
-> 模块 6 实际上是把单词、语法、句型综合起来，形成「真正读懂和写出英语句子」的能力，也是后续接 AI 教练能力最关键的一层。孩子容易出现的「两个谓语动词放一起、缺冠词」等问题，都应归入模块 6 的错误诊断知识库。
+really important
+
+真的重要
+
+too difficult
+
+太难
+
+八、副词修饰副词
+例如：
+
+very quickly
+
+非常快
+
+really well
+
+非常好
+
+九、形容词变副词规则
+### 规则1：
+一般直接加 ly
+
+quick
+
+↓
+
+quickly
+
+slow
+
+↓
+
+slowly
+
+careful
+
+↓
+
+carefully
+
+### 规则2：
+辅音+y结尾
+
+变：
+
+y → i + ly
+
+happy
+
+↓
+
+happily
+
+easy
+
+↓
+
+easily
+
+### 规则3：
+le结尾
+
+去e加y
+
+simple
+
+↓
+
+simply
+
+gentle
+
+↓
+
+gently
+
+十、特殊变化（必须记忆）
+| 形容词 | 副词 |
+|---|---|---|
+| good | well |
+| fast | fast |
+| hard | hard |
+| late | late |
+| early | early |
+
+重点：
+
+### hard ≠ hardly
+hard：
+
+努力地
+
+He works hard.
+
+他努力工作。
+
+hardly：
+
+几乎不
+
+He hardly works.
+
+他几乎不工作。
+
+意思完全不同。
+
+十一、形容词和副词区别
+看修饰对象：
+
+| 修饰对象 | 使用 |
+|---|---|---|
+| 名词 | 形容词 |
+| 动词 | 副词 |
+| 形容词 | 副词 |
+| 副词 | 副词 |
+
+例：
+
+He is a careful student.
+
+careful 修饰 student
+
+He studies carefully.
+
+carefully 修饰 studies
+
+十二、比较级（Comparative）
+表示：
+
+两个人或两个事物之间比较。
+
+中文：
+
+更……
+
+结构：
+
+A + be + 比较级 + than + B
+
+例如：
+
+Tom is taller than Mike.
+
+Tom比Mike高。
+
+十三、比较级变化规则
+### 规则1：一般加 er
+tall
+
+↓
+
+taller
+
+small
+
+↓
+
+smaller
+
+### 规则2：以e结尾
+直接加r
+
+large
+
+↓
+
+larger
+
+nice
+
+↓
+
+nicer
+
+### 规则3：辅音+y
+变：
+
+y → ier
+
+happy
+
+↓
+
+happier
+
+easy
+
+↓
+
+easier
+
+### 规则4：重读闭音节
+双写最后字母 + er
+
+big
+
+↓
+
+bigger
+
+hot
+
+↓
+
+hotter
+
+十四、多音节比较级
+两个以上音节：
+
+使用：
+
+more
+
+例如：
+
+beautiful
+
+↓
+
+more beautiful
+
+important
+
+↓
+
+more important
+
+十五、最高级（Superlative）
+表示：
+
+三个或以上比较，最……
+
+结构：
+
+the + 最高级
+
+例如：
+
+He is the tallest boy.
+
+十六、最高级变化规则
+### 短词：
+加：
+
+est
+
+tall
+
+↓
+
+the tallest
+
+### y结尾：
+happy
+
+↓
+
+the happiest
+
+### 长词：
+most
+
+beautiful
+
+↓
+
+the most beautiful
+
+十七、不规则比较级和最高级
+必须背：
+
+| 原级 | 比较级 | 最高级 |
+|---|---|---|---|
+| good | better | best |
+| bad | worse | worst |
+| many/much | more | most |
+| little | less | least |
+| far | farther/further | farthest/furthest |
+
+十八、常见错误
+### 错误1：
+❌ He is more taller.
+
+正确：
+
+✅ He is taller.
+
+原因：
+
+比较级不能重复。
+
+### 错误2：
+❌ She sings beautiful.
+
+正确：
+
+✅ She sings beautifully.
+
+原因：
+
+修饰动词用副词。
+
+### 错误3：
+❌ He is a carefully boy.
+
+正确：
+
+✅ He is a careful boy.
+
+原因：
+
+修饰名词用形容词。
+
+十九、记忆口诀
+### 形容词：
+
+名词前面描述人，系动词后说明状态。
+
+### 副词：
+
+动词后面看方式，形容程度也靠它。
+
+### 比较级：
+
+两者比较用er，多者比较the+est。
+
+### 长词：
+
+长词比较more，最高most。
+
+二十、打卡练习
+选择正确答案：
+
+#### 1.
+She is a ______ girl.
+
+A. happily
+
+B. happy
+
+答案：
+
+B
+
+#### 2.
+He runs very ______.
+
+A. quick
+
+B. quickly
+
+答案：
+
+B
+
+#### 3.
+Tom is ______ than Jack.
+
+A. tall
+
+B. taller
+
+答案：
+
+B
+
+#### 4.
+This is the ______ book.
+
+A. interesting
+
+B. most interesting
+
+答案：
+
+B
 
 图片采用 **9:16 竖版学习海报格式**。
 
-![模块6：英语句子结构与语篇理解学习海报](assets/knowledge/m6.png)
-
+![模块6：形容词与副词体系学习海报](assets/knowledge/m6.png)
 
 ## 模块7：数量词体系
 
@@ -2536,57 +3072,7 @@ first         some/any        a bottle of
 
 ---
 
-### 模块7图片设计（9:16竖版学习海报）
 
-图片内容：
-
-### 顶部：
-
-**模块7：数量词体系 Quantifiers**
-
-### 第一部分：
-
-数字体系
-
-- 基数词 one/two/three
-- 序数词 first/second/third
-
-### 第二部分：
-
-数量限定词分类
-
-左侧：
-
-- many
-- few
-- a few
-
-右侧：
-
-- much
-- little
-- a little
-
-### 第三部分：
-
-some / any 使用场景
-
-### 第四部分：
-
-可数 vs 不可数对照表
-
-### 第五部分：
-
-高频错误纠正
-
-风格：
-
-- 初中英语学习卡
-- 9:16竖版
-- 图标+表格+口诀
-- 适合直接放入英语打卡小程序
-
-下面生成模块7图片。
 
 ![模块7：数量词体系学习海报](assets/knowledge/m7.png)
 
@@ -3308,79 +3794,237 @@ There be
 
 ---
 
-### 模块8图片设计（9:16竖版学习海报）
 
-图片内容：
-
-### 顶部：
-
-**模块8：英语核心句型体系 Sentence Structure**
-
----
-
-### 第一部分：
-
-英语句子五大组成：
-
-- 主语 Subject
-- 谓语 Verb
-- 宾语 Object
-- 表语 Complement
-
----
-
-### 第二部分：
-
-五大基本句型：
-
-| 结构 | 例句 |
-|---|---|
-| SV | Birds fly |
-| SVO | I like English |
-| SVC | He is happy |
-| SVOO | Give me a book |
-| SVOC | Make me happy |
-
----
-
-### 第三部分：
-
-There be 句型
-
-- There is
-- There are
-
----
-
-### 第四部分：
-
-句子检查五步法：
-
-✅ 有主语
- ✅ 有谓语
- ✅ 一个核心谓语
- ✅ 冠词正确
- ✅ 动词形式正确
-
----
-
-### 第五部分：
-
-高频错误纠正：
-
-❌ I like play
- ✅ I like playing
-
-❌ I have book
- ✅ I have a book
-
----
-
-下一步生成：
 
 **模块8：核心句型体系 9:16竖版学习海报图片**。
 
 ![模块8：核心句型体系学习海报](assets/knowledge/m8.png)
+
+---
+
+### 写作能力扩展（综合应用）
+
+### 模块5：写作能力体系（Writing Knowledge Base）
+
+> 帮助学生从：单词 → 句子 → 段落 → 篇章 → 中考作文，逐步提升。
+
+---
+
+### 一、模块定位
+
+**核心目标**
+
+培养学生：
+
+- 正确造句能力
+- 英语表达能力
+- 逻辑组织能力
+- 观点表达能力
+- 应试写作能力
+
+**对应中考**
+
+| 能力 | 考查 |
+|------|------|
+| 语言准确性 | 语法、拼写 |
+| 词汇丰富度 | 高级表达 |
+| 结构完整性 | 开头、主体、结尾 |
+| 逻辑性 | 连接词 |
+| 表达能力 | 观点和理由 |
+
+---
+
+### 二、写作能力分层模型
+
+```
+English Writing Ability
+        ↓
+Level 5  篇章表达能力
+        ↓
+Level 4  段落组织能力
+        ↓
+Level 3  句型扩展能力
+        ↓
+Level 2  基础造句能力
+        ↓
+Level 1  词汇拼写能力
+```
+
+由简到难，由词到篇。
+
+---
+
+### 三、Level 1：单词拼写能力
+
+**目标**：避免「动词原形叠加」类错误。
+
+> ❌ I like play football.
+> 原因：like 后面不能直接接动词原形。
+
+**1. 高频易错词**
+
+| 错误 | 正确 |
+|------|------|
+| becaus | because |
+| enviroment | environment |
+| diffrent | different |
+| recieve | receive |
+
+**2. 词形变化**
+
+```
+{
+  "word": "success",
+  "family": {
+    "noun": "success",
+    "verb": "succeed",
+    "adj": "successful",
+    "adv": "successfully"
+  }
+}
+```
+
+---
+
+### 四、Level 2：基础造句能力
+
+**目标**：掌握五大基本句型（详见模块 8「核心句型」）。本模块从写作视角只列骨架，方便后续扩展。
+
+| 类型 | 结构 | 例 |
+|------|------|------|
+| 1 | S + V | Birds fly. |
+| 2 | S + V + O | I like English. |
+| 3 | S + V + P（主系表） | English is interesting. |
+| 4 | S + V + IO + DO（双宾语） | My mother gives me a gift. |
+| 5 | S + V + O + C（宾补） | We keep our classroom clean. |
+
+---
+
+### 五、Level 3：句子扩展能力
+
+**核心**：从简单句升级为复杂句。
+
+1. **添加时间**
+   - 简单：I study English.
+   - 升级：I study English every day.
+
+2. **添加原因**
+   - 简单：I like English.
+   - 升级：I like English because it is useful.
+
+3. **添加目的**
+   - I study hard to enter a good high school.
+
+4. **添加条件**
+   - If we work hard, we can achieve our dreams.
+
+---
+
+### 六、Level 4：段落组织能力
+
+**标准段落结构**
+
+```
+Topic Sentence
+        ↓
+Supporting Details
+        ↓
+Example
+        ↓
+Conclusion
+```
+
+**范例**：主题 "My hobby"
+
+- **开头**：介绍兴趣 → Everyone has a hobby. My hobby is reading.
+- **中间**：原因 → Reading can help me learn more knowledge.
+- **结尾**：总结 → I think reading makes my life better.
+
+---
+
+### 七、中考作文五大模板
+
+**模板 1：个人经历类**
+
+- 主题：过去发生的事情
+- 结构：When → What happened → How I felt → What I learned
+- 关键词：experience / remember / learn / important
+
+**模板 2：计划安排类**（"My plan for summer vacation"）
+
+- 结构：Plan → Activities → Reason → Expectation
+
+**模板 3：观点建议类**（"How to protect environment"）
+
+- 结构：Problem → Reasons → Solutions → Hope
+- 高级连接：First / Besides / What's more / Finally
+
+**模板 4：人物介绍类**
+
+- 结构：Who → Background → Achievements → Opinion
+
+**模板 5：说明介绍类**（"Introduce my hometown"）
+
+- 结构：Location → History → Culture → Special things
+
+---
+
+### 八、高分句型库
+
+| 功能 | 基础 | 升级 |
+|------|------|------|
+| 开头句 | I think... | In my opinion, ... |
+| 原因表达 | Because... | The reason is that ... |
+| 举例 | For example | For instance, ... |
+| 总结 | In short | All in all, ... |
+| 建议 | — | It is necessary to ... |
+
+---
+
+### 九、作文连接词知识库
+
+| 类别 | 词 |
+|------|----|
+| 时间 | first / then / after that / finally |
+| 递进 | also / besides / what's more / moreover |
+| 转折 | but / however / although |
+| 因果 | because / so / therefore / as a result |
+| 总结 | in short / in conclusion / finally |
+
+---
+
+### 十、作文错误诊断系统
+
+学生提交作文 → AI 分析 → 错误分类：
+
+| 错误类型 | 错误示例 | 正确示例 |
+|----------|----------|----------|
+| Grammar Error | He go to school yesterday. | He went to school yesterday. |
+| Article Error | I am student. | I am a student. |
+| Word Order Error | I very like English. | I like English very much. |
+| 拼写错误 | environment → enviroment | environment |
+
+---
+
+### 十一、每日写作打卡设计
+
+| 年级 | 目标 | 每日任务 |
+|------|------|----------|
+| 七年级 | 一句话能力 | 5 个单词 + 3 个简单句 |
+| 八年级 | 段落能力 | 5 句扩展句 + 一个 80 词段落 |
+| 九年级 | 中考作文 | 一个主题作文 + AI 批改 + 错误复盘 |
+
+---
+
+### 模块5核心价值
+
+对于英语打卡小程序：
+
+- 词汇解决「看懂」
+- 语法解决「正确」
+- **写作解决「输出」**
+
+模块 5 实际上是把前面几个模块产生的知识能力转化成 AI 可以评价、纠错、指导、生成训练任务的写作智能层。
 
 ## 模块9：高级核心语法体系
 
@@ -4070,109 +4714,228 @@ B
 
 ---
 
-### 模块9图片设计（9:16竖版学习海报）
 
-图片内容：
-
-### 顶部：
-
-**模块9：高级核心语法 Advanced Grammar**
-
----
-
-### 第一部分：
-
-宾语从句
-
-展示：
-
-```
-I think + that + he is right
-
-```
-
-重点：
-
-✅ 陈述语序
- ✅ that/if/wh
-
----
-
-### 第二部分：
-
-If条件句
-
-展示：
-
-```
-If + 现在,
-will + 动词
-
-```
-
-例如：
-
-If I study hard, I will pass.
-
----
-
-### 第三部分：
-
-被动语态
-
-展示：
-
-主动：
-
-Tom writes a letter.
-
-↓
-
-被动：
-
-A letter is written by Tom.
-
----
-
-### 第四部分：
-
-情态动词
-
-展示：
-
-can / may / must / should
-
-规则：
-
-情态 + 动词原形
-
----
-
-### 第五部分：
-
-非谓语动词
-
-展示：
-
-```
-want to do
-
-like doing
-
-be done
-
-```
-
----
-
-### 底部：
-
-初中英语9大模块知识体系总结：
-
-词汇 → 词性 → 句型 → 高级表达
-
-下一步生成：
 
 ### 模块9：高级核心语法体系 9:16竖版学习海报图片
 
 ![模块9：高级核心语法体系学习海报](assets/knowledge/m9.png)
+
+---
+
+### 句子结构与语篇扩展（综合应用）
+
+### 模块6：英语句子结构与语篇理解
+
+---
+
+### 模块目标
+
+**学习目标**
+
+掌握：
+
+- 英语句子的基本规律
+- 五大基本句型
+- 句子成分分析
+- 长难句拆解方法
+- 常见错误纠正
+- 段落结构理解
+- 阅读理解思维方式
+
+**最终能力**：看到任何初中英语句子，可以快速判断：
+
+- 主语是谁？
+- 谓语是什么？
+- 时间在哪里？
+- 修饰关系是什么？
+- 为什么这样表达？
+
+---
+
+### 第一章 英语句子的核心逻辑
+
+#### 1.1 英语句子的本质
+
+**核心公式**
+
+```
+一句英语 = 主干 + 修饰 + 补充信息
+```
+
+例如：The boy who likes football is my brother.
+
+- 主干：The boy is my brother.
+- 修饰：who likes football
+- 意思：喜欢足球的那个男孩是我的哥哥。
+
+#### 1.2 英语句子的最小单位
+
+一个完整句子必须包含：**主语 Subject + 谓语 Verb**
+
+- ✅ I run.
+- ❌ I running.（running 不是谓语）
+
+---
+
+### 第二章 五大基本句型
+
+> 五大句型的完整讲解见模块 8「核心句型」。本章从「句子结构分析」视角给出速查表。
+
+| # | 结构 | 中文 | 高频错误 |
+|---|------|------|----------|
+| 1 | S + V | 主语 + 动词 | Birds fly. / 鸟飞。 |
+| 2 | S + V + O | 主语 + 动词 + 宾语 | I like English. |
+| 3 | S + V + P | 主语 + 系动词 + 表语 | He is a teacher. |
+| 4 | S + V + IO + DO | 主语 + 动词 + 间接宾语 + 直接宾语 | My mother gives me a gift. |
+| 5 | S + V + O + C | 主语 + 动词 + 宾语 + 宾语补足语 | We call him Tom. |
+
+**常见系动词**：be / become / look / feel / seem / sound
+
+**高频错误**：❌ I like study English.（两个动词冲突）
+**正确**：I like studying English. / I like to study English.
+
+---
+
+### 第三章 句子成分体系
+
+#### 3.1 主语（回答「谁？什么？」）
+
+- **名词**：Tom works hard.
+- **代词**：He works hard.
+- **动名词**：Swimming is interesting.
+
+#### 3.2 谓语（英语核心）
+
+- **动词**：run / eat / play
+- **动词短语**：look after / take care of / give up
+
+#### 3.3 宾语（动作对象）
+
+- I read books. → books = 宾语
+
+#### 3.4 定语（修饰名词）
+
+- a beautiful girl → beautiful 修饰 girl
+
+#### 3.5 状语（说明时间 / 地点 / 原因 / 方式）
+
+- I study English every day. → every day = 时间状语
+
+---
+
+### 第四章 英语句子「三大雷区」
+
+#### 4.1 一个句子不能出现两个谓语
+
+❌ I like play football.（like / play 两个动作冲突）
+
+**解决方法**：
+
+- **方法 1（to）**：I like **to** play football.
+- **方法 2（doing）**：I like **playing** football.
+
+#### 4.2 中文思维导致缺少 be 动词
+
+- 中文：他很开心
+- ❌ He happy.
+- ✅ He **is** happy.
+
+#### 4.3 名词前缺少限定词
+
+- ❌ I am student.
+- ✅ I am **a** student.
+- 原因：单数可数名词不能裸奔。
+
+---
+
+### 第五章 长难句拆解方法
+
+**五步法**
+
+- **Step 1 找谓语**：The boy **who won** the game yesterday **is** my friend. → 谓语：won / is
+- **Step 2 找主干**：The boy is my friend.
+- **Step 3 找从句**：who won the game yesterday
+- **Step 4 找修饰关系**：who = The boy
+- **Step 5 翻译**：先主干，后补充。
+
+---
+
+### 第六章 从句入门
+
+#### 6.1 宾语从句
+
+**结构**：主句 + 引导词 + 从句
+
+- 例：I know **what he likes**.
+- 主句：I know ｜ 从句：what he likes
+
+#### 6.2 定语从句
+
+**作用**：修饰名词。
+
+- 例：The book **that I bought** is interesting.
+- 核心：The book is interesting.
+
+#### 6.3 状语从句
+
+| 类别 | 引导词 |
+|------|--------|
+| 时间 | when / while / before / after |
+| 原因 | because / since / as |
+| 条件 | if / unless |
+| 让步 | although / though |
+
+---
+
+### 第七章 阅读理解结构
+
+> 文章不是一句一句看，而是：标题 → 主题 → 段落功能 → 关键词 → 答案
+
+**四类文章结构**
+
+1. **总分结构**：观点 → 解释 → 例子
+2. **时间顺序**：过去 → 现在 → 未来
+3. **对比结构**：A vs B
+4. **问题解决**：Problem → Reason → Solution
+
+---
+
+### 第八章 写作句型库
+
+| 位置 | 句型 |
+|------|------|
+| 开头 | I think that... / Nowadays, ... |
+| 连接 | Besides / What's more / However / But / Because / Since |
+| 结尾 | In my opinion, ... / I hope... |
+
+---
+
+### 模块 6 知识地图
+
+```
+模块 6
+├── 句子基础
+│   ├── 主谓结构
+│   ├── 五大句型
+│   └── 句子成分
+├── 句子分析
+│   ├── 找主干
+│   ├── 找谓语
+│   ├── 拆修饰
+│   └── 长难句
+├── 常见错误
+│   ├── 双谓语
+│   ├── 缺 be
+│   ├── 缺冠词
+│   └── 中文式英语
+├── 从句
+│   ├── 宾语从句
+│   ├── 定语从句
+│   └── 状语从句
+└── 语篇理解
+    ├── 阅读结构
+    ├── 写作逻辑
+    └── 高分表达
+```
+
+> 模块 6 实际上是把单词、语法、句型综合起来，形成「真正读懂和写出英语句子」的能力，也是后续接 AI 教练能力最关键的一层。孩子容易出现的「两个谓语动词放一起、缺冠词」等问题，都应归入模块 6 的错误诊断知识库。

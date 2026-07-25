@@ -3237,8 +3237,8 @@ document.addEventListener('input', function(e) {
         <button class="tab-btn" data-tab="module2">2 介词</button>
         <button class="tab-btn" data-tab="module3">3 冠词</button>
         <button class="tab-btn" data-tab="module4">4 名词</button>
-        <button class="tab-btn" data-tab="module5">5 写作</button>
-        <button class="tab-btn" data-tab="module6">6 句子结构</button>
+        <button class="tab-btn" data-tab="module5">5 代词</button>
+        <button class="tab-btn" data-tab="module6">6 形副词</button>
         <button class="tab-btn" data-tab="module7">7 数量词</button>
         <button class="tab-btn" data-tab="module8">8 核心句型</button>
         <button class="tab-btn" data-tab="module9">9 高级语法</button>
@@ -3252,8 +3252,8 @@ document.addEventListener('input', function(e) {
       module2: extractSection('模块2：介词体系'),
       module3: extractSection('模块3：冠词体系'),
       module4: extractSection('模块4：名词体系'),
-      module5: extractSection('模块5：写作能力体系（Writing）'),
-      module6: extractSection('模块6：英语句子结构与语篇理解（Sentence & Text Understanding）'),
+      module5: extractSection('模块5：代词体系'),
+      module6: extractSection('模块6：形容词与副词体系'),
       module7: extractSection('模块7：数量词体系'),
       module8: extractSection('模块8：核心句型体系'),
       module9: extractSection('模块9：高级核心语法体系'),

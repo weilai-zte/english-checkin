@@ -114,9 +114,20 @@ body {
 /* Tab 切换 */
 .tab-bar {
   display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   background: white;
   border-bottom: 2px solid #e8ecf4;
   position: sticky;
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+@media (max-width: 720px) {
+  .tab-btn { min-width: 0; flex: 1 1 0; padding: 10px 2px !important; font-size: 13px; }
+}
+@media (min-width: 721px) {
+  .tab-btn { min-width: 70px; }
+}
   top: 52px;
   z-index: 99;
   overflow-x: auto;
