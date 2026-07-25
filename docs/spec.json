@@ -566,7 +566,7 @@
         "path": "#/achievements",
         "framework": "site_static SPA",
         "handler": "renderAchievements",
-        "returns": "成就系统 10 badges"
+        "returns": "成就收藏册：打卡/词汇/语法/复习/游戏 5 个 Tab，30 个 SVG 勋章，点击显示含义、条件与解锁日期"
       },
       {
         "path": "#/vocab-import",
@@ -1099,9 +1099,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.8",
+  "version": "v0.18.9",
   "last_validated": "2026-07-26",
   "evolution": [
+    {
+      "date": "2026-07-26",
+      "version": "v0.18.9",
+      "action": "change",
+      "what": "#/achievements 扩展为 5 类 30 个成就，新增分类勋章 SVG 资产和详情弹窗",
+      "why": "提升成就系统的收藏感、趣味性与解释性",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-26",
       "version": "v0.18.8",

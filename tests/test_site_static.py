@@ -132,7 +132,7 @@ def test_fsrs_due_filters_by_date():
     assert 'st.due <= today' in block or "st.due <= today" in block
 
 
-# ─── #7 achievements: 10 entries ─────────────────────────────────
+# ─── #7 achievements: categorized badge collection ───────────────
 def test_achievements_count():
     block = _function_block('ACHIEVEMENTS')
     # not a function but a const; match differently
@@ -140,11 +140,29 @@ def test_achievements_count():
     assert m, 'ACHIEVEMENTS const not found'
     # 直接用 id: 'xxx' 模式抽取 (不分嵌套 — game 类用 function 而里面又含 {})
     items = re.findall(r"id:\s*'([^']+)'", m.group(1))
-    assert len(items) >= 10, f'expected at least 10 achievements, got {len(items)}'
+    assert len(items) >= 30, f'expected at least 30 achievements, got {len(items)}'
     # 至少 2 个明显跟游戏相关
     game_keys = ('game_', 'tower', 'wordle', 'memory')
     game_items = [i for i in items if any(k in i for k in game_keys)]
     assert len(game_items) >= 2, f'expected >=2 game-related achievements, got {len(game_items)} from {items}'
+
+
+def test_achievements_have_categories_badges_and_details():
+    m = re.search(r'const\s+ACHIEVEMENTS\s*=\s*\[(.*?)\];', APP_JS_SRC, re.DOTALL)
+    assert m
+    block = m.group(1)
+    assert block.count('category:') >= 30
+    assert block.count('badge:') >= 30
+    render = _function_block('renderAchievements')
+    assert 'achievement-tab' in render
+    assert 'showAchievementDetail' in render
+    assert 'ACHIEVEMENT_CATEGORIES' in APP_JS_SRC
+
+
+def test_achievement_badge_assets_exist():
+    badge_dir = ROOT / 'site_static' / 'assets' / 'achievements'
+    for category in ('checkin', 'vocab', 'grammar', 'review', 'games'):
+        assert (badge_dir / f'badge-{category}.svg').exists()
 
 
 # ─── #6 vocab import: parsePastedVocab handles 3 formats ─────────

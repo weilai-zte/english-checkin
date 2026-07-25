@@ -263,6 +263,11 @@ def copy_assets():
         knowledge_dst = ASSETS / "knowledge"
         shutil.copytree(knowledge_src, knowledge_dst)
         print(f"  ✓ knowledge/{len(list(knowledge_src.glob('*.png')))} images")
+    achievement_src = HERE / "assets" / "achievements"
+    if achievement_src.is_dir():
+        achievement_dst = ASSETS / "achievements"
+        shutil.copytree(achievement_src, achievement_dst)
+        print(f"  ✓ achievements/{len(list(achievement_src.glob('*.svg')))} badges")
     # game modules: copy each .js under games/ to assets/games/
     games_src = HERE / "games"
     if games_src.is_dir():

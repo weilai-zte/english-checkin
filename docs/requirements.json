@@ -126,9 +126,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.8",
+  "version": "v0.18.9",
   "last_validated": "2026-07-26",
   "evolution": [
+    {
+      "date": "2026-07-26",
+      "version": "v0.18.9",
+      "action": "change",
+      "what": "F-024 成就收藏册：30 个成就、5 类 Tab、本地 SVG 勋章和点击详情",
+      "why": "用户希望成就更丰富有趣，并通过勋章解释每项成就的含义",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-26",
       "version": "v0.18.8",
@@ -348,6 +356,12 @@
         "id": "F-023",
         "priority": "P0",
         "statement": "站点统一命名为‘初中英语打卡’；注册或首次使用时选择七、八、九年级，个人设置可查看修改；school_grade 随账号同步，并用于首页月度主题、词汇、语法、时态、翻译和游戏题库过滤",
+        "verification": "python3 -m pytest tests/test_site_static.py -q"
+      },
+      {
+        "id": "F-024",
+        "priority": "P1",
+        "statement": "成就系统扩展为不少于 30 个成就，按打卡、词汇、语法、复习、游戏分类为 5 个 Tab；每个成就显示本地勋章图片，点击可查看达成条件、勋章含义和解锁日期",
         "verification": "python3 -m pytest tests/test_site_static.py -q"
       }
     ],

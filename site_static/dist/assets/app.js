@@ -3675,23 +3675,56 @@ document.addEventListener('input', function(e) {
   }
 
   // #7 achievements
+  const ACHIEVEMENT_CATEGORIES = [
+    { id: 'checkin', label: '打卡', icon: '🔥' },
+    { id: 'vocab', label: '词汇', icon: '📚' },
+    { id: 'grammar', label: '语法', icon: '🧩' },
+    { id: 'review', label: '复习', icon: '🔁' },
+    { id: 'games', label: '游戏', icon: '🎮' },
+  ];
+  function achievementBadge(category) { return 'assets/achievements/badge-' + category + '.svg'; }
+  function perfectCheckins(p) {
+    return (p.checkins || []).filter(function (c) {
+      if (typeof c.score === 'number') return c.score >= 90;
+      var ratio = String(c.score || '').match(/^(\d+)\s*\/\s*(\d+)$/);
+      return ratio ? Number(ratio[1]) === Number(ratio[2]) : parseFloat(c.score) >= 90;
+    }).length;
+  }
   const ACHIEVEMENTS = [
-    { id: 'first_checkin', name: '初出茅庐', desc: '完成第一次打卡', check: p => p.total_days >= 1 },
-    { id: 'streak_3', name: '连续 3 天', desc: '连续打卡 3 天', check: p => (p.streak || 0) >= 3 },
-    { id: 'streak_7', name: '连续一周', desc: '连续打卡 7 天', check: p => (p.streak || 0) >= 7 },
-    { id: 'vocab_50', name: '词汇新秀', desc: '掌握 50 个词', check: p => p.vocab_mastered.length >= 50 },
-    { id: 'vocab_200', name: '词汇达人', desc: '掌握 200 个词', check: p => p.vocab_mastered.length >= 200 },
-    { id: 'vocab_500', name: '词汇大师', desc: '掌握 500 个词', check: p => p.vocab_mastered.length >= 500 },
-    { id: 'first_perfect', name: '满分首秀', desc: '打卡正确率 ≥ 90%', check: p => (p.checkins || []).some(c => (c.score || 0) >= 90) },
-    { id: 'grammar_30', name: '语法入门', desc: '掌握 30 个语法点', check: p => p.grammar_mastered.length >= 30 },
-    { id: 'flashcard_50', name: '闪卡熟练', desc: '闪卡练习 50 次', check: p => (p.flashcard_history || []).length >= 50 },
-    { id: 'imported_vocab', name: '自力更生', desc: '导入自定义词表', check: p => (p.custom_vocab || []).length > 0 },
-    // 游戏类成就 (基于 progress.game_stats)
-    { id: 'game_first', name: '游戏入门', desc: '玩过任意一个游戏', check: function (p) { var gs = p.game_stats || {}; return Object.keys(gs).some(function (k) { return (gs[k].played || 0) >= 1; }); } },
-    { id: 'game_explorer', name: '游戏集邮', desc: '5 个游戏都玩过', check: function (p) { var gs = p.game_stats || {}; return ['memory','wordle','picture','builder','tower'].every(function (k) { return (gs[k] && gs[k].played >= 1); }); } },
-    { id: 'tower_champion', name: '塔防守城', desc: '塔防打通胜利', check: function (p) { return ((p.game_stats || {}).tower || {}).won >= 1; } },
-    { id: 'wordle_pro', name: 'Wordle 单词王', desc: 'Wordle 累计答对 5 轮', check: function (p) { return ((p.game_stats || {}).wordle || {}).won >= 5; } },
-    { id: 'memory_master', name: '翻牌高手', desc: '翻牌配对最佳分 900+', check: function (p) { return ((p.game_stats || {}).memory || {}).best >= 900; } },
+    { id: 'first_checkin', category: 'checkin', badge: 'checkin', icon: '🌱', name: '初出茅庐', desc: '完成第一次打卡', meaning: '迈出第一步，比站在原地更接近目标。', check: p => (p.total_days || 0) >= 1 },
+    { id: 'streak_3', category: 'checkin', badge: 'checkin', icon: '🔥', name: '三日火苗', desc: '连续打卡 3 天', meaning: '小火苗已经点燃，学习节奏正在形成。', check: p => (p.streak || 0) >= 3 },
+    { id: 'streak_7', category: 'checkin', badge: 'checkin', icon: '☀️', name: '一周连击', desc: '连续打卡 7 天', meaning: '完整坚持一周，稳定比偶尔努力更有力量。', check: p => (p.streak || 0) >= 7 },
+    { id: 'checkin_30', category: 'checkin', badge: 'checkin', icon: '🗓️', name: '月度旅人', desc: '累计打卡 30 天', meaning: '三十次出发，已经走出一条自己的学习路线。', check: p => (p.total_days || 0) >= 30 },
+    { id: 'streak_30', category: 'checkin', badge: 'checkin', icon: '🚀', name: '不间断引擎', desc: '连续打卡 30 天', meaning: '连续一个月保持动力，习惯已经成为你的引擎。', check: p => (p.streak || 0) >= 30 },
+    { id: 'checkin_100', category: 'checkin', badge: 'checkin', icon: '💯', name: '百日远征', desc: '累计打卡 100 天', meaning: '一百天的积累，是认真坚持留下的勋章。', check: p => (p.total_days || 0) >= 100 },
+
+    { id: 'vocab_10', category: 'vocab', badge: 'vocab', icon: '🔤', name: '十词起步', desc: '掌握 10 个词', meaning: '第一个十词小队已经集合完毕。', check: p => (p.vocab_mastered || []).length >= 10 },
+    { id: 'vocab_50', category: 'vocab', badge: 'vocab', icon: '🌿', name: '词汇新秀', desc: '掌握 50 个词', meaning: '词汇树长出了第一片茂密的枝叶。', check: p => (p.vocab_mastered || []).length >= 50 },
+    { id: 'vocab_200', category: 'vocab', badge: 'vocab', icon: '📖', name: '词汇达人', desc: '掌握 200 个词', meaning: '两百个词让阅读世界变得更宽。', check: p => (p.vocab_mastered || []).length >= 200 },
+    { id: 'vocab_500', category: 'vocab', badge: 'vocab', icon: '👑', name: '词汇大师', desc: '掌握 500 个词', meaning: '五百词里程碑，真正的词汇收藏家。', check: p => (p.vocab_mastered || []).length >= 500 },
+    { id: 'imported_vocab', category: 'vocab', badge: 'vocab', icon: '🧰', name: '自建词库', desc: '导入自定义词表', meaning: '主动选择自己的学习材料，是学习主理人的开始。', check: p => (p.custom_vocab || []).length > 0 },
+    { id: 'marked_20', category: 'vocab', badge: 'vocab', icon: '⭐', name: '星标收藏家', desc: '收藏 20 个重点词', meaning: '知道哪些词值得重点关注，也是一种能力。', check: p => (p.vocab_list_marked || []).length >= 20 },
+
+    { id: 'grammar_5', category: 'grammar', badge: 'grammar', icon: '🧱', name: '规则筑基', desc: '掌握 5 个语法点', meaning: '语法地基已经打好，句子会越来越稳。', check: p => (p.grammar_mastered || []).length >= 5 },
+    { id: 'grammar_15', category: 'grammar', badge: 'grammar', icon: '🧭', name: '句法领航员', desc: '掌握 15 个语法点', meaning: '开始看懂句子的方向与结构。', check: p => (p.grammar_mastered || []).length >= 15 },
+    { id: 'grammar_30', category: 'grammar', badge: 'grammar', icon: '🏛️', name: '语法建筑师', desc: '掌握 30 个语法点', meaning: '能用规则搭建更准确、更丰富的句子。', check: p => (p.grammar_mastered || []).length >= 30 },
+    { id: 'first_perfect', category: 'grammar', badge: 'grammar', icon: '🎯', name: '满分首秀', desc: '首次获得 90% 以上或全对', meaning: '第一次精准命中，值得记住。', check: p => perfectCheckins(p) >= 1 },
+    { id: 'perfect_5', category: 'grammar', badge: 'grammar', icon: '⚡', name: '精准五连', desc: '累计 5 次高分或全对', meaning: '稳定的准确率，比偶然满分更难得。', check: p => perfectCheckins(p) >= 5 },
+    { id: 'perfect_10', category: 'grammar', badge: 'grammar', icon: '💎', name: '十全十美', desc: '累计 10 次高分或全对', meaning: '十次高质量完成，实力已经经得起重复检验。', check: p => perfectCheckins(p) >= 10 },
+
+    { id: 'flashcard_10', category: 'review', badge: 'review', icon: '🃏', name: '翻卡热身', desc: '完成 10 次闪卡复习', meaning: '记忆需要重逢，十次复习是好的开场。', check: p => (p.flashcard_history || []).length >= 10 },
+    { id: 'flashcard_50', category: 'review', badge: 'review', icon: '🔄', name: '闪卡熟练', desc: '完成 50 次闪卡复习', meaning: '反复练习让陌生逐渐变成熟悉。', check: p => (p.flashcard_history || []).length >= 50 },
+    { id: 'flashcard_100', category: 'review', badge: 'review', icon: '🧠', name: '记忆训练师', desc: '完成 100 次闪卡复习', meaning: '一百次主动回忆，正在打造更可靠的长期记忆。', check: p => (p.flashcard_history || []).length >= 100 },
+    { id: 'review_100', category: 'review', badge: 'review', icon: '⏳', name: '复习时间官', desc: '卡片累计复习 100 次', meaning: '按节奏复习，让时间成为记忆的助手。', check: function (p) { return Object.values(p.card_states || {}).reduce(function (n, c) { return n + (c.reviews || 0); }, 0) >= 100; } },
+    { id: 'wrong_words_10', category: 'review', badge: 'review', icon: '🔍', name: '错词侦探', desc: '累计记录 10 个错词', meaning: '敢于发现问题，才能把薄弱点变成突破口。', check: p => (p.wrong_words || []).length >= 10 },
+    { id: 'unfamiliar_10', category: 'review', badge: 'review', icon: '🗺️', name: '未知探索者', desc: '标记 10 个不熟悉的词', meaning: '把未知清楚地标出来，学习地图就更完整。', check: p => (p.unfamiliar_words || []).length >= 10 },
+
+    { id: 'game_first', category: 'games', badge: 'games', icon: '🕹️', name: '游戏入门', desc: '玩过任意一个游戏', meaning: '用另一种方式练英语，学习也可以很好玩。', check: function (p) { var gs = p.game_stats || {}; return Object.keys(gs).some(function (k) { return (gs[k].played || 0) >= 1; }); } },
+    { id: 'game_explorer', category: 'games', badge: 'games', icon: '🧳', name: '游戏集邮', desc: '5 个游戏都玩过', meaning: '每一种玩法都体验过，真正的游戏探索家。', check: function (p) { var gs = p.game_stats || {}; return ['memory','wordle','picture','builder','tower'].every(function (k) { return gs[k] && gs[k].played >= 1; }); } },
+    { id: 'game_20', category: 'games', badge: 'games', icon: '🎟️', name: '欢乐常客', desc: '累计完成 20 局游戏', meaning: '寓学于乐，二十局里藏着不少练习量。', check: function (p) { return Object.values(p.game_stats || {}).reduce(function (n, g) { return n + (g.played || 0); }, 0) >= 20; } },
+    { id: 'tower_champion', category: 'games', badge: 'games', icon: '🏰', name: '塔防守城', desc: '塔防打通胜利', meaning: '用单词守住城门，策略和词汇缺一不可。', check: function (p) { return ((p.game_stats || {}).tower || {}).won >= 1; } },
+    { id: 'wordle_pro', category: 'games', badge: 'games', icon: '🟩', name: 'Wordle 单词王', desc: 'Wordle 累计答对 5 轮', meaning: '字母线索在你眼里已经有迹可循。', check: function (p) { return ((p.game_stats || {}).wordle || {}).won >= 5; } },
+    { id: 'memory_master', category: 'games', badge: 'games', icon: '🪄', name: '翻牌高手', desc: '翻牌配对最佳分达到 900', meaning: '速度、记忆和词义连接都达到了高手水平。', check: function (p) { return ((p.game_stats || {}).memory || {}).best >= 900; } },
   ];
   function evaluateAchievements() {
     const unlocked = progress.achievements_unlocked = progress.achievements_unlocked || {};
@@ -3704,19 +3737,58 @@ document.addEventListener('input', function(e) {
   }
   function renderAchievements(app) {
     const unlocked = evaluateAchievements();
-    app.innerHTML = topBar('成就系统') +
-      '<div class="container">' +
-        ACHIEVEMENTS.map(a => {
-          const got = !!unlocked[a.id];
-          return '<div class="card" style="display:flex;align-items:center;gap:12px;' + (got ? '' : 'opacity:0.65;') + '">' +
-            '<div style="font-size:32px;">' + (got ? '🏆' : '🔒') + '</div>' +
-            '<div style="flex:1;min-width:0;"><strong style="color:#0d1b2a;font-size:16px;">' + escapeHtml(a.name) + '</strong>' +
-              '<div style="font-size:13px;color:var(--text-2);margin-top:4px;line-height:1.5;">' + escapeHtml(a.desc) + '</div>' +
-              (got ? '<div style="font-size:12px;color:#6b7280;margin-top:4px;">解锁于 ' + escapeHtml((unlocked[a.id] || '').split('T')[0]) + '</div>' : '') +
-            '</div></div>';
-        }).join('') +
-        '<div class="card" style="text-align:center;color:var(--text-2);font-weight:600;">已解锁 ' + Object.keys(unlocked).length + ' / ' + ACHIEVEMENTS.length + '</div>' +
-      '</div>';
+    let activeCategory = ACHIEVEMENT_CATEGORIES[0].id;
+    app.innerHTML = topBar('成就系统') + '<div class="container achievements-page">' +
+      '<div class="achievement-summary"><strong>勋章收藏册</strong><span>已解锁 ' + Object.keys(unlocked).length + ' / ' + ACHIEVEMENTS.length + '</span></div>' +
+      '<div class="achievement-tabs" role="tablist">' + ACHIEVEMENT_CATEGORIES.map(function (category, index) {
+        return '<button class="achievement-tab' + (index === 0 ? ' active' : '') + '" data-category="' + category.id + '" role="tab" aria-selected="' + (index === 0) + '">' + category.icon + '<span>' + category.label + '</span></button>';
+      }).join('') + '</div><div id="achievement-grid" class="achievement-grid"></div></div>';
+
+    function renderCategory() {
+      const grid = app.querySelector('#achievement-grid');
+      const items = ACHIEVEMENTS.filter(function (a) { return a.category === activeCategory; });
+      grid.innerHTML = items.map(function (a) {
+        const got = !!unlocked[a.id];
+        return '<button class="achievement-card' + (got ? ' unlocked' : ' locked') + '" data-achievement="' + a.id + '" type="button">' +
+          '<span class="achievement-badge"><img src="' + achievementBadge(a.badge) + '" alt=""><span class="achievement-icon">' + a.icon + '</span>' + (got ? '' : '<span class="achievement-lock">🔒</span>') + '</span>' +
+          '<strong>' + escapeHtml(a.name) + '</strong><span>' + escapeHtml(a.desc) + '</span></button>';
+      }).join('');
+      grid.querySelectorAll('.achievement-card').forEach(function (button) {
+        button.onclick = function () {
+          const achievement = ACHIEVEMENTS.find(function (a) { return a.id === button.dataset.achievement; });
+          showAchievementDetail(achievement, unlocked[achievement.id]);
+        };
+      });
+    }
+    app.querySelectorAll('.achievement-tab').forEach(function (tab) {
+      tab.onclick = function () {
+        activeCategory = tab.dataset.category;
+        app.querySelectorAll('.achievement-tab').forEach(function (item) {
+          const active = item === tab;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-selected', String(active));
+        });
+        renderCategory();
+      };
+    });
+    renderCategory();
+  }
+
+  function showAchievementDetail(achievement, unlockedAt) {
+    if (!achievement) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'modal-overlay achievement-detail';
+    wrap.innerHTML = '<div class="modal-card"><div class="modal-head"><span>勋章详情</span><button class="modal-x" aria-label="关闭">×</button></div>' +
+      '<div class="modal-body"><div class="achievement-detail-badge"><img src="' + achievementBadge(achievement.badge) + '" alt="' + escapeHtml(achievement.name) + '勋章"><span>' + achievement.icon + '</span></div>' +
+      '<h2>' + escapeHtml(achievement.name) + '</h2><div class="achievement-detail-status ' + (unlockedAt ? 'unlocked' : '') + '">' + (unlockedAt ? '已解锁 · ' + escapeHtml(String(unlockedAt).split('T')[0]) : '尚未解锁') + '</div>' +
+      '<div class="achievement-detail-section"><strong>达成条件</strong><p>' + escapeHtml(achievement.desc) + '</p></div>' +
+      '<div class="achievement-detail-section"><strong>勋章含义</strong><p>' + escapeHtml(achievement.meaning) + '</p></div>' +
+      '<button class="btn btn-primary achievement-detail-close" type="button">知道了</button></div></div>';
+    document.body.appendChild(wrap);
+    function close() { wrap.remove(); }
+    wrap.querySelector('.modal-x').onclick = close;
+    wrap.querySelector('.achievement-detail-close').onclick = close;
+    wrap.onclick = function (event) { if (event.target === wrap) close(); };
   }
 
   // #6 custom vocab import
