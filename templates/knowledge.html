@@ -45,9 +45,11 @@
     position: sticky;
     top: 52px;
     z-index: 99;
+    overflow-x: auto;
   }
   .tab-btn {
-    flex: 1;
+    flex: 0 0 auto;
+    min-width: 78px;
     padding: 12px 4px;
     text-align: center;
     font-size: 14px;
@@ -99,6 +101,8 @@
   .md-content code { background: #f0f0ff; padding: 1px 5px; border-radius: 4px;
                       font-size: 13px; color: #667eea; }
   .md-content hr { border: none; border-top: 1px solid #e8ecf4; margin: 16px 0; }
+  .md-content img { display: block; width: 100%; height: auto; margin: 20px auto 8px;
+                    border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
 
   /* Section intro cards */
   .section-intro {
@@ -154,62 +158,102 @@
   <div class="title">📖 知识课程</div>
 </div>
 
-<!-- Tab switcher: 时态 | 介词 | 名词 | 冠词代词 | 从句 -->
+<!-- Tab switcher: 九大知识模块 -->
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="showTab('tense')">⏱ 时态</button>
-  <button class="tab-btn" onclick="showTab('preposition')">📍 介词</button>
-  <button class="tab-btn" onclick="showTab('noun')">📖 名词</button>
-  <button class="tab-btn" onclick="showTab('article')">🔤 冠词代词</button>
-  <button class="tab-btn" onclick="showTab('clause')">📝 从句</button>
+  <button class="tab-btn active" onclick="showTab('module1')">1 时态</button>
+  <button class="tab-btn" onclick="showTab('module2')">2 介词</button>
+  <button class="tab-btn" onclick="showTab('module3')">3 冠词</button>
+  <button class="tab-btn" onclick="showTab('module4')">4 名词</button>
+  <button class="tab-btn" onclick="showTab('module5')">5 写作</button>
+  <button class="tab-btn" onclick="showTab('module6')">6 句子结构</button>
+  <button class="tab-btn" onclick="showTab('module7')">7 数量词</button>
+  <button class="tab-btn" onclick="showTab('module8')">8 核心句型</button>
+  <button class="tab-btn" onclick="showTab('module9')">9 高级语法</button>
 </div>
 
 <div class="content-wrap">
 
-  <!-- 时态 tab -->
-  <div id="tab-tense" class="tab-content active">
+  <!-- 模块1：时态 -->
+  <div id="tab-module1" class="tab-content active">
     <div class="section-intro">
       <h2>⏱ 八种时态</h2>
       <p>构成公式 · 时间标志词 · 例句</p>
     </div>
     <div class="tense-grid" id="tenseGrid"></div>
     <div id="tenseDetails"></div>
-    <div class="md-content" style="margin-top:16px;">{{ marker_html|safe }}</div>
+    <div class="md-content" style="margin-top:16px;">{{ module1_html|safe }}</div>
   </div>
 
-  <!-- 介词 tab -->
-  <div id="tab-preposition" class="tab-content">
+  <!-- 模块2：介词 -->
+  <div id="tab-module2" class="tab-content">
     <div class="section-intro">
       <h2>📍 介词分类</h2>
       <p>时间 · 地点 · 方向 · 其他</p>
     </div>
-    <div class="md-content">{{ preposition_html|safe }}</div>
+    <div class="md-content">{{ module2_html|safe }}</div>
   </div>
 
-  <!-- 名词 tab -->
-  <div id="tab-noun" class="tab-content">
+  <!-- 模块3：冠词 -->
+  <div id="tab-module3" class="tab-content">
     <div class="section-intro">
-      <h2>📖 名词 · 冠词</h2>
-      <p>可数 / 不可数 / 所有格</p>
+      <h2>🔤 冠词体系</h2>
+      <p>a / an · the · 零冠词</p>
     </div>
-    <div class="md-content">{{ noun_html|safe }}</div>
+    <div class="md-content">{{ module3_html|safe }}</div>
   </div>
 
-  <!-- 冠词代词 tab -->
-  <div id="tab-article" class="tab-content">
+  <!-- 模块4：名词 -->
+  <div id="tab-module4" class="tab-content">
     <div class="section-intro">
-      <h2>🔤 冠词 · 代词 · 比较级</h2>
-      <p>a/an/the · 人称物主 · 数量词</p>
+      <h2>📖 名词体系</h2>
+      <p>可数 · 不可数 · 单复数 · 所有格</p>
     </div>
-    <div class="md-content">{{ article_html|safe }}</div>
+    <div class="md-content">{{ module4_html|safe }}</div>
   </div>
 
-  <!-- 从句 tab -->
-  <div id="tab-clause" class="tab-content">
+  <!-- 模块5：写作 -->
+  <div id="tab-module5" class="tab-content">
     <div class="section-intro">
-      <h2>📝 宾语从句 · 条件句 · 被动语态</h2>
-      <p>陈述语序 · 主将从现 · 虚拟语气</p>
+      <h2>✍️ 写作能力体系</h2>
+      <p>单词 → 句子 → 段落 → 篇章 → 中考作文</p>
     </div>
-    <div class="md-content">{{ clause_html|safe }}</div>
+    <div class="md-content">{{ module5_html|safe }}</div>
+  </div>
+
+  <!-- 模块6：句子结构与语篇 -->
+  <div id="tab-module6" class="tab-content">
+    <div class="section-intro">
+      <h2>🧠 句子结构与语篇</h2>
+      <p>五大句型 · 成分分析 · 长难句拆解 · 阅读结构</p>
+    </div>
+    <div class="md-content">{{ module6_html|safe }}</div>
+  </div>
+
+  <!-- 模块7：数量词 -->
+  <div id="tab-module7" class="tab-content">
+    <div class="section-intro">
+      <h2>🔢 数量词体系</h2>
+      <p>基数词 · 序数词 · 数量限定 · 单位表达</p>
+    </div>
+    <div class="md-content">{{ module7_html|safe }}</div>
+  </div>
+
+  <!-- 模块8：核心句型 -->
+  <div id="tab-module8" class="tab-content">
+    <div class="section-intro">
+      <h2>🧩 核心句型</h2>
+      <p>五大基本句型 · There be · 祈使句 · 感叹句</p>
+    </div>
+    <div class="md-content">{{ module8_html|safe }}</div>
+  </div>
+
+  <!-- 模块9：高级语法 -->
+  <div id="tab-module9" class="tab-content">
+    <div class="section-intro">
+      <h2>🚀 高级核心语法</h2>
+      <p>宾语从句 · 条件句 · 被动语态 · 情态动词 · 非谓语</p>
+    </div>
+    <div class="md-content">{{ module9_html|safe }}</div>
   </div>
 
 </div>

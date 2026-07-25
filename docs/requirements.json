@@ -259,8 +259,8 @@
       {
         "id": "F-011",
         "priority": "P1",
-        "statement": "知识课程 5 个 tab（介词/名词/冠词代词/从句/标志词）",
-        "verification": "knowledge_outline.md 17KB"
+        "statement": "知识课程 9 个 tab（时态/介词/冠词/名词/写作/句子结构/数量词/核心句型/高级语法），每个模块包含文字大纲与学习海报",
+        "verification": "knowledge_outline.md 含模块1至模块9标题 + site_static/assets/knowledge/m1.png 至 m9.png"
       },
       {
         "id": "F-012",
@@ -435,7 +435,7 @@
         "id": "UC-09",
         "actor": "孩子",
         "precondition": "公网 URL 可访问",
-        "main_flow": "/knowledge → 5 个 tab（介词/名词/冠词代词/从句/标志词）",
+        "main_flow": "/knowledge → 9 个 tab（时态/介词/冠词/名词/写作/句子结构/数量词/核心句型/高级语法）",
         "postcondition": "浏览知识课程",
         "exception": "手机端折叠 accordion"
       },

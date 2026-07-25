@@ -3,7 +3,7 @@
 """
 import json, random, datetime, os, re
 from pathlib import Path
-from flask import Flask, render_template, request, jsonify, redirect, session, make_response, Response
+from flask import Flask, render_template, request, jsonify, redirect, session, make_response, Response, send_from_directory
 from flask_session import Session
 
 BASE = Path(__file__).parent
@@ -2509,6 +2509,11 @@ def tts():
 
 
 # ─── 知识课程页面 ─────────────────────────────────────────────────────────────
+@app.route("/assets/knowledge/<path:filename>")
+def knowledge_asset(filename):
+    return send_from_directory(BASE / "site_static" / "assets" / "knowledge", filename)
+
+
 @app.route("/knowledge")
 def knowledge_page():
     outline_path = Path(__file__).parent / "knowledge_outline.md"
@@ -2519,15 +2524,7 @@ def knowledge_page():
     import mistune  # lazy: only loaded when /knowledge is hit
     md = mistune.create_markdown(plugins=['table'])
 
-    # ── 解析各章节边界 ────────────────────────────────
-    # 时态tab: 一（总览）+ 二（详解）→ 合并成JS内置数据（模板已处理）
-    # 介词tab: 三（介词分类）
-    # 名词tab: 六（名词）
-    # 冠词代词比较级: 七（冠词）+ 八（代词）+ 九（形容词）+ 十（数量词）+ 十一（祈使句/感叹句）
-    # 从句tab: 十二（宾语从句）+ 十三（If条件句）+ 十四（被动语态）+ 十五（There be）
-    # 标志词tab: 十六（标志词速查）
-
-    # 用 ## 标题分割
+    # 用 ## 模块标题分割，Flask 与 SPA 共用同一份九模块大纲。
     sections = {}
     import re as _re
     parts = _re.split(r'\n(?=## )', md_content)
@@ -2540,29 +2537,21 @@ def knowledge_page():
         elif current_key:
             sections[current_key] += part
 
-    preposition_html  = md(sections.get("三、介词分类", ""))
-    noun_html         = md(sections.get("六、名词（可数与不可数）", ""))
-    article_html = md("\n".join([
-        sections.get("七、冠词（a / an / the）", ""),
-        sections.get("八、代词", ""),
-        sections.get("九、形容词比较级与最高级", ""),
-        sections.get("十、数量词（some / any / many / much / a few / a little）", ""),
-        sections.get("十一、祈使句与感叹句", ""),
-    ]))
-    clause_html = md("\n".join([
-        sections.get("十二、宾语从句", ""),
-        sections.get("十三、If 条件句", ""),
-        sections.get("十四、被动语态", ""),
-        sections.get("十五、There be 句型", ""),
-    ]))
-    marker_html = md(sections.get("十六、各知识点标志词速查", ""))
-
-    return render_template("knowledge.html",
-                           preposition_html=preposition_html,
-                           noun_html=noun_html,
-                           article_html=article_html,
-                           clause_html=clause_html,
-                           marker_html=marker_html)
+    module_html = {
+        f"module{i}_html": md(sections.get(title, ""))
+        for i, title in enumerate([
+            "模块1：英语时态体系（8种时态）",
+            "模块2：介词体系",
+            "模块3：冠词体系",
+            "模块4：名词体系",
+            "模块5：写作能力体系（Writing）",
+            "模块6：英语句子结构与语篇理解（Sentence & Text Understanding）",
+            "模块7：数量词体系",
+            "模块8：核心句型体系",
+            "模块9：高级核心语法体系",
+        ], 1)
+    }
+    return render_template("knowledge.html", **module_html)
 
 
 if __name__ == "__main__":

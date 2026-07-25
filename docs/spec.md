@@ -60,7 +60,7 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 | `/translate-en` | translate_en_page() | ✅ | translate_en.html + 英译中 |
 | `/tense` | tense_page() | ✅ | tense.html + 时态 |
 | `/preposition` | preposition_page() | ✅ | preposition.html + 介词 |
-| `/knowledge` | knowledge_page() | ❌ | knowledge.html + 5 tabs |
+| `/knowledge` | knowledge_page() | ❌ | knowledge.html + 9 tabs（文字大纲 + 学习海报） |
 | `/errors` | errors_page() | ❌ | errors.html + 错题本 |
 | `/stats` | stats_page() | ❌ | stats.html + 统计 |
 | `/difficulty/<level>` | set_difficulty(level) | ❌ | redirect to home |
@@ -97,7 +97,7 @@ english-checkin 实现 spec：双部署轨道 (Flask 本地版 + site_static SPA
 | `#/stats` | `renderStats` | 学习统计 |
 | `#/progress` | `renderProgress` | 进度概览 + 最近 10 次打卡（按 types 显示） |
 | `#/profile` | `renderProfile` | 个人设置：头像、昵称、绑定设备管理和旧设备记录合并 |
-| `#/knowledge` | `renderKnowledge` | 知识课程 5 tabs |
+| `#/knowledge` | `renderKnowledge` | 知识课程 9 tabs（文字大纲 + 学习海报） |
 | `#/achievements` | `renderAchievements` | 成就系统 10 badges |
 | `#/vocab-import` | `renderVocabImport` | 导入自定义词表 |
 | `#/vocab-list` | `renderVocabList` | 全部词汇（含收藏） |
@@ -250,7 +250,7 @@ def export_data() -> None:
 - vocab 必须含 `_L1` / `_L2` / `_L3` 三级 (junior_vocab_3levels.json 导出)
 - vocab 可含 `_legacy_{topic}` (兼容老 vocab.json 兜底)
 - grammar 必须含 TRANSLATE_SENTENCES + HARD_TRANSLATE + HARD_TENSE_QUESTIONS
-- knowledge_md 必须包含 `## 三、介词分类` 标记 (介词 tab 用)
+- knowledge_md 必须包含 `## 模块1：英语时态体系（8种时态）` 至 `## 模块9：高级核心语法体系` 九个模块标记
 - difficulty_config 必须含 `block_topics (list)` + `extra_block (list)`
 
 ### 5.2 send_daily (`send_daily.py`)
@@ -398,7 +398,7 @@ legacy_uuid → nickname_with_legacy
 
 ### UI 类
 - `speech_recognition_safari_bug`: Safari onend 不触发 → 6 秒 listenTimeout
-- `knowledge_md_split_wrong`: ## 三、介词分类 标记缺失 → preposition tab 显示空
+- `knowledge_md_split_wrong`: 九个模块标题标记缺失或不一致 → 对应知识模块显示空
 - `mask_sentence_wrong_call`: 双参数调用 → 主语消失，全空白 input
 - `build_venv_missing`: site_static/.venv/ 缺失 → 手动 python3 -m venv
 - `mcq_option_duplicate`: prep_opts 含重复值 或 时态大小写不一致 或 quiz 同中文释义 → Set 去重 + .toLowerCase() 归一化

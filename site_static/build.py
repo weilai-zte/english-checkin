@@ -235,6 +235,11 @@ def copy_assets():
         if src.exists():
             shutil.copy(src, ASSETS / f)
             print(f"  ✓ {f}")
+    knowledge_src = HERE / "assets" / "knowledge"
+    if knowledge_src.is_dir():
+        knowledge_dst = ASSETS / "knowledge"
+        shutil.copytree(knowledge_src, knowledge_dst)
+        print(f"  ✓ knowledge/{len(list(knowledge_src.glob('*.png')))} images")
     # game modules: copy each .js under games/ to assets/games/
     games_src = HERE / "games"
     if games_src.is_dir():

@@ -928,6 +928,8 @@ document.addEventListener('input', function(e) {
     html = html.replace(/```([\s\S]*?)```/g, (_, code) => `<pre>${code}</pre>`);
     // 行内代码
     html = html.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+    // 图片（知识课程资源由构建脚本复制到 assets/knowledge/）
+    html = html.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, '<img src="$2" alt="$1" loading="lazy">');
 
     // 表格
     html = html.replace(/((?:\|[^\n]+\|\n)+)/g, (block) => {
@@ -3231,29 +3233,37 @@ document.addEventListener('input', function(e) {
     app.innerHTML = `
       ${topBar('知识课程')}
       <div class="tab-bar">
-        <button class="tab-btn active" data-tab="preposition">介词</button>
-        <button class="tab-btn" data-tab="noun">名词</button>
-        <button class="tab-btn" data-tab="article">冠词代词</button>
-        <button class="tab-btn" data-tab="clause">从句</button>
-        <button class="tab-btn" data-tab="marker">标志词</button>
+        <button class="tab-btn active" data-tab="module1">1 时态</button>
+        <button class="tab-btn" data-tab="module2">2 介词</button>
+        <button class="tab-btn" data-tab="module3">3 冠词</button>
+        <button class="tab-btn" data-tab="module4">4 名词</button>
+        <button class="tab-btn" data-tab="module5">5 写作</button>
+        <button class="tab-btn" data-tab="module6">6 句子结构</button>
+        <button class="tab-btn" data-tab="module7">7 数量词</button>
+        <button class="tab-btn" data-tab="module8">8 核心句型</button>
+        <button class="tab-btn" data-tab="module9">9 高级语法</button>
       </div>
       <div class="container">
         <div id="kb-content" class="markdown"></div>
       </div>
     `;
     const tabContent = {
-      preposition: extractSection('三、介词分类'),
-      noun: extractSection('六、名词（可数与不可数）'),
-      article: extractSections(['七、冠词（a / an / the）', '八、代词', '九、形容词比较级与最高级', '十、数量词（some / any / many / much / a few / a little）', '十一、祈使句与感叹句']),
-      clause: extractSections(['十二、宾语从句', '十三、If 条件句', '十四、被动语态', '十五、There be 句型']),
-      marker: extractSection('十六、各知识点标志词速查'),
+      module1: extractSection('模块1：英语时态体系（8种时态）'),
+      module2: extractSection('模块2：介词体系'),
+      module3: extractSection('模块3：冠词体系'),
+      module4: extractSection('模块4：名词体系'),
+      module5: extractSection('模块5：写作能力体系（Writing）'),
+      module6: extractSection('模块6：英语句子结构与语篇理解（Sentence & Text Understanding）'),
+      module7: extractSection('模块7：数量词体系'),
+      module8: extractSection('模块8：核心句型体系'),
+      module9: extractSection('模块9：高级核心语法体系'),
     };
     function show(tab) {
       app.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
       app.querySelector('#kb-content').innerHTML = renderMarkdown(tabContent[tab] || '');
     }
     app.querySelectorAll('.tab-btn').forEach(b => b.onclick = () => show(b.dataset.tab));
-    show('preposition');
+    show('module1');
   }
   function extractSection(title) {
     const md = D.knowledge_md;

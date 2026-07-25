@@ -520,6 +520,7 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
 .markdown table th, .markdown table td { border: 1px solid #e8ecf4; padding: 8px; text-align: left; }
 .markdown table th { background: #eef0ff; font-weight: bold; color: #667eea; }
 .markdown blockquote { border-left: 3px solid #667eea; padding-left: 12px; color: #555; margin: 8px 0; background: #f0f0f5; border-radius: 0 6px 6px 0; padding: 8px 14px; }
+.markdown img { display: block; width: 100%; height: auto; margin: 20px auto 8px; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
 
 /* Toast */
 .toast {
