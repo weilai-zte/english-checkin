@@ -644,8 +644,15 @@ def test_undo_today_checkin_helper_present():
     assert 'id="home-undo"' in src
     # 防御: 找不到今天的 checkin 应当直接 return, 不抛
     assert "if (i === -1) return false" in src
-    # streak 兜底为 0
-    assert "progress.streak = Math.max(0," in src
+    # 删除后按剩余日期统一重算 streak，避免断档仍沿用旧值
+    assert "refreshCheckinStats(progress);" in src
+
+
+def test_checkin_stats_use_local_dates_and_recalculate_streak():
+    assert 'getFullYear()' in APP_JS_SRC
+    assert 'function refreshCheckinStats(p)' in APP_JS_SRC
+    assert 'refreshCheckinStats(out)' in APP_JS_SRC
+    assert 'new Date(`${dates[i]}T00:00:00`)' in APP_JS_SRC
 
 def test_render_preposition_uses_combined_pool():
     # 用户反馈"每天重复同一题": 之前 renderPreposition 只用 prepositions 一项 (46 道),

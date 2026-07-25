@@ -208,6 +208,7 @@ document.addEventListener('input', function(e) {
 
   // ─── State ───────────────────────────────────────────
   let progress = loadProgress();
+  refreshCheckinStats(progress);
   let difficulty = ['easy', 'medium', 'hard'].includes(progress.difficulty)
     ? progress.difficulty : (localStorage.getItem(DIFF_KEY) || 'medium');
   let currentTask = null;     // 每日任务（learn 时生成）
@@ -315,6 +316,19 @@ document.addEventListener('input', function(e) {
     local = local || {};
     remote = remote || {};
     var out = Object.assign({}, remote, local);
+    function refreshCheckinStats(p) {
+      var dates = Array.from(new Set((p.checkins || []).map(function (c) { return c && c.date; }).filter(Boolean))).sort();
+      if (!dates.length) { p.total_days = 0; p.streak = 0; p.last_checkin = null; return; }
+      var streak = 1;
+      for (var i = dates.length - 1; i > 0; i--) {
+        var diff = (new Date(dates[i] + 'T00:00:00') - new Date(dates[i - 1] + 'T00:00:00')) / 86400000;
+        if (diff !== 1) break;
+        streak++;
+      }
+      p.total_days = dates.length;
+      p.streak = streak;
+      p.last_checkin = dates[dates.length - 1];
+    }
     function unionStrings(a, b, normalize) {
       var values = new Map();
       [].concat(a || [], b || []).forEach(function (value) {
@@ -429,13 +443,8 @@ document.addEventListener('input', function(e) {
     });
     out.game_stats = gameStats;
 
-    // 累计天数: 至少覆盖两边以及合并后不同的打卡日期数。
-    var checkinDays = new Set(out.checkins.map(function (c) { return c.date; }).filter(Boolean)).size;
-    out.total_days = Math.max(local.total_days || 0, remote.total_days || 0, checkinDays);
-    // streak: 取 max
-    out.streak = Math.max(local.streak || 0, remote.streak || 0);
-    // last_checkin: 取较新的
-    out.last_checkin = (remote.last_checkin || '').localeCompare(local.last_checkin || '') > 0 ? remote.last_checkin : local.last_checkin;
+    // 打卡统计以合并后的日期为准，避免旧设备的 streak 覆盖真实断档。
+    refreshCheckinStats(out);
     out.user_name = local.user_name || remote.user_name || '';
     // bound_devices: union
     var bd = new Set();
@@ -649,7 +658,31 @@ document.addEventListener('input', function(e) {
 
   // ─── Utils ───────────────────────────────────────────
   function today() {
-    return new Date().toISOString().split('T')[0];
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }
+  function dateKey(d) {
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }
+  function refreshCheckinStats(p) {
+    const dates = Array.from(new Set((p.checkins || []).map(c => c && c.date).filter(Boolean))).sort();
+    if (!dates.length) {
+      p.total_days = 0;
+      p.streak = 0;
+      p.last_checkin = null;
+      return;
+    }
+    let streak = 1;
+    for (let i = dates.length - 1; i > 0; i--) {
+      const diff = (new Date(`${dates[i]}T00:00:00`) - new Date(`${dates[i - 1]}T00:00:00`)) / 86400000;
+      if (diff !== 1) break;
+      streak++;
+    }
+    p.total_days = dates.length;
+    p.streak = streak;
+    p.last_checkin = dates[dates.length - 1];
   }
   function shuffle(arr) {
     const a = arr.slice();
@@ -1119,16 +1152,7 @@ document.addEventListener('input', function(e) {
       score: `${types.length}/${types.length}`,
       types: types.slice(),
     });
-    progress.total_days = progress.checkins.length;
-    const last = progress.last_checkin;
-    if (last) {
-      const diff = (new Date(today()) - new Date(last)) / 86400000;
-      if (diff === 1) progress.streak = (progress.streak || 0) + 1;
-      else if (diff > 1) progress.streak = 1;
-    } else {
-      progress.streak = 1;
-    }
-    progress.last_checkin = today();
+    refreshCheckinStats(progress);
     delete progress.daily_checkin_plan;
     saveProgress();
   }
@@ -1146,18 +1170,7 @@ document.addEventListener('input', function(e) {
       grammar_title: task.grammar.title,
       score,
     });
-    progress.total_days = progress.checkins.length;
-
-    // streak
-    const last = progress.last_checkin;
-    if (last) {
-      const diff = (new Date(today()) - new Date(last)) / 86400000;
-      if (diff === 1) progress.streak = (progress.streak || 0) + 1;
-      else if (diff > 1) progress.streak = 1;
-    } else {
-      progress.streak = 1;
-    }
-    progress.last_checkin = today();
+    refreshCheckinStats(progress);
 
     if (passed) {
       for (const w of task.vocab) {
@@ -1314,20 +1327,13 @@ document.addEventListener('input', function(e) {
   }
 
   // 撤销今日打卡 — 用户误触完成按钮后可补做, 删除今天最后一条 checkin.
-  // ponytail: streak 简单 -1 (保底 0), last_checkin 取剩余最后一条; 不重算连续天数历史.
+  // 删除后按剩余日期重算，避免删除断点时 streak 继续沿用旧值。
   function undoTodayCheckin() {
     const list = progress.checkins;
     const i = list.findLastIndex(c => c.date === today());
     if (i === -1) return false;
     list.splice(i, 1);
-    if (list.length === 0) {
-      progress.streak = 0;
-      progress.last_checkin = null;
-    } else {
-      progress.streak = Math.max(0, (progress.streak || 1) - 1);
-      progress.last_checkin = list[list.length - 1].date;
-    }
-    progress.total_days = list.length;
+    refreshCheckinStats(progress);
     saveProgress();
     return true;
   }
@@ -2576,7 +2582,7 @@ document.addEventListener('input', function(e) {
     // 最近 7 天
     const recent = [];
     for (let i = 6; i >= 0; i--) {
-      const d = new Date(Date.now() - i * 86400000).toISOString().split('T')[0];
+      const d = dateKey(new Date(Date.now() - i * 86400000));
       const c = progress.checkins.find(x => x.date === d);
       recent.push({ date: d, entry: c });
     }
@@ -3439,7 +3445,7 @@ document.addEventListener('input', function(e) {
     const today = new Date();
     for (let i = HEATMAP_WEEKS * 7 - 1; i >= 0; i--) {
       const d = new Date(today.getTime() - i * 86400000);
-      const k = d.toISOString().split('T')[0];
+      const k = dateKey(d);
       const n = counts[k] || 0;
       cells.push({ date: k, count: n, level: n === 0 ? 0 : Math.min(4, n) });
     }
