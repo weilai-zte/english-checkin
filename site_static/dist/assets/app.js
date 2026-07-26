@@ -1010,7 +1010,7 @@ document.addEventListener('input', function(e) {
   // ─── 每日任务生成 ──────────────────────────────────
   function generateDailyTask() {
     const cfg = getDifficultyCfg();
-    const blockTopics = new Set(cfg.block_topics);
+    const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
     const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
     const mastered = new Set(progress.vocab_mastered.map(w => w.toLowerCase()));
 
@@ -1806,7 +1806,7 @@ document.addEventListener('input', function(e) {
   // ─── 视图：Flashcard ──────────────────────────────
   function pickFlashcardWords() {
     const cfg = getDifficultyCfg();
-    const blockTopics = new Set(cfg.block_topics);
+    const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
     const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
     const mastered = new Set(progress.vocab_mastered.map(w => w.toLowerCase()));
     const allW = allWords().filter(w => {
@@ -2359,7 +2359,7 @@ document.addEventListener('input', function(e) {
   // ─── 视图：Quiz（选择题）──────────────────────────
   function renderQuiz(app) {
     const cfg = getDifficultyCfg();
-    const blockTopics = new Set(cfg.block_topics);
+    const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
     const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
     const mastered = new Set(progress.vocab_mastered.map(w => w.toLowerCase()));
     const candidates = allWords().filter(w => {
@@ -4123,7 +4123,7 @@ document.addEventListener('input', function(e) {
   function renderDictation(app) {
     // 按难度筛词库 (复用 quiz/flashcard 同样的过滤规则)
     const cfg = getDifficultyCfg();
-    const blockTopics = new Set(cfg.block_topics);
+    const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
     const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
     const mastered = new Set((progress.vocab_mastered || []).map(w => w.toLowerCase()));
     const all = allWords().filter(w => {

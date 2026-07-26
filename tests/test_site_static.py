@@ -435,6 +435,12 @@ def test_render_quiz_no_longer_writes_checkins_directly():
     assert "grammar_id: 'quiz'" not in block, "renderQuiz 不应再直接 push checkins"
 
 
+def test_grade_vocab_is_not_blocked_by_saved_difficulty():
+    for fn in ('generateDailyTask', 'pickFlashcardWords', 'renderQuiz', 'renderDictation'):
+        block = _function_block(fn)
+        assert 'new Set(progress.school_grade ? [] : cfg.block_topics)' in block
+
+
 def test_sample_unseen_does_not_pass_grammar_errors_to_quiz_key_fn():
     block = _function_block('sampleUnseen')
     assert "keyFn({ q: w.question, gid: w.type })" not in block
