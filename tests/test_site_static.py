@@ -238,6 +238,8 @@ def test_knowledge_uses_build_time_html():
     assert '"knowledge_modules": knowledge_modules' in build_src
     assert "D.knowledge_modules" in knowledge_block
     assert "renderMarkdown(" not in knowledge_block
+    assert "_normalize_table_boundaries" in build_src
+    assert "is_table_header" in build_src
 
 
 def test_setUserKey_helper_present():

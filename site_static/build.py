@@ -134,8 +134,26 @@ def export_data():
         if heading.startswith("## "):
             sections[heading.removeprefix("## ").strip()] = body
     markdown = mistune.create_markdown(plugins=["table"])
+
+    def _normalize_table_boundaries(text):
+        """让紧跟说明文字的 Markdown 表格也能被 Mistune 识别。"""
+        lines = text.splitlines()
+        out = []
+        for i, line in enumerate(lines):
+            separator = lines[i + 1] if i + 1 < len(lines) else ""
+            is_table_header = line.startswith("|") and re.match(r"^\|(?:\s*:?-{2,}:?\s*\|)+\s*$", separator)
+            if is_table_header:
+                header_cells = len(line.strip().strip("|").split("|"))
+                separator_cells = len(separator.strip().strip("|").split("|"))
+                if header_cells != separator_cells:
+                    lines[i + 1] = "|" + "|".join(["---"] * header_cells) + "|"
+            if is_table_header and out and out[-1].strip():
+                out.append("")
+            out.append(line)
+        return "\n".join(out)
+
     knowledge_modules = {
-        f"module{i}": markdown(sections.get(title, ""))
+        f"module{i}": markdown(_normalize_table_boundaries(sections.get(title, "")))
         for i, title in enumerate(module_titles, 1)
     }
 
