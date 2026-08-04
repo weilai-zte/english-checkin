@@ -1371,6 +1371,7 @@ document.addEventListener('input', function(e) {
     const totalDays = progress.checkins.length;
     const mastered = progress.vocab_mastered.length;
     const allWordsCount = allWords().length;
+    const counts = sectionCounts();
 
     app.innerHTML = `
       ${topBar('初中英语打卡', false)}
@@ -1419,17 +1420,17 @@ document.addEventListener('input', function(e) {
         <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习 (${cfg.flashcard_count} 张)</a>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <a class="btn btn-secondary" href="#/knowledge">📖 知识课程</a>
-          <a class="btn btn-secondary" href="#/vocab-list">📚 全部词汇</a>
+          <a class="btn btn-secondary" href="#/vocab-list">📚 全部词汇 (${allWordsCount})</a>
         </div>
 
         <div class="section-label">✍️ 练习</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <a class="btn btn-secondary" href="#/quiz">🎯 选择题</a>
-          <a class="btn btn-secondary" href="#/dictation">✍️ 听写</a>
-          <a class="btn btn-secondary" href="#/tense">⏰ 时态</a>
-          <a class="btn btn-secondary" href="#/preposition">🔗 介词</a>
-          <a class="btn btn-secondary" href="#/translate">🔤 中译英</a>
-          <a class="btn btn-secondary" href="#/translate-en">🔤 英译中</a>
+          <a class="btn btn-secondary btn-with-count" href="#/quiz">🎯 选择题 <span class="count-badge">${counts.vocabN} 词</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/dictation">✍️ 听写 <span class="count-badge">${counts.vocabN} 词</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/tense">⏰ 时态 <span class="count-badge">${counts.tenseN} 题</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/preposition">🔗 介词 <span class="count-badge">${counts.prepN} 题</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/translate">🔤 中译英 <span class="count-badge">${counts.translateN} 题</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/translate-en">🔤 英译中 <span class="count-badge">${counts.translateN} 题</span></a>
         </div>
 
         <div class="section-label">🎮 游戏</div>
@@ -2101,6 +2102,32 @@ document.addEventListener('input', function(e) {
     if (selected.length) return selected;
     const cfg = getDifficultyCfg();
     return cfg.translate_complex ? D.hard_translate : D.translate_sentences;
+  }
+
+  // 首页练习区各题型题库数量（随难度自动切换，与各视图真实取题逻辑保持一致）
+  function sectionCounts() {
+    // 中译英/英译中共用同一 translate 题库（同 translationPoolForDifficulty）
+    const translateN = translationPoolForDifficulty().length;
+    // 时态：按难度+年级筛选，空时与 renderTense 一样降级到 legacy 全量
+    const tenseBank = Array.isArray(D.tense_questions) ? D.tense_questions : [];
+    let tenseN = schoolGradePool(tenseBank.filter(q => q.difficulty === difficulty)).length;
+    if (!tenseN) tenseN = (D.hard_tense_questions || []).length;
+    // 介词：合并 5 个 prepositions 相关 grammar 组的练习题量（与 renderPreposition 同源）
+    const prepIds = ['prepositions', 'prep_time', 'prep_place', 'prep_combined', 'curr_prepositions'];
+    const prepN = prepIds.reduce((n, id) => {
+      const g = (D.grammar || []).find(x => x.id === id);
+      return n + (g && Array.isArray(g.练习) ? g.练习.length : 0);
+    }, 0);
+    // 选择题/听写：当前难度的词库候选量（与 quiz/dictation 相同的难度过滤，不含"已掌握"排除）
+    const cfg = getDifficultyCfg();
+    const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
+    const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
+    const vocabN = allWords().filter(w => {
+      const simple = w.topic.split('(')[0].trim();
+      if (blockTopics.has(simple)) return false;
+      return !blockWords.has(w.word.toLowerCase());
+    }).length;
+    return { translateN, tenseN, prepN, vocabN };
   }
 
   function renderTranslate(app) {

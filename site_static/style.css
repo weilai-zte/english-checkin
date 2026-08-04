@@ -214,6 +214,8 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
 .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
 .btn-secondary { background: #e8ecf4; color: #4a5568; }
 .btn-secondary:hover { background: #dde2ec; }
+.btn-with-count { display: flex; justify-content: space-between; align-items: center; text-align: left; gap: 6px; }
+.count-badge { font-size: 12px; font-weight: 600; color: var(--text-2); background: var(--bg-tag); border-radius: 999px; padding: 2px 9px; white-space: nowrap; flex-shrink: 0; }
 /* Milestone button — used for 🏆 成就 on home (gold accent, distinct from nav buttons) */
 .btn-milestone {
   background: linear-gradient(135deg, #fff4d6 0%, #ffe2a8 100%);
