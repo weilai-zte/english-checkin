@@ -1,6 +1,6 @@
 # AI 题库扩充提示词（初中英语打卡项目）
 
-> 更新记录：2026-08-04 v2 —— 基于两轮 AI 出题的实际返工，新增 type/freq/换皮/数量一致性硬性规则。
+> 更新记录：2026-08-04 v3 —— 合并至 t_ai_100，题库量/编号同步；补充编号回卷规则与新增易撞句式。
 
 ## 角色
 
@@ -25,9 +25,9 @@
 ## 孩子画像（上下文）
 
 - 初一（Grade 7），练习难度已设为 hard（L3 拔高），连续打卡 42 天
-- 当前翻译题库 **294 道**（easy 80 / medium 79 / hard 135）
+- 当前翻译题库 **339 道**（easy 80 / medium 79 / hard 180）
 - 已占用 id 前缀：`t_simple` / `t_hard` / `t_llm` / `t_llm2` / `t_curr` / `t_wrong` / `t_ai`
-- **AI 题已入库 t_ai_001 ~ t_ai_030**（12 道英译中 + 18 道中译英），新题 id 从 **t_ai_031** 开始连续编号
+- **AI 题已入库 t_ai_001 ~ t_ai_100**（12 道英译中 + 88 道中译英），新题 id 从 **t_ai_101** 开始连续编号；**禁止从已占用编号（如 031）重新开始**
 
 ## 孩子错题画像（按题型，来自线上最近记录）
 
@@ -66,7 +66,7 @@
 ## 本次出题任务（必填）
 
 - 出题方向：中译英 cn2en / 英译中 en2cn / 两者混合
-- 数量：____ 道（**说好几道就必须输出几道，id 从 t_ai_031 起连续编号，不得缺号**）
+- 数量：____ 道（**说好几道就必须输出几道，id 从 t_ai_101 起连续编号，不得缺号；禁止回卷到已占用编号**）
 - 难度：hard（默认，对应 L3 拔高；如出基础巩固题可改 easy/medium）
 - 侧重知识点（可指定，默认按孩子错题画像）
 
@@ -126,6 +126,12 @@
 - I find it helpful to review every day.
 - She studies French as well as English.
 - It began to rain while I was waiting for the bus.
+- This shop/bookshop has been open for ten years.（延续状态类不要再用 shop+ten years）
+- I am going to take a swimming course... / There will be a football match at school tomorrow.（计划/存在类句式换皮）
+- Have you ever visited the Shanghai Museum? / I like the girl who is singing. / I don't know why he was late.
+- think it / find it / make it + 形容词 + to do（形式宾语已有 3+ 道，最多再出 1 道且动词要换）
+- look after your younger brother / He spends an hour doing homework every day.（同一动词短语只出 1 道变形）
+- You will not ... unless you ...（unless 已有多道，优先用 unless 置句首等不同结构）
 
 ## 输出前自查清单
 

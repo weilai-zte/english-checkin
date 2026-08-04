@@ -3,17 +3,17 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 4278,
+    "total": 4303,
     "type_count": {
       "vocab": 3624,
       "grammar": 108,
-      "translate": 339,
+      "translate": 364,
       "tense": 207
     },
     "grade_count": {
       "L1": 1900,
       "L2": 1283,
-      "L3": 1095
+      "L3": 1120
     },
     "filter_attrs": [
       "type",
@@ -63252,6 +63252,420 @@
       "knowledge_points": [
         "状语从句",
         "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_076",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时since",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "我的英语老师自从我们进入初中以来一直鼓励我们阅读英文文章。",
+      "en": "My English teacher has encouraged us to read English articles since we entered junior high school.",
+      "hint": "since引导时间点，主句常用现在完成时表示持续到现在。",
+      "knowledge_points": [
+        "现在完成时",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_077",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时+when",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "当我准备考试时，朋友给我打来了电话。",
+      "en": "My friend called me when I was preparing for the exam.",
+      "hint": "when连接过去动作，正在进行的动作使用过去进行时。",
+      "knowledge_points": [
+        "过去进行时",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_078",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "一般现在时被动语态",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "海南种植香蕉。",
+      "en": "Bananas are grown in Hainan.",
+      "hint": "一般现在时被动：be + 过去分词。",
+      "knowledge_points": [
+        "一般现在时",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_079",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "情态动词被动语态",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "学生的问题应该被认真回答。",
+      "en": "Students' questions should be answered carefully.",
+      "hint": "情态动词后接被动结构：should be + 过去分词。",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_080",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "if主将从现",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "如果你每天记忆新单词，你的词汇量会增加。",
+      "en": "If you learn new words every day, your vocabulary will increase.",
+      "hint": "if条件句表示将来时，从句用一般现在时。",
+      "knowledge_points": [
+        "If 条件句",
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_081",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "unless条件句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "除非你完成作业，否则你不能出去玩。",
+      "en": "Unless you finish your homework, you can't go out to play.",
+      "hint": "unless 表示除非，可置于句首。",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_082",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "spend doing",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "他花了整个下午修自行车。",
+      "en": "He spent the whole afternoon fixing the bike.",
+      "hint": "spend + 时间 + doing 表示花时间做某事。",
+      "knowledge_points": [
+        "常用短语",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_083",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "put off",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "因为下雨，我们不得不推迟旅行。",
+      "en": "We had to put off the trip because of the rain.",
+      "hint": "put off 表示推迟。",
+      "knowledge_points": [
+        "短语动词",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_084",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "as...as",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "这部电影没有那本书有趣。",
+      "en": "The movie is not as interesting as the book.",
+      "hint": "not as...as表示不如……。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_085",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "the more the more",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "你越了解英语文化，就越喜欢英语。",
+      "en": "The more you know about English culture, the more you like English.",
+      "hint": "the+比较级，the+比较级表示越……越……。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_086",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "最高级",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "她是我们班最努力的学生之一。",
+      "en": "She is one of the hardest-working students in our class.",
+      "hint": "one of + the + 最高级 + 名词复数。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_087",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "look after",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "我不在的时候你能帮我照顾猫吗？",
+      "en": "Can you look after my cat while I am away?",
+      "hint": "look after 表示照顾。",
+      "knowledge_points": [
+        "短语动词"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_088",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "be going to",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "这个周末我们打算去参观科学博物馆。",
+      "en": "We are going to visit the science museum this weekend.",
+      "hint": "be going to 表示计划或打算。",
+      "knowledge_points": [
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_089",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时just",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "老师刚刚告诉我们这个好消息。",
+      "en": "The teacher has just told us the good news.",
+      "hint": "just表示刚刚发生的动作，常用于现在完成时。",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_090",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "形式宾语it",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "我们发现按时完成工作很困难。",
+      "en": "We found it difficult to finish the work on time.",
+      "hint": "find it + 形容词 + to do 表示发现做某事……。",
+      "knowledge_points": [
+        "it 用法",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_091",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "as well as",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "他喜欢打篮球，也喜欢游泳。",
+      "en": "He likes swimming as well as playing basketball.",
+      "hint": "as well as表示也、还。",
+      "knowledge_points": [
+        "常用短语"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_092",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "反义疑问句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "你的朋友昨天帮助了你，是吗？",
+      "en": "Your friend helped you yesterday, didn't he?",
+      "hint": "肯定句后接否定形式反义疑问句。",
+      "knowledge_points": [
+        "反义疑问句",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_093",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "你能告诉我她在会议上说了什么吗？",
+      "en": "Can you tell me what she said at the meeting?",
+      "hint": "宾语从句使用陈述语序。",
+      "knowledge_points": [
+        "宾语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_094",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "教我们英语的那位女士非常和蔼。",
+      "en": "The woman who teaches us English is very kind.",
+      "hint": "who引导定语从句修饰人。",
+      "knowledge_points": [
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_095",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "There be句型",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "下个月我们学校礼堂将有一场才艺表演。",
+      "en": "There is going to be a talent show in our school hall next month.",
+      "hint": "There is going to be 表示将来存在某物。",
+      "knowledge_points": [
+        "There be 句型",
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_096",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时ever",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "你读过《哈利·波特》这本书吗？",
+      "en": "Have you ever read the book Harry Potter?",
+      "hint": "ever常用于现在完成时疑问句，表示曾经。",
+      "knowledge_points": [
+        "现在完成时",
+        "一般疑问句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_097",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "will疑问句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "你父母明天会来参加家长会吗？",
+      "en": "Will your parents come to the parents' meeting tomorrow?",
+      "hint": "will 提前构成一般疑问句。",
+      "knowledge_points": [
+        "一般将来时",
+        "一般疑问句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_098",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "介词短语",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "他每天骑自行车去学校。",
+      "en": "He goes to school by bike every day.",
+      "hint": "by+交通工具表示乘坐某种交通方式。",
+      "knowledge_points": [
+        "介词"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_099",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "被动语态",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "这些问题将在会议上被讨论。",
+      "en": "These problems will be discussed at the meeting.",
+      "hint": "一般将来时被动：will be + 过去分词。",
+      "knowledge_points": [
+        "一般将来时",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_100",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "综合句型",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "虽然学习英语很困难，但是它对未来非常重要。",
+      "en": "Although learning English is difficult, it is very important for the future.",
+      "hint": "although引导让步状语从句，不能与but同时使用。",
+      "knowledge_points": [
+        "状语从句",
+        "it 用法"
       ],
       "src": "ai_expand_2026_08"
     },
