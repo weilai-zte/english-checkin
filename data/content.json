@@ -3,17 +3,17 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 4373,
+    "total": 4398,
     "type_count": {
       "vocab": 3624,
       "grammar": 108,
-      "translate": 434,
+      "translate": 459,
       "tense": 207
     },
     "grade_count": {
       "L1": 1900,
       "L2": 1283,
-      "L3": 1190
+      "L3": 1215
     },
     "filter_attrs": [
       "type",
@@ -64823,6 +64823,419 @@
       "knowledge_points": [
         "状语从句",
         "一般现在时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_171",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时experience",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "我从来没有去过国外，但是我希望有一天能去。",
+      "en": "I have never been abroad, but I hope I can go there someday.",
+      "hint": "never表示从未经历过，常用于现在完成时。",
+      "knowledge_points": [
+        "现在完成时",
+        "连词"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_172",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时already",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "公交车已经开走了。",
+      "en": "The bus has already left.",
+      "hint": "already表示已经完成的动作，常用于现在完成时。",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_173",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时延续性",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "图书馆已经关闭两个星期了。",
+      "en": "The library has been closed for two weeks.",
+      "hint": "表示状态持续一段时间使用 has/have been。",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_174",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "昨晚七点我们正在吃晚饭。",
+      "en": "We were having dinner at seven o'clock yesterday evening.",
+      "hint": "过去某个具体时间正在发生的动作使用过去进行时。",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_175",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时when",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "朋友敲门时她正在睡觉。",
+      "en": "She was sleeping when her friend knocked on the door.",
+      "hint": "when连接过去动作，长动作使用过去进行时。",
+      "knowledge_points": [
+        "过去进行时",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_176",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时while",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "她一边洗碗一边唱歌。",
+      "en": "She sang while she was washing the dishes.",
+      "hint": "while 后接延续性动作，用过去进行时。",
+      "knowledge_points": [
+        "过去进行时",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_177",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "一般现在时被动",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "窗户每周擦一次。",
+      "en": "The window is cleaned once a week.",
+      "hint": "一般现在时被动表示经常发生的被动动作。",
+      "knowledge_points": [
+        "一般现在时",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_178",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "一般过去时被动",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "这封信是我最好的朋友写的。",
+      "en": "The letter was written by my best friend.",
+      "hint": "过去时间发生的被动动作使用 was/were done。",
+      "knowledge_points": [
+        "一般过去时",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_179",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "将来时被动",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "垃圾明天早上会被收走。",
+      "en": "The rubbish will be collected tomorrow morning.",
+      "hint": "一般将来时被动结构为 will be done。",
+      "knowledge_points": [
+        "一般将来时",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_180",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "if条件句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "如果你来我家，我就给你看我的照片。",
+      "en": "If you come to my home, I will show you my photos.",
+      "hint": "if从句表示将来条件时使用一般现在时。",
+      "knowledge_points": [
+        "If 条件句",
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_181",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "unless条件句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "除非所有球员都准备好了，否则比赛不会开始。",
+      "en": "The game won't start unless all the players are ready.",
+      "hint": "unless表示除非，后接一般现在时。",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_182",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "我认为我们应该花更多时间阅读。",
+      "en": "I think that we should spend more time reading.",
+      "hint": "that引导宾语从句。",
+      "knowledge_points": [
+        "宾语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_183",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "你知道会议什么时候开始吗？",
+      "en": "Do you know when the meeting will start?",
+      "hint": "宾语从句使用陈述语序。",
+      "knowledge_points": [
+        "宾语从句",
+        "特殊疑问句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_184",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "正在和我们校长说话的那个人是我爸爸。",
+      "en": "The man who is talking to our headmaster is my father.",
+      "hint": "who引导定语从句修饰人。",
+      "knowledge_points": [
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_185",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "这是我祖父建造的房子。",
+      "en": "This is the house that my grandfather built.",
+      "hint": "that可以引导修饰物的定语从句。",
+      "knowledge_points": [
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_186",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "反义疑问句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "她唱得很好，不是吗？",
+      "en": "She sings very well, doesn't she?",
+      "hint": "肯定句后用否定形式反义疑问句。",
+      "knowledge_points": [
+        "反义疑问句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_187",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "反义疑问句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "他们昨天没有迟到，是吗？",
+      "en": "They weren't late yesterday, were they?",
+      "hint": "否定句后接肯定形式反义疑问句。",
+      "knowledge_points": [
+        "反义疑问句",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_188",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "比较结构",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "英语越来越重要。",
+      "en": "English is becoming more and more important.",
+      "hint": "比较级重复表示越来越……。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_189",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "比较结构",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "这个问题比我想象的更难。",
+      "en": "This problem is more difficult than I expected.",
+      "hint": "比较级后接than表示比较。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_190",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "it用法",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "她很难相信这个消息。",
+      "en": "She found it hard to believe the news.",
+      "hint": "find it + 形容词 + to do 表示觉得做某事……。",
+      "knowledge_points": [
+        "it 用法",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_191",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "短语动词",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "我们需要想出一个解决问题的方法。",
+      "en": "We need to come up with a way to solve the problem.",
+      "hint": "come up with表示提出、想出。",
+      "knowledge_points": [
+        "短语动词"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_192",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "常用短语",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "听到这个坏消息后，她感到很失望。",
+      "en": "She felt very disappointed after hearing the bad news.",
+      "hint": "disappointed表示失望的。",
+      "knowledge_points": [
+        "常用短语"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_193",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "综合语法",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "虽然题目很难，但她全部答对了。",
+      "en": "Although the questions were hard, she answered them all.",
+      "hint": "although引导让步状语从句。",
+      "knowledge_points": [
+        "状语从句",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_194",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "综合长句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "妈妈告诉我应该早点睡觉。",
+      "en": "My mother told me that I should go to bed early.",
+      "hint": "that引导宾语从句，注意时态变化。",
+      "knowledge_points": [
+        "宾语从句",
+        "间接引语"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_195",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "综合语法",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "如果你告诉我真相，我就会原谅你。",
+      "en": "If you tell me the truth, I will forgive you.",
+      "hint": "if条件句中主句使用will表示将来结果。",
+      "knowledge_points": [
+        "If 条件句",
+        "一般将来时"
       ],
       "src": "ai_expand_2026_08"
     },
