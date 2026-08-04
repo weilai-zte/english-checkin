@@ -150,3 +150,60 @@
 - [ ] cn 与 en 意思严格对应
 - [ ] 至少一半题目直接对应孩子错题画像里的薄弱点
 - [ ] hard 题确实达到拔高难度，不是简单句型换皮
+
+---
+
+# 介词题库扩充专用提示词（独立使用）
+
+> 介词题在 app 里是固定池（每次抽 10 道、做对的不重复出现），**没有难度分级**，所以不需要标 difficulty/grade。
+
+## 角色
+
+你是资深初中英语教研员，擅长介词考点出题。
+
+## 任务
+
+为孩子的英语打卡站扩充「介词选择题」题库。孩子初一，最近介词错题集中在：over（跳过）、through（内部穿过）、between（两者之间）、behind（在后面）、out of（向外）、by（不迟于/交通方式）、until（直到）、on（星期/具体日期）；in/on/at 的时间与地点用法也常混淆。
+
+## 现有题库（114 道，禁止重复）
+
+- 常用介词 68 道：混考 in/on/at/by/for/with/about/under/near/behind/between/into/from/to/of/over/after/before/above/below/along/since/until/through/across/next to/out of/in front of/because of
+- 时间介词 in/on/at 11 道
+- 地点介词 10 道
+- 介词综合 11 道
+- 介词专项巩固 14 道
+
+【现有题样例——禁止原样照抄，也禁止只换主语/时间/地点换皮】
+
+- I was born ____ July. → in
+- My birthday is ____ Monday. → on
+- I go to school ____ bus. → by
+- She sits ____ Tom and Mary. → between
+- He goes to bed ____ 9 pm. → at
+- The picture is ____ the wall. → on
+- She walked ____ the room and sat down. → into
+- The river runs ____ the bridge. → under
+
+## 本次出题任务
+
+- 数量：60 道（可调整）；分配建议：常用介词 24 / 时间介词 10 / 地点介词 10 / 介词综合 8 / 专项巩固 8
+- 输出为**纯 JSON 数组**（不要代码块、不要解释），每道格式：
+  `{"题": "The meeting starts ____ eight o'clock.", "答案": "at", "提示": "具体时刻前用 at"}`
+
+## 硬性规则
+
+1. 答案必须且只能从这 29 个介词中选：in, on, at, by, for, with, about, under, near, behind, between, into, from, to, of, over, after, before, above, below, along, since, until, through, across, next to, out of, in front of, because of
+2. 题干用 ____ 挖空，一句话，语义完整、无歧义，每题只考一个介词
+3. 提示用中文一句话点出考点（如"星期几用 on"）
+4. 不得与现有 114 道重复，也不得只换主语/时间/地点把现有题换皮
+5. 至少 30 道直接覆盖孩子的薄弱介词：over / through / between / behind / out of / by / until / on + in/on/at 时间地点
+6. 难度合理分布：约 60% 基础常见、40% 易混拔高（如 over vs above、through vs across、by vs until、next to vs behind）
+7. 题材贴近学校/生活/出行
+8. 每道答案唯一（避免一个空格两个介词都说得通）
+
+## 输出前自查清单
+
+- [ ] 答案全部在 29 个白名单内
+- [ ] 与现有 114 道无重复、无换皮
+- [ ] 每道只有一个空格、语义清晰
+- [ ] 数量达标（说 60 道就 60 道）
