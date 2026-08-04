@@ -3,17 +3,17 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 4448,
+    "total": 4473,
     "type_count": {
       "vocab": 3624,
       "grammar": 108,
-      "translate": 509,
+      "translate": 534,
       "tense": 207
     },
     "grade_count": {
       "L1": 1901,
-      "L2": 1486,
-      "L3": 1061
+      "L2": 1506,
+      "L3": 1066
     },
     "filter_attrs": [
       "type",
@@ -66066,6 +66066,419 @@
       "cn": "我觉得我们上周看的那部电影很精彩。",
       "en": "I think that the movie which we saw last week is wonderful.",
       "hint": "that引导宾语从句，which引导定语从句。",
+      "knowledge_points": [
+        "宾语从句",
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_246",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "现在完成时ever",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "你曾经尝试过制作英语海报吗？",
+      "en": "Have you ever tried making an English poster?",
+      "hint": "Have you ever done...? 表示你曾经做过……吗。",
+      "knowledge_points": [
+        "现在完成时",
+        "一般疑问句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_247",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "现在完成时",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "她刚刚把所有的书放回书架。",
+      "en": "She has just put all the books back on the shelf.",
+      "hint": "just表示刚刚完成的动作，常用于现在完成时。",
+      "knowledge_points": [
+        "现在完成时",
+        "常用短语"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_248",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "现在完成时否定",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "结果还没有出来。",
+      "en": "The results haven't come out yet.",
+      "hint": "yet常用于现在完成时否定句末。",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_249",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "过去进行时",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "昨天下午，当我经过操场时，学生们正在训练。",
+      "en": "The students were training when I passed the playground yesterday afternoon.",
+      "hint": "when连接过去动作，正在进行的动作使用过去进行时。",
+      "knowledge_points": [
+        "过去进行时",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_250",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "过去进行时",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "昨天这个时候我们正在火车上旅行。",
+      "en": "We were traveling by train at this time yesterday.",
+      "hint": "过去某个时间点正在发生的动作使用过去进行时。",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_251",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "一般现在时被动",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "这些照片通常被展示在学校大厅里。",
+      "en": "These photos are usually displayed in the school hall.",
+      "hint": "一般现在时被动结构为 am/is/are + 过去分词。",
+      "knowledge_points": [
+        "一般现在时",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_252",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "一般过去时被动",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "上周会议在图书馆举行。",
+      "en": "The meeting was held in the library last week.",
+      "hint": "过去时间发生的被动动作使用 was/were done。",
+      "knowledge_points": [
+        "一般过去时",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_253",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "被动语态综合",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "学生应该被鼓励独立思考。",
+      "en": "Students should be encouraged to think independently.",
+      "hint": "should be done 表示应该被做。",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_254",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "if条件句",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "如果你吃药，很快就会好起来。",
+      "en": "If you take the medicine, you will get well soon.",
+      "hint": "if条件句主将从现。",
+      "knowledge_points": [
+        "If 条件句",
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_255",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "unless条件句",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "除非我的朋友也去，否则我不去参加聚会。",
+      "en": "I won't go to the party unless my friend goes too.",
+      "hint": "unless表示除非，等同于if...not。",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_256",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "你知道这家店周日营业吗？",
+      "en": "Do you know whether the shop is open on Sundays?",
+      "hint": "whether引导宾语从句表示是否。",
+      "knowledge_points": [
+        "宾语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_257",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "请告诉我你是否同意我的看法。",
+      "en": "Please tell me whether you agree with me.",
+      "hint": "宾语从句保持陈述语序。",
+      "knowledge_points": [
+        "宾语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_258",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "照顾我奶奶的那位护士非常有耐心。",
+      "en": "The nurse who takes care of my grandma is very patient.",
+      "hint": "who引导定语从句修饰人。",
+      "knowledge_points": [
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_259",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "那个女孩昨天唱的那首歌很动听。",
+      "en": "The song that the girl sang yesterday is very sweet.",
+      "hint": "that引导定语从句修饰物。",
+      "knowledge_points": [
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_260",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "比较结构",
+      "freq": 4,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "学游泳不像看起来那么容易。",
+      "en": "Learning to swim is not as easy as it looks.",
+      "hint": "not as...as表示不像……一样。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_261",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "比较结构",
+      "freq": 4,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "跑得越多，你的身体就越健康。",
+      "en": "The more you run, the healthier you will become.",
+      "hint": "the+比较级，the+比较级表示越……越……。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_262",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "spend doing",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "他们一起看了一晚上的电影。",
+      "en": "They spent the evening watching a movie together.",
+      "hint": "spend+时间+doing表示花时间做某事。",
+      "knowledge_points": [
+        "常用短语",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_263",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "短语动词",
+      "freq": 4,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "我们应该多了解一些这个新社团的情况。",
+      "en": "We should find out more about the new club.",
+      "hint": "find out表示找出、了解。",
+      "knowledge_points": [
+        "短语动词"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_264",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "短语动词",
+      "freq": 4,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "不要担心困难，我们会帮助你。",
+      "en": "Don't worry about difficulties. We will help you.",
+      "hint": "worry about表示担心。",
+      "knowledge_points": [
+        "祈使句",
+        "常用短语"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_265",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "There be句型",
+      "freq": 4,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "天上有一只风筝在飞。",
+      "en": "There is a kite flying high in the sky.",
+      "hint": "There be后可接现在分词短语。",
+      "knowledge_points": [
+        "There be 句型"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_266",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "反义疑问句",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "我们在聚会上玩得很开心，对吗？",
+      "en": "We had a good time at the party, didn't we?",
+      "hint": "一般过去时肯定句后接 didn't 形式。",
+      "knowledge_points": [
+        "反义疑问句",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_267",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "反义疑问句",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "他们不会忘记这个重要的日子，是吗？",
+      "en": "They won't forget this important day, will they?",
+      "hint": "否定含义句后使用肯定反意疑问形式。",
+      "knowledge_points": [
+        "反义疑问句",
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_268",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "it用法",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "她觉得记新单词很容易。",
+      "en": "She finds it easy to remember new words.",
+      "hint": "find it + adj + to do 表示发现做某事怎么样。",
+      "knowledge_points": [
+        "it 用法"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_269",
+      "type": "translate",
+      "grade": "L2",
+      "topic": "综合语法",
+      "freq": 5,
+      "difficulty": "medium",
+      "direction": "en2cn",
+      "cn": "虽然这家餐厅很小，但食物很美味。",
+      "en": "Although the restaurant is small, the food is delicious.",
+      "hint": "although引导让步状语从句。",
+      "knowledge_points": [
+        "状语从句",
+        "一般现在时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_270",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "综合长句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "我觉得她给我的建议很有帮助。",
+      "en": "I think the advice that she gave me is very helpful.",
+      "hint": "that引导宾语从句，that引导定语从句。",
       "knowledge_points": [
         "宾语从句",
         "定语从句"
