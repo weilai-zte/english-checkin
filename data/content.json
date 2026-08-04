@@ -3,17 +3,17 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 4179,
+    "total": 4203,
     "type_count": {
       "vocab": 3624,
       "grammar": 108,
-      "translate": 240,
+      "translate": 264,
       "tense": 207
     },
     "grade_count": {
       "L1": 1900,
       "L2": 1283,
-      "L3": 996
+      "L3": 1020
     },
     "filter_attrs": [
       "type",
@@ -32,7 +32,8 @@
       "data/vocab.json",
       "data/grammar.json",
       "curriculum_expand_2026_07",
-      "data/question_bank_expansion.json"
+      "data/question_bank_expansion.json",
+      "child_wrong_2026_08"
     ],
     "note": "vocab 已按 (word, grade) 去重,合并 src junior/pdf983/legacy 的字段",
     "coverage_standard": "36 个初中核心知识点，每项至少 6 道练习"
@@ -61620,6 +61621,403 @@
         "宾语从句"
       ],
       "src": "curriculum_expand_2026_07"
+    },
+    {
+      "id": "t_wrong_001",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "昨天这个时候，学生们正在音乐教室里唱歌。",
+      "en": "The students were singing in the music room at this time yesterday.",
+      "hint": "at this time yesterday 用过去进行时 was/were doing",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_002",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "昨晚九点她正在做作业。",
+      "en": "She was doing her homework at nine o'clock last night.",
+      "hint": "过去某一时刻正在进行的动作用过去进行时",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_003",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "老师进来的时候，他们正在下棋。",
+      "en": "They were playing chess when the teacher came in.",
+      "hint": "when 从句用短暂动作，主句用过去进行时",
+      "knowledge_points": [
+        "过去进行时",
+        "状语从句"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_004",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "爸爸做饭的时候，我正在打扫房间。",
+      "en": "While Dad was cooking, I was cleaning the room.",
+      "hint": "while 后接延续性动作，两个动作都用过去进行时",
+      "knowledge_points": [
+        "过去进行时",
+        "状语从句"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_005",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "反意疑问句",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "她从没去过北京，是吗？",
+      "en": "She has never been to Beijing, has she?",
+      "hint": "前否后肯：never 是否定词，疑问部分用肯定",
+      "knowledge_points": [
+        "反义疑问句",
+        "现在完成时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_006",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "反意疑问句",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "下周有运动会，不是吗？",
+      "en": "There will be a sports meeting next week, won't there?",
+      "hint": "there will be 的反意疑问部分用 won't there",
+      "knowledge_points": [
+        "反义疑问句",
+        "There be 句型",
+        "一般将来时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_007",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "看那些乌云，天要下大雨了。",
+      "en": "Look at those black clouds. It is going to rain heavily.",
+      "hint": "有迹象的预测用 be going to",
+      "knowledge_points": [
+        "一般将来时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_008",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "如果明天天气好，我们就要去野餐。",
+      "en": "We are going to have a picnic if the weather is fine tomorrow.",
+      "hint": "be going to 表计划；if 从句用一般现在时",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_009",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "我已经做完作业了。",
+      "en": "I have already finished my homework.",
+      "hint": "already 常与现在完成时连用，放在 have 之后",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_010",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "你尝过中国菜吗？",
+      "en": "Have you ever tried Chinese food?",
+      "hint": "ever 询问经历，用现在完成时",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_011",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "她从 2020 年起就住在这里。",
+      "en": "She has lived here since 2020.",
+      "hint": "since + 过去时间点，谓语用现在完成时",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_012",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "被动语态",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "许多国家都说英语。",
+      "en": "English is spoken in many countries.",
+      "hint": "一般现在时被动 am/is/are + 过去分词",
+      "knowledge_points": [
+        "被动语态",
+        "一般现在时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_013",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "被动语态",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "昨天学生们打扫了教室。",
+      "en": "The classroom was cleaned by the students yesterday.",
+      "hint": "一般过去时被动 was/were + 过去分词",
+      "knowledge_points": [
+        "被动语态",
+        "一般过去时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_014",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "被动语态",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "河边的树已经被种下了。",
+      "en": "The trees have been planted along the river.",
+      "hint": "现在完成时被动 have/has been + 过去分词",
+      "knowledge_points": [
+        "被动语态",
+        "现在完成时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_015",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "如果明天下雨，我们就待在家里。",
+      "en": "If it rains tomorrow, we will stay at home.",
+      "hint": "主将从现：if 从句用一般现在时，主句用 will",
+      "knowledge_points": [
+        "If 条件句",
+        "一般将来时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_016",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "如果你认真复习，就能通过考试。",
+      "en": "You will pass the exam if you review carefully.",
+      "hint": "主将从现：if 从句用一般现在时",
+      "knowledge_points": [
+        "If 条件句",
+        "一般将来时"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_017",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "情态动词",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "你必须先完成作业才能看电视。",
+      "en": "You must finish your homework before you watch TV.",
+      "hint": "must + 动词原形；before 引导时间状语从句",
+      "knowledge_points": [
+        "情态动词",
+        "状语从句"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_018",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "短语动词",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "如果你不知道单词的意思，可以在字典里查。",
+      "en": "You can look up the word in the dictionary if you don't know its meaning.",
+      "hint": "look up 查阅；if 条件句",
+      "knowledge_points": [
+        "短语动词",
+        "If 条件句"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_019",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "There be 句型",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "树上有一些鸟在唱歌。",
+      "en": "There are some birds singing in the tree.",
+      "hint": "There be 句型，singing 作定语修饰 birds",
+      "knowledge_points": [
+        "There be 句型"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_020",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "一般过去时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "她因为生病没有去上学。",
+      "en": "She didn't go to school because she was ill.",
+      "hint": "一般过去时否定 didn't + 动词原形；because 引导原因从句",
+      "knowledge_points": [
+        "一般过去时",
+        "状语从句"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_021",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "比较结构",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "今年的考试比去年难多了。",
+      "en": "This year's test is much harder than last year's.",
+      "hint": "much 修饰比较级表示程度",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_022",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "比较结构",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "在所有学生中，汤姆跑得最快。",
+      "en": "Of all the students, Tom runs the fastest.",
+      "hint": "of all + 最高级表示范围",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_023",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "并列连词",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "他不仅聪明，而且勤奋。",
+      "en": "He is not only smart but also hardworking.",
+      "hint": "not only...but also... 不但……而且……",
+      "knowledge_points": [
+        "连词"
+      ],
+      "src": "child_wrong_2026_08"
+    },
+    {
+      "id": "t_wrong_024",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "比较结构",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "你越努力，成绩就越好。",
+      "en": "The harder you work, the better your grades will be.",
+      "hint": "the + 比较级, the + 比较级 表示越……越……",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "child_wrong_2026_08"
     },
     {
       "id": "tt_curr_001",
