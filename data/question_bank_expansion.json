@@ -291,6 +291,384 @@
           "答案": "at",
           "提示": "钟点前用 at",
           "src": "ai_expand_2026-07-20"
+        },
+        {
+          "题": "The boy jumped ____ the puddle and continued running.",
+          "答案": "over",
+          "提示": "over表示从物体上方越过或跳过",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The train passed ____ the long tunnel in the mountain.",
+          "答案": "through",
+          "提示": "through表示从内部穿过",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The teacher divided the students ____ three groups.",
+          "答案": "into",
+          "提示": "into表示进入或分成某种状态",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The two chairs are placed ____ the window and the door.",
+          "答案": "between",
+          "提示": "between表示两者之间",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The player hid the ball ____ his back.",
+          "答案": "behind",
+          "提示": "behind 表示在某物后面",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The bird flew ____ the cage and escaped.",
+          "答案": "out of",
+          "提示": "out of表示从内部向外出来",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "You should finish your homework ____ dinner.",
+          "答案": "before",
+          "提示": "before表示在某个时间之前",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "We stayed at the hotel ____ three days.",
+          "答案": "for",
+          "提示": "for表示持续一段时间",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "He came to school ____ his new bike.",
+          "答案": "by",
+          "提示": "by后接交通方式表示乘坐某种交通工具",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "Please finish the work ____ Friday.",
+          "答案": "by",
+          "提示": "by表示不迟于某个时间点",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "She walked ____ the forest to find the way home.",
+          "答案": "through",
+          "提示": "through表示穿过内部空间",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The plane flew ____ the clouds.",
+          "答案": "above",
+          "提示": "above表示在某物上方，不一定接触",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The children are playing ____ the bridge.",
+          "答案": "under",
+          "提示": "under表示在某物下面",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The supermarket is ____ my home, so I often walk there.",
+          "答案": "near",
+          "提示": "near表示在附近",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The boy stood ____ his father during the photo.",
+          "答案": "next to",
+          "提示": "next to表示紧挨着某人或某物",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The road goes ____ the river for several kilometers.",
+          "答案": "along",
+          "提示": "along表示沿着某条路线或方向",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "We learned a lot ____ Chinese history in class.",
+          "答案": "about",
+          "提示": "about表示关于某个主题",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "She opened the box ____ a knife.",
+          "答案": "with",
+          "提示": "with表示使用某种工具",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "This is a photo ____ my family.",
+          "答案": "of",
+          "提示": "of表示所属关系或……的",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "He was late ____ the heavy rain.",
+          "答案": "because of",
+          "提示": "because of表示因为某个原因",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The bank is ____ the school and the park.",
+          "答案": "between",
+          "提示": "between用于两个地点之间",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The boy ran ____ the street carefully.",
+          "答案": "across",
+          "提示": "across表示从一边到另一边穿过表面",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "My father has worked here ____ 2018.",
+          "答案": "since",
+          "提示": "since表示从过去某一点一直到现在",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The shop is open ____ 9 p.m.",
+          "答案": "until",
+          "提示": "until表示直到某个时间为止",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "I usually get up ____ the morning.",
+          "答案": "in",
+          "提示": "in用于较长时间段，如月份、年份、早中晚",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "We have an English test ____ September 15th.",
+          "答案": "on",
+          "提示": "具体日期前用 on",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The school trip is ____ Tuesday.",
+          "答案": "on",
+          "提示": "星期几前用 on",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "My brother was born ____ 2012.",
+          "答案": "in",
+          "提示": "年份前用 in",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The students arrive at school ____ 7:30 every day.",
+          "答案": "at",
+          "提示": "具体时刻前用 at",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "We usually have lunch ____ noon.",
+          "答案": "at",
+          "提示": "noon等具体时间点前用 at",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The library is ____ the left side of the classroom.",
+          "答案": "on",
+          "提示": "表示在某一侧面前用 on",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "There are many flowers ____ the garden.",
+          "答案": "in",
+          "提示": "表示在范围内部用 in",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The teacher's office is ____ the second floor.",
+          "答案": "on",
+          "提示": "楼层前用 on",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "We will meet ____ the school gate after class.",
+          "答案": "at",
+          "提示": "表示具体地点位置时常用 at",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The children are playing ____ the playground.",
+          "答案": "in",
+          "提示": "表示在某个区域内部用 in",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The picture hangs ____ the sofa.",
+          "答案": "above",
+          "提示": "above表示在上方，不强调接触",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The shoes are ____ the bed.",
+          "答案": "under",
+          "提示": "under表示在……下面",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "There is a big tree ____ the school gate.",
+          "答案": "in front of",
+          "提示": "in front of 表示在某物前面",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The dog followed the boy ____ the street.",
+          "答案": "along",
+          "提示": "along表示沿着某条路线移动",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The girl walked ____ the door and closed it.",
+          "答案": "through",
+          "提示": "through强调穿过内部空间",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The children climbed ____ the wall during the game.",
+          "答案": "over",
+          "提示": "over表示越过障碍物",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The horse jumped ____ the fence and ran away.",
+          "答案": "over",
+          "提示": "over 表示从上方越过障碍物",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The car drove ____ the tunnel slowly.",
+          "答案": "through",
+          "提示": "through表示穿过内部",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The boy jumped ____ the river.",
+          "答案": "across",
+          "提示": "across表示横跨到另一边",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The teacher sat ____ two students.",
+          "答案": "between",
+          "提示": "between表示两个对象中间",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The little child hid ____ the door.",
+          "答案": "behind",
+          "提示": "behind表示在后面隐藏",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The rabbit ran ____ the box quickly.",
+          "答案": "out of",
+          "提示": "out of表示从里面出来",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "We waited ____ the bus arrived.",
+          "答案": "until",
+          "提示": "until表示一直到某个动作发生",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "He finished the project ____ Monday morning.",
+          "答案": "by",
+          "提示": "by表示最晚不超过某时间",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "She goes to work ____ subway every day.",
+          "答案": "by",
+          "提示": "by表示交通方式时后面不加冠词",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "I have known my best friend ____ five years.",
+          "答案": "for",
+          "提示": "for表示一段持续时间",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The movie is ____ a famous writer.",
+          "答案": "about",
+          "提示": "about表示关于某人或某事",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The gift is ____ my parents.",
+          "答案": "from",
+          "提示": "from表示来自某人或某地",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "He walked ____ the classroom quietly.",
+          "答案": "into",
+          "提示": "into表示进入某个空间",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The students come ____ different cities.",
+          "答案": "from",
+          "提示": "from表示来自某地",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The meeting is ____ Monday morning.",
+          "答案": "on",
+          "提示": "具体某一天的上午用 on",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "We often play basketball ____ weekends.",
+          "答案": "on",
+          "提示": "weekends前常用 on",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "My family travels ____ summer holiday.",
+          "答案": "in",
+          "提示": "季节前通常用 in",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The baby fell asleep ____ midnight.",
+          "答案": "at",
+          "提示": "midnight表示具体时间点，用 at",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The teacher stood ____ the blackboard and explained the problem.",
+          "答案": "in front of",
+          "提示": "in front of表示在前面",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The bus stop is ____ the hospital.",
+          "答案": "next to",
+          "提示": "next to表示紧靠旁边",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The river is ____ the village.",
+          "答案": "below",
+          "提示": "below表示在较低的位置",
+          "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The students walked ____ the road to school.",
+          "答案": "across",
+          "提示": "across表示横穿道路表面",
+          "src": "ai_expand_2026_08"
         }
       ],
       "knowledge_points": [

@@ -165,13 +165,13 @@
 
 为孩子的英语打卡站扩充「介词选择题」题库。孩子初一，最近介词错题集中在：over（跳过）、through（内部穿过）、between（两者之间）、behind（在后面）、out of（向外）、by（不迟于/交通方式）、until（直到）、on（星期/具体日期）；in/on/at 的时间与地点用法也常混淆。
 
-## 现有题库（114 道，禁止重复）
+## 现有题库（177 道，禁止重复）
 
 - 常用介词 68 道：混考 in/on/at/by/for/with/about/under/near/behind/between/into/from/to/of/over/after/before/above/below/along/since/until/through/across/next to/out of/in front of/because of
 - 时间介词 in/on/at 11 道
 - 地点介词 10 道
 - 介词综合 11 道
-- 介词专项巩固 14 道
+- 介词专项巩固 77 道（其中 63 道为 AI 扩充，src=ai_expand_2026_08）
 
 【现有题样例——禁止原样照抄，也禁止只换主语/时间/地点换皮】
 
