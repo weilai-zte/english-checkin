@@ -58286,6 +58286,312 @@
           "答案": "across",
           "提示": "across表示横穿道路表面",
           "src": "ai_expand_2026_08"
+        },
+        {
+          "题": "The film starts ____ 7:30 this evening.",
+          "答案": "at",
+          "提示": "具体钟点前用 at",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "We celebrate the Spring Festival ____ February this year.",
+          "答案": "in",
+          "提示": "月份前用 in",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "Her birthday is ____ June 5th.",
+          "答案": "on",
+          "提示": "具体日期前用 on",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The shop opens ____ 9 a.m. every day.",
+          "答案": "at",
+          "提示": "具体钟点前用 at",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "I have been friends with him ____ ten years.",
+          "答案": "for",
+          "提示": "for + 时间段表示持续多久",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "We didn't leave the party ____ midnight.",
+          "答案": "until",
+          "提示": "not...until 表示直到……才",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "School ends ____ the afternoon.",
+          "答案": "in",
+          "提示": "早中晚时间段前用 in",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The sports meeting will be held ____ May 20th.",
+          "答案": "on",
+          "提示": "具体日期前用 on",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "My parents got married ____ 2008.",
+          "答案": "in",
+          "提示": "年份前用 in",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "You must return the books ____ next Monday.",
+          "答案": "by",
+          "提示": "by 表示不迟于某个时间",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The bus will come ____ a few minutes.",
+          "答案": "in",
+          "提示": "in + 时间段表示多久以后",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The supermarket is ____ the end of the road.",
+          "答案": "at",
+          "提示": "at the end of 表示在……尽头",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "She put the book ____ the shelf.",
+          "答案": "on",
+          "提示": "物体放在平面上用 on",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "There are some birds ____ the tree.",
+          "答案": "in",
+          "提示": "鸟在树上用 in（外来物在表面才用 on）",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The words are written ____ the blackboard.",
+          "答案": "on",
+          "提示": "写在黑板上用 on",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "He lives ____ a small village.",
+          "答案": "in",
+          "提示": "村庄等小地方前用 in",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "Please write your name ____ the top of the paper.",
+          "答案": "at",
+          "提示": "at the top of 表示在……顶部",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The children are waiting ____ the bus stop.",
+          "答案": "at",
+          "提示": "车站等具体地点前用 at",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The ball rolled ____ the table.",
+          "答案": "under",
+          "提示": "under 表示在……下面",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The plane flew ____ the mountain.",
+          "答案": "over",
+          "提示": "over 表示从上方越过",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The dog ran ____ the field.",
+          "答案": "across",
+          "提示": "across 表示横穿（从一边到另一边）",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "We walked ____ the park to get home.",
+          "答案": "through",
+          "提示": "through 表示从内部穿过",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The cat ran ____ the kitchen when it heard the food.",
+          "答案": "into",
+          "提示": "into 表示进入某个空间",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The bird flew ____ the open window.",
+          "答案": "through",
+          "提示": "through 表示穿过开口/空间",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "He took a pen ____ his bag.",
+          "答案": "out of",
+          "提示": "out of 表示从里面拿出",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The car stopped ____ the traffic lights.",
+          "答案": "at",
+          "提示": "红绿灯等地点前用 at",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The students go to school ____ foot.",
+          "答案": "on",
+          "提示": "on foot 步行，固定搭配",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "They travel ____ plane to Beijing.",
+          "答案": "by",
+          "提示": "by + 交通工具（无冠词）",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The ship sailed ____ the sea.",
+          "答案": "across",
+          "提示": "across 表示横渡",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "We walked ____ the beach hand in hand.",
+          "答案": "along",
+          "提示": "along 表示沿着",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The river flows ____ the valley.",
+          "答案": "through",
+          "提示": "through 表示穿过山谷内部",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The library is very ____ our classroom, only a two-minute walk away.",
+          "答案": "near",
+          "提示": "near 表示在附近",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The chair is ____ the table.",
+          "答案": "next to",
+          "提示": "next to 表示紧挨着",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "Her room is ____ mine, one floor higher.",
+          "答案": "above",
+          "提示": "above 表示在上方（不接触）",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "This sweater is made ____ wool.",
+          "答案": "of",
+          "提示": "be made of 看得出原材料",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "She cut the paper ____ scissors.",
+          "答案": "with",
+          "提示": "with 表示用某种工具",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "I'm interested ____ history.",
+          "答案": "in",
+          "提示": "be interested in 对……感兴趣",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The teacher is very strict ____ us.",
+          "答案": "with",
+          "提示": "be strict with sb 对某人严格",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The book is written ____ English.",
+          "答案": "in",
+          "提示": "in + 语言表示用某种语言",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "Don't worry ____ the exam; you will pass.",
+          "答案": "about",
+          "提示": "worry about 担心",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "Thank you ____ your help.",
+          "答案": "for",
+          "提示": "thank sb for sth 因某事感谢",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The little girl is afraid ____ dogs.",
+          "答案": "of",
+          "提示": "be afraid of 害怕",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "We are proud ____ our school.",
+          "答案": "of",
+          "提示": "be proud of 为……自豪",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The fireman saved the boy ____ the fire.",
+          "答案": "from",
+          "提示": "save sb from 从……中救出",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The letter is ____ my pen pal in Canada.",
+          "答案": "from",
+          "提示": "from 表示来自",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The meeting was cancelled ____ the bad weather.",
+          "答案": "because of",
+          "提示": "because of + 名词表示原因",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "He is good ____ playing the piano.",
+          "答案": "at",
+          "提示": "be good at 擅长",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "We should listen ____ the teacher carefully in class.",
+          "答案": "to",
+          "提示": "listen to 听……",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "I'll give the book ____ you tomorrow.",
+          "答案": "to",
+          "提示": "give sth to sb 把某物给某人",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The map shows the way ____ the station.",
+          "答案": "to",
+          "提示": "the way to 去……的路",
+          "src": "codex_expand_2026_08"
+        },
+        {
+          "题": "The students are talking ____ the new film.",
+          "答案": "about",
+          "提示": "talk about 谈论",
+          "src": "codex_expand_2026_08"
         }
       ],
       "knowledge_points": [
