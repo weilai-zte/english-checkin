@@ -3,17 +3,17 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 4303,
+    "total": 4323,
     "type_count": {
       "vocab": 3624,
       "grammar": 108,
-      "translate": 364,
+      "translate": 384,
       "tense": 207
     },
     "grade_count": {
       "L1": 1900,
       "L2": 1283,
-      "L3": 1120
+      "L3": 1140
     },
     "filter_attrs": [
       "type",
@@ -63666,6 +63666,337 @@
       "knowledge_points": [
         "状语从句",
         "it 用法"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_101",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时yet",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "我还没有决定暑假去哪里旅行。",
+      "en": "I haven't decided where to travel during the summer vacation yet.",
+      "hint": "yet用于现在完成时否定句，表示尚未完成。",
+      "knowledge_points": [
+        "现在完成时",
+        "宾语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_102",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时for",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "我们成为朋友已经超过五年了。",
+      "en": "We have been friends for more than five years.",
+      "hint": "表示状态持续时间时，be动词用现在完成时。",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_103",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "他完成作业后就去睡觉了。",
+      "en": "After he had finished his homework, he went to bed.",
+      "hint": "过去某个时间之前已经完成的动作使用过去完成时。",
+      "knowledge_points": [
+        "过去完成时",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_104",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时while",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "学生们考试时，老师在教室里走来走去。",
+      "en": "While the students were doing the test, the teacher walked around the classroom.",
+      "hint": "while后常接过去进行时表示正在进行的动作。",
+      "knowledge_points": [
+        "过去进行时",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_105",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "一般过去时被动",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "窗户昨晚被大风刮破了。",
+      "en": "The windows were broken by the strong wind last night.",
+      "hint": "过去发生的被动动作使用 was/were + 过去分词。",
+      "knowledge_points": [
+        "一般过去时",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_106",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "情态动词被动",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "这些规则必须被所有学生遵守。",
+      "en": "These rules must be followed by all students.",
+      "hint": "must后面的被动结构为must be done。",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_107",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "There be句型",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "地板上散落着许多书。",
+      "en": "There are many books lying on the floor.",
+      "hint": "There be句型表示存在，后面可接现在分词作补充说明。",
+      "knowledge_points": [
+        "There be 句型"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_108",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "我想知道他是否能解决这个问题。",
+      "en": "I want to know whether he can solve this problem.",
+      "hint": "whether引导宾语从句表示是否。",
+      "knowledge_points": [
+        "宾语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_109",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "特殊疑问句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "你知道电影几点开始吗？",
+      "en": "Do you know what time the film starts?",
+      "hint": "疑问词引导宾语从句时使用陈述语序。",
+      "knowledge_points": [
+        "宾语从句",
+        "特殊疑问句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_110",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "我们班唱歌最好的女孩是艾米。",
+      "en": "The girl who sings best in our class is Amy.",
+      "hint": "who引导定语从句修饰人。",
+      "knowledge_points": [
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_111",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "爸爸送给我的那辆自行车是蓝色的。",
+      "en": "The bike that my father gave me is blue.",
+      "hint": "that可以引导定语从句修饰物。",
+      "knowledge_points": [
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_112",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "比较结构",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "这个红色的包比黑色的贵得多。",
+      "en": "The red bag is much more expensive than the black one.",
+      "hint": "much可以修饰比较级，加强程度。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_113",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "比较结构",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "跑得越快，你到达终点就越早。",
+      "en": "The faster you run, the earlier you will reach the finish line.",
+      "hint": "the+比较级，the+比较级表示越……越……。",
+      "knowledge_points": [
+        "比较结构",
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_114",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "最高级",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "大连是中国最美丽的城市之一。",
+      "en": "Dalian is one of the most beautiful cities in China.",
+      "hint": "one of + 最高级 + 名词复数。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_115",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "look up",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "遇到不认识的单词时，我会在网上查它。",
+      "en": "When I meet new words, I look them up online.",
+      "hint": "look up表示查找信息或单词。",
+      "knowledge_points": [
+        "短语动词",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_116",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "keep doing",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "即使遇到困难，他仍然坚持学习英语。",
+      "en": "He keeps learning English even when he meets difficulties.",
+      "hint": "keep doing表示持续做某事。",
+      "knowledge_points": [
+        "常用短语",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_117",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "反义疑问句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "汤姆不喜欢运动，是吗？",
+      "en": "Tom doesn't like sports, does he?",
+      "hint": "否定意义的陈述句后接肯定形式反意疑问句。",
+      "knowledge_points": [
+        "反义疑问句",
+        "一般现在时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_118",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "it用法",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "对于学生来说，保持良好的学习习惯很重要。",
+      "en": "It is important for students to keep good study habits.",
+      "hint": "It is + 形容词 + for sb + to do 表示做某事对某人来说……。",
+      "knowledge_points": [
+        "it 用法"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_119",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "as well as",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "她会唱歌，也会弹钢琴。",
+      "en": "She can play the piano as well as sing songs.",
+      "hint": "as well as表示除了……之外还……。",
+      "knowledge_points": [
+        "常用短语"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_120",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "综合语法",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "cn2en",
+      "cn": "如果我们保护环境，未来的生活会变得更美好。",
+      "en": "If we protect the environment, life will become better in the future.",
+      "hint": "if条件句中从句用一般现在时，主句用will。",
+      "knowledge_points": [
+        "If 条件句",
+        "一般将来时"
       ],
       "src": "ai_expand_2026_08"
     },
