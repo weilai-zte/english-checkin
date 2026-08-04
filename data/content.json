@@ -3,17 +3,17 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 4348,
+    "total": 4373,
     "type_count": {
       "vocab": 3624,
       "grammar": 108,
-      "translate": 409,
+      "translate": 434,
       "tense": 207
     },
     "grade_count": {
       "L1": 1900,
       "L2": 1283,
-      "L3": 1165
+      "L3": 1190
     },
     "filter_attrs": [
       "type",
@@ -64411,6 +64411,418 @@
       "knowledge_points": [
         "状语从句",
         "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_146",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时与最高级",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "孔子是中国历史上最著名的老师之一。",
+      "en": "Confucius is one of the most famous teachers in Chinese history.",
+      "hint": "one of + 最高级 + 复数名词，常与现在完成时搭配。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_147",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "当老师到达教室时，学生们已经开始讨论了。",
+      "en": "When the teacher arrived at the classroom, the students had already started discussing.",
+      "hint": "过去某动作发生前已经完成的动作使用过去完成时。",
+      "knowledge_points": [
+        "过去完成时",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_148",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "一般过去时被动",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "这张照片是在去年学校旅行中拍摄的。",
+      "en": "This photo was taken during the school trip last year.",
+      "hint": "过去发生的被动动作使用 was/were + 过去分词。",
+      "knowledge_points": [
+        "一般过去时",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_149",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "她已经完成了所有家庭作业，所以她可以出去玩。",
+      "en": "She has finished all her homework, so she can go out to play.",
+      "hint": "现在完成时表示过去发生的动作对现在有影响。",
+      "knowledge_points": [
+        "现在完成时",
+        "情态动词"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_150",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "if条件句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "如果明天下雪，我们就堆雪人。",
+      "en": "If it snows tomorrow, we will make a snowman.",
+      "hint": "if主将从现，从句使用一般现在时。",
+      "knowledge_points": [
+        "If 条件句",
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_151",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "unless条件句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "除非有充足的阳光，否则这些花长不好。",
+      "en": "The flowers won't grow unless they get enough sunlight.",
+      "hint": "unless相当于if...not，表示除非。",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_152",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "情态动词被动",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "垃圾应该被分类处理以保护环境。",
+      "en": "Rubbish should be separated to protect the environment.",
+      "hint": "情态动词后的被动形式为 should be done。",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_153",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "There be句型",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "花园里有一些孩子在玩耍。",
+      "en": "There are some children playing in the garden.",
+      "hint": "There be后可接现在分词短语补充说明。",
+      "knowledge_points": [
+        "There be 句型"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_154",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "她问我是否能帮她。",
+      "en": "She asked me if I could help her.",
+      "hint": "if/whether 引导宾语从句，用陈述语序。",
+      "knowledge_points": [
+        "宾语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_155",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "你能告诉我新老师是谁吗？",
+      "en": "Could you tell me who the new teacher is?",
+      "hint": "特殊疑问词引导宾语从句时不用疑问语序。",
+      "knowledge_points": [
+        "宾语从句",
+        "特殊疑问句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_156",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "正在打扫教室的学生们在值日。",
+      "en": "The students who are cleaning the classroom are on duty.",
+      "hint": "who引导定语从句修饰人。",
+      "knowledge_points": [
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_157",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 3,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "桌子上的那本词典是我哥哥的。",
+      "en": "The dictionary that is on the desk belongs to my brother.",
+      "hint": "that可引导定语从句修饰物。",
+      "knowledge_points": [
+        "定语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_158",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "spend doing",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "他把所有的钱都花在买票上了。",
+      "en": "He spent all his money buying the tickets.",
+      "hint": "spend + 金钱/时间 + doing 表示花费。",
+      "knowledge_points": [
+        "常用短语",
+        "一般过去时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_159",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "put off",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "不要把今天的工作拖到明天。",
+      "en": "Don't put off today's work until tomorrow.",
+      "hint": "put off 表示推迟。",
+      "knowledge_points": [
+        "短语动词",
+        "祈使句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_160",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "look after",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "假期里她照顾她的祖父母。",
+      "en": "She looks after her grandparents during the holidays.",
+      "hint": "look after 表示照顾。",
+      "knowledge_points": [
+        "短语动词"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_161",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "look up",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "写报告前你应该先查阅资料。",
+      "en": "You should look up the information before you write the report.",
+      "hint": "look up 表示查找单词或资料。",
+      "knowledge_points": [
+        "短语动词",
+        "状语从句"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_162",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "as well as",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "他既能写诗也能写故事。",
+      "en": "He can write poems as well as stories.",
+      "hint": "as well as 表示除了……之外还……。",
+      "knowledge_points": [
+        "常用短语"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_163",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "比较结构",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "我的新书包比旧书包轻得多。",
+      "en": "My new schoolbag is much lighter than my old one.",
+      "hint": "much修饰比较级表示程度加强。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_164",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "the more the more",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "你爬得越高，看得越远。",
+      "en": "The higher you climb, the farther you can see.",
+      "hint": "the+比较级，the+比较级表示越……越……。",
+      "knowledge_points": [
+        "比较结构"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_165",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "it用法",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "我认为帮助同学是我的责任。",
+      "en": "I consider it my duty to help my classmates.",
+      "hint": "consider/find/think + it + 名词/形容词 + to do 结构。",
+      "knowledge_points": [
+        "it 用法"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_166",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "反义疑问句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "他们明天会来，不是吗？",
+      "en": "They will come tomorrow, won't they?",
+      "hint": "肯定句后接否定形式反义疑问句。",
+      "knowledge_points": [
+        "反义疑问句",
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_167",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "下周末我要去看望我的祖父母。",
+      "en": "I will visit my grandparents next weekend.",
+      "hint": "will 表示将来的计划。",
+      "knowledge_points": [
+        "一般将来时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_168",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "昨天这个时候我正在和朋友聊天。",
+      "en": "I was chatting with my friend at this time yesterday.",
+      "hint": "at this time yesterday 对应过去进行时。",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_169",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "被动语态综合",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "下课后必须打扫教室。",
+      "en": "The classroom must be cleaned after class.",
+      "hint": "must be done 表示必须被完成。",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "ai_expand_2026_08"
+    },
+    {
+      "id": "t_ai_170",
+      "type": "translate",
+      "grade": "L3",
+      "topic": "综合长句",
+      "freq": 5,
+      "difficulty": "hard",
+      "direction": "en2cn",
+      "cn": "虽然他年纪小，但他懂很多科学知识。",
+      "en": "Although he is young, he knows a lot about science.",
+      "hint": "although 引导让步状语从句。",
+      "knowledge_points": [
+        "状语从句",
+        "一般现在时"
       ],
       "src": "ai_expand_2026_08"
     },
