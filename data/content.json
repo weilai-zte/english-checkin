@@ -3,17 +3,17 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 4473,
+    "total": 4590,
     "type_count": {
       "vocab": 3624,
       "grammar": 108,
       "translate": 534,
-      "tense": 207
+      "tense": 324
     },
     "grade_count": {
       "L1": 1901,
       "L2": 1506,
-      "L3": 1066
+      "L3": 1183
     },
     "filter_attrs": [
       "type",
@@ -69223,6 +69223,1820 @@
         "定语从句"
       ],
       "src": "curriculum_expand_2026_07"
+    },
+    {
+      "id": "tt_codex_001",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The train ____ (leave) before we reached the station.",
+      "answer": "had left",
+      "hint": "先发生用过去完成时",
+      "knowledge_points": [
+        "过去完成时",
+        "状语从句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_002",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "By nine o'clock last night, the children ____ (go) to bed.",
+      "answer": "had gone",
+      "hint": "by + 过去时间用过去完成时",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_003",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She said she ____ (see) the film before.",
+      "answer": "had seen",
+      "hint": "said 之前已发生用过去完成时",
+      "knowledge_points": [
+        "过去完成时",
+        "间接引语"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_004",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "After he ____ (finish) his homework, he played football.",
+      "answer": "had finished",
+      "hint": "after 从句先发生用过去完成时",
+      "knowledge_points": [
+        "过去完成时",
+        "状语从句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_005",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I realized I ____ (leave) my keys at home.",
+      "answer": "had left",
+      "hint": "意识到之前已发生用过去完成时",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_006",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "They ____ (live) in London for ten years before they moved here.",
+      "answer": "had lived",
+      "hint": "搬到之前已住十年",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_007",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "Hardly had I ____ (get) home when it began to rain.",
+      "answer": "got",
+      "hint": "Hardly...when 结构中用过去完成时",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_008",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The play ____ already ____ (start) when we arrived.",
+      "answer": "had, started",
+      "hint": "到达前已开始",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_009",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "By the time the teacher came, we ____ (clean) the classroom.",
+      "answer": "had cleaned",
+      "hint": "老师来之前已打扫完",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_010",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "He told me he ____ (finish) the work two days before.",
+      "answer": "had finished",
+      "hint": "转述更早动作用过去完成时",
+      "knowledge_points": [
+        "过去完成时",
+        "间接引语"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_011",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The room was empty; someone ____ (be) there before.",
+      "answer": "had been",
+      "hint": "先前的状态用过去完成时",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_012",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I ____ (not eat) anything before the party.",
+      "answer": "hadn't eaten",
+      "hint": "聚会前没吃东西",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_013",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She was tired because she ____ (not sleep) well the night before.",
+      "answer": "hadn't slept",
+      "hint": "原因先发生用过去完成时",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_014",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The film ____ (begin) when I got to the cinema.",
+      "answer": "had begun",
+      "hint": "到电影院时已开始",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_015",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "We ____ (know) each other for years before we became friends.",
+      "answer": "had known",
+      "hint": "成为朋友之前认识多年",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_016",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "He said he ____ (come) to the party the next day.",
+      "answer": "would come",
+      "hint": "从过去看将来用过去将来时",
+      "knowledge_points": [
+        "过去将来时",
+        "间接引语"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_017",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I thought it ____ (rain) soon.",
+      "answer": "would rain",
+      "hint": "过去的预测",
+      "knowledge_points": [
+        "过去将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_018",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She told me she ____ (buy) a new bike.",
+      "answer": "would buy",
+      "hint": "转述打算",
+      "knowledge_points": [
+        "过去将来时",
+        "间接引语"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_019",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The teacher said we ____ (have) a test the following week.",
+      "answer": "would have",
+      "hint": "过去说将来",
+      "knowledge_points": [
+        "过去将来时",
+        "间接引语"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_020",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I hoped the weather ____ (be) fine.",
+      "answer": "would be",
+      "hint": "过去的希望",
+      "knowledge_points": [
+        "过去将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_021",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "They decided that they ____ (start) early.",
+      "answer": "would start",
+      "hint": "过去的决定",
+      "knowledge_points": [
+        "过去将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_022",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She promised she ____ (finish) the report on time.",
+      "answer": "would finish",
+      "hint": "过去的承诺",
+      "knowledge_points": [
+        "过去将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_023",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The guide said the museum ____ (open) at nine.",
+      "answer": "would open",
+      "hint": "过去的说明",
+      "knowledge_points": [
+        "过去将来时",
+        "间接引语"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_024",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "My father said he ____ (take) me to the zoo.",
+      "answer": "would take",
+      "hint": "转述将来的安排",
+      "knowledge_points": [
+        "过去将来时",
+        "间接引语"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_025",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She wondered if the train ____ (arrive) on time.",
+      "answer": "would arrive",
+      "hint": "过去疑问中的将来",
+      "knowledge_points": [
+        "过去将来时",
+        "宾语从句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_026",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "They asked whether the meeting ____ (put off).",
+      "answer": "would be put off",
+      "hint": "过去将来时被动",
+      "knowledge_points": [
+        "过去将来时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_027",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The headmaster announced that the prize-giving ____ (hold) the next month.",
+      "answer": "would be held",
+      "hint": "过去将来时被动",
+      "knowledge_points": [
+        "过去将来时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_028",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She ____ (teach) English since 2015.",
+      "answer": "has taught",
+      "hint": "since + 时间点用现在完成时",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_029",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "How long ____ you ____ (live) in this city?",
+      "answer": "have, lived",
+      "hint": "how long 用现在完成时",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_030",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I ____ (not see) him for ages.",
+      "answer": "haven't seen",
+      "hint": "for + 长时间用现在完成时",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_031",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "He ____ (write) three books so far.",
+      "answer": "has written",
+      "hint": "so far 用现在完成时",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_032",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "We ____ (be) good friends since childhood.",
+      "answer": "have been",
+      "hint": "since 表示持续状态",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_033",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "____ you ever ____ (visit) the Great Wall?",
+      "answer": "Have, visited",
+      "hint": "ever 询问经历",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_034",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The workers ____ (build) the bridge for two years.",
+      "answer": "have built",
+      "hint": "持续到现在的动作",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_035",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She ____ (go) to Shanghai; she will be back next week.",
+      "answer": "has gone",
+      "hint": "has gone 表示已去未回",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_036",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "My brother ____ (be) to Beijing twice.",
+      "answer": "has been",
+      "hint": "has been 表示去过已回",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_037",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I ____ just ____ (finish) my homework.",
+      "answer": "have, finished",
+      "hint": "just 用现在完成时",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_038",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "____ the meeting ____ (begin) yet?",
+      "answer": "Has, begun",
+      "hint": "yet 用于疑问句",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_039",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "He ____ (lose) his watch; he can't find it anywhere.",
+      "answer": "has lost",
+      "hint": "结果影响现在",
+      "knowledge_points": [
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_040",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The trees ____ (water) by the gardener already.",
+      "answer": "have been watered",
+      "hint": "现在完成时被动",
+      "knowledge_points": [
+        "现在完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_041",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "Many trees ____ (plant) in our city since last year.",
+      "answer": "have been planted",
+      "hint": "现在完成时被动",
+      "knowledge_points": [
+        "现在完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_042",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The new road ____ (complete) so far.",
+      "answer": "has been completed",
+      "hint": "so far 现在完成时被动",
+      "knowledge_points": [
+        "现在完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_043",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "These rules ____ (obey) by all students since then.",
+      "answer": "have been obeyed",
+      "hint": "since then 现在完成时被动",
+      "knowledge_points": [
+        "现在完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_044",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The book ____ (translate) into many languages already.",
+      "answer": "has been translated",
+      "hint": "已经翻译完成",
+      "knowledge_points": [
+        "现在完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_045",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "A lot of water ____ (waste) in the past few years.",
+      "answer": "has been wasted",
+      "hint": "过去几年现在完成时被动",
+      "knowledge_points": [
+        "现在完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_046",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The plan ____ (discuss) for three hours.",
+      "answer": "has been discussed",
+      "hint": "持续到现在的被动",
+      "knowledge_points": [
+        "现在完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_047",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The window ____ (break) by someone. Let's repair it.",
+      "answer": "has been broken",
+      "hint": "结果影响现在",
+      "knowledge_points": [
+        "现在完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_048",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The homework ____ (check) before the class began.",
+      "answer": "had been checked",
+      "hint": "上课前已被检查",
+      "knowledge_points": [
+        "过去完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_049",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The letter ____ (send) before I arrived.",
+      "answer": "had been sent",
+      "hint": "到达前已寄出",
+      "knowledge_points": [
+        "过去完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_050",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "All the tickets ____ (sell) out when we got there.",
+      "answer": "had been sold",
+      "hint": "到那时已售完",
+      "knowledge_points": [
+        "过去完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_051",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The bridge ____ (build) before the war.",
+      "answer": "had been built",
+      "hint": "战争前已建成",
+      "knowledge_points": [
+        "过去完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_052",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The classroom ____ (clean) by the time the teacher came.",
+      "answer": "had been cleaned",
+      "hint": "老师来之前已打扫",
+      "knowledge_points": [
+        "过去完成时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_053",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The problem ____ (discuss) at the meeting right now.",
+      "answer": "is being discussed",
+      "hint": "现在进行时被动",
+      "knowledge_points": [
+        "现在进行时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_054",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The rooms ____ (paint) by the workers at the moment.",
+      "answer": "are being painted",
+      "hint": "此刻正在被粉刷",
+      "knowledge_points": [
+        "现在进行时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_055",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "A new library ____ (set up) in our community these days.",
+      "answer": "is being set up",
+      "hint": "这些天正在修建",
+      "knowledge_points": [
+        "现在进行时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_056",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The road ____ (repair) now; please go another way.",
+      "answer": "is being repaired",
+      "hint": "正在修路",
+      "knowledge_points": [
+        "现在进行时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_057",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "English songs ____ (play) in the classroom now.",
+      "answer": "are being played",
+      "hint": "此刻正在播放",
+      "knowledge_points": [
+        "现在进行时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_058",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The old bridge ____ (pull down) at present.",
+      "answer": "is being pulled down",
+      "hint": "目前正在拆除",
+      "knowledge_points": [
+        "现在进行时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_059",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The sports meeting ____ (hold) next month.",
+      "answer": "will be held",
+      "hint": "将来时被动",
+      "knowledge_points": [
+        "一般将来时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_060",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The homework ____ (hand in) tomorrow morning.",
+      "answer": "will be handed in",
+      "hint": "明天交作业",
+      "knowledge_points": [
+        "一般将来时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_061",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "A new hospital ____ (open) in our town next year.",
+      "answer": "will be opened",
+      "hint": "明年开业",
+      "knowledge_points": [
+        "一般将来时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_062",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The photos ____ (show) to the class later.",
+      "answer": "will be shown",
+      "hint": "稍后展示",
+      "knowledge_points": [
+        "一般将来时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_063",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The rubbish ____ (collect) twice a week in the future.",
+      "answer": "will be collected",
+      "hint": "未来收集",
+      "knowledge_points": [
+        "一般将来时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_064",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "More trees ____ (plant) in the city next spring.",
+      "answer": "will be planted",
+      "hint": "明年春天种植",
+      "knowledge_points": [
+        "一般将来时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_065",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "情态动词",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The task must ____ (finish) before the deadline.",
+      "answer": "be finished",
+      "hint": "情态动词被动",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_066",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "情态动词",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "These books can ____ (find) in the school library.",
+      "answer": "be found",
+      "hint": "can be done",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_067",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "情态动词",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The problem should ____ (solve) as soon as possible.",
+      "answer": "be solved",
+      "hint": "should be done",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_068",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "情态动词",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The flowers may ____ (water) every day in summer.",
+      "answer": "be watered",
+      "hint": "may be done",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_069",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "情态动词",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The lights must ____ (turn off) when you leave.",
+      "answer": "be turned off",
+      "hint": "must be done",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_070",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "情态动词",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "This question could ____ (answer) by anyone.",
+      "answer": "be answered",
+      "hint": "could be done",
+      "knowledge_points": [
+        "情态动词",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_071",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "By next year, I ____ (learn) two thousand English words.",
+      "answer": "will have learned",
+      "hint": "将来完成时",
+      "knowledge_points": [
+        "一般将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_072",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "By the end of this term, we ____ (study) ten units.",
+      "answer": "will have studied",
+      "hint": "到期末将完成",
+      "knowledge_points": [
+        "一般将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_073",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "They ____ (finish) the building by 2030.",
+      "answer": "will have finished",
+      "hint": "到 2030 年将完成",
+      "knowledge_points": [
+        "一般将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_074",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She ____ (return) home by the time we get there.",
+      "answer": "will have returned",
+      "hint": "到那时已回来",
+      "knowledge_points": [
+        "一般将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_075",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "By next month, he ____ (work) here for ten years.",
+      "answer": "will have worked",
+      "hint": "到下月满十年",
+      "knowledge_points": [
+        "一般将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_076",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "Look! The children ____ (play) basketball on the playground.",
+      "answer": "are playing",
+      "hint": "Look 提示现在进行时",
+      "knowledge_points": [
+        "现在进行时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_077",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "We ____ (have) an English class at this time tomorrow.",
+      "answer": "will be having",
+      "hint": "将来进行时",
+      "knowledge_points": [
+        "一般将来时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_078",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "现在进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "Listen! Someone ____ (sing) in the next room.",
+      "answer": "is singing",
+      "hint": "listen 提示现在进行时",
+      "knowledge_points": [
+        "现在进行时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_079",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "He ____ (work) in the garden when I saw him.",
+      "answer": "was working",
+      "hint": "看到时正在做",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_080",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I ____ (read) a novel at eight last night.",
+      "answer": "was reading",
+      "hint": "过去某时刻进行",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_081",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般现在时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The sun ____ (rise) in the east every morning.",
+      "answer": "rises",
+      "hint": "客观规律用一般现在时",
+      "knowledge_points": [
+        "一般现在时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_082",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般现在时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She ____ (go) to school by bus every day.",
+      "answer": "goes",
+      "hint": "习惯用一般现在时",
+      "knowledge_points": [
+        "一般现在时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_083",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般过去时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "They ____ (watch) a football match last night.",
+      "answer": "watched",
+      "hint": "过去时间用一般过去时",
+      "knowledge_points": [
+        "一般过去时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_084",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般过去时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "He ____ (not come) to school yesterday because he was ill.",
+      "answer": "didn't come",
+      "hint": "昨天过去时否定",
+      "knowledge_points": [
+        "一般过去时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_085",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "Tomorrow we ____ (climb) the mountain if it doesn't rain.",
+      "answer": "will climb",
+      "hint": "主将从现",
+      "knowledge_points": [
+        "一般将来时",
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_086",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "When the bell rang, the students ____ (wait) for the teacher.",
+      "answer": "were waiting",
+      "hint": "铃响时正在等",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_087",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I ____ (clean) the room while my mother was cooking.",
+      "answer": "was cleaning",
+      "hint": "while 连接两个进行动作",
+      "knowledge_points": [
+        "过去进行时",
+        "状语从句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_088",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She ____ (write) a letter when I entered her room.",
+      "answer": "was writing",
+      "hint": "进入时正在写",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_089",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "We ____ (not watch) TV at this time yesterday.",
+      "answer": "weren't watching",
+      "hint": "昨天此时没在看",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_090",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般过去时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "He ____ (run) fast when he was young.",
+      "answer": "ran",
+      "hint": "年轻时过去时",
+      "knowledge_points": [
+        "一般过去时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_091",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "If it ____ (be) sunny tomorrow, we will go to the beach.",
+      "answer": "is",
+      "hint": "if 从句用一般现在时",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_092",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "If you ____ (not hurry), you will miss the bus.",
+      "answer": "don't hurry",
+      "hint": "主将从现",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_093",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "Unless you ____ (work) hard, you won't pass the exam.",
+      "answer": "work",
+      "hint": "unless 用一般现在时",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_094",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "状语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I will call you as soon as I ____ (arrive).",
+      "answer": "arrive",
+      "hint": "as soon as 主将从现",
+      "knowledge_points": [
+        "状语从句",
+        "一般现在时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_095",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "状语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "We will start when the teacher ____ (come).",
+      "answer": "comes",
+      "hint": "时间状语从句主将从现",
+      "knowledge_points": [
+        "状语从句",
+        "一般现在时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_096",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "If I ____ (be) you, I would take his advice.",
+      "answer": "were",
+      "hint": "与现在事实相反",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_097",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "If I ____ (have) more time, I would help you.",
+      "answer": "had",
+      "hint": "与现在相反的虚拟",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_098",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "If it ____ (be) colder, the lake would freeze.",
+      "answer": "were",
+      "hint": "与现在事实相反的虚拟",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_099",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "If he ____ (come) yesterday, he would have seen her.",
+      "answer": "had come",
+      "hint": "与过去相反",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_100",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "If we ____ (leave) earlier, we would have caught the train.",
+      "answer": "had left",
+      "hint": "与过去相反的虚拟",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_101",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "情态动词",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I wish I ____ (can) fly.",
+      "answer": "could",
+      "hint": "wish 虚拟",
+      "knowledge_points": [
+        "情态动词"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_102",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "情态动词",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I wish I ____ (be) taller.",
+      "answer": "were",
+      "hint": "wish 与现在相反",
+      "knowledge_points": [
+        "情态动词"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_103",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "If 条件句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "If he had got up early, he ____ (catch) the train.",
+      "answer": "would have caught",
+      "hint": "与过去相反的虚拟主句",
+      "knowledge_points": [
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_104",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The teacher said the earth ____ (go) around the sun.",
+      "answer": "goes",
+      "hint": "客观真理不受时态影响",
+      "knowledge_points": [
+        "宾语从句",
+        "一般现在时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_105",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She asked me where I ____ (live).",
+      "answer": "lived",
+      "hint": "主句过去时从句退格",
+      "knowledge_points": [
+        "宾语从句",
+        "间接引语"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_106",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "He asked if I ____ (like) music.",
+      "answer": "liked",
+      "hint": "转述过去时",
+      "knowledge_points": [
+        "宾语从句",
+        "间接引语"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_107",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I wondered what he ____ (do) at that time.",
+      "answer": "was doing",
+      "hint": "过去进行时呼应",
+      "knowledge_points": [
+        "宾语从句",
+        "过去进行时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_108",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "She told me she ____ (be) to Japan before.",
+      "answer": "had been",
+      "hint": "更早经历用过去完成时",
+      "knowledge_points": [
+        "宾语从句",
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_109",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "宾语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "My mother asked me whether I ____ (finish) my homework.",
+      "answer": "had finished",
+      "hint": "问的是更早的事",
+      "knowledge_points": [
+        "宾语从句",
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_110",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The man who ____ (stand) there is my uncle.",
+      "answer": "is standing",
+      "hint": "定语从句现在进行",
+      "knowledge_points": [
+        "定语从句",
+        "现在进行时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_111",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The girl who ____ (win) the prize yesterday is my sister.",
+      "answer": "won",
+      "hint": "定语从句过去时",
+      "knowledge_points": [
+        "定语从句",
+        "一般过去时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_112",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "This is the book that I ____ (read) last month.",
+      "answer": "read",
+      "hint": "上个月读的",
+      "knowledge_points": [
+        "定语从句",
+        "一般过去时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_113",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "The students who ____ (work) hard will succeed.",
+      "answer": "work",
+      "hint": "定语从句一般现在时",
+      "knowledge_points": [
+        "定语从句",
+        "一般现在时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_114",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "定语从句",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "I like the teacher who ____ (teach) us English.",
+      "answer": "teaches",
+      "hint": "定语从句三单",
+      "knowledge_points": [
+        "定语从句",
+        "一般现在时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_115",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去完成时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "By the end of last year, she ____ (write) three novels.",
+      "answer": "had written",
+      "hint": "by + 过去时间过去完成时",
+      "knowledge_points": [
+        "过去完成时"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_116",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "一般将来时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "This song ____ (sing) at the party tomorrow.",
+      "answer": "will be sung",
+      "hint": "将来时被动",
+      "knowledge_points": [
+        "一般将来时",
+        "被动语态"
+      ],
+      "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "tt_codex_117",
+      "type": "tense",
+      "grade": "L3",
+      "topic": "过去进行时",
+      "freq": 4,
+      "difficulty": "hard",
+      "question": "It ____ (rain) heavily when we got home.",
+      "answer": "was raining",
+      "hint": "到家时正在下",
+      "knowledge_points": [
+        "过去进行时"
+      ],
+      "src": "codex_expand_2026_08"
     }
   ]
 }
