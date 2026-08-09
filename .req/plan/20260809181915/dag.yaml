@@ -1,0 +1,57 @@
+# DAG Structure — generated during Decompose phase
+# nodes: list of {id, label, agent_type, estimated_minutes, depends_on: [id]}
+# parallel_groups: list of [node_id] that can run concurrently
+nodes: []
+parallel_groups: []
+expected_bottlenecks: []
+nodes:
+  - id: "n6-tests"
+    label: "新增回归测试（tests/test_site_static.py）：seed 确定性/去重/草稿/自动恢复断言"
+    agent_type: "code"
+    estimated_minutes: 10
+    depends_on: []
+
+  - id: "n1-seeded-rng"
+    label: "seeded PRNG 基础设施：hash+mulberry32+rand()+makeSeed，shuffle/sample/pick/sampleUnseen 接入 rand()"
+    agent_type: "code"
+    estimated_minutes: 10
+    depends_on: []
+
+  - id: "n2-seed-entries"
+    label: "题型入口 seed 化：generateDailyTask/renderTense/renderPreposition/renderQuiz/renderTranslate/renderDictation 设置 seed；hide/direction 随机点走 rand()"
+    agent_type: "code"
+    estimated_minutes: 8
+    depends_on: ["n1-seeded-rng"]
+
+  - id: "n3-recent-dedup"
+    label: "跨天去重：defaultProgress.recent_seen + markSeen + recentSeenKeys + 各抽题过滤 + 各提交点挂载"
+    agent_type: "code"
+    estimated_minutes: 12
+    depends_on: ["n1-seeded-rng"]
+
+  - id: "n4-draft-snapshot"
+    label: "草稿快照：DRAFT_KEY + saveDraft/collectAnswers/loadDraft/clearDraft + input/推进/visibility 保存时机 + 完成/过期清理"
+    agent_type: "code"
+    estimated_minutes: 12
+    depends_on: ["n2-seed-entries", "n3-recent-dedup"]
+
+  - id: "n5-auto-restore"
+    label: "自动恢复：didAutoRestore 首 render 检测 + seed 重建 currentTask + 回填 answers（radio is-selected）+ checkin-start 清草稿"
+    agent_type: "code"
+    estimated_minutes: 10
+    depends_on: ["n4-draft-snapshot"]
+
+  - id: "n7-verify-ship"
+    label: "全量回归 + dist 同步：pytest 全量、node --check、build.py、git restore data.js、dist 资产同步"
+    agent_type: "code"
+    estimated_minutes: 10
+    depends_on: ["n5-auto-restore", "n6-tests"]
+
+parallel_groups:
+  - ["n6-tests", "n1-seeded-rng"]
+  - ["n2-seed-entries", "n3-recent-dedup"]
+
+expected_bottlenecks:
+  - "n3-recent-dedup: 提交点分散在 5+ 处渲染函数，需逐一核对不遗漏"
+  - "n4-draft-snapshot: 草稿 answers 顺序依赖渲染确定性，需与 n2 联动验证"
+  - "n7-verify-ship: data.js 每次 build 后需 git restore 排除"
