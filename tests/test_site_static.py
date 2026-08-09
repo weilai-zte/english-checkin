@@ -926,3 +926,18 @@ def test_recent_avoiding_pool_stable_within_today():
         "当天内抽题必须忽略今天的记录 (excludeToday)"
     keys = _function_block('recentSeenKeys')
     assert 'excludeToday' in keys, "recentSeenKeys 缺 excludeToday 参数"
+
+
+def test_advance_checkin_plan_advances_draft():
+    """提交完成必须把草稿推进到下一题型：否则提交后刷新会重抽已完成题型
+    （quiz/tense/prep 权重变化尤其会换题）。"""
+    block = _function_block('advanceCheckinPlan')
+    assert 'routeForCheckinType(next)' in block, "advanceCheckinPlan 未把草稿推进到下一题型"
+    assert 'answers: []' in block, "推进草稿时未清空答案"
+
+
+def test_save_draft_keeps_advanced_route_after_submit():
+    """提交后（草稿已推进）pagehide 保存不得用旧 URL 拉回已完成题型：
+    否则刷新恢复时重抽已完成题型。"""
+    block = _function_block('saveDraft')
+    assert "includes(route)" in block, "saveDraft 未防止已完成题型被旧 URL 拉回"

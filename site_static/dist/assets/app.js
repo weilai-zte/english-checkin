@@ -281,6 +281,9 @@ document.addEventListener('input', function(e) {
       if (!plan || plan.date !== today()) return; // 非打卡流程不落草稿
       const route = parseRoute().name;
       const prev = loadDraft();
+      // 当前 URL 题型已完成（如提交后未点"继续"就刷新/切后台）：保留草稿推进后的
+      // route，避免 pagehide 时用旧 URL 把草稿拉回已完成题型（导致刷新重抽）。
+      if (prev && prev.route !== route && (plan.completed || []).includes(route)) return;
       // 题型切换（route 变化）时答案作废（新题型尚无输入），否则收集当前 DOM 值
       const answers = (prev && prev.route === route) ? collectAnswers() : [];
       localStorage.setItem(DRAFT_KEY, JSON.stringify({
@@ -1256,7 +1259,16 @@ document.addEventListener('input', function(e) {
     if (idx < 0) return null;
     plan.completed = Array.from(new Set([...(plan.completed || []), type]));
     saveProgress();
-    return plan.queue[idx + 1] || 'finish';
+    const next = plan.queue[idx + 1] || 'finish';
+    // 提交完成：草稿同步推进到下一题型（清空答案），避免提交后刷新重抽已完成题型
+    if (next && next !== 'finish') {
+      try {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify({
+          date: today(), route: routeForCheckinType(next), idx: 0, answers: [], updated: Date.now(),
+        }));
+      } catch (e) { /* 隐私模式静默 */ }
+    }
+    return next;
   }
 
   // 完成整日打卡（所有勾选题型都完成后调用一次）
