@@ -817,18 +817,24 @@ document.addEventListener('input', function(e) {
     progress.recent_seen = Array.from(byKey.values()).slice(-400);
     saveProgress();
   }
-  function recentSeenKeys(days) {
+  function recentSeenKeys(days, excludeToday) {
     const n = (days && days > 0) ? days : 7;
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - (n - 1));
     const cutoffStr = dateKey(cutoff);
+    const todayStr = today();
     const out = new Set();
-    (progress.recent_seen || []).forEach(e => { if (e && e.key && e.date && e.date >= cutoffStr) out.add(e.key); });
+    (progress.recent_seen || []).forEach(e => {
+      if (!e || !e.key || !e.date || e.date < cutoffStr) return;
+      // 当天抽题必须稳定：markSeen 会随做题写入今天的记录，不过滤会导致刷新重建题目时换题
+      if (excludeToday && e.date === todayStr) return;
+      out.add(e.key);
+    });
     return out;
   }
   // 题库充足时排除最近出现过的；不足时回退（保持数量，fresh 优先）。
   function recentAvoidingPool(arr, keyFn) {
-    const recent = recentSeenKeys(7);
+    const recent = recentSeenKeys(7, true); // 当天内忽略今天的记录，保证 seed 重建稳定
     const fresh = arr.filter(x => !recent.has(keyFn(x)));
     if (fresh.length === arr.length) return fresh;
     return fresh.length ? fresh.concat(arr.filter(x => recent.has(keyFn(x)))) : arr;

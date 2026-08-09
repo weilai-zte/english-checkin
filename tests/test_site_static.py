@@ -916,3 +916,13 @@ def test_auto_restore_guard_in_render():
     block = _function_block('render')
     assert 'didAutoRestore' in block, "render 缺 didAutoRestore 一次性恢复 guard"
     assert 'restoreAnswers' in block, "render 缺 restoreAnswers 回填调用"
+
+
+def test_recent_avoiding_pool_stable_within_today():
+    """当天抽题必须忽略今天的记录：vocab 点下一个即 markSeen，
+    若不过滤，刷新恢复重建 currentTask 时候选池变化会导致换题。"""
+    pool = _function_block('recentAvoidingPool')
+    assert 'recentSeenKeys(7, true)' in pool or 'recentSeenKeys(7,true)' in pool, \
+        "当天内抽题必须忽略今天的记录 (excludeToday)"
+    keys = _function_block('recentSeenKeys')
+    assert 'excludeToday' in keys, "recentSeenKeys 缺 excludeToday 参数"
