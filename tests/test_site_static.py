@@ -254,7 +254,7 @@ def test_loadFromRemoteByKey_helper_present():
 
 def test_daily_grammar_samples_from_all_group_exercises():
     block = _function_block('generateDailyTask')
-    assert 'sample(gram.练习' in block
+    assert 'recentAvoidingPool(gram.练习' in block, "grammar 组内抽样必须经过 recent 去重过滤"
     assert "masteredG.has(g.id)) w = 0.15" in block
 
 
@@ -853,3 +853,66 @@ def test_addUnfamiliarWords_triggers_save():
     """录入不熟词必须 saveProgress() (→ 本地 + 300ms 后云端), 否则跨设备看不到。"""
     block = _function_block('addUnfamiliarWords')
     assert 'saveProgress()' in block, "addUnfamiliarWords 没 saveProgress, 录入不写盘"
+
+
+# ─── 打卡切后台恢复 (RIDEER 20260809181915) ─────────────────────
+# 1) 当日题目确定化: seed = 日期+题型+难度, 重载后同一套题
+def test_seeded_rng_infrastructure_present():
+    """必须有可播种 PRNG + makeSeed, 且 shuffle 走 rand() (可替换随机源)。"""
+    assert 'function seededRandom' in APP_JS_SRC, "缺 seededRandom (可播种 PRNG)"
+    assert 'function mulberry32' in APP_JS_SRC, "缺 mulberry32"
+    assert 'function makeSeed' in APP_JS_SRC, "缺 makeSeed (seed 构造)"
+    block = _function_block('shuffle')
+    assert 'rand()' in block, "shuffle 未接入 rand(), seed 无法生效"
+
+
+def test_each_checkin_entry_sets_seed():
+    """7 种打卡题型入口必须各自设置 seed, 同一天重载题目一致。"""
+    expected = {
+        'generateDailyTask': "makeSeed('daily')",
+        'renderTense': "makeSeed('tense')",
+        'renderPreposition': "makeSeed('preposition')",
+        'renderQuiz': "makeSeed('quiz')",
+        'renderTranslate': "makeSeed('translate')",
+        'renderDictation': "makeSeed('dictation')",
+    }
+    for fn, marker in expected.items():
+        block = _function_block(fn)
+        assert marker in block, f"{fn} 未设置 seed (缺 {marker})"
+
+
+# 2) 跨天去重: 最近 7 天出现过的题/词优先避开
+def test_recent_seen_mechanism_present():
+    """defaultProgress 必须有 recent_seen 默认值 + markSeen/recentSeenKeys 助手。"""
+    block = _function_block('defaultProgress')
+    assert 'recent_seen' in block, "defaultProgress 缺 recent_seen 默认值"
+    assert 'function markSeen' in APP_JS_SRC, "缺 markSeen (提交时记录已出现)"
+    assert 'function recentSeenKeys' in APP_JS_SRC, "缺 recentSeenKeys (最近 N 天去重查询)"
+
+
+def test_dedup_hooks_at_every_submit_point():
+    """vocab/grammar/quiz/tense/prep/translate/dictation 提交时都要 markSeen。"""
+    assert 'markSeen(' in _function_block('renderVocab'), "vocab 提交点缺 markSeen"
+    assert 'markSeen(' in _function_block('renderGrammar'), "grammar 提交点缺 markSeen"
+    assert 'markSeen(' in _function_block('renderMCQ'), "quiz/tense/prep 共用提交点缺 markSeen"
+    assert 'markSeen(' in _function_block('renderTranslate'), "translate 提交点缺 markSeen"
+    assert 'markSeen(' in _function_block('renderDictation'), "dictation 提交点缺 markSeen"
+
+
+# 3) 草稿快照 + 自动恢复
+def test_draft_snapshot_helpers_present():
+    """必须有 DRAFT_KEY + save/collect/load/clear/restore 全套助手。"""
+    assert "DRAFT_KEY" in APP_JS_SRC, "缺 DRAFT_KEY"
+    for fn in ('saveDraft', 'collectAnswers', 'loadDraft', 'clearDraft', 'restoreAnswers'):
+        assert f'function {fn}' in APP_JS_SRC, f"缺 {fn}()"
+    persist = _function_block('_persistNow')
+    assert 'saveDraft' in persist, "_persistNow 未联动 saveDraft (切后台不落草稿)"
+    mixed = _function_block('finishMixedCheckin')
+    assert 'clearDraft' in mixed, "finishMixedCheckin 未清草稿 (完成后残留)"
+
+
+def test_auto_restore_guard_in_render():
+    """render() 必须有一次性自动恢复 guard (didAutoRestore) 和回填逻辑。"""
+    block = _function_block('render')
+    assert 'didAutoRestore' in block, "render 缺 didAutoRestore 一次性恢复 guard"
+    assert 'restoreAnswers' in block, "render 缺 restoreAnswers 回填调用"

@@ -215,6 +215,7 @@ document.addEventListener('input', function(e) {
   let currentQuestions = null; // 练习题（tense/preposition/quiz 时生成）
   let currentSentences = null; // 翻译题
   let currentVocabIdx = 0;
+  let didAutoRestore = false;  // 切后台被杀重载后，首次 render 自动恢复一次
   // 暴露到 window, 让 games/*.js (独立 IIFE) 也能访问
   window.progress = progress;
   window.difficulty = difficulty;
@@ -251,13 +252,70 @@ document.addEventListener('input', function(e) {
   // ponytail: 移动端切后台/换 app 时浏览器可能冻结或被杀进程, 切回时记录会丢.
   // 这里挂两个兜底 listener: visibilitychange (iOS/Android 切后台触发) + pagehide (关闭/跳转)
   // 只 flush 当前 progress 到 localStorage, 不触发云端同步 (网络可能不通).
+  // ─── 打卡草稿快照（切后台被杀后自动恢复现场）─────────
+  // 仅本机 localStorage，不参与云端同步；answers 按 #app input DOM 顺序收集/回填。
+  const DRAFT_KEY = 'ck_checkin_draft_v1';
+  function collectAnswers() {
+    const app = document.getElementById('app');
+    if (!app) return [];
+    return Array.from(app.querySelectorAll('input')).map(inp => {
+      if (inp.type === 'radio') return inp.checked ? inp.value : '';
+      return inp.value || '';
+    });
+  }
+  function loadDraft() {
+    try {
+      const raw = localStorage.getItem(DRAFT_KEY);
+      if (!raw) return null;
+      const d = JSON.parse(raw);
+      if (!d || d.date !== today()) { localStorage.removeItem(DRAFT_KEY); return null; }
+      return d;
+    } catch (e) { return null; }
+  }
+  function clearDraft() {
+    try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+  }
+  function saveDraft() {
+    try {
+      const plan = progress.daily_checkin_plan;
+      if (!plan || plan.date !== today()) return; // 非打卡流程不落草稿
+      const route = parseRoute().name;
+      const prev = loadDraft();
+      // 题型切换（route 变化）时答案作废（新题型尚无输入），否则收集当前 DOM 值
+      const answers = (prev && prev.route === route) ? collectAnswers() : [];
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({
+        date: today(), route, idx: currentVocabIdx, answers, updated: Date.now(),
+      }));
+    } catch (e) { /* 隐私模式/配额超限静默 */ }
+  }
+  function restoreAnswers(app) {
+    const d = loadDraft();
+    if (!d || !app || d.route !== parseRoute().name) return;
+    const inputs = app.querySelectorAll('input');
+    inputs.forEach((inp, i) => {
+      const v = d.answers && d.answers[i];
+      if (v === undefined || v === null || v === '') return;
+      if (inp.type === 'radio') {
+        if (inp.value === v) {
+          inp.checked = true;
+          const opt = inp.closest('.mcq-opt');
+          if (opt) opt.classList.add('is-selected');
+        }
+      } else if (typeof v === 'string') {
+        inp.value = v;
+      }
+    });
+  }
+
   function _persistNow() {
     try {
       progress._updated_at = new Date().toISOString();
       window.progress = progress;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
     } catch (e) { /* quota/private mode 时静默 */ }
+    saveDraft(); // 切后台/关闭时同步落草稿
   }
+  document.addEventListener('input', saveDraft); // 答题输入实时落草稿
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') _persistNow();
   });
@@ -291,6 +349,7 @@ document.addEventListener('input', function(e) {
       game_stats: {},            // 游戏成绩与次数
       vocab_list_marked: [],     // 全部词汇中的收藏
       unfamiliar_words: [],       // 孩子不熟悉的词 (打卡后家长录入, 后续针对训练)
+      recent_seen: [],            // 最近出现过的题/词（跨天去重参考，{key,date}）
       user_name: '', // #account nickname (跨设备账号标识)
       school_grade: '', // #account g7/g8/g9，首次使用时选择
       bound_devices: [], // #account 本账号绑定的设备 ID 列表
@@ -361,6 +420,10 @@ document.addEventListener('input', function(e) {
       return String(w.word || '').toLowerCase();
     }).map(function (w) {
       return { word: w.word, cn: w.cn || '', added_at: w.added_at || today() };
+    });
+    // recent_seen: 跨设备去重参考，按 key 合并（冲突保留本地，本地通常是最近提交）
+    out.recent_seen = unionObjects(remote.recent_seen, local.recent_seen, function (e) {
+      return e && e.key;
     });
     // checkins: 按日期和题型去重，同一条记录保留本地版本。
     out.checkins = unionObjects(remote.checkins, local.checkins, function (c) {
@@ -666,6 +729,29 @@ document.addEventListener('input', function(e) {
     const pad = n => String(n).padStart(2, '0');
     return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   }
+  // ─── 可播种随机（当日题目确定化：重载后同一套题）──────
+  // _rng 非 null 时 rand() 走 PRNG，否则回退 Math.random（非打卡场景不受影响）。
+  let _rng = null;
+  function rand() { return _rng ? _rng() : Math.random(); }
+  function mulberry32(seed) {
+    let a = seed >>> 0;
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function hashStr(s) {
+    let h = 1779033703 ^ s.length;
+    for (let i = 0; i < s.length; i++) {
+      h = Math.imul(h ^ s.charCodeAt(i), 3432918353);
+      h = (h << 13) | (h >>> 19);
+    }
+    return h >>> 0;
+  }
+  function seededRandom(seedStr) { return mulberry32(hashStr(seedStr)); }
+  function makeSeed(type) { return today() + '::' + type + '::' + difficulty; }
   function refreshCheckinStats(p) {
     const dates = Array.from(new Set((p.checkins || []).map(c => c && c.date).filter(Boolean))).sort();
     if (!dates.length) {
@@ -687,7 +773,7 @@ document.addEventListener('input', function(e) {
   function shuffle(arr) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = Math.floor(rand() * (i + 1));
       [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
@@ -710,7 +796,7 @@ document.addEventListener('input', function(e) {
     for (let round = 0; round < n && pool.length; round++) {
       const weights = pool.map(weight);
       const sum = weights.reduce((a, b) => a + b, 0);
-      let r = Math.random() * sum;
+      let r = rand() * sum;
       let idx = 0;
       for (let i = 0; i < pool.length; i++) { r -= weights[i]; if (r <= 0) { idx = i; break; } }
       picked.push(pool[idx]);
@@ -722,7 +808,32 @@ document.addEventListener('input', function(e) {
     if (!progress.question_seen_count) progress.question_seen_count = {};
     progress.question_seen_count[key] = (progress.question_seen_count[key] || 0) + (delta || 1);
   }
-  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  // 提交/看过即记录：最近 N 天抽题时优先避开，避免连续几天同一批题。
+  function markSeen(keys) {
+    if (!Array.isArray(keys) || !keys.length) return;
+    const date = today();
+    const byKey = new Map((progress.recent_seen || []).map(e => [e.key, e]));
+    keys.forEach(k => { if (k) byKey.set(k, { key: k, date }); });
+    progress.recent_seen = Array.from(byKey.values()).slice(-400);
+    saveProgress();
+  }
+  function recentSeenKeys(days) {
+    const n = (days && days > 0) ? days : 7;
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - (n - 1));
+    const cutoffStr = dateKey(cutoff);
+    const out = new Set();
+    (progress.recent_seen || []).forEach(e => { if (e && e.key && e.date && e.date >= cutoffStr) out.add(e.key); });
+    return out;
+  }
+  // 题库充足时排除最近出现过的；不足时回退（保持数量，fresh 优先）。
+  function recentAvoidingPool(arr, keyFn) {
+    const recent = recentSeenKeys(7);
+    const fresh = arr.filter(x => !recent.has(keyFn(x)));
+    if (fresh.length === arr.length) return fresh;
+    return fresh.length ? fresh.concat(arr.filter(x => recent.has(keyFn(x)))) : arr;
+  }
+  function pick(arr) { return arr[Math.floor(rand() * arr.length)]; }
   // 时态题干扰项：优先从题干 (verb) 提取同词根不同形态，
   // 避免出现"答案之外的完全不相关动词"作为干扰项（用户反馈：其他三个一眼排除）。
   // 优先级：题干 (verb) → 答案剥离助动词 → 同档位答案池 → 通用 fallback 池。
@@ -1009,6 +1120,7 @@ document.addEventListener('input', function(e) {
 
   // ─── 每日任务生成 ──────────────────────────────────
   function generateDailyTask() {
+    _rng = seededRandom(makeSeed('daily')); // 当日词汇+语法确定化
     const cfg = getDifficultyCfg();
     const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
     const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
@@ -1037,7 +1149,7 @@ document.addEventListener('input', function(e) {
         }
       }
     }
-    const vocabPicks = sample(candidates, cfg.daily_count);
+    const vocabPicks = sample(recentAvoidingPool(candidates, w => 'vocab::' + w.word.toLowerCase()), cfg.daily_count);
 
     // 选语法（按权重）
     const masteredG = new Set(progress.grammar_mastered);
@@ -1052,14 +1164,14 @@ document.addEventListener('input', function(e) {
     });
     const sum = weights.reduce((a, b) => a + b, 0) || 1;
     const norm = weights.map(w => w / sum);
-    let r = Math.random();
+    let r = rand();
     let gram = grammarPool[0];
     for (let i = 0; i < norm.length; i++) {
       r -= norm[i];
       if (r <= 0) { gram = grammarPool[i]; break; }
     }
 
-    const exercises = sample(gram.练习 || [], Math.min(3, (gram.练习 || []).length)).map(ex => ({
+    const exercises = sample(recentAvoidingPool(gram.练习 || [], ex => 'grammar::' + (ex.题 || '')), Math.min(3, (gram.练习 || []).length)).map(ex => ({
       question: ex.题,
       answer: ex.答案,
       hint: ex.提示 || '',
@@ -1070,7 +1182,7 @@ document.addEventListener('input', function(e) {
       vocab: vocabPicks.map(w => ({
         word: w.word, pron: w.pron || '', cn: w.cn,
         example: w.例句, memory: w.记忆 || '',
-        topic: w.topic, hide: Math.random() < 0.5 ? 'word' : 'cn',
+        topic: w.topic, hide: rand() < 0.5 ? 'word' : 'cn',
       })),
       grammar: {
         id: gram.id, title: gram.title, level: gram.level || '',
@@ -1154,6 +1266,7 @@ document.addEventListener('input', function(e) {
     });
     refreshCheckinStats(progress);
     delete progress.daily_checkin_plan;
+    clearDraft(); // 打卡完成，草稿作废
     saveProgress();
   }
 
@@ -1229,6 +1342,21 @@ document.addEventListener('input', function(e) {
   window.addEventListener('hashchange', render);
   function render() {
     const r = parseRoute();
+    // 自动恢复：当天未完成的打卡草稿 → 回到离开时的题型/进度（仅首次）
+    if (!didAutoRestore) {
+      didAutoRestore = true;
+      const d = loadDraft();
+      if (d && progress.daily_checkin_plan && progress.daily_checkin_plan.date === today()) {
+        if ((d.route === 'vocab' || d.route === 'grammar') && (!currentTask || currentTask.date !== today())) {
+          currentTask = generateDailyTask(); // seed 固定，重建同一套题
+        }
+        currentVocabIdx = d.idx || 0;
+        if (r.name !== d.route) {
+          window.location.hash = '#/' + d.route;
+          return;
+        }
+      }
+    }
     // 支持子路由 (e.g. game/memory)
     const fullName = r.params.length ? (r.name + '/' + r.params[0]) : r.name;
     const fn = routes[fullName] || routes[r.name] || renderHome;
@@ -1246,6 +1374,7 @@ document.addEventListener('input', function(e) {
     }
     try {
       fn(app, r.params);
+      restoreAnswers(app); // 草稿回填已填答案（radio 补选中样式）
     } catch (e) {
       console.error('[render]', r.name, e);
       app.innerHTML = `${topBar('出错了')}<div class="container"><div class="card">
@@ -1270,6 +1399,7 @@ document.addEventListener('input', function(e) {
       document.body.appendChild(fab);
     }
     fab.classList.toggle('hidden', r.name === 'home' || r.name === '');
+    saveDraft(); // 题型切换/导航后同步草稿路由与进度
   }
 
   // ─── 视图：顶部栏 ──────────────────────────────────
@@ -1570,6 +1700,7 @@ document.addEventListener('input', function(e) {
     app.querySelector('#checkin-start').onclick = () => {
       const arr = activeList();
       if (arr.length === 0) { toast('至少选一个题型'); return; }
+      clearDraft(); // 重新开始今日打卡
       progress.daily_checkin_plan = { date: today(), queue: arr, completed: [] };
       saveProgress();
       currentVocabIdx = 0;
@@ -1694,6 +1825,8 @@ document.addEventListener('input', function(e) {
     app.querySelector('#next-btn').onclick = () => {
       if (!revealed) { toast('先点"揭晓"看看答案'); return; }
       currentVocabIdx++;
+      // 看过的词即记录，明天优先避开（当天重载恢复不受影响：题目由 seed 固定）
+      markSeen(t.vocab.slice(0, currentVocabIdx).map(w => 'vocab::' + w.word.toLowerCase()));
       if (currentVocabIdx >= t.vocab.length) {
         // vocab 完成：按 plan 推进；plan 中无 vocab 时保留旧行为（跳 grammar 通用复习）
         const next = advanceCheckinPlan('vocab');
@@ -1774,6 +1907,7 @@ document.addEventListener('input', function(e) {
         };
       });
       window._grammarResults = results;
+      markSeen(g.exercises.map(ex => 'grammar::' + (ex.question || '')));
       const total2 = g.exercises.length;
       const score = `${correct}/${total2}`;
       const submitBtn = app.querySelector('#submit-grammar');
@@ -1939,6 +2073,7 @@ document.addEventListener('input', function(e) {
 
   // ─── 视图：Tense ──────────────────────────────────
   function renderTense(app) {
+    _rng = seededRandom(makeSeed('tense'));
     const bank = Array.isArray(D.tense_questions) ? D.tense_questions : [];
     const selected = schoolGradePool(bank.filter(q => q.difficulty === difficulty));
     const all = selected.map(q => ({
@@ -1956,7 +2091,7 @@ document.addEventListener('input', function(e) {
     const fallback = ['is','are','am','was','were','have','has','had','do','does','did','will','would','can','could','must','should'];
     // 同档位答案池（供 tenseDistractors 第 3 步弱匹配补充）
     const allAnswers = all.map(x => x.a);
-    const questions = sampleUnseen(all, 10, q => 'tense::' + (q.gid || '') + '::' + q.q).map(q => ({ ...q, _seenKey: 'tense::' + (q.gid || '') + '::' + q.q })).map(q => {
+    const questions = sampleUnseen(recentAvoidingPool(all, q => 'tense::' + (q.gid || '') + '::' + q.q), 10, q => 'tense::' + (q.gid || '') + '::' + q.q).map(q => ({ ...q, _seenKey: 'tense::' + (q.gid || '') + '::' + q.q })).map(q => {
       // 优先从题干 (verb) / 答案剥离助动词生成同词根变体作为干扰项；
       // 不足时回退到同档位答案池 + 通用 fallback。
       const distractors = tenseDistractors(q.q, q.a, allAnswers, fallback);
@@ -1993,6 +2128,7 @@ document.addEventListener('input', function(e) {
 
   // ─── 视图：Preposition ────────────────────────────
   function renderPreposition(app) {
+    _rng = seededRandom(makeSeed('preposition'));
     // ponytail: 合并 4 个 prepositions 相关 grammar item (46+3+3+3+6=61 道),
     // 之前只取 prepositions 一个, 用户反馈每天题面太集中.
     const prepIds = ['prepositions', 'prep_time', 'prep_place', 'prep_combined', 'curr_prepositions'];
@@ -2000,7 +2136,7 @@ document.addEventListener('input', function(e) {
     if (!items.length) { navigate('home'); return; }
     const pool = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'under', 'near', 'behind', 'between', 'into', 'from', 'to', 'of', 'over', 'after', 'before', 'above', 'below', 'along', 'since', 'until', 'through', 'across', 'next to', 'out of', 'in front of', 'because of'];
     const all = [].concat(...items.map(g => (g.练习 || []).map(ex => ({ q: ex.题, a: ex.答案, hint: ex.提示, gid: g.id }))));
-    const questions = sampleUnseen(all, 10, q => 'prep::' + (q.gid || '') + '::' + q.q).map(q => ({ ...q, _seenKey: 'prep::' + (q.gid || '') + '::' + q.q })).map(q => {
+    const questions = sampleUnseen(recentAvoidingPool(all, q => 'prep::' + (q.gid || '') + '::' + q.q), 10, q => 'prep::' + (q.gid || '') + '::' + q.q).map(q => ({ ...q, _seenKey: 'prep::' + (q.gid || '') + '::' + q.q })).map(q => {
       // 句首大写的答案 (如 "By the end of...") 跟小写干扰项混在一起时一眼可辨.
       // ponytail: 全统一小写, 介词在选择题中大写无意义. 缩写/专名不会出现, 无需白名单.
       const normA = q.a.toLowerCase();
@@ -2090,6 +2226,7 @@ document.addEventListener('input', function(e) {
       toast(`${correct}/${questions.length} 正确`, 2500);
       // ponytail: 累计题目出现次数, 下次 sampleUnseen 降低权重避免重复
       questions.forEach(q => bumpSeenCount(q._seenKey || ('mcq::' + (q.q || q.word || ''))), 1);
+      markSeen(questions.map(q => q._seenKey));
       onSubmit(correct, results);
       app.querySelector('#mcq-submit').style.display = 'none';
     };
@@ -2131,8 +2268,9 @@ document.addEventListener('input', function(e) {
   }
 
   function renderTranslate(app) {
+    _rng = seededRandom(makeSeed('translate'));
     const pool = translationPoolForDifficulty();
-    const sents = sample(pool, Math.min(5, pool.length));
+    const sents = sample(recentAvoidingPool(pool, s => 'tr::' + (s.en || s.cn)), Math.min(5, pool.length));
     const cleanAnswer = value => value.toLowerCase().replace(/[^a-z']/g, '');
 
     app.innerHTML = `
@@ -2254,6 +2392,7 @@ document.addEventListener('input', function(e) {
       });
       progress.wrong_grammar = progress.wrong_grammar.slice(-100);
       saveProgress();
+      markSeen(sents.map(s => 'tr::' + (s.en || s.cn)));
       toast(`${totalCorrect}/${sents.length}` + (totalCorrect === sents.length ? ' 完全正确' : ' 答对'), 2500);
       app.querySelector('#tr-submit').style.display = 'none';
       appendCheckinNextStep(app, 'translate');
@@ -2385,6 +2524,7 @@ document.addEventListener('input', function(e) {
 
   // ─── 视图：Quiz（选择题）──────────────────────────
   function renderQuiz(app) {
+    _rng = seededRandom(makeSeed('quiz'));
     const cfg = getDifficultyCfg();
     const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
     const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
@@ -2402,7 +2542,7 @@ document.addEventListener('input', function(e) {
       </div></div>`;
       return;
     }
-    const picks = sampleUnseen(candidates, cfg.quiz_count, w => 'quiz::' + w.word.toLowerCase()).map(w => ({ ...w, _seenKey: 'quiz::' + w.word.toLowerCase() }));
+    const picks = sampleUnseen(recentAvoidingPool(candidates, w => 'quiz::' + w.word.toLowerCase()), cfg.quiz_count, w => 'quiz::' + w.word.toLowerCase()).map(w => ({ ...w, _seenKey: 'quiz::' + w.word.toLowerCase() }));
     const questions = picks.map(target => {
       const others = candidates.filter(c => c.word !== target.word);
       // 去重：不同单词可能有相同中文释义，确保 4 个选项中文不重复
@@ -2414,7 +2554,7 @@ document.addEventListener('input', function(e) {
       }
       const opts = shuffle([target, ...uniqueOthers]);
       // 方向：每题 50/50 随机。原均衡策略在 picks.map 闭包里引用尚未构造的 questions,触发 TDZ(#/quiz 空白 bug)。
-      const direction = Math.random() < 0.5 ? 'en2cn' : 'cn2en';
+      const direction = rand() < 0.5 ? 'en2cn' : 'cn2en';
       if (direction === 'en2cn') {
         // 看英文选中文：display=value=中文
         const options = opts.map(w => ({ display: w.cn, value: w.cn, _word: w.word }));
@@ -4148,6 +4288,7 @@ document.addEventListener('input', function(e) {
 
   // #5 dictation
   function renderDictation(app) {
+    _rng = seededRandom(makeSeed('dictation'));
     // 按难度筛词库 (复用 quiz/flashcard 同样的过滤规则)
     const cfg = getDifficultyCfg();
     const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
@@ -4159,7 +4300,7 @@ document.addEventListener('input', function(e) {
       const wl = w.word.toLowerCase();
       return !mastered.has(wl) && !blockWords.has(wl);
     });
-    const pool = all.length ? sample(all, Math.min(10, all.length)) : [];
+    const pool = all.length ? sample(recentAvoidingPool(all, w => 'dictation::' + w.word.toLowerCase()), Math.min(10, all.length)) : [];
     app.innerHTML = topBar('听写模式') +
       '<div class="container">' +
         '<div class="card"><div class="card-title">📝 听 10 个词，写出拼写</div>' +
@@ -4220,6 +4361,7 @@ document.addEventListener('input', function(e) {
       });
       const total = pool.length;
       saveProgress();
+      markSeen(pool.map(w => 'dictation::' + w.word.toLowerCase()));
       const r = app.querySelector('#d-result');
       r.innerHTML = '<strong>' + correct + ' / ' + total + '</strong> ' + (correct === total ? '🎉 全对!' : correct >= total * 0.6 ? '👍 不错' : '继续加油');
       r.style.color = correct >= total * 0.6 ? 'var(--success)' : '#e67e22';
