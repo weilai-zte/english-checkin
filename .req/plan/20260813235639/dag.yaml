@@ -1,0 +1,69 @@
+nodes:
+  - id: analyze
+    label: "故障分析定位"
+    agent_type: "code"
+    estimated_minutes: 5
+    depends_on: []
+  - id: fix-implementation
+    label: "修复实施"
+    agent_type: "code"
+    estimated_minutes: 10
+    depends_on: ["analyze"]
+  - id: verify-fix
+    label: "验证修复"
+    agent_type: "code"
+    estimated_minutes: 5
+    depends_on: ["fix-implementation"]
+  - id: submit
+    label: "提交归档"
+    agent_type: "code"
+    estimated_minutes: 3
+    depends_on: ["verify-fix"]
+parallel_groups:
+  - ["analyze"]
+  - ["fix-implementation"]
+  - ["verify-fix"]
+  - ["submit"]
+nodes:
+  - id: "n2-behavior-tests"
+    label: "行为测试：node subprocess 执行真实 mergeProgress，5 场景断言 + 字符串断言"
+    agent_type: "code"
+    estimated_minutes: 10
+    depends_on: []
+
+  - id: "n1-deletion-tombstone"
+    label: "删除标记机制：defaultProgress._deleted + mergeProgress 应用删除 + undo/unbind/finish 写标记 + 重打清当天标记"
+    agent_type: "code"
+    estimated_minutes: 15
+    depends_on: ["n2-behavior-tests"]
+
+  - id: "n3-wrong-words-script"
+    label: "send_wrong_words.py fetch 全部账号行合并 wrong_words，保留 SUPABASE_USER_KEY 兼容"
+    agent_type: "code"
+    estimated_minutes: 8
+    depends_on: []
+
+  - id: "n4-sdk-local"
+    label: "Supabase SDK 本地化：下载 vendor/supabase.min.js + build.py 复制 + index.html 本地引用"
+    agent_type: "code"
+    estimated_minutes: 8
+    depends_on: []
+
+  - id: "n5-sync-banner"
+    label: "sb 初始化失败顶部提示条：常驻「云同步暂不可用」，云端可用自动消失"
+    agent_type: "code"
+    estimated_minutes: 6
+    depends_on: []
+
+  - id: "n6-verify-ship"
+    label: "全量回归 + dry-run 错词脚本 + build/dist 同步 + 推送"
+    agent_type: "code"
+    estimated_minutes: 10
+    depends_on: ["n1-deletion-tombstone", "n3-wrong-words-script", "n4-sdk-local", "n5-sync-banner"]
+
+parallel_groups:
+  - ["n2-behavior-tests", "n3-wrong-words-script", "n4-sdk-local", "n5-sync-banner"]
+
+expected_bottlenecks:
+  - "n1-deletion-tombstone: mergeProgress 是核心合并路径，删除标记应用顺序需与设置字段分支协调"
+  - "n4-sdk-local: 需要从 jsdelivr 下载 vendor 文件并入库"

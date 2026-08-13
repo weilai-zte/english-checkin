@@ -1,0 +1,40 @@
+session_id: 20260813235639
+feature_name: "同步缺陷修复：删除语义（撤销/解绑/打卡完成不被复活）+ 错词推送脚本读取真实账号行 + Supabase SDK 本地化与失败提示"
+workflow_type: "bugfix"
+current_phase: verify
+define_sub_phase: intent
+reverse_done: true
+build_sub_state: null
+gate_status:
+  define: pending
+  plan: pending
+  build: pending
+  verify: pending
+  review: pending
+  ship: pending
+  refine: pending
+brainstorm_required: "false"
+brainstorm_done: "false"
+brainstorm_md_path: ""
+clarify_suggested: "false"
+clarify_l1_score: 32
+clarify_reasons: "missing_fields(4/5)"
+clarify_md_path: ""
+action_count: 2
+consecutive_failures: 0
+max_iterations: 12
+iteration_count: 0
+completion_promise: ""
+session_baseline_commit: "6628cd5aa7a3618a6aa61a2ab279e30390c93a15"
+dag_node_count: 6
+dag_completed: 6
+review_score: 0
+review_pass: false
+ehrb_flags: []
+evolution_round: 0
+worktree_mode: "off"
+integration_branch: "rideer/20260813235639-integration"
+agents: 0
+define_done: true
+plan_done: true
+build_done: true
