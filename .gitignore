@@ -26,5 +26,11 @@ site_static/.venv/
 site_static/dist.zip
 site_static/dist-pkg/
 
+# 手动备份文件（如 content.json.bak.<日期>）
+*.bak.*
+
+# 大体积生成产物（ChatGPT 大纲 HTML）
+kn-base/
+
 # 注意：data/progress.json 和 data/current_task.json 已 git tracked 2 个 commit
 # 如果未来想不入库：git rm --cached + 加入 gitignore
