@@ -709,6 +709,24 @@ document.addEventListener('input', function(e) {
       let merged = progress;
       const legacyKeys = new Set();
 
+      // 邮箱登录账号的数据在 user_progress 表（区别于 progress 表），必须一并拉取，
+      // 否则"从云端下载"对邮箱用户拉不到任何数据（手机打卡写入 user_progress，这里原本只读 progress）。
+      if (_authSession && _authSession.user && _authSession.user.id) {
+        try {
+          const authRow = await loadProgressFromAuth(_authSession.user.id);
+          const authData = remoteRowProgress(authRow);
+          if (authData) {
+            merged = mergeProgress(merged, authData);
+            latestRemoteTs = (latestRemoteTs || '').localeCompare(authRow.updated_at || '') >= 0
+              ? latestRemoteTs : authRow.updated_at;
+            foundRemote = true;
+            if (!merged.user_name && _authSession.user.email) {
+              merged.user_name = _authSession.user.email.split('@')[0];
+            }
+          }
+        } catch (e) { console.warn('邮箱账号进度读取失败:', e); }
+      }
+
       // 同时读取昵称账号行和升级前的 UUID 行。
       const sourceKeys = Array.from(new Set([accountKey, previousKey].filter(Boolean)));
       for (const sourceKey of sourceKeys) {
@@ -3412,7 +3430,7 @@ document.addEventListener('input', function(e) {
     const pullBtn = app.querySelector('#profile-pull-cloud');
     const pushBtn = app.querySelector('#profile-push-cloud');
     async function _doPull() {
-      if (!progress.user_name) { toast('请先设置昵称'); return; }
+      if (!progress.user_name && !(_authSession && _authSession.user)) { toast('请先设置昵称或登录'); return; }
       pullBtn.disabled = true; pullBtn.textContent = '下载中...';
       try {
         await syncFromSupabase();
@@ -3425,7 +3443,7 @@ document.addEventListener('input', function(e) {
       }
     }
     async function _doPush() {
-      if (!progress.user_name) { toast('请先设置昵称'); return; }
+      if (!progress.user_name && !(_authSession && _authSession.user)) { toast('请先设置昵称或登录'); return; }
       pushBtn.disabled = true; pushBtn.textContent = '上传中...';
       try {
         const ok = await syncToSupabaseNow();

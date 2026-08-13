@@ -714,6 +714,9 @@ def test_auth_login_routes_and_helpers():
     assert 'saveProgressToAuth(userId)' in APP_JS_SRC
     # 旧 progress 表路径保留 (兜底)
     assert "from('progress').upsert" in APP_JS_SRC
+    # 下载方向也必须读 user_progress（否则邮箱用户点"从云端下载"拉不到手机写入的数据）
+    pull_block = _function_block('syncFromSupabase')
+    assert 'loadProgressFromAuth(' in pull_block, "syncFromSupabase 未读取 user_progress，邮箱用户下载会漏数据"
     # profile 页: 账号登录卡片必须在选择头像之前 (用户提过一次找不到)
     block = _function_block('renderProfile')
     assert 'href="#/login"' in block
