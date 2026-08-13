@@ -2526,6 +2526,7 @@ document.addEventListener('input', function(e) {
 
   // ─── 视图：Translate-En (EN→CN 填空) ─────────────
   function renderTranslateEn(app) {
+    _rng = seededRandom(makeSeed('translate_en')); // 当日英译中题目确定化
     const pool = translationPoolForDifficulty();
     const sents = sample(pool, Math.min(5, pool.length));
     const normPunct = s => s.replace(/[\s。？！、，；：""''（）【】《》]/g, '');

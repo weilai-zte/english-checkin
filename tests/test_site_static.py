@@ -884,6 +884,65 @@ def test_each_checkin_entry_sets_seed():
         assert marker in block, f"{fn} 未设置 seed (缺 {marker})"
 
 
+def test_translate_en_sets_seed():
+    """英译中(#/translate-en)也要设置 seed，否则刷新换题且答案回填错位。"""
+    block = _function_block('renderTranslateEn')
+    assert "makeSeed('translate_en')" in block, "renderTranslateEn 未设置 seed"
+
+
+# 真实执行 PRNG：验证"同 seed 同序列、异 seed 异序列、shuffle 同 seed 同排列"
+# （这是"重载后同一套题 + 选项顺序稳定可回填"的数学基础）。
+_RNG_NODE_TEMPLATE = r'''
+const fs = require('fs');
+const src = fs.readFileSync('site_static/app.js', 'utf8');
+function extractFn(name) {
+  const i = src.indexOf('function ' + name);
+  if (i < 0) throw new Error('missing ' + name);
+  const start = src.indexOf('{', i);
+  let depth = 1, j = start + 1;
+  while (depth > 0 && j < src.length) { if (src[j]==='{') depth++; if (src[j]==='}') depth--; j++; }
+  return src.slice(i, j);
+}
+globalThis.mulberry32 = new Function('return (' + extractFn('mulberry32') + ')')();
+globalThis.hashStr = new Function('return (' + extractFn('hashStr') + ')')();
+globalThis.seededRandom = new Function('return (' + extractFn('seededRandom') + ')')();
+const out = {};
+const a = seededRandom('2026-08-14::quiz::medium');
+const b = seededRandom('2026-08-14::quiz::medium');
+out.same_seed_same_seq = (() => { for (let i=0;i<20;i++) if (a() !== b()) return false; return true; })();
+const c = seededRandom('2026-08-15::quiz::medium');
+out.diff_seed_diff_seq = (() => { for (let i=0;i<20;i++) if (a() !== c()) return true; return false; })();
+out.hash_deterministic = hashStr('abc') === hashStr('abc');
+out.hash_sensitive = hashStr('abc') !== hashStr('abd');
+const m1 = mulberry32(42), m2 = mulberry32(42);
+out.mulberry_deterministic = (() => { for (let i=0;i<10;i++) if (m1() !== m2()) return false; return true; })();
+const makeShuffle = new Function('rand', 'return (' + extractFn('shuffle') + ')');
+const s1 = makeShuffle(seededRandom('2026-08-14::quiz::medium'))([1,2,3,4,5,6,7,8]);
+const s2 = makeShuffle(seededRandom('2026-08-14::quiz::medium'))([1,2,3,4,5,6,7,8]);
+out.shuffle_deterministic = JSON.stringify(s1) === JSON.stringify(s2);
+console.log(JSON.stringify(out));
+'''
+
+
+def _run_rng_node():
+    import subprocess
+    r = subprocess.run(['node', '-e', _RNG_NODE_TEMPLATE], capture_output=True,
+                       text=True, cwd=str(ROOT))
+    assert r.returncode == 0, f"node 执行失败: {r.stderr}"
+    return json.loads(r.stdout.strip())
+
+
+def test_seeded_rng_deterministic():
+    """真实执行 PRNG：同 seed 同序列、异 seed 异序列、shuffle 同 seed 同排列。"""
+    out = _run_rng_node()
+    assert out['same_seed_same_seq'] is True, "同 seed 序列不一致"
+    assert out['diff_seed_diff_seq'] is True, "不同 seed 序列未变化"
+    assert out['hash_deterministic'] is True, "hashStr 不确定"
+    assert out['hash_sensitive'] is True, "hashStr 不敏感"
+    assert out['mulberry_deterministic'] is True, "mulberry32 不确定"
+    assert out['shuffle_deterministic'] is True, "shuffle 同 seed 排列不一致"
+
+
 # 2) 跨天去重: 最近 7 天出现过的题/词优先避开
 def test_recent_seen_mechanism_present():
     """defaultProgress 必须有 recent_seen 默认值 + markSeen/recentSeenKeys 助手。"""
