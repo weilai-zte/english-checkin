@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
 """每周英语学习报告推送"""
-import urllib.request, json, datetime, os
+import urllib.request
+import json
+import datetime
+import os
+import sys
 from pathlib import Path
 
 BASE = Path(__file__).parent
-WEBHOOK = os.environ.get("FEISHU_WEBHOOK", "")
+# FEISHU_WEBHOOK 多源加载 (env 优先, fallback 到 ~/.hermes/scripts/_feishu_webhook.py 提供的链)
+sys.path.insert(0, str(Path.home() / ".hermes" / "scripts"))
+try:
+    from _feishu_webhook import get_feishu_webhook as _load_webhook
+    WEBHOOK = os.environ.get("FEISHU_WEBHOOK") or _load_webhook()
+except Exception:
+    WEBHOOK = os.environ.get("FEISHU_WEBHOOK", "")
 LOCAL_URL = os.environ.get("LOCAL_URL", "http://127.0.0.1:5200").rstrip("/")
 
 
