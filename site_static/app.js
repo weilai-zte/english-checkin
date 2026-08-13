@@ -393,13 +393,27 @@ document.addEventListener('input', function(e) {
     local = local || {};
     remote = remote || {};
     var out = Object.assign({}, remote, local);
-    // 删除标记必须并集合并（任一侧删除即删除），不能被 Object.assign 覆盖
+    // 删除标记值 = 删除发生的时间戳（ISO）。并集合并，较新的删除时间胜。
+    // 旧版布尔 true → 归一为 '0'（视为过期：只作用于无 created_at 的旧记录，不误删新建记录）。
+    function normTs(v) { return typeof v === 'string' ? v : '0'; }
+    // a 严格晚于 b
+    function newerThan(a, b) { return String(a || '').localeCompare(String(b || '')) > 0; }
     function mergeDeleted(a, b) {
-      var merged = { checkins: {}, bound_devices: {}, plan: !!(a && a.plan) || !!(b && b.plan) };
+      var merged = { checkins: {}, bound_devices: {}, plan: '' };
       [a, b].forEach(function (d) {
         if (!d) return;
-        Object.keys(d.checkins || {}).forEach(function (k) { merged.checkins[k] = true; });
-        Object.keys(d.bound_devices || {}).forEach(function (k) { merged.bound_devices[k] = true; });
+        Object.keys(d.checkins || {}).forEach(function (k) {
+          var v = normTs(d.checkins[k]);
+          if (!merged.checkins[k] || newerThan(v, merged.checkins[k])) merged.checkins[k] = v;
+        });
+        Object.keys(d.bound_devices || {}).forEach(function (k) {
+          var v = normTs(d.bound_devices[k]);
+          if (!merged.bound_devices[k] || newerThan(v, merged.bound_devices[k])) merged.bound_devices[k] = v;
+        });
+        if (d.plan) {
+          var p = normTs(d.plan);
+          if (!merged.plan || newerThan(p, merged.plan)) merged.plan = p;
+        }
       });
       return merged;
     }
@@ -550,18 +564,34 @@ document.addEventListener('input', function(e) {
       else if (local[field] != null) out[field] = local[field];
       else if (remote[field] != null) out[field] = remote[field];
     });
-    // 应用删除标记：被明确删除的内容不因 union 复活（顺序必须在设置字段分支之后）
+    // 应用删除标记：被明确删除的内容不因 union 复活（顺序必须在设置字段分支之后）。
+    // 删除标记带时间戳：晚于该记录 created_at 才删除，撤销后重新打卡/重绑设备不会被误删。
     var del = out._deleted || {};
     if (del.checkins) {
       out.checkins = (out.checkins || []).filter(function (c) {
         var k = (c.date || '') + '|' + (c.types || []).slice().sort().join(',');
-        return !del.checkins[k];
+        var tomb = del.checkins[k];
+        if (!tomb) return true;
+        return !newerThan(normTs(tomb), c.created_at || '');
       });
     }
     if (del.bound_devices) {
-      out.bound_devices = (out.bound_devices || []).filter(function (id) { return !del.bound_devices[id]; });
+      // 记录每个设备被列出的"最近时间"（local/remote 的 _updated_at 较大者）。
+      // 删除标记晚于该时间才移除；重绑（_updated_at 更新）后设备保留。
+      var bdRecency = new Map();
+      (local.bound_devices || []).forEach(function (id) { bdRecency.set(id, local._updated_at || ''); });
+      (remote.bound_devices || []).forEach(function (id) {
+        var t = remote._updated_at || '';
+        if (!bdRecency.has(id) || newerThan(t, bdRecency.get(id))) bdRecency.set(id, t);
+      });
+      out.bound_devices = (out.bound_devices || []).filter(function (id) {
+        var tomb = del.bound_devices[id];
+        if (!tomb) return true;
+        return !newerThan(normTs(tomb), bdRecency.get(id) || '');
+      });
     }
-    if (del.plan) out.daily_checkin_plan = null;
+    var planCreated = (out.daily_checkin_plan || {}).created_at || '';
+    if (del.plan && !newerThan(planCreated, normTs(del.plan))) out.daily_checkin_plan = null;
     refreshCheckinStats(out); // 应用删除后重算打卡统计
     out._updated_at = (local._updated_at || '').localeCompare(remote._updated_at || '') >= 0
       ? local._updated_at : remote._updated_at;
@@ -1321,9 +1351,10 @@ document.addEventListener('input', function(e) {
         if (k.indexOf(todayPrefix) === 0) delete progress._deleted.checkins[k];
       });
     }
-    progress._deleted.plan = true; // 完成打卡：plan 删除标记，防幽灵复活
+    progress._deleted.plan = new Date().toISOString(); // 完成打卡：plan 删除标记（时间戳），防幽灵复活
     progress.checkins.push({
       date: today(),
+      created_at: new Date().toISOString(),
       vocab: [],
       grammar_id: 'mixed',
       grammar_title: types.map(checkinTypeLabel).join('+'),
@@ -1344,6 +1375,7 @@ document.addEventListener('input', function(e) {
 
     progress.checkins.push({
       date: today(),
+      created_at: new Date().toISOString(),
       vocab: task.vocab.map(w => w.word),
       grammar_id: task.grammar.id,
       grammar_title: task.grammar.title,
@@ -1534,7 +1566,7 @@ document.addEventListener('input', function(e) {
     const key = (c.date || '') + '|' + (c.types || []).slice().sort().join(',');
     progress._deleted = progress._deleted || {};
     progress._deleted.checkins = progress._deleted.checkins || {};
-    progress._deleted.checkins[key] = true;
+    progress._deleted.checkins[key] = new Date().toISOString();
     list.splice(i, 1);
     refreshCheckinStats(progress);
     saveProgress();
@@ -1776,7 +1808,7 @@ document.addEventListener('input', function(e) {
       clearDraft(); // 重新开始今日打卡
       progress._deleted = progress._deleted || {};
       delete progress._deleted.plan; // 重新开始打卡：清除 plan 删除标记
-      progress.daily_checkin_plan = { date: today(), queue: arr, completed: [] };
+      progress.daily_checkin_plan = { date: today(), created_at: new Date().toISOString(), queue: arr, completed: [] };
       saveProgress();
       currentVocabIdx = 0;
       // vocab/grammar 依赖 currentTask；若队列含这俩先生成
@@ -4675,7 +4707,7 @@ document.addEventListener('input', function(e) {
     backupCurrentProgress();
     progress._deleted = progress._deleted || {};
     progress._deleted.bound_devices = progress._deleted.bound_devices || {};
-    progress._deleted.bound_devices[deviceId] = true; // 解绑标记，防云端复活
+    progress._deleted.bound_devices[deviceId] = new Date().toISOString(); // 解绑标记（时间戳），防云端复活
     progress.bound_devices = (progress.bound_devices || []).filter(id => id !== deviceId);
     window.progress = progress;
     saveProgress();

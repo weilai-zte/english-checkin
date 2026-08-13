@@ -971,9 +971,9 @@ const m2 = mergeProgress(
   { daily_checkin_plan: { date: '2026-08-13', queue: ['quiz'], completed: [] }, _updated_at: '2026-08-13T09:00:00Z' }
 );
 out.plan = m2.daily_checkin_plan ? true : false;
-// 3) 解绑设备：本地已解绑 + 标记，云端不得复活
+// 3) 解绑设备：本地已解绑 + 标记（ISO 时间戳），云端不得复活
 out.unbind = JSON.stringify(mergeProgress(
-  { bound_devices: ['AAA'], _deleted: { bound_devices: { BBB: true } }, _updated_at: '2026-08-13T10:00:00Z' },
+  { bound_devices: ['AAA'], _deleted: { bound_devices: { BBB: '2026-08-13T10:00:00Z' } }, _updated_at: '2026-08-13T10:00:00Z' },
   { bound_devices: ['AAA', 'BBB'], _updated_at: '2026-08-13T09:00:00Z' }
 ).bound_devices);
 // 4) 撤销后重新打卡（当天标记已清）：新记录必须保留
@@ -987,6 +987,28 @@ const m5 = mergeProgress(
   { difficulty: 'hard', _updated_at: '2026-08-13T09:00:00Z' }
 );
 out.settings = m5.difficulty;
+// 6) 真实时序：撤销已上传 tombstone，当天补打（新记录带 created_at）必须保留
+out.redo_with_tombstone = mergeProgress(
+  { checkins: [{ date: '2026-08-13', created_at: '2026-08-13T11:00:00Z', types: ['quiz'], score: '9/10' }], _deleted: { checkins: {} }, _updated_at: '2026-08-13T11:00:00Z' },
+  { checkins: [], _deleted: { checkins: { [KEY]: '2026-08-13T09:00:00Z' } }, _updated_at: '2026-08-13T09:00:00Z' }
+).checkins.length;
+// 7) 真实时序：昨日完成打卡已上传 plan tombstone，今日新 plan（带 created_at）必须保留
+const m7 = mergeProgress(
+  { _deleted: {}, daily_checkin_plan: { date: '2026-08-13', created_at: '2026-08-13T19:00:00Z', queue: ['vocab', 'quiz'], completed: [] }, _updated_at: '2026-08-13T19:00:00Z' },
+  { _deleted: { plan: '2026-08-12T20:00:00Z' }, _updated_at: '2026-08-12T20:00:00Z' }
+);
+out.next_plan = m7.daily_checkin_plan ? true : false;
+// 8) 真实时序：解绑已上传 tombstone，重新绑定（_updated_at 更新）后设备必须保留
+out.rebind = JSON.stringify(mergeProgress(
+  { bound_devices: ['AAA', 'BBB'], _deleted: {}, _updated_at: '2026-08-13T11:00:00Z' },
+  { bound_devices: ['AAA'], _deleted: { bound_devices: { BBB: '2026-08-13T09:00:00Z' } }, _updated_at: '2026-08-13T09:00:00Z' }
+).bound_devices);
+// 9) 同日完成→撤销→重新开始：plan tombstone 早于新 plan created_at，必须保留
+const m9 = mergeProgress(
+  { _deleted: {}, daily_checkin_plan: { date: '2026-08-13', created_at: '2026-08-13T10:30:00Z', queue: ['quiz'], completed: [] }, _updated_at: '2026-08-13T10:30:00Z' },
+  { _deleted: { plan: '2026-08-13T08:00:00Z' }, _updated_at: '2026-08-13T08:00:00Z' }
+);
+out.same_day_plan = m9.daily_checkin_plan ? true : false;
 console.log(JSON.stringify(out));
 '''
 
@@ -1007,6 +1029,15 @@ def test_merge_deletion_semantics():
     assert out['unbind'] == '["AAA"]', f"解绑设备被复活: {out['unbind']}"
     assert out['redo'] == 1, f"重新打卡被删除标记误删: {out['redo']}"
     assert out['settings'] == 'hard', "设置字段新者胜回归"
+
+
+def test_merge_deletion_tombstone_timestamp_flow():
+    """真实时序：云端残留 tombstone 时，重建的记录/计划/重绑设备必须保留（时间戳比较）。"""
+    out = _run_merge_node()
+    assert out['redo_with_tombstone'] == 1, f"云端残留 tombstone 时补打被误删: {out['redo_with_tombstone']}"
+    assert out['next_plan'] is True, f"昨日 plan tombstone 把今日新 plan 置空: {out['next_plan']}"
+    assert out['rebind'] == '["AAA","BBB"]', f"云端残留 tombstone 时重绑设备被移除: {out['rebind']}"
+    assert out['same_day_plan'] is True, f"同日重开的 plan 被 tombstone 置空: {out['same_day_plan']}"
 
 
 def test_deleted_field_and_vendor_banner_present():
