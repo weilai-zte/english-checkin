@@ -76,6 +76,20 @@ document.addEventListener('input', function(e) {
       sb = window.supabase.createClient(SB_URL, SB_KEY);
     }
   } catch (e) { console.warn('Supabase init failed:', e); }
+  // 云同步可用性提示：SDK 未加载时显示常驻横幅，不再静默失效
+  function ensureSyncBanner() {
+    const visible = !sb;
+    let banner = document.getElementById('sync-off-banner');
+    if (visible && !banner && document.body) {
+      banner = document.createElement('div');
+      banner.id = 'sync-off-banner';
+      banner.textContent = '⚠️ 云同步暂不可用，数据保存在本机';
+      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#b45309;color:#fff;text-align:center;padding:6px 10px;font-size:13px;';
+      document.body.appendChild(banner);
+    } else if (!visible && banner) {
+      banner.remove();
+    }
+  }
 
   function isNicknameKey(key) {
     return typeof key === 'string' && key.startsWith('nk_');
@@ -353,6 +367,7 @@ document.addEventListener('input', function(e) {
       vocab_list_marked: [],     // 全部词汇中的收藏
       unfamiliar_words: [],       // 孩子不熟悉的词 (打卡后家长录入, 后续针对训练)
       recent_seen: [],            // 最近出现过的题/词（跨天去重参考，{key,date}）
+      _deleted: {},               // 删除标记：checkins/bound_devices/plan 被明确删除后不被 union 复活
       user_name: '', // #account nickname (跨设备账号标识)
       school_grade: '', // #account g7/g8/g9，首次使用时选择
       bound_devices: [], // #account 本账号绑定的设备 ID 列表
@@ -378,6 +393,17 @@ document.addEventListener('input', function(e) {
     local = local || {};
     remote = remote || {};
     var out = Object.assign({}, remote, local);
+    // 删除标记必须并集合并（任一侧删除即删除），不能被 Object.assign 覆盖
+    function mergeDeleted(a, b) {
+      var merged = { checkins: {}, bound_devices: {}, plan: !!(a && a.plan) || !!(b && b.plan) };
+      [a, b].forEach(function (d) {
+        if (!d) return;
+        Object.keys(d.checkins || {}).forEach(function (k) { merged.checkins[k] = true; });
+        Object.keys(d.bound_devices || {}).forEach(function (k) { merged.bound_devices[k] = true; });
+      });
+      return merged;
+    }
+    out._deleted = mergeDeleted(local._deleted, remote._deleted);
     function refreshCheckinStats(p) {
       var dates = Array.from(new Set((p.checkins || []).map(function (c) { return c && c.date; }).filter(Boolean))).sort();
       if (!dates.length) { p.total_days = 0; p.streak = 0; p.last_checkin = null; return; }
@@ -524,6 +550,19 @@ document.addEventListener('input', function(e) {
       else if (local[field] != null) out[field] = local[field];
       else if (remote[field] != null) out[field] = remote[field];
     });
+    // 应用删除标记：被明确删除的内容不因 union 复活（顺序必须在设置字段分支之后）
+    var del = out._deleted || {};
+    if (del.checkins) {
+      out.checkins = (out.checkins || []).filter(function (c) {
+        var k = (c.date || '') + '|' + (c.types || []).slice().sort().join(',');
+        return !del.checkins[k];
+      });
+    }
+    if (del.bound_devices) {
+      out.bound_devices = (out.bound_devices || []).filter(function (id) { return !del.bound_devices[id]; });
+    }
+    if (del.plan) out.daily_checkin_plan = null;
+    refreshCheckinStats(out); // 应用删除后重算打卡统计
     out._updated_at = (local._updated_at || '').localeCompare(remote._updated_at || '') >= 0
       ? local._updated_at : remote._updated_at;
     return out;
@@ -1274,6 +1313,15 @@ document.addEventListener('input', function(e) {
   // 完成整日打卡（所有勾选题型都完成后调用一次）
   function finishMixedCheckin(types) {
     if (checkedInToday()) return;
+    // 撤销后重新打卡：清除当天的 checkins 删除标记，避免新记录被误删
+    progress._deleted = progress._deleted || {};
+    if (progress._deleted.checkins) {
+      const todayPrefix = today() + '|';
+      Object.keys(progress._deleted.checkins).forEach(k => {
+        if (k.indexOf(todayPrefix) === 0) delete progress._deleted.checkins[k];
+      });
+    }
+    progress._deleted.plan = true; // 完成打卡：plan 删除标记，防幽灵复活
     progress.checkins.push({
       date: today(),
       vocab: [],
@@ -1418,6 +1466,7 @@ document.addEventListener('input', function(e) {
     }
     fab.classList.toggle('hidden', r.name === 'home' || r.name === '');
     saveDraft(); // 题型切换/导航后同步草稿路由与进度
+    ensureSyncBanner(); // 同步不可用时顶部横幅提示
   }
 
   // ─── 视图：顶部栏 ──────────────────────────────────
@@ -1480,6 +1529,12 @@ document.addEventListener('input', function(e) {
     const list = progress.checkins;
     const i = list.findLastIndex(c => c.date === today());
     if (i === -1) return false;
+    // 记录删除标记，防止云端旧记录被 union 复活
+    const c = list[i];
+    const key = (c.date || '') + '|' + (c.types || []).slice().sort().join(',');
+    progress._deleted = progress._deleted || {};
+    progress._deleted.checkins = progress._deleted.checkins || {};
+    progress._deleted.checkins[key] = true;
     list.splice(i, 1);
     refreshCheckinStats(progress);
     saveProgress();
@@ -1719,6 +1774,8 @@ document.addEventListener('input', function(e) {
       const arr = activeList();
       if (arr.length === 0) { toast('至少选一个题型'); return; }
       clearDraft(); // 重新开始今日打卡
+      progress._deleted = progress._deleted || {};
+      delete progress._deleted.plan; // 重新开始打卡：清除 plan 删除标记
       progress.daily_checkin_plan = { date: today(), queue: arr, completed: [] };
       saveProgress();
       currentVocabIdx = 0;
@@ -4616,6 +4673,9 @@ document.addEventListener('input', function(e) {
     if (deviceId === getDeviceId()) { toast('不能解绑当前设备;如需更换请清空账号', 3000); return; }
     if (!confirm('确定要解绑设备 ' + deviceId.slice(0,8) + '…?\n该设备的云端数据不会被删除,可随时通过相同昵称重新合并。')) return;
     backupCurrentProgress();
+    progress._deleted = progress._deleted || {};
+    progress._deleted.bound_devices = progress._deleted.bound_devices || {};
+    progress._deleted.bound_devices[deviceId] = true; // 解绑标记，防云端复活
     progress.bound_devices = (progress.bound_devices || []).filter(id => id !== deviceId);
     window.progress = progress;
     saveProgress();
@@ -4918,5 +4978,6 @@ document.addEventListener('input', function(e) {
   Promise.race([syncFromSupabase(), new Promise(r => setTimeout(r, 1500))])
     .then(() => { _postBoot(); _maybePromptNickname(); })
     .catch(e => { console.warn('[boot-sync-fail]', e); _postBoot(); _maybePromptNickname(); });
+  ensureSyncBanner();
 })();
           // Bug 3b: 不再把答案写到 DOM, 提交后服务端返回判定再渲染

@@ -235,7 +235,7 @@ INDEX_HTML = """<!DOCTYPE html>
 <body>
 <div id="app"></div>
 <div id="toast" class="toast"></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/vendor/supabase.min.js"></script>
 <script src="assets/data.js"></script>
 <script src="assets/games/_shared.js"></script>
 <script src="assets/games/memory.js"></script>
@@ -286,6 +286,15 @@ def copy_assets():
         achievement_dst = ASSETS / "achievements"
         shutil.copytree(achievement_src, achievement_dst)
         print(f"  ✓ achievements/{len(list(achievement_src.glob('*.svg')))} badges")
+    # vendor: 本地化第三方库（Supabase SDK，避免境外 CDN 加载失败导致同步静默失效）
+    vendor_src = HERE / "assets" / "vendor"
+    if vendor_src.is_dir():
+        vendor_dst = ASSETS / "vendor"
+        vendor_dst.mkdir(parents=True, exist_ok=True)
+        for v in sorted(vendor_src.iterdir()):
+            if v.is_file():
+                shutil.copy(v, vendor_dst / v.name)
+        print(f"  ✓ vendor/{len(list(vendor_src.iterdir()))} files")
     # game modules: copy each .js under games/ to assets/games/
     games_src = HERE / "games"
     if games_src.is_dir():

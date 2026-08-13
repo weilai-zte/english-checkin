@@ -253,10 +253,20 @@ class TestSendWrongWords:
             del sys.modules["send_wrong_words"]
         import send_wrong_words
         fake_urlopen.json_response = [
-            {"data": {"streak": 3, "wrong_words": []}, "updated_at": "2026-07-15T00:00:00Z"}
+            {"data": {"streak": 3, "wrong_words": [
+                {"word": "apple", "date": "2026-07-14"},
+                {"word": "banana", "date": "2026-07-15"},
+            ]}, "updated_at": "2026-07-15T00:00:00Z"},
+            {"data": {"wrong_words": [
+                {"word": "apple", "date": "2026-07-16"},
+            ]}, "updated_at": "2026-07-16T00:00:00Z"},
         ]
         result = send_wrong_words.fetch_supabase_progress()
-        assert result["streak"] == 3
+        # 全部账号行按词合并，同词保留日期较新者
+        words = {w["word"]: w["date"] for w in result["wrong_words"]}
+        assert words["apple"] == "2026-07-16", "同词应保留较新记录"
+        assert words["banana"] == "2026-07-15", "不同词应保留"
+        assert len(words) == 2
 
     def test_lookup_word_meta_exact(self, tmp_data_dir, monkeypatch):
         if "send_wrong_words" in sys.modules:

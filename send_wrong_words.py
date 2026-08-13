@@ -94,37 +94,63 @@ def load_progress():
 
 
 def fetch_supabase_progress():
-    """从 Supabase progress 表拉**指定 user_key** 的最新一行 data。
+    """从 Supabase 拉取真实账号行，合并 wrong_words 后返回。
 
-    返回该行的 data 字典（结构同本地 progress.json）。
+    默认读取 progress 表（昵称/设备行）+ user_progress 表（邮箱行）的全部行，
+    按词合并 wrong_words（保留日期较新者）。显式设置 SUPABASE_USER_KEY 时
+    退回单行查询（兼容旧部署）。
     返回 None 表示网络失败，让 load_progress 走本地兜底。
     """
-    url = (
-        f"{SB_URL.rstrip('/')}/rest/v1/{SB_TABLE}"
-        f"?select=data,updated_at&user_key=eq.{SB_USER_KEY}"
-        f"&order=updated_at.desc&limit=1"
-    )
-    req = urllib.request.Request(
-        url,
-        headers={
-            "apikey": SB_KEY,
-            "Authorization": f"Bearer {SB_KEY}",
-        },
-    )
-    try:
+    headers = {
+        "apikey": SB_KEY,
+        "Authorization": f"Bearer {SB_KEY}",
+    }
+    merged = {}
+    wrong_map = {}
+
+    def merge_rows(rows):
+        for row in rows or []:
+            d = row.get("data") or {}
+            for w in (d.get("wrong_words") or []):
+                if not w or not w.get("word"):
+                    continue
+                k = str(w["word"]).lower()
+                exist = wrong_map.get(k)
+                if not exist or (w.get("date") or "") > (exist.get("date") or ""):
+                    wrong_map[k] = w
+
+    def fetch_rows(url):
+        req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=20) as r:
-            rows = json.loads(r.read())
+            return json.loads(r.read())
+
+    try:
+        if SB_USER_KEY and SB_USER_KEY != "ck_user_key_v1":
+            # 显式指定真实 user_key：单行查询
+            url = (
+                f"{SB_URL.rstrip('/')}/rest/v1/{SB_TABLE}"
+                f"?select=data,updated_at&user_key=eq.{SB_USER_KEY}"
+                f"&order=updated_at.desc&limit=1"
+            )
+            merge_rows(fetch_rows(url))
+        else:
+            # 默认：全部账号行（昵称/设备 + 邮箱），避免字面 key 匹配不到真实数据
+            for table in ("progress", "user_progress"):
+                url = (
+                    f"{SB_URL.rstrip('/')}/rest/v1/{table}"
+                    f"?select=data,updated_at&order=updated_at.desc&limit=500"
+                )
+                merge_rows(fetch_rows(url))
     except Exception as e:
         print(f"⚠️ Supabase fetch 失败: {e}")
         return None
-    if not rows:
+    if not wrong_map:
         return {}
-    if len(rows) > 1:
-        print(f"⚠️ Supabase 返回 {len(rows)} 行 (user_key={SB_USER_KEY})，取最新一条")
-    data = rows[0].get("data") or {}
-    n_wrong = len(data.get("wrong_words", []))
-    print(f"  Supabase: user={SB_USER_KEY} | wrong_words={n_wrong} 条")
-    return data
+    merged["wrong_words"] = sorted(
+        wrong_map.values(), key=lambda x: x.get("date") or ""
+    )
+    print(f"  Supabase: 全部账号行合并 wrong_words={len(merged['wrong_words'])} 条")
+    return merged
 
 
 

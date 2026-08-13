@@ -941,3 +941,78 @@ def test_save_draft_keeps_advanced_route_after_submit():
     否则刷新恢复时重抽已完成题型。"""
     block = _function_block('saveDraft')
     assert "includes(route)" in block, "saveDraft 未防止已完成题型被旧 URL 拉回"
+
+
+# ─── 同步删除语义行为测试 (RIDEER 20260813235639) ─────────────
+# 用 node 执行 app.js 里真实的 mergeProgress，验证删除标记不被 union 复活。
+_MERGE_NODE_TEMPLATE = r'''
+const fs = require('fs');
+const src = fs.readFileSync('site_static/app.js', 'utf8');
+const i = src.indexOf('function mergeProgress', 0);
+const start = src.indexOf('{', i);
+let depth = 1, j = start + 1;
+while (depth > 0 && j < src.length) {
+  if (src[j] === '{') depth++;
+  if (src[j] === '}') depth--;
+  j++;
+}
+const mergeProgress = new Function('return (' + src.slice(i, j) + ')')();
+const today = '2026-08-13';
+const KEY = '2026-08-13|quiz';
+const out = {};
+// 1) 撤销打卡：本地已删 + 删除标记，云端旧记录不得复活
+out.undo = mergeProgress(
+  { checkins: [], _deleted: { checkins: { [KEY]: true } }, _updated_at: '2026-08-13T10:00:00Z' },
+  { checkins: [{ date: '2026-08-13', types: ['quiz'], score: '1/10' }], _updated_at: '2026-08-13T09:00:00Z' }
+).checkins.length;
+// 2) 完成打卡：本地删 plan + 标记，云端旧 plan 不得复活
+const m2 = mergeProgress(
+  { _deleted: { plan: true }, _updated_at: '2026-08-13T10:00:00Z' },
+  { daily_checkin_plan: { date: '2026-08-13', queue: ['quiz'], completed: [] }, _updated_at: '2026-08-13T09:00:00Z' }
+);
+out.plan = m2.daily_checkin_plan ? true : false;
+// 3) 解绑设备：本地已解绑 + 标记，云端不得复活
+out.unbind = JSON.stringify(mergeProgress(
+  { bound_devices: ['AAA'], _deleted: { bound_devices: { BBB: true } }, _updated_at: '2026-08-13T10:00:00Z' },
+  { bound_devices: ['AAA', 'BBB'], _updated_at: '2026-08-13T09:00:00Z' }
+).bound_devices);
+// 4) 撤销后重新打卡（当天标记已清）：新记录必须保留
+out.redo = mergeProgress(
+  { checkins: [{ date: '2026-08-13', types: ['quiz'], score: '9/10' }], _deleted: { checkins: {} }, _updated_at: '2026-08-13T11:00:00Z' },
+  { checkins: [], _updated_at: '2026-08-13T09:00:00Z' }
+).checkins.length;
+// 5) 设置字段防回归：本地较旧时云端设置仍然生效
+const m5 = mergeProgress(
+  { difficulty: 'easy', _updated_at: '2026-08-13T08:00:00Z' },
+  { difficulty: 'hard', _updated_at: '2026-08-13T09:00:00Z' }
+);
+out.settings = m5.difficulty;
+console.log(JSON.stringify(out));
+'''
+
+
+def _run_merge_node():
+    import subprocess
+    r = subprocess.run(['node', '-e', _MERGE_NODE_TEMPLATE], capture_output=True,
+                       text=True, cwd=str(ROOT))
+    assert r.returncode == 0, f"node 执行失败: {r.stderr}"
+    return json.loads(r.stdout.strip())
+
+
+def test_merge_deletion_semantics():
+    """撤销/完成打卡/解绑在合并后必须保持删除；重新打卡不被误删；设置回归不破坏。"""
+    out = _run_merge_node()
+    assert out['undo'] == 0, f"撤销后云端记录复活: {out['undo']}"
+    assert out['plan'] is False, "完成打卡后 plan 幽灵复活"
+    assert out['unbind'] == '["AAA"]', f"解绑设备被复活: {out['unbind']}"
+    assert out['redo'] == 1, f"重新打卡被删除标记误删: {out['redo']}"
+    assert out['settings'] == 'hard', "设置字段新者胜回归"
+
+
+def test_deleted_field_and_vendor_banner_present():
+    """defaultProgress 必须有 _deleted；index.html 必须引用本地 vendor；app.js 必须有同步失败提示条。"""
+    block = _function_block('defaultProgress')
+    assert '_deleted' in block, "defaultProgress 缺 _deleted 删除标记字段"
+    build = (ROOT / 'site_static' / 'build.py').read_text(encoding='utf-8')
+    assert 'assets/vendor/supabase.min.js' in build, "build.py 未引用本地 vendor supabase"
+    assert '云同步暂不可用' in APP_JS_SRC, "app.js 缺同步失败提示条文案"
