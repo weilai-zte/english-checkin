@@ -3,17 +3,17 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 4590,
+    "total": 4800,
     "type_count": {
-      "vocab": 3624,
+      "vocab": 3834,
       "grammar": 108,
       "translate": 534,
       "tense": 324
     },
     "grade_count": {
-      "L1": 1901,
-      "L2": 1506,
-      "L3": 1183
+      "L1": 1853,
+      "L2": 1809,
+      "L3": 1138
     },
     "filter_attrs": [
       "type",
@@ -3039,7 +3039,7 @@
     {
       "id": "v_jr_l1_0216",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "wife",
@@ -3047,8 +3047,9 @@
       "cn": "妻子",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "家庭"
+      "src": "ba8",
+      "l1_cat": "家庭",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0217",
@@ -3963,7 +3964,7 @@
     {
       "id": "v_jr_l1_0282",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "sky",
@@ -3971,13 +3972,14 @@
       "cn": "天空",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "自然"
+      "src": "ba8",
+      "l1_cat": "自然",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0283",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "earth",
@@ -3985,8 +3987,9 @@
       "cn": "地球",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "自然"
+      "src": "ba8",
+      "l1_cat": "自然",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0284",
@@ -4377,8 +4380,9 @@
       "cn": "低的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "基础形容词"
+      "src": "ba8",
+      "l1_cat": "基础形容词",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0313",
@@ -5097,7 +5101,7 @@
     {
       "id": "v_jr_l1_0365",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "might",
@@ -5105,8 +5109,9 @@
       "cn": "可能",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "情态动词"
+      "src": "ba8",
+      "l1_cat": "情态动词",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0366",
@@ -5889,8 +5894,9 @@
       "cn": "镇",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "地点"
+      "src": "ba8",
+      "l1_cat": "地点",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0423",
@@ -5973,8 +5979,9 @@
       "cn": "车站",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "地点"
+      "src": "ba8",
+      "l1_cat": "地点",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0429",
@@ -6077,7 +6084,7 @@
     {
       "id": "v_jr_l1_0436",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "movie",
@@ -6085,8 +6092,9 @@
       "cn": "电影",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "娱乐"
+      "src": "ba8",
+      "l1_cat": "娱乐",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0437",
@@ -6477,8 +6485,9 @@
       "cn": "工程师",
       "example": "My father is an engineer.",
       "memory": "engine引擎+er人",
-      "src": "junior+legacy",
-      "l1_cat": "职业"
+      "src": "ba8",
+      "l1_cat": "职业",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0466",
@@ -6757,8 +6766,9 @@
       "cn": "困难",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0020",
@@ -7149,8 +7159,9 @@
       "cn": "到处",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0048",
@@ -7681,8 +7692,9 @@
       "cn": "音乐家",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0086",
@@ -7933,8 +7945,9 @@
       "cn": "桥",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0105",
@@ -7975,8 +7988,9 @@
       "cn": "打架",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0108",
@@ -8339,8 +8353,9 @@
       "cn": "忘记",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0134",
@@ -8507,8 +8522,9 @@
       "cn": "假期",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0146",
@@ -8633,8 +8649,9 @@
       "cn": "旅馆",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0155",
@@ -8661,8 +8678,9 @@
       "cn": "商店",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0157",
@@ -8857,8 +8875,9 @@
       "cn": "苗条的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0172",
@@ -9053,8 +9072,9 @@
       "cn": "碗",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0186",
@@ -9221,8 +9241,9 @@
       "cn": "去购物",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0198",
@@ -9501,8 +9522,9 @@
       "cn": "露营",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0219",
@@ -9557,8 +9579,9 @@
       "cn": "任何地方",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0223",
@@ -9781,8 +9804,9 @@
       "cn": "健康",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0240",
@@ -9879,8 +9903,9 @@
       "cn": "外向的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0247",
@@ -9907,8 +9932,9 @@
       "cn": "镇静的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0249",
@@ -9935,8 +9961,9 @@
       "cn": "严肃的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0251",
@@ -9977,8 +10004,9 @@
       "cn": "懒惰的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0254",
@@ -10033,8 +10061,9 @@
       "cn": "害羞的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0258",
@@ -10117,8 +10146,9 @@
       "cn": "较少的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0264",
@@ -10159,8 +10189,9 @@
       "cn": "兴趣",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0267",
@@ -10243,8 +10274,9 @@
       "cn": "舒服的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0273",
@@ -10299,8 +10331,9 @@
       "cn": "服务",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0277",
@@ -10341,8 +10374,9 @@
       "cn": "更差的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0280",
@@ -10537,8 +10571,9 @@
       "cn": "期盼",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0294",
@@ -10593,8 +10628,9 @@
       "cn": "行动",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0298",
@@ -10677,8 +10713,9 @@
       "cn": "意见",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0304",
@@ -10733,8 +10770,9 @@
       "cn": "学院",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0308",
@@ -10747,8 +10785,9 @@
       "cn": "大学",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0309",
@@ -10761,8 +10800,9 @@
       "cn": "教育",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0310",
@@ -10803,8 +10843,9 @@
       "cn": "决心",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0313",
@@ -10999,8 +11040,9 @@
       "cn": "人类",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0327",
@@ -11027,8 +11069,9 @@
       "cn": "相信",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0329",
@@ -11055,8 +11098,9 @@
       "cn": "不可能的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0331",
@@ -11181,8 +11225,9 @@
       "cn": "勺",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0340",
@@ -11209,8 +11254,9 @@
       "cn": "成分",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0342",
@@ -11279,8 +11325,9 @@
       "cn": "混合",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0347",
@@ -11321,8 +11368,9 @@
       "cn": "黄油",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0350",
@@ -11363,8 +11411,9 @@
       "cn": "薄片",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0353",
@@ -11377,8 +11426,9 @@
       "cn": "食谱",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0354",
@@ -11391,8 +11441,9 @@
       "cn": "烤箱",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0355",
@@ -11489,8 +11540,9 @@
       "cn": "顺便来访",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0362",
@@ -11517,8 +11569,9 @@
       "cn": "直到",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0364",
@@ -11531,8 +11584,9 @@
       "cn": "邀请",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0365",
@@ -11545,8 +11599,9 @@
       "cn": "接受",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0366",
@@ -11587,8 +11642,9 @@
       "cn": "音乐会",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0369",
@@ -11643,8 +11699,9 @@
       "cn": "回答",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0373",
@@ -11699,8 +11756,9 @@
       "cn": "专家",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0377",
@@ -11727,8 +11785,9 @@
       "cn": "自信的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0379",
@@ -11755,8 +11814,9 @@
       "cn": "犯错",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0381",
@@ -11797,8 +11857,9 @@
       "cn": "解决",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0384",
@@ -11811,8 +11872,9 @@
       "cn": "在某处",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0385",
@@ -11825,8 +11887,9 @@
       "cn": "麻烦事",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0386",
@@ -11951,8 +12014,9 @@
       "cn": "蜂蜜",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0395",
@@ -12063,8 +12127,9 @@
       "cn": "打扫",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0403",
@@ -12119,8 +12184,9 @@
       "cn": "社区",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0407",
@@ -12161,8 +12227,9 @@
       "cn": "标志",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0410",
@@ -12175,8 +12242,9 @@
       "cn": "张贴",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0411",
@@ -12329,8 +12397,9 @@
       "cn": "独自",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0422",
@@ -12371,8 +12440,9 @@
       "cn": "垃圾",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0425",
@@ -12441,8 +12511,9 @@
       "cn": "凌乱",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0430",
@@ -12511,8 +12582,9 @@
       "cn": "借",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0435",
@@ -12525,8 +12597,9 @@
       "cn": "借出",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0436",
@@ -12539,8 +12612,9 @@
       "cn": "依靠",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0437",
@@ -12581,8 +12655,9 @@
       "cn": "争吵",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0440",
@@ -12595,8 +12670,9 @@
       "cn": "交流",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0441",
@@ -12609,8 +12685,9 @@
       "cn": "交流",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0442",
@@ -12721,8 +12798,9 @@
       "cn": "紧张的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0450",
@@ -12763,8 +12841,9 @@
       "cn": "比较",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0453",
@@ -12847,8 +12926,9 @@
       "cn": "奇怪的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0459",
@@ -12931,8 +13011,9 @@
       "cn": "逆；对着",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0465",
@@ -12973,8 +13054,9 @@
       "cn": "事件",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0468",
@@ -13113,8 +13195,9 @@
       "cn": "夫妇",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0478",
@@ -13141,8 +13224,9 @@
       "cn": "棒",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0480",
@@ -13295,8 +13379,9 @@
       "cn": "提醒",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0491",
@@ -13379,8 +13464,9 @@
       "cn": "非洲的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0497",
@@ -13393,8 +13479,9 @@
       "cn": "海洋",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0498",
@@ -13435,8 +13522,9 @@
       "cn": "取得",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0501",
@@ -13463,8 +13551,9 @@
       "cn": "挑战",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0503",
@@ -13519,8 +13608,9 @@
       "cn": "称重量",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0507",
@@ -13533,8 +13623,9 @@
       "cn": "财宝",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0508",
@@ -13547,8 +13638,9 @@
       "cn": "岛屿",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0509",
@@ -13561,8 +13653,9 @@
       "cn": "经典",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0510",
@@ -13589,8 +13682,9 @@
       "cn": "工具",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0512",
@@ -13939,8 +14033,9 @@
       "cn": "记忆",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0537",
@@ -14205,8 +14300,9 @@
       "cn": "秘密",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0556",
@@ -14275,8 +14371,9 @@
       "cn": "注意",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0561",
@@ -14303,8 +14400,9 @@
       "cn": "连接",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0563",
@@ -14345,8 +14443,9 @@
       "cn": "明智地",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0566",
@@ -14401,8 +14500,9 @@
       "cn": "陌生人",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0570",
@@ -14933,8 +15033,9 @@
       "cn": "失败",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0608",
@@ -15157,8 +15258,9 @@
       "cn": "工业",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0624",
@@ -15171,8 +15273,9 @@
       "cn": "竹",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0625",
@@ -15353,8 +15456,9 @@
       "cn": "酸的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0638",
@@ -15437,8 +15541,9 @@
       "cn": "提到",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0644",
@@ -15577,8 +15682,9 @@
       "cn": "机会",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0654",
@@ -16067,8 +16173,9 @@
       "cn": "诚实的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0690",
@@ -16361,8 +16468,9 @@
       "cn": "闻",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0712",
@@ -16389,8 +16497,9 @@
       "cn": "街区",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0714",
@@ -16515,8 +16624,9 @@
       "cn": "演讲",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0723",
@@ -16655,8 +16765,9 @@
       "cn": "运输",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0733",
@@ -16725,8 +16836,9 @@
       "cn": "祝贺",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0738",
@@ -16809,8 +16921,9 @@
       "cn": "出席",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0744",
@@ -17229,8 +17342,9 @@
       "cn": "益处；好处",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0774",
@@ -17397,8 +17511,9 @@
       "cn": "具有挑战性的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0786",
@@ -17411,8 +17526,9 @@
       "cn": "性格；角色",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0787",
@@ -17481,8 +17597,9 @@
       "cn": "气候",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0792",
@@ -17893,7 +18010,7 @@
     {
       "id": "v_jr_l3_0021",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "confidence",
@@ -17901,8 +18018,9 @@
       "cn": "信心；信任",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0022",
@@ -17977,7 +18095,7 @@
     {
       "id": "v_jr_l3_0027",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "connection",
@@ -17985,8 +18103,9 @@
       "cn": "连接；关系",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0028",
@@ -18565,7 +18684,7 @@
     {
       "id": "v_jr_l3_0069",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "creative",
@@ -18573,13 +18692,14 @@
       "cn": "创造性的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0070",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "creativity",
@@ -18587,8 +18707,9 @@
       "cn": "创造性；创造力",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0071",
@@ -19055,7 +19176,7 @@
     {
       "id": "v_jr_l3_0104",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "depend",
@@ -19063,8 +19184,9 @@
       "cn": "依靠；依赖",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0105",
@@ -19125,7 +19247,7 @@
     {
       "id": "v_jr_l3_0109",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "describe",
@@ -19133,8 +19255,9 @@
       "cn": "描述",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0110",
@@ -19167,7 +19290,7 @@
     {
       "id": "v_jr_l3_0112",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "design",
@@ -19175,8 +19298,9 @@
       "cn": "设计",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0113",
@@ -19189,8 +19313,9 @@
       "cn": "设计者；设计师",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0114",
@@ -19265,7 +19390,7 @@
     {
       "id": "v_jr_l3_0119",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "detail",
@@ -19273,8 +19398,9 @@
       "cn": "细节",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0120",
@@ -19321,7 +19447,7 @@
     {
       "id": "v_jr_l3_0123",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "develop",
@@ -19329,8 +19455,9 @@
       "cn": "发展；开发",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0124",
@@ -19377,7 +19504,7 @@
     {
       "id": "v_jr_l3_0127",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "difference",
@@ -19385,8 +19512,9 @@
       "cn": "差别；差异",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0128",
@@ -19461,7 +19589,7 @@
     {
       "id": "v_jr_l3_0133",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "direct",
@@ -19469,8 +19597,9 @@
       "cn": "直接的；指导",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0134",
@@ -19531,7 +19660,7 @@
     {
       "id": "v_jr_l3_0138",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "disappear",
@@ -19539,13 +19668,14 @@
       "cn": "消失；不见",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0139",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "disappoint",
@@ -19553,13 +19683,14 @@
       "cn": "使失望",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0140",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "disappointed",
@@ -19567,8 +19698,9 @@
       "cn": "失望的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0141",
@@ -19587,7 +19719,7 @@
     {
       "id": "v_jr_l3_0142",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "disaster",
@@ -19595,8 +19727,9 @@
       "cn": "灾难",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0143",
@@ -20105,7 +20238,7 @@
     {
       "id": "v_jr_l3_0179",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "efficient",
@@ -20113,8 +20246,9 @@
       "cn": "效率高的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0180",
@@ -20217,7 +20351,7 @@
     {
       "id": "v_jr_l3_0187",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "emergency",
@@ -20225,8 +20359,9 @@
       "cn": "紧急情况",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0188",
@@ -20791,7 +20926,7 @@
     {
       "id": "v_jr_l3_0228",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "exchange",
@@ -20799,8 +20934,9 @@
       "cn": "交换；交流",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0229",
@@ -21057,7 +21193,7 @@
     {
       "id": "v_jr_l3_0247",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "expression",
@@ -21065,8 +21201,9 @@
       "cn": "表达；表情",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0248",
@@ -21253,7 +21390,7 @@
     {
       "id": "v_jr_l3_0261",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "familiar",
@@ -21261,8 +21398,9 @@
       "cn": "熟悉的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0262",
@@ -21995,7 +22133,7 @@
     {
       "id": "v_jr_l3_0314",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "imagine",
@@ -22003,8 +22141,9 @@
       "cn": "想象",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0315",
@@ -22513,7 +22652,7 @@
     {
       "id": "v_jr_l3_0351",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "instruction",
@@ -22521,8 +22660,9 @@
       "cn": "指导；指令",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0352",
@@ -22541,7 +22681,7 @@
     {
       "id": "v_jr_l3_0353",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "intelligence",
@@ -22549,8 +22689,9 @@
       "cn": "智力；情报",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0354",
@@ -22737,7 +22878,7 @@
     {
       "id": "v_jr_l3_0367",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "introduce",
@@ -22745,8 +22886,9 @@
       "cn": "介绍；引入",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0368",
@@ -23087,7 +23229,7 @@
     {
       "id": "v_jr_l3_0392",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "literature",
@@ -23095,8 +23237,9 @@
       "cn": "文学；文献",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0393",
@@ -23339,7 +23482,7 @@
     {
       "id": "v_jr_l3_0410",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "medium",
@@ -23347,8 +23490,9 @@
       "cn": "媒体；媒介",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0411",
@@ -23899,7 +24043,7 @@
     {
       "id": "v_jr_l3_0450",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "offer",
@@ -23907,8 +24051,9 @@
       "cn": "提供；提议",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0451",
@@ -25355,7 +25500,7 @@
     {
       "id": "v_jr_l3_0554",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "quality",
@@ -25363,8 +25508,9 @@
       "cn": "质量；品质",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0555",
@@ -25439,7 +25585,7 @@
     {
       "id": "v_jr_l3_0560",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "reasonable",
@@ -25447,8 +25593,9 @@
       "cn": "合理的；通情达理的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0561",
@@ -25705,7 +25852,7 @@
     {
       "id": "v_jr_l3_0579",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "regular",
@@ -25713,8 +25860,9 @@
       "cn": "规律的；定期的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0580",
@@ -25803,7 +25951,7 @@
     {
       "id": "v_jr_l3_0586",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "relationship",
@@ -25811,8 +25959,9 @@
       "cn": "关系",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0587",
@@ -25943,7 +26092,7 @@
     {
       "id": "v_jr_l3_0596",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "replace",
@@ -25951,8 +26100,9 @@
       "cn": "代替；更换",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0597",
@@ -26475,7 +26625,7 @@
     {
       "id": "v_jr_l3_0635",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "role",
@@ -26483,8 +26633,9 @@
       "cn": "角色；作用",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0636",
@@ -26769,7 +26920,7 @@
     {
       "id": "v_jr_l3_0656",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "seriously",
@@ -26777,8 +26928,9 @@
       "cn": "严肃地",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0657",
@@ -26895,7 +27047,7 @@
     {
       "id": "v_jr_l3_0665",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "similarity",
@@ -26903,8 +27055,9 @@
       "cn": "相似",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0666",
@@ -26979,7 +27132,7 @@
     {
       "id": "v_jr_l3_0671",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "social",
@@ -26987,8 +27140,9 @@
       "cn": "社会的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0672",
@@ -27189,7 +27343,7 @@
     {
       "id": "v_jr_l3_0686",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "strength",
@@ -27197,8 +27351,9 @@
       "cn": "力量；长处",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0687",
@@ -27469,7 +27624,7 @@
     {
       "id": "v_jr_l3_0706",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "system",
@@ -27477,8 +27632,9 @@
       "cn": "系统；体系",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0707",
@@ -27511,7 +27667,7 @@
     {
       "id": "v_jr_l3_0709",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "task",
@@ -27519,8 +27675,9 @@
       "cn": "任务",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0710",
@@ -27553,7 +27710,7 @@
     {
       "id": "v_jr_l3_0712",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "technology",
@@ -27561,8 +27718,9 @@
       "cn": "技术",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0713",
@@ -27651,7 +27809,7 @@
     {
       "id": "v_jr_l3_0719",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "topic",
@@ -27659,8 +27817,9 @@
       "cn": "主题；话题",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0720",
@@ -28043,7 +28202,7 @@
     {
       "id": "v_jr_l3_0747",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "valuable",
@@ -28051,8 +28210,9 @@
       "cn": "有价值的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0748",
@@ -28239,7 +28399,7 @@
     {
       "id": "v_jr_l3_0761",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "wherever",
@@ -28247,8 +28407,9 @@
       "cn": "无论哪里",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ba8",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0762",
@@ -28702,7 +28863,7 @@
     {
       "id": "v_pdf_0039",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "except",
@@ -28710,12 +28871,13 @@
       "cn": "除……之外",
       "example": "",
       "pos": "介词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0042",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "during",
@@ -28723,7 +28885,8 @@
       "cn": "在……的期间；在……过程中",
       "example": "",
       "pos": "介词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0046",
@@ -28832,7 +28995,7 @@
     {
       "id": "v_pdf_0062",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "without",
@@ -28840,7 +29003,8 @@
       "cn": "没有",
       "example": "",
       "pos": "介词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0063",
@@ -28949,7 +29113,7 @@
     {
       "id": "v_pdf_0082",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "yourself",
@@ -28957,7 +29121,8 @@
       "cn": "你自己",
       "example": "",
       "pos": "代词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0083",
@@ -29612,7 +29777,7 @@
     {
       "id": "v_pdf_0153",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "able",
@@ -29620,7 +29785,8 @@
       "cn": "能够；有能力的",
       "example": "",
       "pos": "形容词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0154",
@@ -29794,7 +29960,7 @@
     {
       "id": "v_pdf_0180",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "dead",
@@ -29802,7 +29968,8 @@
       "cn": "死的",
       "example": "",
       "pos": "形容词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0181",
@@ -30272,7 +30439,8 @@
       "cn": "大声的；响亮的",
       "example": "",
       "pos": "形容词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0235",
@@ -30472,7 +30640,7 @@
     {
       "id": "v_pdf_0266",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "several",
@@ -30480,12 +30648,13 @@
       "cn": "几个；若干",
       "example": "",
       "pos": "形容词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0268",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "sick",
@@ -30493,7 +30662,8 @@
       "cn": "生病的；有病的",
       "example": "",
       "pos": "形容词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0272",
@@ -30845,7 +31015,8 @@
       "cn": "几乎；将近",
       "example": "",
       "pos": "副词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0311",
@@ -31768,7 +31939,8 @@
       "cn": "花费；值(多少钱)",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0424",
@@ -31781,7 +31953,8 @@
       "cn": "覆盖；遮盖；掩盖",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0425",
@@ -31877,7 +32050,7 @@
     {
       "id": "v_pdf_0442",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "fill",
@@ -31885,7 +32058,8 @@
       "cn": "满；充满",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0446",
@@ -32212,7 +32386,8 @@
       "cn": "错过；没看见",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0490",
@@ -32368,7 +32543,8 @@
       "cn": "到达；抵达",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0510",
@@ -32503,7 +32679,7 @@
     {
       "id": "v_pdf_0523",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "shall",
@@ -32511,7 +32687,8 @@
       "cn": "将；要；会",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0524",
@@ -32745,7 +32922,8 @@
       "cn": "事故；意外的事",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0575",
@@ -32823,7 +33001,8 @@
       "cn": "卧室",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0594",
@@ -33096,7 +33275,8 @@
       "cn": "圣诞节",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0632",
@@ -33331,7 +33511,8 @@
       "cn": "日期",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0662",
@@ -33922,7 +34103,8 @@
       "cn": "陆地；土地",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0752",
@@ -34027,7 +34209,8 @@
       "cn": "线；生产(装配)线",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0764",
@@ -34197,7 +34380,8 @@
       "cn": "会；聚会",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0782",
@@ -34210,7 +34394,8 @@
       "cn": "米；公尺",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0783",
@@ -35213,7 +35398,8 @@
       "cn": "票；券",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0930",
@@ -35804,7 +35990,7 @@
     {
       "id": "v_lg_food_030",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "饮食",
       "freq": 4,
       "word": "cinnamon",
@@ -35812,7 +35998,8 @@
       "cn": "肉桂",
       "example": "Cinnamon is used in many desserts.",
       "memory": "cinnamon肉桂",
-      "src": "legacy"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_lg_food_031",
@@ -35869,7 +36056,7 @@
     {
       "id": "v_lg_food_035",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "饮食",
       "freq": 4,
       "word": "flour",
@@ -35877,7 +36064,8 @@
       "cn": "面粉",
       "example": "Flour is used to make bread.",
       "memory": "flower花→磨碎的谷物",
-      "src": "legacy"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_lg_colors_007",
@@ -36181,7 +36369,7 @@
     {
       "id": "v_lg_personality_012",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人物性格",
       "freq": 4,
       "word": "energetic",
@@ -36189,7 +36377,8 @@
       "cn": "精力充沛的",
       "example": "He is always energetic and ready to play.",
       "memory": "energy能量+tic",
-      "src": "legacy"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_lg_emotion_001",
@@ -36961,7 +37150,7 @@
     {
       "id": "v_lg_travel_002",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "旅行交通",
       "freq": 4,
       "word": "luggage",
@@ -36969,7 +37158,8 @@
       "cn": "行李",
       "example": "I packed my luggage last night.",
       "memory": "lug拉+gage行李",
-      "src": "legacy"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_lg_travel_003",
@@ -37065,7 +37255,7 @@
     {
       "id": "v_lg_travel_010",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "旅行交通",
       "freq": 4,
       "word": "journey",
@@ -37073,7 +37263,8 @@
       "cn": "旅程",
       "example": "The journey took about six hours.",
       "memory": "journe日→每日的路程",
-      "src": "legacy"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_lg_travel_011",
@@ -37312,7 +37503,7 @@
     {
       "id": "v_lg_science_002",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "科学自然",
       "freq": 4,
       "word": "research",
@@ -37320,7 +37511,8 @@
       "cn": "研究",
       "example": "Scientists do research to find answers.",
       "memory": "re再+search搜索",
-      "src": "legacy"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_lg_science_003",
@@ -37697,7 +37889,8 @@
       "cn": "运动员",
       "example": "The athlete trained every day.",
       "memory": "athlon比赛+te",
-      "src": "legacy"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_lg_sports_009",
@@ -37741,7 +37934,7 @@
     {
       "id": "v_lg_sports_012",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "体育运动",
       "freq": 4,
       "word": "training",
@@ -37749,7 +37942,8 @@
       "cn": "训练",
       "example": "Training makes an athlete stronger.",
       "memory": "train训练+ing",
-      "src": "legacy"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_lg_grammar_001",
@@ -37819,7 +38013,7 @@
     {
       "id": "v_lg_grammar_006",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "英语语法术语",
       "freq": 4,
       "word": "sentence",
@@ -37827,7 +38021,8 @@
       "cn": "句子",
       "example": "Please make a sentence with this word.",
       "memory": "sent感觉+ence→表达的完整单位",
-      "src": "legacy"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_lg_grammar_007",
@@ -43975,7 +44170,7 @@
     {
       "id": "v_pdf2_0979",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "饮食健康",
       "freq": 5,
       "word": "cheese",
@@ -43983,7 +44178,8 @@
       "cn": "奶酪",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_0980",
@@ -44131,7 +44327,7 @@
     {
       "id": "v_pdf2_0993",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "饮食健康",
       "freq": 5,
       "word": "mushroom",
@@ -44139,7 +44335,8 @@
       "cn": "蘑菇",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_0994",
@@ -44820,7 +45017,7 @@
     {
       "id": "v_pdf2_1060",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "自然环境",
       "freq": 5,
       "word": "frog",
@@ -44828,7 +45025,8 @@
       "cn": "青蛙",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1062",
@@ -44989,7 +45187,7 @@
     {
       "id": "v_pdf2_1076",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "自然环境",
       "freq": 5,
       "word": "deer",
@@ -44997,7 +45195,8 @@
       "cn": "鹿",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1077",
@@ -45080,7 +45279,7 @@
     {
       "id": "v_pdf2_1084",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "自然环境",
       "freq": 5,
       "word": "ant",
@@ -45088,7 +45287,8 @@
       "cn": "蚂蚁",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1085",
@@ -45106,7 +45306,7 @@
     {
       "id": "v_pdf2_1086",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "自然环境",
       "freq": 5,
       "word": "butterfly",
@@ -45114,7 +45314,8 @@
       "cn": "蝴蝶",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1087",
@@ -45912,7 +46113,7 @@
     {
       "id": "v_pdf2_1161",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "学校学习",
       "freq": 5,
       "word": "essay",
@@ -45920,7 +46121,8 @@
       "cn": "论文",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1164",
@@ -46341,7 +46543,7 @@
     {
       "id": "v_pdf2_1199",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "家庭生活",
       "freq": 5,
       "word": "guest",
@@ -46349,7 +46551,8 @@
       "cn": "客人",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1200",
@@ -46367,7 +46570,7 @@
     {
       "id": "v_pdf2_1201",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "家庭生活",
       "freq": 5,
       "word": "host",
@@ -46375,12 +46578,13 @@
       "cn": "主人",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1202",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "家庭生活",
       "freq": 5,
       "word": "hostess",
@@ -46388,7 +46592,8 @@
       "cn": "女主人",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1203",
@@ -46809,7 +47014,7 @@
     {
       "id": "v_pdf2_1239",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "物品用品",
       "freq": 5,
       "word": "mirror",
@@ -46817,7 +47022,8 @@
       "cn": "镜子",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1240",
@@ -47017,7 +47223,7 @@
     {
       "id": "v_pdf2_1255",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "物品用品",
       "freq": 5,
       "word": "scissors",
@@ -47025,7 +47231,8 @@
       "cn": "剪刀",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1256",
@@ -47043,7 +47250,7 @@
     {
       "id": "v_pdf2_1257",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "物品用品",
       "freq": 5,
       "word": "glue",
@@ -47051,7 +47258,8 @@
       "cn": "胶水",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1258",
@@ -47121,7 +47329,7 @@
     {
       "id": "v_pdf2_1266",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "物品用品",
       "freq": 5,
       "word": "wallet",
@@ -47129,7 +47337,8 @@
       "cn": "钱包",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1267",
@@ -47186,7 +47395,7 @@
     {
       "id": "v_pdf2_1284",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "silver",
@@ -47194,7 +47403,8 @@
       "cn": "银色",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1285",
@@ -47225,7 +47435,7 @@
     {
       "id": "v_pdf2_1287",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "square",
@@ -47233,7 +47443,8 @@
       "cn": "正方形",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1288",
@@ -47875,7 +48086,7 @@
     {
       "id": "v_pdf2_1346",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "victory",
@@ -47883,7 +48094,8 @@
       "cn": "胜利",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1347",
@@ -48078,7 +48290,8 @@
       "cn": "律师",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1362",
@@ -48481,7 +48694,8 @@
       "cn": "女演员",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1400",
@@ -48494,7 +48708,8 @@
       "cn": "导演",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1401",
@@ -48759,7 +48974,7 @@
     {
       "id": "v_pdf2_1424",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "科技信息",
       "freq": 3,
       "word": "ai",
@@ -48767,7 +48982,8 @@
       "cn": "人工智能",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1425",
@@ -49123,7 +49339,7 @@
     {
       "id": "v_pdf2_1452",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "科技信息",
       "freq": 3,
       "word": "speaker",
@@ -49131,7 +49347,8 @@
       "cn": "扬声器",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1453",
@@ -49175,7 +49392,7 @@
     {
       "id": "v_pdf2_1456",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "自然环境",
       "freq": 5,
       "word": "rainbow",
@@ -49183,7 +49400,8 @@
       "cn": "彩虹",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1457",
@@ -50436,7 +50654,7 @@
     {
       "id": "v_pdf2_1589",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "final",
@@ -50444,7 +50662,8 @@
       "cn": "最终的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1590",
@@ -50787,7 +51006,7 @@
     {
       "id": "v_pdf2_1618",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "tiny",
@@ -50795,7 +51014,8 @@
       "cn": "极小的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1619",
@@ -51034,7 +51254,7 @@
     {
       "id": "v_pdf2_1643",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "dream",
@@ -51042,7 +51262,8 @@
       "cn": "做梦",
       "example": "",
       "pos": "动词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1644",
@@ -51840,7 +52061,7 @@
     {
       "id": "v_pdf2_1712",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "trust",
@@ -51848,7 +52069,8 @@
       "cn": "信任",
       "example": "",
       "pos": "动词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1713",
@@ -52269,7 +52491,7 @@
     {
       "id": "v_pdf2_1751",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "lift",
@@ -52277,7 +52499,8 @@
       "cn": "举起",
       "example": "",
       "pos": "动词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1752",
@@ -52763,7 +52986,7 @@
     {
       "id": "v_pdf2_1793",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "ancient",
@@ -52771,7 +52994,8 @@
       "cn": "古代的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1795",
@@ -53985,7 +54209,7 @@
     {
       "id": "v_pdf2_1917",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "joy",
@@ -53993,7 +54217,8 @@
       "cn": "欢乐",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ba8",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1918",
@@ -71037,6 +71262,3085 @@
         "过去进行时"
       ],
       "src": "codex_expand_2026_08"
+    },
+    {
+      "id": "v_ba8_0001",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "according",
+      "pron": "/əˈkɔːdɪŋ/",
+      "cn": "按照，根据",
+      "example": "According to the map, we turn left.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "prep."
+    },
+    {
+      "id": "v_ba8_0002",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "apartment",
+      "pron": "/əˈpɑːtmənt/",
+      "cn": "公寓",
+      "example": "They live in a small apartment.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0003",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "appear",
+      "pron": "/əˈpɪə(r)/",
+      "cn": "出现；显得",
+      "example": "A rainbow appeared in the sky.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v."
+    },
+    {
+      "id": "v_ba8_0004",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "accordion",
+      "pron": "/əˈkɔːdiən/",
+      "cn": "手风琴",
+      "example": "She plays the accordion well.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0005",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "appearance",
+      "pron": "/əˈpɪərəns/",
+      "cn": "外貌；出现",
+      "example": "Don't judge a person by appearance.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0006",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "argue with sb",
+      "pron": "",
+      "cn": "与某人争吵",
+      "example": "Don't argue with your sister.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0007",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "arrival",
+      "pron": "/əˈraɪvl/",
+      "cn": "到达",
+      "example": "We waited for the train's arrival.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0008",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "add",
+      "pron": "/æd/",
+      "cn": "增加；添加",
+      "example": "Please add more water to the pot.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v."
+    },
+    {
+      "id": "v_ba8_0009",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "actually",
+      "pron": "/ˈæktʃuəli/",
+      "cn": "实际上",
+      "example": "Actually, I like math best.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv."
+    },
+    {
+      "id": "v_ba8_0010",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "artwork",
+      "pron": "/ˈɑːtwɜːk/",
+      "cn": "艺术作品",
+      "example": "The museum has many pieces of artwork.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0011",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "add sth to sth",
+      "pron": "",
+      "cn": "把某物加到某物上",
+      "example": "Add some sugar to the tea.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0012",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "as long as",
+      "pron": "",
+      "cn": "只要；和……一样长",
+      "example": "You can stay as long as you like.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0013",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "at least",
+      "pron": "",
+      "cn": "至少",
+      "example": "You should sleep at least eight hours.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0014",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "average",
+      "pron": "/ˈævərɪdʒ/",
+      "cn": "平均的；平均数",
+      "example": "The average temperature is warm.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj./n."
+    },
+    {
+      "id": "v_ba8_0015",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "ah",
+      "pron": "/ɑː/",
+      "cn": "啊（表惊讶等）",
+      "example": "Ah, that is a big surprise!",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "interj."
+    },
+    {
+      "id": "v_ba8_0016",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "ahead",
+      "pron": "/əˈhed/",
+      "cn": "在前面；提前",
+      "example": "Walk straight ahead, please.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv."
+    },
+    {
+      "id": "v_ba8_0017",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "alike",
+      "pron": "/əˈlaɪk/",
+      "cn": "相像的",
+      "example": "The twins look very alike.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0018",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "bake",
+      "pron": "/beɪk/",
+      "cn": "烘焙；烤",
+      "example": "Let's bake cookies together.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v."
+    },
+    {
+      "id": "v_ba8_0019",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "balcony",
+      "pron": "/ˈbælkəni/",
+      "cn": "阳台",
+      "example": "We relaxed on the balcony.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0020",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "bath",
+      "pron": "/bɑːθ/",
+      "cn": "洗澡；浴缸",
+      "example": "Take a bath before you sleep.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0021",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "along with sb",
+      "pron": "",
+      "cn": "和某人一起",
+      "example": "I went to the park along with my dad.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0022",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "be careful with",
+      "pron": "",
+      "cn": "小心对待",
+      "example": "Be careful with the glass.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0023",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "bathroom",
+      "pron": "/ˈbɑːθruːm/",
+      "cn": "浴室",
+      "example": "The bathroom is upstairs.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0024",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "be connected with/to",
+      "pron": "",
+      "cn": "与……有联系",
+      "example": "The story is connected with history.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0025",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "be home to sb",
+      "pron": "",
+      "cn": "是某人的家园",
+      "example": "This forest is home to many birds.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0026",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "be tired of",
+      "pron": "",
+      "cn": "厌倦",
+      "example": "I am tired of junk food.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0027",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "cancer",
+      "pron": "/ˈkænsə(r)/",
+      "cn": "癌症",
+      "example": "The doctor treated her cancer.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0028",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "be yourself",
+      "pron": "",
+      "cn": "做真实的自己",
+      "example": "Don't worry, just be yourself.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0029",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "carefully",
+      "pron": "/ˈkeəfəli/",
+      "cn": "仔细地",
+      "example": "Read the question carefully.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv."
+    },
+    {
+      "id": "v_ba8_0030",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "care about",
+      "pron": "",
+      "cn": "关心；在乎",
+      "example": "I really care about my friends.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0031",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "cash",
+      "pron": "/kæʃ/",
+      "cn": "现金",
+      "example": "Can I pay in cash?",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0032",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "besides",
+      "pron": "/bɪˈsaɪdz/",
+      "cn": "除……之外；而且",
+      "example": "Besides English, I learn French.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "prep./adv."
+    },
+    {
+      "id": "v_ba8_0033",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "biscuit",
+      "pron": "/ˈbɪskɪt/",
+      "cn": "饼干",
+      "example": "I bought a packet of biscuits.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0034",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "chance",
+      "pron": "/tʃɑːns/",
+      "cn": "机会；可能性",
+      "example": "This is a good chance to practice.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0035",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "boil",
+      "pron": "/bɔɪl/",
+      "cn": "煮沸；烧开",
+      "example": "Boil the water before drinking.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v."
+    },
+    {
+      "id": "v_ba8_0036",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "bored",
+      "pron": "/bɔːd/",
+      "cn": "无聊的",
+      "example": "I feel bored on rainy days.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0037",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "cheetah",
+      "pron": "/ˈtʃiːtə/",
+      "cn": "猎豹",
+      "example": "A cheetah runs very fast.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0038",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "born",
+      "pron": "/bɔːn/",
+      "cn": "出生",
+      "example": "She was born in 2012.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v."
+    },
+    {
+      "id": "v_ba8_0039",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "chief",
+      "pron": "/tʃiːf/",
+      "cn": "首领；主要的",
+      "example": "He is the chief of the team.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n./adj."
+    },
+    {
+      "id": "v_ba8_0040",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "breath",
+      "pron": "/breθ/",
+      "cn": "呼吸",
+      "example": "Take a deep breath and relax.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0041",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "budget",
+      "pron": "/ˈbʌdʒɪt/",
+      "cn": "预算",
+      "example": "We plan the trip on a small budget.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0042",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "clause",
+      "pron": "/klɔːz/",
+      "cn": "从句；条款",
+      "example": "This sentence has a relative clause.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0043",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "businessman",
+      "pron": "/ˈbɪznəsmæn/",
+      "cn": "商人",
+      "example": "The businessman travels a lot.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0044",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "closing",
+      "pron": "/ˈkləʊzɪŋ/",
+      "cn": "结束的；最后的",
+      "example": "This is the closing part of the story.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0045",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "by accident",
+      "pron": "",
+      "cn": "偶然；意外地",
+      "example": "I found the key by accident.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0046",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "decorate",
+      "pron": "/ˈdekəreɪt/",
+      "cn": "装饰",
+      "example": "We decorate the room with flowers.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v."
+    },
+    {
+      "id": "v_ba8_0047",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "congratulation",
+      "pron": "/kənˌɡrætʃuˈleɪʃn/",
+      "cn": "祝贺",
+      "example": "Congratulations on winning the prize!",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0048",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "connected",
+      "pron": "/kəˈnektɪd/",
+      "cn": "连接的；有联系的",
+      "example": "The two cities are connected by a bridge.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0049",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "continue",
+      "pron": "/kənˈtɪnjuː/",
+      "cn": "继续",
+      "example": "Please continue reading.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v."
+    },
+    {
+      "id": "v_ba8_0050",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "countryside",
+      "pron": "/ˈkʌntrisaɪd/",
+      "cn": "乡村；农村",
+      "example": "We spent a week in the countryside.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0051",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "cream",
+      "pron": "/kriːm/",
+      "cn": "奶油；乳霜",
+      "example": "I like coffee with cream.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0052",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "crust",
+      "pron": "/krʌst/",
+      "cn": "外皮；面包皮",
+      "example": "The bread crust is crispy.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0053",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "do with",
+      "pron": "",
+      "cn": "处理；与……有关",
+      "example": "What did you do with my book?",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0054",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "draw to a close",
+      "pron": "",
+      "cn": "接近尾声",
+      "example": "The meeting drew to a close.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0055",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "cure",
+      "pron": "/kjʊə(r)/",
+      "cn": "治疗；治愈",
+      "example": "This medicine can cure a cold.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v./n."
+    },
+    {
+      "id": "v_ba8_0056",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "put sth in/into sth",
+      "pron": "",
+      "cn": "把某物放进某物",
+      "example": "Put the milk into the fridge.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0057",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "drop sb a line",
+      "pron": "",
+      "cn": "给某人写短信",
+      "example": "Drop me a line when you arrive.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0058",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "ecosystem",
+      "pron": "/ˈiːkəʊsɪstəm/",
+      "cn": "生态系统",
+      "example": "Wetlands are a special ecosystem.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0059",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "easily",
+      "pron": "/ˈiːzəli/",
+      "cn": "容易地",
+      "example": "She solved the problem easily.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv."
+    },
+    {
+      "id": "v_ba8_0060",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "fantastic",
+      "pron": "/fænˈtæstɪk/",
+      "cn": "极好的",
+      "example": "We had a fantastic time!",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0061",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "faraway",
+      "pron": "/ˈfɑːrəweɪ/",
+      "cn": "遥远的",
+      "example": "They come from a faraway town.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0062",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "feel free",
+      "pron": "",
+      "cn": "请随意",
+      "example": "Feel free to ask me questions.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0063",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "fashion",
+      "pron": "/ˈfæʃn/",
+      "cn": "时尚；流行",
+      "example": "She is interested in fashion.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0064",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "emotional",
+      "pron": "/ɪˈməʊʃənl/",
+      "cn": "情绪的；感情的",
+      "example": "Music can be very emotional.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0065",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "emotional intelligence",
+      "pron": "",
+      "cn": "情商",
+      "example": "Emotional intelligence is important.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0066",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "fight against sb",
+      "pron": "",
+      "cn": "与某人作斗争",
+      "example": "They fight against pollution.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0067",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "especially",
+      "pron": "/ɪˈspeʃəli/",
+      "cn": "尤其；特别",
+      "example": "I love fruit, especially apples.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv."
+    },
+    {
+      "id": "v_ba8_0068",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "fireman",
+      "pron": "/ˈfaɪəmən/",
+      "cn": "消防员",
+      "example": "The fireman saved the child.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0069",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "flute",
+      "pron": "/fluːt/",
+      "cn": "长笛",
+      "example": "He plays the flute in the school band.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0070",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "folding",
+      "pron": "/ˈfəʊldɪŋ/",
+      "cn": "折叠的",
+      "example": "This is a folding chair.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0071",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "folding fan",
+      "pron": "",
+      "cn": "折扇",
+      "example": "She bought a folding fan.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0072",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "for this reason",
+      "pron": "",
+      "cn": "因为这个原因",
+      "example": "For this reason, we left early.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0073",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "forgetful",
+      "pron": "/fəˈɡetfl/",
+      "cn": "健忘的",
+      "example": "My grandpa is a bit forgetful.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0074",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "face to face",
+      "pron": "",
+      "cn": "面对面",
+      "example": "We talked face to face.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0075",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "freshly",
+      "pron": "/ˈfreʃli/",
+      "cn": "新鲜地；新近地",
+      "example": "I ate freshly baked bread.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv."
+    },
+    {
+      "id": "v_ba8_0076",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "fact",
+      "pron": "/fækt/",
+      "cn": "事实",
+      "example": "That is a well-known fact.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0077",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "face-to-face",
+      "pron": "",
+      "cn": "面对面的",
+      "example": "They had a face-to-face meeting.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0078",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "friendship",
+      "pron": "/ˈfrendʃɪp/",
+      "cn": "友谊",
+      "example": "Our friendship lasts for years.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0079",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "futurist",
+      "pron": "/ˈfjuːtʃərɪst/",
+      "cn": "未来主义者",
+      "example": "The futurist studies new technologies.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0080",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "get together",
+      "pron": "",
+      "cn": "聚会；相聚",
+      "example": "We get together every Friday.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0081",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "German",
+      "pron": "/ˈdʒɜːmən/",
+      "cn": "德语；德国人",
+      "example": "He can speak German well.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n./adj."
+    },
+    {
+      "id": "v_ba8_0082",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "ginkgo",
+      "pron": "/ˈɡɪŋkəʊ/",
+      "cn": "银杏",
+      "example": "The ginkgo leaves turn yellow in autumn.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0083",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "give sb a lift",
+      "pron": "",
+      "cn": "让某人搭车",
+      "example": "Can you give me a lift to school?",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0084",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "hot and sour soup",
+      "pron": "",
+      "cn": "酸辣汤",
+      "example": "I ordered hot and sour soup.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0085",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "go boating",
+      "pron": "",
+      "cn": "去划船",
+      "example": "We go boating on the lake.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0086",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "goodness",
+      "pron": "/ˈɡʊdnəs/",
+      "cn": "善良；亲切",
+      "example": "She thanked him for his goodness.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0087",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "humour",
+      "pron": "/ˈhjuːmə(r)/",
+      "cn": "幽默",
+      "example": "He has a good sense of humour.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0088",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "hut",
+      "pron": "/hʌt/",
+      "cn": "小屋；棚屋",
+      "example": "The farmer lives in a wooden hut.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0089",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "hang up",
+      "pron": "",
+      "cn": "挂断电话；挂起",
+      "example": "Please hang up the phone now.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0090",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "impolite",
+      "pron": "/ˌɪmpəˈlaɪt/",
+      "cn": "不礼貌的",
+      "example": "It is impolite to interrupt people.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0091",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "importance",
+      "pron": "/ɪmˈpɔːtns/",
+      "cn": "重要性",
+      "example": "We know the importance of health.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0092",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "hard-working",
+      "pron": "/ˌhɑːd ˈwɜːkɪŋ/",
+      "cn": "勤劳的",
+      "example": "She is a hard-working student.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0093",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "happiness",
+      "pron": "/ˈhæpinəs/",
+      "cn": "幸福；快乐",
+      "example": "Happiness comes from small things.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0094",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "in order to",
+      "pron": "",
+      "cn": "为了",
+      "example": "In order to win, we practiced hard.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0095",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "in the sun",
+      "pron": "",
+      "cn": "在阳光下",
+      "example": "The cat slept in the sun.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0096",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "have sth in common",
+      "pron": "",
+      "cn": "有共同点",
+      "example": "We have a lot in common.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0097",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "heat",
+      "pron": "/hiːt/",
+      "cn": "加热；热量",
+      "example": "Heat the soup before you eat it.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v./n."
+    },
+    {
+      "id": "v_ba8_0098",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "healthily",
+      "pron": "/ˈhelθəli/",
+      "cn": "健康地",
+      "example": "Try to eat healthily every day.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv."
+    },
+    {
+      "id": "v_ba8_0099",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "honour",
+      "pron": "/ˈɒnə(r)/",
+      "cn": "荣誉；敬意",
+      "example": "It is an honour to meet you.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0100",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "item",
+      "pron": "/ˈaɪtəm/",
+      "cn": "物品；项目",
+      "example": "She checked every item on the list.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0101",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "lining",
+      "pron": "/ˈlaɪnɪŋ/",
+      "cn": "衬里；内衬",
+      "example": "The coat has a warm lining.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0102",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "listener",
+      "pron": "/ˈlɪsnə(r)/",
+      "cn": "听众",
+      "example": "Be a good listener in class.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0103",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "joke",
+      "pron": "/dʒəʊk/",
+      "cn": "笑话；开玩笑",
+      "example": "He told a funny joke.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n./v."
+    },
+    {
+      "id": "v_ba8_0104",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "lively",
+      "pron": "/ˈlaɪvli/",
+      "cn": "活泼的；生动的",
+      "example": "The puppy is very lively.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0105",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "living room",
+      "pron": "",
+      "cn": "客厅",
+      "example": "We watch TV in the living room.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0106",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "local",
+      "pron": "/ˈləʊkl/",
+      "cn": "当地的",
+      "example": "We tried local food in the town.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0107",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "look for",
+      "pron": "",
+      "cn": "寻找",
+      "example": "I am looking for my keys.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0108",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "keep on doing sth",
+      "pron": "",
+      "cn": "继续做某事",
+      "example": "Keep on practicing, and you will improve.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0109",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "lotus",
+      "pron": "/ˈləʊtəs/",
+      "cn": "荷花；莲花",
+      "example": "The lotus flowers are beautiful.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0110",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "landscape",
+      "pron": "/ˈlændskeɪp/",
+      "cn": "风景；山水",
+      "example": "The landscape here is breathtaking.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0111",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "make sure",
+      "pron": "",
+      "cn": "确保",
+      "example": "Make sure the door is closed.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0112",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "last but not least",
+      "pron": "",
+      "cn": "最后但同样重要",
+      "example": "Last but not least, keep smiling.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0113",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "law",
+      "pron": "/lɔː/",
+      "cn": "法律；法令",
+      "example": "Everyone must follow the law.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0114",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "mashed",
+      "pron": "/mæʃt/",
+      "cn": "捣碎的",
+      "example": "I like mashed potatoes.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0115",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "mash",
+      "pron": "/mæʃ/",
+      "cn": "捣碎",
+      "example": "Mash the bananas with a fork.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v."
+    },
+    {
+      "id": "v_ba8_0116",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "least",
+      "pron": "/liːst/",
+      "cn": "最少；最小",
+      "example": "She spends the least time on games.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv./adj."
+    },
+    {
+      "id": "v_ba8_0117",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "meaning",
+      "pron": "/ˈmiːnɪŋ/",
+      "cn": "意思；意义",
+      "example": "What's the meaning of this word?",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0118",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "length",
+      "pron": "/leŋθ/",
+      "cn": "长度",
+      "example": "What is the length of the rope?",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0119",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "medical",
+      "pron": "/ˈmedɪkl/",
+      "cn": "医学的；医疗的",
+      "example": "She studies medical science.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0120",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "metro",
+      "pron": "/ˈmetrəʊ/",
+      "cn": "地铁",
+      "example": "We take the metro to work.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0121",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "nothing but",
+      "pron": "",
+      "cn": "只有；只不过",
+      "example": "He did nothing but sleep.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0122",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "misunderstanding",
+      "pron": "/ˌmɪsʌndəˈstændɪŋ/",
+      "cn": "误解",
+      "example": "It was just a misunderstanding.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0123",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "novel",
+      "pron": "/ˈnɒvl/",
+      "cn": "小说",
+      "example": "She is reading a science novel.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0124",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "oil",
+      "pron": "/ɔɪl/",
+      "cn": "油；石油",
+      "example": "Add a little oil to the pan.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0125",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "mixture",
+      "pron": "/ˈmɪkstʃə(r)/",
+      "cn": "混合物",
+      "example": "Mix the flour and water into a mixture.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0126",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "one by one",
+      "pron": "",
+      "cn": "一个接一个",
+      "example": "She checked the boxes one by one.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0127",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "opening",
+      "pron": "/ˈəʊpənɪŋ/",
+      "cn": "开幕；开头",
+      "example": "The opening of the show was exciting.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0128",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "millimeter",
+      "pron": "/ˈmɪlimiːtə(r)/",
+      "cn": "毫米",
+      "example": "The paper is one millimeter thick.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0129",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "moss",
+      "pron": "/mɒs/",
+      "cn": "苔藓",
+      "example": "Green moss covers the stone.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0130",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "organized",
+      "pron": "/ˈɔːɡənaɪzd/",
+      "cn": "有条理的",
+      "example": "Keep your notes organized.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0131",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "move on",
+      "pron": "",
+      "cn": "继续前进；继续做",
+      "example": "Let's move on to the next topic.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0132",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "outer",
+      "pron": "/ˈaʊtə(r)/",
+      "cn": "外部的；外面的",
+      "example": "The outer wall is painted blue.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0133",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "outer space",
+      "pron": "",
+      "cn": "外太空",
+      "example": "Rockets travel into outer space.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0134",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "pack up",
+      "pron": "",
+      "cn": "收拾行李",
+      "example": "We packed up and left home early.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0135",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "pour sth into sth",
+      "pron": "",
+      "cn": "把某物倒进某物",
+      "example": "Pour the milk into the cup.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0136",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "put sth back",
+      "pron": "",
+      "cn": "把某物放回原处",
+      "example": "Put the book back on the shelf.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0137",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "put out",
+      "pron": "",
+      "cn": "扑灭；熄灭",
+      "example": "The firemen put out the fire.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0138",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "play a role (in)",
+      "pron": "",
+      "cn": "（在……中）发挥作用",
+      "example": "Sunlight plays a role in plant growth.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0139",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "robotics",
+      "pron": "/rəʊˈbɒtɪks/",
+      "cn": "机器人技术",
+      "example": "Young students enjoy robotics classes.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0140",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "rose",
+      "pron": "/rəʊz/",
+      "cn": "玫瑰；蔷薇",
+      "example": "He gave her a red rose.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0141",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "run low (on sth)",
+      "pron": "",
+      "cn": "快用完",
+      "example": "We are running low on water.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0142",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "rainfall",
+      "pron": "/ˈreɪnfɔːl/",
+      "cn": "降雨量",
+      "example": "The rainfall here is heavy in summer.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0143",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "Russian",
+      "pron": "/ˈrʌʃn/",
+      "cn": "俄语；俄罗斯人",
+      "example": "She is learning Russian.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n./adj."
+    },
+    {
+      "id": "v_ba8_0144",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "reach for",
+      "pron": "",
+      "cn": "伸手去够",
+      "example": "He reached for the top shelf.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0145",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "ready to do sth",
+      "pron": "",
+      "cn": "准备好做某事",
+      "example": "I am ready to start the test.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0146",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "scarf",
+      "pron": "/skɑːf/",
+      "cn": "围巾",
+      "example": "Wear a scarf in winter.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0147",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "scenery",
+      "pron": "/ˈsiːnəri/",
+      "cn": "风景",
+      "example": "The mountain scenery is amazing.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0148",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "sci-fi",
+      "pron": "/ˈsaɪ faɪ/",
+      "cn": "科幻",
+      "example": "He loves sci-fi movies.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0149",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "redwood",
+      "pron": "/ˈredwʊd/",
+      "cn": "红杉",
+      "example": "Redwoods grow very tall.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0150",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "refrigerator",
+      "pron": "/rɪˈfrɪdʒəreɪtə(r)/",
+      "cn": "冰箱",
+      "example": "Put the food in the refrigerator.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0151",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "self-improvement",
+      "pron": "/ˌself ɪmˈpruːvmənt/",
+      "cn": "自我提升",
+      "example": "Reading is a form of self-improvement.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0152",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "sense",
+      "pron": "/sens/",
+      "cn": "感觉；意识",
+      "example": "Dogs have a good sense of smell.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0153",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "rehearsal",
+      "pron": "/rɪˈhɜːsl/",
+      "cn": "排练；彩排",
+      "example": "We have a rehearsal before the show.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0154",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "separate",
+      "pron": "/ˈseprət/",
+      "cn": "分开的；单独的",
+      "example": "Keep the eggs in a separate box.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0155",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "researcher",
+      "pron": "/rɪˈsɜːtʃə(r)/",
+      "cn": "研究员",
+      "example": "The researcher studies animal habits.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0156",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "reunion",
+      "pron": "/riːˈjuːniən/",
+      "cn": "团聚；重逢",
+      "example": "We held a family reunion last week.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0157",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "share sth with sb",
+      "pron": "",
+      "cn": "和某人分享某物",
+      "example": "She shared her lunch with me.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0158",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "right away",
+      "pron": "",
+      "cn": "立刻；马上",
+      "example": "We must leave right away.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0159",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "spare time",
+      "pron": "",
+      "cn": "空闲时间",
+      "example": "He reads in his spare time.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0160",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "show interest in sth",
+      "pron": "",
+      "cn": "对某事表现出兴趣",
+      "example": "He shows interest in science.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0161",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "show sb around",
+      "pron": "",
+      "cn": "带某人参观",
+      "example": "She showed us around the school.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0162",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "silk",
+      "pron": "/sɪlk/",
+      "cn": "丝绸",
+      "example": "The dress is made of silk.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0163",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "steamed",
+      "pron": "/stiːmd/",
+      "cn": "蒸的",
+      "example": "I like steamed dumplings.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0164",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "steamed fish",
+      "pron": "",
+      "cn": "蒸鱼",
+      "example": "We ordered steamed fish for dinner.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0165",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "silver lining",
+      "pron": "",
+      "cn": "一线希望",
+      "example": "Every cloud has a silver lining.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0166",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "simple",
+      "pron": "/ˈsɪmpl/",
+      "cn": "简单的",
+      "example": "This is a simple question.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0167",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "sincere",
+      "pron": "/sɪnˈsɪə(r)/",
+      "cn": "真诚的",
+      "example": "Please accept my sincere thanks.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0168",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "situation",
+      "pron": "/ˌsɪtʃuˈeɪʃn/",
+      "cn": "情况；形势",
+      "example": "The situation is getting better.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0169",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "sincerely",
+      "pron": "/sɪnˈsɪəli/",
+      "cn": "真诚地",
+      "example": "I sincerely hope you are well.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv."
+    },
+    {
+      "id": "v_ba8_0170",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "stick to sth",
+      "pron": "",
+      "cn": "坚持某事",
+      "example": "Stick to your plan and finish it.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0171",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "stir-fry",
+      "pron": "/ˈstɜːfraɪ/",
+      "cn": "炒；翻炒",
+      "example": "Stir-fry the vegetables quickly.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v."
+    },
+    {
+      "id": "v_ba8_0172",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "straightforward",
+      "pron": "/ˌstreɪtˈfɔːwəd/",
+      "cn": "直接的；直率的",
+      "example": "The instructions are straightforward.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0173",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "social media",
+      "pron": "",
+      "cn": "社交媒体",
+      "example": "Students should use social media wisely.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0174",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "surprised",
+      "pron": "/səˈpraɪzd/",
+      "cn": "感到惊讶的",
+      "example": "I was surprised by the news.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0175",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "surely",
+      "pron": "/ˈʃʊəli/",
+      "cn": "当然；想必",
+      "example": "Surely you can finish it in time.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adv."
+    },
+    {
+      "id": "v_ba8_0176",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "sweetness",
+      "pron": "/ˈswiːtnəs/",
+      "cn": "甜；甜蜜",
+      "example": "The sweetness of the fruit is nice.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0177",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "sort",
+      "pron": "/sɔːt/",
+      "cn": "分类；种类",
+      "example": "Sort the books by subject.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v./n."
+    },
+    {
+      "id": "v_ba8_0178",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "spare",
+      "pron": "/speə(r)/",
+      "cn": "空闲的；备用的",
+      "example": "Do you have a spare pen?",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0179",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "spaghetti",
+      "pron": "/spəˈɡeti/",
+      "cn": "意大利面",
+      "example": "We made spaghetti for dinner.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0180",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "tablespoon",
+      "pron": "/ˈteɪblspuːn/",
+      "cn": "大汤匙",
+      "example": "Add two tablespoons of salt.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0181",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "take a walk",
+      "pron": "",
+      "cn": "散步",
+      "example": "Let's take a walk after dinner.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0182",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "take notes",
+      "pron": "",
+      "cn": "记笔记",
+      "example": "Take notes while you listen.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0183",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "take place",
+      "pron": "",
+      "cn": "发生；举行",
+      "example": "The sports meet will take place next week.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0184",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "take over",
+      "pron": "",
+      "cn": "接管；接替",
+      "example": "He will take over the job.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0185",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "take sb's breath away",
+      "pron": "",
+      "cn": "使某人惊叹",
+      "example": "The view took my breath away.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0186",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "wake up",
+      "pron": "",
+      "cn": "醒来；唤醒",
+      "example": "I wake up at seven every day.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0187",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "try one's best",
+      "pron": "",
+      "cn": "尽力而为",
+      "example": "Try your best in the exam.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0188",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "turn around",
+      "pron": "",
+      "cn": "转身；转向",
+      "example": "He turned around and smiled.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0189",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "text",
+      "pron": "/tekst/",
+      "cn": "文本；短信",
+      "example": "Send a text to your mother.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n./v."
+    },
+    {
+      "id": "v_ba8_0190",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "text message",
+      "pron": "",
+      "cn": "短信",
+      "example": "I sent him a text message.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0191",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "thanks to",
+      "pron": "",
+      "cn": "多亏；由于",
+      "example": "Thanks to your help, we finished early.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0192",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "the movies",
+      "pron": "",
+      "cn": "电影院；电影",
+      "example": "We went to the movies last night.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0193",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "thousands of",
+      "pron": "",
+      "cn": "成千上万的",
+      "example": "Thousands of birds fly south.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0194",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "up to",
+      "pron": "",
+      "cn": "直到；取决于",
+      "example": "It is up to you to decide.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0195",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "tip",
+      "pron": "/tɪp/",
+      "cn": "小建议；小费",
+      "example": "Here is a tip for cooking rice.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0196",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "title",
+      "pron": "/ˈtaɪtl/",
+      "cn": "标题；头衔",
+      "example": "What is the title of the song?",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0197",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "video",
+      "pron": "/ˈvɪdiəʊ/",
+      "cn": "视频",
+      "example": "We watched a short video.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0198",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "ton",
+      "pron": "/tʌn/",
+      "cn": "吨",
+      "example": "The truck carries two tons of sand.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0199",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "visible",
+      "pron": "/ˈvɪzəbl/",
+      "cn": "看得见的",
+      "example": "The mountain is visible from here.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "adj."
+    },
+    {
+      "id": "v_ba8_0200",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "touch",
+      "pron": "/tʌtʃ/",
+      "cn": "触摸；碰",
+      "example": "Please do not touch the paintings.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "v./n."
+    },
+    {
+      "id": "v_ba8_0201",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "towards",
+      "pron": "/təˈwɔːdz/",
+      "cn": "朝；向",
+      "example": "She walked towards the door.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "prep."
+    },
+    {
+      "id": "v_ba8_0202",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "warm up",
+      "pron": "",
+      "cn": "热身",
+      "example": "Warm up before you exercise.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0203",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "tower",
+      "pron": "/ˈtaʊə(r)/",
+      "cn": "塔；塔楼",
+      "example": "The tower is the tallest building here.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0204",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "whenever",
+      "pron": "/wenˈevə(r)/",
+      "cn": "无论何时",
+      "example": "Call me whenever you need help.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "conj."
+    },
+    {
+      "id": "v_ba8_0205",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "traffic",
+      "pron": "/ˈtræfɪk/",
+      "cn": "交通",
+      "example": "The traffic is heavy this morning.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0206",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "wing",
+      "pron": "/wɪŋ/",
+      "cn": "翅膀",
+      "example": "The bird spread its wings and flew.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0207",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "winner",
+      "pron": "/ˈwɪnə(r)/",
+      "cn": "获胜者",
+      "example": "The winner got a medal.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
+    },
+    {
+      "id": "v_ba8_0208",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "yeah",
+      "pron": "/jeə/",
+      "cn": "是的（口语）",
+      "example": "Yeah, I quite agree with you.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "interj."
+    },
+    {
+      "id": "v_ba8_0209",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "worry about",
+      "pron": "",
+      "cn": "担心",
+      "example": "Don't worry about the test.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点"
+    },
+    {
+      "id": "v_ba8_0210",
+      "type": "vocab",
+      "grade": "L2",
+      "topic": "八上重点词",
+      "freq": 5,
+      "word": "writer",
+      "pron": "/ˈraɪtə(r)/",
+      "cn": "作家",
+      "example": "The writer lives in the countryside.",
+      "memory": "",
+      "src": "ba8",
+      "goal": "重点",
+      "pos": "n."
     }
   ]
 }
