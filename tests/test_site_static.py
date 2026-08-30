@@ -465,6 +465,12 @@ def test_required_checkin_types_are_locked():
     assert "e.preventDefault()" in block
 
 
+def test_tense_and_translate_are_required():
+    """时态和中译英必须为必选题型（不可取消）。"""
+    assert "'tense',        label: '时态',      icon: '⏰', route: 'tense',     required: true" in APP_JS_SRC
+    assert "'translate',    label: '中译英',    icon: '🔤', route: 'translate', required: true" in APP_JS_SRC
+
+
 def test_optional_checkin_checkbox_updates_active_state():
     """取消可选题型时必须同步 active，否则它仍会进入打卡队列。"""
     block = _function_block('renderCheckinConfig')

@@ -37,9 +37,9 @@ document.addEventListener('input', function(e) {
     { key: 'vocab',        label: '词汇复习',  icon: '🃏', route: 'vocab',     required: true },
     { key: 'grammar',      label: '语法填空',  icon: '📝', route: 'grammar',   required: true },
     { key: 'quiz',         label: '选择题',    icon: '🎯', route: 'quiz' },
-    { key: 'tense',        label: '时态',      icon: '⏰', route: 'tense' },
+    { key: 'tense',        label: '时态',      icon: '⏰', route: 'tense',     required: true },
     { key: 'preposition',  label: '介词',      icon: '🔗', route: 'preposition' },
-    { key: 'translate',    label: '中译英',    icon: '🔤', route: 'translate' },
+    { key: 'translate',    label: '中译英',    icon: '🔤', route: 'translate', required: true },
     { key: 'dictation',    label: '听写',      icon: '✍️', route: 'dictation' },
   ];
   const DEFAULT_CHECKIN_TYPES = CHECKIN_TYPES.map(t => t.key);
