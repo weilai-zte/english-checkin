@@ -1,0 +1,49 @@
+session_id: 20260830145439
+feature_name: "闪卡拆成中译英/英译中两个入口，移除页内方向按钮，美化熟悉度标记按钮"
+workflow_type: "quick"
+current_phase: "evaluate"
+define_sub_phase: intent
+reverse_done: "true"
+build_sub_state: null
+gate_status:
+  define: pending
+  plan: pending
+  build: pending
+  verify: pending
+  review: pending
+  ship: pending
+  refine: passed
+brainstorm_required: "false"
+brainstorm_done: "false"
+brainstorm_md_path: ""
+clarify_suggested: "false"
+clarify_l1_score: 40
+clarify_reasons: "missing_fields(5/5)"
+clarify_md_path: ""
+action_count: 2
+consecutive_failures: 0
+max_iterations: 12
+iteration_count: 0
+completion_promise: "Session 20260830145439 finalized at 2026-08-30 14:55 — quick workflow complete"
+session_baseline_commit: "c8d393b594328f519503b1eb88f9be9613a67d1c"
+dag_node_count: 0
+dag_completed: 0
+review_score: 93
+review_pass: true
+ehrb_flags: []
+evolution_round: 0
+worktree_mode: "off"
+integration_branch: "rideer/20260830145439-integration"
+agents: 0
+define_done: true
+build_done: true
+verify_report.covered_points: 10
+review_security: 95
+review_architecture: 92
+review_performance: 95
+review_testing: 94
+review_maintainability: 93
+requirement_coverage.covered_points: 10
+requirement_coverage.pass: true
+review_done: true
+ship_done: true
