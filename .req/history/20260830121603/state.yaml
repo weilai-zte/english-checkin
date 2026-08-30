@@ -1,0 +1,51 @@
+session_id: 20260830121603
+feature_name: "闪卡复习优先推送不熟悉单词：不熟词/错词本/FSRS到期优先，熟练词兜底"
+workflow_type: "full"
+current_phase: "refine"
+define_sub_phase: intent
+reverse_done: "true"
+build_sub_state: null
+gate_status:
+  define: pending
+  plan: pending
+  build: pending
+  verify: pending
+  review: pending
+  ship: pending
+  refine: passed
+brainstorm_required: "false"
+brainstorm_done: "false"
+brainstorm_md_path: ""
+clarify_suggested: "false"
+clarify_l1_score: 40
+clarify_reasons: "missing_fields(5/5)"
+clarify_md_path: ""
+action_count: 3
+consecutive_failures: 0
+max_iterations: 12
+iteration_count: 0
+completion_promise: "Session 20260830121603 finalized at 2026-08-30 12:17 — full workflow complete"
+session_baseline_commit: "0e352a2e4fc63b5b294a4eacc541cdc3081879b7"
+dag_node_count: 3
+dag_completed: 3
+review_score: 93
+review_pass: true
+ehrb_flags: []
+evolution_round: 0
+worktree_mode: "off"
+integration_branch: "rideer/20260830121603-integration"
+agents: 0
+define_done: true
+plan_done: true
+build_done: true
+verify_done: true
+verify_report.covered_points: 10
+review_security: 95
+review_architecture: 92
+review_performance: 95
+review_testing: 93
+review_maintainability: 90
+requirement_coverage.covered_points: 10
+requirement_coverage.pass: true
+review_done: true
+ship_done: true

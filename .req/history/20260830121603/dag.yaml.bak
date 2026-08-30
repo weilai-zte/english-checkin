@@ -1,0 +1,6 @@
+# DAG Structure — generated during Decompose phase
+# nodes: list of {id, label, agent_type, estimated_minutes, depends_on: [id]}
+# parallel_groups: list of [node_id] that can run concurrently
+nodes: []
+parallel_groups: []
+expected_bottlenecks: []
