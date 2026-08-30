@@ -28,6 +28,20 @@ ASSETS = DIST / "assets"
 
 sys.path.insert(0, str(PROJECT_ROOT))
 
+
+def _baseline_unfamiliar_word_list():
+    """孩子初始"不熟悉"词(家长与孩子共同标记)，用于 App 播种 progress.unfamiliar_words。"""
+    try:
+        fam = json.loads((PROJECT_ROOT / "data" / "child_familiarity.json").read_text(encoding="utf-8"))
+        content = json.loads((PROJECT_ROOT / "data" / "content.json").read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    w2cn = {}
+    for it in content.get("items", []):
+        if it.get("type") == "vocab" and it.get("word"):
+            w2cn.setdefault(it["word"].strip().lower(), it.get("cn", ""))
+    return [{"word": w, "cn": w2cn.get(w.strip().lower(), "")} for w in fam.get("不熟悉", [])]
+
 # ── 数据导出 ─────────────────────────────────────────────────
 def export_data():
     """把所有数据打包成 data.js
@@ -201,6 +215,8 @@ def export_data():
         "tense_questions": tense_questions,
         # 三级词库已分级, 不再需要屏蔽"小学基础词"
         "simple_words": [],
+        # 孩子初始"不熟悉"词(家长与孩子共同标记), App 首次加载时播种到 progress.unfamiliar_words
+        "child_baseline_unfamiliar": _baseline_unfamiliar_word_list(),
         "junior_vocab_meta": {lvl: len(vocab[f"_{lvl}"]["words"]) for lvl in ("L1", "L2", "L3")},
         "difficulty_config": {
             k: {**v, "block_topics": list(v["block_topics"]), "extra_block": list(v.get("extra_block", set()))}

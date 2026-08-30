@@ -366,6 +366,7 @@ document.addEventListener('input', function(e) {
       game_stats: {},            // 游戏成绩与次数
       vocab_list_marked: [],     // 全部词汇中的收藏
       unfamiliar_words: [],       // 孩子不熟悉的词 (打卡后家长录入, 后续针对训练)
+      unfamiliar_seeded: false,   // 是否已从未熟悉基线播种(家长标记), 只播种一次
       recent_seen: [],            // 最近出现过的题/词（跨天去重参考，{key,date}）
       _deleted: {},               // 删除标记：checkins/bound_devices/plan 被明确删除后不被 union 复活
       user_name: '', // #account nickname (跨设备账号标识)
@@ -559,7 +560,7 @@ document.addEventListener('input', function(e) {
     out.bound_devices = Array.from(bd);
     // 设置类字段按整个进度对象的更新时间选择，避免旧设备覆盖新设置。
     var remoteIsNewer = (remote._updated_at || '').localeCompare(local._updated_at || '') > 0;
-    ['difficulty', 'checkin_types', 'daily_checkin_plan', 'avatar', 'school_grade'].forEach(function (field) {
+    ['difficulty', 'checkin_types', 'daily_checkin_plan', 'avatar', 'school_grade', 'unfamiliar_seeded'].forEach(function (field) {
       if (remoteIsNewer && remote[field] != null) out[field] = remote[field];
       else if (local[field] != null) out[field] = local[field];
       else if (remote[field] != null) out[field] = remote[field];
@@ -1221,6 +1222,7 @@ document.addEventListener('input', function(e) {
     const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
     const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
     const mastered = new Set(progress.vocab_mastered.map(w => w.toLowerCase()));
+    const unfamiliar = new Set((progress.unfamiliar_words || []).map(x => String(x.word).toLowerCase()));
 
     // 收集候选词
     const candidates = [];
@@ -1230,7 +1232,8 @@ document.addEventListener('input', function(e) {
       if (blockTopics.has(simple)) continue;
       for (const w of t.words) {
         const wl = w.word.toLowerCase();
-        if (!mastered.has(wl) && !blockWords.has(wl)) {
+        // 已掌握跳过；简单词屏蔽但"不熟悉"词除外（孩子标了不熟，即使简单也要练）
+        if (!mastered.has(wl) && (!blockWords.has(wl) || unfamiliar.has(wl))) {
           candidates.push({ ...w, topic: t.topic, topicKey: k });
         }
       }
@@ -1247,8 +1250,8 @@ document.addEventListener('input', function(e) {
     }
     // 优先抽取重点词（新增八上重点/孩子易错词），保证这些词进入每日卡片复习
     const pickPool = recentAvoidingPool(candidates, w => 'vocab::' + w.word.toLowerCase());
-    const keyWords = pickPool.filter(c => c._src === 'ba8' || c._src === 'ckfw');
-    const otherWords = pickPool.filter(c => !(c._src === 'ba8' || c._src === 'ckfw'));
+    const keyWords = pickPool.filter(c => unfamiliar.has(String(c.word).toLowerCase()));
+    const otherWords = pickPool.filter(c => !unfamiliar.has(String(c.word).toLowerCase()));
     let vocabPicks = [];
     if (keyWords.length) {
       vocabPicks = sample(keyWords, Math.min(cfg.daily_count, keyWords.length));
@@ -1467,6 +1470,8 @@ document.addEventListener('input', function(e) {
   }
   window.addEventListener('hashchange', render);
   function render() {
+    // 首次把家长标记的"不熟悉"词播种进进度（只一次，之后随孩子练习动态变化）
+    try { seedUnfamiliarBaseline(); } catch (e) { /* ignore */ }
     const r = parseRoute();
     // 自动恢复：当天未完成的打卡草稿 → 回到离开时的题型/进度（仅首次）
     if (!didAutoRestore) {
@@ -1941,6 +1946,12 @@ document.addEventListener('input', function(e) {
           <button class="btn btn-secondary" id="reveal-btn">👁️ 揭晓</button>
           <button class="btn btn-primary" id="next-btn">${isLast ? '开始语法 →' : '下一个 →'}</button>
         </div>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center;justify-content:center;">
+          <button class="btn-sm" id="familiar-btn" style="background:${isUnfamiliar(w.word) ? '#eaf6ea' : '#fdf2ef'};color:${isUnfamiliar(w.word) ? 'var(--success)' : 'var(--danger)'};border:none;padding:8px 16px;border-radius:8px;cursor:pointer;">
+            ${isUnfamiliar(w.word) ? '✅ 这词我会了' : '❌ 这词还不熟'}
+          </button>
+          <span style="font-size:12px;color:var(--text-3);">点一下更新熟悉程度</span>
+        </div>
         <div style="margin-top:12px;">
           <div class="bar"><div class="bar-fill" style="width:${((currentVocabIdx+1)/t.vocab.length*100)}%"></div></div>
         </div>
@@ -1949,6 +1960,12 @@ document.addEventListener('input', function(e) {
 
     let revealed = false;
     app.querySelector('#speak-btn').onclick = () => speak(w.word);
+    app.querySelector('#familiar-btn').onclick = () => {
+      const familiar = isUnfamiliar(w.word);
+      const msg = toggleFamiliar(w.word, familiar);
+      toast(msg);
+      render();
+    };
     app.querySelector('#reveal-btn').onclick = () => {
       revealed = true;
       app.querySelector('#vocab-front').style.display = 'none';
@@ -2126,6 +2143,12 @@ document.addEventListener('input', function(e) {
           <button class="btn btn-warn" id="rate-1">🤔 记得</button>
           <button class="btn btn-success" id="rate-2">😎 太简单</button>
         </div>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center;justify-content:center;">
+          <button class="btn-sm" id="fc-familiar" style="background:${isUnfamiliar(w.word) ? '#eaf6ea' : '#fdf2ef'};color:${isUnfamiliar(w.word) ? 'var(--success)' : 'var(--danger)'};border:none;padding:8px 16px;border-radius:8px;cursor:pointer;">
+            ${isUnfamiliar(w.word) ? '✅ 这词我会了' : '❌ 这词还不熟'}
+          </button>
+          <span style="font-size:12px;color:var(--text-3);">练完点一下更新熟悉度</span>
+        </div>
         <div class="bar" style="margin-top:8px;"><div class="bar-fill" style="width:${((idx+1)/words.length*100)}%"></div></div>
       `;
       app.querySelector('#card').onclick = (e) => {
@@ -2137,6 +2160,11 @@ document.addEventListener('input', function(e) {
       app.querySelector('#rate-0').onclick = () => { rateCard(w, 0); next(); };
       app.querySelector('#rate-1').onclick = () => { rateCard(w, 1); next(); };
       app.querySelector('#rate-2').onclick = () => { rateCard(w, 2); next(); };
+      app.querySelector('#fc-familiar').onclick = () => {
+        const familiar = isUnfamiliar(w.word);
+        toast(toggleFamiliar(w.word, familiar));
+        renderCard();
+      };
     }
 
     function rateCard(w, rating) {
@@ -3889,6 +3917,36 @@ document.addEventListener('input', function(e) {
     const before = (progress.unfamiliar_words || []).length;
     progress.unfamiliar_words = (progress.unfamiliar_words || []).filter(w => w.word.toLowerCase() !== word.toLowerCase());
     if (progress.unfamiliar_words.length !== before) saveProgress();
+  }
+  // 首次把家长标记的"不熟悉"词播种到 unfamiliar_words（只看一次，之后随孩子练习动态变化）
+  function seedUnfamiliarBaseline() {
+    if (!D || !D.child_baseline_unfamiliar) return;
+    if (progress.unfamiliar_seeded) return;
+    const current = progress.unfamiliar_words || [];
+    const seen = new Set(current.map(x => String(x.word).toLowerCase()));
+    const add = (D.child_baseline_unfamiliar || []).filter(x => !seen.has(String(x.word).toLowerCase()))
+      .map(x => ({ word: x.word, cn: x.cn || '', added_at: today() }));
+    if (add.length) progress.unfamiliar_words = current.concat(add);
+    progress.unfamiliar_seeded = true;
+    saveProgress();
+  }
+  function isUnfamiliar(word) {
+    return !!((progress.unfamiliar_words || []).find(x => String(x.word).toLowerCase() === String(word).toLowerCase()));
+  }
+  // 反馈按钮：会了 → 移出不熟悉；还不熟 → 记入不熟悉
+  function toggleFamiliar(word, familiar) {
+    const k = String(word).toLowerCase();
+    const before = (progress.unfamiliar_words || []).length;
+    progress.unfamiliar_words = (progress.unfamiliar_words || []).filter(x => String(x.word).toLowerCase() !== k);
+    if (!familiar) {
+      // 还没掌握 -> 记入不熟悉
+      if (!isUnfamiliar(word)) {
+        const hit = allWords().find(x => (x.word || '').toLowerCase() === k);
+        progress.unfamiliar_words = progress.unfamiliar_words.concat([{ word: word, cn: (hit && hit.cn) || '', added_at: today() }]);
+      }
+    }
+    if (progress.unfamiliar_words.length !== before || !familiar) saveProgress();
+    return familiar ? '已标记为熟悉，不再占每日名额' : '已记入不熟悉，会优先安排复习';
   }
   // #14 学习路径当月主题卡 (来自 learning_plan.json)
   function renderLearningPlanCard() {
