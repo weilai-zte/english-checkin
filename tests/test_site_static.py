@@ -1266,3 +1266,9 @@ def test_vocab_review_includes_both_directions():
     block = _function_block('generateDailyTask')
     assert 'i % 2 === 0' in block, "词汇复习未按索引交替分配方向"
     assert "'word' : 'cn'" in block or "'word': 'cn'" in block, "缺少两种方向的 hide 取值"
+
+
+def test_vocab_daily_count_is_six():
+    """词汇复习每日 6 词（3 中译英 + 3 英译中），三个难度一致。"""
+    app_src = (ROOT / 'app.py').read_text(encoding='utf-8')
+    assert app_src.count('"daily_count": 6') >= 3, "三个难度的 daily_count 都应为 6"
