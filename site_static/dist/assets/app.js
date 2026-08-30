@@ -1245,7 +1245,17 @@ document.addEventListener('input', function(e) {
         }
       }
     }
-    const vocabPicks = sample(recentAvoidingPool(candidates, w => 'vocab::' + w.word.toLowerCase()), cfg.daily_count);
+    // 优先抽取重点词（新增八上重点/孩子易错词），保证这些词进入每日卡片复习
+    const pickPool = recentAvoidingPool(candidates, w => 'vocab::' + w.word.toLowerCase());
+    const keyWords = pickPool.filter(c => c._src === 'ba8' || c._src === 'ckfw');
+    const otherWords = pickPool.filter(c => !(c._src === 'ba8' || c._src === 'ckfw'));
+    let vocabPicks = [];
+    if (keyWords.length) {
+      vocabPicks = sample(keyWords, Math.min(cfg.daily_count, keyWords.length));
+    }
+    if (vocabPicks.length < cfg.daily_count) {
+      vocabPicks = vocabPicks.concat(sample(otherWords, cfg.daily_count - vocabPicks.length));
+    }
 
     // 选语法（按权重）
     const masteredG = new Set(progress.grammar_mastered);
