@@ -2091,18 +2091,49 @@ document.addEventListener('input', function(e) {
   }
 
   // ─── 视图：Flashcard ──────────────────────────────
+  // 词是否已熟练：累计答对 >=3 且近期无错题、未被标记不熟（闪卡普通池排除）
+  function isWordWellKnown(wl) {
+    const st = (progress.word_stats || {})[wl];
+    if (!st || !st.correct) return false;
+    if ((progress.wrong_words || []).some(x => String(x.word).toLowerCase() === wl)) return false;
+    if ((progress.unfamiliar_words || []).some(x => String(x.word).toLowerCase() === wl)) return false;
+    return st.correct >= 3;
+  }
+
   function pickFlashcardWords() {
     const cfg = getDifficultyCfg();
     const blockTopics = new Set(progress.school_grade ? [] : cfg.block_topics);
     const blockWords = new Set([...D.simple_words, ...cfg.extra_block]);
     const mastered = new Set(progress.vocab_mastered.map(w => w.toLowerCase()));
-    const allW = allWords().filter(w => {
+    const inPool = w => {
       const simple = w.topic.split('(')[0].trim();
       if (blockTopics.has(simple)) return false;
-      const wl = w.word.toLowerCase();
-      return !mastered.has(wl) && !blockWords.has(wl);
+      return !mastered.has(w.word.toLowerCase()) && !blockWords.has(w.word.toLowerCase());
+    };
+    const allW = allWords().filter(inPool);
+    const byWord = new Map(allW.map(w => [w.word.toLowerCase(), w]));
+    // 优先池：孩子标记不熟 / 错词本 / FSRS 到期卡
+    const priority = new Map();
+    (progress.unfamiliar_words || []).forEach(x => {
+      const k = String(x.word || '').toLowerCase();
+      if (byWord.has(k)) priority.set(k, byWord.get(k));
     });
-    return sample(allW, cfg.flashcard_count);
+    (progress.wrong_words || []).forEach(x => {
+      const k = String(x.word || '').toLowerCase();
+      if (byWord.has(k)) priority.set(k, byWord.get(k));
+    });
+    const todayIso = new Date().toISOString().split('T')[0];
+    Object.entries(progress.card_states || {}).forEach(([word, st]) => {
+      const k = word.toLowerCase();
+      if (st && st.due && st.due <= todayIso && byWord.has(k)) priority.set(k, byWord.get(k));
+    });
+    // 普通池：排除已熟练；熟练池：兜底（通常用不到）
+    const normal = allW.filter(w => !priority.has(w.word.toLowerCase()) && !isWordWellKnown(w.word.toLowerCase()));
+    const known = allW.filter(w => !priority.has(w.word.toLowerCase()) && isWordWellKnown(w.word.toLowerCase()));
+    const picks = sample([...priority.values()], cfg.flashcard_count);
+    if (picks.length < cfg.flashcard_count) picks.push(...sample(normal, cfg.flashcard_count - picks.length));
+    if (picks.length < cfg.flashcard_count) picks.push(...sample(known, cfg.flashcard_count - picks.length));
+    return picks;
   }
   function runFlashcardSession(app, words, opts) {
     opts = opts || {};

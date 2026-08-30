@@ -1109,3 +1109,88 @@ def test_deleted_field_and_vendor_banner_present():
     build = (ROOT / 'site_static' / 'build.py').read_text(encoding='utf-8')
     assert 'assets/vendor/supabase.min.js' in build, "build.py 未引用本地 vendor supabase"
     assert '云同步暂不可用' in APP_JS_SRC, "app.js 缺同步失败提示条文案"
+
+
+# ─── 闪卡复习优先不熟词行为测试 (RIDEER 20260830121603) ─────────
+_FLASHCARD_NODE_TEMPLATE = r'''
+const fs = require('fs');
+const src = fs.readFileSync('site_static/app.js', 'utf8');
+function extract(fname) {
+  const i = src.indexOf('function ' + fname, 0);
+  if (i === -1) throw new Error('not found: ' + fname);
+  const start = src.indexOf('{', i);
+  let depth = 1, j = start + 1;
+  while (depth > 0 && j < src.length) {
+    if (src[j] === '{') depth++;
+    if (src[j] === '}') depth--;
+    j++;
+  }
+  return src.slice(i, j);
+}
+const words = [
+  { word: 'apple', cn: '苹果', topic: 'T', pron: '', example: '', hide: 'cn' },
+  { word: 'banana', cn: '香蕉', topic: 'T', pron: '', example: '', hide: 'cn' },
+  { word: 'cat', cn: '猫', topic: 'T', pron: '', example: '', hide: 'cn' },
+  { word: 'dog', cn: '狗', topic: 'T', pron: '', example: '', hide: 'cn' },
+  { word: 'egg', cn: '蛋', topic: 'T', pron: '', example: '', hide: 'cn' },
+  { word: 'fish', cn: '鱼', topic: 'T', pron: '', example: '', hide: 'cn' },
+];
+const allWords = () => words;
+const sample = (arr, n) => arr.slice(0, n);
+const getDifficultyCfg = () => ({ flashcard_count: 3, block_topics: [], extra_block: [] });
+const D = { simple_words: [], difficulty_config: {} };
+const progress = {
+  school_grade: '',
+  vocab_mastered: [],
+  unfamiliar_words: [{ word: 'banana', added_at: '2026-08-29' }],
+  wrong_words: [{ word: 'cat', date: '2026-08-29' }],
+  card_states: {},
+  word_stats: {
+    apple: { total: 5, correct: 5, wrong: 0, first_seen: '2026-08-01' },
+  },
+  recent_seen: [],
+  question_seen_count: {},
+  wrong_grammar: [],
+};
+const isWordWellKnown = new Function('return (' + extract('isWordWellKnown') + ')')();
+const pick = new Function('allWords','sample','getDifficultyCfg','progress','D','isWordWellKnown',
+  'return (' + extract('pickFlashcardWords') + ');')(allWords, sample, getDifficultyCfg, progress, D, isWordWellKnown);
+const picks = pick().map(w => w.word);
+const out = {
+  picks,
+  hasUnfamiliar: picks.includes('banana'),
+  hasWrong: picks.includes('cat'),
+  hasWellKnown: picks.includes('apple'),
+  wellKnownJudge: isWordWellKnown('apple'),
+  freshJudge: isWordWellKnown('dog'),
+};
+console.log(JSON.stringify(out));
+'''
+
+
+def _run_flashcard_node():
+    import subprocess
+    r = subprocess.run(['node', '-e', _FLASHCARD_NODE_TEMPLATE], capture_output=True,
+                       text=True, cwd=str(ROOT))
+    assert r.returncode == 0, f"node 执行失败: {r.stderr}"
+    return json.loads(r.stdout.strip())
+
+
+def test_flashcard_prioritizes_unfamiliar_words():
+    """闪卡复习必须优先不熟词/错词，熟练词在普通池充足时不入选。"""
+    out = _run_flashcard_node()
+    assert out['hasUnfamiliar'], f"不熟词未入选: {out['picks']}"
+    assert out['hasWrong'], f"错词未入选: {out['picks']}"
+    assert not out['hasWellKnown'], f"熟练词不应入选: {out['picks']}"
+    assert out['wellKnownJudge'] is True, "correct>=3 且无错题应判为熟练"
+    assert out['freshJudge'] is False, "未熟练词不应判为熟练"
+
+
+def test_flashcard_pick_uses_unfamiliar_sources():
+    """pickFlashcardWords 必须引用不熟词/错词本/FSRS 到期，且有熟练判定函数。"""
+    block = _function_block('pickFlashcardWords')
+    assert 'unfamiliar_words' in block, "未引用孩子标记的不熟词"
+    assert 'wrong_words' in block, "未引用错词本"
+    assert 'card_states' in block, "未引用 FSRS 到期卡"
+    assert 'isWordWellKnown' in block, "未调用熟练判定"
+    assert 'function isWordWellKnown' in APP_JS_SRC, "缺 isWordWellKnown 函数"
