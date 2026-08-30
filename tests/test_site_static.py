@@ -1248,13 +1248,13 @@ def test_flashcard_faces_directions():
     assert out['mixedB']['frontSpeak'] is False and out['mixedB']['front'] == '苹果'
 
 
-def test_flashcard_direction_setting_present():
-    """方向字段默认值、账号同步字段、方向按钮、renderCard 使用 faces。"""
-    block = _function_block('defaultProgress')
-    assert 'flashcard_direction' in block, "defaultProgress 缺 flashcard_direction 默认值"
-    merge = _function_block('mergeProgress')
-    assert "'flashcard_direction'" in merge, "mergeProgress 设置字段未包含 flashcard_direction"
+def test_flashcard_direction_entries_present():
+    """闪卡拆成中译英/英译中两个独立入口，runFlashcardSession 按 opts.direction 渲染。"""
+    assert 'function renderFlashcardEn' in APP_JS_SRC, "缺英译中闪卡入口函数"
+    assert "'flashcard-en': renderFlashcardEn" in APP_JS_SRC, "routes 未注册 flashcard-en"
     session = _function_block('runFlashcardSession')
-    assert 'data-dir' in session, "闪卡页缺方向切换按钮"
+    assert 'opts.direction' in session, "renderCard 未按 opts.direction 渲染"
     assert 'flashcardFaces' in session, "renderCard 未使用 flashcardFaces"
+    home = _function_block('renderHome')
+    assert '#/flashcard-en' in home, "首页缺英译中闪卡入口"
     assert 'function flashcardFaces' in APP_JS_SRC, "缺 flashcardFaces 函数"

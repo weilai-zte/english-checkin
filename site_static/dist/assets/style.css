@@ -2127,3 +2127,22 @@ input:focus-visible, textarea:focus-visible { outline: none; border-color: #667e
 }
 .wd-action-row .wd-hint { flex: 1; font-size: 14px; }
 .wd-action-row .wd-submit { flex: 1.5; font-size: 15px; font-weight: 700; margin-top: 0; }
+
+/* 闪卡熟悉度标记按钮（中译英/英译中两入口共用） */
+.fc-familiar {
+  border: 1px solid var(--border, #e8ecf4);
+  background: var(--bg-card, #ffffff);
+  color: var(--text-2, #4a5568);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+  font-family: inherit;
+}
+.fc-familiar:hover {
+  border-color: var(--accent, #667eea);
+  color: var(--accent, #667eea);
+}
+.fc-familiar[data-familiar="1"] { color: var(--success, #27ae60); }
+.fc-familiar[data-familiar="0"] { color: var(--danger, #e74c3c); }

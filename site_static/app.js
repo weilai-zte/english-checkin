@@ -1437,6 +1437,7 @@ document.addEventListener('input', function(e) {
     'vocab': renderVocab,
     'grammar': renderGrammar,
     'flashcard': renderFlashcard,
+    'flashcard-en': renderFlashcardEn,
     'flashcard-errors': renderFlashcardErrors,
     'tense': renderTense,
     'preposition': renderPreposition,
@@ -1686,7 +1687,10 @@ document.addEventListener('input', function(e) {
         </div>
 
         <div class="section-label">📚 学习</div>
-        <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡复习 (${cfg.flashcard_count} 张)</a>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a class="btn btn-secondary" href="#/flashcard">🃏 中译英 (${cfg.flashcard_count})</a>
+          <a class="btn btn-secondary" href="#/flashcard-en">🔄 英译中 (${cfg.flashcard_count})</a>
+        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <a class="btn btn-secondary" href="#/knowledge">📖 知识课程</a>
           <a class="btn btn-secondary" href="#/vocab-list">📚 全部词汇 (${allWordsCount})</a>
@@ -2160,16 +2164,10 @@ document.addEventListener('input', function(e) {
 
     function renderCard() {
       const w = words[idx];
-      const dir = progress.flashcard_direction || 'cn2en';
+      const dir = opts.direction || 'cn2en';
       const faces = flashcardFaces(w, dir);
-      const dirLabel = { cn2en: '中→英', en2cn: '英→中', mixed: '随机混合' };
       app.querySelector('#fc-content').innerHTML = `
         <div class="progress-text">${idx + 1} / ${words.length}</div>
-        <div class="fc-dir" style="display:flex;gap:8px;justify-content:center;margin:8px 0 12px;">
-          ${['cn2en', 'en2cn', 'mixed'].map(k =>
-            `<button class="btn-sm fc-dir-btn${dir === k ? ' active' : ''}" data-dir="${k}" style="${dir === k ? 'background:var(--accent);color:#fff;' : ''}">${dirLabel[k]}</button>`
-          ).join('')}
-        </div>
         <div class="flashcard" id="card">
           <div class="card-inner ${flipped ? 'flipped' : ''}">
             <div class="card-face card-front">
@@ -2193,10 +2191,9 @@ document.addEventListener('input', function(e) {
           <button class="btn btn-success" id="rate-2">😎 太简单</button>
         </div>
         <div style="margin-top:10px;display:flex;gap:8px;align-items:center;justify-content:center;">
-          <button class="btn-sm" id="fc-familiar" style="background:${isUnfamiliar(w.word) ? '#eaf6ea' : '#fdf2ef'};color:${isUnfamiliar(w.word) ? 'var(--success)' : 'var(--danger)'};border:none;padding:8px 16px;border-radius:8px;cursor:pointer;">
+          <button class="fc-familiar" id="fc-familiar" data-familiar="${isUnfamiliar(w.word) ? '1' : '0'}">
             ${isUnfamiliar(w.word) ? '✅ 这词我会了' : '❌ 这词还不熟'}
           </button>
-          <span style="font-size:12px;color:var(--text-3);">练完点一下更新熟悉度</span>
         </div>
         <div class="bar" style="margin-top:8px;"><div class="bar-fill" style="width:${((idx+1)/words.length*100)}%"></div></div>
       `;
@@ -2207,13 +2204,6 @@ document.addEventListener('input', function(e) {
       };
       app.querySelectorAll('[data-s]').forEach(btn => {
         btn.onclick = (e) => { e.stopPropagation(); speak(w.word); };
-      });
-      app.querySelectorAll('[data-dir]').forEach(btn => {
-        btn.onclick = () => {
-          progress.flashcard_direction = btn.dataset.dir;
-          saveProgress();
-          renderCard();
-        };
       });
       app.querySelector('#rate-0').onclick = () => { rateCard(w, 0); next(); };
       app.querySelector('#rate-1').onclick = () => { rateCard(w, 1); next(); };
@@ -2270,7 +2260,10 @@ document.addEventListener('input', function(e) {
     renderCard();
   }
   function renderFlashcard(app) {
-    return runFlashcardSession(app, pickFlashcardWords(), { back: '#/home' });
+    return runFlashcardSession(app, pickFlashcardWords(), { back: '#/home', title: '闪卡复习 · 中译英', direction: 'cn2en' });
+  }
+  function renderFlashcardEn(app) {
+    return runFlashcardSession(app, pickFlashcardWords(), { back: '#/home', title: '闪卡复习 · 英译中', direction: 'en2cn' });
   }
   function renderFlashcardErrors(app) {
     const wrongWords = (progress.wrong_words || [])
