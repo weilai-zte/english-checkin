@@ -1257,4 +1257,5 @@ def test_flashcard_direction_entries_present():
     assert 'flashcardFaces' in session, "renderCard 未使用 flashcardFaces"
     home = _function_block('renderHome')
     assert '#/flashcard-en' in home, "首页缺英译中闪卡入口"
+    assert '闪卡·中译英' in home and '闪卡·英译中' in home, "首页闪卡入口应带「闪卡」字样与翻译练习区分"
     assert 'function flashcardFaces' in APP_JS_SRC, "缺 flashcardFaces 函数"

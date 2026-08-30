@@ -1688,8 +1688,8 @@ document.addEventListener('input', function(e) {
 
         <div class="section-label">📚 学习</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <a class="btn btn-secondary" href="#/flashcard">🃏 中译英 (${cfg.flashcard_count})</a>
-          <a class="btn btn-secondary" href="#/flashcard-en">🔄 英译中 (${cfg.flashcard_count})</a>
+          <a class="btn btn-secondary" href="#/flashcard">🃏 闪卡·中译英 (${cfg.flashcard_count})</a>
+          <a class="btn btn-secondary" href="#/flashcard-en">🔄 闪卡·英译中 (${cfg.flashcard_count})</a>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <a class="btn btn-secondary" href="#/knowledge">📖 知识课程</a>
