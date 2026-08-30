@@ -369,6 +369,7 @@ document.addEventListener('input', function(e) {
       unfamiliar_seeded: false,   // 是否已从未熟悉基线播种(家长标记), 只播种一次
       recent_seen: [],            // 最近出现过的题/词（跨天去重参考，{key,date}）
       _deleted: {},               // 删除标记：checkins/bound_devices/plan 被明确删除后不被 union 复活
+      flashcard_direction: 'cn2en', // 闪卡方向：cn2en 中译英 / en2cn 英译中 / mixed 随机混合
       user_name: '', // #account nickname (跨设备账号标识)
       school_grade: '', // #account g7/g8/g9，首次使用时选择
       bound_devices: [], // #account 本账号绑定的设备 ID 列表
@@ -560,7 +561,7 @@ document.addEventListener('input', function(e) {
     out.bound_devices = Array.from(bd);
     // 设置类字段按整个进度对象的更新时间选择，避免旧设备覆盖新设置。
     var remoteIsNewer = (remote._updated_at || '').localeCompare(local._updated_at || '') > 0;
-    ['difficulty', 'checkin_types', 'daily_checkin_plan', 'avatar', 'school_grade', 'unfamiliar_seeded'].forEach(function (field) {
+    ['difficulty', 'checkin_types', 'daily_checkin_plan', 'avatar', 'school_grade', 'unfamiliar_seeded', 'flashcard_direction'].forEach(function (field) {
       if (remoteIsNewer && remote[field] != null) out[field] = remote[field];
       else if (local[field] != null) out[field] = local[field];
       else if (remote[field] != null) out[field] = remote[field];
@@ -2135,6 +2136,14 @@ document.addEventListener('input', function(e) {
     if (picks.length < cfg.flashcard_count) picks.push(...sample(known, cfg.flashcard_count - picks.length));
     return picks;
   }
+  // 闪卡正反面：按方向返回 {front, back, frontSpeak}；mixed 每张卡随机
+  function flashcardFaces(w, direction, rndFn) {
+    const en2cn = direction === 'en2cn' || (direction === 'mixed' && (rndFn || rand)() < 0.5);
+    if (en2cn) {
+      return { front: escapeHtml(w.word), back: escapeHtml(w.cn), frontSpeak: true };
+    }
+    return { front: escapeHtml(w.cn), back: escapeHtml(w.word), frontSpeak: false };
+  }
   function runFlashcardSession(app, words, opts) {
     opts = opts || {};
     if (!words.length) {
@@ -2151,21 +2160,30 @@ document.addEventListener('input', function(e) {
 
     function renderCard() {
       const w = words[idx];
+      const dir = progress.flashcard_direction || 'cn2en';
+      const faces = flashcardFaces(w, dir);
+      const dirLabel = { cn2en: '中→英', en2cn: '英→中', mixed: '随机混合' };
       app.querySelector('#fc-content').innerHTML = `
         <div class="progress-text">${idx + 1} / ${words.length}</div>
+        <div class="fc-dir" style="display:flex;gap:8px;justify-content:center;margin:8px 0 12px;">
+          ${['cn2en', 'en2cn', 'mixed'].map(k =>
+            `<button class="btn-sm fc-dir-btn${dir === k ? ' active' : ''}" data-dir="${k}" style="${dir === k ? 'background:var(--accent);color:#fff;' : ''}">${dirLabel[k]}</button>`
+          ).join('')}
+        </div>
         <div class="flashcard" id="card">
           <div class="card-inner ${flipped ? 'flipped' : ''}">
             <div class="card-face card-front">
-              <div class="card-cn">${escapeHtml(w.cn)}</div>
+              ${faces.frontSpeak
+                ? `<div class="card-word-row"><span class="card-word">${faces.front}</span><button class="card-speak" data-s="${escapeHtml(w.word)}" title="听发音">🔊</button></div>`
+                : `<div class="card-cn">${faces.front}</div>`}
               <div class="card-pron">${escapeHtml(w.pron || '')}</div>
             </div>
             <div class="card-face card-back">
-              <div class="card-word-row">
-                <span class="card-word">${escapeHtml(w.word)}</span>
-                <button class="card-speak" data-s="${escapeHtml(w.word)}" title="听发音">🔊</button>
-              </div>
+              ${faces.frontSpeak
+                ? `<div class="card-cn">${faces.back}</div>`
+                : `<div class="card-word-row"><span class="card-word">${faces.back}</span><button class="card-speak" data-s="${escapeHtml(w.word)}" title="听发音">🔊</button></div>`}
               <div class="card-pron">${escapeHtml(w.pron || '')}</div>
-              <div class="card-cn" style="font-size:14px;margin-top:8px;opacity:0.8;">${escapeHtml(w.cn)}</div>
+              ${faces.frontSpeak ? '' : `<div class="card-cn" style="font-size:14px;margin-top:8px;opacity:0.8;">${escapeHtml(w.cn)}</div>`}
             </div>
           </div>
         </div>
@@ -2187,7 +2205,16 @@ document.addEventListener('input', function(e) {
         flipped = !flipped;
         app.querySelector('.card-inner').classList.toggle('flipped', flipped);
       };
-      app.querySelector('[data-s]').onclick = (e) => { e.stopPropagation(); speak(w.word); };
+      app.querySelectorAll('[data-s]').forEach(btn => {
+        btn.onclick = (e) => { e.stopPropagation(); speak(w.word); };
+      });
+      app.querySelectorAll('[data-dir]').forEach(btn => {
+        btn.onclick = () => {
+          progress.flashcard_direction = btn.dataset.dir;
+          saveProgress();
+          renderCard();
+        };
+      });
       app.querySelector('#rate-0').onclick = () => { rateCard(w, 0); next(); };
       app.querySelector('#rate-1').onclick = () => { rateCard(w, 1); next(); };
       app.querySelector('#rate-2').onclick = () => { rateCard(w, 2); next(); };

@@ -1194,3 +1194,67 @@ def test_flashcard_pick_uses_unfamiliar_sources():
     assert 'card_states' in block, "未引用 FSRS 到期卡"
     assert 'isWordWellKnown' in block, "未调用熟练判定"
     assert 'function isWordWellKnown' in APP_JS_SRC, "缺 isWordWellKnown 函数"
+
+
+# ─── 闪卡复习方向设置行为测试 (RIDEER 20260830122041) ─────────
+_FLASHCARD_FACES_NODE_TEMPLATE = r'''
+const fs = require('fs');
+const src = fs.readFileSync('site_static/app.js', 'utf8');
+function extract(fname) {
+  const i = src.indexOf('function ' + fname, 0);
+  if (i === -1) throw new Error('not found: ' + fname);
+  const start = src.indexOf('{', i);
+  let depth = 1, j = start + 1;
+  while (depth > 0 && j < src.length) {
+    if (src[j] === '{') depth++;
+    if (src[j] === '}') depth--;
+    j++;
+  }
+  return src.slice(i, j);
+}
+const escapeHtml = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+}[c]));
+const faces = new Function('escapeHtml','rand',
+  'return (' + extract('flashcardFaces') + ');')(escapeHtml, () => 0.9);
+const w = { word: 'apple', cn: '苹果', pron: '/ˈæpl/' };
+const cn2en = faces(w, 'cn2en', () => 0.9);
+const en2cn = faces(w, 'en2cn', () => 0.9);
+const mixedA = faces(w, 'mixed', () => 0.4);   // < 0.5 → 英译中
+const mixedB = faces(w, 'mixed', () => 0.8);   // >= 0.5 → 中译英
+console.log(JSON.stringify({ cn2en, en2cn, mixedA, mixedB }));
+'''
+
+
+def _run_flashcard_faces_node():
+    import subprocess
+    r = subprocess.run(['node', '-e', _FLASHCARD_FACES_NODE_TEMPLATE], capture_output=True,
+                       text=True, cwd=str(ROOT))
+    assert r.returncode == 0, f"node 执行失败: {r.stderr}"
+    return json.loads(r.stdout.strip())
+
+
+def test_flashcard_faces_directions():
+    """三种方向的正反面与发音按钮位置必须正确，混合模式由随机函数决定。"""
+    out = _run_flashcard_faces_node()
+    # cn2en: 正面中文，背面英文+发音
+    assert out['cn2en']['front'] == '苹果' and out['cn2en']['back'] == 'apple'
+    assert out['cn2en']['frontSpeak'] is False
+    # en2cn: 正面英文+发音，背面中文
+    assert out['en2cn']['front'] == 'apple' and out['en2cn']['back'] == '苹果'
+    assert out['en2cn']['frontSpeak'] is True
+    # mixed: 随机函数 <0.5 英译中，>=0.5 中译英
+    assert out['mixedA']['frontSpeak'] is True and out['mixedA']['front'] == 'apple'
+    assert out['mixedB']['frontSpeak'] is False and out['mixedB']['front'] == '苹果'
+
+
+def test_flashcard_direction_setting_present():
+    """方向字段默认值、账号同步字段、方向按钮、renderCard 使用 faces。"""
+    block = _function_block('defaultProgress')
+    assert 'flashcard_direction' in block, "defaultProgress 缺 flashcard_direction 默认值"
+    merge = _function_block('mergeProgress')
+    assert "'flashcard_direction'" in merge, "mergeProgress 设置字段未包含 flashcard_direction"
+    session = _function_block('runFlashcardSession')
+    assert 'data-dir' in session, "闪卡页缺方向切换按钮"
+    assert 'flashcardFaces' in session, "renderCard 未使用 flashcardFaces"
+    assert 'function flashcardFaces' in APP_JS_SRC, "缺 flashcardFaces 函数"
