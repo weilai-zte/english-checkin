@@ -34,7 +34,7 @@ def make_session_permanent():
 #               屏蔽非当前难度的 level topic, 就只留当前 level 词
 DIFFICULTY_CONFIG = {
     "easy": {
-        "daily_count": 6,            # 6 词：3 中译英 + 3 英译中（交替）
+        "daily_count": 10,           # 10 词：5 中译英 + 5 英译中（交替）
         "flashcard_count": 15,
         "quiz_count": 10,
         "opt_count": 3,                  # 3 选 1 (L1 必会核心)
@@ -48,7 +48,7 @@ DIFFICULTY_CONFIG = {
         "level_key": "L1",                # 从三级词库取词
     },
     "medium": {
-        "daily_count": 6,
+        "daily_count": 10,
         "flashcard_count": 15,
         "quiz_count": 10,
         "opt_count": 4,                  # 4 选 1 (L2 拓展常用)
@@ -62,7 +62,7 @@ DIFFICULTY_CONFIG = {
         "level_key": "L2",
     },
     "hard": {
-        "daily_count": 6,
+        "daily_count": 10,
         "flashcard_count": 12,
         "quiz_count": 10,
         "opt_count": 4,                  # 4 选 1，干扰项更相近 (L3 拔高拓展)

@@ -1268,7 +1268,7 @@ def test_vocab_review_includes_both_directions():
     assert "'word' : 'cn'" in block or "'word': 'cn'" in block, "缺少两种方向的 hide 取值"
 
 
-def test_vocab_daily_count_is_six():
-    """词汇复习每日 6 词（3 中译英 + 3 英译中），三个难度一致。"""
+def test_vocab_daily_count_is_ten():
+    """词汇复习每日 10 词（5 中译英 + 5 英译中），三个难度一致。"""
     app_src = (ROOT / 'app.py').read_text(encoding='utf-8')
-    assert app_src.count('"daily_count": 6') >= 3, "三个难度的 daily_count 都应为 6"
+    assert app_src.count('"daily_count": 10') >= 3, "三个难度的 daily_count 都应为 10"
