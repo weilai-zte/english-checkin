@@ -1259,3 +1259,10 @@ def test_flashcard_direction_entries_present():
     assert '#/flashcard-en' in home, "首页缺英译中闪卡入口"
     assert '闪卡·中译英' in home and '闪卡·英译中' in home, "首页闪卡入口应带「闪卡」字样与翻译练习区分"
     assert 'function flashcardFaces' in APP_JS_SRC, "缺 flashcardFaces 函数"
+
+
+def test_vocab_review_includes_both_directions():
+    """词汇复习必须明确交替中译英/英译中，保证每天都有英译中内容。"""
+    block = _function_block('generateDailyTask')
+    assert 'i % 2 === 0' in block, "词汇复习未按索引交替分配方向"
+    assert "'word' : 'cn'" in block or "'word': 'cn'" in block, "缺少两种方向的 hide 取值"

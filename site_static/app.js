@@ -1289,10 +1289,11 @@ document.addEventListener('input', function(e) {
 
     return {
       topic: vocabPicks[0]?.topic || '',
-      vocab: vocabPicks.map(w => ({
+      vocab: vocabPicks.map((w, i) => ({
         word: w.word, pron: w.pron || '', cn: w.cn,
         example: w.例句, memory: w.记忆 || '',
-        topic: w.topic, hide: rand() < 0.5 ? 'word' : 'cn',
+        // 明确交替：偶数位中译英（藏英文），奇数位英译中（藏中文），保证每天两种方向都有
+        topic: w.topic, hide: (i % 2 === 0) ? 'word' : 'cn',
       })),
       grammar: {
         id: gram.id, title: gram.title, level: gram.level || '',
