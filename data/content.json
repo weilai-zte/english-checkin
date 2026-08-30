@@ -11,9 +11,9 @@
       "tense": 324
     },
     "grade_count": {
-      "L1": 1853,
-      "L2": 1809,
-      "L3": 1138
+      "L1": 1805,
+      "L2": 1883,
+      "L3": 1112
     },
     "filter_attrs": [
       "type",
@@ -85,7 +85,7 @@
     {
       "id": "v_jr_l1_0004",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "时间与数字",
       "freq": 5,
       "word": "evening",
@@ -93,8 +93,9 @@
       "cn": "傍晚；晚上",
       "example": "Good evening!",
       "memory": "eve傍晚+ning",
-      "src": "junior+legacy",
-      "l1_cat": "时间"
+      "src": "ckfw",
+      "l1_cat": "时间",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0005",
@@ -533,7 +534,7 @@
     {
       "id": "v_jr_l1_0036",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "of",
@@ -541,8 +542,9 @@
       "cn": "…的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "介词"
+      "src": "ckfw",
+      "l1_cat": "介词",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0037",
@@ -1073,8 +1075,9 @@
       "cn": "谈话",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "基础动词"
+      "src": "ckfw",
+      "l1_cat": "基础动词",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0075",
@@ -2059,7 +2062,7 @@
     {
       "id": "v_jr_l1_0145",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "hold",
@@ -2067,8 +2070,9 @@
       "cn": "握住",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "基础动词"
+      "src": "ckfw",
+      "l1_cat": "基础动词",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0146",
@@ -3160,8 +3164,9 @@
       "cn": "男人",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "人物"
+      "src": "ckfw",
+      "l1_cat": "人物",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0225",
@@ -3698,7 +3703,7 @@
     {
       "id": "v_jr_l1_0263",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "fruit",
@@ -3706,8 +3711,9 @@
       "cn": "水果",
       "example": "I eat fruit every day. It is good for my health.",
       "memory": "fruit水果",
-      "src": "junior+legacy",
-      "l1_cat": "食物"
+      "src": "ckfw",
+      "l1_cat": "食物",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0264",
@@ -5830,7 +5836,7 @@
     {
       "id": "v_jr_l1_0418",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "taxi",
@@ -5838,8 +5844,9 @@
       "cn": "出租车",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "交通"
+      "src": "ckfw",
+      "l1_cat": "交通",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0419",
@@ -5909,8 +5916,9 @@
       "cn": "村庄",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": "地点"
+      "src": "ckfw",
+      "l1_cat": "地点",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l1_0424",
@@ -6809,8 +6817,9 @@
       "cn": "运动",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0023",
@@ -7412,8 +7421,9 @@
       "cn": "十一月",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0066",
@@ -7496,8 +7506,9 @@
       "cn": "生物",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0072",
@@ -7552,8 +7563,9 @@
       "cn": "比赛",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0076",
@@ -7608,8 +7620,9 @@
       "cn": "鼓",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0080",
@@ -7917,8 +7930,9 @@
       "cn": "东",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0103",
@@ -8115,8 +8129,9 @@
       "cn": "整理床铺",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0117",
@@ -8635,8 +8650,9 @@
       "cn": "警察局",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0154",
@@ -9396,8 +9412,9 @@
       "cn": "可怕的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0209",
@@ -10161,8 +10178,9 @@
       "cn": "和…一样",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0265",
@@ -10900,8 +10918,9 @@
       "cn": "每周的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0317",
@@ -10970,8 +10989,9 @@
       "cn": "污染",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0322",
@@ -10984,8 +11004,9 @@
       "cn": "环境",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0323",
@@ -11397,8 +11418,9 @@
       "cn": "火鸡",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0352",
@@ -11526,8 +11548,9 @@
       "cn": "有空的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0361",
@@ -11829,8 +11852,9 @@
       "cn": "一直做某事",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0382",
@@ -12000,8 +12024,9 @@
       "cn": "休息",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0394",
@@ -12113,8 +12138,9 @@
       "cn": "紧张的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0402",
@@ -12213,8 +12239,9 @@
       "cn": "想出",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0409",
@@ -12285,8 +12312,9 @@
       "cn": "用完",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0414",
@@ -12355,8 +12383,9 @@
       "cn": "修理",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0419",
@@ -12483,8 +12512,9 @@
       "cn": "扫",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0428",
@@ -12997,8 +13027,9 @@
       "cn": "敲打",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0464",
@@ -13851,8 +13882,9 @@
       "cn": "自然的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0524",
@@ -13991,8 +14023,9 @@
       "cn": "不耐烦的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0534",
@@ -14118,8 +14151,9 @@
       "cn": "谁（宾格）",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0543",
@@ -14357,8 +14391,9 @@
       "cn": "积极的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0560",
@@ -14415,8 +14450,9 @@
       "cn": "一夜之间",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0564",
@@ -14697,8 +14733,9 @@
       "cn": "洗发水",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0584",
@@ -14767,8 +14804,9 @@
       "cn": "原谅",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0589",
@@ -15146,8 +15184,9 @@
       "cn": "材料",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0616",
@@ -15160,8 +15199,9 @@
       "cn": "产品",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0617",
@@ -15513,8 +15553,9 @@
       "cn": "火箭",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0642",
@@ -15556,8 +15597,9 @@
       "cn": "青少年",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0645",
@@ -16075,8 +16117,9 @@
       "cn": "摇滚乐",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0682",
@@ -16202,8 +16245,9 @@
       "cn": "鞠躬",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0692",
@@ -16483,8 +16527,9 @@
       "cn": "空的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0713",
@@ -16526,8 +16571,9 @@
       "cn": "盯着…看",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0716",
@@ -16681,8 +16727,9 @@
       "cn": "乱扔",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0727",
@@ -17048,8 +17095,9 @@
       "cn": "焦虑的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0753",
@@ -17076,8 +17124,9 @@
       "cn": "欣赏；感激",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0755",
@@ -17555,8 +17604,9 @@
       "cn": "情况；环境",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0789",
@@ -17710,8 +17760,9 @@
       "cn": "比赛；竞争",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l2_0800",
@@ -18320,7 +18371,7 @@
     {
       "id": "v_jr_l3_0043",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "contact",
@@ -18328,8 +18379,9 @@
       "cn": "接触；联系",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0044",
@@ -18530,7 +18582,7 @@
     {
       "id": "v_jr_l3_0058",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "convince",
@@ -18538,8 +18590,9 @@
       "cn": "使相信；说服",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0059",
@@ -18798,7 +18851,7 @@
     {
       "id": "v_jr_l3_0077",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "cultural",
@@ -18806,8 +18859,9 @@
       "cn": "文化的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0078",
@@ -19790,7 +19844,7 @@
     {
       "id": "v_jr_l3_0147",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "disease",
@@ -19798,8 +19852,9 @@
       "cn": "疾病",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0148",
@@ -19846,7 +19901,7 @@
     {
       "id": "v_jr_l3_0151",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "distant",
@@ -19854,13 +19909,14 @@
       "cn": "遥远的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0152",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "distinct",
@@ -19868,8 +19924,9 @@
       "cn": "明显的；独特的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0153",
@@ -20028,7 +20085,7 @@
     {
       "id": "v_jr_l3_0164",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "doubt",
@@ -20036,8 +20093,9 @@
       "cn": "怀疑；疑惑",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0165",
@@ -20112,7 +20170,7 @@
     {
       "id": "v_jr_l3_0170",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "earn",
@@ -20120,8 +20178,9 @@
       "cn": "挣得；赢得",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0171",
@@ -20422,7 +20481,7 @@
     {
       "id": "v_jr_l3_0192",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "employer",
@@ -20430,8 +20489,9 @@
       "cn": "雇主",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0193",
@@ -21348,7 +21408,7 @@
     {
       "id": "v_jr_l3_0258",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "failure",
@@ -21356,13 +21416,14 @@
       "cn": "失败",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0259",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "faith",
@@ -21370,8 +21431,9 @@
       "cn": "信任；信仰",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0260",
@@ -21825,7 +21887,7 @@
     {
       "id": "v_jr_l3_0292",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "global",
@@ -21833,8 +21895,9 @@
       "cn": "全球的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0293",
@@ -21895,7 +21958,7 @@
     {
       "id": "v_jr_l3_0297",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "grateful",
@@ -21903,8 +21966,9 @@
       "cn": "感激的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0298",
@@ -23019,7 +23083,7 @@
     {
       "id": "v_jr_l3_0377",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "journal",
@@ -23027,8 +23091,9 @@
       "cn": "日报；杂志",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0378",
@@ -23159,7 +23224,7 @@
     {
       "id": "v_jr_l3_0387",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "liberate",
@@ -23167,8 +23232,9 @@
       "cn": "解放；释放",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0388",
@@ -23384,7 +23450,7 @@
     {
       "id": "v_jr_l3_0403",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "margin",
@@ -23392,8 +23458,9 @@
       "cn": "边缘；差额",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0404",
@@ -24212,7 +24279,7 @@
     {
       "id": "v_jr_l3_0462",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "outline",
@@ -24220,8 +24287,9 @@
       "cn": "大纲；概述",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0463",
@@ -24492,7 +24560,7 @@
     {
       "id": "v_jr_l3_0482",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "permit",
@@ -24500,8 +24568,9 @@
       "cn": "允许；许可",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0483",
@@ -25136,7 +25205,7 @@
     {
       "id": "v_jr_l3_0528",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "promote",
@@ -25144,8 +25213,9 @@
       "cn": "促进；提升",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0529",
@@ -25374,7 +25444,7 @@
     {
       "id": "v_jr_l3_0545",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "psychological",
@@ -25382,8 +25452,9 @@
       "cn": "心理的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0546",
@@ -25712,7 +25783,7 @@
     {
       "id": "v_jr_l3_0569",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "reduction",
@@ -25720,8 +25791,9 @@
       "cn": "减少；降低",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0570",
@@ -25909,7 +25981,7 @@
     {
       "id": "v_jr_l3_0583",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "reject",
@@ -25917,8 +25989,9 @@
       "cn": "拒绝",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0584",
@@ -27414,7 +27487,7 @@
     {
       "id": "v_jr_l3_0691",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "success",
@@ -27422,8 +27495,9 @@
       "cn": "成功",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0692",
@@ -28287,7 +28361,7 @@
     {
       "id": "v_jr_l3_0753",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "vital",
@@ -28295,8 +28369,9 @@
       "cn": "至关重要的",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0754",
@@ -28329,7 +28404,7 @@
     {
       "id": "v_jr_l3_0756",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "vote",
@@ -28337,8 +28412,9 @@
       "cn": "投票；选票",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0757",
@@ -28357,7 +28433,7 @@
     {
       "id": "v_jr_l3_0758",
       "type": "vocab",
-      "grade": "L3",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 3,
       "word": "wealth",
@@ -28365,8 +28441,9 @@
       "cn": "财富",
       "example": "",
       "memory": "",
-      "src": "junior",
-      "l1_cat": ""
+      "src": "ckfw",
+      "l1_cat": "",
+      "goal": "重点"
     },
     {
       "id": "v_jr_l3_0759",
@@ -28767,7 +28844,8 @@
       "cn": "沿着；顺着",
       "example": "",
       "pos": "介词",
-      "src": "pdf983"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0031",
@@ -30794,7 +30872,8 @@
       "cn": "真的；真实的",
       "example": "",
       "pos": "形容词",
-      "src": "pdf983"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0288",
@@ -31998,7 +32077,7 @@
     {
       "id": "v_pdf_0431",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "dig",
@@ -32006,7 +32085,8 @@
       "cn": "挖(洞/沟等)；掘",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0435",
@@ -32181,7 +32261,7 @@
     {
       "id": "v_pdf_0461",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "hurt",
@@ -32189,7 +32269,8 @@
       "cn": "伤害；伤痛",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_science_005",
@@ -32352,7 +32433,7 @@
     {
       "id": "v_pdf_0487",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "mend",
@@ -32360,7 +32441,8 @@
       "cn": "修理",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0488",
@@ -32648,7 +32730,8 @@
       "cn": "卖；销售",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0521",
@@ -32714,7 +32797,8 @@
       "cn": "喊；高声呼喊",
       "example": "",
       "pos": "动词",
-      "src": "pdf983"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0531",
@@ -33827,7 +33911,8 @@
       "cn": "爷爷；外公",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0715",
@@ -33866,7 +33951,8 @@
       "cn": "地面；运动场",
       "example": "",
       "pos": "名词",
-      "src": "pdf983"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf_0720",
@@ -35873,7 +35959,7 @@
     {
       "id": "v_lg_food_005",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "饮食",
       "freq": 4,
       "word": "noodle",
@@ -35881,7 +35967,8 @@
       "cn": "面条",
       "example": "I often eat noodles for lunch.",
       "memory": "noodle面条",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_food_020",
@@ -35951,7 +36038,7 @@
     {
       "id": "v_lg_food_027",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "饮食",
       "freq": 4,
       "word": "greasy",
@@ -35959,7 +36046,8 @@
       "cn": "油腻的",
       "example": "Fast food is usually greasy.",
       "memory": "grease油脂+y",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_food_028",
@@ -35977,7 +36065,7 @@
     {
       "id": "v_lg_food_029",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "饮食",
       "freq": 4,
       "word": "garlic",
@@ -35985,7 +36073,8 @@
       "cn": "大蒜",
       "example": "Garlic is good for your health.",
       "memory": "garlic大蒜",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_food_030",
@@ -36356,7 +36445,7 @@
     {
       "id": "v_lg_personality_011",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人物性格",
       "freq": 4,
       "word": "independent",
@@ -36364,7 +36453,8 @@
       "cn": "独立的",
       "example": "She is very independent and does things on her own.",
       "memory": "in不+depend依赖+ent",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_personality_012",
@@ -36526,7 +36616,7 @@
     {
       "id": "v_lg_emotion_012",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "情感心理",
       "freq": 4,
       "word": "ashamed",
@@ -36534,7 +36624,8 @@
       "cn": "惭愧的",
       "example": "I felt ashamed of my bad behavior.",
       "memory": "shame羞耻→ashamed",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_health_001",
@@ -36916,7 +37007,7 @@
     {
       "id": "v_lg_environment_007",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "环境保护",
       "freq": 4,
       "word": "resources",
@@ -36924,7 +37015,8 @@
       "cn": "资源",
       "example": "Natural resources are limited.",
       "memory": "re再+source来源",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_environment_008",
@@ -37033,7 +37125,7 @@
     {
       "id": "v_lg_career_005",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "职业工作",
       "freq": 4,
       "word": "manager",
@@ -37041,7 +37133,8 @@
       "cn": "经理",
       "example": "The manager held a meeting this morning.",
       "memory": "manage管理+er",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_career_006",
@@ -37164,7 +37257,7 @@
     {
       "id": "v_lg_travel_003",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "旅行交通",
       "freq": 4,
       "word": "suitcase",
@@ -37172,7 +37265,8 @@
       "cn": "手提箱",
       "example": "My suitcase is too heavy to carry.",
       "memory": "suit一套+case箱子",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_travel_004",
@@ -37203,7 +37297,7 @@
     {
       "id": "v_lg_travel_006",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "旅行交通",
       "freq": 4,
       "word": "sightseeing",
@@ -37211,7 +37305,8 @@
       "cn": "观光",
       "example": "We went sightseeing in Beijing.",
       "memory": "sight看+see+ing",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_travel_007",
@@ -37464,7 +37559,7 @@
     {
       "id": "v_lg_abstract_014",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "抽象概念",
       "freq": 4,
       "word": "argument",
@@ -37472,7 +37567,8 @@
       "cn": "争论/参数",
       "example": "They had an argument about the plan.",
       "memory": "argue争辩+ment",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_abstract_015",
@@ -37556,7 +37652,7 @@
     {
       "id": "v_lg_science_007",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "科学自然",
       "freq": 4,
       "word": "electricity",
@@ -37564,7 +37660,8 @@
       "cn": "电",
       "example": "We cannot live without electricity.",
       "memory": "electric电+ity",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_science_008",
@@ -37608,7 +37705,7 @@
     {
       "id": "v_lg_science_011",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "科学自然",
       "freq": 4,
       "word": "oxygen",
@@ -37616,7 +37713,8 @@
       "cn": "氧气",
       "example": "Humans need oxygen to breathe.",
       "memory": "oxy氧+gen产生",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_science_012",
@@ -37921,7 +38019,7 @@
     {
       "id": "v_lg_sports_011",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "体育运动",
       "freq": 4,
       "word": "spectator",
@@ -37929,7 +38027,8 @@
       "cn": "观众",
       "example": "There were 80,000 spectators at the game.",
       "memory": "spect看+ator人",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_sports_012",
@@ -37961,7 +38060,7 @@
     {
       "id": "v_lg_grammar_002",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "英语语法术语",
       "freq": 4,
       "word": "vocabulary",
@@ -37969,7 +38068,8 @@
       "cn": "词汇量/词汇表",
       "example": "Reading helps expand your vocabulary.",
       "memory": "vocal声音+abulary→词语",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_grammar_003",
@@ -38000,7 +38100,7 @@
     {
       "id": "v_lg_grammar_005",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "英语语法术语",
       "freq": 4,
       "word": "paragraph",
@@ -38008,7 +38108,8 @@
       "cn": "段落",
       "example": "Write a paragraph about your hobby.",
       "memory": "para旁边+graph写→分写到旁边",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_grammar_006",
@@ -38053,7 +38154,7 @@
     {
       "id": "v_lg_grammar_009",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "英语语法术语",
       "freq": 4,
       "word": "idiom",
@@ -38061,7 +38162,8 @@
       "cn": "习语/成语",
       "example": "It's raining cats and dogs is an idiom.",
       "memory": "idio个人专用→特殊的表达",
-      "src": "legacy"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_lg_grammar_010",
@@ -45004,7 +45106,7 @@
     {
       "id": "v_pdf2_1059",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "自然环境",
       "freq": 5,
       "word": "turtle",
@@ -45012,7 +45114,8 @@
       "cn": "海龟",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1060",
@@ -45083,7 +45186,7 @@
     {
       "id": "v_pdf2_1066",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "自然环境",
       "freq": 5,
       "word": "swan",
@@ -45091,7 +45194,8 @@
       "cn": "天鹅",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1068",
@@ -45411,7 +45515,7 @@
     {
       "id": "v_pdf2_1095",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "自然环境",
       "freq": 5,
       "word": "hedgehog",
@@ -45419,7 +45523,8 @@
       "cn": "刺猬",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1096",
@@ -46127,7 +46232,7 @@
     {
       "id": "v_pdf2_1164",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "学校学习",
       "freq": 5,
       "word": "presentation",
@@ -46135,7 +46240,8 @@
       "cn": "展示",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1165",
@@ -46832,7 +46938,7 @@
     {
       "id": "v_pdf2_1224",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "物品用品",
       "freq": 5,
       "word": "drawer",
@@ -46840,7 +46946,8 @@
       "cn": "抽屉",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1225",
@@ -47001,7 +47108,7 @@
     {
       "id": "v_pdf2_1237",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "物品用品",
       "freq": 5,
       "word": "comb",
@@ -47009,7 +47116,8 @@
       "cn": "梳子",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1239",
@@ -48047,7 +48155,7 @@
     {
       "id": "v_pdf2_1340",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "referee",
@@ -48055,7 +48163,8 @@
       "cn": "裁判",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1341",
@@ -48551,7 +48660,8 @@
       "cn": "间谍",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1386",
@@ -48787,7 +48897,8 @@
       "cn": "兽医",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1408",
@@ -50576,7 +50687,7 @@
     {
       "id": "v_pdf2_1583",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "annually",
@@ -50584,7 +50695,8 @@
       "cn": "每年",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1584",
@@ -50876,7 +50988,7 @@
     {
       "id": "v_pdf2_1607",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "cylindrical",
@@ -50884,7 +50996,8 @@
       "cn": "圆柱形的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1608",
@@ -51072,7 +51185,7 @@
     {
       "id": "v_pdf2_1625",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "dense",
@@ -51080,7 +51193,8 @@
       "cn": "密集的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1626",
@@ -51437,7 +51551,7 @@
     {
       "id": "v_pdf2_1658",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "dine",
@@ -51445,7 +51559,8 @@
       "cn": "用餐",
       "example": "",
       "pos": "动词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1659",
@@ -51541,7 +51656,7 @@
     {
       "id": "v_pdf2_1667",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "limp",
@@ -51549,7 +51664,8 @@
       "cn": "跛行",
       "example": "",
       "pos": "动词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1668",
@@ -51671,7 +51787,7 @@
     {
       "id": "v_pdf2_1679",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "criticize",
@@ -51679,7 +51795,8 @@
       "cn": "批评",
       "example": "",
       "pos": "动词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1680",
@@ -51918,7 +52035,7 @@
     {
       "id": "v_pdf2_1701",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "ponder",
@@ -51926,7 +52043,8 @@
       "cn": "深思",
       "example": "",
       "pos": "动词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1702",
@@ -52140,7 +52258,7 @@
     {
       "id": "v_pdf2_1718",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "resent",
@@ -52148,7 +52266,8 @@
       "cn": "怨恨",
       "example": "",
       "pos": "动词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1719",
@@ -52544,7 +52663,7 @@
     {
       "id": "v_pdf2_1755",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "toss",
@@ -52552,7 +52671,8 @@
       "cn": "扔",
       "example": "",
       "pos": "动词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1756",
@@ -53130,7 +53250,7 @@
     {
       "id": "v_pdf2_1807",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "occupied",
@@ -53138,7 +53258,8 @@
       "cn": "被占用的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1808",
@@ -53299,7 +53420,7 @@
     {
       "id": "v_pdf2_1836",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "muggy",
@@ -53307,7 +53428,8 @@
       "cn": "闷热的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1837",
@@ -53650,7 +53772,7 @@
     {
       "id": "v_pdf2_1864",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "fragile",
@@ -53658,7 +53780,8 @@
       "cn": "易碎的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1865",
@@ -53845,7 +53968,7 @@
     {
       "id": "v_pdf2_1882",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "unfamiliar",
@@ -53853,7 +53976,8 @@
       "cn": "不熟悉的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1883",
@@ -53871,7 +53995,7 @@
     {
       "id": "v_pdf2_1884",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "known",
@@ -53879,12 +54003,13 @@
       "cn": "已知的",
       "example": "",
       "pos": "形容词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1885",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "时间与数字",
       "freq": 5,
       "word": "dawn",
@@ -53892,7 +54017,8 @@
       "cn": "黎明",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1886",
@@ -53962,7 +54088,7 @@
     {
       "id": "v_pdf2_1892",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "时间与数字",
       "freq": 5,
       "word": "epoch",
@@ -53970,7 +54096,8 @@
       "cn": "时代",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1894",
@@ -54665,7 +54792,7 @@
     {
       "id": "v_pdf2_1958",
       "type": "vocab",
-      "grade": "L1",
+      "grade": "L2",
       "topic": "人与自我",
       "freq": 5,
       "word": "satisfaction",
@@ -54673,7 +54800,8 @@
       "cn": "满意",
       "example": "",
       "pos": "名词",
-      "src": "llm_gen_2026_07"
+      "src": "ckfw",
+      "goal": "重点"
     },
     {
       "id": "v_pdf2_1959",
