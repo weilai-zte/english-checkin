@@ -1,6 +1,8 @@
 """Tests for site_static SPA: 11 borrowed features ported client-side."""
 import json
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -1278,3 +1280,76 @@ def test_vocab_daily_count_is_ten():
     """词汇复习每日 10 词（5 中译英 + 5 英译中），三个难度一致。"""
     app_src = (ROOT / 'app.py').read_text(encoding='utf-8')
     assert app_src.count('"daily_count": 10') >= 3, "三个难度的 daily_count 都应为 10"
+
+
+# ─── 词表口径：课内核心 / 超前（data/vocab_scope.json）────────────
+SCOPE = ROOT / "data" / "vocab_scope.json"
+BUILD_PY = ROOT / "site_static" / "build.py"
+
+
+def _scope_core():
+    return set(json.loads(SCOPE.read_text(encoding="utf-8"))["core"])
+
+
+def test_vocab_scope_contract():
+    """白名单产物必须是排序去重的小写词，且各来源都登记在 meta 里。"""
+    data = json.loads(SCOPE.read_text(encoding="utf-8"))
+    core = data["core"]
+    assert core == sorted(set(core)), "core 必须是排序去重的小写词"
+    assert all(w == w.lower() for w in core), "core 必须全小写"
+    assert 3000 <= len(core) <= 4000, f"白名单规模异常: {len(core)}"
+    sizes = data["meta"]["source_sizes"]
+    assert sizes["textbook_pep_up_to_8_1"] > 1000, "人教版课本词表来源缺失"
+    assert sizes["cefrj_A1A2"] > 2000
+
+
+def test_vocab_scope_keeps_exam_weak_words():
+    """孩子这份试卷的丢分点所在词必须留在课内，不能被当成超前词挡掉。"""
+    core = _scope_core()
+    weak = ["borrow", "lend", "keep", "alone", "lonely", "bored", "boring",
+            "die", "dead", "death", "thousand", "besides", "except", "hang",
+            "compare", "ready", "join", "touch", "remind", "unforgettable"]
+    missing = [w for w in weak if w not in core]
+    assert not missing, f"试卷薄弱词被判超前: {missing}"
+
+
+def test_vocab_scope_excludes_llm_junk():
+    """LLM 生成的进阶词不得进每日流动池（这是孩子原来的失分来源）。"""
+    core = _scope_core()
+    junk = ["cylindrical", "muggy", "epoch", "hedgehog", "toss", "ponder",
+            "limp", "dine", "referee", "spectator", "convince", "optimistic",
+            "meditate", "stubborn", "pharmacist", "paramedic"]
+    leaked = [w for w in junk if w in core]
+    assert not leaked, f"超前词泄漏进白名单: {leaked}"
+
+
+def test_vocab_scope_generator_is_reproducible():
+    """重跑 scripts/gen_vocab_scope.py 必须产出逐字节相同的白名单。"""
+    before = SCOPE.read_text(encoding="utf-8")
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "gen_vocab_scope.py")],
+                   cwd=ROOT, check=True, capture_output=True)
+    assert SCOPE.read_text(encoding="utf-8") == before, "白名单与生成脚本不一致（不可复现）"
+
+
+def test_build_exports_ahead_word_list():
+    """build.py 必须把「超前词」清单导出到前端，否则过滤逻辑拿不到口径。"""
+    src = BUILD_PY.read_text(encoding="utf-8")
+    assert "vocab_scope_ahead" in src and "vocab_scope.json" in src
+    if DIST_DATA.exists():
+        s = DIST_DATA.read_text(encoding="utf-8")
+        data = json.loads(s[s.index("=") + 1:s.rindex(";")])
+        assert "vocab_scope_ahead" in data, "dist/assets/data.js 缺少 vocab_scope_ahead"
+        assert len(data["vocab_scope_ahead"]) > 500
+
+
+def test_app_js_blocks_ahead_words_in_daily_pool():
+    """每日流动池的每个入口都要过滤超前词（闪卡/选择题/听写走 allWords）。"""
+    assert "AHEAD_WORDS" in APP_JS_SRC and "function isAheadWord" in APP_JS_SRC
+    for fn in ("allWords", "generateDailyTask", "pickDailyWord"):
+        assert "isAheadWord(" in _function_block(fn), f"{fn} 未过滤超前词"
+
+
+def test_vocab_list_marks_ahead_words():
+    """「全部词汇」不隐藏超前词，但要打「超前」标。"""
+    block = _function_block("renderVocabList")
+    assert "AHEAD_WORDS" in block and "超前" in block

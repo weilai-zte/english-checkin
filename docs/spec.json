@@ -21,12 +21,12 @@
     },
     {
       "name": "code_signatures",
-      "source": "app.py + send_daily.py + send_weekly_report.py + site_static/build.py + site_static/app.js + send_wrong_words.py + send_weekly_wrong_words.py",
+      "source": "app.py + send_daily.py + send_weekly_report.py + site_static/build.py + site_static/app.js + send_wrong_words.py + send_weekly_wrong_words.py + scripts/gen_vocab_scope.py",
       "type": "file"
     },
     {
       "name": "data_schemas",
-      "source": "data/{content.json, question_bank_expansion.json, vocab.json, grammar.json, progress.json, junior_vocab_3levels.json}",
+      "source": "data/{content.json, question_bank_expansion.json, vocab.json, grammar.json, progress.json, junior_vocab_3levels.json, vocab_scope.json, vocab_scope_supplement.json, textbook_pep_up_to_8_1.json, cefrj-vocabulary-profile-1.5.csv}",
       "type": "file"
     }
   ],
@@ -77,7 +77,8 @@
           "translate_questions 与 tense_questions 必须保留 difficulty 和 knowledge_points 供前端筛选",
           "knowledge_modules 必须包含 module1 至 module9，值为 Mistune 从 knowledge_outline.md 对应章节生成的 HTML",
           "difficulty_config 必须含 block_topics (list) + extra_block (list)",
-          "app.js 必须含 CATEGORY_TREE 常量 (8 父类 → 子类, stats 页分层展示用)"
+          "app.js 必须含 CATEGORY_TREE 常量 (8 父类 → 子类, stats 页分层展示用)",
+          "vocab_scope_ahead 必须导出「超前词」小写清单 (data/vocab_scope.json 生成), 供 app.js 把超前词挡在每日流动池外"
         ],
         "raises": [
           "data/*.json 解析失败 → print 警告 + 继续"
@@ -730,7 +731,8 @@
           "simple_words": "list[str] (已 deprecated, [] for junior_vocab)",
           "junior_vocab_meta": "{L1: int, L2: int, L3: int}",
           "difficulty_config": "{easy: {...}, medium: {...}, hard: {...}}",
-          "knowledge_modules": "{module1: html, ..., module9: html}（knowledge_outline.md 构建时转换）"
+          "knowledge_modules": "{module1: html, ..., module9: html}（knowledge_outline.md 构建时转换）",
+          "vocab_scope_ahead": "list[str] 超前词小写清单 (每日流动池过滤用, 「全部词汇」仍可见)"
         },
         "invariants": [
           "json.dumps with ensure_ascii=False (中文不转义)",
@@ -776,6 +778,20 @@
           "设置类字段 (difficulty/checkin_types/daily_checkin_plan/avatar/school_grade) 按整个 progress._updated_at 较新者胜",
           "game_stats[i].played/won/lost/best 取 max(a,b)，history 按 max 100 截断",
           "_updated_at 由 saveProgress 自动写入 ISO 时间；reader 不必关心"
+        ]
+      },
+      "vocab_scope_json": {
+        "type": "object",
+        "description": "data/vocab_scope.json - 词表口径: 课内核心 vs 超前 (scripts/gen_vocab_scope.py 生成)",
+        "fields": {
+          "meta": "{generated, note, source_sizes, source_files, excluded}",
+          "core": "list[str] 排序去重的小写词 (七源并集: 人教版课本(≤八上)/人教课标L1L2/983核心/ba8/基础主题/CEFR-J A1A2/人工补充)"
+        },
+        "invariants": [
+          "core 必须排序去重且全小写",
+          "core 必须包含试卷薄弱词 (borrow/lend/keep/alone/lonely/bored/boring/die/dead/death/thousand 等)",
+          "core 不得包含 LLM 生成的进阶词 (cylindrical/epoch/hedgehog/convince/optimistic 等)",
+          "重跑 scripts/gen_vocab_scope.py 必须产出逐字节相同的文件"
         ]
       }
     },
@@ -1099,8 +1115,8 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.11",
-  "last_validated": "2026-07-26",
+  "version": "v0.19.0",
+  "last_validated": "2026-10-15",
   "evolution": [
     {
       "date": "2026-07-26",

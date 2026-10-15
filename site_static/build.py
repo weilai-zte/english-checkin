@@ -90,6 +90,24 @@ def export_data():
         }
     total_words = sum(len(v["words"]) for v in vocab.values())
 
+    # 2. 词表口径: data/vocab_scope.json 五源并集出的「课内核心」词; 不在里面的算「超前」。
+    # 超前词移出每日流动池(闪卡/选择题/听写/每日一词), 但保留在「全部词汇」可查可自选。
+    # 生成脚本: scripts/gen_vocab_scope.py
+    try:
+        scope_core = set(json.loads(
+            (PROJECT_ROOT / "data" / "vocab_scope.json").read_text(encoding="utf-8")
+        ).get("core", []))
+    except FileNotFoundError:
+        scope_core = None
+    if scope_core is None:
+        vocab_scope_ahead = []
+    else:
+        vocab_scope_ahead = sorted({
+            it["word"].strip().lower()
+            for it in vocab_items
+            if it.get("word") and it["word"].strip().lower() not in scope_core
+        })
+
     # 2. 兼容层: 加载旧 vocab.json 给 findWord() 兜底 (e.g. 错题本里的旧词)
     try:
         legacy_vocab = json.loads((PROJECT_ROOT / "data" / "vocab.json").read_text(encoding="utf-8"))
@@ -218,6 +236,8 @@ def export_data():
         # 孩子初始"不熟悉"词(家长与孩子共同标记), App 首次加载时播种到 progress.unfamiliar_words
         "child_baseline_unfamiliar": _baseline_unfamiliar_word_list(),
         "junior_vocab_meta": {lvl: len(vocab[f"_{lvl}"]["words"]) for lvl in ("L1", "L2", "L3")},
+        # 超前词小写清单: 前端据此把词挡在每日流动池外(「全部词汇」仍可见)
+        "vocab_scope_ahead": vocab_scope_ahead,
         "difficulty_config": {
             k: {**v, "block_topics": list(v["block_topics"]), "extra_block": list(v.get("extra_block", set()))}
             for k, v in DIFFICULTY_CONFIG.items()

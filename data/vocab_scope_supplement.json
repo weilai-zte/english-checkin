@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "note": "人工补充的课内基础词。五源词表都不完整，这里只收「小学/七年级就学的具体名词和基础动作」这类不会有争议的词；抽象词、进阶词一律不收。可直接增删。",
+    "added": "2026-10-15"
+  },
+  "words": [
+    "noodles", "pork", "mutton", "shrimp", "crab", "cucumber", "peach",
+    "watermelon", "strawberry", "pineapple", "mango", "cherry", "vinegar",
+    "bakery", "pudding",
+    "giraffe", "penguin", "dolphin", "whale", "eagle", "parrot", "peacock",
+    "goose", "fox", "wolf", "camel", "donkey", "goat", "hen", "chick",
+    "spider", "owl", "goldfish", "seal", "squirrel", "crocodile",
+    "kindergarten", "primary", "gym", "canteen", "chalk", "marker", "tablet",
+    "stool", "wardrobe", "carpet", "curtain", "quilt", "pillow", "sheet",
+    "broom", "mop", "bin", "purse", "heater",
+    "triangle", "rectangle", "oval", "dot", "angle", "width", "depth",
+    "sunset", "sunrise", "pond", "stream", "waterfall",
+    "yawn", "chew", "taste", "sip"
+  ]
+}

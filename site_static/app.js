@@ -1189,6 +1189,10 @@ document.addEventListener('input', function(e) {
   }
   D.filter = filterContent;
   // ─── 词库查找辅助 ──────────────────────────────────
+  // 超前词（口径出处 data/vocab_scope.json，五源并集）：不进每日流动池（闪卡/选择题/听写/每日一词），
+  // 但「全部词汇」仍可查、可自选。避免 LLM 生成的进阶词混进孩子的日常练习。
+  const AHEAD_WORDS = new Set((D.vocab_scope_ahead || []).map(w => String(w).toLowerCase()));
+  function isAheadWord(w) { return AHEAD_WORDS.has(String(w && w.word || '').toLowerCase()); }
   function findWord(en) {
     const lower = en.toLowerCase();
     for (const t of Object.values(D.vocab)) {
@@ -1205,7 +1209,10 @@ document.addEventListener('input', function(e) {
     const level = schoolGradeLevel();
     for (const [key, t] of Object.entries(D.vocab)) {
       if (progress.school_grade && key !== '_' + level) continue;
-      for (const w of t.words) arr.push({ ...w, topic: t.topic, grade: key.replace(/^_/, '') });
+      for (const w of t.words) {
+        if (isAheadWord(w)) continue;
+        arr.push({ ...w, topic: t.topic, grade: key.replace(/^_/, '') });
+      }
     }
     if (progress.custom_vocab && progress.custom_vocab.length) {
       for (const w of progress.custom_vocab) {
@@ -1234,6 +1241,7 @@ document.addEventListener('input', function(e) {
       for (const w of t.words) {
         const wl = w.word.toLowerCase();
         // 已掌握跳过；简单词屏蔽但"不熟悉"词除外（孩子标了不熟，即使简单也要练）
+        if (isAheadWord(w)) continue;
         if (!mastered.has(wl) && (!blockWords.has(wl) || unfamiliar.has(wl))) {
           candidates.push({ ...w, topic: t.topic, topicKey: k });
         }
@@ -1243,6 +1251,7 @@ document.addEventListener('input', function(e) {
       // 降权：跳过 blockWords 但允许已掌握
       for (const [k, t] of Object.entries(D.vocab)) {
         for (const w of t.words) {
+          if (isAheadWord(w)) continue;
           if (!mastered.has(w.word.toLowerCase())) {
             candidates.push({ ...w, topic: t.topic, topicKey: k });
           }
@@ -3766,6 +3775,7 @@ document.addEventListener('input', function(e) {
           <div class="vl-grid">
             ${slice.map(w => {
               const isMarked = marked.has(w.word);
+              const isAhead = AHEAD_WORDS.has(String(w.word).toLowerCase());
               return `
               <div class="card vl-card ${isMarked?'vl-marked':''}" style="padding:10px;margin:0;">
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
@@ -3778,7 +3788,7 @@ document.addEventListener('input', function(e) {
                 </div>
                 ${w.pron ? `<div style="color:var(--text-2);font-size:11px;">${escapeHtml(w.pron)}</div>` : ''}
                 <div style="color:var(--text-1);font-size:13px;margin-top:4px;">${escapeHtml(w.cn || '')}</div>
-                <div style="color:var(--text-2);font-size:10px;margin-top:4px;">${escapeHtml(w.grade||'')} · ${escapeHtml(w._topic||w.topic||'')}</div>
+                <div style="color:var(--text-2);font-size:10px;margin-top:4px;">${escapeHtml(w.grade||'')} · ${escapeHtml(w._topic||w.topic||'')}${isAhead ? ' · <span style="background:var(--bg-tag);color:var(--text-2);padding:0 4px;border-radius:4px;">超前</span>' : ''}</div>
               </div>
             `;}).join('')}
           </div>
@@ -3899,7 +3909,7 @@ document.addEventListener('input', function(e) {
       if (blockTopics.has(simple)) continue;
       for (const w of (t.words || [])) {
         const wl = (w.word || '').toLowerCase();
-        if (wl && !blocked.has(wl)) pool.push({ ...w, topic: simple || t.topic });
+        if (wl && !blocked.has(wl) && !isAheadWord(w)) pool.push({ ...w, topic: simple || t.topic });
       }
     }
     if (progress.custom_vocab && progress.custom_vocab.length) {
@@ -3949,11 +3959,8 @@ document.addEventListener('input', function(e) {
     const tok = (raw || '').split(/[\s,;，；]+/).map(s => s.trim()).filter(Boolean);
     if (!tok.length) return 0;
     const seen = new Set((progress.unfamiliar_words || []).map(w => w.word.toLowerCase()));
-    const allDict = allWords();
-    const findCn = (wd) => {
-      const hit = allDict.find(x => (x.word || '').toLowerCase() === wd.toLowerCase());
-      return hit ? (hit.cn || '') : '';
-    };
+    // 用 findWord（全量词库，含超前词）查中文；allWords() 已把超前词挡在外面
+    const findCn = (wd) => { const hit = findWord(wd); return hit ? (hit.cn || '') : ''; };
     let added = 0;
     progress.unfamiliar_words = progress.unfamiliar_words || [];
     for (const w of tok) {
@@ -3993,7 +4000,7 @@ document.addEventListener('input', function(e) {
     if (!familiar) {
       // 还没掌握 -> 记入不熟悉
       if (!isUnfamiliar(word)) {
-        const hit = allWords().find(x => (x.word || '').toLowerCase() === k);
+        const hit = findWord(word);
         progress.unfamiliar_words = progress.unfamiliar_words.concat([{ word: word, cn: (hit && hit.cn) || '', added_at: today() }]);
       }
     }
