@@ -1,0 +1,545 @@
+[
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "forget to do / doing",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "Don't forget ____ the light when you leave the room.",
+    "options": [
+      "to turn off",
+      "turning off",
+      "turn off",
+      "turned off"
+    ],
+    "answer": "to turn off",
+    "hint": "forget to do 表示忘记要做（事情还没做）；forget doing 表示忘记做过。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "forget to do / doing",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "I'll never forget ____ the Great Wall for the first time with my father.",
+    "options": [
+      "visiting",
+      "to visit",
+      "visit",
+      "visited"
+    ],
+    "answer": "visiting",
+    "hint": "forget doing 表示忘记做过的事；这里“第一次游长城”已经发生过，用 doing。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "remember to do / doing",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "Remember ____ your homework to school tomorrow morning.",
+    "options": [
+      "to bring",
+      "bringing",
+      "bring",
+      "brought"
+    ],
+    "answer": "to bring",
+    "hint": "remember to do 表示记着去做（还没做）；remember doing 表示记得做过。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "be busy doing",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "The students are busy ____ for the coming exam.",
+    "options": [
+      "preparing",
+      "to prepare",
+      "prepare",
+      "prepared"
+    ],
+    "answer": "preparing",
+    "hint": "be busy doing sth 是固定搭配，表示忙于做某事。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "see sb do / doing",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "I saw him ____ the classroom and turn off the lights.",
+    "options": [
+      "enter",
+      "entering",
+      "to enter",
+      "entered"
+    ],
+    "answer": "enter",
+    "hint": "see sb do 表示看到动作的全过程（and turn off 说明看到了全过程）；see sb doing 表示看到动作正在进行。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "see sb do / doing",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "When I passed by, I saw some children ____ football on the playground.",
+    "options": [
+      "playing",
+      "play",
+      "to play",
+      "played"
+    ],
+    "answer": "playing",
+    "hint": "经过时看到动作正在进行，用 see sb doing。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "make sb do",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "My parents often make me ____ my room at weekends.",
+    "options": [
+      "clean",
+      "to clean",
+      "cleaning",
+      "cleaned"
+    ],
+    "answer": "clean",
+    "hint": "make sb do sth 中不定式省去 to。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "be made to do",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "The little boy was made ____ his homework first.",
+    "options": [
+      "to finish",
+      "finish",
+      "finishing",
+      "finished"
+    ],
+    "answer": "to finish",
+    "hint": "make sb do 变被动语态后，省掉的 to 要还原：be made to do。",
+    "knowledge_points": [
+      "非谓语动词",
+      "被动语态"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "动名词作主语",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "____ a club is a good way to make new friends.",
+    "options": [
+      "Joining",
+      "Join",
+      "Joined",
+      "Joins"
+    ],
+    "answer": "Joining",
+    "hint": "动名词作主语时谓语用单数 is；动作在句中作主语，动词要变成 -ing 形式。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "动名词作主语",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "____ English every day helps you make great progress.",
+    "options": [
+      "Reading",
+      "Read",
+      "To reading",
+      "Reads"
+    ],
+    "answer": "Reading",
+    "hint": "动词短语放在句首作主语，要用动名词形式。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "look forward to doing",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "I'm looking forward to ____ from you soon.",
+    "options": [
+      "hearing",
+      "hear",
+      "heard",
+      "be heard"
+    ],
+    "answer": "hearing",
+    "hint": "look forward to 中的 to 是介词，后面接动名词 doing。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "be used to doing / used to do",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "My grandpa is used to ____ up early every morning.",
+    "options": [
+      "getting",
+      "get",
+      "got",
+      "be got"
+    ],
+    "answer": "getting",
+    "hint": "be used to doing 表示习惯于做某事（to 是介词）；used to do 表示过去常常做。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "be used to doing / used to do",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "My father used to ____ a walk after supper.",
+    "options": [
+      "take",
+      "taking",
+      "took",
+      "taken"
+    ],
+    "answer": "take",
+    "hint": "used to do 表示过去常常做某事，后面接动词原形。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "mind doing",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "Would you mind ____ the window? It's a bit hot in here.",
+    "options": [
+      "opening",
+      "open",
+      "to open",
+      "opened"
+    ],
+    "answer": "opening",
+    "hint": "mind doing sth 表示介意做某事，mind 后接动名词。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "enjoy doing",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "I enjoy ____ to music before going to bed.",
+    "options": [
+      "listening",
+      "listen",
+      "to listen",
+      "listened"
+    ],
+    "answer": "listening",
+    "hint": "enjoy 后接动名词：enjoy doing sth。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "ask sb to do",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "The teacher asked us ____ the text aloud.",
+    "options": [
+      "to read",
+      "read",
+      "reading",
+      "reads"
+    ],
+    "answer": "to read",
+    "hint": "ask sb to do sth 是常见搭配，用不定式作宾补。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "It's + adj + for sb to do",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "It's important for us ____ the environment.",
+    "options": [
+      "to protect",
+      "protecting",
+      "protect",
+      "protected"
+    ],
+    "answer": "to protect",
+    "hint": "It's + 形容词 + for sb + to do sth 是固定句型。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "too...to 结构",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "The box is too heavy for the little boy ____.",
+    "options": [
+      "to carry",
+      "carry",
+      "carrying",
+      "carried"
+    ],
+    "answer": "to carry",
+    "hint": "too + 形容词 + to do 表示太……以致不能……。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "can't help doing",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "I can't help ____ when I watch that funny video.",
+    "options": [
+      "laughing",
+      "laugh",
+      "to laugh",
+      "laughed"
+    ],
+    "answer": "laughing",
+    "hint": "can't help doing sth 表示忍不住做某事。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "practise doing",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "He practises ____ English aloud every morning.",
+    "options": [
+      "speaking",
+      "speak",
+      "to speak",
+      "spoke"
+    ],
+    "answer": "speaking",
+    "hint": "practise 后接动名词：practise doing sth。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "介词后接 doing",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "Thank you for ____ me with my English.",
+    "options": [
+      "helping",
+      "help",
+      "to help",
+      "helped"
+    ],
+    "answer": "helping",
+    "hint": "介词 for 后面要接动名词 helping。",
+    "knowledge_points": [
+      "非谓语动词",
+      "介词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "be afraid of doing",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "My little sister is afraid of ____ alone at home.",
+    "options": [
+      "staying",
+      "stay",
+      "to stay",
+      "stayed"
+    ],
+    "answer": "staying",
+    "hint": "be afraid of 中 of 是介词，后接动名词。",
+    "knowledge_points": [
+      "非谓语动词",
+      "介词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "would like to do",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "— Would you like ____ a cup of tea? — Yes, please.",
+    "options": [
+      "to have",
+      "having",
+      "have",
+      "had"
+    ],
+    "answer": "to have",
+    "hint": "would like to do sth 表示想要做某事。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "tell sb not to do",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "My mother often tells me ____ too much junk food.",
+    "options": [
+      "not to eat",
+      "not eat",
+      "to not eat",
+      "don't eat"
+    ],
+    "answer": "not to eat",
+    "hint": "tell sb not to do sth 的否定形式是在 to 前加 not。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "疑问词 + to do",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "Do you know how ____ this new machine?",
+    "options": [
+      "to use",
+      "using",
+      "use",
+      "used"
+    ],
+    "answer": "to use",
+    "hint": "疑问词 how / what / where + to do 可作宾语。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "why not do",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "Why not ____ to the park this Sunday?",
+    "options": [
+      "go",
+      "to go",
+      "going",
+      "went"
+    ],
+    "answer": "go",
+    "hint": "Why not do sth? 是提建议的句型，后面接动词原形。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "nonfinite",
+    "grade": "L2",
+    "topic": "you'd better do",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "You'd better ____ your parents about the school trip.",
+    "options": [
+      "tell",
+      "to tell",
+      "telling",
+      "told"
+    ],
+    "answer": "tell",
+    "hint": "had better do sth 后面接动词原形。",
+    "knowledge_points": [
+      "非谓语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  }
+]

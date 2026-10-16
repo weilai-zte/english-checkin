@@ -1,0 +1,598 @@
+[
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "borrow / lend / keep",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "— May I ____ your dictionary? Mine is at home. — Sure, here you are.",
+    "options": [
+      "borrow",
+      "lend",
+      "keep",
+      "give"
+    ],
+    "answer": "borrow",
+    "hint": "borrow 表示借入（从别人那里借来）；lend 表示借出（借给别人）。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "borrow / lend / keep",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "— Could you ____ me your bike for a day? — Of course.",
+    "options": [
+      "lend",
+      "borrow",
+      "keep",
+      "return"
+    ],
+    "answer": "lend",
+    "hint": "lend sb sth 表示借出给某人；borrow sth from sb 表示从某人那里借入。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "borrow / lend / keep（延续性）",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "I ____ this book for two weeks. I have to return it today.",
+    "options": [
+      "have kept",
+      "have borrowed",
+      "borrowed",
+      "keep"
+    ],
+    "answer": "have kept",
+    "hint": "borrow 是短暂动词，不能接 for + 时间段；表示“借了多久”要用延续性动词 keep。",
+    "knowledge_points": [
+      "易混词辨析",
+      "现在完成时"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "alone / lonely",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "He lives ____ in a small village, but he never feels ____.",
+    "options": [
+      "alone; lonely",
+      "lonely; alone",
+      "alone; alone",
+      "lonely; lonely"
+    ],
+    "answer": "alone; lonely",
+    "hint": "alone 客观表示“独自一人”；lonely 主观表示“孤独寂寞的”。",
+    "knowledge_points": [
+      "易混词辨析",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "alike / like",
+    "freq": 5,
+    "difficulty": "easy",
+    "question": "The two sisters look very much ____.",
+    "options": [
+      "alike",
+      "like",
+      "likely",
+      "same"
+    ],
+    "answer": "alike",
+    "hint": "alike 是表语形容词，放在系动词后表示“相像”；like 是介词，后面必须跟宾语。",
+    "knowledge_points": [
+      "易混词辨析",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "look like",
+    "freq": 5,
+    "difficulty": "easy",
+    "question": "— What does your new teacher ____? — He is tall and wears glasses.",
+    "options": [
+      "look like",
+      "look alike",
+      "look",
+      "like"
+    ],
+    "answer": "look like",
+    "hint": "询问外貌用 What does sb look like?，like 后面要接宾语。",
+    "knowledge_points": [
+      "易混词辨析",
+      "特殊疑问句"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "besides / except",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "____ English, she is also good at French and Japanese.",
+    "options": [
+      "Besides",
+      "Except",
+      "Beside",
+      "Except for"
+    ],
+    "answer": "Besides",
+    "hint": "besides 表示“除……之外还有”（包括在内）；except 表示“除……之外”（排除在外）。",
+    "knowledge_points": [
+      "易混词辨析",
+      "介词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "besides / except",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "Everyone was tired ____ Tom. He still looked full of energy.",
+    "options": [
+      "except",
+      "besides",
+      "beside",
+      "except that"
+    ],
+    "answer": "except",
+    "hint": "Tom 不在“累”的人里面，是被排除的那一个，所以用 except。",
+    "knowledge_points": [
+      "易混词辨析",
+      "介词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "spend / take / cost / pay",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "It ____ me two hours to finish my homework yesterday.",
+    "options": [
+      "took",
+      "cost",
+      "spent",
+      "paid"
+    ],
+    "answer": "took",
+    "hint": "It takes sb some time to do sth 是固定句型；过去时用 took。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "spend / take / cost / pay",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "I ____ fifty yuan on the new dictionary last week.",
+    "options": [
+      "spent",
+      "took",
+      "cost",
+      "paid"
+    ],
+    "answer": "spent",
+    "hint": "sb spends money on sth；sth costs sb money；sb pays money for sth。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "spend / take / cost / pay",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "The new bike ____ him about 800 yuan.",
+    "options": [
+      "cost",
+      "spent",
+      "took",
+      "paid"
+    ],
+    "answer": "cost",
+    "hint": "sth costs sb money，主语是物；这里主语是 the new bike。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "bring / take / fetch / carry",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "Don't forget to ____ your homework to school tomorrow.",
+    "options": [
+      "bring",
+      "take",
+      "fetch",
+      "carry"
+    ],
+    "answer": "bring",
+    "hint": "bring 表示“带来”（朝说话人方向）；take 表示“带去”（离开说话人方向）。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "bring / take / fetch / carry",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "It's going to rain. ____ an umbrella with you.",
+    "options": [
+      "Take",
+      "Bring",
+      "Fetch",
+      "Carry"
+    ],
+    "answer": "Take",
+    "hint": "从说话人这里带走用 take；to school / with you 表示离开说话人的方向。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "情景交际答语",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "— Could you please help me carry the box? — ____",
+    "options": [
+      "No problem.",
+      "It doesn't matter.",
+      "That's right.",
+      "Yes, I could."
+    ],
+    "answer": "No problem.",
+    "hint": "Could you please... 的肯定答语用 No problem. / Sure. / Of course.；It doesn't matter. 用来回答道歉。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "情景交际答语",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "— Thank you for helping me with my English. — ____",
+    "options": [
+      "My pleasure.",
+      "Never mind.",
+      "I'm sorry to hear that.",
+      "Don't mention it to me."
+    ],
+    "answer": "My pleasure.",
+    "hint": "回答感谢用 My pleasure. / You're welcome. / Not at all.；Never mind. 用来安慰别人。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "情景交际答语",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "— I'm sorry I broke your cup. — ____ I have another one.",
+    "options": [
+      "Never mind.",
+      "My pleasure.",
+      "You're welcome.",
+      "With pleasure."
+    ],
+    "answer": "Never mind.",
+    "hint": "对道歉的回答用 Never mind. / It doesn't matter. / That's all right.。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "few / a few / little / a little",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "I have ____ money with me, so I can't buy the ticket.",
+    "options": [
+      "little",
+      "a little",
+      "few",
+      "a few"
+    ],
+    "answer": "little",
+    "hint": "money 不可数，用 little / a little；little 表示“几乎没有”（否定含义）。",
+    "knowledge_points": [
+      "易混词辨析",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "few / a few / little / a little",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "There are ____ apples left. Let's go and buy some.",
+    "options": [
+      "few",
+      "a few",
+      "little",
+      "a little"
+    ],
+    "answer": "few",
+    "hint": "apples 是可数名词复数，用 few / a few；few 表示“几乎没有”。",
+    "knowledge_points": [
+      "易混词辨析",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "have been to / have gone to",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "— Have you ever been to Beijing? — Yes, I ____ there twice.",
+    "options": [
+      "have been",
+      "have gone",
+      "has been",
+      "went to"
+    ],
+    "answer": "have been",
+    "hint": "have been to 表示“去过”（人已回来）；have gone to 表示“去了”（人不在这里）。there 前不加 to。",
+    "knowledge_points": [
+      "易混词辨析",
+      "现在完成时"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "have been to / have gone to",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "— Where is Tom? — He ____ the library. He will be back soon.",
+    "options": [
+      "has gone to",
+      "has been to",
+      "has been in",
+      "went"
+    ],
+    "answer": "has gone to",
+    "hint": "人不在现场、去某地了，用 have / has gone to。",
+    "knowledge_points": [
+      "易混词辨析",
+      "现在完成时"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "win / beat",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "Our class ____ the basketball match and ____ Class Two at last.",
+    "options": [
+      "won; beat",
+      "beat; won",
+      "won; won",
+      "beat; beat"
+    ],
+    "answer": "won; beat",
+    "hint": "win 后接比赛、奖牌（win the match）；beat 后接对手人或队（beat Class Two）。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "join / take part in / attend",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "My brother ____ the army two years ago.",
+    "options": [
+      "joined",
+      "took part in",
+      "attended",
+      "came"
+    ],
+    "answer": "joined",
+    "hint": "join 后接组织、团体（join the army）；take part in 后接活动；attend 后接会议、婚礼等。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "hard / hardly",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "The old man can ____ hear us. He is almost deaf.",
+    "options": [
+      "hardly",
+      "hard",
+      "not hardly",
+      "harder"
+    ],
+    "answer": "hardly",
+    "hint": "hardly 意思是“几乎不”，不是 hard 的副词；can hardly hear 表示几乎听不见。",
+    "knowledge_points": [
+      "易混词辨析",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "either / both / neither",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "— Would you like coffee or tea? — ____ is OK. I don't mind.",
+    "options": [
+      "Either",
+      "Both",
+      "Neither",
+      "All"
+    ],
+    "answer": "Either",
+    "hint": "两者中任意一个用 either，谓语动词用单数 is。",
+    "knowledge_points": [
+      "易混词辨析",
+      "代词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "动词短语中代词的位置",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "Your clothes are dirty. Please ____ after you finish the work.",
+    "options": [
+      "hang them up",
+      "hang up them",
+      "hang up it",
+      "hang them"
+    ],
+    "answer": "hang them up",
+    "hint": "“动词 + 副词”型短语接代词时，代词必须放中间：hang them up。",
+    "knowledge_points": [
+      "易混词辨析",
+      "短语动词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "listen / hear",
+    "freq": 4,
+    "difficulty": "easy",
+    "question": "Please ____ to the teacher carefully in class.",
+    "options": [
+      "listen",
+      "hear",
+      "sound",
+      "listened"
+    ],
+    "answer": "listen",
+    "hint": "listen to 表示“有意识地听”；hear 表示“听见”（结果），后面不加 to。",
+    "knowledge_points": [
+      "易混词辨析"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "already / yet / ever",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "I have ____ finished my homework. May I go out to play now?",
+    "options": [
+      "already",
+      "yet",
+      "ever",
+      "never"
+    ],
+    "answer": "already",
+    "hint": "already 用于肯定句，表示“已经”；yet 用于否定句和疑问句。",
+    "knowledge_points": [
+      "易混词辨析",
+      "现在完成时"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "too much / much too",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "Eating ____ junk food is bad for your health.",
+    "options": [
+      "too much",
+      "much too",
+      "too many",
+      "many too"
+    ],
+    "answer": "too much",
+    "hint": "too much + 不可数名词（junk food）；much too + 形容词或副词。",
+    "knowledge_points": [
+      "易混词辨析",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "confusable",
+    "grade": "L2",
+    "topic": "too much / much too",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "This coat is ____ expensive for me. I can't afford it.",
+    "options": [
+      "much too",
+      "too much",
+      "too many",
+      "very much"
+    ],
+    "answer": "much too",
+    "hint": "much too 修饰形容词 expensive，表示“实在太……”；too much 后接不可数名词。",
+    "knowledge_points": [
+      "易混词辨析",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  }
+]

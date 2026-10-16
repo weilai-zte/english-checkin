@@ -1,0 +1,605 @@
+[
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "die / dead / death",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "His grandfather ____ (die) three years ago, but he still misses him.",
+    "options": [
+      "died",
+      "dead",
+      "death",
+      "dying"
+    ],
+    "answer": "died",
+    "hint": "three years ago 是一般过去时的时间状语，谓语要用动词过去式 died。",
+    "knowledge_points": [
+      "词形变化",
+      "一般过去时"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "die / dead / death",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "We were all sad at the ____ (die) of our old dog.",
+    "options": [
+      "death",
+      "dead",
+      "died",
+      "dying"
+    ],
+    "answer": "death",
+    "hint": "the 后面需要名词，die 的名词形式是 death（死亡）。",
+    "knowledge_points": [
+      "词形变化"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "die / dead / death",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "The little bird is ____ (die). We must take it to the vet at once.",
+    "options": [
+      "dying",
+      "died",
+      "death",
+      "dead"
+    ],
+    "answer": "dying",
+    "hint": "is + 现在分词构成现在进行时，表示“正在死去/奄奄一息”，用 dying。",
+    "knowledge_points": [
+      "词形变化",
+      "现在进行时"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "die / dead / death（延续性）",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "My cat has been ____ (die) for two hours. I miss her so much.",
+    "options": [
+      "dead",
+      "died",
+      "dying",
+      "death"
+    ],
+    "answer": "dead",
+    "hint": "for + 时间段表示持续状态，要用延续性的形容词 dead（死的），不能用短暂动词 died。",
+    "knowledge_points": [
+      "词形变化",
+      "现在完成时"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "boring / bored",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "The film was so ____ (bore) that I fell asleep in the cinema.",
+    "options": [
+      "boring",
+      "bored",
+      "bore",
+      "boredom"
+    ],
+    "answer": "boring",
+    "hint": "-ing 形容词修饰物（The film is boring）；-ed 形容词修饰人（I am bored）。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "boring / bored",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "We were all ____ (bore) with the same old story.",
+    "options": [
+      "bored",
+      "boring",
+      "bore",
+      "boredom"
+    ],
+    "answer": "bored",
+    "hint": "句子的主语是人 we，表示“感到无聊”，用 -ed 形容词 bored。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "exciting / excited",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "The ____ (excite) news made everyone jump with joy.",
+    "options": [
+      "exciting",
+      "excited",
+      "excite",
+      "excitement"
+    ],
+    "answer": "exciting",
+    "hint": "news 是“令人激动的”，用 -ing 形容词 exciting 修饰物。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "exciting / excited",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "The children were ____ (excite) about the coming school trip.",
+    "options": [
+      "excited",
+      "exciting",
+      "excite",
+      "excitedly"
+    ],
+    "answer": "excited",
+    "hint": "主语是人 children，表示“感到兴奋”，用 excited。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "surprising / surprised",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "We were ____ (surprise) to hear the good news.",
+    "options": [
+      "surprised",
+      "surprising",
+      "surprise",
+      "surprisingly"
+    ],
+    "answer": "surprised",
+    "hint": "人是“感到惊讶的”，用 surprised；事是“令人惊讶的”，用 surprising。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "surprising / surprised",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "The result of the match was really ____ (surprise).",
+    "options": [
+      "surprising",
+      "surprised",
+      "surprise",
+      "surprisedly"
+    ],
+    "answer": "surprising",
+    "hint": "主语 the result 是事物，用 -ing 形容词 surprising。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "thousand 的用法",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "Three ____ (thousand) students took part in the activity last week.",
+    "options": [
+      "thousand",
+      "thousands",
+      "thousands of",
+      "thousand of"
+    ],
+    "answer": "thousand",
+    "hint": "前面有具体数字 three 时，thousand 不加 s，也不加 of。",
+    "knowledge_points": [
+      "词形变化",
+      "数词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "thousand 的用法",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "____ (thousand) of visitors come to the Great Wall every year.",
+    "options": [
+      "Thousands",
+      "Thousand",
+      "Thousand of",
+      "Thousands of"
+    ],
+    "answer": "Thousands",
+    "hint": "表示“成千上万”用 thousands of；空后已有 of，所以只填 Thousands。",
+    "knowledge_points": [
+      "词形变化",
+      "数词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "luck / lucky / luckily",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "____ (luck), he caught the last bus and got home safely.",
+    "options": [
+      "Luckily",
+      "Lucky",
+      "Luck",
+      "Unluckily"
+    ],
+    "answer": "Luckily",
+    "hint": "放句首并用逗号隔开，修饰整个句子，要用副词 Luckily（幸运的是）。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "luck / lucky / luckily",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "He is very ____ (luck) to have such a kind teacher.",
+    "options": [
+      "lucky",
+      "luck",
+      "luckily",
+      "unlucky"
+    ],
+    "answer": "lucky",
+    "hint": "be 动词后接形容词作表语，句意是“幸运的”，用 lucky。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "care / careful / carefully",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "Please read the passage ____ (care) and then answer the questions.",
+    "options": [
+      "carefully",
+      "careful",
+      "careless",
+      "care"
+    ],
+    "answer": "carefully",
+    "hint": "修饰动词 read，要用副词 carefully。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "care / careful / carefully",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "He is a very ____ (care) driver and has never had an accident.",
+    "options": [
+      "careful",
+      "carefully",
+      "care",
+      "careless"
+    ],
+    "answer": "careful",
+    "hint": "修饰名词 driver，用形容词 careful。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "care / careful / carefully",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "Don't be so ____ (care). You left your homework at home again.",
+    "options": [
+      "careless",
+      "careful",
+      "carefully",
+      "care"
+    ],
+    "answer": "careless",
+    "hint": "be 动词后接形容词；句意是“粗心的”，用 careless。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "different / difference",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "There are many ____ (different) between the two pictures.",
+    "options": [
+      "differences",
+      "different",
+      "differently",
+      "differ"
+    ],
+    "answer": "differences",
+    "hint": "many 后接可数名词复数，different 的名词形式是 differences。",
+    "knowledge_points": [
+      "词形变化"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "different / difference",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "The two brothers look ____ (different), but they are twins.",
+    "options": [
+      "different",
+      "differently",
+      "difference",
+      "differences"
+    ],
+    "answer": "different",
+    "hint": "look 是系动词，后接形容词 different 作表语。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "decide / decision",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "Her ____ (decide) to study abroad surprised us all.",
+    "options": [
+      "decision",
+      "decide",
+      "decisive",
+      "decided"
+    ],
+    "answer": "decision",
+    "hint": "形容词性物主代词 Her 后接名词，decide 的名词是 decision。",
+    "knowledge_points": [
+      "词形变化"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "protect / protection",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "The ____ (protect) of wild animals is very important.",
+    "options": [
+      "protection",
+      "protect",
+      "protective",
+      "protector"
+    ],
+    "answer": "protection",
+    "hint": "the ... of 结构中间要用名词，protect 的名词是 protection。",
+    "knowledge_points": [
+      "词形变化"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "health / healthy / healthily",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "You should eat ____ (health) and take more exercise.",
+    "options": [
+      "healthily",
+      "healthy",
+      "health",
+      "healthier"
+    ],
+    "answer": "healthily",
+    "hint": "修饰动词 eat，要用副词 healthily（健康地）。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "noise / noisy",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "The traffic in our city is much ____ (noise) than before.",
+    "options": [
+      "noisier",
+      "noisy",
+      "noisily",
+      "noise"
+    ],
+    "answer": "noisier",
+    "hint": "than 前要用比较级；noisy 变比较级是 noisier（y 变 i 加 er）。much 修饰比较级。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "music / musician",
+    "freq": 4,
+    "difficulty": "easy",
+    "question": "He is a famous ____ (music) and plays the violin very well.",
+    "options": [
+      "musician",
+      "music",
+      "musical",
+      "musically"
+    ],
+    "answer": "musician",
+    "hint": "表示“音乐家”要用表示人的名词 musician。",
+    "knowledge_points": [
+      "词形变化"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "danger / dangerous",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "It's ____ (danger) to swim in the river alone.",
+    "options": [
+      "dangerous",
+      "danger",
+      "dangerously",
+      "endanger"
+    ],
+    "answer": "dangerous",
+    "hint": "It's + 形容词 + to do 句型，用形容词 dangerous。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "tradition / traditional",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "The Spring Festival is a ____ (tradition) festival in China.",
+    "options": [
+      "traditional",
+      "tradition",
+      "traditionally",
+      "traditions"
+    ],
+    "answer": "traditional",
+    "hint": "修饰名词 festival，用形容词 traditional。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "sing / singer",
+    "freq": 4,
+    "difficulty": "easy",
+    "question": "Alice is one of the most popular ____ (sing) in our school.",
+    "options": [
+      "singers",
+      "sing",
+      "singing",
+      "singer"
+    ],
+    "answer": "singers",
+    "hint": "one of the most popular + 名词复数，表示“最受欢迎的……之一”。",
+    "knowledge_points": [
+      "词形变化"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "interesting / interested",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "I am very ____ (interest) in Chinese history.",
+    "options": [
+      "interested",
+      "interesting",
+      "interest",
+      "interestingly"
+    ],
+    "answer": "interested",
+    "hint": "be interested in sth 表示“对……感兴趣”，主语是人用 interested。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "wordform",
+    "grade": "L2",
+    "topic": "interesting / interested",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "This is a very ____ (interest) book about space.",
+    "options": [
+      "interesting",
+      "interested",
+      "interest",
+      "interestedly"
+    ],
+    "answer": "interesting",
+    "hint": "修饰物 book，用 -ing 形容词 interesting。",
+    "knowledge_points": [
+      "词形变化",
+      "形容词与副词"
+    ],
+    "src": "codex_expand_2026_10"
+  }
+]

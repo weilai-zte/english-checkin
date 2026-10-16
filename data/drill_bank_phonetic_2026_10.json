@@ -1,0 +1,542 @@
+[
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "oo 的发音",
+    "freq": 5,
+    "difficulty": "easy",
+    "question": "找出划线字母组合 oo 发音与其他三项不同的一项：",
+    "options": [
+      "food",
+      "moon",
+      "cook",
+      "soon"
+    ],
+    "answer": "cook",
+    "hint": "cook 中 oo 读短音 /ʊ/；food、moon、soon 中 oo 读长音 /uː/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "oo 的发音",
+    "freq": 5,
+    "difficulty": "easy",
+    "question": "找出划线字母组合 oo 发音与其他三项不同的一项：",
+    "options": [
+      "book",
+      "good",
+      "foot",
+      "goose"
+    ],
+    "answer": "goose",
+    "hint": "book /bʊk/、good /ɡʊd/、foot /fʊt/ 中 oo 读短音 /ʊ/；goose 读 /ɡuːs/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "oo 的发音",
+    "freq": 5,
+    "difficulty": "easy",
+    "question": "找出划线字母组合 oo 发音与其他三项不同的一项：",
+    "options": [
+      "room",
+      "school",
+      "noon",
+      "wood"
+    ],
+    "answer": "wood",
+    "hint": "wood /wʊd/ 中 oo 读短音 /ʊ/；room、school、noon 读长音 /uː/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ear 的发音",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "找出划线字母组合 ear 发音与其他三项不同的一项：",
+    "options": [
+      "dear",
+      "near",
+      "hear",
+      "early"
+    ],
+    "answer": "early",
+    "hint": "early /ˈɜːli/ 中 ear 读 /ɜː/；dear、near、hear 读 /ɪə/。ear 后接辅音时常读 /ɜː/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ear 的发音",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "找出划线字母组合 ear 发音与其他三项不同的一项：",
+    "options": [
+      "learn",
+      "heard",
+      "earth",
+      "hear"
+    ],
+    "answer": "hear",
+    "hint": "learn、heard、earth 中 ear 读 /ɜː/；hear /hɪə/ 读 /ɪə/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ear 的发音",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "找出划线字母组合 ear 发音与其他三项不同的一项：",
+    "options": [
+      "bear",
+      "wear",
+      "pear",
+      "heard"
+    ],
+    "answer": "heard",
+    "hint": "bear、wear、pear 中 ear 读 /eə/；heard /hɜːd/ 读 /ɜː/，注意它和 hear 读音不同。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "y 的发音",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "找出划线字母 y 发音与其他三项不同的一项：",
+    "options": [
+      "happy",
+      "city",
+      "baby",
+      "my"
+    ],
+    "answer": "my",
+    "hint": "单词末尾的 y：多音节词末尾读 /i/（happy、city、baby）；单音节词末尾读 /aɪ/（my）。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "y 的发音",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "找出划线字母 y 发音与其他三项不同的一项：",
+    "options": [
+      "sky",
+      "fly",
+      "try",
+      "funny"
+    ],
+    "answer": "funny",
+    "hint": "funny /ˈfʌni/ 末尾 y 读 /i/；sky、fly、try 中 y 读 /aɪ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "y 的发音",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "找出划线字母 y 发音与其他三项不同的一项：",
+    "options": [
+      "yellow",
+      "yes",
+      "young",
+      "many"
+    ],
+    "answer": "many",
+    "hint": "词首的 y 读 /j/（yellow、yes、young）；many 中 y 读 /i/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "a 的发音",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "找出划线字母 a 发音与其他三项不同的一项：",
+    "options": [
+      "camp",
+      "hand",
+      "cat",
+      "age"
+    ],
+    "answer": "age",
+    "hint": "camp、hand、cat 是重读闭音节，a 读 /æ/；age 是开音节，a 读 /eɪ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "a 的发音",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "找出划线字母 a 发音与其他三项不同的一项：",
+    "options": [
+      "name",
+      "cake",
+      "late",
+      "have"
+    ],
+    "answer": "have",
+    "hint": "have /hæv/ 是例外，a 读 /æ/；name、cake、late 是开音节，a 读 /eɪ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "a 的发音",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "找出划线字母 a 发音与其他三项不同的一项：",
+    "options": [
+      "cat",
+      "map",
+      "hand",
+      "agree"
+    ],
+    "answer": "agree",
+    "hint": "agree 中第一个 a 在非重读音节里读 /ə/；cat、map、hand 读 /æ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ea 的发音",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "找出划线字母组合 ea 发音与其他三项不同的一项：",
+    "options": [
+      "tea",
+      "sea",
+      "mean",
+      "bread"
+    ],
+    "answer": "bread",
+    "hint": "bread /bred/ 中 ea 读 /e/；tea、sea、mean 中 ea 读 /iː/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ea 的发音",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "找出划线字母组合 ea 发音与其他三项不同的一项：",
+    "options": [
+      "head",
+      "bread",
+      "ready",
+      "team"
+    ],
+    "answer": "team",
+    "hint": "head、bread、ready 中 ea 读 /e/；team /tiːm/ 中 ea 读 /iː/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ea 的发音",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "找出划线字母组合 ea 发音与其他三项不同的一项：",
+    "options": [
+      "great",
+      "eat",
+      "meat",
+      "cheap"
+    ],
+    "answer": "great",
+    "hint": "great /ɡreɪt/ 中 ea 读 /eɪ/，是特例；eat、meat、cheap 中 ea 读 /iː/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "th 的发音",
+    "freq": 5,
+    "difficulty": "easy",
+    "question": "找出划线字母组合 th 发音与其他三项不同的一项：",
+    "options": [
+      "three",
+      "think",
+      "thank",
+      "this"
+    ],
+    "answer": "this",
+    "hint": "three、think、thank 中 th 读清辅音 /θ/；this 读浊辅音 /ð/。代词/冠词里的 th 多为 /ð/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "th 的发音",
+    "freq": 4,
+    "difficulty": "easy",
+    "question": "找出划线字母组合 th 发音与其他三项不同的一项：",
+    "options": [
+      "mother",
+      "brother",
+      "weather",
+      "month"
+    ],
+    "answer": "month",
+    "hint": "month /mʌnθ/ 中 th 读 /θ/；mother、brother、weather 中 th 读 /ð/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ou 的发音",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "找出划线字母组合 ou 发音与其他三项不同的一项：",
+    "options": [
+      "house",
+      "about",
+      "loudly",
+      "country"
+    ],
+    "answer": "country",
+    "hint": "country /ˈkʌntri/ 中 ou 读 /ʌ/；house、about、loudly 中 ou 读 /aʊ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ow 的发音",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "找出划线字母组合 ow 发音与其他三项不同的一项：",
+    "options": [
+      "now",
+      "how",
+      "brown",
+      "slow"
+    ],
+    "answer": "slow",
+    "hint": "slow /sləʊ/ 中 ow 读 /əʊ/；now、how、brown 中 ow 读 /aʊ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "i 的发音",
+    "freq": 5,
+    "difficulty": "medium",
+    "question": "找出划线字母 i 发音与其他三项不同的一项：",
+    "options": [
+      "bike",
+      "nice",
+      "rice",
+      "big"
+    ],
+    "answer": "big",
+    "hint": "big /bɪɡ/ 是重读闭音节，i 读 /ɪ/；bike、nice、rice 是开音节，i 读 /aɪ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "i 的发音",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "找出划线字母 i 发音与其他三项不同的一项：",
+    "options": [
+      "line",
+      "wide",
+      "smile",
+      "list"
+    ],
+    "answer": "list",
+    "hint": "list /lɪst/ 中 i 读 /ɪ/；line、wide、smile 中 i 读 /aɪ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "u 的发音",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "找出划线字母 u 发音与其他三项不同的一项：",
+    "options": [
+      "but",
+      "cup",
+      "lunch",
+      "music"
+    ],
+    "answer": "music",
+    "hint": "music /ˈmjuːzɪk/ 中 u 读 /juː/；but、cup、lunch 是重读闭音节，u 读 /ʌ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "u 的发音",
+    "freq": 4,
+    "difficulty": "hard",
+    "question": "找出划线字母 u 发音与其他三项不同的一项：",
+    "options": [
+      "put",
+      "full",
+      "push",
+      "busy"
+    ],
+    "answer": "busy",
+    "hint": "busy /ˈbɪzi/ 中 u 读 /ɪ/，属特例；put、full、push 中 u 读 /ʊ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "o 的发音",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "找出划线字母 o 发音与其他三项不同的一项：",
+    "options": [
+      "come",
+      "son",
+      "love",
+      "home"
+    ],
+    "answer": "home",
+    "hint": "home /həʊm/ 是开音节，o 读 /əʊ/；come、son、love 中 o 读 /ʌ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "o 的发音",
+    "freq": 4,
+    "difficulty": "medium",
+    "question": "找出划线字母 o 发音与其他三项不同的一项：",
+    "options": [
+      "dog",
+      "box",
+      "hot",
+      "open"
+    ],
+    "answer": "open",
+    "hint": "open /ˈəʊpən/ 中 o 读 /əʊ/；dog、box、hot 是重读闭音节，o 读 /ɒ/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ed 结尾的读音",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "找出划线部分 -ed 发音与其他三项不同的一项：",
+    "options": [
+      "wanted",
+      "needed",
+      "started",
+      "played"
+    ],
+    "answer": "played",
+    "hint": "以 t/d 结尾的动词加 -ed 读 /ɪd/（wanted、needed、started）；played 中 -ed 读 /d/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "phonetic",
+    "grade": "L2",
+    "topic": "ed 结尾的读音",
+    "freq": 5,
+    "difficulty": "hard",
+    "question": "找出划线部分 -ed 发音与其他三项不同的一项：",
+    "options": [
+      "called",
+      "moved",
+      "opened",
+      "visited"
+    ],
+    "answer": "visited",
+    "hint": "visited 以 t 结尾，-ed 读 /ɪd/；called、moved、opened 中 -ed 读 /d/。",
+    "knowledge_points": [
+      "音标"
+    ],
+    "src": "codex_expand_2026_10"
+  }
+]

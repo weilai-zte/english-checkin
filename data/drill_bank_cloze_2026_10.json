@@ -1,0 +1,380 @@
+[
+  {
+    "type": "cloze",
+    "grade": "L2",
+    "topic": "语法型完形",
+    "freq": 5,
+    "difficulty": "medium",
+    "title": "A different summer",
+    "passage": "Last summer, my family and I (1)____ to a small village in the mountains. It was (2)____ unforgettable trip. The village was far from the city, (3)____ we had to take a bus for three hours. When we arrived, the villagers (4)____ us warmly. I was surprised to see an old man teaching children to read (5)____ a big tree. He had been a teacher for forty years. (6)____ he was over seventy, he still worked every day. 'Teaching children (7)____ me happy,' he said with a smile. I helped him clean the classroom, and he taught me (8)____ a poem. Before we left, he told me, 'The more you learn, the (9)____ you will be.' I will never forget (10)____ him.",
+    "blanks": [
+      {
+        "n": 1,
+        "options": [
+          "went",
+          "go",
+          "going",
+          "have gone"
+        ],
+        "answer": "went",
+        "hint": "Last summer 是过去时间状语，用一般过去时。"
+      },
+      {
+        "n": 2,
+        "options": [
+          "a",
+          "an",
+          "the",
+          "不填"
+        ],
+        "answer": "an",
+        "hint": "unforgettable 以元音音素开头，用 an。"
+      },
+      {
+        "n": 3,
+        "options": [
+          "so",
+          "because",
+          "but",
+          "or"
+        ],
+        "answer": "so",
+        "hint": "前因后果，用 so 表示“所以”。"
+      },
+      {
+        "n": 4,
+        "options": [
+          "welcomed",
+          "welcome",
+          "welcoming",
+          "are welcoming"
+        ],
+        "answer": "welcomed",
+        "hint": "全文是过去时，谓语用 welcomed。"
+      },
+      {
+        "n": 5,
+        "options": [
+          "under",
+          "on",
+          "in",
+          "at"
+        ],
+        "answer": "under",
+        "hint": "在大树底下用 under the big tree。"
+      },
+      {
+        "n": 6,
+        "options": [
+          "Although",
+          "Because",
+          "If",
+          "So"
+        ],
+        "answer": "Although",
+        "hint": "“七十多岁了”和“仍每天工作”是让步关系，用 Although。"
+      },
+      {
+        "n": 7,
+        "options": [
+          "makes",
+          "make",
+          "made",
+          "making"
+        ],
+        "answer": "makes",
+        "hint": "动名词 Teaching 作主语，谓语用单数 makes；引语中陈述一般事实。"
+      },
+      {
+        "n": 8,
+        "options": [
+          "to write",
+          "write",
+          "writing",
+          "wrote"
+        ],
+        "answer": "to write",
+        "hint": "teach sb to do sth。"
+      },
+      {
+        "n": 9,
+        "options": [
+          "happier",
+          "happy",
+          "happiest",
+          "more happy"
+        ],
+        "answer": "happier",
+        "hint": "the + 比较级，the + 比较级，表示“越……越……”。"
+      },
+      {
+        "n": 10,
+        "options": [
+          "meeting",
+          "meet",
+          "to meet",
+          "met"
+        ],
+        "answer": "meeting",
+        "hint": "forget doing 表示忘记做过的事。"
+      }
+    ],
+    "hint": "先通读全文抓住大意（一次山村之行），再逐空判断时态、连词和固定搭配。",
+    "knowledge_points": [
+      "完形填空"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "cloze",
+    "grade": "L2",
+    "topic": "记叙文完形",
+    "freq": 5,
+    "difficulty": "hard",
+    "title": "A teacher who changed many lives",
+    "passage": "Zhang Guimei is a teacher in Yunnan. Many years ago, she noticed that some girls in her class suddenly (1)____ school. She found out that their families were too poor to pay for their education. Zhang was very (2)____ about it. She decided to do something. In 2008, she (3)____ the first free high school for girls in China. Life was hard at the beginning. She had many (4)____, but she never gave up. (5)____ how hard it was, she kept working. She (6)____ her own money on her students. She often says, 'I want my girls to have a (7)____ future.' Thanks to her, more than two thousand girls have (8)____ college. Her story has (9)____ many people across the country. It reminds us that even a small person can make a big (10)____.",
+    "blanks": [
+      {
+        "n": 1,
+        "options": [
+          "left",
+          "entered",
+          "loved",
+          "finished"
+        ],
+        "answer": "left",
+        "hint": "下文说家里太穷缴不起学费，所以是“离开学校”辍学了。"
+      },
+      {
+        "n": 2,
+        "options": [
+          "worried",
+          "excited",
+          "bored",
+          "lucky"
+        ],
+        "answer": "worried",
+        "hint": "-ed 形容词修饰人，表示“感到担心”。"
+      },
+      {
+        "n": 3,
+        "options": [
+          "started",
+          "finished",
+          "visited",
+          "borrowed"
+        ],
+        "answer": "started",
+        "hint": "创办一所学校用 started/founded。"
+      },
+      {
+        "n": 4,
+        "options": [
+          "difficulties",
+          "lessons",
+          "holidays",
+          "prizes"
+        ],
+        "answer": "difficulties",
+        "hint": "but she never gave up 说明前面是“困难”。"
+      },
+      {
+        "n": 5,
+        "options": [
+          "No matter",
+          "Because",
+          "As soon as",
+          "After"
+        ],
+        "answer": "No matter",
+        "hint": "No matter how + 形容词，表示“无论多么……”。"
+      },
+      {
+        "n": 6,
+        "options": [
+          "spent",
+          "cost",
+          "paid",
+          "took"
+        ],
+        "answer": "spent",
+        "hint": "spend money on sb/sth，主语是人。"
+      },
+      {
+        "n": 7,
+        "options": [
+          "better",
+          "good",
+          "best",
+          "well"
+        ],
+        "answer": "better",
+        "hint": "和现状对比，用比较级 better future。"
+      },
+      {
+        "n": 8,
+        "options": [
+          "entered",
+          "joined",
+          "taken part in",
+          "been to"
+        ],
+        "answer": "entered",
+        "hint": "考上/进入大学用 enter college；join 后接组织，take part in 后接活动。"
+      },
+      {
+        "n": 9,
+        "options": [
+          "touched",
+          "broken",
+          "forgotten",
+          "lost"
+        ],
+        "answer": "touched",
+        "hint": "“感动了很多人”用 touched。"
+      },
+      {
+        "n": 10,
+        "options": [
+          "difference",
+          "decision",
+          "mistake",
+          "choice"
+        ],
+        "answer": "difference",
+        "hint": "make a big difference 是固定搭配，表示“产生很大影响”。"
+      }
+    ],
+    "hint": "故事类完形先通读全文，抓住人物和事件线索，再逐空判断；动词、名词要看上下文语境。",
+    "knowledge_points": [
+      "完形填空"
+    ],
+    "src": "codex_expand_2026_10"
+  },
+  {
+    "type": "cloze",
+    "grade": "L2",
+    "topic": "说明文完形",
+    "freq": 5,
+    "difficulty": "hard",
+    "title": "How to use your phone wisely",
+    "passage": "Nowadays, almost every student has a smartphone. It can help us in many ways. We can look (1)____ new words in a dictionary app. We can also learn English by (2)____ to English songs. However, spending too much time (3)____ games is bad for our eyes and our study. Some students stay up late playing games, so they feel (4)____ in class the next day. What should we do? First, we should decide how much time we can spend (5)____ the phone every day. Second, we'd better put our phones away (6)____ we do our homework. Third, remember (7)____ the screen before you go to bed. If we use the phone in a right way, it will be a good (8)____, not a problem. (9)____ we use it well, it can really help us learn (10)____.",
+    "blanks": [
+      {
+        "n": 1,
+        "options": [
+          "up",
+          "for",
+          "after",
+          "at"
+        ],
+        "answer": "up",
+        "hint": "look up 表示查阅（单词、资料）。"
+      },
+      {
+        "n": 2,
+        "options": [
+          "listening",
+          "listen",
+          "to listen",
+          "listened"
+        ],
+        "answer": "listening",
+        "hint": "by 是介词，后面接动名词。"
+      },
+      {
+        "n": 3,
+        "options": [
+          "playing",
+          "play",
+          "to play",
+          "played"
+        ],
+        "answer": "playing",
+        "hint": "spend time doing sth。"
+      },
+      {
+        "n": 4,
+        "options": [
+          "sleepy",
+          "asleep",
+          "sleeping",
+          "sleep"
+        ],
+        "answer": "sleepy",
+        "hint": "sleepy 是形容词，表示“困倦的”，作 feel 的表语。"
+      },
+      {
+        "n": 5,
+        "options": [
+          "on",
+          "in",
+          "at",
+          "with"
+        ],
+        "answer": "on",
+        "hint": "spend time on sth。"
+      },
+      {
+        "n": 6,
+        "options": [
+          "while",
+          "until",
+          "because",
+          "so"
+        ],
+        "answer": "while",
+        "hint": "“做作业的同时”用 while 引导时间状语从句。"
+      },
+      {
+        "n": 7,
+        "options": [
+          "to turn off",
+          "turning off",
+          "turn off",
+          "turned off"
+        ],
+        "answer": "to turn off",
+        "hint": "remember to do 表示记着去做（还没做）。"
+      },
+      {
+        "n": 8,
+        "options": [
+          "helper",
+          "trouble",
+          "problem",
+          "danger"
+        ],
+        "answer": "helper",
+        "hint": "not a problem 对应前面的“好帮手”。"
+      },
+      {
+        "n": 9,
+        "options": [
+          "If",
+          "Although",
+          "Unless",
+          "Because"
+        ],
+        "answer": "If",
+        "hint": "“如果我们用得好”是条件，用 If 引导条件状语从句。"
+      },
+      {
+        "n": 10,
+        "options": [
+          "better",
+          "good",
+          "best",
+          "well"
+        ],
+        "answer": "better",
+        "hint": "修饰动词 learn 用副词，和以前对比用比较级 better。"
+      }
+    ],
+    "hint": "说明文完形注意首尾句的观点，注意固定搭配（look up / spend time doing / remember to do）。",
+    "knowledge_points": [
+      "完形填空"
+    ],
+    "src": "codex_expand_2026_10"
+  }
+]

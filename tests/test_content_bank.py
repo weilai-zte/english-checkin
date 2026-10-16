@@ -53,7 +53,17 @@ CORE_KNOWLEDGE_POINTS = {
     "it 用法",
     "一般疑问句",
     "特殊疑问句",
+    # 失分点专项（按孩子试卷错题类型补的 5 个题型）
+    "音标",
+    "词形变化",
+    "易混词辨析",
+    "非谓语动词",
+    "完形填空",
 }
+
+# 失分点专项：4 个通用选择题型 + 完形填空
+MCQ_DRILL_TYPES = ("phonetic", "wordform", "confusable", "nonfinite")
+CLOZE_TYPE = "cloze"
 
 
 def _normalise(value):
@@ -108,6 +118,10 @@ def test_question_bank_has_enough_material_for_repeated_checkins():
     assert grammar_exercises >= 450
     assert len(_items("translate")) >= 240
     assert len(_items("tense")) >= 200
+    # 失分点专项：每个题型至少够抽 1 次（10 题），完形按篇算
+    for item_type in MCQ_DRILL_TYPES:
+        assert len(_items(item_type)) >= 20, item_type
+    assert len(_items(CLOZE_TYPE)) >= 3
 
 
 def test_translate_and_tense_are_balanced_across_difficulties():
@@ -135,7 +149,13 @@ def test_every_core_knowledge_point_has_at_least_six_prompts():
     coverage = Counter()
     for item in ITEMS:
         points = item.get("knowledge_points", [])
-        prompt_count = len(item.get("exercises", [])) if item["type"] == "grammar" else 1
+        # grammar 按练习题数算；完形填空一篇 = 10 个填空，按空数算；其余一条算一题
+        if item["type"] == "grammar":
+            prompt_count = len(item.get("exercises", []))
+        elif item["type"] == CLOZE_TYPE:
+            prompt_count = len(item.get("blanks", []))
+        else:
+            prompt_count = 1
         for point in points:
             coverage[point] += prompt_count
 
@@ -156,6 +176,10 @@ def test_practice_prompts_are_not_duplicated():
             rows = [(item.get("cn", ""), item.get("en", ""))]
         elif item["type"] == "tense":
             rows = [(item.get("question", ""), item.get("answer", ""))]
+        elif item["type"] in MCQ_DRILL_TYPES:
+            rows = [(item.get("question", ""), item.get("answer", ""))]
+        elif item["type"] == CLOZE_TYPE:
+            rows = [(item.get("passage", ""), "")]
         else:
             continue
 
@@ -174,6 +198,11 @@ def test_practice_item_required_fields_are_complete():
         "grammar": ("title", "rule", "exercises"),
         "translate": ("cn", "en", "hint", "difficulty"),
         "tense": ("question", "answer", "hint", "difficulty"),
+        "phonetic": ("question", "answer", "hint", "difficulty"),
+        "wordform": ("question", "answer", "hint", "difficulty"),
+        "confusable": ("question", "answer", "hint", "difficulty"),
+        "nonfinite": ("question", "answer", "hint", "difficulty"),
+        "cloze": ("title", "passage", "blanks", "difficulty"),
     }
     for item_type, fields in required.items():
         for item in _items(item_type):
@@ -187,6 +216,21 @@ def test_practice_item_required_fields_are_complete():
                     assert exercise.get("提示"), f"{item['id']} 存在空提示"
             elif item_type == "tense":
                 assert "____" in item["question"], f"{item['id']} 题目缺少作答空位"
+            elif item_type in MCQ_DRILL_TYPES:
+                assert len(item.get("options", [])) == 4, f"{item['id']} 选项不是 4 个"
+                assert len(set(item["options"])) == 4, f"{item['id']} 选项有重复"
+                assert item["answer"] in item["options"], f"{item['id']} answer 不在选项里"
+                if item_type != "phonetic":
+                    # 语音辨析是四个选项互比读音，没有作答空位
+                    assert "____" in item["question"], f"{item['id']} 题目缺少作答空位"
+            elif item_type == CLOZE_TYPE:
+                marks = [int(x) for x in re.findall(r"\((\d+)\)\s*_+", item["passage"])]
+                nums = [blank.get("n") for blank in item["blanks"]]
+                assert marks == nums, f"{item['id']} 正文空位标记与 blanks 编号不一致"
+                for blank in item["blanks"]:
+                    assert blank.get("hint"), f"{item['id']} 第 {blank.get('n')} 空缺提示"
+                    assert blank.get("answer") in blank.get("options", []), \
+                        f"{item['id']} 第 {blank.get('n')} 空答案不在选项里"
 
 
 # ─── 本地路由走 content.json 的回归校验 ───────────────────────────
