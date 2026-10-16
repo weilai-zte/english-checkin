@@ -1300,6 +1300,7 @@ def test_vocab_scope_contract():
     assert 3000 <= len(core) <= 4000, f"白名单规模异常: {len(core)}"
     sizes = data["meta"]["source_sizes"]
     assert sizes["textbook_pep_up_to_8_1"] > 1000, "人教版课本词表来源缺失"
+    assert sizes["textbook_pep_8_2"] > 300, "人教版八下课本词表来源缺失"
     assert sizes["cefrj_A1A2"] > 2000
 
 

@@ -26,7 +26,7 @@
     },
     {
       "name": "data_schemas",
-      "source": "data/{content.json, question_bank_expansion.json, vocab.json, grammar.json, progress.json, junior_vocab_3levels.json, vocab_scope.json, vocab_scope_supplement.json, textbook_pep_up_to_8_1.json, cefrj-vocabulary-profile-1.5.csv}",
+      "source": "data/{content.json, question_bank_expansion.json, vocab.json, grammar.json, progress.json, junior_vocab_3levels.json, vocab_scope.json, vocab_scope_supplement.json, textbook_pep_up_to_8_1.json, textbook_pep_8_2.json, cefrj-vocabulary-profile-1.5.csv}",
       "type": "file"
     }
   ],
@@ -785,7 +785,7 @@
         "description": "data/vocab_scope.json - 词表口径: 课内核心 vs 超前 (scripts/gen_vocab_scope.py 生成)",
         "fields": {
           "meta": "{generated, note, source_sizes, source_files, excluded}",
-          "core": "list[str] 排序去重的小写词 (七源并集: 人教版课本(≤八上)/人教课标L1L2/983核心/ba8/基础主题/CEFR-J A1A2/人工补充)"
+          "core": "list[str] 排序去重的小写词 (八源并集: 人教版课本(≤八上)/人教版八下/人教课标L1L2/983核心/ba8/基础主题/CEFR-J A1A2/人工补充)"
         },
         "invariants": [
           "core 必须排序去重且全小写",
