@@ -223,6 +223,24 @@ def export_data():
         "knowledge_points": it.get("knowledge_points", []),
     } for it in content_items if it.get("type") == "tense"]
 
+    # 失分点专项 (语音辨析/词形变化/易混词辨析/非谓语动词/完形填空)
+    # 与 translate/tense 同风格: 前端只吃这几个字段, 其余留在 content.json 里。
+    DRILL_TYPES = ("phonetic", "wordform", "confusable", "nonfinite")
+    drill_questions = [{
+        "id": it["id"], "type": it["type"], "question": it["question"], "answer": it["answer"],
+        "options": it.get("options", []), "hint": it.get("hint", ""),
+        "grade": it.get("grade", "L1"), "topic": it.get("topic", ""),
+        "difficulty": it.get("difficulty", "easy"),
+        "knowledge_points": it.get("knowledge_points", []),
+    } for it in content_items if it.get("type") in DRILL_TYPES]
+    cloze_questions = [{
+        "id": it["id"], "title": it.get("title", ""), "passage": it.get("passage", ""),
+        "blanks": it.get("blanks", []),
+        "grade": it.get("grade", "L1"), "topic": it.get("topic", ""),
+        "difficulty": it.get("difficulty", "easy"),
+        "knowledge_points": it.get("knowledge_points", []),
+    } for it in content_items if it.get("type") == "cloze"]
+
     data = {
         "vocab": vocab,
         "grammar": grammar,
@@ -231,6 +249,8 @@ def export_data():
         "hard_tense_questions": hard_tense_questions,
         "translate_questions": translate_questions,
         "tense_questions": tense_questions,
+        "drill_questions": drill_questions,
+        "cloze_questions": cloze_questions,
         # 三级词库已分级, 不再需要屏蔽"小学基础词"
         "simple_words": [],
         # 孩子初始"不熟悉"词(家长与孩子共同标记), App 首次加载时播种到 progress.unfamiliar_words
@@ -255,7 +275,8 @@ def export_data():
     print(f"  ✓ data.js: 3 级词库 L1={data['junior_vocab_meta']['L1']} / "
           f"L2={data['junior_vocab_meta']['L2']} / L3={data['junior_vocab_meta']['L3']} "
           f"(共 {total_words} 词), {len(grammar)} grammar groups, "
-          f"{len(translate_sentences) + len(hard_translate)} translate sentences")
+          f"{len(translate_sentences) + len(hard_translate)} translate sentences, "
+          f"{len(drill_questions)} drill + {len(cloze_questions)} cloze")
 
 # ── SPA 入口 ─────────────────────────────────────────────────
 INDEX_HTML = """<!DOCTYPE html>

@@ -358,7 +358,8 @@ def test_section_label_darker():
 # ─── checkin-config (题型选择页) ─────────────────────
 def test_checkin_type_picker_constants_and_route():
     assert 'CHECKIN_TYPES' in APP_JS_SRC
-    for key in ('quiz', 'tense', 'preposition', 'translate', 'dictation'):
+    for key in ('quiz', 'tense', 'preposition', 'translate', 'dictation',
+                'phonetic', 'wordform', 'confusable', 'nonfinite', 'cloze'):
         assert f"key: '{key}'" in APP_JS_SRC, f"CHECKIN_TYPES missing {key}"
     assert "'checkin-config': renderCheckinConfig" in APP_JS_SRC
     assert 'function renderCheckinConfig' in APP_JS_SRC
@@ -373,7 +374,7 @@ def test_render_home_cta_goes_to_checkin_config():
     assert 'href="#/learn"' in block, "已打卡时仍保留 learn 入口"
 
 
-def test_render_checkin_config_renders_five_types():
+def test_render_checkin_config_renders_type_picker():
     block = _function_block('renderCheckinConfig')
     # 模板字符串里是 ${t.key} 形式迭代 CHECKIN_TYPES
     assert 'CHECKIN_TYPES.map' in block
@@ -398,9 +399,12 @@ def test_advance_checkin_plan_marks_completed():
 
 
 def test_each_exercise_routes_to_checkin_next_step():
-    for type_key in ('quiz', 'tense', 'preposition', 'translate', 'dictation'):
+    for type_key in ('quiz', 'tense', 'preposition', 'translate', 'dictation', 'cloze'):
         assert f"appendCheckinNextStep(app, '{type_key}')" in APP_JS_SRC, \
             f"{type_key} onSubmit 末尾未调 appendCheckinNextStep"
+    # 4 个失分点专项共用 renderDrill, 按入参 type 推进打卡计划
+    assert "appendCheckinNextStep(app, type)" in _function_block('renderDrill'), \
+        "renderDrill 未按 type 推进打卡计划"
 
 def test_render_grammar_calls_next_step():
     block = _function_block('renderGrammar')
@@ -878,7 +882,7 @@ def test_seeded_rng_infrastructure_present():
 
 
 def test_each_checkin_entry_sets_seed():
-    """7 种打卡题型入口必须各自设置 seed, 同一天重载题目一致。"""
+    """打卡题型入口必须各自设置 seed, 同一天重载题目一致。"""
     expected = {
         'generateDailyTask': "makeSeed('daily')",
         'renderTense': "makeSeed('tense')",
@@ -886,16 +890,80 @@ def test_each_checkin_entry_sets_seed():
         'renderQuiz': "makeSeed('quiz')",
         'renderTranslate': "makeSeed('translate')",
         'renderDictation': "makeSeed('dictation')",
+        'renderCloze': "makeSeed('cloze')",
     }
     for fn, marker in expected.items():
         block = _function_block(fn)
         assert marker in block, f"{fn} 未设置 seed (缺 {marker})"
+    # 4 个失分点专项共用 renderDrill, seed 由 type 派生 (每个题型一个独立序列)
+    drill = _function_block('renderDrill')
+    assert 'makeSeed(type)' in drill, "renderDrill 未按 type 设置 seed"
 
 
 def test_translate_en_sets_seed():
     """英译中(#/translate-en)也要设置 seed，否则刷新换题且答案回填错位。"""
     block = _function_block('renderTranslateEn')
     assert "makeSeed('translate_en')" in block, "renderTranslateEn 未设置 seed"
+
+
+# ─── 失分点专项（语音辨析/词形变化/易混词辨析/非谓语动词/完形填空）─────
+DRILL_ROUTES = {
+    'phonetic': 'renderPhonetic',
+    'wordform': 'renderWordform',
+    'confusable': 'renderConfusable',
+    'nonfinite': 'renderNonfinite',
+    'cloze': 'renderCloze',
+}
+
+
+def test_drill_routes_are_registered():
+    for route, fn in DRILL_ROUTES.items():
+        assert f"function {fn}" in APP_JS_SRC, f"缺 {fn}"
+        assert re.search(r"'%s'\s*:\s*%s" % (route, fn), APP_JS_SRC), \
+            f"路由 {route} 未注册到 {fn}"
+
+
+def test_drill_mcq_types_reuse_render_mcq():
+    """4 个失分点专项复用 renderMCQ，避免各写一套判分/错题逻辑。"""
+    for fn in ('renderPhonetic', 'renderWordform', 'renderConfusable', 'renderNonfinite'):
+        block = _function_block(fn)
+        assert 'renderDrill(app, ' in block, f"{fn} 应转调 renderDrill"
+    drill = _function_block('renderDrill')
+    assert 'renderMCQ(app, spec.title, questions' in drill, "renderDrill 应复用 renderMCQ"
+    assert 'promptLabel: spec.promptLabel' in drill, "题面标签要按题型区分(不能都说'看英文选中文')"
+    assert 'progress.wrong_grammar.push' in drill, "失分点专项错题要进错题本"
+
+
+def test_cloze_view_shows_passage_and_scores_each_blank():
+    block = _function_block('renderCloze')
+    assert 'preamble' in block, "完形填空要在题目前展示整篇短文"
+    assert 'passage.blanks' in block, "完形填空按 blanks 出题"
+    assert "makeSeed('cloze')" in block, "完形填空未设置 seed"
+    assert "progress.wrong_grammar.push" in block, "完形填空错题要进错题本"
+    # renderMCQ 需要接受 preamble 参数
+    mcq = _function_block('renderMCQ')
+    assert 'preambleHtml' in mcq, "renderMCQ 未支持 preambleHtml"
+
+
+def test_mcq_prompt_label_is_overridable():
+    """失分点专项的题面不是翻译，不能沿用'看英文选中文'。"""
+    mcq = _function_block('renderMCQ')
+    assert 'q.promptLabel ||' in mcq, "renderMCQ 未支持 q.promptLabel 覆盖"
+
+
+def test_home_lists_drill_routes_with_counts():
+    block = _function_block('renderHome')
+    for route in DRILL_ROUTES:
+        assert f'href="#/{route}"' in block, f"首页缺少 {route} 入口"
+    counts = _function_block('sectionCounts')
+    assert 'drillPool(key).length' in counts, "首页题量角标要按难度走 drillPool"
+    assert 'clozePool().length' in counts, "首页完形篇数要走 clozePool"
+
+
+def test_errors_view_groups_drill_wrong_answers():
+    block = _function_block('renderErrors')
+    assert 'DRILL_TYPES.includes(e.type)' in block, "错题本未按失分点专项归组"
+    assert 'checkinTypeLabel(e.type)' in block, "错题本未显示题型名"
 
 
 # 真实执行 PRNG：验证"同 seed 同序列、异 seed 异序列、shuffle 同 seed 同排列"

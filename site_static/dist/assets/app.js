@@ -40,6 +40,12 @@ document.addEventListener('input', function(e) {
     { key: 'tense',        label: '时态',      icon: '⏰', route: 'tense',     required: true },
     { key: 'preposition',  label: '介词',      icon: '🔗', route: 'preposition' },
     { key: 'translate',    label: '中译英',    icon: '🔤', route: 'translate', required: true },
+    // 失分点专项: 按试卷题型补的 5 个新题型 (见 renderDrill / renderCloze)
+    { key: 'phonetic',     label: '语音辨析',  icon: '🗣️', route: 'phonetic' },
+    { key: 'wordform',     label: '词形变化',  icon: '🧬', route: 'wordform' },
+    { key: 'confusable',   label: '易混词辨析', icon: '⚖️', route: 'confusable' },
+    { key: 'nonfinite',    label: '非谓语动词', icon: '🔀', route: 'nonfinite' },
+    { key: 'cloze',        label: '完形填空',  icon: '📄', route: 'cloze' },
     { key: 'dictation',    label: '听写',      icon: '✍️', route: 'dictation' },
   ];
   const DEFAULT_CHECKIN_TYPES = CHECKIN_TYPES.map(t => t.key);
@@ -1451,6 +1457,11 @@ document.addEventListener('input', function(e) {
     'flashcard-errors': renderFlashcardErrors,
     'tense': renderTense,
     'preposition': renderPreposition,
+    'phonetic': renderPhonetic,
+    'wordform': renderWordform,
+    'confusable': renderConfusable,
+    'nonfinite': renderNonfinite,
+    'cloze': renderCloze,
     'translate': renderTranslate,
     'translate-en': renderTranslateEn,
     'quiz': renderQuiz,
@@ -1714,6 +1725,16 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary btn-with-count" href="#/preposition">🔗 介词 <span class="count-badge">${counts.prepN} 题</span></a>
           <a class="btn btn-secondary btn-with-count" href="#/translate">🔤 中译英 <span class="count-badge">${counts.translateN} 题</span></a>
           <a class="btn btn-secondary btn-with-count" href="#/translate-en">🔤 英译中 <span class="count-badge">${counts.translateN} 题</span></a>
+        </div>
+
+        <div class="section-label">📐 失分点专项</div>
+        <div style="font-size:12px;color:var(--text-2);margin:-2px 0 8px;">参考试卷题型补的练习，专治错题类型</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <a class="btn btn-secondary btn-with-count" href="#/phonetic">🗣️ 语音辨析 <span class="count-badge">${counts.drillN.phonetic} 题</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/wordform">🧬 词形变化 <span class="count-badge">${counts.drillN.wordform} 题</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/confusable">⚖️ 易混词辨析 <span class="count-badge">${counts.drillN.confusable} 题</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/nonfinite">🔀 非谓语动词 <span class="count-badge">${counts.drillN.nonfinite} 题</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/cloze">📄 完形填空 <span class="count-badge">${counts.clozeN} 篇</span></a>
         </div>
 
         <div class="section-label">🎮 游戏</div>
@@ -2384,11 +2405,116 @@ document.addEventListener('input', function(e) {
     });
   }
 
-  // 通用选择题渲染
-  function renderMCQ(app, title, questions, onSubmit) {
+  // ─── 视图：失分点专项（语音辨析 / 词形变化 / 易混词辨析 / 非谓语动词）──
+  // 按孩子试卷的失分类型补的 4 个选择题型, 共用 renderMCQ, 题库按 type 存在 content.json。
+  const DRILL_SPECS = {
+    phonetic:   { title: '语音辨析',   promptLabel: '选出划线部分读音不同的一项' },
+    wordform:   { title: '词形变化',   promptLabel: '用括号里词的正确形式填空' },
+    confusable: { title: '易混词辨析', promptLabel: '选出最恰当的一项' },
+    nonfinite:  { title: '非谓语动词', promptLabel: '选出正确形式' },
+  };
+  // 按难度取题：当前难度 → medium → 全量。与 renderTense 的降级口径一致，
+  // 避免某个难度没出过题时首页显示"0 题"死链（新题型只有 20 多道，本身没有 easy 档）。
+  function poolByDifficulty(bank) {
+    const atDifficulty = schoolGradePool(bank.filter(q => q.difficulty === difficulty));
+    if (atDifficulty.length) return atDifficulty;
+    const atMedium = schoolGradePool(bank.filter(q => q.difficulty === 'medium'));
+    return atMedium.length ? atMedium : schoolGradePool(bank);
+  }
+  function drillPool(type) {
+    return poolByDifficulty((D.drill_questions || []).filter(q => q.type === type));
+  }
+  // 失分点专项的 5 个 type（含完形填空），错题本按这个清单归组
+  const DRILL_TYPES = [...Object.keys(DRILL_SPECS), 'cloze'];
+  const drillSeenKey = (type, q) => 'drill::' + type + '::' + q.question;
+  function renderDrill(app, type) {
+    _rng = seededRandom(makeSeed(type)); // 当日同题型题目确定化, 刷新不换题
+    const spec = DRILL_SPECS[type];
+    const pool = drillPool(type);
+    if (!pool.length) { navigate('home'); return; }
+    const picked = sampleUnseen(recentAvoidingPool(pool, q => drillSeenKey(type, q)),
+                                Math.min(10, pool.length), q => drillSeenKey(type, q));
+    const questions = picked.map(q => ({
+      q: q.question, a: q.answer, hint: q.hint, promptLabel: spec.promptLabel,
+      options: shuffle(q.options.slice()), _seenKey: drillSeenKey(type, q),
+    }));
+    currentQuestions = questions;
+    renderMCQ(app, spec.title, questions, (correct, results) => {
+      for (let i = 0; i < results.length; i++) {
+        if (!results[i].ok) {
+          progress.wrong_grammar.push({
+            type, question: questions[i].q, answer: questions[i].a,
+            user: results[i].user, hint: questions[i].hint,
+            // 语音辨析的题干是固定指令句, 不带选项就复习不了, 所以把选项一起存下来
+            options: questions[i].options, date: today(),
+          });
+        }
+      }
+      progress.wrong_grammar = progress.wrong_grammar.slice(-100);
+      saveProgress();
+      appendCheckinNextStep(app, type);
+    });
+  }
+  function renderPhonetic(app) { renderDrill(app, 'phonetic'); }
+  function renderWordform(app) { renderDrill(app, 'wordform'); }
+  function renderConfusable(app) { renderDrill(app, 'confusable'); }
+  function renderNonfinite(app) { renderDrill(app, 'nonfinite'); }
+
+  // ─── 视图：完形填空（一篇短文 10 空, 一次练一篇）─────
+  function clozePool() {
+    return poolByDifficulty(D.cloze_questions || []);
+  }
+  // 按句号/问号/叹号切句: 每个空只显示它所在的那一句, 全文另在顶部展示
+  function splitSentences(text) {
+    return String(text).match(/[^.!?]+[.!?]*/g) || [String(text)];
+  }
+  function renderCloze(app) {
+    _rng = seededRandom(makeSeed('cloze'));
+    const pool = clozePool();
+    if (!pool.length) { navigate('home'); return; }
+    // 优先挑最近 7 天没做过的: 只要这篇里有任意一空被 markSeen 过就算做过
+    const recent = recentSeenKeys(7, true);
+    const fresh = pool.filter(p => !p.blanks.some(b => recent.has('cloze::' + p.id + '::' + b.n)));
+    const passage = (fresh.length ? fresh : sample(pool, 1))[0];
+    const sentences = splitSentences(passage.passage);
+    const questions = passage.blanks.map(b => {
+      const marker = `(${b.n})____`;
+      return {
+        q: sentences.find(s => s.indexOf(marker) >= 0) || marker,
+        a: b.answer, hint: b.hint, promptLabel: `第 ${b.n} 空`,
+        options: shuffle(b.options.slice()),
+        _seenKey: 'cloze::' + passage.id + '::' + b.n,
+      };
+    });
+    currentQuestions = questions;
+    const preamble = `
+      <div class="card">
+        <div class="card-title">📄 ${escapeHtml(passage.title || '完形填空')}</div>
+        <div style="font-size:13px;color:var(--text-2);margin-bottom:8px;">先通读全文，再逐空作答（完形靠上下文线索，不是只挑一个顺眼的词）。</div>
+        <div style="line-height:2.1;font-size:15px;">${escapeHtml(passage.passage)}</div>
+      </div>`;
+    renderMCQ(app, '完形填空', questions, (correct, results) => {
+      for (let i = 0; i < results.length; i++) {
+        if (!results[i].ok) {
+          progress.wrong_grammar.push({
+            type: 'cloze', question: questions[i].q, answer: questions[i].a,
+            user: results[i].user, hint: questions[i].hint,
+            options: questions[i].options, date: today(),
+          });
+        }
+      }
+      progress.wrong_grammar = progress.wrong_grammar.slice(-100);
+      saveProgress();
+      appendCheckinNextStep(app, 'cloze');
+    }, preamble);
+  }
+
+  // 通用选择题渲染（preambleHtml 供完形填空在题目前插一篇短文）
+  function renderMCQ(app, title, questions, onSubmit, preambleHtml) {
     app.innerHTML = `
       ${topBar(title)}
       <div class="container">
+        ${preambleHtml || ''}
         <div id="mcq-list"></div>
         <button class="btn btn-primary" id="mcq-submit">提交</button>
       </div>
@@ -2398,7 +2524,8 @@ document.addEventListener('input', function(e) {
       const card = document.createElement('div');
       card.className = 'card';
       const isEn2Cn = q.direction === 'en2cn' || !q.direction; // 兼容旧数据
-      const promptLabel = isEn2Cn ? '看英文选中文' : '看中文选英文';
+      // 失分点专项自己带 promptLabel (如"选出正确形式"), 其余仍按翻译方向推断
+      const promptLabel = q.promptLabel || (isEn2Cn ? '看英文选中文' : '看中文选英文');
       const faceHtml = isEn2Cn
         ? `<div class="grammar-q quiz-word">${escapeHtml(q.q || q.word || '')} <span class="quiz-pron">${escapeHtml(q.pron || '')}</span></div>`
         : `<div class="grammar-q card-word-en" style="font-size:22px;font-weight:bold;margin-bottom:8px;">${escapeHtml(q.cn || q.q || '')}</div>`;
@@ -2469,6 +2596,10 @@ document.addEventListener('input', function(e) {
   function sectionCounts() {
     // 中译英/英译中共用同一 translate 题库（同 translationPoolForDifficulty）
     const translateN = translationPoolForDifficulty().length;
+    // 失分点专项：与 renderDrill/clozePool 同一套筛选条件，显示的就是当前难度实际能抽到的题量
+    const drillN = {};
+    for (const key of Object.keys(DRILL_SPECS)) drillN[key] = drillPool(key).length;
+    const clozeN = clozePool().length;
     // 时态：按难度+年级筛选，空时与 renderTense 一样降级到 legacy 全量
     const tenseBank = Array.isArray(D.tense_questions) ? D.tense_questions : [];
     let tenseN = schoolGradePool(tenseBank.filter(q => q.difficulty === difficulty)).length;
@@ -2488,7 +2619,7 @@ document.addEventListener('input', function(e) {
       if (blockTopics.has(simple)) return false;
       return !blockWords.has(w.word.toLowerCase());
     }).length;
-    return { translateN, tenseN, prepN, vocabN };
+    return { translateN, tenseN, prepN, vocabN, drillN, clozeN };
   }
 
   function renderTranslate(app) {
@@ -2830,6 +2961,7 @@ document.addEventListener('input', function(e) {
     const tenseE = progress.wrong_grammar.filter(e => e.type === 'tense');
     const prepE = progress.wrong_grammar.filter(e => e.type === 'preposition');
     const trE = progress.wrong_grammar.filter(e => ['translate', 'translate_en'].includes(e.type));
+    const drillE = progress.wrong_grammar.filter(e => DRILL_TYPES.includes(e.type));
 
     app.innerHTML = `
       ${topBar('错题本')}
@@ -2879,6 +3011,19 @@ document.addEventListener('input', function(e) {
           ${trE.slice(0, 10).map(e => `
             <div style="padding:8px 0;border-bottom:1px solid #f0f0f0;">
               <div style="font-size:14px;">${escapeHtml(e.question || e.sentence || '')}</div>
+              <div style="font-size:12px;color:var(--success);">✓ ${escapeHtml(e.answer || '')}</div>
+              <div style="font-size:12px;color:var(--text-2);">你: ${escapeHtml(e.user || '(空)')}</div>
+            </div>
+          `).join('') || '<p style="color:var(--text-2);">无</p>'}
+        </div>
+
+        <div class="card">
+          <div class="card-title">📐 失分点专项错题 (${drillE.length})</div>
+          ${drillE.slice(0, 15).map(e => `
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="font-size:12px;color:var(--text-2);">${escapeHtml(checkinTypeLabel(e.type))}</div>
+              <div style="font-size:14px;">${escapeHtml(e.question || '')}</div>
+              ${Array.isArray(e.options) && e.options.length ? `<div style="font-size:12px;color:var(--text-2);">选项: ${escapeHtml(e.options.join(' / '))}</div>` : ''}
               <div style="font-size:12px;color:var(--success);">✓ ${escapeHtml(e.answer || '')}</div>
               <div style="font-size:12px;color:var(--text-2);">你: ${escapeHtml(e.user || '(空)')}</div>
             </div>
