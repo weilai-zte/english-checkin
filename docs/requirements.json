@@ -2,7 +2,7 @@
   "doc_id": "requirements",
   "doc_kind": "requirements",
   "goal": {
-    "statement": "english-checkin 需求真理源：5 actor × 13 use case × 33 编号需求 (F-021 功能 + N-006 非功能 + C-003 约束 + 2 验收原则)",
+    "statement": "english-checkin 需求真理源：2 actor × 14 use case × 36 编号需求 (F-026 功能 + N-007 非功能 + C-003 约束 + 2 验收原则)",
     "why": "代码改完必须先改本文（用户驱动原则）。AI 改 send_daily.py / app.py / build.py 前必须先确认本文当前有效需求",
     "success_criteria": [
       "新增需求必须先在本文 §3 加编号 + §5 加 UC，再写代码",
@@ -126,9 +126,17 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.18.11",
-  "last_validated": "2026-07-26",
+  "version": "v0.20.0",
+  "last_validated": "2026-10-16",
   "evolution": [
+    {
+      "date": "2026-10-16",
+      "version": "v0.20.0",
+      "action": "add",
+      "what": "F-026 新增 5 类「失分点专项」题型（phonetic/wordform/confusable/nonfinite/cloze）及 UC-14 扩题流程（ChatGPT 出题 → merge_drill_bank.py 校验入库 → build → push）；同时把 goal.statement 的计数改成实际值（F-026 / N-007 / C-003 / 14 UC / 2 actor），并把 F-021 里过时的「vocab/grammar 必选，其余 5 项可选」修正为「vocab/grammar/tense/translate 必选，其余 8 项可选」",
+      "why": "孩子八年级试卷失分集中在语音辨析、词形变化、易混词辨析、非谓语动词与完形填空，原有题型覆盖不到；且原文计数与 §4 必选集已与代码不符",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-26",
       "version": "v0.18.11",
@@ -359,7 +367,7 @@
       {
         "id": "F-021",
         "priority": "P0",
-        "statement": "每日打卡题型选择页 #/checkin-config：用户可勾选本次想做的题型（vocab/grammar 必选，其余 5 项可选），按勾选顺序依次进入各题型，全部完成后记一次打卡",
+        "statement": "每日打卡题型选择页 #/checkin-config：用户可勾选本次想做的题型（CHECKIN_TYPES 共 12 项；vocab/grammar/tense/translate 必选，其余 8 项可选），按勾选顺序依次进入各题型，全部完成后记一次打卡",
         "verification": "pytest tests/test_site_static.py -v (10 个新增用例覆盖)"
       },
       {
@@ -385,6 +393,12 @@
         "priority": "P1",
         "statement": "加密 LLM 配置不得在登录、启动或普通页面自动弹出解锁框；仅在用户点击图片词表的‘识别并整理’等实际需要 LLM 的操作时提示解锁或配置",
         "verification": "python3 -m pytest tests/test_site_static.py -q"
+      },
+      {
+        "id": "F-026",
+        "priority": "P0",
+        "statement": "参考试卷题型新增 5 类「失分点专项」练习并接入每日打卡：phonetic 语音辨析、wordform 词形变化、confusable 易混词辨析、nonfinite 非谓语动词、cloze 完形填空；题库保存在 data/drill_bank_{phonetic,wordform,confusable,nonfinite,cloze}_2026_10.json，由 tools/merge_drill_bank.py 校验去重后合并进 content.json，前端通过 #/phonetic 等 5 个路由进入（前 4 类复用 renderMCQ，cloze 走 renderCloze 逐空作答）",
+        "verification": "/usr/bin/python3 -m pytest tests/test_content_bank.py tests/test_site_static.py -q（4 个新题型契约 + 完形按空计分 + 首页角标随难度切换）"
       }
     ],
     "§4_non_functional_requirements": [
@@ -528,6 +542,14 @@
         "main_flow": "编辑 data/vocab.json 或 data/grammar.json → python3 site_static/build.py → netlify deploy",
         "postcondition": "词库更新到线上",
         "exception": "vocab.json 含重复词 → vocab-check.py 报警"
+      },
+      {
+        "id": "UC-14",
+        "actor": "父亲（魏来）",
+        "precondition": "拿到孩子试卷的失分点清单；tools/EXPAND_PROMPT_DRILL.md 里的 prompt 已交给 ChatGPT 出题",
+        "main_flow": "把 ChatGPT 输出的 JSON 存成 data/drill_bank_<type>_<年月>.json → tools/merge_drill_bank.py --dry-run 校验（拒绝数须为 0）→ 去掉 --dry-run 入库 → site_static/build.py 重建 → git push 触发 GitHub Pages 部署",
+        "postcondition": "5 类失分点专项题库扩充完成，孩子首页「失分点专项」区题量角标随之更新，错题自动进错题本",
+        "exception": "脚本报「拒绝」→ 按 EXPAND_PROMPT_DRILL.md 末尾的拒绝原因对照表修正后重新入库"
       }
     ],
     "§7_constraints": [

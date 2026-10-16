@@ -26,7 +26,7 @@
     },
     {
       "name": "data_schemas",
-      "source": "data/{content.json, question_bank_expansion.json, vocab.json, grammar.json, progress.json, junior_vocab_3levels.json, vocab_scope.json, vocab_scope_supplement.json, textbook_pep_up_to_8_1.json, textbook_pep_8_2.json, cefrj-vocabulary-profile-1.5.csv}",
+      "source": "data/{content.json, question_bank_expansion.json, vocab.json, grammar.json, progress.json, junior_vocab_3levels.json, vocab_scope.json, vocab_scope_supplement.json, textbook_pep_up_to_8_1.json, textbook_pep_8_2.json, drill_bank_phonetic_2026_10.json, drill_bank_wordform_2026_10.json, drill_bank_confusable_2026_10.json, drill_bank_nonfinite_2026_10.json, drill_bank_cloze_2026_10.json, cefrj-vocabulary-profile-1.5.csv}",
       "type": "file"
     }
   ],
@@ -73,8 +73,9 @@
         "invariants": [
           "vocab 必须含 _L1 / _L2 / _L3 三级 (junior_vocab_3levels.json 导出)",
           "vocab 可含 _legacy_{topic} (兼容老 vocab.json 兜底)",
-          "grammar / translate_questions / tense_questions 必须全部从 content.json 导出",
-          "translate_questions 与 tense_questions 必须保留 difficulty 和 knowledge_points 供前端筛选",
+          "grammar / translate_questions / tense_questions / drill_questions / cloze_questions 必须全部从 content.json 导出",
+          "translate_questions / tense_questions / drill_questions 必须保留 difficulty 和 knowledge_points 供前端筛选",
+          "drill_questions 只含 phonetic/wordform/confusable/nonfinite 四类, cloze 单独走 cloze_questions",
           "knowledge_modules 必须包含 module1 至 module9，值为 Mistune 从 knowledge_outline.md 对应章节生成的 HTML",
           "difficulty_config 必须含 block_topics (list) + extra_block (list)",
           "app.js 必须含 CATEGORY_TREE 常量 (8 父类 → 子类, stats 页分层展示用)",
@@ -319,6 +320,16 @@
           "非当前设备的解绑操作必须复用 unbindDevice()",
           "旧设备记录合并必须复用 mergeLegacyDevice()"
         ]
+      },
+      {
+        "name": "poolByDifficulty",
+        "module": "site_static/app.js",
+        "signature": "function poolByDifficulty(items: object[], difficulty: string): object[]",
+        "description": "按 difficulty 取题；当前档位抽不出题时依次退到 medium 再到全量",
+        "invariants": [
+          "退档顺序固定为 当前档 → medium → 全量，保证首页不会出现「0 题」死链",
+          "非谓语动词与完形填空没有 easy 档，必须靠此降级兜底"
+        ]
       }
     ],
     "routes": [
@@ -465,7 +476,7 @@
         "path": "#/checkin-config",
         "framework": "site_static SPA",
         "handler": "renderCheckinConfig",
-        "returns": "每日打卡题型勾选（vocab/grammar 必选，其余可选）"
+        "returns": "每日打卡题型勾选（共 12 项：vocab/grammar/tense/translate 必选，其余 8 项可选）"
       },
       {
         "path": "#/learn",
@@ -514,6 +525,36 @@
         "framework": "site_static SPA",
         "handler": "renderTranslateEn",
         "returns": "英译中填空"
+      },
+      {
+        "path": "#/phonetic",
+        "framework": "site_static SPA",
+        "handler": "renderPhonetic",
+        "returns": "语音辨析：字母/字母组合读音四选一，复用 renderMCQ（题面无 ____，区分度在选项）"
+      },
+      {
+        "path": "#/wordform",
+        "framework": "site_static SPA",
+        "handler": "renderWordform",
+        "returns": "词形变化：括号提示 + 四选一，复用 renderMCQ"
+      },
+      {
+        "path": "#/confusable",
+        "framework": "site_static SPA",
+        "handler": "renderConfusable",
+        "returns": "易混词辨析：四选一，复用 renderMCQ"
+      },
+      {
+        "path": "#/nonfinite",
+        "framework": "site_static SPA",
+        "handler": "renderNonfinite",
+        "returns": "非谓语动词：to do / doing 四选一，复用 renderMCQ"
+      },
+      {
+        "path": "#/cloze",
+        "framework": "site_static SPA",
+        "handler": "renderCloze",
+        "returns": "完形填空：通读全文 + 逐空作答，按空计分"
       },
       {
         "path": "#/flashcard",
@@ -660,13 +701,17 @@
           "items": "list[{id, type, grade, topic, knowledge_points, difficulty, ...type_fields}]",
           "grammar_fields": "{title, rule, examples, exercises:[{题,答案,提示}]}",
           "translate_fields": "{cn, en, hint, direction}",
-          "tense_fields": "{question, answer, hint}"
+          "tense_fields": "{question, answer, hint}",
+          "drill_fields": "{question, options[4], answer, hint} (type ∈ phonetic/wordform/confusable/nonfinite)",
+          "cloze_fields": "{title, passage(含 (1)____ 标记), blanks:[{n, options[4], answer, hint}], hint}"
         },
         "invariants": [
           "所有 id 唯一，所有练习题面+答案组合去重",
           "grammar ≥100 组且组内练习 ≥450，translate ≥240，tense ≥200",
           "36 个核心知识点各至少 6 道可作答练习",
-          "translate 与 tense 的 easy/medium/hard 各档数量达到测试下限"
+          "translate 与 tense 的 easy/medium/hard 各档数量达到测试下限",
+          "drill 四类选项必须为 4 个且不重复，answer 必在 options 内；wordform/confusable/nonfinite 题干必含 ____",
+          "cloze 的 passage 空位标记 (n)____ 与 blanks[].n 必须一一对应"
         ]
       },
       "question_bank_expansion_json": {
@@ -727,6 +772,8 @@
           "hard_tense_questions": "list[...]",
           "translate_questions": "list[{id, cn, en, hint, grade, topic, difficulty, knowledge_points}]",
           "tense_questions": "list[{id, question, answer, hint, grade, topic, difficulty, knowledge_points}]",
+          "drill_questions": "list[{id, type, question, options, answer, hint, grade, topic, difficulty, knowledge_points}] (type ∈ phonetic/wordform/confusable/nonfinite)",
+          "cloze_questions": "list[{id, title, passage, blanks:[{n, options, answer, hint}], grade, topic, difficulty, knowledge_points}]",
           "content": "content.json 完整内容（供 D.filter 按标量或数组属性过滤）",
           "simple_words": "list[str] (已 deprecated, [] for junior_vocab)",
           "junior_vocab_meta": "{L1: int, L2: int, L3: int}",
@@ -772,6 +819,7 @@
         "invariants": [
           "wrong_words + flashcard_history 自动截断 200 条",
           "checkin_types 默认 = CHECKIN_TYPES 全部 key（含 vocab/grammar 必选）",
+          "CHECKIN_TYPES 共 12 项：vocab/grammar/tense/translate 必选，quiz/preposition/phonetic/wordform/confusable/nonfinite/cloze/dictation 可选",
           "daily_checkin_plan.date !== today() 视为过期，UI 应自动清理或忽略",
           "旧 checkins 记录无 types 字段时 UI 回退到 grammar_title 显示",
           "mergeProgress(local, remote) 必须 union 合并全部账号持久化字段，user_name 优先用本地",
@@ -928,7 +976,7 @@
         ],
         "invariants": [
           "checkedInToday() 时直接显示'今日已完成'卡，禁用 CTA",
-          "vocab/grammar 必选，UI 禁用复选框 + preventDefault"
+          "vocab/grammar/tense/translate 必选，UI 禁用复选框 + preventDefault"
         ]
       },
       {
@@ -1115,9 +1163,25 @@
     "readme",
     "changelog"
   ],
-  "version": "v0.19.0",
-  "last_validated": "2026-10-15",
+  "version": "v0.20.0",
+  "last_validated": "2026-10-16",
   "evolution": [
+    {
+      "date": "2026-10-16",
+      "version": "v0.20.0",
+      "action": "add",
+      "what": "新增 5 类「失分点专项」题型 phonetic/wordform/confusable/nonfinite/cloze 及其 #/ 路由与 renderDrill/renderCloze 视图；data.js 导出 drill_questions / cloze_questions；CHECKIN_TYPES 扩到 12 项（必选集改为 vocab/grammar/tense/translate）；新增 poolByDifficulty 降级避免首页 0 题死链",
+      "why": "孩子八年级试卷失分集中在语音辨析、词形变化、易混词辨析、非谓语动词与完形填空，原有 7 种题型覆盖不到；且新题型并非都有 easy 档，需要降级兜底",
+      "by": "Codex"
+    },
+    {
+      "date": "2026-10-16",
+      "version": "v0.19.0",
+      "action": "change",
+      "what": "每日流动池改为「课内核心」白名单（八源并集 3537 词），超前词移出闪卡与听写、在「全部词汇」保留可见；白名单加入人教版八下词表",
+      "why": "LLM 生成的进阶词混进每日池，超出初中范围，孩子练习效率低",
+      "by": "Codex"
+    },
     {
       "date": "2026-07-26",
       "version": "v0.18.11",
