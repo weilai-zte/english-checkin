@@ -2460,13 +2460,39 @@ document.addEventListener('input', function(e) {
   function renderConfusable(app) { renderDrill(app, 'confusable'); }
   function renderNonfinite(app) { renderDrill(app, 'nonfinite'); }
 
-  // ─── 视图：完形填空（一篇短文 10 空, 一次练一篇）─────
+  // ─── 视图：完形填空（整篇短文内逐空下拉选择, 交卷后原地判分）─────
   function clozePool() {
     return poolByDifficulty(D.cloze_questions || []);
   }
-  // 按句号/问号/叹号切句: 每个空只显示它所在的那一句, 全文另在顶部展示
+  // 按句号/问号/叹号切句: 错题本里每个空只记它所在的那一句
   function splitSentences(text) {
     return String(text).match(/[^.!?]+[.!?]*/g) || [String(text)];
+  }
+  function clozeSelectHtml(q) {
+    return `<select class="cloze-blank" data-n="${q.n}" aria-label="第 ${q.n} 空">
+      <option value="">选词</option>
+      ${q.options.map(o => `<option value="${escapeHtml(String(o))}">${escapeHtml(String(o))}</option>`).join('')}
+    </select>`;
+  }
+  // 把正文里的 (1)____ 原地换成下拉框; 没匹配上的空位补在文末, 保证不漏题
+  function buildClozeStem(text, questions) {
+    const byN = new Map(questions.map(q => [q.n, q]));
+    const used = new Set();
+    const parts = String(text || '').split(/\((\d+)\)_+/g);
+    let html = '';
+    for (let i = 0; i < parts.length; i++) {
+      if (i % 2 === 0) { html += escapeHtml(parts[i]); continue; }
+      const n = Number(parts[i]);
+      const q = byN.get(n);
+      if (!q) { html += escapeHtml(`(${n})____`); continue; }
+      used.add(n);
+      html += clozeSelectHtml(q);
+    }
+    const missing = questions.filter(q => !used.has(q.n));
+    if (missing.length) {
+      html += `<div class="cloze-extra">${missing.map(q => `<div>第 ${q.n} 空 ${clozeSelectHtml(q)}</div>`).join('')}</div>`;
+    }
+    return html;
   }
   function renderCloze(app) {
     _rng = seededRandom(makeSeed('cloze'));
@@ -2480,20 +2506,59 @@ document.addEventListener('input', function(e) {
     const questions = passage.blanks.map(b => {
       const marker = `(${b.n})____`;
       return {
+        n: b.n,
         q: sentences.find(s => s.indexOf(marker) >= 0) || marker,
-        a: b.answer, hint: b.hint, promptLabel: `第 ${b.n} 空`,
+        a: String(b.answer), hint: b.hint,
         options: shuffle(b.options.slice()),
         _seenKey: 'cloze::' + passage.id + '::' + b.n,
       };
     });
     currentQuestions = questions;
-    const preamble = `
-      <div class="card">
-        <div class="card-title">📄 ${escapeHtml(passage.title || '完形填空')}</div>
-        <div style="font-size:13px;color:var(--text-2);margin-bottom:8px;">先通读全文，再逐空作答（完形靠上下文线索，不是只挑一个顺眼的词）。</div>
-        <div style="line-height:2.1;font-size:15px;">${escapeHtml(passage.passage)}</div>
+    app.innerHTML = `
+      ${topBar('完形填空')}
+      <div class="container">
+        <div class="card">
+          <div class="card-title">📄 ${escapeHtml(passage.title || '完形填空')}</div>
+          <div class="cloze-tip">先通读一遍，再在每个空里直接选词；做完一次交卷。</div>
+          <div class="cloze-passage">${buildClozeStem(passage.passage, questions)}</div>
+        </div>
+        <div class="cloze-review" id="cloze-review" style="display:none;"></div>
+        <button class="btn btn-primary" id="cloze-submit">交卷</button>
       </div>`;
-    renderMCQ(app, '完形填空', questions, (correct, results) => {
+    app.querySelector('#cloze-submit').onclick = () => {
+      const picks = questions.map(q => {
+        const sel = app.querySelector(`select[data-n="${q.n}"]`);
+        return sel ? sel.value : '';
+      });
+      const firstEmpty = picks.findIndex(v => !v);
+      if (firstEmpty >= 0) {
+        toast(`还有 ${picks.filter(v => !v).length} 空没选`, 2500);
+        const sel = app.querySelector(`select[data-n="${questions[firstEmpty].n}"]`);
+        if (sel) sel.scrollIntoView({ block: 'center' });
+        return;
+      }
+      let correct = 0;
+      const wrong = [];
+      const results = questions.map((q, i) => {
+        const ok = picks[i].trim().toLowerCase() === q.a.trim().toLowerCase();
+        if (ok) correct++;
+        else wrong.push({ q, user: picks[i] });
+        const sel = app.querySelector(`select[data-n="${q.n}"]`);
+        sel.classList.add(ok ? 'is-right' : 'is-wrong');
+        sel.disabled = true;
+        return { ok, user: picks[i] };
+      });
+      const review = app.querySelector('#cloze-review');
+      review.style.display = 'block';
+      review.innerHTML = wrong.length ? `
+        <div class="card">
+          <div class="card-title">❌ 错 ${wrong.length} 空 · ${correct}/${questions.length}</div>
+          ${wrong.map(({ q, user }) => `<div class="cloze-miss">
+            <div>第 ${q.n} 空　你选 <strong>${escapeHtml(user)}</strong>，正确 <strong class="cloze-right-answer">${escapeHtml(q.a)}</strong></div>
+            ${q.hint ? `<div class="cloze-miss-hint">💡 ${escapeHtml(q.hint)}</div>` : ''}
+          </div>`).join('')}
+        </div>`
+        : `<div class="card" style="text-align:center;"><div class="card-title">🎉 ${correct}/${questions.length} 全对</div></div>`;
       for (let i = 0; i < results.length; i++) {
         if (!results[i].ok) {
           progress.wrong_grammar.push({
@@ -2505,8 +2570,14 @@ document.addEventListener('input', function(e) {
       }
       progress.wrong_grammar = progress.wrong_grammar.slice(-100);
       saveProgress();
+      toast(`${correct}/${questions.length} 正确`, 2500);
+      // ponytail: 累计题目出现次数, 下次 sampleUnseen 降低权重避免重复
+      questions.forEach(q => bumpSeenCount(q._seenKey, 1));
+      markSeen(questions.map(q => q._seenKey));
+      app.querySelector('#cloze-submit').style.display = 'none';
+      review.scrollIntoView({ block: 'start' });
       appendCheckinNextStep(app, 'cloze');
-    }, preamble);
+    };
   }
 
   // 通用选择题渲染（preambleHtml 供完形填空在题目前插一篇短文）

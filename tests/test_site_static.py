@@ -934,15 +934,19 @@ def test_drill_mcq_types_reuse_render_mcq():
     assert 'progress.wrong_grammar.push' in drill, "失分点专项错题要进错题本"
 
 
-def test_cloze_view_shows_passage_and_scores_each_blank():
+def test_cloze_view_uses_inline_selects():
+    """整篇短文内逐空下拉选词, 一次交卷; 不再拆成 10 张选择题卡片。"""
     block = _function_block('renderCloze')
-    assert 'preamble' in block, "完形填空要在题目前展示整篇短文"
+    assert 'buildClozeStem(passage.passage, questions)' in block, "短文要原地嵌入空位"
+    assert 'cloze-blank' in APP_JS_SRC, "缺内嵌下拉框样式类"
+    assert 'renderMCQ(app' not in block, "完形填空不应再走逐题卡片"
     assert 'passage.blanks' in block, "完形填空按 blanks 出题"
     assert "makeSeed('cloze')" in block, "完形填空未设置 seed"
     assert "progress.wrong_grammar.push" in block, "完形填空错题要进错题本"
-    # renderMCQ 需要接受 preamble 参数
-    mcq = _function_block('renderMCQ')
-    assert 'preambleHtml' in mcq, "renderMCQ 未支持 preambleHtml"
+    assert '空没选' in block, "交卷前应拦下漏选的空"
+    stem = _function_block('buildClozeStem')
+    assert 'clozeSelectHtml' in stem and r"split(/\((\d+)\)_+/g)" in stem, \
+        "buildClozeStem 未按 (n)____ 记号替换空位"
 
 
 def test_mcq_prompt_label_is_overridable():
