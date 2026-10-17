@@ -2468,13 +2468,12 @@ document.addEventListener('input', function(e) {
   function splitSentences(text) {
     return String(text).match(/[^.!?]+[.!?]*/g) || [String(text)];
   }
-  function clozeSelectHtml(q) {
-    return `<select class="cloze-blank" data-n="${q.n}" aria-label="第 ${q.n} 空">
-      <option value="">选词</option>
-      ${q.options.map(o => `<option value="${escapeHtml(String(o))}">${escapeHtml(String(o))}</option>`).join('')}
-    </select>`;
+  function clozeSlotHtml(q) {
+    return `<button type="button" class="cloze-slot" data-n="${q.n}" aria-label="第 ${q.n} 空，点此作答">
+      <span class="cloze-num">(${q.n})</span><span class="cloze-answer">&nbsp;</span>
+    </button>`;
   }
-  // 把正文里的 (1)____ 原地换成下拉框; 没匹配上的空位补在文末, 保证不漏题
+  // 把正文里的 (1)____ 原地换成卷面空格; 没匹配上的空位补在文末, 保证不漏题
   function buildClozeStem(text, questions) {
     const byN = new Map(questions.map(q => [q.n, q]));
     const used = new Set();
@@ -2486,13 +2485,27 @@ document.addEventListener('input', function(e) {
       const q = byN.get(n);
       if (!q) { html += escapeHtml(`(${n})____`); continue; }
       used.add(n);
-      html += clozeSelectHtml(q);
+      html += clozeSlotHtml(q);
     }
     const missing = questions.filter(q => !used.has(q.n));
     if (missing.length) {
-      html += `<div class="cloze-extra">${missing.map(q => `<div>第 ${q.n} 空 ${clozeSelectHtml(q)}</div>`).join('')}</div>`;
+      html += `<div class="cloze-extra">${missing.map(q => `<div>第 ${q.n} 空 ${clozeSlotHtml(q)}</div>`).join('')}</div>`;
     }
     return html;
+  }
+  // 卷面选项: 1. A. xxx  B. xxx  C. xxx  D. xxx
+  function clozeQuestionHtml(q) {
+    return `<div class="cloze-q" data-q="${q.n}">
+      <div class="cloze-q-num">${q.n}.</div>
+      <div class="cloze-opts">
+        ${q.options.map((o, i) => `
+          <label class="cloze-opt">
+            <input type="radio" name="cloze-q${q.n}" value="${escapeHtml(String(o))}">
+            <span class="cloze-opt-letter">${String.fromCharCode(65 + i)}.</span>
+            <span class="cloze-opt-text">${escapeHtml(String(o))}</span>
+          </label>`).join('')}
+      </div>
+    </div>`;
   }
   function renderCloze(app) {
     _rng = seededRandom(makeSeed('cloze'));
@@ -2517,24 +2530,47 @@ document.addEventListener('input', function(e) {
     app.innerHTML = `
       ${topBar('完形填空')}
       <div class="container">
-        <div class="card">
-          <div class="card-title">📄 ${escapeHtml(passage.title || '完形填空')}</div>
-          <div class="cloze-tip">先通读一遍，再在每个空里直接选词；做完一次交卷。</div>
+        <div class="card cloze-paper">
+          <div class="cloze-paper-title">${escapeHtml(passage.title || '完形填空')}</div>
+          <div class="cloze-instruction">阅读下面短文，从每题所给的 A、B、C、D 四个选项中，选出最佳选项。</div>
           <div class="cloze-passage">${buildClozeStem(passage.passage, questions)}</div>
+          <div class="cloze-divider"></div>
+          <div class="cloze-questions">${questions.map(clozeQuestionHtml).join('')}</div>
         </div>
         <div class="cloze-review" id="cloze-review" style="display:none;"></div>
         <button class="btn btn-primary" id="cloze-submit">交卷</button>
       </div>`;
+    // 点短文里的空, 跳到对应题号
+    app.querySelectorAll('.cloze-slot').forEach(slot => {
+      slot.onclick = () => {
+        const q = app.querySelector(`.cloze-q[data-q="${slot.dataset.n}"]`);
+        if (q) q.scrollIntoView({ block: 'center' });
+      };
+    });
+    // 选选项时, 同时把答案填回短文里的 (n) 空
+    app.querySelectorAll('.cloze-opt input[type="radio"]').forEach(input => {
+      input.addEventListener('change', () => {
+        app.querySelectorAll(`input[name="${input.name}"]`).forEach(radio => {
+          radio.closest('.cloze-opt').classList.toggle('is-selected', radio.checked);
+        });
+        const n = input.name.replace('cloze-q', '');
+        const slot = app.querySelector(`.cloze-slot[data-n="${n}"]`);
+        if (slot) {
+          slot.querySelector('.cloze-answer').textContent = input.value;
+          slot.classList.add('is-filled');
+        }
+      });
+    });
     app.querySelector('#cloze-submit').onclick = () => {
       const picks = questions.map(q => {
-        const sel = app.querySelector(`select[data-n="${q.n}"]`);
-        return sel ? sel.value : '';
+        const checked = app.querySelector(`input[name="cloze-q${q.n}"]:checked`);
+        return checked ? checked.value : '';
       });
       const firstEmpty = picks.findIndex(v => !v);
       if (firstEmpty >= 0) {
         toast(`还有 ${picks.filter(v => !v).length} 空没选`, 2500);
-        const sel = app.querySelector(`select[data-n="${questions[firstEmpty].n}"]`);
-        if (sel) sel.scrollIntoView({ block: 'center' });
+        const q = app.querySelector(`.cloze-q[data-q="${questions[firstEmpty].n}"]`);
+        if (q) q.scrollIntoView({ block: 'center' });
         return;
       }
       let correct = 0;
@@ -2543,22 +2579,27 @@ document.addEventListener('input', function(e) {
         const ok = picks[i].trim().toLowerCase() === q.a.trim().toLowerCase();
         if (ok) correct++;
         else wrong.push({ q, user: picks[i] });
-        const sel = app.querySelector(`select[data-n="${q.n}"]`);
-        sel.classList.add(ok ? 'is-right' : 'is-wrong');
-        sel.disabled = true;
+        const slot = app.querySelector(`.cloze-slot[data-n="${q.n}"]`);
+        slot.classList.add(ok ? 'is-right' : 'is-wrong');
+        app.querySelectorAll(`input[name="cloze-q${q.n}"]`).forEach(input => {
+          const opt = input.closest('.cloze-opt');
+          input.disabled = true;
+          if (input.value.trim().toLowerCase() === q.a.trim().toLowerCase()) opt.classList.add('is-correct');
+          else if (input.checked) opt.classList.add('is-picked-wrong');
+        });
         return { ok, user: picks[i] };
       });
       const review = app.querySelector('#cloze-review');
       review.style.display = 'block';
       review.innerHTML = wrong.length ? `
-        <div class="card">
-          <div class="card-title">❌ 错 ${wrong.length} 空 · ${correct}/${questions.length}</div>
+        <div class="card cloze-key">
+          <div class="card-title">答案与解析 · 得分 ${correct}/${questions.length}</div>
           ${wrong.map(({ q, user }) => `<div class="cloze-miss">
             <div>第 ${q.n} 空　你选 <strong>${escapeHtml(user)}</strong>，正确 <strong class="cloze-right-answer">${escapeHtml(q.a)}</strong></div>
             ${q.hint ? `<div class="cloze-miss-hint">💡 ${escapeHtml(q.hint)}</div>` : ''}
           </div>`).join('')}
         </div>`
-        : `<div class="card" style="text-align:center;"><div class="card-title">🎉 ${correct}/${questions.length} 全对</div></div>`;
+        : `<div class="card" style="text-align:center;"><div class="card-title">🎉 得分 ${correct}/${questions.length}，全对</div></div>`;
       for (let i = 0; i < results.length; i++) {
         if (!results[i].ok) {
           progress.wrong_grammar.push({

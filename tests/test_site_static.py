@@ -934,19 +934,24 @@ def test_drill_mcq_types_reuse_render_mcq():
     assert 'progress.wrong_grammar.push' in drill, "失分点专项错题要进错题本"
 
 
-def test_cloze_view_uses_inline_selects():
-    """整篇短文内逐空下拉选词, 一次交卷; 不再拆成 10 张选择题卡片。"""
+def test_cloze_view_uses_paper_layout():
+    """卷面格式: 短文里 (1)____ 编号空格, 选项按 A/B/C/D 排在题号下面。"""
     block = _function_block('renderCloze')
     assert 'buildClozeStem(passage.passage, questions)' in block, "短文要原地嵌入空位"
-    assert 'cloze-blank' in APP_JS_SRC, "缺内嵌下拉框样式类"
+    assert 'cloze-paper' in APP_JS_SRC, "缺试卷式卡片样式"
+    assert 'clozeQuestionHtml' in block, "选项应排在题号下面"
+    assert 'clozeSelectHtml' not in APP_JS_SRC, "不应再用下拉框"
     assert 'renderMCQ(app' not in block, "完形填空不应再走逐题卡片"
     assert 'passage.blanks' in block, "完形填空按 blanks 出题"
     assert "makeSeed('cloze')" in block, "完形填空未设置 seed"
     assert "progress.wrong_grammar.push" in block, "完形填空错题要进错题本"
     assert '空没选' in block, "交卷前应拦下漏选的空"
     stem = _function_block('buildClozeStem')
-    assert 'clozeSelectHtml' in stem and r"split(/\((\d+)\)_+/g)" in stem, \
+    assert 'clozeSlotHtml' in stem and r"split(/\((\d+)\)_+/g)" in stem, \
         "buildClozeStem 未按 (n)____ 记号替换空位"
+    q_html = _function_block('clozeQuestionHtml')
+    assert 'String.fromCharCode(65 + i)' in q_html, "选项缺少 A/B/C/D 字母"
+    assert 'name="cloze-q${q.n}"' in q_html, "选项未按题号分组"
 
 
 def test_mcq_prompt_label_is_overridable():

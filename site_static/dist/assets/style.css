@@ -111,29 +111,115 @@ body {
 .mcq-opt input[type="radio"] { width: 18px; height: 18px; accent-color: #667eea; }
 .mcq-opt span { color: #1a1a2e; font-weight: 500; }
 
-/* 完形填空: 整篇短文里内嵌下拉选词 */
-.cloze-tip { font-size: 13px; color: var(--text-2); margin-bottom: 10px; }
-.cloze-passage { line-height: 2.6; font-size: 16px; color: var(--text-1); white-space: pre-wrap; }
-.cloze-blank {
+/* 完形填空: 试卷式排版（短文 + 编号空格 + A/B/C/D 选项） */
+.card.cloze-paper {
+  background: #fffdf8;
+  border: 1px solid #e6e0d4;
+  border-radius: 10px;
+  padding: 18px 16px 12px;
+}
+.cloze-paper-title {
+  font-family: Georgia, "Times New Roman", "Songti SC", serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.cloze-instruction {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #6b7280;
+  margin-bottom: 14px;
+}
+.cloze-passage {
+  font-family: Georgia, "Times New Roman", "Songti SC", serif;
+  font-size: 16px;
+  line-height: 2.05;
+  color: #1f2937;
+  text-align: left;
+  white-space: pre-wrap;
+}
+.cloze-slot {
   display: inline-block;
-  max-width: 46vw;
-  min-width: 76px;
-  margin: 0 2px;
-  padding: 3px 6px;
+  margin: 0 1px;
+  padding: 0;
   font: inherit;
-  font-weight: 600;
-  color: var(--accent-strong);
-  background: #eef2ff;
-  border: 2px solid var(--border-input);
-  border-radius: 8px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  line-height: inherit;
   vertical-align: baseline;
+  white-space: nowrap;
   cursor: pointer;
 }
-.cloze-blank:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(102,126,234,0.2); }
-.cloze-blank:disabled { opacity: 1; cursor: default; }
-.cloze-blank.is-right { background: #e8f5e9; border-color: var(--success); color: #2e7d32; }
-.cloze-blank.is-wrong { background: #fff5f5; border-color: var(--danger); color: #c62828; }
-.cloze-review { margin-top: 4px; }
+.cloze-slot:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
+.cloze-slot .cloze-num {
+  font-family: -apple-system, "PingFang SC", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-right: 3px;
+}
+.cloze-slot .cloze-answer {
+  display: inline-block;
+  min-width: 44px;
+  padding: 0 2px;
+  line-height: 1.25;
+  text-align: center;
+  font-weight: 700;
+  color: #4f46e5;
+  border-bottom: 1.5px solid #6366f1;
+}
+.cloze-slot.is-filled .cloze-answer { background: #eef2ff; border-bottom-color: #4f46e5; }
+.cloze-slot.is-right .cloze-answer { color: #15803d; border-bottom-color: #16a34a; background: #ecfdf3; }
+.cloze-slot.is-wrong .cloze-answer { color: #b91c1c; border-bottom-color: #dc2626; background: #fef2f2; }
+.cloze-divider { height: 1px; background: #e6e0d4; margin: 16px 0 10px; }
+.cloze-q {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 6px;
+  padding: 6px 0;
+  border-bottom: 1px dashed #ece6da;
+}
+.cloze-q:last-child { border-bottom: none; }
+.cloze-q-num { font-size: 14px; font-weight: 700; color: #374151; line-height: 30px; }
+.cloze-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 8px; }
+.cloze-opt {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 3px 6px;
+  border: 1.5px solid transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1f2937;
+  cursor: pointer;
+}
+.cloze-opt:hover { background: #f3f4f6; }
+.cloze-opt:has(input:focus-visible) { outline: 2px solid #6366f1; outline-offset: 1px; }
+.cloze-opt input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.cloze-opt-letter { flex-shrink: 0; font-size: 13px; font-weight: 700; color: #6b7280; }
+.cloze-opt-text { flex: 1; word-break: break-word; }
+.cloze-opt.is-selected { background: #eef2ff; border-color: #a5b4fc; }
+.cloze-opt.is-selected .cloze-opt-letter { color: #4338ca; }
+.cloze-opt.is-correct { background: #ecfdf3; border-color: #86efac; color: #166534; }
+.cloze-opt.is-correct .cloze-opt-letter { color: #15803d; }
+.cloze-opt.is-picked-wrong { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
+.cloze-opt.is-picked-wrong .cloze-opt-letter { color: #b91c1c; }
+.cloze-review { margin-top: 8px; }
 .cloze-miss { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
 .cloze-miss:last-child { border-bottom: none; }
 .cloze-miss-hint { font-size: 12px; color: var(--text-2); margin-top: 2px; }
@@ -826,10 +912,24 @@ input[type="text"] {
   .mcq-opt:has(input:checked) span,
   .mcq-opt.is-selected .mcq-text,
   .mcq-opt.is-selected span { color: #ffffff; font-weight: 700 !important; }
-  .cloze-passage { color: #e0e0e0; }
-  .cloze-blank { background: #3d3d5e; color: #dfe6ff; border-color: #5a5a8a; }
-  .cloze-blank.is-right { background: #1a3d2a; color: #9be7a8; border-color: #2e7d32; }
-  .cloze-blank.is-wrong { background: #3d1f1f; color: #ffb3b3; border-color: #c62828; }
+  .card.cloze-paper { background: #242438; border-color: #3a3a5c; }
+  .cloze-paper-title, .cloze-passage { color: #e8e8f5; }
+  .cloze-instruction { color: #a5a5c0; }
+  .cloze-slot .cloze-num { color: #a5a5c0; }
+  .cloze-slot .cloze-answer { color: #a5b4fc; border-bottom-color: #818cf8; }
+  .cloze-slot.is-filled .cloze-answer { background: #33335a; border-bottom-color: #818cf8; }
+  .cloze-slot.is-right .cloze-answer { background: #1a3d2a; color: #9be7a8; border-bottom-color: #4ade80; }
+  .cloze-slot.is-wrong .cloze-answer { background: #3d1f1f; color: #ffb3b3; border-bottom-color: #f87171; }
+  .cloze-divider { background: #3a3a5c; }
+  .cloze-q { border-bottom-color: #38385a; }
+  .cloze-q-num { color: #cbd5e1; }
+  .cloze-opt { color: #e0e0e0; }
+  .cloze-opt-letter { color: #a5a5c0; }
+  .cloze-opt:hover { background: #33335a; }
+  .cloze-opt.is-selected { background: #33335a; border-color: #6366f1; }
+  .cloze-opt.is-correct { background: #1a3d2a; border-color: #2e7d32; color: #9be7a8; }
+  .cloze-opt.is-correct .cloze-opt-letter { color: #9be7a8; }
+  .cloze-opt.is-picked-wrong { background: #3d1f1f; border-color: #c62828; color: #ffb3b3; }
   .cloze-miss { border-bottom-color: #3d3d5e; }
   .card input[type="text"] { background: #3d3d5e; color: #f0f0ff; border-color: #5a5a8a; }
   .grammar-input { background: #3d3d5e; color: #f0f0ff; border-color: #5a5a8a; }
