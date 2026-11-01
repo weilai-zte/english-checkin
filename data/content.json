@@ -3,13 +3,13 @@
     "schema_version": "2.0",
     "title": "初中英语统一内容库",
     "description": "所有内容类型 (vocab/grammar/translate/tense) 统一为 flat + tags 结构,可按 type/grade/topic/freq/difficulty 等属性过滤",
-    "total": 4915,
+    "total": 4955,
     "type_count": {
       "vocab": 3834,
       "grammar": 108,
       "translate": 534,
       "tense": 324,
-      "cloze": 3,
+      "cloze": 43,
       "confusable": 29,
       "nonfinite": 27,
       "phonetic": 27,
@@ -17,7 +17,7 @@
     },
     "grade_count": {
       "L1": 1805,
-      "L2": 1998,
+      "L2": 2038,
       "L3": 1112
     },
     "filter_attrs": [
@@ -44,7 +44,8 @@
       "data/drill_bank_confusable_2026_10.json",
       "data/drill_bank_nonfinite_2026_10.json",
       "data/drill_bank_phonetic_2026_10.json",
-      "data/drill_bank_wordform_2026_10.json"
+      "data/drill_bank_wordform_2026_10.json",
+      "data/drill_bank_cloze_2026_11.json"
     ],
     "note": "vocab 已按 (word, grade) 去重,合并 src junior/pdf983/legacy 的字段",
     "coverage_standard": "36 个初中核心知识点，每项至少 6 道练习"
@@ -77254,6 +77255,5226 @@
         "形容词与副词"
       ],
       "src": "codex_expand_2026_10"
+    },
+    {
+      "id": "cz_004",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "校园生活型完形",
+      "freq": 5,
+      "difficulty": "easy",
+      "title": "A New Seat in Class",
+      "passage": "On the first day of school, a new student named Lily came to our class. She looked a little (1)____, so I smiled at her and asked her to sit next to me. At first, we did not know what to (2)____ about. Then I noticed a book in her hand. It was a story about animals. We soon found that we (3)____ the same hobby: reading. During the break, we went to the library (4)____. Lily said the library was much (5)____ than the one in her old school. From that day on, we often (6)____ books with each other. Last week, Lily told me that she no longer felt (7)____ in our class. Good friends can make a new place feel (8)____ a second home. I am glad that a simple (9)____ changed both of our school days. Now I always remember to be (10)____ to new classmates.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "nervous",
+            "excited",
+            "proud",
+            "bored"
+          ],
+          "answer": "nervous",
+          "hint": "新同学初来班级，神情紧张。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "talk",
+            "say",
+            "speak",
+            "tell"
+          ],
+          "answer": "talk",
+          "hint": "talk about sth 表示谈论某事。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "shared",
+            "share",
+            "sharing",
+            "to share"
+          ],
+          "answer": "shared",
+          "hint": "全文叙述过去经历，用一般过去时。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "together",
+            "alone",
+            "later",
+            "never"
+          ],
+          "answer": "together",
+          "hint": "两人一起去了图书馆。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "bigger",
+            "big",
+            "biggest",
+            "more big"
+          ],
+          "answer": "bigger",
+          "hint": "than 前用 big 的比较级 bigger。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "shared",
+            "share",
+            "will share",
+            "sharing"
+          ],
+          "answer": "shared",
+          "hint": "From that day on 后继续叙述过去。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "lonely",
+            "alone",
+            "quiet",
+            "angry"
+          ],
+          "answer": "lonely",
+          "hint": "feel lonely 表示感到孤独。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "like",
+            "as",
+            "likes",
+            "with"
+          ],
+          "answer": "like",
+          "hint": "feel like 表示感觉像。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "smile",
+            "word",
+            "seat",
+            "lesson"
+          ],
+          "answer": "smile",
+          "hint": "前文提到作者向 Lily 微笑。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "friendly",
+            "friend",
+            "friendlier",
+            "friends"
+          ],
+          "answer": "friendly",
+          "hint": "be friendly to 表示对某人友好。"
+        }
+      ],
+      "hint": "先抓住新同学逐渐融入班级的主线，再结合时间和上下文判断。",
+      "knowledge_points": [
+        "完形填空",
+        "一般过去时",
+        "比较结构",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_005",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "生活故事型完形",
+      "freq": 5,
+      "difficulty": "easy",
+      "title": "The Lost Library Book",
+      "passage": "Ben borrowed a library book on Monday. He planned to (1)____ it on Friday, but he could not find it on Thursday evening. He looked (2)____ his desk, his school bag and even under his bed. There was no book. Ben felt (3)____ because the library would close soon. His sister suggested looking in the car. Ben ran outside and opened the back door. The book was there! He had left it in the car after a (4)____ day at school. On Friday morning, Ben took the book to the library (5)____ time. The librarian smiled and said, 'Thank you (6)____ returning it on time.' Ben promised to be more (7)____ next time. (8)____ he got home, he put a small note in his bag to remind himself. Losing a book was not a big problem, (9)____ it taught Ben to take good care (10)____ the things he borrowed.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "return",
+            "read",
+            "buy",
+            "keep"
+          ],
+          "answer": "return",
+          "hint": "图书馆的书应按时归还。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "in",
+            "on",
+            "at",
+            "for"
+          ],
+          "answer": "in",
+          "hint": "在书桌里找用 look in the desk。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "worried",
+            "excited",
+            "hungry",
+            "angry"
+          ],
+          "answer": "worried",
+          "hint": "快到闭馆时间却找不到书，因而担心。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "busy",
+            "short",
+            "quiet",
+            "funny"
+          ],
+          "answer": "busy",
+          "hint": "忙碌的一天后把书落在车里。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "on",
+            "in",
+            "at",
+            "for"
+          ],
+          "answer": "on",
+          "hint": "on time 表示准时。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "for",
+            "of",
+            "to",
+            "with"
+          ],
+          "answer": "for",
+          "hint": "Thank you for doing sth。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "careful",
+            "careless",
+            "patient",
+            "quiet"
+          ],
+          "answer": "careful",
+          "hint": "经历丢书后，决定以后更细心。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "When",
+            "Although",
+            "Before",
+            "Because"
+          ],
+          "answer": "When",
+          "hint": "引导到家时这一时间状语从句。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "for"
+          ],
+          "answer": "but",
+          "hint": "问题不大，但从中学到道理，构成转折。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "of",
+            "for",
+            "on",
+            "about"
+          ],
+          "answer": "of",
+          "hint": "take good care of 表示好好照看。"
+        }
+      ],
+      "hint": "按照寻找书本、按时归还和总结教训的顺序理解全文。",
+      "knowledge_points": [
+        "完形填空",
+        "一般过去时",
+        "介词",
+        "连词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_006",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "家庭生活型完形",
+      "freq": 5,
+      "difficulty": "easy",
+      "title": "Grandma's Garden",
+      "passage": "My grandmother has a small garden behind her house. She (1)____ it every morning before breakfast. In spring, she plants tomatoes, beans and sunflowers. I often help with the (2)____. At first, I thought gardening was boring, (3)____ now I enjoy it. Grandma says that plants need sunshine, water and (4)____. If we give them enough care, they will grow (5)____. Last summer, we picked a big basket of tomatoes. Grandma used some of them to make soup, and the soup tasted (6)____. She also gave some vegetables to our neighbours. They were very (7)____ to receive them. Working in the garden teaches me that good things take (8)____. It also helps me understand (9)____ food comes from. I am (10)____ to spend more time there with Grandma.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "waters",
+            "water",
+            "watering",
+            "watered"
+          ],
+          "answer": "waters",
+          "hint": "主语 she 为第三人称单数，一般现在时加 s。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "watering",
+            "water",
+            "watered",
+            "waters"
+          ],
+          "answer": "watering",
+          "hint": "with 后接名词，用动名词 watering。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "but",
+            "so",
+            "because",
+            "if"
+          ],
+          "answer": "but",
+          "hint": "原以为无聊，现在喜欢，表示转折。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "patience",
+            "patient",
+            "patients",
+            "patiently"
+          ],
+          "answer": "patience",
+          "hint": "与 sunshine、water 并列，用名词。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "well",
+            "good",
+            "nice",
+            "friendly"
+          ],
+          "answer": "well",
+          "hint": "grow well 表示生长得好，用副词修饰 grow。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "wonderful",
+            "wonderfully",
+            "wonder",
+            "more wonder"
+          ],
+          "answer": "wonderful",
+          "hint": "taste 是系动词，后接形容词。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "happy",
+            "happily",
+            "happiness",
+            "unhappy"
+          ],
+          "answer": "happy",
+          "hint": "be happy to 表示乐意或高兴做某事。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "time",
+            "times",
+            "a time",
+            "timely"
+          ],
+          "answer": "time",
+          "hint": "take time 表示需要时间。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "where",
+            "what",
+            "when",
+            "why"
+          ],
+          "answer": "where",
+          "hint": "come from 对应来源，问来自哪里。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "planning",
+            "plan",
+            "planned",
+            "planfully"
+          ],
+          "answer": "planning",
+          "hint": "be planning to do 表示正计划做某事。"
+        }
+      ],
+      "hint": "从花园劳动、分享蔬菜和感悟三个层次理解短文。",
+      "knowledge_points": [
+        "完形填空",
+        "一般现在时",
+        "状语从句",
+        "非谓语动词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_007",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "运动记事型完形",
+      "freq": 5,
+      "difficulty": "easy",
+      "title": "A Rainy Football Match",
+      "passage": "Our class had a football match last Saturday. In the morning, the sky was clear. By the time we (1)____ at the playground, however, it began to rain. Some players wanted to stop, (2)____ our captain said, 'We have practised for weeks. Let us keep playing!' We put on our raincoats and started the game. The ground was wet, so the ball moved (3)____ than usual. I fell down twice, but I did not (4)____ up. In the last five minutes, our captain passed the ball to me. I kicked it as (5)____ as I could. The ball flew past the goalkeeper and went into the net! Everyone shouted (6)____ excitement. After the match, we were tired and wet, (7)____ we were very proud. Our teacher told us that the rain had made the game more difficult, but it had also shown how (8)____ we could work together. Now I know that we should not be afraid of difficulties. We can (9)____ them when we face them with courage and (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "arrived",
+            "arrive",
+            "will arrive",
+            "arriving"
+          ],
+          "answer": "arrived",
+          "hint": "故事发生在 last Saturday，用一般过去时。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "有人想停，队长坚持比赛，表示转折。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "faster",
+            "fast",
+            "fastest",
+            "more fast"
+          ],
+          "answer": "faster",
+          "hint": "than 前用 fast 的比较级。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "give",
+            "gave",
+            "giving",
+            "given"
+          ],
+          "answer": "give",
+          "hint": "did not 后接动词原形，give up 表示放弃。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "hard",
+            "hardly",
+            "harder",
+            "hardest"
+          ],
+          "answer": "hard",
+          "hint": "as ... as 中间用形容词或副词原级。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "with",
+            "in",
+            "for",
+            "by"
+          ],
+          "answer": "with",
+          "hint": "with excitement 表示兴奋地。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "if"
+          ],
+          "answer": "but",
+          "hint": "又累又湿却感到自豪，形成转折。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "well",
+            "good",
+            "better",
+            "best"
+          ],
+          "answer": "well",
+          "hint": "修饰 work together，用副词 well。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "overcome",
+            "overcame",
+            "overcoming",
+            "to overcome"
+          ],
+          "answer": "overcome",
+          "hint": "情态动词 can 后接动词原形。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "teamwork",
+            "team",
+            "teams",
+            "teammate"
+          ],
+          "answer": "teamwork",
+          "hint": "勇气和团队合作并列，用抽象名词。"
+        }
+      ],
+      "hint": "抓住比赛从下雨受阻到最终获胜的变化，并体会团队合作的主题。",
+      "knowledge_points": [
+        "完形填空",
+        "一般过去时",
+        "比较结构",
+        "状语从句"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_008",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "家庭时光型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "A Night Without Electricity",
+      "passage": "One winter evening, the lights in our building suddenly went out. At first, my brother and I felt (1)____ because we could not use the computer. My mother lit some candles, and we sat around the table. Without TV or phones, we began to (2)____ stories. My father told us about his childhood in the countryside. He said he used to walk two kilometres to school every day, (3)____ the weather was bad. I could hardly believe it. We laughed and talked for hours. The candlelight made the room feel warm and (4)____. At about nine o'clock, the lights came back, but nobody (5)____ to turn on the television. We were enjoying one another's company too much. That night taught me that happiness does not always depend (6)____ electronic devices. Sometimes it is found in simple conversations. Now, when my family is too busy, I sometimes suggest (7)____ a night without screens. My parents think it is a good idea. We have even planned (8)____ a special family dinner together. The room may be dark, (9)____ our time together can be full of (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "worried",
+            "excited",
+            "proud",
+            "bored"
+          ],
+          "answer": "worried",
+          "hint": "停电后不能用电脑，首先感到担心。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "tell",
+            "telling",
+            "told",
+            "to tell"
+          ],
+          "answer": "tell",
+          "hint": "begin to do sth，tell stories 表示讲故事。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "although",
+            "so",
+            "because",
+            "unless"
+          ],
+          "answer": "although",
+          "hint": "每天步行两公里与天气不好构成让步关系。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "peaceful",
+            "peace",
+            "safely",
+            "peacefully"
+          ],
+          "answer": "peaceful",
+          "hint": "warm and ... 用形容词并列。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "wanted",
+            "wants",
+            "wanting",
+            "will want"
+          ],
+          "answer": "wanted",
+          "hint": "整段叙述过去，用一般过去时。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "on",
+            "in",
+            "for",
+            "with"
+          ],
+          "answer": "on",
+          "hint": "depend on 表示依赖。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "having",
+            "have",
+            "had",
+            "to have"
+          ],
+          "answer": "having",
+          "hint": "suggest doing sth 表示建议做某事。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "to have",
+            "have",
+            "having",
+            "had"
+          ],
+          "answer": "to have",
+          "hint": "plan to do sth 表示计划做某事。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "房间虽暗，但相聚时光仍充实，表示转折。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "joy",
+            "joyful",
+            "joyfully",
+            "enjoy"
+          ],
+          "answer": "joy",
+          "hint": "full of 后接名词 joy。"
+        }
+      ],
+      "hint": "围绕停电后的家庭对话，理解从失望到珍惜陪伴的情感变化。",
+      "knowledge_points": [
+        "完形填空",
+        "一般过去时",
+        "非谓语动词",
+        "介词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_009",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "善意故事型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Kind Bus Driver",
+      "passage": "It was raining heavily when I (1)____ for the bus after school. I was carrying a heavy bag and an umbrella, so I could not run. When the bus finally arrived, I got on and found a seat near the door. A few stops later, an old woman got on. The bus was full, and she had to stand. I was about to give her my seat (2)____ the driver stopped the bus. He walked over, took his own seat cushion and put it on a step for her. Then he asked another passenger (3)____ her bag. The woman thanked him again and again. The driver smiled and said, 'It is my pleasure (4)____ people.' Everyone on the bus started to smile. At the next stop, a young man stood up and offered his seat to a mother (5)____ a baby. (6)____ I got off, I thought about what I had seen. A kind action can (7)____ others to be kind too. From that day on, I have tried to do small things for people around me. I now believe that kindness is (8)____ than money. It costs little, (9)____ it can make a big (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "was waiting",
+            "waited",
+            "wait",
+            "have waited"
+          ],
+          "answer": "was waiting",
+          "hint": "雨下得很大时，我正在等车，用过去进行时。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "when",
+            "because",
+            "unless",
+            "if"
+          ],
+          "answer": "when",
+          "hint": "be about to do ... when ... 表示正要做某事时。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "to carry",
+            "carry",
+            "carrying",
+            "carried"
+          ],
+          "answer": "to carry",
+          "hint": "ask sb to do sth。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "to help",
+            "help",
+            "helping",
+            "helped"
+          ],
+          "answer": "to help",
+          "hint": "It is my pleasure to do sth。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "with",
+            "on",
+            "of",
+            "in"
+          ],
+          "answer": "with",
+          "hint": "a mother with a baby 表示带婴儿的母亲。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "Before",
+            "If",
+            "While",
+            "Unless"
+          ],
+          "answer": "Before",
+          "hint": "下车前回想刚才看到的一幕。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "encourage",
+            "encouraged",
+            "encouraging",
+            "encouragement"
+          ],
+          "answer": "encourage",
+          "hint": "情态动词 can 后接动词原形。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "better",
+            "good",
+            "best",
+            "well"
+          ],
+          "answer": "better",
+          "hint": "than 表示比较，善意的价值高于金钱。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "but",
+            "and",
+            "so",
+            "or"
+          ],
+          "answer": "but",
+          "hint": "付出很少却能带来巨大改变，形成转折。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "difference",
+            "different",
+            "differently",
+            "differ"
+          ],
+          "answer": "difference",
+          "hint": "make a big difference 表示产生巨大影响。"
+        }
+      ],
+      "hint": "抓住公交车上善意传递的线索，注意动词形式和时间关系。",
+      "knowledge_points": [
+        "完形填空",
+        "过去进行时",
+        "非谓语动词",
+        "比较结构",
+        "常用短语"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_010",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "师生故事型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "A Surprise for the Teacher",
+      "passage": "Mrs Chen had taught us English for two years. She was kind but also strict. Next Monday was Teachers' Day, and our class wanted to do something special (1)____ her. We decided to make a short video. Each student recorded a sentence about (2)____ she had helped us. Some students were nervous about speaking in front of the camera, so we practised (3)____ after class. Lily, who was good at making videos, put our clips together. On Monday morning, we (4)____ the video to the classroom screen. Mrs Chen watched in surprise. When she saw herself helping students with homework, her eyes became wet. She said it was the best gift she had ever (5)____. After class, she told us that teaching was not always easy, but students like us made her work (6)____. We were glad that our small project could bring her (7)____. We also learned that a gift is valuable not because it is expensive, (8)____ because it comes from the heart. Now we often help Mrs Chen carry her books. We want her to know that we (9)____ care about her. She says she is lucky to have such a (10)____ class.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "for",
+            "to",
+            "with",
+            "about"
+          ],
+          "answer": "for",
+          "hint": "do something special for sb 表示为某人做特别的事。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "how",
+            "what",
+            "when",
+            "where"
+          ],
+          "answer": "how",
+          "hint": "后文说老师怎样帮助大家，用 how。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "speaking",
+            "speak",
+            "spoke",
+            "to speak"
+          ],
+          "answer": "speaking",
+          "hint": "practise doing sth 表示练习做某事。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "showed",
+            "show",
+            "were showing",
+            "have shown"
+          ],
+          "answer": "showed",
+          "hint": "On Monday morning 描述已发生的动作。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "received",
+            "receive",
+            "receiving",
+            "to receive"
+          ],
+          "answer": "received",
+          "hint": "the best gift she had ever received 用过去完成时，表示在此之前收到过的最好礼物。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "easier",
+            "harder",
+            "more difficult",
+            "busier"
+          ],
+          "answer": "easier",
+          "hint": "学生的用心让老师觉得工作更轻松。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "happiness",
+            "happy",
+            "happily",
+            "unhappy"
+          ],
+          "answer": "happiness",
+          "hint": "bring her 后接名词 happiness。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "but",
+            "and",
+            "so",
+            "or"
+          ],
+          "answer": "but",
+          "hint": "not because ... but because ... 表示转折。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "truly",
+            "true",
+            "truth",
+            "truthful"
+          ],
+          "answer": "truly",
+          "hint": "修饰动词 care，用副词 truly。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "wonderful",
+            "wonder",
+            "wondering",
+            "wonderfully"
+          ],
+          "answer": "wonderful",
+          "hint": "such a 后接形容词和名词，用 wonderful。"
+        }
+      ],
+      "hint": "按照准备礼物、播放视频、做后反思的顺序理解，并关注主谓结构。",
+      "knowledge_points": [
+        "完形填空",
+        "非谓语动词",
+        "现在完成时",
+        "宾语从句",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_011",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "成长经历型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "Learning to Cook",
+      "passage": "Last month, my parents both had to work late, so I decided to cook dinner for the family. I chose a simple dish: tomato and egg noodles. At first, I thought it would be easy. I cut the tomatoes, (1)____ two eggs and put some water on to boil. However, I forgot to add oil to the pan. Soon the eggs began to stick (2)____ it. I had to throw them away and try again. The second time, I was much (3)____. I added the tomatoes and some salt, but I accidentally put in too much salt. I tasted the soup and found it (4)____ salty. I quickly added more water and noodles. When my parents came home, they were surprised to see me (5)____ at the stove. I told them what had happened, and they laughed. We sat down and ate the noodles together. To my surprise, my parents said the meal was (6)____. My mother said, 'You made it (7)____ care, and that is what matters most.' I (8)____ that cooking is like many other skills: you cannot do it well until you practise. Since then, I (9)____ to cook a new dish every weekend. It is (10)____ more interesting than playing games.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "beat",
+            "beaten",
+            "beating",
+            "to beat"
+          ],
+          "answer": "beat",
+          "hint": "与 cut 并列，用一般过去时。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "to",
+            "in",
+            "on",
+            "at"
+          ],
+          "answer": "to",
+          "hint": "stick to sth 表示粘在物体上。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "more careful",
+            "careful",
+            "carefully",
+            "care"
+          ],
+          "answer": "more careful",
+          "hint": "much 修饰比较级，作表语用 careful 的比较级。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "too",
+            "less",
+            "not",
+            "little"
+          ],
+          "answer": "too",
+          "hint": "放盐太多，因此汤太咸。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "standing",
+            "stand",
+            "stood",
+            "to stand"
+          ],
+          "answer": "standing",
+          "hint": "see sb doing sth 表示看见某人正在做某事。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "wonderful",
+            "wonderfully",
+            "wonder",
+            "wondering"
+          ],
+          "answer": "wonderful",
+          "hint": "系动词 was 后用形容词作表语。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "with",
+            "in",
+            "for",
+            "of"
+          ],
+          "answer": "with",
+          "hint": "with care 表示认真地、用心地。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "realized",
+            "realize",
+            "realizing",
+            "realization"
+          ],
+          "answer": "realized",
+          "hint": "叙述过去领悟的道理，用一般过去时。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "have tried",
+            "tried",
+            "will try",
+            "trying"
+          ],
+          "answer": "have tried",
+          "hint": "Since then 常与现在完成时连用。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "far",
+            "many",
+            "very",
+            "more"
+          ],
+          "answer": "far",
+          "hint": "far 可修饰比较级 more interesting。"
+        }
+      ],
+      "hint": "抓住两次做菜的不同结果，体会实践与成长的主题。",
+      "knowledge_points": [
+        "完形填空",
+        "一般过去时",
+        "非谓语动词",
+        "现在完成时",
+        "比较结构"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_012",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "友谊故事型完形",
+      "freq": 5,
+      "difficulty": "easy",
+      "title": "The Missing Lunchbox",
+      "passage": "Mia could not find her lunchbox at noon. She looked in her school bag, but it was not (1)____. She asked her friends if they had seen it. Nobody knew where it was. Mia felt hungry and (2)____. Then a boy in her class came over. He handed her a sandwich and said, 'You can (3)____ mine. I have two.' Mia was surprised because she had never talked to him before. She thanked him and ate the sandwich. After lunch, Mia went to the art room. She found her lunchbox under a chair. She had left it there (4)____ the morning art class. Mia was happy, but she also felt a little ashamed. She had thought someone had taken her lunchbox, (5)____ the boy had shown her kindness instead. The next day, Mia brought two apples. She gave one to the boy and asked, 'Would you like to (6)____ with me after class?' He smiled and said yes. Now they are good (7)____. Mia learned an important lesson: do not judge people too (8)____. A small act of kindness can lead to a (9)____ friendship. Sometimes, something good can come out of a (10)____ day.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "there",
+            "here",
+            "where",
+            "then"
+          ],
+          "answer": "there",
+          "hint": "书包里没有午饭盒，用 there 表示在那里。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "worried",
+            "worry",
+            "worrying",
+            "worries"
+          ],
+          "answer": "worried",
+          "hint": "与 hungry 并列，用形容词作表语。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "have",
+            "share",
+            "sell",
+            "carry"
+          ],
+          "answer": "have",
+          "hint": "对方有两个三明治，可以请她吃一个。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "during",
+            "after",
+            "before",
+            "since"
+          ],
+          "answer": "during",
+          "hint": "在上午美术课期间落在美术室。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "but",
+            "so",
+            "because",
+            "or"
+          ],
+          "answer": "but",
+          "hint": "本以为被拿走，实际却受到帮助，形成转折。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "sit",
+            "sat",
+            "sitting",
+            "to sit"
+          ],
+          "answer": "sit",
+          "hint": "Would you like to do sth 后用动词原形。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "friends",
+            "friend",
+            "friendly",
+            "friendship"
+          ],
+          "answer": "friends",
+          "hint": "两个人是好朋友，主语复数后用 friends。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "quickly",
+            "quick",
+            "quickest",
+            "more quick"
+          ],
+          "answer": "quickly",
+          "hint": "修饰动词 judge，用副词 quickly。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "new",
+            "news",
+            "newer",
+            "newly"
+          ],
+          "answer": "new",
+          "hint": "a new friendship 表示一段新友谊。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "difficult",
+            "easy",
+            "quiet",
+            "short"
+          ],
+          "answer": "difficult",
+          "hint": "开头丢了午饭盒，说明这是不顺的一天。"
+        }
+      ],
+      "hint": "关注午饭盒失而复得的过程，以及由此建立的新友谊。",
+      "knowledge_points": [
+        "完形填空",
+        "一般过去时",
+        "宾语从句",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_013",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "旅行环保型完形",
+      "freq": 5,
+      "difficulty": "easy",
+      "title": "A Day at the Beach",
+      "passage": "Last Sunday, my family went to the beach. We left home early (1)____ we wanted to avoid the traffic. When we arrived, the sun was shining and the sea looked beautiful. My younger brother and I built a sandcastle while our parents prepared lunch. Suddenly, a large wave came in and knocked (2)____ our sandcastle. My brother looked disappointed, (3)____ I told him we could build a better one. We worked together and made a castle with a wall around it. This time, the wall protected it (4)____ the water. In the afternoon, we swam in the sea and collected shells. I found a shell that was (5)____ than my hand. My mother said we should leave it on the beach because some small sea animals might live inside. I put it back (6)____. Before we left, we picked up some rubbish (7)____ on the sand. The beach became a little (8)____. On the way home, I felt tired but happy. I realized that a good trip is not only about (9)____ fun; it is also about protecting nature (10)____ future visitors.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "because",
+            "so",
+            "but",
+            "or"
+          ],
+          "answer": "because",
+          "hint": "早出发的原因是避开交通高峰。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "down",
+            "off",
+            "up",
+            "out"
+          ],
+          "answer": "down",
+          "hint": "knock down 表示撞倒。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "弟弟失望，哥哥安慰，构成转折。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "from",
+            "against",
+            "with",
+            "for"
+          ],
+          "answer": "from",
+          "hint": "protect sth from sth 表示保护某物免受影响。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "bigger",
+            "big",
+            "biggest",
+            "more big"
+          ],
+          "answer": "bigger",
+          "hint": "than 前用比较级 bigger。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "carefully",
+            "careful",
+            "careless",
+            "care"
+          ],
+          "answer": "carefully",
+          "hint": "修饰 put back，用副词 carefully。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "left",
+            "leave",
+            "leaving",
+            "to leave"
+          ],
+          "answer": "left",
+          "hint": "过去分词 left 作后置定语，表示留在沙滩上的垃圾。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "cleaner",
+            "clean",
+            "cleanest",
+            "more clean"
+          ],
+          "answer": "cleaner",
+          "hint": "捡完垃圾后，海滩变得更干净。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "having",
+            "have",
+            "had",
+            "to have"
+          ],
+          "answer": "having",
+          "hint": "about 是介词，后接动名词 having。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "for",
+            "to",
+            "with",
+            "about"
+          ],
+          "answer": "for",
+          "hint": "为未来游客保护自然，用 for。"
+        }
+      ],
+      "hint": "按出发、海边游玩、清理垃圾的顺序理解，并注意旅行与环保的联系。",
+      "knowledge_points": [
+        "完形填空",
+        "状语从句",
+        "比较结构",
+        "非谓语动词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_014",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "校园活动型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The School Choir",
+      "passage": "Our school choir had an important competition last month. At first, I was afraid to join because I could not sing very (1)____. However, our music teacher told me that practice could make me better. We met twice a week and learned to listen to one (2)____. I also learned to (3)____ my voice with the other singers. Two weeks before the competition, one student became ill. We had to change our song. Everyone worked (4)____ to learn the new music. On the day of the competition, I felt nervous (5)____ I walked onto the stage. Then I looked at my teammates, and my fear slowly disappeared. We sang with confidence and received loud applause. (6)____ we did not win first prize, we were happy because we had done our best. Our teacher said that the experience was (7)____ than any prize. I agree. I have become more confident since I (8)____ the choir. Now I know that success comes from hard work and (9)____. When we support each other, we can make beautiful music (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "well",
+            "good",
+            "better",
+            "best"
+          ],
+          "answer": "well",
+          "hint": "修饰动词 sing，用副词 well。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "another",
+            "other",
+            "others",
+            "the other"
+          ],
+          "answer": "another",
+          "hint": "one another 表示彼此。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "mix",
+            "fix",
+            "cover",
+            "breathe"
+          ],
+          "answer": "mix",
+          "hint": "让自己的声音与其他歌手融合。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "hard",
+            "hardly",
+            "harder",
+            "hardest"
+          ],
+          "answer": "hard",
+          "hint": "work hard 表示努力练习。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "when",
+            "although",
+            "because",
+            "unless"
+          ],
+          "answer": "when",
+          "hint": "走上舞台时感到紧张，用 when 引导时间从句。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "Although",
+            "Because",
+            "If",
+            "So"
+          ],
+          "answer": "Although",
+          "hint": "没有拿一等奖却仍高兴，表示让步。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "more valuable",
+            "most valuable",
+            "valuable",
+            "value"
+          ],
+          "answer": "more valuable",
+          "hint": "than 前用 valuable 的比较级。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "joined",
+            "join",
+            "have joined",
+            "was joining"
+          ],
+          "answer": "joined",
+          "hint": "since 引导时间从句时用一般过去时。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "teamwork",
+            "team",
+            "teams",
+            "teammate"
+          ],
+          "answer": "teamwork",
+          "hint": "努力和团队合作共同带来成功。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "together",
+            "alone",
+            "apart",
+            "outside"
+          ],
+          "answer": "together",
+          "hint": "彼此支持就能一起唱出美妙音乐。"
+        }
+      ],
+      "hint": "抓住作者从害怕到自信的变化，并理解比赛结果不是唯一收获。",
+      "knowledge_points": [
+        "完形填空",
+        "状语从句",
+        "比较结构",
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_015",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "植树环保型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Tree-Planting Day",
+      "passage": "Last spring, our class took part in a tree-planting activity. We met at the foot of a hill early in the morning. A farmer taught us (1)____ to plant a young tree. First, we dug a hole (2)____ enough for the roots. Then we placed the tree in it and covered the roots with soil. We also brought water from a nearby stream. It was tiring work, but nobody (3)____. By noon, we had planted more than fifty trees. A teacher asked us to write our names on small wooden signs. She said that we could come back and see how (4)____ the trees had grown. I chose a small apple tree. (5)____ several years, I hope to return and pick an apple from it. Planting trees is important (6)____ trees provide shade and clean air. They also help hold the soil when heavy rain (7)____. Some students said that one day of work could not change the world. Our teacher replied, 'Every big change starts with a small (8)____.' I think she is right. If everyone plants (9)____ one tree, our environment will become (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "how",
+            "what",
+            "why",
+            "where"
+          ],
+          "answer": "how",
+          "hint": "how to do sth 表示如何做某事。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "deep",
+            "deeper",
+            "deeply",
+            "depth"
+          ],
+          "answer": "deep",
+          "hint": "形容词 deep 修饰 hole，deep enough 表示足够深。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "gave up",
+            "gave away",
+            "gave back",
+            "gave out"
+          ],
+          "answer": "gave up",
+          "hint": "工作虽累，但没人放弃。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "well",
+            "good",
+            "better",
+            "best"
+          ],
+          "answer": "well",
+          "hint": "修饰 grow，用副词 well。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "In",
+            "On",
+            "At",
+            "By"
+          ],
+          "answer": "In",
+          "hint": "In several years 表示几年之后。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "because",
+            "but",
+            "so",
+            "although"
+          ],
+          "answer": "because",
+          "hint": "后句说明植树重要的原因。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "comes",
+            "came",
+            "will come",
+            "coming"
+          ],
+          "answer": "comes",
+          "hint": "描述一般事实，rain 为单数，用 comes。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "step",
+            "walk",
+            "road",
+            "chance"
+          ],
+          "answer": "step",
+          "hint": "大改变始于小一步。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "just",
+            "very",
+            "too",
+            "quite"
+          ],
+          "answer": "just",
+          "hint": "just one tree 表示哪怕只种一棵树。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "greener",
+            "green",
+            "greenest",
+            "more green"
+          ],
+          "answer": "greener",
+          "hint": "环境会变得更绿，用 green 的比较级。"
+        }
+      ],
+      "hint": "按植树过程、未来期待和环保意义梳理全文。",
+      "knowledge_points": [
+        "完形填空",
+        "一般现在时",
+        "状语从句",
+        "非谓语动词",
+        "If 条件句"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_016",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "科技实践型完形",
+      "freq": 5,
+      "difficulty": "hard",
+      "title": "The Science Club Challenge",
+      "passage": "Our science club was asked to build a small car that could move without electricity. At first, the task seemed (1)____. We did not know where to begin. Our teacher advised us to break the problem into smaller parts. We spent a week researching different (2)____, such as wind and rubber bands. Then we decided to use the power of a balloon. When the air came out, it would push the car forward. We built the body from old boxes and bottle caps. During the first test, the car moved only a few centimetres, (3)____ we made a second model. This time, we made it (4)____ by using larger wheels. It travelled three metres across the floor. We were so excited that we (5)____ it again and again. On the day of the competition, our car did not win, but the judges praised our idea. They said we had shown great (6)____. Looking back, I realize that failure is not something to be afraid of. It can help us find out what needs (7)____. I also learned that a good team listens to (8)____. Since the competition, I (9)____ more interested in science than before. I am looking forward to (10)____ another challenge next year.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "impossible",
+            "easy",
+            "usual",
+            "safe"
+          ],
+          "answer": "impossible",
+          "hint": "大家不知道从哪里开始，说明任务看似无法完成。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "forms of energy",
+            "energy source",
+            "energetic",
+            "energies"
+          ],
+          "answer": "forms of energy",
+          "hint": "wind 和 rubber bands 都是不同形式的能量。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "so",
+            "but",
+            "because",
+            "unless"
+          ],
+          "answer": "so",
+          "hint": "第一次结果不理想，所以制作第二个模型。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "faster",
+            "fast",
+            "fastest",
+            "more fast"
+          ],
+          "answer": "faster",
+          "hint": "用更大的轮子让车更快，使用比较级。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "tested",
+            "test",
+            "were testing",
+            "have tested"
+          ],
+          "answer": "tested",
+          "hint": "整段叙述过去实验，用一般过去时。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "teamwork",
+            "team",
+            "teams",
+            "teammate"
+          ],
+          "answer": "teamwork",
+          "hint": "团队共同思考和制作，体现团队合作。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "improvement",
+            "improve",
+            "improving",
+            "improved"
+          ],
+          "answer": "improvement",
+          "hint": "needs 后需要名词 improvement。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "everyone",
+            "anyone",
+            "someone",
+            "no one"
+          ],
+          "answer": "everyone",
+          "hint": "好团队会听取每个人的想法。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "have become",
+            "became",
+            "will become",
+            "becoming"
+          ],
+          "answer": "have become",
+          "hint": "Since the competition 与现在完成时连用。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "accepting",
+            "accept",
+            "accepted",
+            "to accept"
+          ],
+          "answer": "accepting",
+          "hint": "look forward to doing sth。"
+        }
+      ],
+      "hint": "围绕发现问题、制作模型、测试改进和赛后反思理解文章。",
+      "knowledge_points": [
+        "完形填空",
+        "被动语态",
+        "非谓语动词",
+        "现在完成时",
+        "比较结构"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_017",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "家庭骑游型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "A Bicycle Ride in the Countryside",
+      "passage": "Last weekend, my father and I went cycling in the countryside. We chose a quiet road along a river. The air was fresh, and the trees were full (1)____ green leaves. We rode slowly because we wanted to enjoy the view. Halfway through our ride, my bike made a strange noise. I got off and found that the chain had come (2)____. I did not know how to fix it. Fortunately, a farmer nearby saw us and came over. He found a small tool and helped us repair the chain. (3)____ he finished, he gave us some water and told us about a beautiful lake ahead. We thanked him and continued our ride. The lake was even (4)____ than the photos we had seen online. We sat by the water and ate the sandwiches we had brought. On our way back, I felt a little tired, (5)____ I was proud of myself for completing the long ride. I also learned that the countryside is not only beautiful but also (6)____ because of the friendly people there. Next month, we plan (7)____ there again. This time, I will take a small repair kit (8)____ me. I also want to invite my friend to come (9)____. Sharing a journey with others can make the experience (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "of",
+            "with",
+            "in",
+            "for"
+          ],
+          "answer": "of",
+          "hint": "be full of 表示充满。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "off",
+            "out",
+            "up",
+            "down"
+          ],
+          "answer": "off",
+          "hint": "come off 表示脱落。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "After",
+            "Before",
+            "While",
+            "Unless"
+          ],
+          "answer": "After",
+          "hint": "修好车链之后，农夫给他们水。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "more beautiful",
+            "beautiful",
+            "most beautiful",
+            "beautifully"
+          ],
+          "answer": "more beautiful",
+          "hint": "even 修饰比较级，than 也提示比较。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "有点累却感到自豪，构成转折。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "peaceful",
+            "peace",
+            "peacefully",
+            "noisy"
+          ],
+          "answer": "peaceful",
+          "hint": "与 beautiful 并列，用形容词。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "to go",
+            "go",
+            "going",
+            "went"
+          ],
+          "answer": "to go",
+          "hint": "plan to do sth。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "with",
+            "on",
+            "in",
+            "for"
+          ],
+          "answer": "with",
+          "hint": "take sth with sb 表示随身携带。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "along",
+            "alone",
+            "away",
+            "across"
+          ],
+          "answer": "along",
+          "hint": "come along 表示一起来。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "better",
+            "good",
+            "best",
+            "well"
+          ],
+          "answer": "better",
+          "hint": "分享旅程会让经历更美好，用比较级。"
+        }
+      ],
+      "hint": "按骑行、故障、帮助、到达湖边和返程体会的顺序阅读。",
+      "knowledge_points": [
+        "完形填空",
+        "介词",
+        "非谓语动词",
+        "比较结构",
+        "常用短语"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_018",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "社区服务型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Volunteer Library",
+      "passage": "Last year, a small library in our community was closed because its roof was damaged in a storm. Many children loved reading there, so they were (1)____ when they heard the news. A group of students decided to help. We collected books from our neighbours and raised money to repair the roof. Some students also volunteered (2)____ the library on weekends. At first, I was not sure what I could do. My friends said that I was good at drawing, (3)____ I offered to make posters. The posters told people how they could help. (4)____ several weeks, the library was ready to open again. On the first day, many children came. One girl said she had missed the library (5)____ the time. Seeing her smile made us feel (6)____. The librarian told us that the building had been saved by the community's (7)____. I learned that young people do not have to wait (8)____ they grow up to make a difference. When we work together, even a small group can (9)____ big changes. The library is now a place where children can read, meet and (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "disappointed",
+            "disappointing",
+            "disappoint",
+            "disappointment"
+          ],
+          "answer": "disappointed",
+          "hint": "-ed 形容词表示孩子们感到失望。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "at",
+            "in",
+            "on",
+            "for"
+          ],
+          "answer": "at",
+          "hint": "volunteer at a place 表示在某地做志愿者。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "so",
+            "but",
+            "because",
+            "unless"
+          ],
+          "answer": "so",
+          "hint": "因为擅长画画，所以主动制作海报。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "After",
+            "Before",
+            "Since",
+            "During"
+          ],
+          "answer": "After",
+          "hint": "几周之后，图书馆重新开放。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "all",
+            "every",
+            "each",
+            "some"
+          ],
+          "answer": "all",
+          "hint": "all the time 表示一直、始终。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "proud",
+            "pride",
+            "proudly",
+            "pridely"
+          ],
+          "answer": "proud",
+          "hint": "feel proud 表示感到自豪。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "support",
+            "supports",
+            "supporting",
+            "supported"
+          ],
+          "answer": "support",
+          "hint": "社区的支持用名词 support。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "until",
+            "if",
+            "because",
+            "although"
+          ],
+          "answer": "until",
+          "hint": "wait until 表示一直等到。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "make",
+            "take",
+            "have",
+            "give"
+          ],
+          "answer": "make",
+          "hint": "make changes 表示带来改变。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "relax",
+            "relaxes",
+            "relaxing",
+            "relaxed"
+          ],
+          "answer": "relax",
+          "hint": "read、meet 和 relax 三个动词原形并列。"
+        }
+      ],
+      "hint": "抓住图书馆受困、学生志愿修复和重新开放的主线。",
+      "knowledge_points": [
+        "完形填空",
+        "被动语态",
+        "非谓语动词",
+        "状语从句",
+        "常用短语"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_019",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "校园体育型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The New Sports Club",
+      "passage": "This term, our school started several new sports clubs. Students were invited to try them before choosing one. On Monday, I went to the basketball club. The coach taught us how (1)____ the ball correctly. I found it difficult at first because I had never played before. On Wednesday, I visited the running club. We ran around the playground, and I soon fell (2)____ the others. I felt discouraged, (3)____ a girl slowed down and ran beside me. She said, 'Do not compare yourself with others. Just (4)____ your own progress.' Her words made me feel better. On Friday, I tried table tennis. I liked it because it needs both speed and careful (5)____. In the end, I chose the running club. Although I was not the fastest runner, I wanted to improve step by step. Now I practise twice a week and keep a record of my time. Last week, I ran one kilometre in five minutes, (6)____ was my best result so far. I have learned that a sport is not only about winning. It also helps us become stronger, more patient and more (7)____. When we face challenges with a positive attitude, we can go (8)____ than we expect. Next month, I am going to take part (9)____ a school race. I am nervous, but I am also looking forward to (10)____ it.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "to pass",
+            "pass",
+            "passing",
+            "passed"
+          ],
+          "answer": "to pass",
+          "hint": "how to do sth 表示如何做某事。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "behind",
+            "after",
+            "beside",
+            "below"
+          ],
+          "answer": "behind",
+          "hint": "fall behind 表示落后。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "but",
+            "so",
+            "because",
+            "or"
+          ],
+          "answer": "but",
+          "hint": "作者灰心，却有女孩放慢速度陪伴，形成转折。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "focus on",
+            "focus at",
+            "focus of",
+            "focus for"
+          ],
+          "answer": "focus on",
+          "hint": "focus on 表示关注。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "control",
+            "controlled",
+            "controlling",
+            "controls"
+          ],
+          "answer": "control",
+          "hint": "speed 和 control 并列，用名词。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "which",
+            "that",
+            "what",
+            "who"
+          ],
+          "answer": "which",
+          "hint": "逗号后的非限制性定语从句用 which。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "confident",
+            "confidence",
+            "confidently",
+            "confide"
+          ],
+          "answer": "confident",
+          "hint": "more 后与 patient 并列，用形容词。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "farther",
+            "farthest",
+            "far",
+            "more far"
+          ],
+          "answer": "farther",
+          "hint": "than 前用 far 的比较级 farther。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "in",
+            "on",
+            "for",
+            "at"
+          ],
+          "answer": "in",
+          "hint": "take part in 表示参加活动。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "doing",
+            "do",
+            "did",
+            "to do"
+          ],
+          "answer": "doing",
+          "hint": "look forward to doing sth。"
+        }
+      ],
+      "hint": "按尝试三个体育项目、决定加入和持续训练的顺序理解。",
+      "knowledge_points": [
+        "完形填空",
+        "定语从句",
+        "非谓语动词",
+        "比较结构",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_020",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "校园艺术型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Art Show",
+      "passage": "Every year, our school holds an art show in the hall. Last month, students were asked to create a picture about 'home'. Some painted their houses, while others drew their pets or families. I wanted to make something (1)____, so I used old newspapers to create a picture of a city. At first, the pieces of paper would not stay on the board. I tried glue, but it did not work (2)____. Then my art teacher suggested using double-sided tape. It worked perfectly. I spent three evenings (3)____ my work. On the day of the show, I was worried that people would not understand it. (4)____ a younger student stopped in front of my picture and said, 'The city looks busy, but the small park gives me a warm feeling.' I was surprised and (5)____. She had understood the message that I wanted to share. Many people voted for their favourite works, and mine won third place. However, the prize was not the best part. The best part was hearing how my picture made others (6)____. I learned that art does not have to be perfect (7)____ be meaningful. It can help people see the world in a (8)____ way. Next year, I plan (9)____ part in the show again. I also want to help other students who are (10)____ about their work.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "unusual",
+            "usually",
+            "unuseful",
+            "uselessness"
+          ],
+          "answer": "unusual",
+          "hint": "作者想做一些与众不同的作品。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "well",
+            "good",
+            "better",
+            "best"
+          ],
+          "answer": "well",
+          "hint": "修饰 work，用副词 well。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "working on",
+            "work on",
+            "worked on",
+            "to work on"
+          ],
+          "answer": "working on",
+          "hint": "spend time doing sth。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "Then",
+            "Although",
+            "Unless",
+            "Before"
+          ],
+          "answer": "Then",
+          "hint": "前文担心无人理解，接着发生转折事件。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "pleased",
+            "please",
+            "pleasing",
+            "pleasure"
+          ],
+          "answer": "pleased",
+          "hint": "与 surprised 并列，用形容词作表语。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "feel",
+            "feels",
+            "felt",
+            "feeling"
+          ],
+          "answer": "feel",
+          "hint": "make sb do sth 后用动词原形。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "to",
+            "for",
+            "of",
+            "by"
+          ],
+          "answer": "to",
+          "hint": "not have to be ... to be ... 表示不必完美才能有意义。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "different",
+            "differ",
+            "difference",
+            "differently"
+          ],
+          "answer": "different",
+          "hint": "修饰名词 way，用形容词 different。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "to take",
+            "take",
+            "took",
+            "taking"
+          ],
+          "answer": "to take",
+          "hint": "plan to take part in 表示计划参加。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "nervous",
+            "nervously",
+            "nervousness",
+            "nerves"
+          ],
+          "answer": "nervous",
+          "hint": "be nervous about 表示对某事紧张。"
+        }
+      ],
+      "hint": "按照创作、遇到困难、展出和收获启示的顺序阅读。",
+      "knowledge_points": [
+        "完形填空",
+        "非谓语动词",
+        "形容词与副词",
+        "常用短语"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_021",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "户外经历型完形",
+      "freq": 5,
+      "difficulty": "easy",
+      "title": "An Unexpected Rain",
+      "passage": "On Saturday morning, the weather forecast said it would be sunny, so Tom decided to go hiking with his dog. He packed a bottle of water, some biscuits and a map. (1)____ he left home, the sky was clear. Two hours later, he reached the top of a hill. From there, he could see the whole town. He sat down to enjoy a (2)____ view. Suddenly, dark clouds appeared, and large raindrops began to fall. Tom had forgotten to bring a raincoat. He looked around and found a small cave (3)____ a rock. He and his dog hurried inside. The rain lasted for about thirty minutes. Tom felt cold and (4)____, but he tried to stay calm. He shared a biscuit with his dog and told himself that the rain would soon stop. At last, the clouds moved away, and the sun came out again. A beautiful rainbow appeared (5)____ the town. Tom took a photo of it with his phone. On the way home, he thought about what he had learned. A sudden change in weather can be dangerous, (6)____ it can also bring unexpected beauty. Since then, Tom (7)____ to check the sky before going hiking and to carry a raincoat (8)____ him. He also knows that it is important to stay (9)____ when plans change. Sometimes, the best part of a trip is something you did not (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "Before",
+            "After",
+            "Although",
+            "Because"
+          ],
+          "answer": "Before",
+          "hint": "离家之前，天还是晴的。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "wonderful",
+            "wonderfully",
+            "wonder",
+            "wondering"
+          ],
+          "answer": "wonderful",
+          "hint": "修饰名词 view，用形容词 wonderful。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "under",
+            "between",
+            "among",
+            "across"
+          ],
+          "answer": "under",
+          "hint": "洞穴在岩石下面，用 under。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "afraid",
+            "afraidly",
+            "fear",
+            "fearing"
+          ],
+          "answer": "afraid",
+          "hint": "与 cold 并列，用形容词 afraid。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "over",
+            "into",
+            "from",
+            "of"
+          ],
+          "answer": "over",
+          "hint": "彩虹出现在小镇上空，用 over。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "unless"
+          ],
+          "answer": "but",
+          "hint": "天气突变既危险也可能带来美景，形成转折。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "has learned",
+            "learned",
+            "will learn",
+            "learning"
+          ],
+          "answer": "has learned",
+          "hint": "Since then 与现在完成时连用。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "with",
+            "on",
+            "in",
+            "by"
+          ],
+          "answer": "with",
+          "hint": "carry sth with sb 表示随身携带。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "calm",
+            "calmly",
+            "calmness",
+            "calmer"
+          ],
+          "answer": "calm",
+          "hint": "stay calm 表示保持冷静。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "expect",
+            "expected",
+            "expecting",
+            "expectation"
+          ],
+          "answer": "expect",
+          "hint": "助动词 did not 后接动词原形。"
+        }
+      ],
+      "hint": "抓住天气骤变、避雨和雨后彩虹的经过，注意情绪变化。",
+      "knowledge_points": [
+        "完形填空",
+        "现在完成时",
+        "状语从句",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_022",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "家庭记忆型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Old Bicycle",
+      "passage": "Grandpa's old bicycle had been in the garage for years. It was covered with dust, and its tyres were flat. One afternoon, I asked Grandpa if I could fix it. He smiled and said, 'If you have the patience, it can (1)____ again.' We began by cleaning every part of it. Grandpa showed me how to repair the tyres and oil the chain. I made several mistakes, (2)____ he never became angry. He simply explained what I should do next. After three days, the bicycle looked much (3)____. When I rode it for the first time, I felt proud. Grandpa said the bicycle had belonged to him (4)____ he was a boy. He had used it to go to school, visit friends and carry vegetables home. I asked him why he had kept it for so long. He said it reminded him of a time (5)____ life was simple and people helped one another. I decided to ride the bicycle to school every Friday. The bicycle is old, (6)____ it still works well. It also helps me remember that things can be given a second (7)____ if we care for them. Since I repaired it, Grandpa and I (8)____ more time together. We often go for short rides and talk (9)____ the past. The old bicycle has become something (10)____ than a means of transport.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "work",
+            "works",
+            "working",
+            "worked"
+          ],
+          "answer": "work",
+          "hint": "情态动词 can 后接动词原形。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "but",
+            "so",
+            "because",
+            "unless"
+          ],
+          "answer": "but",
+          "hint": "作者犯错，爷爷却不生气，表示转折。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "better",
+            "good",
+            "best",
+            "well"
+          ],
+          "answer": "better",
+          "hint": "much 修饰比较级，自行车看起来好多了。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "since",
+            "for",
+            "during",
+            "after"
+          ],
+          "answer": "since",
+          "hint": "since 引导时间从句，表示从爷爷小时候起。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "when",
+            "which",
+            "where",
+            "why"
+          ],
+          "answer": "when",
+          "hint": "先行词是 time，定语从句关系词用 when。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "and"
+          ],
+          "answer": "but",
+          "hint": "车虽旧却仍好用，构成转折。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "life",
+            "lives",
+            "living",
+            "lively"
+          ],
+          "answer": "life",
+          "hint": "give sth a second life 表示让旧物重获新生。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "have spent",
+            "spent",
+            "will spend",
+            "spending"
+          ],
+          "answer": "have spent",
+          "hint": "Since I repaired it 与现在完成时连用。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "about",
+            "with",
+            "for",
+            "of"
+          ],
+          "answer": "about",
+          "hint": "talk about 表示谈论。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "more",
+            "good",
+            "better",
+            "most"
+          ],
+          "answer": "more",
+          "hint": "more than 表示不仅仅是。"
+        }
+      ],
+      "hint": "关注旧自行车从闲置到修复的过程，以及它承载的家庭记忆。",
+      "knowledge_points": [
+        "完形填空",
+        "定语从句",
+        "现在完成时",
+        "比较结构",
+        "常用短语"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_023",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "劳动实践型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "A Useful Saturday Job",
+      "passage": "Teenagers often want to earn pocket money, but finding useful work is not always easy. Last summer, my neighbour Mrs Lee needed help in her flower shop on Saturdays. She asked me (1)____ her for a few hours each week. At first, I was nervous because I had never worked in a shop. My duties were simple: I watered the plants, cleaned the shelves and helped customers (2)____ the right flowers. I also learned how to wrap a bouquet and keep a record of sales. Mrs Lee treated me kindly and explained everything patiently. One day, a customer wanted to buy flowers for her mother's birthday, but she did not know which kind (3)____. I showed her some yellow roses and told her what they meant. She bought them and thanked me. That moment made me feel (4)____. The job taught me more than how to earn money. I learned to communicate with people I did not know and to solve problems (5)____ my own. I also understood that every job, even a small one, (6)____ patience and responsibility. Mrs Lee says I have improved a lot (7)____ I started. Now I save part of my pay and spend the rest on books. My parents think the experience has made me more (8)____. I am glad that I took the chance when it (9)____. A useful job can help a young person learn (10)____ about the world.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "help",
+            "to help",
+            "helping",
+            "helped"
+          ],
+          "answer": "to help",
+          "hint": "ask sb to do sth。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "choose",
+            "chose",
+            "chosen",
+            "choosing"
+          ],
+          "answer": "choose",
+          "hint": "help sb do sth 后接动词原形。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "to buy",
+            "buy",
+            "bought",
+            "buying"
+          ],
+          "answer": "to buy",
+          "hint": "疑问词 which kind 后接不定式。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "useful",
+            "usefully",
+            "usefulness",
+            "useless"
+          ],
+          "answer": "useful",
+          "hint": "feel 后接形容词作表语。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "on",
+            "in",
+            "at",
+            "by"
+          ],
+          "answer": "on",
+          "hint": "on my own 表示独自。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "requires",
+            "require",
+            "required",
+            "requiring"
+          ],
+          "answer": "requires",
+          "hint": "every job 为单数主语，一般现在时用 requires。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "since",
+            "for",
+            "before",
+            "during"
+          ],
+          "answer": "since",
+          "hint": "since 引导从句，与现在完成时搭配。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "responsible",
+            "responsibility",
+            "responsibly",
+            "respond"
+          ],
+          "answer": "responsible",
+          "hint": "more 后接形容词，表示更有责任感。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "came",
+            "comes",
+            "will come",
+            "coming"
+          ],
+          "answer": "came",
+          "hint": "Last summer 的事件已经发生，用一般过去时。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "a lot",
+            "many",
+            "much more",
+            "most"
+          ],
+          "answer": "a lot",
+          "hint": "learn a lot about 表示对某方面了解更多。"
+        }
+      ],
+      "hint": "按应聘花店工作、学习职责、帮助顾客和反思成长的顺序理解。",
+      "knowledge_points": [
+        "完形填空",
+        "非谓语动词",
+        "一般现在时",
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_024",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "自然观察型完形",
+      "freq": 5,
+      "difficulty": "easy",
+      "title": "The Bird Outside My Window",
+      "passage": "Every morning, a small bird sits on the branch outside my window. At first, I did not pay much (1)____ to it. One day, I noticed that it was building a nest. It flew back and forth, carrying dry grass and small sticks. I watched it for several days and soon became (2)____ in its work. My mother told me that the bird was getting ready for its babies. She also said we should not (3)____ the nest or make loud noises near it. I followed her advice and watched quietly (4)____ a distance. A few weeks later, I saw three baby birds in the nest. Their mouths opened wide when their mother (5)____ with food. The babies grew quickly, and one morning they began to try (6)____. Their first flight was short and awkward, but they soon became stronger. Watching them made me feel (7)____. Nature is all around us if we take time to look. Since then, I (8)____ more careful about small animals. I have also learned that animals need space and (9)____ from people. We can enjoy nature best when we watch it (10)____ and quietly.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "attention",
+            "attentive",
+            "attentively",
+            "attend"
+          ],
+          "answer": "attention",
+          "hint": "pay attention to 表示注意。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "interested",
+            "interesting",
+            "interest",
+            "interestedly"
+          ],
+          "answer": "interested",
+          "hint": "人感到感兴趣，用 be interested in。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "touch",
+            "touched",
+            "touching",
+            "to touch"
+          ],
+          "answer": "touch",
+          "hint": "情态动词 should not 后接动词原形。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "from",
+            "at",
+            "on",
+            "for"
+          ],
+          "answer": "from",
+          "hint": "from a distance 表示从远处。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "returned",
+            "return",
+            "returns",
+            "returning"
+          ],
+          "answer": "returned",
+          "hint": "叙述过去发生的事，用一般过去时。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "to fly",
+            "fly",
+            "flying",
+            "flew"
+          ],
+          "answer": "to fly",
+          "hint": "begin to do sth。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "happy",
+            "happily",
+            "happiness",
+            "unhappy"
+          ],
+          "answer": "happy",
+          "hint": "feel 后接形容词作表语。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "have become",
+            "became",
+            "will become",
+            "becoming"
+          ],
+          "answer": "have become",
+          "hint": "Since then 与现在完成时连用。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "respect",
+            "respectful",
+            "respectfully",
+            "respecting"
+          ],
+          "answer": "respect",
+          "hint": "与 space 并列，用名词 respect。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "carefully",
+            "careful",
+            "care",
+            "careless"
+          ],
+          "answer": "carefully",
+          "hint": "修饰 watch，用副词 carefully。"
+        }
+      ],
+      "hint": "按照发现鸟巢、观察幼鸟、学会尊重动物的顺序理解。",
+      "knowledge_points": [
+        "完形填空",
+        "现在完成时",
+        "非谓语动词",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_025",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "陌生人善意型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "A Small Act of Kindness",
+      "passage": "On a cold afternoon, Emma was walking home when she saw an old man standing outside a shop. He looked worried because he could not find his keys. He had searched all his pockets, (1)____ they were not there. Emma asked if she could help. The old man said he had probably left them in the shop, but he was too tired to walk back. Emma went into the shop and asked the assistant for help. (2)____, someone had found the keys and handed them to the assistant. Emma returned with the keys and gave them to the old man. His face lit up with a smile. He thanked her and said, 'A small act of kindness can mean (3)____ to someone.' Emma smiled too. She had only spent a few minutes helping, but she felt (4)____ all afternoon. Later, she told her friend what had happened. Her friend said she wanted to help others too. The two girls decided to spend an hour (5)____ at the community centre every month. They found that helping people not only made others happy but also brought them (6)____. Emma now believes that she does not need to wait for a big chance to do something (7)____. She can choose to be kind (8)____ she sees someone in need. Kindness is like a light: the more you share it, (9)____ the world around you becomes. It costs little, (10)____ its value can be great.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "找遍口袋却仍没找到，表示转折。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "Luckily",
+            "Unfortunately",
+            "Luck",
+            "Unlucky"
+          ],
+          "answer": "Luckily",
+          "hint": "钥匙已被店员收好，这是幸运的转折。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "a lot",
+            "many",
+            "much more",
+            "most"
+          ],
+          "answer": "a lot",
+          "hint": "mean a lot to sb 表示对某人很重要。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "happy",
+            "happily",
+            "happiness",
+            "unhappy"
+          ],
+          "answer": "happy",
+          "hint": "feel 后接形容词，表示感到开心。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "volunteering",
+            "volunteer",
+            "volunteered",
+            "volunteers"
+          ],
+          "answer": "volunteering",
+          "hint": "spend time doing sth。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "joy",
+            "joyful",
+            "joyfully",
+            "enjoy"
+          ],
+          "answer": "joy",
+          "hint": "bring sb 后接名词 joy。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "useful",
+            "usefully",
+            "usefulness",
+            "useless"
+          ],
+          "answer": "useful",
+          "hint": "修饰 something，用形容词 useful。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "whenever",
+            "because",
+            "though",
+            "unless"
+          ],
+          "answer": "whenever",
+          "hint": "每当看到有人需要帮助，都可以选择善良。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "brighter",
+            "bright",
+            "brightest",
+            "more bright"
+          ],
+          "answer": "brighter",
+          "hint": "the more ..., the + 比较级 结构。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "付出很少却有巨大价值，形成转折。"
+        }
+      ],
+      "hint": "从帮老人找钥匙到参与志愿活动，理解善意如何被传递。",
+      "knowledge_points": [
+        "完形填空",
+        "状语从句",
+        "比较结构",
+        "非谓语动词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_026",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "数字责任型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Broken Phone",
+      "passage": "Last Friday, Danny dropped his phone on the way to school. The screen cracked, but the phone still worked. At first, he decided not to tell his parents because he was afraid they would be (1)____. However, that evening the phone turned off and would not start again. Danny knew he could no longer hide the problem. He told his father what had happened. To his surprise, his father did not shout. Instead, he asked Danny to explain how the accident had happened. Danny admitted that he had been (2)____ while walking and had not watched the road. His father said that owning a phone required care and (3)____. They took the phone to a repair shop, where the worker said it would cost 300 yuan (4)____ fix it. Danny had saved 200 yuan for a new game, so he decided to use it for the repair. He also agreed to do extra chores to earn the rest. During the next few weeks, Danny (5)____ his phone only when necessary. He put it in a protective case and made sure to keep it (6)____ from the edge of a desk. In the end, the broken phone became a useful (7)____. Danny learned that mistakes are not terrible if we are honest and take (8)____. He also understood that a phone is a tool, not something (9)____ should control our attention. Now he uses it more carefully (10)____ ever.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "angry",
+            "angrily",
+            "anger",
+            "angrier"
+          ],
+          "answer": "angry",
+          "hint": "be 后接形容词，表示父母会生气。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "in a hurry",
+            "in hurry",
+            "with hurry",
+            "at hurry"
+          ],
+          "answer": "in a hurry",
+          "hint": "in a hurry 表示匆忙地。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "honesty",
+            "honest",
+            "honestly",
+            "dishonest"
+          ],
+          "answer": "honesty",
+          "hint": "care 与 honesty 并列，用名词。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "to fix",
+            "fix",
+            "fixing",
+            "fixed"
+          ],
+          "answer": "to fix",
+          "hint": "It costs money to do sth。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "used",
+            "use",
+            "uses",
+            "using"
+          ],
+          "answer": "used",
+          "hint": "During the next few weeks 叙述过去，用一般过去时。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "away",
+            "out",
+            "up",
+            "down"
+          ],
+          "answer": "away",
+          "hint": "keep sth away from 表示让某物远离。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "lesson",
+            "lessons",
+            "learn",
+            "learning"
+          ],
+          "answer": "lesson",
+          "hint": "a useful lesson 表示一次有用的教训。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "responsibility",
+            "responsible",
+            "responsibly",
+            "respond"
+          ],
+          "answer": "responsibility",
+          "hint": "take responsibility 表示承担责任。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "that",
+            "which",
+            "what",
+            "who"
+          ],
+          "answer": "that",
+          "hint": "修饰 something 的定语从句通常用 that。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "than",
+            "then",
+            "more",
+            "as"
+          ],
+          "answer": "than",
+          "hint": "more carefully than ever 表示比以往更小心。"
+        }
+      ],
+      "hint": "按照隐瞒、坦白、维修、反思的过程理解，关注手机带来的责任。",
+      "knowledge_points": [
+        "完形填空",
+        "定语从句",
+        "非谓语动词",
+        "比较结构",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_027",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "环保行动型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "Our Plastic Bag Challenge",
+      "passage": "Plastic bags are useful, but they can cause serious problems for the environment. They are often used for only a few minutes, (1)____ they can stay in the ground for hundreds of years. Animals may eat them by mistake, and rivers may become (2)____. To help solve the problem, our class started a plastic bag challenge. Each student received a cloth bag and promised to use it for one month. We recorded how many plastic bags we (3)____ using. Some students found the challenge easy, while others forgot their cloth bags at home. We decided to keep spare bags in our schoolbags so that we would always (4)____ one when needed. We also asked local shops to provide paper boxes instead (5)____ plastic bags for small purchases. After a month, our class had used 800 fewer plastic bags than before. The result was (6)____ than we had expected. More importantly, many parents joined the challenge after hearing about it. The experience showed us that personal choices can lead to group change. If everyone makes a small effort, the effect will become (7)____. We should not wait for others to solve environmental problems. We can start by (8)____ simple habits. The challenge has ended, (9)____ our habit of carrying cloth bags has not. We will continue to use them (10)____ we go shopping.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "but",
+            "so",
+            "because",
+            "or"
+          ],
+          "answer": "but",
+          "hint": "使用几分钟与留存数百年形成对比。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "dirty",
+            "dirt",
+            "dirtily",
+            "dirtiness"
+          ],
+          "answer": "dirty",
+          "hint": "become 后接形容词 dirty。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "stopped",
+            "stop",
+            "stopping",
+            "to stop"
+          ],
+          "answer": "stopped",
+          "hint": "记录已经停止使用的塑料袋数量，用过去时。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "have",
+            "has",
+            "had",
+            "having"
+          ],
+          "answer": "have",
+          "hint": "would always 后接动词原形。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "of",
+            "in",
+            "for",
+            "with"
+          ],
+          "answer": "of",
+          "hint": "instead of 表示代替。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "more surprising",
+            "most surprising",
+            "surprising",
+            "surprisingly"
+          ],
+          "answer": "more surprising",
+          "hint": "than 前用 surprising 的比较级。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "bigger",
+            "big",
+            "biggest",
+            "more big"
+          ],
+          "answer": "bigger",
+          "hint": "become 后接比较级，表示影响更大。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "changing",
+            "change",
+            "changed",
+            "to change"
+          ],
+          "answer": "changing",
+          "hint": "start by doing sth。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "挑战结束但习惯保留，表示转折。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "whenever",
+            "whatever",
+            "whoever",
+            "wherever"
+          ],
+          "answer": "whenever",
+          "hint": "每当购物时都使用布袋。"
+        }
+      ],
+      "hint": "围绕挑战规则、实施困难、结果和长期习惯理解全文。",
+      "knowledge_points": [
+        "完形填空",
+        "非谓语动词",
+        "比较结构",
+        "If 条件句",
+        "状语从句"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_028",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "家庭情感型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Family Dinner",
+      "passage": "Last Sunday was my parents' wedding anniversary, but they did not plan to celebrate. My sister and I wanted to do something special. We decided to cook dinner for them and asked Grandma to help. We chose dishes that my parents (1)____ to eat when they were younger. Grandma taught us how to make fish soup and vegetable dumplings. My sister was responsible (2)____ the soup, while I made the dumplings. We worked for nearly three hours. The kitchen became (3)____, and our dumplings were not all the same size. However, we enjoyed the process. When my parents came home, they were surprised to see the table (4)____ with food and flowers. We asked them to sit down and told them to relax. During dinner, my father shared stories about his first date with my mother. Everyone laughed, and the room was filled (5)____ warmth. My mother said the meal was not perfect, but it was the (6)____ gift she had received that year. After dinner, my sister and I cleaned the kitchen. It was hard work, (7)____ we did not mind. We realized that a family dinner is not just about food. It is about spending time together and showing (8)____. Since that day, we (9)____ dinner together every Sunday. The food may change, but our time together has become more (10)____ to all of us.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "used",
+            "were used",
+            "use",
+            "using"
+          ],
+          "answer": "used",
+          "hint": "used to do 表示过去常常做。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "for",
+            "on",
+            "in",
+            "of"
+          ],
+          "answer": "for",
+          "hint": "be responsible for 表示负责某事。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "messy",
+            "mess",
+            "messily",
+            "messiness"
+          ],
+          "answer": "messy",
+          "hint": "become 后接形容词，厨房变得凌乱。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "covered",
+            "cover",
+            "covering",
+            "to cover"
+          ],
+          "answer": "covered",
+          "hint": "see sth covered with ... 看见某物被覆盖。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "with",
+            "of",
+            "in",
+            "for"
+          ],
+          "answer": "with",
+          "hint": "be filled with 表示充满。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "best",
+            "better",
+            "good",
+            "well"
+          ],
+          "answer": "best",
+          "hint": "she had received that year 表示当年收到的最好的礼物。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "and"
+          ],
+          "answer": "but",
+          "hint": "工作辛苦但并不介意，表示转折。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "love",
+            "loved",
+            "lovely",
+            "lovingly"
+          ],
+          "answer": "love",
+          "hint": "showing 后接名词 love。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "have had",
+            "had",
+            "will have",
+            "having"
+          ],
+          "answer": "have had",
+          "hint": "Since that day 与现在完成时连用。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "valuable",
+            "value",
+            "valuably",
+            "values"
+          ],
+          "answer": "valuable",
+          "hint": "more 后接形容词 valuable。"
+        }
+      ],
+      "hint": "抓住准备惊喜、共享晚餐和形成家庭新惯例三个层次。",
+      "knowledge_points": [
+        "完形填空",
+        "现在完成时",
+        "非谓语动词",
+        "常用短语"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_029",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "社区助人型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Lost Dog",
+      "passage": "When eight-year-old Jack found a small dog near the park, it was shaking and wet from the rain. The dog had no collar, so Jack could not know who it (1)____ to. He took it home and dried it with an old towel. His mother gave it some food and water. The dog soon began to wag its tail, but it still seemed (2)____ its owner. Jack wanted to keep the dog, but his family already had two cats. They decided to look for its owner first. Jack made posters with a photo of the dog and wrote 'Found' in large letters. His sister helped him put the posters (3)____ trees and walls around the neighbourhood. Two days later, a woman called. She described the dog and said its name was Coco. When Coco heard the woman's voice, it ran (4)____ her at once. The woman was (5)____ with joy. She explained that Coco had run away after a loud noise scared him. Jack felt sad to say goodbye, (6)____ he knew it was the right thing to do. The woman thanked Jack and invited him to visit Coco whenever he liked. Now Jack visits Coco once a week. He has learned that helping others sometimes means giving (7)____ what you want. He also knows that an honest action can bring two people together. It is (8)____ to do the right thing than to keep something that belongs to someone else. Coco may not live with Jack, (9)____ they have become good (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "belonged",
+            "belongs",
+            "belonging",
+            "belong"
+          ],
+          "answer": "belonged",
+          "hint": "叙述过去的情况，用一般过去时。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "to miss",
+            "miss",
+            "misses",
+            "missing"
+          ],
+          "answer": "to miss",
+          "hint": "seem to do sth 表示似乎做某事。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "on",
+            "in",
+            "at",
+            "for"
+          ],
+          "answer": "on",
+          "hint": "海报贴在树和墙上，用 on。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "toward",
+            "across",
+            "between",
+            "among"
+          ],
+          "answer": "toward",
+          "hint": "狗朝主人跑去，用 toward。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "filled",
+            "fill",
+            "filling",
+            "fills"
+          ],
+          "answer": "filled",
+          "hint": "be filled with joy 表示满心喜悦。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "unless"
+          ],
+          "answer": "but",
+          "hint": "舍不得却知道应归还，表示转折。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "up",
+            "away",
+            "out",
+            "back"
+          ],
+          "answer": "up",
+          "hint": "give up 表示放弃。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "better",
+            "good",
+            "best",
+            "well"
+          ],
+          "answer": "better",
+          "hint": "than 前用比较级 better。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "but",
+            "so",
+            "because",
+            "or"
+          ],
+          "answer": "but",
+          "hint": "没住在一起却成了好朋友，表示转折。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "friends",
+            "friend",
+            "friendly",
+            "friendship"
+          ],
+          "answer": "friends",
+          "hint": "they 指 Jack 与 Coco，主语复数，用 friends。"
+        }
+      ],
+      "hint": "按发现小狗、寻找主人、物归原主和建立联系理解故事。",
+      "knowledge_points": [
+        "完形填空",
+        "一般过去时",
+        "非谓语动词",
+        "比较结构"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_030",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "户外安全型完形",
+      "freq": 5,
+      "difficulty": "hard",
+      "title": "A Walk in the Forest",
+      "passage": "During a school trip, our group went for a walk in the forest. At the beginning, we followed a clear path and listened to the guide explain how animals lived there. Then a sudden fog covered the trees, and we could no longer see the path. Some students became (1)____ and wanted to run. Our teacher told us to stay calm and wait (2)____ the guide. She also asked us to check whether everyone was present. We discovered that one student, Leo, was missing. We called his name several times, (3)____ there was no answer. The teacher asked me to stay with the group and sent two adults to look for him. We stood in a circle so that nobody (4)____ wander off. After about twenty minutes, we heard a whistle from the woods. Leo appeared with the guide. He had gone off (5)____ the path to look at a bird and become lost. The teacher reminded us that the forest is beautiful (6)____ can also be dangerous. It was the first time I (7)____ how quickly a simple walk could change. Later, the guide taught us to use a compass and to stay with the group. He said that good preparation could prevent many accidents (8)____. I now always carry a whistle and tell someone where I am going. The experience was frightening, but it taught me to be more (9)____. It also showed me that staying calm is sometimes the most important thing we can do in a (10)____ situation.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "frightened",
+            "frightening",
+            "fright",
+            "frightens"
+          ],
+          "answer": "frightened",
+          "hint": "学生感到害怕，用 -ed 形容词。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "for",
+            "to",
+            "with",
+            "by"
+          ],
+          "answer": "for",
+          "hint": "wait for sb 表示等待某人。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "喊了几次却没有回应，表示转折。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "would",
+            "will",
+            "does",
+            "did"
+          ],
+          "answer": "would",
+          "hint": "so that 从句表示过去的目的，用 would。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "off",
+            "across",
+            "through",
+            "along"
+          ],
+          "answer": "off",
+          "hint": "go off the path 表示离开小路。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "unless"
+          ],
+          "answer": "but",
+          "hint": "森林美丽却也可能危险，表示转折。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "had realized",
+            "realize",
+            "realizing",
+            "realized"
+          ],
+          "answer": "had realized",
+          "hint": "It was the first time 后接过去完成时。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "in the future",
+            "on future",
+            "at future",
+            "for future"
+          ],
+          "answer": "in the future",
+          "hint": "in the future 表示在未来。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "careful",
+            "carefully",
+            "care",
+            "careless"
+          ],
+          "answer": "careful",
+          "hint": "be more 后接形容词 careful。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "difficult",
+            "difficulty",
+            "difficultly",
+            "difficulties"
+          ],
+          "answer": "difficult",
+          "hint": "修饰 situation，用形容词 difficult。"
+        }
+      ],
+      "hint": "抓住大雾、走散、等待和获救的时间线，注意安全与冷静。",
+      "knowledge_points": [
+        "完形填空",
+        "过去完成时",
+        "状语从句",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_031",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "团队合作型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Power of Teamwork",
+      "passage": "Our class was divided into groups for a bridge-building competition. Each group received 100 straws, some string and a roll of tape. We had one hour to build a bridge that could hold as many books as possible. At first, everyone in my group had a different idea. Tom wanted a long bridge, Lily wanted a tall one, and I wanted a simple one. We argued for ten minutes and wasted (1)____ time. Then our teacher reminded us that a bridge must be strong (2)____ attractive. We stopped arguing and listened to one another. We agreed to build a simple bridge with strong supports. Tom measured the length, Lily cut the straws, and I connected the pieces. When a problem appeared, we solved it together (3)____ than blaming one another. During the final test, our bridge held twelve books. It was not the strongest one, (4)____ we were happy with our result. The winning group held twenty books, but its members had cooperated (5)____ well. We asked them how they had done it. They said they had tested many designs before choosing the best one. We realized that success usually comes from good planning and clear (6)____. We also learned that every member has something useful to offer. A team can achieve more than one person (7)____. Next time, we will start by making a plan (8)____ working. We will also give everyone a (9)____ to express their ideas. Working together can be challenging, but it can also make a difficult task (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "much",
+            "many",
+            "a number of",
+            "few"
+          ],
+          "answer": "much",
+          "hint": "time 不可数，用 much 修饰。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "as well as",
+            "as good as",
+            "instead of",
+            "because of"
+          ],
+          "answer": "as well as",
+          "hint": "桥既要牢固也要美观，as well as 表示也。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "rather",
+            "very",
+            "much",
+            "more"
+          ],
+          "answer": "rather",
+          "hint": "rather than 表示而不是。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "不是最强却满意，表示转折。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "very",
+            "too",
+            "enough",
+            "quite"
+          ],
+          "answer": "very",
+          "hint": "cooperated very well 表示合作得很好。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "communication",
+            "communicate",
+            "communicative",
+            "communicating"
+          ],
+          "answer": "communication",
+          "hint": "planning 与 communication 并列，用名词。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "alone",
+            "lonely",
+            "only",
+            "single"
+          ],
+          "answer": "alone",
+          "hint": "one person alone 表示一个人单独行动。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "before",
+            "after",
+            "during",
+            "until"
+          ],
+          "answer": "before",
+          "hint": "动手前先制定计划。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "chance",
+            "chances",
+            "chancing",
+            "chancer"
+          ],
+          "answer": "chance",
+          "hint": "give sb a chance to do sth。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "easier",
+            "easy",
+            "easiest",
+            "more easy"
+          ],
+          "answer": "easier",
+          "hint": "make a difficult task easier 表示让难事变容易。"
+        }
+      ],
+      "hint": "围绕分歧、合作、测试和反思，理解团队分工与沟通的价值。",
+      "knowledge_points": [
+        "完形填空",
+        "比较结构",
+        "非谓语动词",
+        "常用短语"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_032",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "诚实自律型完形",
+      "freq": 5,
+      "difficulty": "hard",
+      "title": "The Time I Forgot My Homework",
+      "passage": "On a busy Monday morning, I arrived at school and suddenly remembered that I had forgotten to finish my English homework. My heart began to beat (1)____. I thought about copying a classmate's answers, but I knew that would be (2)____. Instead, I told my teacher the truth as soon as class began. She asked me why I had not completed the work. I explained that I had spent the weekend helping my parents prepare for a family visit. I had planned to do the homework on Sunday evening, (3)____ I had fallen asleep early. The teacher listened carefully and said she appreciated my honesty. She gave me until lunchtime to finish the work, but she also reminded me that time management was important. During lunch, I stayed in the classroom and completed the exercises (4)____ myself. It took longer than I expected, but I felt relieved when I handed them in. The experience taught me several lessons. First, it is better to be honest than to lie. Second, I should make a plan for my homework instead of (5)____ everything until the last minute. Finally, asking for help is not a sign of weakness; it shows that we are (6)____ to improve. Since then, I (7)____ a simple checklist to keep track of my tasks. I also set a reminder on my phone. My teacher says that my work has become more (8)____ and that I have earned her trust by being honest. What happened that Monday was embarrassing, (9)____ it became an important (10)____ in my life.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "fast",
+            "faster",
+            "fastest",
+            "fasten"
+          ],
+          "answer": "fast",
+          "hint": "beat fast 表示心跳很快。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "dishonest",
+            "dishonestly",
+            "dishonesty",
+            "honest"
+          ],
+          "answer": "dishonest",
+          "hint": "be 后接形容词，抄作业是不诚实的。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "but",
+            "so",
+            "because",
+            "or"
+          ],
+          "answer": "but",
+          "hint": "本计划晚上做，却早睡，构成转折。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "by",
+            "with",
+            "on",
+            "to"
+          ],
+          "answer": "by",
+          "hint": "by myself 表示独自完成。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "leaving",
+            "leave",
+            "left",
+            "to leave"
+          ],
+          "answer": "leaving",
+          "hint": "instead of doing sth。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "willing",
+            "will",
+            "willingly",
+            "willingness"
+          ],
+          "answer": "willing",
+          "hint": "be willing to do 表示愿意做某事。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "have kept",
+            "keep",
+            "will keep",
+            "keeping"
+          ],
+          "answer": "have kept",
+          "hint": "Since then 与现在完成时搭配。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "organized",
+            "organize",
+            "organization",
+            "organizing"
+          ],
+          "answer": "organized",
+          "hint": "more 后接形容词，表示更有条理。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "and"
+          ],
+          "answer": "but",
+          "hint": "事情令人尴尬却成为重要教训，表示转折。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "lesson",
+            "lessons",
+            "learn",
+            "learned"
+          ],
+          "answer": "lesson",
+          "hint": "an important lesson 表示一堂重要的人生课。"
+        }
+      ],
+      "hint": "按忘记作业、坦白、补做和形成好习惯的顺序理解成长过程。",
+      "knowledge_points": [
+        "完形填空",
+        "过去完成时",
+        "现在完成时",
+        "非谓语动词",
+        "比较结构"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_033",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "反思成长型完形",
+      "freq": 5,
+      "difficulty": "hard",
+      "title": "Learning from Mistakes",
+      "passage": "Maria had always been one of the best students in her class, so she was confident when she entered the school science competition. She worked alone (1)____ choosing a group, believing that she could do everything better by herself. She spent weeks building a model of a water-saving garden. However, when she tested it for the first time, the water poured out of one side. She tried to fix it, (2)____ nothing seemed to work. The competition was only two days away. Feeling worried, Maria decided to ask her teacher for advice. The teacher suggested that she work with two classmates (3)____ had experience in design. At first, Maria hesitated because she had never liked working in a team. She soon found, however, that her teammates noticed problems she had missed. They changed the design together and tested it many times. On the competition day, their garden model worked (4)____. It did not win first prize, but it received a special award for creativity. More importantly, Maria learned that being good at something does not mean you should refuse help. A person (5)____ mistakes can still grow if he or she is open to change. Since the competition, Maria (6)____ more time listening to others. She has also become more patient and less afraid of (7)____. Her teacher says she has changed a great deal, not because she has become perfect, but because she is (8)____ to learn. Maria agrees. She now believes that failure is not a wall that stops us; it is a door that leads to a (9)____ way. Sometimes, the best teacher is not success, (10)____ the mistake we are willing to face.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "instead of",
+            "instead",
+            "except",
+            "besides"
+          ],
+          "answer": "instead of",
+          "hint": "她独自工作而没有选择小组，instead of 表示而不是。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "尝试修理却似乎没用，表示转折。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "who",
+            "which",
+            "what",
+            "whom"
+          ],
+          "answer": "who",
+          "hint": "先行词 classmates 指人，从句缺主语，用 who。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "perfectly",
+            "perfect",
+            "perfection",
+            "perfecting"
+          ],
+          "answer": "perfectly",
+          "hint": "修饰动词 worked，用副词 perfectly。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "who makes",
+            "who make",
+            "which makes",
+            "makes"
+          ],
+          "answer": "who makes",
+          "hint": "A person 为单数，定语从句用 who makes。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "has spent",
+            "spent",
+            "spends",
+            "spending"
+          ],
+          "answer": "has spent",
+          "hint": "Since the competition 与现在完成时搭配。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "failing",
+            "fail",
+            "to fail",
+            "fails"
+          ],
+          "answer": "failing",
+          "hint": "介词 of 后接动名词 failing。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "willing",
+            "will",
+            "willingly",
+            "willingness"
+          ],
+          "answer": "willing",
+          "hint": "be willing to do 表示愿意做某事。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "better",
+            "good",
+            "best",
+            "well"
+          ],
+          "answer": "better",
+          "hint": "失败通往更好的道路，用比较级。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "but",
+            "and",
+            "so",
+            "or"
+          ],
+          "answer": "but",
+          "hint": "not ... but ... 表示不是……而是……。"
+        }
+      ],
+      "hint": "抓住独自备赛、失败求助、团队改进和观念转变的过程。",
+      "knowledge_points": [
+        "完形填空",
+        "定语从句",
+        "非谓语动词",
+        "现在完成时",
+        "比较结构"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_034",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "校园采访型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The School Newspaper",
+      "passage": "Our school newspaper needed new members this term. I enjoy writing, so I decided to try out. On the first day, the editor gave us a task: interview someone in the school and write a short article. I chose Mr Wang, the school cook. I was nervous (1)____ I knocked on his kitchen door. He welcomed me warmly and answered all my questions. I learned that he came to work at five every morning (2)____ students could have a hot breakfast. He also told me that he tasted every new dish before serving it. When I wrote the article, I spent a long time choosing the right words. I wanted readers to understand how much work Mr Wang did every day. My editor read my first draft and said it was interesting, (3)____ too long. She showed me how to remove unnecessary sentences. After I revised it, the article was much (4)____. It appeared on the front page of our newspaper. Many students said they had never thought about the cook's work before. Some even wrote him thank-you notes. The experience taught me that everyone's story is (5)____ telling. I also learned that good writing needs both careful observation and (6)____. Since then, I (7)____ several articles for the newspaper. Each time, I try to ask better questions and listen (8)____. Being a reporter has made me more curious about the people around me. It has also helped me become a more (9)____ listener. I am looking forward to (10)____ more stories next term.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "when",
+            "before",
+            "although",
+            "unless"
+          ],
+          "answer": "when",
+          "hint": "敲门时感到紧张，用 when 引导时间从句。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "so that",
+            "in order",
+            "although",
+            "because of"
+          ],
+          "answer": "so that",
+          "hint": "so that 引导目的状语从句，表示为了让学生吃上热早餐。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "文章有趣但太长，构成转折。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "better",
+            "good",
+            "best",
+            "well"
+          ],
+          "answer": "better",
+          "hint": "much 修饰比较级，表示修改后好多了。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "worth",
+            "worthy",
+            "worthily",
+            "worthless"
+          ],
+          "answer": "worth",
+          "hint": "be worth doing sth 表示值得做某事。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "revision",
+            "revise",
+            "revised",
+            "revising"
+          ],
+          "answer": "revision",
+          "hint": "careful observation 和 revision 并列，用名词。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "have written",
+            "wrote",
+            "will write",
+            "writing"
+          ],
+          "answer": "have written",
+          "hint": "Since then 与现在完成时连用。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "carefully",
+            "careful",
+            "care",
+            "careless"
+          ],
+          "answer": "carefully",
+          "hint": "修饰 listen，用副词 carefully。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "patient",
+            "patience",
+            "patiently",
+            "impatient"
+          ],
+          "answer": "patient",
+          "hint": "more 后接形容词 patient。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "writing",
+            "write",
+            "wrote",
+            "to write"
+          ],
+          "answer": "writing",
+          "hint": "look forward to doing sth。"
+        }
+      ],
+      "hint": "按接受任务、采访、修改文章和持续写作的顺序理解。",
+      "knowledge_points": [
+        "完形填空",
+        "状语从句",
+        "非谓语动词",
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_035",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "日常助人型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "A Helping Hand at the Market",
+      "passage": "On Saturday morning, my mother asked me to go to the market with her. I usually dislike shopping, (1)____ I agreed because she looked tired. When we arrived, the market was crowded. My mother had forgotten to bring a shopping bag, so I offered to carry the things in my hands. We bought vegetables, fruit and some fish. On our way out, we saw an old woman trying to carry two heavy boxes. Nobody stopped to help her. I asked my mother if we could (2)____ her. She smiled and said yes. We put our bags down and carried one box each. The woman told us that she sold homemade cakes (3)____ support her family. She gave us a small box of cakes to thank us, but we politely said (4)____. In the end, we accepted two cakes because we did not want to make her uncomfortable. When I got home, I realized that shopping had not been boring after all. I had learned to notice people around me and to offer help (5)____ being asked. What was a simple morning for many people was much (6)____ for the old woman. I also understood that helping others does not require a lot of money or time. Sometimes, it just requires us to (7)____ our eyes. Since that day, I (8)____ my mother more often and look for chances to help others. My mother says I have become more (9)____. I think the kindness of others has also made the market a (10)____ place.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "平时不喜欢购物，却因妈妈疲惫而同意，表示转折。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "help",
+            "to help",
+            "helping",
+            "helped"
+          ],
+          "answer": "help",
+          "hint": "could 后接动词原形。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "in order to",
+            "in order",
+            "so",
+            "because"
+          ],
+          "answer": "in order to",
+          "hint": "in order to do 表示为了做某事。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "no",
+            "not",
+            "none",
+            "neither"
+          ],
+          "answer": "no",
+          "hint": "say no 表示礼貌拒绝。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "without",
+            "before",
+            "after",
+            "since"
+          ],
+          "answer": "without",
+          "hint": "without being asked 表示没有被要求就主动帮助。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "more meaningful",
+            "most meaningful",
+            "meaningful",
+            "meaningfully"
+          ],
+          "answer": "more meaningful",
+          "hint": "much 修饰比较级 more meaningful。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "open",
+            "opened",
+            "opening",
+            "to open"
+          ],
+          "answer": "open",
+          "hint": "requires us to open 后用动词原形。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "have helped",
+            "help",
+            "will help",
+            "helping"
+          ],
+          "answer": "have helped",
+          "hint": "Since that day 与现在完成时连用。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "thoughtful",
+            "thought",
+            "thoughtfully",
+            "thoughtless"
+          ],
+          "answer": "thoughtful",
+          "hint": "more 后接形容词 thoughtful。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "friendlier",
+            "friend",
+            "friendly",
+            "friendship"
+          ],
+          "answer": "friendlier",
+          "hint": "a ... place 表示更友善的地方，用比较级 friendlier。"
+        }
+      ],
+      "hint": "围绕去市场、主动帮助老人和回家反思的过程阅读。",
+      "knowledge_points": [
+        "完形填空",
+        "非谓语动词",
+        "现在完成时",
+        "比较结构",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_036",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "认识他人型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Hidden Talent",
+      "passage": "Everyone in my class knew that Peter was quiet. He seldom raised his hand in class or spoke during group discussions. Some students thought he had no special talent, (1)____ they were wrong. One day, our music teacher was looking for someone to play the piano for a school event. She asked if anyone could play, but nobody answered. Then Peter slowly raised his hand. Everyone looked (2)____ him in surprise. That afternoon, he sat down in front of the piano and started to play. The music was so beautiful that the room became (3)____. For several minutes, nobody moved or spoke. When Peter finished, we all clapped loudly. He smiled shyly and said he had practised every day (4)____ he was six. From that day on, we stopped judging people only by how much they spoke. We learned that a quiet person may have abilities that are not (5)____. Peter soon joined the school music club and made new friends there. However, he remains a quiet person. We now understand that being quiet does not mean being (6)____. It can simply mean that a person prefers to express himself in a (7)____ way. Peter's talent changed how we saw him, and it also changed how we saw ourselves. We should give everyone time and space to show what they can (8)____. Since the performance, I (9)____ to listen more carefully before forming an opinion. I also learned that true friendship begins with respect and (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "but",
+            "so",
+            "because",
+            "or"
+          ],
+          "answer": "but",
+          "hint": "他们以为 Peter 没有才能，但他们错了，表示转折。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "at",
+            "for",
+            "with",
+            "after"
+          ],
+          "answer": "at",
+          "hint": "look at sb 表示看着某人。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "silent",
+            "silence",
+            "silently",
+            "loud"
+          ],
+          "answer": "silent",
+          "hint": "become 后接形容词，表示安静下来。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "since",
+            "when",
+            "for",
+            "after"
+          ],
+          "answer": "since",
+          "hint": "since 引导时间从句，表示从六岁起。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "hidden",
+            "shown",
+            "hiding",
+            "show"
+          ],
+          "answer": "hidden",
+          "hint": "才能不是隐藏的，hidden 表示隐藏的。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "unfriendly",
+            "unfriend",
+            "friendly",
+            "friendship"
+          ],
+          "answer": "unfriendly",
+          "hint": "安静不等于不友好，用形容词 unfriendly。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "different",
+            "differently",
+            "difference",
+            "differ"
+          ],
+          "answer": "different",
+          "hint": "修饰名词 way，用形容词 different。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "do",
+            "did",
+            "doing",
+            "done"
+          ],
+          "answer": "do",
+          "hint": "情态动词 can 后接动词原形。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "have tried",
+            "tried",
+            "will try",
+            "trying"
+          ],
+          "answer": "have tried",
+          "hint": "Since the performance 与现在完成时连用。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "understanding",
+            "understand",
+            "understood",
+            "understandable"
+          ],
+          "answer": "understanding",
+          "hint": "respect and understanding 两个名词并列。"
+        }
+      ],
+      "hint": "抓住大家对 Peter 的看法从误解到理解的变化。",
+      "knowledge_points": [
+        "完形填空",
+        "现在完成时",
+        "形容词与副词",
+        "常用短语"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_037",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "健康生活型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "Too Much Screen Time",
+      "passage": "Many teenagers spend several hours a day looking at screens. They use phones to chat with friends, watch videos and play games. Screens can be helpful, but too much screen time may cause (1)____ problems. People may get headaches or find it difficult to sleep. They may also become less (2)____ because they sit for a long time. Last year, I often stayed up late watching short videos. In the morning, I felt (3)____ and could not focus in class. My mother noticed this and suggested a family rule. After 9 p.m., everyone would put phones in a box and spend time together. At first, I thought the rule was unfair, (4)____ I agreed to try it for a week. The first two evenings were difficult. I kept reaching for my phone without thinking. Soon, however, I found other ways to relax. I read books, played chess with my father and walked around the park. After a week, I was sleeping much (5)____. The rule did not mean that we had to stop using phones. It simply reminded us to manage our time (6)____. Since then, I (7)____ a clear limit for daily screen time. I also turn off notifications while I am studying so that I can concentrate (8)____. Technology should serve us, (9)____ we should not become its slave. A little planning can help us enjoy screens without (10)____ our health.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "health",
+            "healthy",
+            "healthily",
+            "healthful"
+          ],
+          "answer": "health",
+          "hint": "health problems 表示健康问题，用名词修饰。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "active",
+            "actively",
+            "activity",
+            "inactive"
+          ],
+          "answer": "active",
+          "hint": "become less active 表示变得不那么活跃。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "tired",
+            "tiring",
+            "tire",
+            "tiredness"
+          ],
+          "answer": "tired",
+          "hint": "人感到疲倦，用 -ed 形容词。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "觉得不公平却同意尝试，表示转折。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "better",
+            "good",
+            "best",
+            "well"
+          ],
+          "answer": "better",
+          "hint": "much 修饰比较级 better。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "wisely",
+            "wise",
+            "wisdom",
+            "wiseness"
+          ],
+          "answer": "wisely",
+          "hint": "修饰 manage，用副词 wisely。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "have set",
+            "set",
+            "will set",
+            "setting"
+          ],
+          "answer": "have set",
+          "hint": "Since then 与现在完成时连用。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "well",
+            "good",
+            "better",
+            "best"
+          ],
+          "answer": "well",
+          "hint": "修饰 concentrate，用副词 well。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "科技应服务我们，但我们不应被其控制，表示转折。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "hurting",
+            "hurt",
+            "hurts",
+            "to hurt"
+          ],
+          "answer": "hurting",
+          "hint": "without 是介词，后接动名词 hurting。"
+        }
+      ],
+      "hint": "围绕屏幕使用的利与弊、家庭规则和习惯改变理解全文。",
+      "knowledge_points": [
+        "完形填空",
+        "非谓语动词",
+        "现在完成时",
+        "比较结构",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_038",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "博物馆研学型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The Class Trip to the Museum",
+      "passage": "Last Friday, our class visited the city history museum. We had studied ancient China for several weeks, so everyone was excited to see the real objects. A guide met us at the entrance and explained the rules. We were told not to touch anything (1)____ it was inside a glass case. Our first stop was a room filled with old coins and bowls. I was surprised to learn that some of them (2)____ more than 2,000 years old. Then we visited a room about the Silk Road. The guide told us how traders had carried silk, tea and ideas (3)____ different countries. I tried to imagine what life was like for them. Later, we took part in a workshop and learned how paper was made. The process was more complex than I had (4)____. We had to soak the paper, press it flat and wait for it to dry. It was hard work, (5)____ I enjoyed it. At the end of the trip, our teacher asked us to write down the most interesting thing we had learned. I wrote that history is not just about dates. It is about the lives of people who lived (6)____ us. I also understood that objects in a museum can tell (7)____ stories than books alone. Since the trip, I (8)____ more interested in history. I have borrowed two books from the library and plan (9)____ them before the next holiday. A museum is not a quiet place full of old things; it is a place where the past can (10)____ alive.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "unless",
+            "although",
+            "because",
+            "if"
+          ],
+          "answer": "unless",
+          "hint": "除非在玻璃柜里，否则不能触摸，用 unless。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "were",
+            "was",
+            "are",
+            "have been"
+          ],
+          "answer": "were",
+          "hint": "some of them 作复数主语，过去描述年龄用 were。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "to",
+            "in",
+            "for",
+            "with"
+          ],
+          "answer": "to",
+          "hint": "carry sth to a place 表示运往某地。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "expected",
+            "expect",
+            "expecting",
+            "expectation"
+          ],
+          "answer": "expected",
+          "hint": "than I had expected 表示比预想的更复杂。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "工作辛苦却喜欢，表示转折。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "before",
+            "after",
+            "with",
+            "between"
+          ],
+          "answer": "before",
+          "hint": "历史讲的是生活在我们之前的人。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "better",
+            "good",
+            "best",
+            "well"
+          ],
+          "answer": "better",
+          "hint": "than 前用 good 的比较级 better。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "have become",
+            "became",
+            "will become",
+            "becoming"
+          ],
+          "answer": "have become",
+          "hint": "Since the trip 与现在完成时连用。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "to read",
+            "read",
+            "reading",
+            "reads"
+          ],
+          "answer": "to read",
+          "hint": "plan to do sth。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "keep",
+            "kept",
+            "keeping",
+            "to keep"
+          ],
+          "answer": "keep",
+          "hint": "情态动词 can 后接动词原形。"
+        }
+      ],
+      "hint": "按照参观文物、了解丝绸之路、体验造纸和反思历史的顺序阅读。",
+      "knowledge_points": [
+        "完形填空",
+        "被动语态",
+        "比较结构",
+        "非谓语动词",
+        "现在完成时"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_039",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "邻里相处型完形",
+      "freq": 5,
+      "difficulty": "medium",
+      "title": "The New Neighbour",
+      "passage": "A new family moved into the house next door last month. They had a son named Leo, who was about my age. On the first day, I saw him carrying boxes and wanted to say hello, but I was too shy. A few days later, our school football flew over the fence into his garden. I had to knock on their door and ask for it. Leo opened the door and smiled. He found the ball and invited me to play with him. I soon discovered that he was friendly and had a good sense of (1)____. While we were playing, he told me that his family had moved because of his father's new job. He felt (2)____ because he did not know anyone here. I promised to introduce him to my friends. The next day, I invited him to join our football game. At first, he was a little (3)____, but our team welcomed him. After the game, we showed him the way to the library and the park. A week later, Leo said he had begun to feel at home. His mother thanked us for helping him settle (4)____. I realized that a welcoming attitude can make a big difference. Moving to a new place can be difficult, (5)____ a friendly neighbour can make it easier. Since Leo arrived, our neighbourhood has become more (6)____. We often study or play together after school. I am glad that I stepped outside my comfort zone and said hello. Sometimes, the best friendships begin with a simple (7)____. Now I always try to welcome new classmates and neighbours. I want them to feel that they (8)____ part of our community. A kind word may seem small, (9)____ it can have a lasting (10)____.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "humor",
+            "humorous",
+            "humorously",
+            "humorless"
+          ],
+          "answer": "humor",
+          "hint": "a sense of humor 表示幽默感。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "lonely",
+            "alone",
+            "quiet",
+            "angry"
+          ],
+          "answer": "lonely",
+          "hint": "来到新地方不认识人，感到孤独。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "nervous",
+            "nervously",
+            "nervousness",
+            "nerves"
+          ],
+          "answer": "nervous",
+          "hint": "a little 后接形容词，表示有点紧张。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "in",
+            "on",
+            "at",
+            "for"
+          ],
+          "answer": "in",
+          "hint": "settle in 表示适应新环境。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "搬家困难，但友善邻居能帮忙，表示转折。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "welcoming",
+            "welcome",
+            "welcomed",
+            "welcomes"
+          ],
+          "answer": "welcoming",
+          "hint": "become more welcoming 表示变得更热情友善。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "greeting",
+            "greet",
+            "greeted",
+            "greetings"
+          ],
+          "answer": "greeting",
+          "hint": "a simple greeting 表示一句简单问候。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "are",
+            "were",
+            "will be",
+            "being"
+          ],
+          "answer": "are",
+          "hint": "现在希望大家感到自己是社区一员，用 are。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "一句话看似微小却影响长久，表示转折。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "effect",
+            "affect",
+            "effective",
+            "effectively"
+          ],
+          "answer": "effect",
+          "hint": "a lasting effect 表示持久影响。"
+        }
+      ],
+      "hint": "按新邻居到来、借球相识、融入集体和社区变化理解全文。",
+      "knowledge_points": [
+        "完形填空",
+        "一般过去时",
+        "形容词与副词",
+        "常用短语"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_040",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "选择与诚信型完形",
+      "freq": 5,
+      "difficulty": "hard",
+      "title": "A Decision at the Crossroads",
+      "passage": "During the final week of term, three of my classmates invited me to join them at an amusement park on a school day. They planned to tell their parents that they were studying at my house. At first, I felt (1)____ to go. I had never missed a school day, and I knew it was wrong, but I did not want to be left out. That evening, I imagined my parents receiving a call from the school. I also thought about how (2)____ they would feel if they learned that I had lied. The next morning, I told my friends that I could not go. They tried to persuade me, saying that one missed day would not (3)____. I replied that it was not about the number of classes, but about trust. Two of them became angry, (4)____ one later admitted that he had felt uncomfortable too. We went to school as usual and spoke to our teacher about the plan. She did not punish us harshly; instead, she praised us for making the right decision (5)____ it was difficult. That weekend, our family did something together, and I felt (6)____ than I would have at the park. I learned that true friends should not make us choose between their approval and our values. It is not always easy to stand up for what is right, (7)____ it becomes easier each time we try. Since that day, I (8)____ more careful about the choices I make. I also understand that honesty is not only about telling the truth; it is about (9)____ others to trust us. A good decision may not make everyone happy, but it can give us peace of mind. That, I believe, is (10)____ than temporary excitement.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "tempted",
+            "tempting",
+            "temptation",
+            "tempt"
+          ],
+          "answer": "tempted",
+          "hint": "feel tempted to do 表示很想做某事。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "disappointed",
+            "disappointing",
+            "disappoint",
+            "disappointment"
+          ],
+          "answer": "disappointed",
+          "hint": "父母知道撒谎后会感到失望，用 -ed 形容词。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "matter",
+            "matters",
+            "mattered",
+            "mattering"
+          ],
+          "answer": "matter",
+          "hint": "would not matter 表示不会有多大影响。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "两人生气，其中一人后来承认不安，表示转折。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "although",
+            "because",
+            "unless",
+            "if"
+          ],
+          "answer": "although",
+          "hint": "虽然做决定很难，但仍表扬正确选择。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "prouder",
+            "proud",
+            "proudest",
+            "proudly"
+          ],
+          "answer": "prouder",
+          "hint": "than 前用比较级 prouder。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "and"
+          ],
+          "answer": "but",
+          "hint": "坚持正确不容易，但每次都会更容易，表示转折。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "have become",
+            "became",
+            "will become",
+            "becoming"
+          ],
+          "answer": "have become",
+          "hint": "Since that day 与现在完成时连用。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "encouraging",
+            "encourage",
+            "encouraged",
+            "to encourage"
+          ],
+          "answer": "encouraging",
+          "hint": "about 是介词，后接动名词 encouraging。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "more valuable",
+            "most valuable",
+            "valuable",
+            "value"
+          ],
+          "answer": "more valuable",
+          "hint": "than 前用 valuable 的比较级。"
+        }
+      ],
+      "hint": "抓住同伴邀约、道德冲突、拒绝和反思的决定过程。",
+      "knowledge_points": [
+        "完形填空",
+        "非谓语动词",
+        "现在完成时",
+        "比较结构",
+        "状语从句"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_041",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "海洋环保型完形",
+      "freq": 5,
+      "difficulty": "hard",
+      "title": "A Message from the Ocean",
+      "passage": "Last summer, my uncle took me to a beach where he had worked as a volunteer. At first, I only saw the beautiful blue sea and the soft sand. Then I noticed pieces of plastic (1)____ among the rocks. My uncle explained that much of this rubbish had come from towns near the river. Some people throw waste into streams without thinking, and the water carries it to the sea. Sea animals may mistake the plastic for food, (2)____ they can become seriously ill. I had known about pollution before, (3)____ I had never seen its effects so clearly. We spent the morning collecting rubbish. By noon, we had filled six large bags. A small sign on the beach said that (4)____ cared for the ocean could make a difference. I used to think my actions were too small to matter. Now I understand that millions of small actions can become (5)____. One person's careless choice may harm an animal many kilometres away. Since that day, I (6)____ to use less single-use plastic. I also take my own bag when I go shopping and tell friends (7)____ they can help. Protecting the environment is not a task for someone else; it is a choice for everyone. The ocean gives us beauty and life, and it deserves our (8)____. If we wait until the damage is obvious, it may be too late. The message from the sea is clear: every action leaves a footprint, and we should make that footprint (9)____ than it was yesterday. I left the beach tired, but I felt more (10)____ about the world I share with others.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "lying",
+            "laid",
+            "lain",
+            "laying"
+          ],
+          "answer": "lying",
+          "hint": "塑料躺在岩石间，用 lie 的现在分词 lying。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "so",
+            "but",
+            "or",
+            "because"
+          ],
+          "answer": "so",
+          "hint": "动物误食塑料，所以可能生病，表示结果。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "and"
+          ],
+          "answer": "but",
+          "hint": "以前知道污染，却没有如此直观地见过，表示转折。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "who",
+            "which",
+            "what",
+            "whom"
+          ],
+          "answer": "who",
+          "hint": "先行词 anyone 指人，从句缺主语，用 who。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "powerful",
+            "power",
+            "powerfully",
+            "powers"
+          ],
+          "answer": "powerful",
+          "hint": "become 后接形容词 powerful。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "have decided",
+            "decided",
+            "will decide",
+            "deciding"
+          ],
+          "answer": "have decided",
+          "hint": "Since that day 与现在完成时连用。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "how",
+            "what",
+            "why",
+            "where"
+          ],
+          "answer": "how",
+          "hint": "tell friends how they can help 表示告诉他们如何帮助。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "respect",
+            "respectful",
+            "respectfully",
+            "respecting"
+          ],
+          "answer": "respect",
+          "hint": "our 后接名词 respect。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "lighter",
+            "light",
+            "lightest",
+            "more light"
+          ],
+          "answer": "lighter",
+          "hint": "than 前用 light 的比较级，表示足迹更轻。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "responsible",
+            "responsibility",
+            "responsibly",
+            "respond"
+          ],
+          "answer": "responsible",
+          "hint": "feel more responsible about 表示更有责任感。"
+        }
+      ],
+      "hint": "按照海滩见闻、清理塑料、个人行动和环保反思的顺序阅读。",
+      "knowledge_points": [
+        "完形填空",
+        "定语从句",
+        "现在完成时",
+        "比较结构",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_042",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "坚持挑战型完形",
+      "freq": 5,
+      "difficulty": "hard",
+      "title": "The Competition I Almost Quit",
+      "passage": "Last year, I entered a public speaking competition for the first time. I worked hard on my speech for several weeks. However, on the morning of the competition, I woke up with a sore throat. My voice was so weak that I could hardly speak. I immediately thought about giving up. My mother made me some warm tea and asked me whether I would regret (1)____ if I did not try. I hesitated. I knew the answer was yes. When I arrived at the hall, I saw that the other speakers had practised even (2)____ than I had. My confidence fell. My name was called, and I walked to the front. For a few seconds, I forgot the first sentence. I took a deep breath and looked at my mother in the audience. Her calm smile reminded me that the goal was not to be perfect, but to do my best. I began to speak slowly. My voice was not strong, (3)____ my message was clear. When I finished, the audience clapped (4)____. I did not win first prize, but I did not finish last either. More importantly, I learned that fear is often (5)____ than the challenge itself. (6)____ I had given up, I would never have discovered that I could face such a situation. Since the competition, I (7)____ more confident when speaking in front of others. I have also joined the school debate club and volunteered (8)____ at a class meeting. I still feel nervous sometimes, but I no longer let fear make my decisions. If we wait until we feel completely ready, we may never (9)____. Courage does not mean we are not afraid; it means we act (10)____ our fear.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "not trying",
+            "not try",
+            "to not trying",
+            "not to trying"
+          ],
+          "answer": "not trying",
+          "hint": "regret doing 表示后悔做过某事，否定用 not trying。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "harder",
+            "hard",
+            "hardest",
+            "more hard"
+          ],
+          "answer": "harder",
+          "hint": "even 和 than 提示用比较级 harder。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "声音不强却表达清晰，表示转折。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "loudly",
+            "loud",
+            "louder",
+            "loudness"
+          ],
+          "answer": "loudly",
+          "hint": "修饰 clapped，用副词 loudly。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "stronger",
+            "strong",
+            "strongest",
+            "strongly"
+          ],
+          "answer": "stronger",
+          "hint": "than 前用 strong 的比较级，表示恐惧常比挑战更强。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "If",
+            "Although",
+            "Unless",
+            "Because"
+          ],
+          "answer": "If",
+          "hint": "If I had given up 是虚拟条件句。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "have felt",
+            "felt",
+            "will feel",
+            "feeling"
+          ],
+          "answer": "have felt",
+          "hint": "Since the competition 与现在完成时连用。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "to speak",
+            "speak",
+            "spoke",
+            "speaking"
+          ],
+          "answer": "to speak",
+          "hint": "volunteer to do sth。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "begin",
+            "began",
+            "begun",
+            "beginning"
+          ],
+          "answer": "begin",
+          "hint": "情态动词 may never 后接动词原形。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "despite",
+            "in spite",
+            "because",
+            "without"
+          ],
+          "answer": "despite",
+          "hint": "despite our fear 表示尽管害怕。"
+        }
+      ],
+      "hint": "按准备比赛、身体不适、临场紧张和赛后成长的线索理解。",
+      "knowledge_points": [
+        "完形填空",
+        "If 条件句",
+        "非谓语动词",
+        "现在完成时",
+        "比较结构"
+      ],
+      "src": "codex_expand_2026_11"
+    },
+    {
+      "id": "cz_043",
+      "type": "cloze",
+      "grade": "L2",
+      "topic": "理解友谊型完形",
+      "freq": 5,
+      "difficulty": "hard",
+      "title": "What I Learned from a Quiet Friend",
+      "passage": "My friend Ethan almost never talks in class. For a long time, I thought he was uninterested in other people. One afternoon, I was sitting alone in the library because I had done badly in a maths test. Ethan came over and quietly placed a note beside my book. It said, 'Everyone has difficult days. You are not alone.' I was surprised, not only by the note, but also by the fact that he had noticed how I (1)____. I asked him how he had recognized my feelings so quickly. He said that he often sat quietly and watched people because it helped him understand (2)____ they needed. I realized that I had judged him (3)____. I had assumed that silence meant coldness, (4)____ it can actually show careful attention. After that day, Ethan and I began to meet after school. I did most of the talking, but he listened (5)____ and remembered details that others forgot. When I was worried, he did not always offer advice. Sometimes he simply stayed with me until I felt (6)____. His way of showing care was different, but it was just as (7)____ as a hug or a cheerful word. Since we became friends, I (8)____ to appreciate different ways of expressing kindness. I have also stopped making quick judgments about people who are quiet. A person's silence may hide a warm heart, and friendship can grow when we are willing (9)____ and understand. In a noisy world, listening can be one of the (10)____ gifts we give each other.",
+      "blanks": [
+        {
+          "n": 1,
+          "options": [
+            "felt",
+            "feel",
+            "feeling",
+            "feels"
+          ],
+          "answer": "felt",
+          "hint": "how I felt 表示我当时感受如何。"
+        },
+        {
+          "n": 2,
+          "options": [
+            "what",
+            "why",
+            "when",
+            "where"
+          ],
+          "answer": "what",
+          "hint": "understand what they needed 表示理解他们需要什么。"
+        },
+        {
+          "n": 3,
+          "options": [
+            "unfairly",
+            "fair",
+            "fairly",
+            "fairness"
+          ],
+          "answer": "unfairly",
+          "hint": "修饰 judged，表示不公平地判断。"
+        },
+        {
+          "n": 4,
+          "options": [
+            "but",
+            "so",
+            "or",
+            "because"
+          ],
+          "answer": "but",
+          "hint": "原以为沉默冷漠，实际可表示关注，形成转折。"
+        },
+        {
+          "n": 5,
+          "options": [
+            "carefully",
+            "careful",
+            "care",
+            "careless"
+          ],
+          "answer": "carefully",
+          "hint": "修饰 listened，用副词 carefully。"
+        },
+        {
+          "n": 6,
+          "options": [
+            "better",
+            "good",
+            "best",
+            "well"
+          ],
+          "answer": "better",
+          "hint": "feel better 表示感觉好转。"
+        },
+        {
+          "n": 7,
+          "options": [
+            "powerful",
+            "power",
+            "powerfully",
+            "powerfulness"
+          ],
+          "answer": "powerful",
+          "hint": "as ... as 中间用形容词原级 powerful。"
+        },
+        {
+          "n": 8,
+          "options": [
+            "have learned",
+            "learned",
+            "will learn",
+            "learning"
+          ],
+          "answer": "have learned",
+          "hint": "Since we became friends 与现在完成时连用。"
+        },
+        {
+          "n": 9,
+          "options": [
+            "to listen",
+            "listen",
+            "listened",
+            "listening"
+          ],
+          "answer": "to listen",
+          "hint": "be willing to do sth。"
+        },
+        {
+          "n": 10,
+          "options": [
+            "greatest",
+            "great",
+            "greater",
+            "more great"
+          ],
+          "answer": "greatest",
+          "hint": "one of the 后接最高级 greatest。"
+        }
+      ],
+      "hint": "围绕对沉默朋友的误解、一张纸条和相处后的重新认识理解文章。",
+      "knowledge_points": [
+        "完形填空",
+        "宾语从句",
+        "现在完成时",
+        "比较结构",
+        "形容词与副词"
+      ],
+      "src": "codex_expand_2026_11"
     }
   ]
 }

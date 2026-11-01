@@ -121,7 +121,14 @@ def test_question_bank_has_enough_material_for_repeated_checkins():
     # 失分点专项：每个题型至少够抽 1 次（10 题），完形按篇算
     for item_type in MCQ_DRILL_TYPES:
         assert len(_items(item_type)) >= 20, item_type
-    assert len(_items(CLOZE_TYPE)) >= 3
+    cloze_items = _items(CLOZE_TYPE)
+    assert len(cloze_items) >= 43
+    # 2026-11 扩充批至少 40 篇，且八年级中档必须足够轮换，避免反复抽到同一篇
+    expanded_cloze = [item for item in cloze_items
+                      if item.get("src") == "codex_expand_2026_11"]
+    assert len(expanded_cloze) >= 40
+    assert sum(item["grade"] == "L2" and item["difficulty"] == "medium"
+               for item in cloze_items) >= 20
 
 
 def test_translate_and_tense_are_balanced_across_difficulties():
@@ -227,8 +234,13 @@ def test_practice_item_required_fields_are_complete():
                 marks = [int(x) for x in re.findall(r"\((\d+)\)\s*_+", item["passage"])]
                 nums = [blank.get("n") for blank in item["blanks"]]
                 assert marks == nums, f"{item['id']} 正文空位标记与 blanks 编号不一致"
+                assert len(item["blanks"]) == 10, f"{item['id']} 完形填空不是 10 个空"
                 for blank in item["blanks"]:
                     assert blank.get("hint"), f"{item['id']} 第 {blank.get('n')} 空缺提示"
+                    assert len(blank.get("options", [])) == 4, \
+                        f"{item['id']} 第 {blank.get('n')} 空选项不是 4 个"
+                    assert len(set(blank["options"])) == 4, \
+                        f"{item['id']} 第 {blank.get('n')} 空选项有重复"
                     assert blank.get("answer") in blank.get("options", []), \
                         f"{item['id']} 第 {blank.get('n')} 空答案不在选项里"
 
