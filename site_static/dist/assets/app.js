@@ -2884,38 +2884,102 @@ document.addEventListener('input', function(e) {
   function renderTranslateEn(app) {
     _rng = seededRandom(makeSeed('translate_en'));
     const bank = translationPoolForDifficulty();
-    if (!bank.length) { navigate('home'); return; }
-    const isClause = q => (q.topic || '').includes('从句') || ['转折', '目的', '结果', '指代', '句子关系'].includes(q.topic)
-      || (q.knowledge_points || []).some(point => point.includes('从句') || point.includes('条件'));
-    const key = q => 'reading::' + q.en;
-    const choose = (pool, n) => sampleUnseen(recentAvoidingPool(pool, key), Math.min(n, pool.length), key);
-    const clauseBank = bank.filter(isClause);
-    const picked = [...choose(bank.filter(q => !isClause(q)), 2), ...choose(clauseBank, 3)];
-    const optionsFor = q => {
-      if (q.options) return shuffle(q.options.slice());
-      // 同题材、长度接近的其他译文作为干扰项；去除重复译文。
-      const candidates = bank.filter(other => other.cn && other.cn !== q.cn && other.en !== q.en);
-      const score = other => (other.topic && other.topic === q.topic ? 10 : 0)
-        - Math.abs(other.cn.length - q.cn.length);
-      const ranked = shuffle(candidates).sort((a, b) => score(b) - score(a));
-      const alternatives = [...new Set(ranked.map(other => other.cn))].slice(0, 2);
-      return shuffle([q.cn, ...alternatives]);
-    };
-    const questions = shuffle(picked).map(q => ({
-      q: q.en, a: q.cn, hint: q.hint, showHint: true,
-      promptLabel: (q.topic || '句意') + ' · 选择正确的意思', options: optionsFor(q), _seenKey: key(q),
+    const choiceBank = schoolGradePool(D.reading_questions || []);
+    if (!bank.length || !choiceBank.length) { navigate('home'); return; }
+    const choiceKey = q => 'reading-choice::' + q.id;
+    const choices = sampleUnseen(recentAvoidingPool(choiceBank, choiceKey), Math.min(5, choiceBank.length), choiceKey);
+    const usedSentences = new Set(choices.map(q => q.question.trim().toLowerCase()));
+    const writingPool = bank.filter(q => {
+      const sentence = (q.en || '').trim().toLowerCase();
+      if (!sentence || usedSentences.has(sentence)) return false;
+      usedSentences.add(sentence);
+      return true;
+    });
+    const writeKey = q => 'reading-write::' + q.en;
+    const writing = sampleUnseen(recentAvoidingPool(writingPool, writeKey), Math.min(5, writingPool.length), writeKey);
+    const questions = shuffle([
+      ...choices.map(q => ({ kind: 'choice', en: q.question, answer: q.answer, hint: q.hint, options: shuffle(q.options.slice()), seenKey: choiceKey(q) })),
+      ...writing.map(q => ({ kind: 'write', en: q.en, answer: q.cn, hint: q.hint, seenKey: writeKey(q) })),
+    ]);
+    app.innerHTML = `
+      ${topBar('英译中与从句理解')}
+      <div class="container">
+        <p class="grammar-hint">先独立写出中文或选择句意，提交后对照译文和解析。写句子的题由你自己判断是否理解正确。</p>
+        <div id="reading-list"></div>
+        <button class="btn btn-primary" id="reading-submit">提交并查看解析</button>
+        <button class="btn btn-primary" id="reading-finish" style="display:none;">完成核对</button>
+      </div>`;
+    const list = app.querySelector('#reading-list');
+    questions.forEach((q, i) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const answerHtml = q.kind === 'write'
+        ? `<label for="reading-answer-${i}">请写出这句话的中文意思</label><textarea id="reading-answer-${i}" name="reading-${i}" rows="3" style="display:block;width:100%;margin-top:8px;padding:10px;border:1px solid var(--border);border-radius:8px;font:inherit;box-sizing:border-box;"></textarea>`
+        : `<div class="mcq-list">${q.options.map(option => `<label class="mcq-opt"><input type="radio" name="reading-${i}" value="${escapeHtml(option)}"><span class="mcq-text">${escapeHtml(option)}</span></label>`).join('')}</div>`;
+      card.innerHTML = `<div class="card-title">第 ${i + 1} 题 · ${q.kind === 'write' ? '自己写中文' : '选择句意'}</div>
+        <div class="grammar-q quiz-word">${escapeHtml(q.en)}</div>${answerHtml}
+        <div class="grammar-result" id="reading-result-${i}" style="display:none;"></div>`;
+      list.appendChild(card);
+    });
+    list.querySelectorAll('.mcq-opt input').forEach(input => input.addEventListener('change', () => {
+      list.querySelectorAll(`input[name="${input.name}"]`).forEach(radio => radio.closest('.mcq-opt').classList.toggle('is-selected', radio.checked));
     }));
-    renderMCQ(app, '英译中与从句理解', questions, (correct, results) => {
-      results.forEach((result, i) => {
-        if (!result.ok) progress.wrong_grammar.push({
-          type: 'translate_en', question: questions[i].q, answer: questions[i].a,
-          user: result.user, hint: questions[i].hint, options: questions[i].options, date: today(),
-        });
+    const submit = app.querySelector('#reading-submit');
+    const finish = app.querySelector('#reading-finish');
+    submit.onclick = () => {
+      const answers = questions.map((q, i) => {
+        const field = q.kind === 'write' ? app.querySelector(`#reading-answer-${i}`) : app.querySelector(`input[name="reading-${i}"]:checked`);
+        return field ? field.value.trim() : '';
       });
-      progress.wrong_grammar = progress.wrong_grammar.slice(-100);
-      saveProgress();
-      appendCheckinNextStep(app, 'translate-en');
-    }, '<p class="grammar-hint">读懂句子，选择最合适的中文意思。提交后可以查看解析。</p>');
+      const firstEmpty = answers.findIndex(answer => !answer);
+      if (firstEmpty >= 0) {
+        toast('请先完成每一道题，再查看解析。', 2500);
+        const field = questions[firstEmpty].kind === 'write' ? app.querySelector(`#reading-answer-${firstEmpty}`) : app.querySelector(`input[name="reading-${firstEmpty}"]`);
+        if (field) field.focus();
+        return;
+      }
+      const judged = {};
+      questions.forEach((q, i) => {
+        const result = app.querySelector(`#reading-result-${i}`);
+        result.style.display = 'block';
+        if (q.kind === 'choice') {
+          judged[i] = answers[i] === q.answer;
+          result.className = 'grammar-result ' + (judged[i] ? 'correct' : 'wrong');
+          result.innerHTML = `${judged[i] ? '✅ 正确！' : `❌ 你的选择：${escapeHtml(answers[i])}`}<br>参考译文：${escapeHtml(q.answer)}${q.hint ? `<br>💡 ${escapeHtml(q.hint)}` : ''}`;
+        } else {
+          result.className = 'grammar-result';
+          result.innerHTML = `<div>你的译文：${escapeHtml(answers[i])}</div><div>参考译文：${escapeHtml(q.answer)}</div>${q.hint ? `<div>💡 ${escapeHtml(q.hint)}</div>` : ''}<div style="margin-top:8px;">对照意思判断，中文说法不同也可以正确：</div><div class="btn-row reading-review" role="group" aria-label="第 ${i + 1} 题自评"><button type="button" class="btn btn-secondary" data-review="correct" aria-pressed="false">理解正确</button><button type="button" class="btn btn-secondary" data-review="wrong" aria-pressed="false">需要复习</button></div>`;
+          result.querySelectorAll('[data-review]').forEach(button => button.onclick = () => {
+            judged[i] = button.dataset.review === 'correct';
+            result.querySelectorAll('[data-review]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+            result.className = 'grammar-result ' + (judged[i] ? 'correct' : 'wrong');
+          });
+        }
+        app.querySelectorAll(`[name="reading-${i}"]`).forEach(input => input.disabled = true);
+      });
+      submit.style.display = 'none';
+      finish.style.display = 'block';
+      finish.onclick = () => {
+        const missing = questions.findIndex((q, i) => q.kind === 'write' && !(i in judged));
+        if (missing >= 0) {
+          toast('请先对照参考译文，判断每道自己写的题。', 2500);
+          app.querySelector(`#reading-result-${missing} [data-review]`).focus();
+          return;
+        }
+        let correct = 0;
+        questions.forEach((q, i) => {
+          if (judged[i]) correct++;
+          else progress.wrong_grammar.push({ type: 'translate_en', question: q.en, answer: q.answer, user: answers[i], hint: q.hint, options: q.options, date: today() });
+          bumpSeenCount(q.seenKey, 1);
+        });
+        progress.wrong_grammar = progress.wrong_grammar.slice(-100);
+        markSeen(questions.map(q => q.seenKey));
+        saveProgress();
+        toast(`${correct}/${questions.length} 正确`, 2500);
+        finish.style.display = 'none';
+        appendCheckinNextStep(app, 'translate-en');
+      };
+    };
   }
 
   // 中文分词（简化版）

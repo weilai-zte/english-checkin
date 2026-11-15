@@ -13,6 +13,7 @@ def test_reading_bank_has_balanced_grade_pools_and_valid_options():
     for q in questions:
         assert q['answer'] in q['options']
         assert len(q['options']) == len(set(q['options'])) == 3
+        assert sum(option == q['answer'] for option in q['options']) == 1
         assert q['hint'] and q['topic']
     for grade in ('L1', 'L2', 'L3'):
         assert sum('从句' in q['topic'] for q in questions if q['grade'] == grade) >= 5
