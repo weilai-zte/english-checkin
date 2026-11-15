@@ -1,0 +1,782 @@
+[
+  {
+    "id": "reading_001",
+    "grade": "L1",
+    "topic": "词义",
+    "question": "Please turn off the light before you leave.",
+    "answer": "离开前请关灯。",
+    "options": [
+      "离开前请关灯。",
+      "离开前请开灯。",
+      "离开后请擦灯。"
+    ],
+    "hint": "turn off 表示关掉；before 表示在……之前。"
+  },
+  {
+    "id": "reading_002",
+    "grade": "L1",
+    "topic": "词义",
+    "question": "My sister is looking for her keys.",
+    "answer": "我妹妹正在找她的钥匙。",
+    "options": [
+      "我妹妹正在找她的钥匙。",
+      "我妹妹正在看她的钥匙。",
+      "我妹妹已经找到了她的钥匙。"
+    ],
+    "hint": "look for 表示寻找，正在找不等于已经找到。"
+  },
+  {
+    "id": "reading_003",
+    "grade": "L1",
+    "topic": "词义",
+    "question": "There are a few apples in the basket.",
+    "answer": "篮子里有几个苹果。",
+    "options": [
+      "篮子里有几个苹果。",
+      "篮子里几乎没有苹果。",
+      "篮子里有很多苹果。"
+    ],
+    "hint": "a few 表示几个，用于可数名词。"
+  },
+  {
+    "id": "reading_004",
+    "grade": "L1",
+    "topic": "否定",
+    "question": "Tom does not walk to school on rainy days.",
+    "answer": "下雨天汤姆不步行上学。",
+    "options": [
+      "下雨天汤姆不步行上学。",
+      "汤姆只在下雨天步行上学。",
+      "汤姆每天都步行上学。"
+    ],
+    "hint": "does not 表示否定；on rainy days 指下雨天。"
+  },
+  {
+    "id": "reading_005",
+    "grade": "L1",
+    "topic": "时间",
+    "question": "After lunch, we play chess in the classroom.",
+    "answer": "午饭后，我们在教室下国际象棋。",
+    "options": [
+      "午饭后，我们在教室下国际象棋。",
+      "午饭前，我们在教室下国际象棋。",
+      "午饭后，我们在操场踢足球。"
+    ],
+    "hint": "after lunch 表示午饭后；play chess 是下国际象棋。"
+  },
+  {
+    "id": "reading_006",
+    "grade": "L1",
+    "topic": "原因从句",
+    "question": "Amy is happy because her friend is here.",
+    "answer": "埃米很高兴，因为她的朋友来了。",
+    "options": [
+      "埃米很高兴，因为她的朋友来了。",
+      "埃米的朋友很高兴，因为埃米来了。",
+      "埃米不高兴，所以她的朋友走了。"
+    ],
+    "hint": "because 后面说明埃米高兴的原因。"
+  },
+  {
+    "id": "reading_007",
+    "grade": "L1",
+    "topic": "时间从句",
+    "question": "When the bell rings, the students go into the room.",
+    "answer": "铃响时，学生们走进房间。",
+    "options": [
+      "铃响时，学生们走进房间。",
+      "学生走进房间后，铃才响。",
+      "铃响时，学生们离开房间。"
+    ],
+    "hint": "when 引出时间；go into 表示走进去。"
+  },
+  {
+    "id": "reading_008",
+    "grade": "L1",
+    "topic": "条件从句",
+    "question": "If you need help, ask your teacher.",
+    "answer": "如果你需要帮助，就问你的老师。",
+    "options": [
+      "如果你需要帮助，就问你的老师。",
+      "只有老师需要帮助时，你才可以提问。",
+      "即使你需要帮助，也别问老师。"
+    ],
+    "hint": "if 引出条件：你需要帮助。"
+  },
+  {
+    "id": "reading_009",
+    "grade": "L1",
+    "topic": "转折",
+    "question": "It is cold, but the children are playing outside.",
+    "answer": "天气很冷，但孩子们正在外面玩。",
+    "options": [
+      "天气很冷，但孩子们正在外面玩。",
+      "因为天气冷，孩子们都在家。",
+      "天气很暖和，所以孩子们在外面玩。"
+    ],
+    "hint": "but 连接转折：虽然冷，孩子们仍在外面玩。"
+  },
+  {
+    "id": "reading_010",
+    "grade": "L1",
+    "topic": "词义",
+    "question": "The library opens at nine and closes at five.",
+    "answer": "图书馆九点开门，五点关门。",
+    "options": [
+      "图书馆九点开门，五点关门。",
+      "图书馆五点开门，九点关门。",
+      "图书馆只在九点到五点之间关门。"
+    ],
+    "hint": "opens 是开门，closes 是关门。"
+  },
+  {
+    "id": "reading_011",
+    "grade": "L2",
+    "topic": "短语",
+    "question": "Our class put off the trip because of the heavy rain.",
+    "answer": "因为大雨，我们班推迟了旅行。",
+    "options": [
+      "因为大雨，我们班推迟了旅行。",
+      "我们班冒着大雨按时旅行。",
+      "为了看大雨，我们班提前出发。"
+    ],
+    "hint": "put off 是推迟；because of 后面说明原因。"
+  },
+  {
+    "id": "reading_012",
+    "grade": "L2",
+    "topic": "词义",
+    "question": "Lisa borrowed a novel from the school library.",
+    "answer": "莉萨从学校图书馆借了一本小说。",
+    "options": [
+      "莉萨从学校图书馆借了一本小说。",
+      "莉萨把一本小说借给学校图书馆。",
+      "莉萨在学校图书馆卖了一本小说。"
+    ],
+    "hint": "borrow ... from ... 表示从……借入。"
+  },
+  {
+    "id": "reading_013",
+    "grade": "L2",
+    "topic": "条件从句",
+    "question": "Unless you hurry, you will miss the bus.",
+    "answer": "如果你不快点，就会错过公交车。",
+    "options": [
+      "如果你不快点，就会错过公交车。",
+      "只要你快点，就一定会错过公交车。",
+      "除非错过公交车，否则你不用快点。"
+    ],
+    "hint": "unless 相当于 if ... not，表示如果不。"
+  },
+  {
+    "id": "reading_014",
+    "grade": "L2",
+    "topic": "时间从句",
+    "question": "While Dad was cooking, I set the table.",
+    "answer": "爸爸做饭的时候，我摆好了餐具。",
+    "options": [
+      "爸爸做饭的时候，我摆好了餐具。",
+      "我做饭的时候，爸爸摆好了餐具。",
+      "爸爸做完饭以后，我才开始摆餐具。"
+    ],
+    "hint": "while 引出爸爸做饭的那段时间；I 是摆餐具的人。"
+  },
+  {
+    "id": "reading_015",
+    "grade": "L2",
+    "topic": "让步从句",
+    "question": "Although the question was difficult, Mia kept trying.",
+    "answer": "虽然问题很难，米娅仍继续尝试。",
+    "options": [
+      "虽然问题很难，米娅仍继续尝试。",
+      "因为问题很简单，米娅停止了尝试。",
+      "米娅继续尝试，所以问题变难了。"
+    ],
+    "hint": "although 表示虽然；kept trying 表示继续尝试。"
+  },
+  {
+    "id": "reading_016",
+    "grade": "L2",
+    "topic": "宾语从句",
+    "question": "I know that Ben has a new bike.",
+    "answer": "我知道本有一辆新自行车。",
+    "options": [
+      "我知道本有一辆新自行车。",
+      "本知道我有一辆新自行车。",
+      "我不知道本有没有自行车。"
+    ],
+    "hint": "that 后面是“我知道”的内容。"
+  },
+  {
+    "id": "reading_017",
+    "grade": "L2",
+    "topic": "比较",
+    "question": "This puzzle is easier than the one we did yesterday.",
+    "answer": "这个谜题比我们昨天做的那个更容易。",
+    "options": [
+      "这个谜题比我们昨天做的那个更容易。",
+      "这个谜题比昨天的更难。",
+      "这个谜题和昨天的同样难。"
+    ],
+    "hint": "easier than 表示比……更容易。"
+  },
+  {
+    "id": "reading_018",
+    "grade": "L2",
+    "topic": "目的",
+    "question": "We brought water so that everyone could have a drink.",
+    "answer": "我们带了水，以便每个人都能喝到。",
+    "options": [
+      "我们带了水，以便每个人都能喝到。",
+      "我们带了水，所以谁都不能喝。",
+      "因为每个人都喝过水，我们没有带水。"
+    ],
+    "hint": "so that 在这里表示目的：为了让大家喝到水。"
+  },
+  {
+    "id": "reading_019",
+    "grade": "L2",
+    "topic": "词义",
+    "question": "The teacher asked us to hand in the report on Friday.",
+    "answer": "老师要求我们星期五交报告。",
+    "options": [
+      "老师要求我们星期五交报告。",
+      "老师要求我们星期五发报告给别人。",
+      "老师说我们星期五不用交报告。"
+    ],
+    "hint": "hand in 表示上交；asked us to 表示要求我们做。"
+  },
+  {
+    "id": "reading_020",
+    "grade": "L2",
+    "topic": "结果",
+    "question": "The box was so heavy that I could not lift it.",
+    "answer": "箱子太重了，我搬不起来。",
+    "options": [
+      "箱子太重了，我搬不起来。",
+      "箱子很轻，所以我轻松搬起来了。",
+      "我搬起箱子以后，它才变重。"
+    ],
+    "hint": "so ... that ... 表示如此……以至于……。"
+  },
+  {
+    "id": "reading_021",
+    "grade": "L3",
+    "topic": "定语从句",
+    "question": "The boy who repaired the bike is my cousin.",
+    "answer": "修自行车的那个男孩是我的表弟。",
+    "options": [
+      "修自行车的那个男孩是我的表弟。",
+      "我的表弟请男孩修了自行车。",
+      "自行车坏了的男孩认识我的表弟。"
+    ],
+    "hint": "who repaired the bike 修饰 boy，说明是哪个男孩。"
+  },
+  {
+    "id": "reading_022",
+    "grade": "L3",
+    "topic": "定语从句",
+    "question": "I found the book that you recommended.",
+    "answer": "我找到了你推荐的那本书。",
+    "options": [
+      "我找到了你推荐的那本书。",
+      "你找到了我推荐的那本书。",
+      "我推荐了你找到的那本书。"
+    ],
+    "hint": "that you recommended 修饰 book：你推荐的书。"
+  },
+  {
+    "id": "reading_023",
+    "grade": "L3",
+    "topic": "宾语从句",
+    "question": "Could you tell me where the museum is?",
+    "answer": "你能告诉我博物馆在哪里吗？",
+    "options": [
+      "你能告诉我博物馆在哪里吗？",
+      "你能告诉博物馆我在哪里吗？",
+      "你知道博物馆什么时候开门吗？"
+    ],
+    "hint": "where the museum is 是要问的内容：博物馆在哪里。"
+  },
+  {
+    "id": "reading_024",
+    "grade": "L3",
+    "topic": "宾语从句",
+    "question": "I wonder whether the team can finish on time.",
+    "answer": "我想知道这个队能否按时完成。",
+    "options": [
+      "我想知道这个队能否按时完成。",
+      "我确信这个队已经按时完成了。",
+      "这个队想知道我什么时候完成。"
+    ],
+    "hint": "whether 表示是否；wonder 表示想知道。"
+  },
+  {
+    "id": "reading_025",
+    "grade": "L3",
+    "topic": "宾语从句",
+    "question": "She explained why the train was late.",
+    "answer": "她解释了火车晚点的原因。",
+    "options": [
+      "她解释了火车晚点的原因。",
+      "她解释了火车什么时候到站。",
+      "火车解释了她为什么迟到。"
+    ],
+    "hint": "why 后的部分说明“为什么火车晚点”。"
+  },
+  {
+    "id": "reading_026",
+    "grade": "L3",
+    "topic": "条件从句",
+    "question": "Even if the plan fails, we will learn from it.",
+    "answer": "即使计划失败，我们也会从中学习。",
+    "options": [
+      "即使计划失败，我们也会从中学习。",
+      "只有计划成功，我们才能学到东西。",
+      "因为计划失败，我们决定不再学习。"
+    ],
+    "hint": "even if 表示即使；learn from it 是从中学习。"
+  },
+  {
+    "id": "reading_027",
+    "grade": "L3",
+    "topic": "时间从句",
+    "question": "By the time I arrived, the film had already started.",
+    "answer": "我到达时，电影已经开始了。",
+    "options": [
+      "我到达时，电影已经开始了。",
+      "我到达以后，电影才开始。",
+      "电影结束后，我才开始出发。"
+    ],
+    "hint": "had already started 表示在我到达之前电影已开始。"
+  },
+  {
+    "id": "reading_028",
+    "grade": "L3",
+    "topic": "指代",
+    "question": "The girl whose bag was lost asked for help.",
+    "answer": "丢了包的女孩请求帮助。",
+    "options": [
+      "丢了包的女孩请求帮助。",
+      "女孩找到了别人丢失的包。",
+      "请求帮助的人拿走了女孩的包。"
+    ],
+    "hint": "whose bag was lost 修饰 girl，说明丢包的是这个女孩。"
+  },
+  {
+    "id": "reading_029",
+    "grade": "L3",
+    "topic": "短语",
+    "question": "The coach encouraged us not to give up after the loss.",
+    "answer": "输了以后，教练鼓励我们不要放弃。",
+    "options": [
+      "输了以后，教练鼓励我们不要放弃。",
+      "输掉比赛后，我们鼓励教练放弃。",
+      "教练要求我们输掉比赛。"
+    ],
+    "hint": "encourage us not to 表示鼓励我们不要做；give up 是放弃。"
+  },
+  {
+    "id": "reading_030",
+    "grade": "L3",
+    "topic": "句子关系",
+    "question": "The more carefully you read, the fewer mistakes you will make.",
+    "answer": "你读得越仔细，犯的错误就越少。",
+    "options": [
+      "你读得越仔细，犯的错误就越少。",
+      "你读得越快，犯的错误就越多。",
+      "只要读得仔细，就绝不会犯错。"
+    ],
+    "hint": "the more ..., the fewer ... 表示越……就越少……。"
+  },
+  {
+    "id": "reading_031",
+    "grade": "L1",
+    "topic": "词义",
+    "question": "The shop is next to the post office.",
+    "answer": "商店在邮局旁边。",
+    "options": [
+      "商店在邮局旁边。",
+      "商店在邮局对面。",
+      "邮局在商店里面。"
+    ],
+    "hint": "next to 表示在……旁边。"
+  },
+  {
+    "id": "reading_032",
+    "grade": "L1",
+    "topic": "词义",
+    "question": "There is little milk in the glass.",
+    "answer": "杯子里几乎没有牛奶。",
+    "options": [
+      "杯子里几乎没有牛奶。",
+      "杯子里有很多牛奶。",
+      "杯子里有几杯牛奶。"
+    ],
+    "hint": "little 修饰不可数名词，表示几乎没有。"
+  },
+  {
+    "id": "reading_033",
+    "grade": "L1",
+    "topic": "词义",
+    "question": "We usually get up early on weekdays.",
+    "answer": "工作日我们通常起得早。",
+    "options": [
+      "工作日我们通常起得早。",
+      "周末我们总是起得晚。",
+      "工作日我们从不起床。"
+    ],
+    "hint": "usually 是通常；on weekdays 指工作日。"
+  },
+  {
+    "id": "reading_034",
+    "grade": "L1",
+    "topic": "否定",
+    "question": "Neither of the two answers is right.",
+    "answer": "这两个答案都不对。",
+    "options": [
+      "这两个答案都不对。",
+      "这两个答案都对。",
+      "两个答案中只有一个正确。"
+    ],
+    "hint": "neither of the two 表示两者都不。"
+  },
+  {
+    "id": "reading_035",
+    "grade": "L1",
+    "topic": "时间",
+    "question": "The meeting starts at half past two.",
+    "answer": "会议两点半开始。",
+    "options": [
+      "会议两点半开始。",
+      "会议两点结束。",
+      "会议三点半开始。"
+    ],
+    "hint": "half past two 表示两点半。"
+  },
+  {
+    "id": "reading_036",
+    "grade": "L1",
+    "topic": "原因从句",
+    "question": "Jack wears a coat because it is windy.",
+    "answer": "杰克穿着外套，因为风很大。",
+    "options": [
+      "杰克穿着外套，因为风很大。",
+      "杰克穿着外套，所以风变大了。",
+      "因为很热，杰克脱掉了外套。"
+    ],
+    "hint": "because 后面是穿外套的原因。"
+  },
+  {
+    "id": "reading_037",
+    "grade": "L1",
+    "topic": "时间从句",
+    "question": "Wash your hands before you eat.",
+    "answer": "吃饭前洗手。",
+    "options": [
+      "吃饭前洗手。",
+      "吃饭后洗手。",
+      "洗手前先吃饭。"
+    ],
+    "hint": "before you eat 表示在你吃饭之前。"
+  },
+  {
+    "id": "reading_038",
+    "grade": "L1",
+    "topic": "条件从句",
+    "question": "If the door is open, the cat may go out.",
+    "answer": "如果门开着，猫可能会出去。",
+    "options": [
+      "如果门开着，猫可能会出去。",
+      "如果门关着，猫一定会出去。",
+      "猫出去了，所以门一定开着。"
+    ],
+    "hint": "if 表示条件；may 表示可能。"
+  },
+  {
+    "id": "reading_039",
+    "grade": "L1",
+    "topic": "转折",
+    "question": "The bag is small, but it can hold many books.",
+    "answer": "这个包很小，但能装很多书。",
+    "options": [
+      "这个包很小，但能装很多书。",
+      "这个包很大，却装不下书。",
+      "这个包很小，所以一本书也装不下。"
+    ],
+    "hint": "but 表示转折；hold 在这里表示容纳。"
+  },
+  {
+    "id": "reading_040",
+    "grade": "L1",
+    "topic": "时间从句",
+    "question": "When I feel tired, I listen to music.",
+    "answer": "我感到疲倦时会听音乐。",
+    "options": [
+      "我感到疲倦时会听音乐。",
+      "我听音乐后总会感到疲倦。",
+      "音乐响起时我就去睡觉。"
+    ],
+    "hint": "when 引出听音乐的时间：我感到疲倦时。"
+  },
+  {
+    "id": "reading_041",
+    "grade": "L2",
+    "topic": "短语",
+    "question": "Please write down the address in your notebook.",
+    "answer": "请把地址记在你的笔记本上。",
+    "options": [
+      "请把地址记在你的笔记本上。",
+      "请把地址从笔记本上擦掉。",
+      "请把笔记本送到这个地址。"
+    ],
+    "hint": "write down 表示写下、记下。"
+  },
+  {
+    "id": "reading_042",
+    "grade": "L2",
+    "topic": "词义",
+    "question": "We arrived at the station just in time.",
+    "answer": "我们及时赶到了车站。",
+    "options": [
+      "我们及时赶到了车站。",
+      "我们到车站时已经太晚了。",
+      "我们在车站等了很久才出发。"
+    ],
+    "hint": "in time 表示及时；just 强调刚刚赶上。"
+  },
+  {
+    "id": "reading_043",
+    "grade": "L2",
+    "topic": "条件从句",
+    "question": "If she finishes early, she will join us.",
+    "answer": "如果她提前完成，她就会加入我们。",
+    "options": [
+      "如果她提前完成，她就会加入我们。",
+      "如果我们提前完成，她就会离开。",
+      "她加入我们后才会开始工作。"
+    ],
+    "hint": "if 后面是她加入我们的条件。"
+  },
+  {
+    "id": "reading_044",
+    "grade": "L2",
+    "topic": "时间从句",
+    "question": "As soon as the rain stopped, they went out.",
+    "answer": "雨一停，他们就出去了。",
+    "options": [
+      "雨一停，他们就出去了。",
+      "雨一开始下，他们就出去了。",
+      "他们出去很久以后，雨才停。"
+    ],
+    "hint": "as soon as 表示一……就……。"
+  },
+  {
+    "id": "reading_045",
+    "grade": "L2",
+    "topic": "让步从句",
+    "question": "Though Leo was nervous, he gave a clear talk.",
+    "answer": "虽然利奥很紧张，他还是清楚地作了演讲。",
+    "options": [
+      "虽然利奥很紧张，他还是清楚地作了演讲。",
+      "利奥很紧张，所以他没有演讲。",
+      "利奥的演讲不清楚，因为他不紧张。"
+    ],
+    "hint": "though 表示虽然；he 指利奥。"
+  },
+  {
+    "id": "reading_046",
+    "grade": "L2",
+    "topic": "宾语从句",
+    "question": "We believe that practice can help us improve.",
+    "answer": "我们相信练习能帮助我们进步。",
+    "options": [
+      "我们相信练习能帮助我们进步。",
+      "我们认为练习会阻止我们进步。",
+      "练习相信我们能帮助别人。"
+    ],
+    "hint": "that 后面是相信的内容；improve 是进步。"
+  },
+  {
+    "id": "reading_047",
+    "grade": "L2",
+    "topic": "比较",
+    "question": "This chair is not as comfortable as that one.",
+    "answer": "这把椅子没有那把舒服。",
+    "options": [
+      "这把椅子没有那把舒服。",
+      "这把椅子比那把舒服。",
+      "两把椅子同样舒服。"
+    ],
+    "hint": "not as ... as 表示不如……。"
+  },
+  {
+    "id": "reading_048",
+    "grade": "L2",
+    "topic": "目的",
+    "question": "Speak slowly so that I can follow you.",
+    "answer": "请说慢一点，好让我能听懂你。",
+    "options": [
+      "请说慢一点，好让我能听懂你。",
+      "请说快一点，因为我已经听懂了。",
+      "我说慢一点，好让你听懂我。"
+    ],
+    "hint": "so that 在这里引出目的；follow 在这里指听懂。"
+  },
+  {
+    "id": "reading_049",
+    "grade": "L2",
+    "topic": "原因从句",
+    "question": "Since the road was closed, we took another way.",
+    "answer": "由于那条路封闭了，我们走了另一条路。",
+    "options": [
+      "由于那条路封闭了，我们走了另一条路。",
+      "我们封闭了道路，因为别人走了另一条路。",
+      "自从我们走过，另一条路就封闭了。"
+    ],
+    "hint": "since 在此表示原因；took another way 是走另一条路。"
+  },
+  {
+    "id": "reading_050",
+    "grade": "L2",
+    "topic": "结果",
+    "question": "The music was so loud that I could not hear the phone.",
+    "answer": "音乐声音太大，我听不到电话铃声。",
+    "options": [
+      "音乐声音太大，我听不到电话铃声。",
+      "电话声音太大，我听不到音乐。",
+      "因为电话响了，我把音乐调大了。"
+    ],
+    "hint": "so ... that ... 引出结果；听不到的是电话。"
+  },
+  {
+    "id": "reading_051",
+    "grade": "L3",
+    "topic": "定语从句",
+    "question": "The woman who teaches us science also writes stories.",
+    "answer": "教我们科学的那位女士也写故事。",
+    "options": [
+      "教我们科学的那位女士也写故事。",
+      "我们教科学的那位女士也写故事。",
+      "写故事的女士不教我们科学。"
+    ],
+    "hint": "who teaches us science 修饰 woman；女士教我们。"
+  },
+  {
+    "id": "reading_052",
+    "grade": "L3",
+    "topic": "定语从句",
+    "question": "This is the photo that we took during the trip.",
+    "answer": "这就是我们旅行时拍的照片。",
+    "options": [
+      "这就是我们旅行时拍的照片。",
+      "这就是别人给我们拍的旅行照片。",
+      "这就是我们旅行时买的相机。"
+    ],
+    "hint": "that we took during the trip 修饰 photo。"
+  },
+  {
+    "id": "reading_053",
+    "grade": "L3",
+    "topic": "宾语从句",
+    "question": "Do you remember when the lesson begins?",
+    "answer": "你记得这节课什么时候开始吗？",
+    "options": [
+      "你记得这节课什么时候开始吗？",
+      "你记得这节课什么时候结束吗？",
+      "你记得谁开始上课吗？"
+    ],
+    "hint": "when the lesson begins 是要记住的内容。"
+  },
+  {
+    "id": "reading_054",
+    "grade": "L3",
+    "topic": "宾语从句",
+    "question": "Nobody knows whether the message has reached him.",
+    "answer": "没有人知道消息是否已经传到他那里。",
+    "options": [
+      "没有人知道消息是否已经传到他那里。",
+      "大家都知道他已经收到消息。",
+      "他不知道是谁发送了消息。"
+    ],
+    "hint": "whether 表示是否；nobody 表示没有人。"
+  },
+  {
+    "id": "reading_055",
+    "grade": "L3",
+    "topic": "宾语从句",
+    "question": "I cannot understand what she means by those words.",
+    "answer": "我不明白她说那些话是什么意思。",
+    "options": [
+      "我不明白她说那些话是什么意思。",
+      "她不明白我为什么说那些话。",
+      "我知道她说的每个词怎么拼。"
+    ],
+    "hint": "what she means 表示她是什么意思。"
+  },
+  {
+    "id": "reading_056",
+    "grade": "L3",
+    "topic": "条件从句",
+    "question": "Unless the weather improves, the match will be indoors.",
+    "answer": "除非天气好转，否则比赛将在室内举行。",
+    "options": [
+      "除非天气好转，否则比赛将在室内举行。",
+      "只要天气好转，比赛就一定取消。",
+      "天气不好时，比赛一定在室外举行。"
+    ],
+    "hint": "unless 表示如果不；indoors 表示在室内。"
+  },
+  {
+    "id": "reading_057",
+    "grade": "L3",
+    "topic": "定语从句",
+    "question": "The place where we met has changed a lot.",
+    "answer": "我们见面的地方变化很大。",
+    "options": [
+      "我们见面的地方变化很大。",
+      "我们见面的人变化很大。",
+      "我们见面时天气发生了很大变化。"
+    ],
+    "hint": "where we met 修饰 place，说明是哪个地方。"
+  },
+  {
+    "id": "reading_058",
+    "grade": "L3",
+    "topic": "指代",
+    "question": "The student whose idea won smiled with pride.",
+    "answer": "那个想法获胜的学生自豪地笑了。",
+    "options": [
+      "那个想法获胜的学生自豪地笑了。",
+      "学生因为别人的想法失败而笑了。",
+      "学生获奖后失去了自己的想法。"
+    ],
+    "hint": "whose idea won 修饰 student：其想法获胜的学生。"
+  },
+  {
+    "id": "reading_059",
+    "grade": "L3",
+    "topic": "短语",
+    "question": "The meeting was called off instead of being moved online.",
+    "answer": "会议被取消了，而不是改到线上举行。",
+    "options": [
+      "会议被取消了，而不是改到线上举行。",
+      "会议改到线上举行，没有取消。",
+      "会议先在线上举行，后来才取消。"
+    ],
+    "hint": "called off 表示取消；instead of 表示而不是。"
+  },
+  {
+    "id": "reading_060",
+    "grade": "L3",
+    "topic": "句子关系",
+    "question": "Not only the players but also the coach was surprised.",
+    "answer": "不仅队员们，教练也感到惊讶。",
+    "options": [
+      "不仅队员们，教练也感到惊讶。",
+      "只有教练感到惊讶，队员们没有。",
+      "只有队员们感到惊讶，教练没有。"
+    ],
+    "hint": "not only ... but also ... 表示不但……而且……。"
+  }
+]

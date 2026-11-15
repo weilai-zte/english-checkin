@@ -248,6 +248,7 @@ def export_data():
         "hard_translate": hard_translate,
         "hard_tense_questions": hard_tense_questions,
         "translate_questions": translate_questions,
+        "reading_questions": _try_load("reading_comprehension.json") or [],
         "tense_questions": tense_questions,
         "drill_questions": drill_questions,
         "cloze_questions": cloze_questions,

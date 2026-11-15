@@ -266,10 +266,11 @@ def test_tense_route_uses_unified_content_bank_by_difficulty():
     assert 'q.difficulty' in block
 
 
-def test_translation_routes_use_unified_content_bank_by_difficulty():
-    for function_name in ('renderTranslate', 'renderTranslateEn'):
-        block = _function_block(function_name)
-        assert 'translationPoolForDifficulty()' in block
+def test_translation_routes_use_their_respective_question_banks():
+    assert 'translationPoolForDifficulty()' in _function_block('renderTranslate')
+    assert 'translationPoolForDifficulty()' in _function_block('renderTranslateEn')
+    assert 'D.reading_questions' in _function_block('translationPoolForDifficulty')
+    assert 'schoolGradeLevel()' in _function_block('translationPoolForDifficulty')
 
 
 def test_content_filter_supports_array_attributes():
@@ -471,10 +472,11 @@ def test_required_checkin_types_are_locked():
     assert "e.preventDefault()" in block
 
 
-def test_tense_and_translate_are_required():
-    """时态和中译英必须为必选题型（不可取消）。"""
-    assert "'tense',        label: '时态',      icon: '⏰', route: 'tense',     required: true" in APP_JS_SRC
-    assert "'translate',    label: '中译英',    icon: '🔤', route: 'translate', required: true" in APP_JS_SRC
+def test_translation_checkin_priority():
+    assert "key: 'translate-en', label: '英译中与从句理解', icon: '📖', route: 'translate-en', required: true" in APP_JS_SRC
+    assert "key: 'translate',    label: '中译英',    icon: '🔤', route: 'translate' }" in APP_JS_SRC
+    assert "const DEFAULT_CHECKIN_TYPES = ['vocab', 'translate-en']" in APP_JS_SRC
+    assert "appendCheckinNextStep(app, 'translate-en')" in _function_block('renderTranslateEn')
 
 
 def test_optional_checkin_checkbox_updates_active_state():
@@ -648,13 +650,26 @@ def test_llm_unlock_is_prompted_only_when_ocr_is_requested():
     assert 'maybePromptUnlock()' not in boot
     assert "openLlmSettingsModal(llmRaw.encrypted ? 'unlock' : 'setup')" in vocab_import
 
-def test_checkin_config_defaults_to_all_selected():
-    # 进 checkin-config 页面时, 无论 progress.checkin_types 之前存了什么,
-    # 可选项必须默认全选. 之前只看旧值导致用户永远只看到上次的子集.
+def test_checkin_config_defaults_to_focused_types():
     block = _function_block('renderCheckinConfig')
-    assert "checkedSet = new Set([...requiredKeys, ...DEFAULT_CHECKIN_TYPES])" in block
-    # 不能让旧 checkin_types 直接覆盖默认值
+    assert "checkedSet = new Set([...requiredKeys, ...defaultCheckinTypes()])" in block
     assert "progress.checkin_types : DEFAULT_CHECKIN_TYPES" not in block
+
+
+def test_checkin_defaults_for_weekday_and_weekend():
+    constants = re.search(r"const DEFAULT_CHECKIN_TYPES = .*?;\s*const WEEKEND_CHECKIN_TYPES = .*?;", APP_JS_SRC, re.S)
+    assert constants
+    script = constants.group() + '\n' + _function_block('defaultCheckinTypes') + '''
+const assert = require('assert');
+const core = ['vocab', 'translate-en'];
+const weekend = [...core, 'phonetic', 'wordform', 'confusable', 'nonfinite', 'cloze'];
+assert.deepStrictEqual(defaultCheckinTypes(new Date(2026, 10, 13, 12)), core);
+assert.deepStrictEqual(defaultCheckinTypes(new Date(2026, 10, 14, 12)), weekend);
+assert.deepStrictEqual(defaultCheckinTypes(new Date(2026, 10, 15, 12)), weekend);
+assert.deepStrictEqual(defaultCheckinTypes(new Date(2026, 10, 16, 12)), core);
+assert(!weekend.includes('translate'));
+'''
+    subprocess.run(['node', '-e', script], check=True, capture_output=True, text=True)
 
 def test_undo_today_checkin_helper_present():
     src = APP_JS_SRC
@@ -1431,3 +1446,10 @@ def test_vocab_list_marks_ahead_words():
     """「全部词汇」不隐藏超前词，但要打「超前」标。"""
     block = _function_block("renderVocabList")
     assert "AHEAD_WORDS" in block and "超前" in block
+
+
+def test_drill_pool_restricts_grade_before_difficulty():
+    block = _function_block('poolByDifficulty')
+    assert 'const gradeBank = schoolGradePool(bank)' in block
+    assert 'gradeBank.filter(q => q.difficulty === difficulty)' in block
+    assert "gradeBank.filter(q => q.difficulty === 'medium')" in block

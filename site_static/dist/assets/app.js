@@ -35,11 +35,12 @@ document.addEventListener('input', function(e) {
   // ─── 每日打卡题型目录（顺序即默认执行顺序）────────
   const CHECKIN_TYPES = [
     { key: 'vocab',        label: '词汇复习',  icon: '🃏', route: 'vocab',     required: true },
-    { key: 'grammar',      label: '语法填空',  icon: '📝', route: 'grammar',   required: true },
+    { key: 'translate-en', label: '英译中与从句理解', icon: '📖', route: 'translate-en', required: true },
+    { key: 'grammar',      label: '语法填空',  icon: '📝', route: 'grammar' },
     { key: 'quiz',         label: '选择题',    icon: '🎯', route: 'quiz' },
-    { key: 'tense',        label: '时态',      icon: '⏰', route: 'tense',     required: true },
+    { key: 'tense',        label: '时态',      icon: '⏰', route: 'tense' },
     { key: 'preposition',  label: '介词',      icon: '🔗', route: 'preposition' },
-    { key: 'translate',    label: '中译英',    icon: '🔤', route: 'translate', required: true },
+    { key: 'translate',    label: '中译英',    icon: '🔤', route: 'translate' },
     // 失分点专项: 按试卷题型补的 5 个新题型 (见 renderDrill / renderCloze)
     { key: 'phonetic',     label: '语音辨析',  icon: '🗣️', route: 'phonetic' },
     { key: 'wordform',     label: '词形变化',  icon: '🧬', route: 'wordform' },
@@ -48,7 +49,14 @@ document.addEventListener('input', function(e) {
     { key: 'cloze',        label: '完形填空',  icon: '📄', route: 'cloze' },
     { key: 'dictation',    label: '听写',      icon: '✍️', route: 'dictation' },
   ];
-  const DEFAULT_CHECKIN_TYPES = CHECKIN_TYPES.map(t => t.key);
+  const DEFAULT_CHECKIN_TYPES = ['vocab', 'translate-en'];
+  const WEEKEND_CHECKIN_TYPES = ['phonetic', 'wordform', 'confusable', 'nonfinite', 'cloze'];
+  function defaultCheckinTypes(date) {
+    const day = (date || new Date()).getDay();
+    return day === 0 || day === 6
+      ? [...DEFAULT_CHECKIN_TYPES, ...WEEKEND_CHECKIN_TYPES]
+      : [...DEFAULT_CHECKIN_TYPES];
+  }
   const AVATAR_CHOICES = [
     '🦊', '🐱', '🐰', '🦁', '🐼',
     '🐶', '🐯', '🐨', '🐸', '🦄',
@@ -1724,7 +1732,7 @@ document.addEventListener('input', function(e) {
           <a class="btn btn-secondary btn-with-count" href="#/tense">⏰ 时态 <span class="count-badge">${counts.tenseN} 题</span></a>
           <a class="btn btn-secondary btn-with-count" href="#/preposition">🔗 介词 <span class="count-badge">${counts.prepN} 题</span></a>
           <a class="btn btn-secondary btn-with-count" href="#/translate">🔤 中译英 <span class="count-badge">${counts.translateN} 题</span></a>
-          <a class="btn btn-secondary btn-with-count" href="#/translate-en">🔤 英译中 <span class="count-badge">${counts.translateN} 题</span></a>
+          <a class="btn btn-secondary btn-with-count" href="#/translate-en">📖 英译中与从句理解 <span class="count-badge">${counts.readingN} 题</span></a>
         </div>
 
         <div class="section-label">📐 失分点专项</div>
@@ -1806,10 +1814,9 @@ document.addEventListener('input', function(e) {
       return;
     }
 
-    // 必选项永远勾选; 可选项默认全选(不受 progress.checkin_types 旧值影响,
-    // 否则上次只勾了 2 个, 后续打开就永远是 2 个).
+    // 每天从核心练习开始，可自行添加其他题型。
     const requiredKeys = CHECKIN_TYPES.filter(t => t.required).map(t => t.key);
-    const checkedSet = new Set([...requiredKeys, ...DEFAULT_CHECKIN_TYPES]);
+    const checkedSet = new Set([...requiredKeys, ...defaultCheckinTypes()]);
     const activeList = () => {
       const arr = Array.from(app.querySelectorAll('.checkin-type.active')).map(el => el.dataset.key);
       // 必选项即使未标 active 也强制加入（防御性）
@@ -1822,7 +1829,7 @@ document.addEventListener('input', function(e) {
       <div class="container">
         <div class="card" style="text-align:center;">
           <div class="card-title">📋 今日打卡</div>
-          <div style="font-size:13px;color:var(--text-2);">勾选今日想做的题型（默认全选），完成后会按顺序依次进行。</div>
+          <div style="font-size:13px;color:var(--text-2);">每天练单词、英译中和从句理解；周末默认加入失分点专项，可自行调整。</div>
         </div>
         <div class="card">
           <div class="card-title">⚙️ 选择打卡题型</div>
@@ -1839,7 +1846,7 @@ document.addEventListener('input', function(e) {
             }).join('')}
           </div>
           <div style="font-size:12px;color:var(--text-2);margin-top:10px;">
-            已选 <strong id="checkin-summary">${activeList.call(app).length || DEFAULT_CHECKIN_TYPES.filter(k => checkedSet.has(k)).length}</strong> / ${CHECKIN_TYPES.length} 个题型
+            已选 <strong id="checkin-summary">${checkedSet.size}</strong> / ${CHECKIN_TYPES.length} 个题型
           </div>
         </div>
         <div class="btn-row">
@@ -2408,25 +2415,26 @@ document.addEventListener('input', function(e) {
   // ─── 视图：失分点专项（语音辨析 / 词形变化 / 易混词辨析 / 非谓语动词）──
   // 按孩子试卷的失分类型补的 4 个选择题型, 共用 renderMCQ, 题库按 type 存在 content.json。
   const DRILL_SPECS = {
-    phonetic:   { title: '语音辨析',   promptLabel: '选出划线部分读音不同的一项' },
+    phonetic:   { title: '语音辨析',   promptLabel: '按题目要求选择' },
     wordform:   { title: '词形变化',   promptLabel: '用括号里词的正确形式填空' },
     confusable: { title: '易混词辨析', promptLabel: '选出最恰当的一项' },
     nonfinite:  { title: '非谓语动词', promptLabel: '选出正确形式' },
   };
-  // 按难度取题：当前难度 → medium → 全量。与 renderTense 的降级口径一致，
-  // 避免某个难度没出过题时首页显示"0 题"死链（新题型只有 20 多道，本身没有 easy 档）。
+  // 优先当前难度；题量较少时补入本年级其他难度，减少反复遇到相同题目。
   function poolByDifficulty(bank) {
-    const atDifficulty = schoolGradePool(bank.filter(q => q.difficulty === difficulty));
-    if (atDifficulty.length) return atDifficulty;
-    const atMedium = schoolGradePool(bank.filter(q => q.difficulty === 'medium'));
-    return atMedium.length ? atMedium : schoolGradePool(bank);
+    const gradeBank = schoolGradePool(bank);
+    const atDifficulty = gradeBank.filter(q => q.difficulty === difficulty);
+    if (atDifficulty.length >= 30) return atDifficulty;
+    const atMedium = gradeBank.filter(q => q.difficulty === 'medium');
+    const other = gradeBank.filter(q => q.difficulty !== difficulty && q.difficulty !== 'medium');
+    return [...new Set([...atDifficulty, ...atMedium, ...other])];
   }
   function drillPool(type) {
     return poolByDifficulty((D.drill_questions || []).filter(q => q.type === type));
   }
   // 失分点专项的 5 个 type（含完形填空），错题本按这个清单归组
   const DRILL_TYPES = [...Object.keys(DRILL_SPECS), 'cloze'];
-  const drillSeenKey = (type, q) => 'drill::' + type + '::' + q.question;
+  const drillSeenKey = (type, q) => 'drill::' + type + '::' + (type === 'phonetic' ? q.question.replace(/划线|所标/g, '') : q.question);
   function renderDrill(app, type) {
     _rng = seededRandom(makeSeed(type)); // 当日同题型题目确定化, 刷新不换题
     const spec = DRILL_SPECS[type];
@@ -2435,7 +2443,8 @@ document.addEventListener('input', function(e) {
     const picked = sampleUnseen(recentAvoidingPool(pool, q => drillSeenKey(type, q)),
                                 Math.min(10, pool.length), q => drillSeenKey(type, q));
     const questions = picked.map(q => ({
-      q: q.question, a: q.answer, hint: q.hint, promptLabel: spec.promptLabel,
+      q: type === 'phonetic' ? q.question.replace(/划线|所标/g, '') : q.question,
+      a: q.answer, hint: q.hint, promptLabel: spec.promptLabel,
       options: shuffle(q.options.slice()), _seenKey: drillSeenKey(type, q),
     }));
     currentQuestions = questions;
@@ -2683,7 +2692,7 @@ document.addEventListener('input', function(e) {
         r.className = 'grammar-result ' + (ok ? 'correct' : 'wrong');
         r.style.display = 'block';
         r.innerHTML = ok ? '✅ 正确！' : `❌ 你的答案: <strong>${escapeHtml(user || '(空)')}</strong>　正确答案: <strong>${escapeHtml(q.a)}</strong>`;
-        if (!ok) app.querySelectorAll('.grammar-hint')[i].style.display = 'block';
+        if (!ok || q.showHint) list.querySelectorAll('.grammar-hint')[i].style.display = 'block';
         app.querySelectorAll(`input[name="q${i}"]`).forEach(inp => inp.disabled = true);
       });
       toast(`${correct}/${questions.length} 正确`, 2500);
@@ -2698,16 +2707,21 @@ document.addEventListener('input', function(e) {
   // ─── 视图：Translate (CN→EN 填空) ────────────────
   function translationPoolForDifficulty() {
     const bank = Array.isArray(D.translate_questions) ? D.translate_questions : [];
-    const selected = schoolGradePool(bank.filter(q => q.difficulty === difficulty));
-    if (selected.length) return selected;
+    const gradeBank = bank.filter(q => q.grade === schoolGradeLevel());
+    const selected = gradeBank.filter(q => q.difficulty === difficulty);
     const cfg = getDifficultyCfg();
-    return cfg.translate_complex ? D.hard_translate : D.translate_sentences;
+    const original = selected.length ? selected : (gradeBank.length ? gradeBank : (cfg.translate_complex ? D.hard_translate : D.translate_sentences));
+    const reading = schoolGradePool(D.reading_questions || []).map(q => ({
+      ...q, en: q.question, cn: q.answer,
+    }));
+    return original.concat(reading);
   }
 
   // 首页练习区各题型题库数量（随难度自动切换，与各视图真实取题逻辑保持一致）
   function sectionCounts() {
     // 中译英/英译中共用同一 translate 题库（同 translationPoolForDifficulty）
     const translateN = translationPoolForDifficulty().length;
+    const readingN = translateN;
     // 失分点专项：与 renderDrill/clozePool 同一套筛选条件，显示的就是当前难度实际能抽到的题量
     const drillN = {};
     for (const key of Object.keys(DRILL_SPECS)) drillN[key] = drillPool(key).length;
@@ -2731,7 +2745,7 @@ document.addEventListener('input', function(e) {
       if (blockTopics.has(simple)) return false;
       return !blockWords.has(w.word.toLowerCase());
     }).length;
-    return { translateN, tenseN, prepN, vocabN, drillN, clozeN };
+    return { translateN, readingN, tenseN, prepN, vocabN, drillN, clozeN };
   }
 
   function renderTranslate(app) {
@@ -2868,92 +2882,40 @@ document.addEventListener('input', function(e) {
 
   // ─── 视图：Translate-En (EN→CN 填空) ─────────────
   function renderTranslateEn(app) {
-    _rng = seededRandom(makeSeed('translate_en')); // 当日英译中题目确定化
-    const pool = translationPoolForDifficulty();
-    const sents = sample(pool, Math.min(5, pool.length));
-    const normPunct = s => s.replace(/[\s。？！、，；：""''（）【】《》]/g, '');
-
-    app.innerHTML = `
-      ${topBar('英译中')}
-      <div class="container">
-        <div id="tr-list"></div>
-        <button class="btn btn-primary" id="tr-submit">提交</button>
-      </div>
-    `;
-    const list = app.querySelector('#tr-list');
-    sents.forEach((s, qi) => {
-      // 中文按字+常用短语最大匹配分词
-      const cn = s.cn;
-      const tokens = tokenizeZh(cn);
-      const card = document.createElement('div');
-      card.className = 'card';
-      const parts = [];
-      const blanks = [];
-      let bIdx = 1;
-      tokens.forEach((t, i) => {
-        if (i === 0 || t.type === 'punct') {
-          parts.push(`<span>${escapeHtml(t.text)}</span>`);
-        } else {
-          blanks.push({ idx: bIdx, word: t.text });
-          parts.push(`<input type="text" data-q="${qi}" data-b="${bIdx}" style="display:inline-block;width:auto;min-width:50px;margin:2px;text-align:center;padding:4px 8px;font-size:15px;border:2px solid #d0d5e0;border-radius:8px;color:inherit;outline:none;font-family:inherit;" autocomplete="off">`);
-          bIdx++;
-        }
-      });
-      card.innerHTML = `
-        <div class="card-title">第 ${qi+1} 题</div>
-        <div class="card-word-en" style="background:var(--bg-tag);padding:10px;border-radius:8px;margin-bottom:8px;font-size:15px;font-weight:bold;">${escapeHtml(s.en)}</div>
-        <div class="grammar-hint">💡 ${escapeHtml(s.hint || '')}</div>
-        <div style="line-height:2.4;font-size:15px;margin-top:8px;">${parts.join('')}</div>
-        <div class="grammar-result" data-r="${qi}" style="display:none;margin-top:8px;"></div>
-      `;
-      list.appendChild(card);
-    });
-
-    app.querySelector('#tr-submit').onclick = () => {
-      const userAns = {};
-      app.querySelectorAll('[data-q]').forEach(inp => {
-        const q = inp.dataset.q, b = inp.dataset.b;
-        if (!userAns[q]) userAns[q] = {};
-        userAns[q][b] = (inp.value || '').trim();
-      });
-      let totalCorrect = 0;
-      sents.forEach((s, qi) => {
-        const tokens = tokenizeZh(s.cn);
-        const blanks = [];
-        let bIdx = 1;
-        tokens.forEach((t, i) => {
-          if (i > 0 && t.type !== 'punct') { blanks.push({ idx: bIdx, word: t.text }); bIdx++; }
+    _rng = seededRandom(makeSeed('translate_en'));
+    const bank = translationPoolForDifficulty();
+    if (!bank.length) { navigate('home'); return; }
+    const isClause = q => (q.topic || '').includes('从句') || ['转折', '目的', '结果', '指代', '句子关系'].includes(q.topic)
+      || (q.knowledge_points || []).some(point => point.includes('从句') || point.includes('条件'));
+    const key = q => 'reading::' + q.en;
+    const choose = (pool, n) => sampleUnseen(recentAvoidingPool(pool, key), Math.min(n, pool.length), key);
+    const clauseBank = bank.filter(isClause);
+    const picked = [...choose(bank.filter(q => !isClause(q)), 2), ...choose(clauseBank, 3)];
+    const optionsFor = q => {
+      if (q.options) return shuffle(q.options.slice());
+      // 同题材、长度接近的其他译文作为干扰项；去除重复译文。
+      const candidates = bank.filter(other => other.cn && other.cn !== q.cn && other.en !== q.en);
+      const score = other => (other.topic && other.topic === q.topic ? 10 : 0)
+        - Math.abs(other.cn.length - q.cn.length);
+      const ranked = shuffle(candidates).sort((a, b) => score(b) - score(a));
+      const alternatives = [...new Set(ranked.map(other => other.cn))].slice(0, 2);
+      return shuffle([q.cn, ...alternatives]);
+    };
+    const questions = shuffle(picked).map(q => ({
+      q: q.en, a: q.cn, hint: q.hint, showHint: true,
+      promptLabel: (q.topic || '句意') + ' · 选择正确的意思', options: optionsFor(q), _seenKey: key(q),
+    }));
+    renderMCQ(app, '英译中与从句理解', questions, (correct, results) => {
+      results.forEach((result, i) => {
+        if (!result.ok) progress.wrong_grammar.push({
+          type: 'translate_en', question: questions[i].q, answer: questions[i].a,
+          user: result.user, hint: questions[i].hint, options: questions[i].options, date: today(),
         });
-        let allOk = true;
-        const userResults = [];
-        blanks.forEach(b => {
-          const u = normPunct(userAns[qi]?.[b.idx] || '');
-          const e = normPunct(b.word);
-          let ok = false;
-          if (u && (u === e || u.includes(e) || e.includes(u))) ok = true;
-          if (!ok) allOk = false;
-          userResults.push({ b, u, e, ok });
-        });
-        if (allOk) totalCorrect++;
-        const r = app.querySelector(`[data-r="${qi}"]`);
-        r.className = 'grammar-result ' + (allOk ? 'correct' : 'wrong');
-        r.style.display = 'block';
-        r.innerHTML = allOk ? '✅ 完全正确！' :
-          `❌ ${userResults.map(ur => `第${ur.b.idx}空: <strong>${escapeHtml(ur.u || '(空)')}</strong> → 应为 <strong>${escapeHtml(ur.e)}</strong>`).join('；')}`;
-        if (!allOk) {
-          progress.wrong_grammar.push({
-            type: 'translate_en', question: s.en, answer: s.cn,
-            user: userResults.filter(x => !x.ok).map(x => `${x.e}→${x.u}`).join(', '),
-            hint: s.hint, date: today(),
-          });
-        }
-        app.querySelectorAll(`[data-q="${qi}"]`).forEach(inp => inp.disabled = true);
       });
       progress.wrong_grammar = progress.wrong_grammar.slice(-100);
       saveProgress();
-      toast(`${totalCorrect}/${sents.length}` + (totalCorrect === sents.length ? ' 完全正确' : ' 答对'), 2500);
-      app.querySelector('#tr-submit').style.display = 'none';
-    };
+      appendCheckinNextStep(app, 'translate-en');
+    }, '<p class="grammar-hint">读懂句子，选择最合适的中文意思。提交后可以查看解析。</p>');
   }
 
   // 中文分词（简化版）

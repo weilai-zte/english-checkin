@@ -118,9 +118,12 @@ def test_question_bank_has_enough_material_for_repeated_checkins():
     assert grammar_exercises >= 450
     assert len(_items("translate")) >= 240
     assert len(_items("tense")) >= 200
-    # 失分点专项：每个题型至少够抽 1 次（10 题），完形按篇算
-    for item_type in MCQ_DRILL_TYPES:
-        assert len(_items(item_type)) >= 20, item_type
+    # 失分点专项按题型达到 100；完形以篇为单位，并覆盖七至九年级。
+    for item_type in (*MCQ_DRILL_TYPES, CLOZE_TYPE):
+        questions = _items(item_type)
+        assert len(questions) >= 100, item_type
+        for grade in ('L1', 'L2', 'L3'):
+            assert sum(item['grade'] == grade for item in questions) >= 10, (item_type, grade)
     cloze_items = _items(CLOZE_TYPE)
     assert len(cloze_items) >= 43
     # 2026-11 扩充批至少 40 篇，且八年级中档必须足够轮换，避免反复抽到同一篇
