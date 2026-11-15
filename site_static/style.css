@@ -351,6 +351,7 @@ p { line-height: 1.6; margin-bottom: 8px; color: #2d3748; font-size: 14px; }
 .btn-sm { padding: 8px 14px; font-size: 14px; width: auto; display: inline-block; }
 .btn-row { display: flex; gap: 8px; }
 .btn-row .btn { flex: 1; margin-bottom: 0; }
+.reading-review .btn[aria-pressed="true"] { outline: 3px solid var(--accent); outline-offset: -3px; font-weight: 700; }
 
 /* 标签 */
 .tag {
