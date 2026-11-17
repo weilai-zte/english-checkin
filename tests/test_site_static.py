@@ -475,7 +475,7 @@ def test_required_checkin_types_are_locked():
 def test_translation_checkin_priority():
     assert "key: 'translate-en', label: '英译中与从句理解', icon: '📖', route: 'translate-en', required: true" in APP_JS_SRC
     assert "key: 'translate',    label: '中译英',    icon: '🔤', route: 'translate' }" in APP_JS_SRC
-    assert "const DEFAULT_CHECKIN_TYPES = ['vocab', 'translate-en']" in APP_JS_SRC
+    assert "const DEFAULT_CHECKIN_TYPES = ['vocab', 'translate-en', 'cloze']" in APP_JS_SRC
     assert "appendCheckinNextStep(app, 'translate-en')" in _function_block('renderTranslateEn')
 
 
@@ -661,8 +661,8 @@ def test_checkin_defaults_for_weekday_and_weekend():
     assert constants
     script = constants.group() + '\n' + _function_block('defaultCheckinTypes') + '''
 const assert = require('assert');
-const core = ['vocab', 'translate-en'];
-const weekend = [...core, 'phonetic', 'wordform', 'confusable', 'nonfinite', 'cloze'];
+const core = ['vocab', 'translate-en', 'cloze'];
+const weekend = [...core, 'phonetic', 'wordform', 'confusable', 'nonfinite'];
 assert.deepStrictEqual(defaultCheckinTypes(new Date(2026, 10, 13, 12)), core);
 assert.deepStrictEqual(defaultCheckinTypes(new Date(2026, 10, 14, 12)), weekend);
 assert.deepStrictEqual(defaultCheckinTypes(new Date(2026, 10, 15, 12)), weekend);
@@ -949,24 +949,28 @@ def test_drill_mcq_types_reuse_render_mcq():
     assert 'progress.wrong_grammar.push' in drill, "失分点专项错题要进错题本"
 
 
-def test_cloze_view_uses_paper_layout():
-    """卷面格式: 短文里 (1)____ 编号空格, 选项按 A/B/C/D 排在题号下面。"""
+def test_passage_fill_uses_inline_text_inputs_without_options_or_hints():
     block = _function_block('renderCloze')
-    assert 'buildClozeStem(passage.passage, questions)' in block, "短文要原地嵌入空位"
-    assert 'cloze-paper' in APP_JS_SRC, "缺试卷式卡片样式"
-    assert 'clozeQuestionHtml' in block, "选项应排在题号下面"
-    assert 'clozeSelectHtml' not in APP_JS_SRC, "不应再用下拉框"
-    assert 'renderMCQ(app' not in block, "完形填空不应再走逐题卡片"
-    assert 'passage.blanks' in block, "完形填空按 blanks 出题"
-    assert "makeSeed('cloze')" in block, "完形填空未设置 seed"
-    assert "progress.wrong_grammar.push" in block, "完形填空错题要进错题本"
-    assert '空没选' in block, "交卷前应拦下漏选的空"
-    stem = _function_block('buildClozeStem')
-    assert 'clozeSlotHtml' in stem and r"split(/\((\d+)\)_+/g)" in stem, \
-        "buildClozeStem 未按 (n)____ 记号替换空位"
-    q_html = _function_block('clozeQuestionHtml')
-    assert 'String.fromCharCode(65 + i)' in q_html, "选项缺少 A/B/C/D 字母"
-    assert 'name="cloze-q${q.n}"' in q_html, "选项未按题号分组"
+    assert 'buildClozeStem(passage.passage, questions)' in block
+    assert "makeSeed('cloze')" in block
+    assert 'passage.blanks' in block
+    assert 'progress.wrong_grammar.push' in block
+    assert "appendCheckinNextStep(app, 'cloze')" in block
+    assert 'inputs[invalid].focus()' in block
+    assert 'passageAnswerMatches(q, picks[i])' in block
+    assert 'if (submitted) return' in block
+    slot = _function_block('clozeSlotHtml')
+    assert 'type="text"' in slot and 'required' in slot
+    assert 'type="radio"' not in block and 'clozeQuestionHtml' not in APP_JS_SRC
+    assert 'q.a' not in slot and 'q.hint' not in slot and 'placeholder=' not in slot
+    assert 'D.passage_fill_questions' in _function_block('clozePool')
+
+
+def test_passage_fill_is_a_locked_default_every_day():
+    catalogue = APP_JS_SRC.split('const CHECKIN_TYPES = [', 1)[1].split('];', 1)[0]
+    cloze = next(line for line in catalogue.splitlines() if "key: 'cloze'" in line)
+    assert "label: '短文填空'" in cloze and 'required: true' in cloze
+    assert '完形填空' not in _function_block('renderHome')
 
 
 def test_mcq_prompt_label_is_overridable():
@@ -1478,3 +1482,28 @@ finishMixedCheckin(['vocab']);
 if (progress.checkins.length !== 2) throw Error('future checkin');
 """
     subprocess.run(['node', '-e', script], check=True, capture_output=True, text=True)
+
+
+def test_passage_fill_accepts_reviewed_alternatives_but_rejects_wrong_forms():
+    assert _function_block('passageAnswerMatches'), '缺少语境填空判分'
+    script = '\n'.join(_function_block(n) for n in ('normalizePassageAnswer', 'passageAnswerMatches')) + """
+const assert = require('assert');
+const q = {a: 'because', accepted_answers: ['since', 'as']};
+for (const value of ['because', ' Since ', 'AS', 'ＢＥＣＡＵＳＥ']) {
+  assert(passageAnswerMatches(q, value), value);
+}
+for (const value of ['', '   ', 'although', 'because of']) {
+  assert(!passageAnswerMatches(q, value), value);
+}
+assert(!passageAnswerMatches({a:'waters'}, 'water'));
+assert(passageAnswerMatches({a:'travelling', accepted_answers:['traveling']}, 'traveling'));
+"""
+    subprocess.run(['node', '-e', script], check=True, capture_output=True, text=True)
+
+
+def test_built_site_contains_current_passage_fill_bank():
+    source_bank = json.loads((ROOT / 'data' / 'passage_fill_questions.json').read_text())
+    src = DIST_DATA.read_text(encoding='utf-8')
+    deployed_bank = json.loads(src[src.index('=') + 1:src.rindex(';')])
+    assert source_bank
+    assert deployed_bank['passage_fill_questions'] == source_bank

@@ -476,7 +476,7 @@
         "path": "#/checkin-config",
         "framework": "site_static SPA",
         "handler": "renderCheckinConfig",
-        "returns": "每日打卡题型勾选（共 12 项：vocab/grammar/tense/translate 必选，其余 8 项可选）"
+        "returns": "每日打卡题型勾选：vocab、translate-en、cloze 三项默认选中且不可取消，其余题型可选。cloze 显示为短文填空。"
       },
       {
         "path": "#/learn",
@@ -554,7 +554,7 @@
         "path": "#/cloze",
         "framework": "site_static SPA",
         "handler": "renderCloze",
-        "returns": "完形填空：通读全文 + 逐空作答，按空计分"
+        "returns": "无提示语境短文填空：从 passage_fill_questions 按年级及难度筛选，每次一篇10空，正文内手动填词；无选项、词库、首字母。交卷后按参考答案与已审校备选答案逐空计分、展示解析并记录错题，完成后推进 cloze 打卡项。保留原路由兼容历史计划。"
       },
       {
         "path": "#/flashcard",
@@ -818,8 +818,8 @@
         },
         "invariants": [
           "wrong_words + flashcard_history 自动截断 200 条",
-          "checkin_types 默认 = CHECKIN_TYPES 全部 key（含 vocab/grammar 必选）",
-          "CHECKIN_TYPES 共 12 项：vocab/grammar/tense/translate 必选，quiz/preposition/phonetic/wordform/confusable/nonfinite/cloze/dictation 可选",
+          "默认必选 vocab / translate-en / cloze；周末额外默认选中 phonetic / wordform / confusable / nonfinite。",
+          "CHECKIN_TYPES 共 13 项：vocab / translate-en / cloze 必选，其余10项可选；cloze 为短文填空。",
           "daily_checkin_plan.date !== today() 视为过期，UI 应自动清理或忽略",
           "旧 checkins 记录无 types 字段时 UI 回退到 grammar_title 显示",
           "mergeProgress(local, remote) 必须 union 合并全部账号持久化字段，user_name 优先用本地",
@@ -976,7 +976,7 @@
         ],
         "invariants": [
           "checkedInToday() 时直接显示'今日已完成'卡，禁用 CTA",
-          "vocab/grammar/tense/translate 必选，UI 禁用复选框 + preventDefault"
+          "vocab / translate-en / cloze 必选，UI 默认选中并禁用复选框 + preventDefault。"
         ]
       },
       {
@@ -1357,6 +1357,14 @@
       "what": "看图猜词改用 content.json 的 grade 分级词池，扩充 L3 图片线索词；干扰项限制为同难度相近长度，答题后显示中文释义",
       "why": "用户反馈：看图猜词过于简单，且练习难度切换没有同步到看图词库",
       "by": "Codex"
+    },
+    {
+      "date": "2026-11-17",
+      "version": "context-passage-fill",
+      "action": "change",
+      "what": "原完形入口改为无提示语境短文填空；词汇、英译中与从句理解、短文填空三项每日必选",
+      "why": "用户确认短文填空失分最多，要求以无提示语境填词替代完形选择题",
+      "by": "codex"
     }
   ]
 }

@@ -240,6 +240,14 @@
       "what": "工程迁移 ~/english-checkin → ~/Projects/english-checkin",
       "why": "用户要求把工程放在 Projects 下统一管理",
       "by": "玄奘"
+    },
+    {
+      "date": "2026-11-17",
+      "version": "context-passage-fill",
+      "action": "change",
+      "what": "原完形入口改为无提示语境短文填空；词汇、英译中与从句理解、短文填空三项每日必选",
+      "why": "用户确认短文填空失分最多，要求以无提示语境填词替代完形选择题",
+      "by": "codex"
     }
   ],
   "details": {
@@ -367,7 +375,7 @@
       {
         "id": "F-021",
         "priority": "P0",
-        "statement": "每日打卡题型选择页 #/checkin-config：用户可勾选本次想做的题型（CHECKIN_TYPES 共 12 项；vocab/grammar/tense/translate 必选，其余 8 项可选），按勾选顺序依次进入各题型，全部完成后记一次打卡",
+        "statement": "每日打卡 #/checkin-config 默认选中并锁定 vocab（词汇）、translate-en（英译中与从句理解）、cloze（无提示语境短文填空）三个必选项；其余题型可选，周末默认增加语音辨析、词形变化、易混词辨析与非谓语动词。完成队列后记录打卡。",
         "verification": "pytest tests/test_site_static.py -v (10 个新增用例覆盖)"
       },
       {
@@ -397,8 +405,8 @@
       {
         "id": "F-026",
         "priority": "P0",
-        "statement": "参考试卷题型新增 5 类「失分点专项」练习并接入每日打卡：phonetic 语音辨析、wordform 词形变化、confusable 易混词辨析、nonfinite 非谓语动词、cloze 完形填空；题库保存在 data/drill_bank_{phonetic,wordform,confusable,nonfinite,cloze}_2026_10.json，由 tools/merge_drill_bank.py 校验去重后合并进 content.json，前端通过 #/phonetic 等 5 个路由进入（前 4 类复用 renderMCQ，cloze 走 renderCloze 逐空作答）",
-        "verification": "/usr/bin/python3 -m pytest tests/test_content_bank.py tests/test_site_static.py -q（4 个新题型契约 + 完形按空计分 + 首页角标随难度切换）"
+        "statement": "失分点专项保留 phonetic、wordform、confusable、nonfinite；原 cloze 完形填空入口改为无提示语境短文填空，题库使用 data/passage_fill_questions.json，从旧完形短文精选改编并记录来源。每篇10空、每空一词；无选项或词汇提示；交卷后展示参考答案、可接受答案及解析，错题入本，并设为每日打卡必选。",
+        "verification": "pytest tests/test_passage_fill_bank.py tests/test_site_static.py -q + 浏览器输入、判分、草稿与队列衔接验证"
       }
     ],
     "§4_non_functional_requirements": [
