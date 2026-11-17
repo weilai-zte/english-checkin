@@ -248,6 +248,14 @@
       "what": "原完形入口改为无提示语境短文填空；词汇、英译中与从句理解、短文填空三项每日必选",
       "why": "用户确认短文填空失分最多，要求以无提示语境填词替代完形选择题",
       "by": "codex"
+    },
+    {
+      "date": "2026-11-17",
+      "version": "passage-word-bank",
+      "action": "change",
+      "what": "短文下方提供打乱的候选原词，选词并按需变形填空，保持每日必选",
+      "why": "用户查看后修正题型口径：应有候选词库并考查时态或词形变化",
+      "by": "codex"
     }
   ],
   "details": {
@@ -375,7 +383,7 @@
       {
         "id": "F-021",
         "priority": "P0",
-        "statement": "每日打卡 #/checkin-config 默认选中并锁定 vocab（词汇）、translate-en（英译中与从句理解）、cloze（无提示语境短文填空）三个必选项；其余题型可选，周末默认增加语音辨析、词形变化、易混词辨析与非谓语动词。完成队列后记录打卡。",
+        "statement": "每日打卡 #/checkin-config 默认选中并锁定 vocab（词汇）、translate-en（英译中与从句理解）、cloze（给词并按需变形的短文填空）三个必选项；其余题型可选，周末默认增加语音辨析、词形变化、易混词辨析与非谓语动词。完成队列后记录打卡。",
         "verification": "pytest tests/test_site_static.py -v (10 个新增用例覆盖)"
       },
       {
@@ -405,7 +413,7 @@
       {
         "id": "F-026",
         "priority": "P0",
-        "statement": "失分点专项保留 phonetic、wordform、confusable、nonfinite；原 cloze 完形填空入口改为无提示语境短文填空，题库使用 data/passage_fill_questions.json，从旧完形短文精选改编并记录来源。每篇10空、每空一词；无选项或词汇提示；交卷后展示参考答案、可接受答案及解析，错题入本，并设为每日打卡必选。",
+        "statement": "短文填空使用 data/passage_fill_questions.json 的精选改编短文。每篇10空，在完整短文下方提供10个打乱的候选词，每词限用一次；孩子选词并按语境变换时态或词形后手动填写，每空一词。交卷后按变形答案判分，展示候选原词、参考答案和解析，错题入本；仍为每日默认选中且不可取消的必选题型。",
         "verification": "pytest tests/test_passage_fill_bank.py tests/test_site_static.py -q + 浏览器输入、判分、草稿与队列衔接验证"
       }
     ],

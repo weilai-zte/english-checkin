@@ -5,86 +5,104 @@
     "grade": "L2",
     "difficulty": "easy",
     "title": "A New Seat in Class",
-    "passage": "On the first day (1)____ school, Lily came to our class. She carried (2)____ animal storybook. I asked her to sit next (3)____ me. At first, we did (4)____ know what to say. Then I noticed her book. I enjoy reading too, (5)____ we began to talk about our favourite stories. During the break, we went to (6)____ library. Lily borrowed two books and put (7)____ in her bag. We promised to return the books (8)____ Friday. Now we often read together after school. Lily says, 'Thank you (9)____ helping me.' I am glad to have a friend (10)____ likes reading as much as I do.",
+    "passage": "On the first day of school, Lily (1)____ into our classroom with an animal storybook. Our teacher asked her to sit beside (2)____. At first, neither of us knew what to say. Then I noticed the book and asked about her favourite (3)____. She smiled and (4)____ it to a picture of a fox. We talked (5)____ until the bell rang. During the break, we visited the school (6)____. Lily borrowed two books, but my bag was (7)____ than hers. She offered to help me (8)____ the door. After school, we (9)____ our ideas about the fox. Now we read together every Friday, and Lily always (10)____ a new book.",
     "blanks": [
       {
         "n": 1,
-        "answer": "of",
+        "word": "walk",
+        "answer": "walked",
         "accepted_answers": [],
-        "hint": "开学第一天用 the first day of school。"
+        "hint": "walk → walked：开学第一天的过去叙事，用一般过去时 walked，表示走进教室。"
       },
       {
         "n": 2,
-        "answer": "an",
+        "word": "I",
+        "answer": "me",
         "accepted_answers": [],
-        "hint": "animal 以元音音素开头，单数可数名词前用 an。"
+        "hint": "I → me：beside 是介词，后接 I 的宾格 me，表示坐在我旁边。"
       },
       {
         "n": 3,
-        "answer": "to",
-        "accepted_answers": [],
-        "hint": "next to 表示紧挨着。"
+        "word": "story",
+        "answer": "stories",
+        "accepted_answers": [
+          "story"
+        ],
+        "hint": "story → stories：此处可以谈多篇喜欢的故事，用复数 stories；也可以谈最喜欢的一篇故事，用单数 story。"
       },
       {
         "n": 4,
-        "answer": "not",
+        "word": "open",
+        "answer": "opened",
         "accepted_answers": [],
-        "hint": "did not 后接动词原形，表示起初不知道说什么。"
+        "hint": "open → opened：与前面的 smiled 并列，都是过去发生的动作，用 opened。"
       },
       {
         "n": 5,
-        "answer": "so",
-        "accepted_answers": [
-          "and"
-        ],
-        "hint": "共同爱好带来交谈的结果，用 so。 and 也可连接相关的两件事。"
+        "word": "happy",
+        "answer": "happily",
+        "accepted_answers": [],
+        "hint": "happy → happily：修饰动词 talked，用 happy 的副词 happily。"
       },
       {
         "n": 6,
-        "answer": "the",
+        "word": "library",
+        "answer": "library",
         "accepted_answers": [],
-        "hint": "这里指两人所在学校的图书馆，用 the。"
+        "hint": "library → library：school library 表示学校图书馆；此处指一座图书馆，保留单数原形。"
       },
       {
         "n": 7,
-        "answer": "them",
+        "word": "heavy",
+        "answer": "heavier",
         "accepted_answers": [],
-        "hint": "指代两本书，作 put 的宾语用 them。"
+        "hint": "heavy → heavier：后面的 than 表明比较我和 Lily 的书包重量，用比较级 heavier。"
       },
       {
         "n": 8,
-        "answer": "on",
-        "accepted_answers": [
-          "by",
-          "before"
-        ],
-        "hint": "on Friday 表示周五归还，by Friday 表示不晚于周五，before Friday 表示周五之前；三者均符合承诺归还的语境。"
+        "word": "hold",
+        "answer": "hold",
+        "accepted_answers": [],
+        "hint": "hold → hold：help somebody do something 中可用动词原形，故 hold 不变。"
       },
       {
         "n": 9,
-        "answer": "for",
+        "word": "share",
+        "answer": "shared",
         "accepted_answers": [],
-        "hint": "thank somebody for doing something 表示感谢某人做某事。"
+        "hint": "share → shared：After school 延续当天的过去叙事，用 share 的过去式 shared。"
       },
       {
         "n": 10,
-        "answer": "who",
-        "accepted_answers": [
-          "that"
-        ],
-        "hint": "先行词是人，关系词在从句中作主语，可用 who 或 that。"
+        "word": "bring",
+        "answer": "brings",
+        "accepted_answers": [],
+        "hint": "bring → brings：Now 和 every Friday 表示现在的习惯；主语 Lily 是第三人称单数，用 brings。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "A New Seat in Class",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "happy",
+      "hold",
+      "story",
+      "heavy",
+      "library",
+      "open",
+      "walk",
+      "bring",
+      "share",
+      "I"
     ]
   },
   {
@@ -93,89 +111,102 @@
     "grade": "L2",
     "difficulty": "easy",
     "title": "The Lost Library Book",
-    "passage": "Ben borrowed (1)____ library book on Monday. He planned (2)____ return it on Friday. On Thursday evening, he could (3)____ find it. He looked in his bag and under his bed, (4)____ the book was not there. His sister asked, 'Have you looked in the car?' Ben opened the car door and found (5)____ on the back seat. He had left the book there after school. On Friday morning, he returned it (6)____ time, before the library opened its doors to the next class. 'Thank you (7)____ bringing it back,' said the librarian. Ben promised to take better care (8)____ borrowed things. When he got home, he put a note (9)____ his bag, between his books. Now he checks his bag (10)____ he leaves the house each morning.",
+    "passage": "Ben borrowed a library book on Monday and (1)____ to return it on Friday. On Thursday evening, he searched three (2)____ under his bed, but the book was missing. He looked (3)____ inside his schoolbag too. His sister asked, 'Did you (4)____ it in the car?' Ben took the car (5)____ from its hook. He opened the back door and (6)____ the book on the seat. He thanked his sister for helping (7)____. The next morning, he returned the book before his first (8)____. The librarian reminded him to be (9)____ than before. Now Ben (10)____ his bag every evening so that borrowed books are ready for school.",
     "blanks": [
       {
         "n": 1,
-        "answer": "a",
+        "word": "plan",
+        "answer": "planned",
         "accepted_answers": [],
-        "hint": "book 是首次出现的单数可数名词，用 a。"
+        "hint": "plan → planned：on Monday 表示过去时间，plan 双写 n 加 ed，变为 planned。"
       },
       {
         "n": 2,
-        "answer": "to",
+        "word": "box",
+        "answer": "boxes",
         "accepted_answers": [],
-        "hint": "plan to do 表示计划做某事。"
+        "hint": "box → boxes：three 后接可数名词复数；box 加 es，变为 boxes。"
       },
       {
         "n": 3,
-        "answer": "not",
+        "word": "careful",
+        "answer": "carefully",
         "accepted_answers": [],
-        "hint": "could not find 表示找不到。"
+        "hint": "careful → carefully：修饰寻找的动作 looked，用 careful 的副词 carefully。"
       },
       {
         "n": 4,
-        "answer": "but",
-        "accepted_answers": [
-          "yet",
-          "and"
-        ],
-        "hint": "but、yet 强调寻找后仍未找到的转折；and 也可连接寻找和未找到两个事实。"
+        "word": "leave",
+        "answer": "leave",
+        "accepted_answers": [],
+        "hint": "leave → leave：疑问句已有助动词 Did，后面的实义动词用原形 leave。"
       },
       {
         "n": 5,
-        "answer": "it",
+        "word": "key",
+        "answer": "key",
         "accepted_answers": [],
-        "hint": "用 it 指代那本书。"
+        "hint": "key → key：the car key 指开车门所需的那一把钥匙，保留单数 key。"
       },
       {
         "n": 6,
-        "answer": "on",
-        "accepted_answers": [
-          "in"
-        ],
-        "hint": "准时用 on time；in time 表示及时，也符合归还语境。"
+        "word": "find",
+        "answer": "found",
+        "accepted_answers": [],
+        "hint": "find → found：与 opened 并列叙述过去动作，find 的过去式是 found。"
       },
       {
         "n": 7,
-        "answer": "for",
+        "word": "he",
+        "answer": "him",
         "accepted_answers": [],
-        "hint": "thank somebody for doing 是固定结构。"
+        "hint": "he → him：helping 后需要宾语，he 变为宾格 him。"
       },
       {
         "n": 8,
-        "answer": "of",
+        "word": "lesson",
+        "answer": "lesson",
         "accepted_answers": [],
-        "hint": "take care of 表示照管。"
+        "hint": "lesson → lesson：first 后指当天第一节课，名词用单数 lesson。"
       },
       {
         "n": 9,
-        "answer": "in",
-        "accepted_answers": [
-          "inside"
-        ],
-        "hint": "between his books 说明纸条在包内，用 in 或 inside。"
+        "word": "tidy",
+        "answer": "tidier",
+        "accepted_answers": [],
+        "hint": "tidy → tidier：than before 明确要求比较级；tidy 变 y 为 i 加 er，得 tidier。"
       },
       {
         "n": 10,
-        "answer": "before",
-        "accepted_answers": [
-          "when",
-          "as"
-        ],
-        "hint": "before 表示出门之前，when 或 as 表示出门时；均可描述每天检查书包的时机。"
+        "word": "check",
+        "answer": "checks",
+        "accepted_answers": [],
+        "hint": "check → checks：Now 表示目前的习惯；单数主语 Ben 后用 checks。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "The Lost Library Book",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "check",
+      "careful",
+      "key",
+      "lesson",
+      "tidy",
+      "find",
+      "plan",
+      "leave",
+      "he",
+      "box"
     ]
   },
   {
@@ -184,84 +215,102 @@
     "grade": "L2",
     "difficulty": "easy",
     "title": "Grandma's Garden",
-    "passage": "My grandmother has (1)____ small garden behind her house. She works in (2)____ every morning. In spring, she plants tomatoes and beans. I help her (3)____ the weekends. At first, I did not enjoy gardening, (4)____ now I do. Grandma says that plants cannot grow (5)____ water, so we water them regularly. Last summer, we picked a basket (6)____ tomatoes. She used some of them (7)____ make soup. We gave the rest to our neighbours, (8)____ thanked us for the vegetables. Gardening helps me understand (9)____ food comes from: it grows in soil, not on shop shelves. Next spring, I am going (10)____ plant some beans myself.",
+    "passage": "My grandmother has a small garden behind her house. Last spring, she (1)____ me how to grow beans. First, we put six (2)____ into the soil. Grandma asked me to press the soil (3)____ with my fingers. I wanted the plants to grow at once, but she told (4)____ to be patient. Every morning now, she (5)____ the garden before breakfast. Last summer, the bean plants grew (6)____ than me. We (7)____ a basket of beans and some tomatoes. Grandma made vegetable (8)____ for lunch. We took the rest to our neighbours, who thanked us for our (9)____. Next spring, I hope to (10)____ some beans in a pot of my own.",
     "blanks": [
       {
         "n": 1,
-        "answer": "a",
+        "word": "teach",
+        "answer": "taught",
         "accepted_answers": [],
-        "hint": "首次引入一座小花园，用 a。"
+        "hint": "teach → taught：Last spring 明确过去时间；teach 的过去式为 taught。"
       },
       {
         "n": 2,
-        "answer": "it",
+        "word": "seed",
+        "answer": "seeds",
         "accepted_answers": [],
-        "hint": "it 指代前面的花园。"
+        "hint": "seed → seeds：six 后接 seed 的复数 seeds。"
       },
       {
         "n": 3,
-        "answer": "at",
-        "accepted_answers": [
-          "on"
-        ],
-        "hint": "at the weekends 和 on the weekends 分别是常见英式和美式表达。"
+        "word": "gentle",
+        "answer": "gently",
+        "accepted_answers": [],
+        "hint": "gentle → gently：修饰 press 这个动作，用 gentle 的副词 gently。"
       },
       {
         "n": 4,
-        "answer": "but",
-        "accepted_answers": [
-          "yet",
-          "and"
-        ],
-        "hint": "but、yet 强调过去不喜欢而现在喜欢的转折；and 也可连接前后两个阶段的事实。"
+        "word": "I",
+        "answer": "me",
+        "accepted_answers": [],
+        "hint": "I → me：told 后接人称代词宾格，I 变为 me。"
       },
       {
         "n": 5,
-        "answer": "without",
+        "word": "water",
+        "answer": "waters",
         "accepted_answers": [],
-        "hint": "植物没有水无法生长，without 表示没有。"
+        "hint": "water → waters：Every morning now 表示现在的习惯，主语 she 后用 waters。"
       },
       {
         "n": 6,
-        "answer": "of",
+        "word": "tall",
+        "answer": "taller",
         "accepted_answers": [],
-        "hint": "a basket of 表示一篮子。"
+        "hint": "tall → taller：than me 是比较结构，用 tall 的比较级 taller。"
       },
       {
         "n": 7,
-        "answer": "to",
+        "word": "pick",
+        "answer": "picked",
         "accepted_answers": [],
-        "hint": "use something to do 表示用某物做某事。"
+        "hint": "pick → picked：Last summer 的过去时间延续到采摘动作，用 picked。"
       },
       {
         "n": 8,
-        "answer": "who",
+        "word": "soup",
+        "answer": "soup",
         "accepted_answers": [],
-        "hint": "逗号后的非限制性定语从句指人，用 who。"
+        "hint": "soup → soup：soup 在这里是不可数名词，表示蔬菜汤，保留原形。"
       },
       {
         "n": 9,
-        "answer": "where",
+        "word": "kind",
+        "answer": "kindness",
         "accepted_answers": [],
-        "hint": "后文说明食物来源，where 引导来源地点的从句。"
+        "hint": "kind → kindness：our 后需要名词，kind 变为表示善意的名词 kindness。"
       },
       {
         "n": 10,
-        "answer": "to",
+        "word": "plant",
+        "answer": "plant",
         "accepted_answers": [],
-        "hint": "be going to do 表示计划。"
+        "hint": "plant → plant：hope to 后接动词原形 plant，表示希望种植。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "Grandma's Garden",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "tall",
+      "kind",
+      "teach",
+      "I",
+      "seed",
+      "water",
+      "plant",
+      "gentle",
+      "soup",
+      "pick"
     ]
   },
   {
@@ -270,82 +319,102 @@
     "grade": "L2",
     "difficulty": "easy",
     "title": "A Rainy Football Match",
-    "passage": "Our class had a football match (1)____ Saturday. When we arrived (2)____ the playground, it began to rain. Some players wanted to stop, (3)____ our captain wanted to continue. 'We have practised (4)____ three weeks,' he said. We agreed to play. I fell down twice, but I did (5)____ give up. Near the end, our captain passed the ball (6)____ me. I kicked it into (7)____ net. After the match, we were tired (8)____ wet. Our teacher thanked us (9)____ working together. We learned that each player is part (10)____ a team.",
+    "passage": "Our class played a football match last Saturday. Just before the start, dark (1)____ were moving across the sky. It (2)____ to rain as we reached the playground. Our captain spoke (3)____. He said, 'We can still (4)____ if the teacher says the ground is safe.' The teacher checked the grass and let the match continue. I fell twice, but my friends helped (5)____ get up. Near the end, our captain (6)____ the ball to me. I kicked it into the (7)____. We won by one goal. Afterwards, our shirts were (8)____ than before, but nobody complained. Our teacher (9)____ our teamwork. Now our captain always (10)____ us that every player matters.",
     "blanks": [
       {
         "n": 1,
-        "answer": "on",
+        "word": "cloud",
+        "answer": "clouds",
         "accepted_answers": [],
-        "hint": "星期前用 on。"
+        "hint": "cloud → clouds：后面的 were 表明主语是复数，cloud 用 clouds。"
       },
       {
         "n": 2,
-        "answer": "at",
+        "word": "begin",
+        "answer": "began",
         "accepted_answers": [],
-        "hint": "arrive at 后接操场等具体地点。"
+        "hint": "begin → began：last Saturday 的过去叙事中，begin 用过去式 began。"
       },
       {
         "n": 3,
-        "answer": "but",
-        "accepted_answers": [
-          "yet",
-          "and"
-        ],
-        "hint": "but、yet 强调队员和队长的不同意愿；and 也可并列叙述两种意愿。"
+        "word": "calm",
+        "answer": "calmly",
+        "accepted_answers": [],
+        "hint": "calm → calmly：修饰 spoke，用 calm 的副词 calmly，说明说话的方式。"
       },
       {
         "n": 4,
-        "answer": "for",
+        "word": "play",
+        "answer": "play",
         "accepted_answers": [],
-        "hint": "for 后接一段时间，配合现在完成时。"
+        "hint": "play → play：情态动词 can 后接动词原形 play。"
       },
       {
         "n": 5,
-        "answer": "not",
+        "word": "I",
+        "answer": "me",
         "accepted_answers": [],
-        "hint": "did not 后接原形 give。"
+        "hint": "I → me：helped 后接宾格 me，表示帮助我。"
       },
       {
         "n": 6,
-        "answer": "to",
+        "word": "pass",
+        "answer": "passed",
         "accepted_answers": [],
-        "hint": "pass something to somebody 表示把东西传给某人。"
+        "hint": "pass → passed：叙述比赛末尾过去发生的传球动作，用 passed。"
       },
       {
         "n": 7,
-        "answer": "the",
+        "word": "net",
+        "answer": "net",
         "accepted_answers": [],
-        "hint": "比赛中所指的球网，用 the。"
+        "hint": "net → net：the net 指球门网，只有一个所指，用单数原形 net。"
       },
       {
         "n": 8,
-        "answer": "and",
+        "word": "wet",
+        "answer": "wetter",
         "accepted_answers": [],
-        "hint": "and 连接并列形容词 tired 和 wet，说明赛后既累又湿。"
+        "hint": "wet → wetter：than before 提示比较级；wet 双写 t 加 er，得 wetter。"
       },
       {
         "n": 9,
-        "answer": "for",
+        "word": "praise",
+        "answer": "praised",
         "accepted_answers": [],
-        "hint": "thank somebody for doing 表示因某事感谢。"
+        "hint": "praise → praised：赛后老师表扬队员，是过去发生的动作，用 praised。"
       },
       {
         "n": 10,
-        "answer": "of",
+        "word": "remind",
+        "answer": "reminds",
         "accepted_answers": [],
-        "hint": "part of a team 表示团队的一部分。"
+        "hint": "remind → reminds：Now 和 always 表示现在的习惯；单数主语 captain 后用 reminds。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "A Rainy Football Match",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "play",
+      "net",
+      "calm",
+      "cloud",
+      "begin",
+      "wet",
+      "praise",
+      "remind",
+      "I",
+      "pass"
     ]
   },
   {
@@ -354,87 +423,102 @@
     "grade": "L2",
     "difficulty": "easy",
     "title": "The Missing Lunchbox",
-    "passage": "Mia could not find her lunchbox (1)____ noon. She looked in her bag, but it was not there. She asked her friends (2)____ they had seen it. A boy gave her one (3)____ his two sandwiches. 'You can have this one,' he said. Mia thanked (4)____ and ate it. After lunch, she went (5)____ the art room and found her lunchbox under a chair. It was the lunchbox (6)____ she had brought that morning. She had left it there during the morning lesson. The next day, she brought two apples and gave one (7)____ the boy. They began to talk (8)____ their art lessons. Now they sit next to each (9)____ in art class. Mia is glad that she has made (10)____ new friend.",
+    "passage": "Mia could not find her lunchbox at noon yesterday. She (1)____ her bag twice and then looked under the classroom (2)____, which were all empty. A boy named Sam offered her one of his two sandwiches. Mia thanked (3)____ and ate it (4)____. After lunch, she remembered the art (5)____. She went back and found her lunchbox beside a paint pot. The next day, Mia (6)____ two apples to school. She gave one to Sam as a (7)____. They discovered that they both liked drawing. Sam could draw animals, and Mia was (8)____ than Sam at painting trees. They decided to (9)____ on a picture together. Now Mia (10)____ her lunchbox in the same pocket every morning.",
     "blanks": [
       {
         "n": 1,
-        "answer": "at",
+        "word": "search",
+        "answer": "searched",
         "accepted_answers": [],
-        "hint": "at noon 表示在中午。"
+        "hint": "search → searched：yesterday 明确过去时间，用 search 的过去式 searched。"
       },
       {
         "n": 2,
-        "answer": "if",
-        "accepted_answers": [
-          "whether"
-        ],
-        "hint": "询问是否见过，用 if 或 whether。"
+        "word": "chair",
+        "answer": "chairs",
+        "accepted_answers": [],
+        "hint": "chair → chairs：后面的 were 明确有多把椅子，chair 用复数 chairs。"
       },
       {
         "n": 3,
-        "answer": "of",
+        "word": "he",
+        "answer": "him",
         "accepted_answers": [],
-        "hint": "one of 表示其中之一。"
+        "hint": "he → him：thanked 后接宾语，he 变为 him。"
       },
       {
         "n": 4,
-        "answer": "him",
+        "word": "hungry",
+        "answer": "hungrily",
         "accepted_answers": [],
-        "hint": "指代男孩，作宾语用 him。"
+        "hint": "hungry → hungrily：修饰 ate，用 hungry 的副词 hungrily，表示饿着吃起来。"
       },
       {
         "n": 5,
-        "answer": "to",
-        "accepted_answers": [
-          "into"
-        ],
-        "hint": "went to 表示去了美术教室，went into 强调走进教室，均符合后文找到饭盒的情节。"
+        "word": "room",
+        "answer": "room",
+        "accepted_answers": [],
+        "hint": "room → room：the art room 表示学校的美术教室，指一间，用单数 room。"
       },
       {
         "n": 6,
-        "answer": "that",
-        "accepted_answers": [
-          "which"
-        ],
-        "hint": "先行词 lunchbox 指物，在定语从句中作宾语，可用 that 或 which。"
+        "word": "bring",
+        "answer": "brought",
+        "accepted_answers": [],
+        "hint": "bring → brought：The next day 延续过去叙事；bring 的过去式是 brought。"
       },
       {
         "n": 7,
-        "answer": "to",
+        "word": "gift",
+        "answer": "gift",
         "accepted_answers": [],
-        "hint": "give something to somebody 表示给某人某物。"
+        "hint": "gift → gift：a 后接单数可数名词；gift 表示感谢对方的小礼物，保留原形。"
       },
       {
         "n": 8,
-        "answer": "about",
-        "accepted_answers": [
-          "of"
-        ],
-        "hint": "talk about 表示谈论。 talk of 也可表示谈起这些课程。"
+        "word": "good",
+        "answer": "better",
+        "accepted_answers": [],
+        "hint": "good → better：than Sam 明确要求比较；good 的比较级是不规则形式 better。"
       },
       {
         "n": 9,
-        "answer": "other",
+        "word": "work",
+        "answer": "work",
         "accepted_answers": [],
-        "hint": "each other 表示彼此。"
+        "hint": "work → work：decided to 后接动词原形 work。"
       },
       {
         "n": 10,
-        "answer": "a",
+        "word": "keep",
+        "answer": "keeps",
         "accepted_answers": [],
-        "hint": "make a new friend 表示交到一位新朋友。"
+        "hint": "keep → keeps：Now 表示现在的习惯，主语 Mia 为单数，用 keeps。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "The Missing Lunchbox",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "work",
+      "bring",
+      "keep",
+      "chair",
+      "good",
+      "hungry",
+      "room",
+      "search",
+      "he",
+      "gift"
     ]
   },
   {
@@ -443,86 +527,104 @@
     "grade": "L2",
     "difficulty": "medium",
     "title": "A Night Without Electricity",
-    "passage": "One winter evening, the lights in our building went (1)____. My mother lit some candles, and we sat around the table. There was (2)____ electricity, so we could not watch TV. My father told us about his childhood. He used (3)____ walk two kilometres to school. He walked even (4)____ it rained. At nine, the lights came back, (5)____ nobody turned on the television. We were enjoying (6)____ another's company. That evening taught me that happiness does not always depend (7)____ electronic devices. Now I sometimes suggest that we spend (8)____ evening without screens. My parents have agreed (9)____ try it again. We look forward (10)____ our next evening together.",
+    "passage": "One winter evening, the lights in our building suddenly went out. Mum (1)____ three candles and put them on the table. Their small (2)____ were bright enough for us to see one another. At first, my brother complained (3)____ because he could not watch television. Dad asked (4)____ to listen to a story about his childhood. He had (5)____ two kilometres to school every day when he was young. Soon, we were all (6)____ at his funny memories. The room felt (7)____ than it had before, even without the heater. When the power returned, nobody reached for the television (8)____. Since that night, we have (9)____ one evening a week to spend without screens. We look forward to (10)____ more of Dad's stories.",
     "blanks": [
       {
         "n": 1,
-        "answer": "out",
-        "accepted_answers": [],
-        "hint": "go out 表示灯熄灭。"
+        "word": "light",
+        "answer": "lit",
+        "accepted_answers": [
+          "lighted"
+        ],
+        "hint": "light → lit：叙述停电当晚的过去动作；light 的过去式可用 lit，也可用 lighted。"
       },
       {
         "n": 2,
-        "answer": "no",
+        "word": "flame",
+        "answer": "flames",
         "accepted_answers": [],
-        "hint": "there was no electricity 与无法看电视相呼应。"
+        "hint": "flame → flames：three candles 对应多支蜡烛的火焰，且后面用 were，故 flame 变为 flames。"
       },
       {
         "n": 3,
-        "answer": "to",
+        "word": "loud",
+        "answer": "loudly",
         "accepted_answers": [],
-        "hint": "used to do 表示过去经常。"
+        "hint": "loud → loudly：修饰 complained，说明抱怨的方式，用副词 loudly。"
       },
       {
         "n": 4,
-        "answer": "when",
-        "accepted_answers": [
-          "if"
-        ],
-        "hint": "even when 表示即使下雨的时候；even if 表示即使下雨的情况，也成立。"
+        "word": "we",
+        "answer": "us",
+        "accepted_answers": [],
+        "hint": "we → us：asked 后接人称代词宾格，we 变为 us。"
       },
       {
         "n": 5,
-        "answer": "but",
-        "accepted_answers": [
-          "yet",
-          "and"
-        ],
-        "hint": "but、yet 强调恢复供电却无人开电视；and 也可连接灯亮了与没人开电视两个事实。"
+        "word": "walk",
+        "answer": "walked",
+        "accepted_answers": [],
+        "hint": "walk → walked：had 后用过去分词 walked，构成过去完成时，回顾停电故事之前的童年经历。"
       },
       {
         "n": 6,
-        "answer": "one",
+        "word": "laugh",
+        "answer": "laughing",
         "accepted_answers": [],
-        "hint": "one another 表示彼此。"
+        "hint": "laugh → laughing：were 后用 laughing 构成过去进行时，描写当时大家正在笑。"
       },
       {
         "n": 7,
-        "answer": "on",
-        "accepted_answers": [
-          "upon"
-        ],
-        "hint": "depend on 或 depend upon 表示依赖。"
+        "word": "warm",
+        "answer": "warmer",
+        "accepted_answers": [],
+        "hint": "warm → warmer：than it had before 是比较结构，用 warmer。"
       },
       {
         "n": 8,
-        "answer": "an",
+        "word": "remote",
+        "answer": "remote",
         "accepted_answers": [],
-        "hint": "evening 以元音音素开头，用 an。"
+        "hint": "remote → remote：the television remote 指电视遥控器，用名词单数原形 remote。"
       },
       {
         "n": 9,
-        "answer": "to",
+        "word": "choose",
+        "answer": "chosen",
         "accepted_answers": [],
-        "hint": "agree to do 表示同意做某事。"
+        "hint": "choose → chosen：have 后接过去分词；choose 的过去分词为 chosen。"
       },
       {
         "n": 10,
-        "answer": "to",
+        "word": "hear",
+        "answer": "hearing",
         "accepted_answers": [],
-        "hint": "look forward to 后接名词，to 是介词。"
+        "hint": "hear → hearing：look forward to 中 to 是介词，后接动名词 hearing。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "A Night Without Electricity",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "remote",
+      "hear",
+      "loud",
+      "laugh",
+      "warm",
+      "we",
+      "light",
+      "choose",
+      "flame",
+      "walk"
     ]
   },
   {
@@ -531,83 +633,104 @@
     "grade": "L2",
     "difficulty": "medium",
     "title": "A Surprise for the Teacher",
-    "passage": "Mrs Chen had taught us English (1)____ two years. Our class wanted to make a video (2)____ her. Each student recorded a sentence about how she had helped us. Some students were afraid (3)____ speaking in front of the camera. Lily, (4)____ was good at making videos, put the clips together. On Monday, we connected a computer (5)____ the classroom screen and played the video. Mrs Chen said that it was (6)____ best gift she had ever received. We were pleased (7)____ hear that. We learned that a gift is valuable not because it is expensive, (8)____ because it comes from the heart. Now we often help her carry her books so (9)____ she can walk to class more easily. It is one (10)____ the ways we show that we care.",
+    "passage": "Last month, our class decided to make a surprise video for Mrs Chen. She had (1)____ us English for two years. We wanted to thank her for her (2)____ when we made mistakes. Each student (3)____ a short message after school. Some students were nervous, so Lily asked (4)____ to practise before filming. She held the camera (5)____ while we spoke. Later, she joined the separate (6)____ into one film. On Monday, we connected a computer to the classroom (7)____. Mrs Chen watched in silence. Then she said it was the (8)____ present she had ever received. We felt proud of making something (9)____. Now we often (10)____ her carry books to class, because care can be shown in small ways too.",
     "blanks": [
       {
         "n": 1,
-        "answer": "for",
+        "word": "teach",
+        "answer": "taught",
         "accepted_answers": [],
-        "hint": "一段时间前用 for。"
+        "hint": "teach → taught：had 后接过去分词，teach 的过去分词是 taught，表示此前已教了两年。"
       },
       {
         "n": 2,
-        "answer": "for",
-        "accepted_answers": [
-          "about"
-        ],
-        "hint": "make a video for her 表示为她制作视频；about her 表示制作关于她的视频，也符合内容。"
+        "word": "patient",
+        "answer": "patience",
+        "accepted_answers": [],
+        "hint": "patient → patience：her 后需要名词；patient 变为表示耐心的 patience。"
       },
       {
         "n": 3,
-        "answer": "of",
+        "word": "record",
+        "answer": "recorded",
         "accepted_answers": [],
-        "hint": "be afraid of doing 表示害怕做某事。"
+        "hint": "record → recorded：Last month 的过去叙事中，每人录制一句话，用 recorded。"
       },
       {
         "n": 4,
-        "answer": "who",
+        "word": "they",
+        "answer": "them",
         "accepted_answers": [],
-        "hint": "非限制性定语从句指 Lily，用 who。"
+        "hint": "they → them：asked 后需要宾语，they 变为 them。"
       },
       {
         "n": 5,
-        "answer": "to",
+        "word": "steady",
+        "answer": "steadily",
         "accepted_answers": [
-          "with"
+          "steady"
         ],
-        "hint": "connect a computer to the screen 表示将电脑连接到屏幕；connect ... with ... 也可表示连接两者。"
+        "hint": "steady → steadily：副词 steadily 修饰 held，表示稳稳地拿着；也可用形容词 steady 作 camera 的宾语补足语，表示让相机保持稳定。"
       },
       {
         "n": 6,
-        "answer": "the",
+        "word": "clip",
+        "answer": "clips",
         "accepted_answers": [],
-        "hint": "最高级 best 前用 the。"
+        "hint": "clip → clips：separate 指多个分开的片段，clip 用复数 clips。"
       },
       {
         "n": 7,
-        "answer": "to",
+        "word": "screen",
+        "answer": "screen",
         "accepted_answers": [],
-        "hint": "be pleased to do 表示很高兴做某事。"
+        "hint": "screen → screen：the classroom screen 指教室里的屏幕，用单数原形 screen。"
       },
       {
         "n": 8,
-        "answer": "but",
+        "word": "good",
+        "answer": "best",
         "accepted_answers": [],
-        "hint": "not because ... but because ... 表示不是因为前者而是因为后者。"
+        "hint": "good → best：the 后结合比较范围 she had ever received，要求 good 的最高级 best。"
       },
       {
         "n": 9,
-        "answer": "that",
+        "word": "meaning",
+        "answer": "meaningful",
         "accepted_answers": [],
-        "hint": "so that 引导目的从句。"
+        "hint": "meaning → meaningful：something 后用形容词修饰；meaning 变为 meaningful，表示有意义的。"
       },
       {
         "n": 10,
-        "answer": "of",
+        "word": "help",
+        "answer": "help",
         "accepted_answers": [],
-        "hint": "one of the ways 表示这些方式中的一种，of 连接部分与整体。"
+        "hint": "help → help：Now 表示现在的习惯，主语 we 后用动词原形 help。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "A Surprise for the Teacher",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "good",
+      "clip",
+      "meaning",
+      "steady",
+      "record",
+      "screen",
+      "patient",
+      "help",
+      "they",
+      "teach"
     ]
   },
   {
@@ -616,85 +739,102 @@
     "grade": "L2",
     "difficulty": "medium",
     "title": "Learning to Cook",
-    "passage": "Last month, I decided (1)____ cook dinner while my parents were at work. I chose tomato and egg noodles. I filled a pot (2)____ water and cut the tomatoes. I forgot the oil, so the eggs stuck (3)____ the pan. I threw them away and tried again. This time, I added oil before putting the eggs (4)____ the pan. Then I added tomatoes and salt. There was (5)____ much salt, so I added more water. When my parents came home, they were surprised (6)____ see dinner on the table. My mother said, 'You cooked dinner all (7)____ yourself!' I learned that cooking is a skill (8)____ takes practice. Since that evening, I (9)____ tried a new dish every weekend. I look forward to (10)____ able to cook a whole meal without help.",
+    "passage": "Last month, I tried to cook dinner while my parents were at work. I (1)____ tomato and egg noodles because they looked simple. First, I washed two (2)____ and cut them into small pieces. I forgot the oil, so the eggs (3)____ to the pan. I had to throw them away and start again. This time, I heated some oil before (4)____ fresh eggs. I followed the recipe (5)____, but I still put in too much salt. The second attempt was (6)____ than the first, and a little extra water corrected the salty soup. When my parents came home, dinner was on the (7)____. Mum said, 'You made it by (8)____!' Since that evening, I have (9)____ a new dish every weekend. I hope to (10)____ a whole meal without help soon.",
     "blanks": [
       {
         "n": 1,
-        "answer": "to",
+        "word": "choose",
+        "answer": "chose",
         "accepted_answers": [],
-        "hint": "decide to do 表示决定做某事。"
+        "hint": "choose → chose：Last month 明确过去时间，choose 的过去式为 chose。"
       },
       {
         "n": 2,
-        "answer": "with",
+        "word": "tomato",
+        "answer": "tomatoes",
         "accepted_answers": [],
-        "hint": "fill something with something 表示用某物装满容器。"
+        "hint": "tomato → tomatoes：two 后用可数名词复数；tomato 加 es，得 tomatoes。"
       },
       {
         "n": 3,
-        "answer": "to",
+        "word": "stick",
+        "answer": "stuck",
         "accepted_answers": [],
-        "hint": "stick to 表示粘住。"
+        "hint": "stick → stuck：叙述过去发生的失误，stick 的过去式是 stuck。"
       },
       {
         "n": 4,
-        "answer": "in",
-        "accepted_answers": [
-          "into"
-        ],
-        "hint": "put in 或 put into 表示放入。"
+        "word": "add",
+        "answer": "adding",
+        "accepted_answers": [],
+        "hint": "add → adding：before 在这里后接动名词，add 变为 adding。"
       },
       {
         "n": 5,
-        "answer": "too",
+        "word": "careful",
+        "answer": "carefully",
         "accepted_answers": [],
-        "hint": "too much 表示过多，后文加水说明盐过量。"
+        "hint": "careful → carefully：修饰 followed，用 careful 的副词 carefully。"
       },
       {
         "n": 6,
-        "answer": "to",
+        "word": "good",
+        "answer": "better",
         "accepted_answers": [],
-        "hint": "be surprised to do 是常用结构。"
+        "hint": "good → better：than the first 明确比较两次尝试，good 的比较级是 better。"
       },
       {
         "n": 7,
-        "answer": "by",
+        "word": "table",
+        "answer": "table",
         "accepted_answers": [],
-        "hint": "all by yourself 表示完全独自完成，与父母不在家、孩子自己做饭的情节一致。"
+        "hint": "table → table：on the table 表示饭菜在餐桌上，用单数原形 table。"
       },
       {
         "n": 8,
-        "answer": "that",
-        "accepted_answers": [
-          "which"
-        ],
-        "hint": "指物的限制性定语从句，可用 that 或 which。"
+        "word": "you",
+        "answer": "yourself",
+        "accepted_answers": [],
+        "hint": "you → yourself：by yourself 表示你独自完成，you 变为反身代词 yourself。"
       },
       {
         "n": 9,
-        "answer": "have",
+        "word": "try",
+        "answer": "tried",
         "accepted_answers": [],
-        "hint": "since 配合现在完成时，主语 I 用 have。"
+        "hint": "try → tried：have 后用过去分词 tried，表示从那晚到现在的尝试。"
       },
       {
         "n": 10,
-        "answer": "being",
-        "accepted_answers": [
-          "becoming"
-        ],
-        "hint": "look forward to 后用动名词，being able to 表示能够。 becoming able to 表示逐渐获得能力，也符合语境。"
+        "word": "prepare",
+        "answer": "prepare",
+        "accepted_answers": [],
+        "hint": "prepare → prepare：hope to 后接动词原形 prepare。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "Learning to Cook",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "add",
+      "choose",
+      "you",
+      "prepare",
+      "table",
+      "try",
+      "good",
+      "careful",
+      "tomato",
+      "stick"
     ]
   },
   {
@@ -703,87 +843,102 @@
     "grade": "L2",
     "difficulty": "medium",
     "title": "A Day at the Beach",
-    "passage": "Last Sunday, my family went to (1)____ beach. We left early because we wanted (2)____ avoid the traffic. My brother and I built a sandcastle while our parents prepared lunch. A wave knocked it down, (3)____ we built another one. This time we made a wall to protect it (4)____ the water. In the afternoon, we collected shells. I found one (5)____ was bigger than my hand. My mother said that a sea animal might live inside (6)____, so I put it back. Before leaving, we picked (7)____ some rubbish from the sand. We carried it to a bin instead (8)____ leaving it on the beach. A good trip is not only about having fun (9)____ also about protecting nature. We should leave a clean beach (10)____ future visitors.",
+    "passage": "Last Sunday, my family went to the beach. We left early to (1)____ the traffic. My brother and I (2)____ a sandcastle while our parents prepared lunch. A wave knocked it down. We made a second castle with (3)____ walls than the first one had. After lunch, we collected empty (4)____. One of them was as big as my hand. Mum asked me to examine it (5)____. A tiny crab was (6)____ inside, so I put the shell back. Before leaving, we (7)____ some rubbish on the sand. Dad gave (8)____ a bag, and we filled it with plastic wrappers. We carried the bag to a (9)____. I felt pleased that we had left the beach (10)____ than we had found it.",
     "blanks": [
       {
         "n": 1,
-        "answer": "the",
+        "word": "avoid",
+        "answer": "avoid",
         "accepted_answers": [],
-        "hint": "go to the beach 是常见地点表达。"
+        "hint": "avoid → avoid：to 表示目的，后接动词原形 avoid。"
       },
       {
         "n": 2,
-        "answer": "to",
+        "word": "build",
+        "answer": "built",
         "accepted_answers": [],
-        "hint": "want to do 表示想做某事。"
+        "hint": "build → built：Last Sunday 明确过去时间，build 的过去式为 built。"
       },
       {
         "n": 3,
-        "answer": "so",
-        "accepted_answers": [
-          "and",
-          "but",
-          "yet"
-        ],
-        "hint": "so 强调沙堡倒塌导致重建，and 并列叙述；but、yet 强调虽被冲倒仍重新建造，均符合情节。"
+        "word": "thick",
+        "answer": "thicker",
+        "accepted_answers": [],
+        "hint": "thick → thicker：than the first one had 提供比较依据，thick 变为比较级 thicker。"
       },
       {
         "n": 4,
-        "answer": "from",
-        "accepted_answers": [
-          "against"
-        ],
-        "hint": "protect from 和 protect against 都表示防护。"
+        "word": "shell",
+        "answer": "shells",
+        "accepted_answers": [],
+        "hint": "shell → shells：后文 one of them 表明收集了多个贝壳，shell 用复数 shells。"
       },
       {
         "n": 5,
-        "answer": "that",
-        "accepted_answers": [
-          "which"
-        ],
-        "hint": "指代贝壳的关系词可用 that 或 which。"
+        "word": "close",
+        "answer": "closely",
+        "accepted_answers": [],
+        "hint": "close → closely：修饰 examine，表示仔细查看，用副词 closely。"
       },
       {
         "n": 6,
-        "answer": "it",
+        "word": "hide",
+        "answer": "hiding",
         "accepted_answers": [],
-        "hint": "it 指代找到的贝壳。"
+        "hint": "hide → hiding：was 后接现在分词 hiding，描写当时螃蟹正在壳内躲藏。"
       },
       {
         "n": 7,
-        "answer": "up",
+        "word": "notice",
+        "answer": "noticed",
         "accepted_answers": [],
-        "hint": "pick up 表示捡起。"
+        "hint": "notice → noticed：过去叙事中发现垃圾，用 notice 的过去式 noticed。"
       },
       {
         "n": 8,
-        "answer": "of",
+        "word": "we",
+        "answer": "us",
         "accepted_answers": [],
-        "hint": "instead of 后接动名词。"
+        "hint": "we → us：gave 后需要宾语，we 变为 us。"
       },
       {
         "n": 9,
-        "answer": "but",
+        "word": "bin",
+        "answer": "bin",
         "accepted_answers": [],
-        "hint": "not only ... but also ... 表示不仅……而且……，连接两个 about 短语。"
+        "hint": "bin → bin：a 后用单数可数名词 bin，表示垃圾桶。"
       },
       {
         "n": 10,
-        "answer": "for",
+        "word": "clean",
+        "answer": "cleaner",
         "accepted_answers": [],
-        "hint": "for 表示为未来游客保留干净海滩。"
+        "hint": "clean → cleaner：than we had found it 明确比较离开和到达时的海滩，用 cleaner。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "A Day at the Beach",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "thick",
+      "close",
+      "clean",
+      "avoid",
+      "notice",
+      "build",
+      "bin",
+      "we",
+      "hide",
+      "shell"
     ]
   },
   {
@@ -792,84 +947,102 @@
     "grade": "L2",
     "difficulty": "medium",
     "title": "A Bicycle Ride in the Countryside",
-    "passage": "Last weekend, my father and I went cycling (1)____ the countryside. The trees were full (2)____ green leaves. Halfway through the ride, my chain came off. I did not know (3)____ the chain fitted onto the wheel. A farmer saw us and offered (4)____ help. He pointed to the right place and repaired the chain with a small tool. We thanked him (5)____ his help and continued our ride. At a lake, we ate the sandwiches we (6)____ brought from home. On the way back, I felt tired, (7)____ I was proud of completing the ride. Next month, we plan to go there again. I will take a repair kit (8)____ me. My father says that learning to repair a bike is (9)____ useful skill. I hope I can do it by (10)____ next time.",
+    "passage": "Last weekend, my father and I went cycling in the countryside. Green (1)____ were shining in the morning sun. Halfway through the ride, my chain (2)____ off. I could not repair it by (3)____. A farmer saw us and stopped to help. He examined the bike (4)____ before taking a small tool from his pocket. Within minutes, he had (5)____ the chain. We thanked him for his (6)____ and continued our ride. At a lake, we sat on a wooden (7)____ to eat lunch. The return journey felt (8)____ than the outward journey because my legs were tired. Since then, Dad has (9)____ me how to check a bicycle chain. Next time, I will (10)____ a repair kit with me.",
     "blanks": [
       {
         "n": 1,
-        "answer": "in",
+        "word": "leaf",
+        "answer": "leaves",
         "accepted_answers": [],
-        "hint": "in the countryside 表示在乡下。"
+        "hint": "leaf → leaves：后面的 were 表明主语为复数；leaf 的复数是 leaves。"
       },
       {
         "n": 2,
-        "answer": "of",
+        "word": "come",
+        "answer": "came",
         "accepted_answers": [],
-        "hint": "be full of 表示充满。"
+        "hint": "come → came：Last weekend 的过去叙事中，come 用过去式 came。"
       },
       {
         "n": 3,
-        "answer": "where",
-        "accepted_answers": [
-          "how"
-        ],
-        "hint": "where 询问链条装在车轮的什么位置，后文指出正确位置；how 询问装配方式，也符合修理情节。"
+        "word": "I",
+        "answer": "myself",
+        "accepted_answers": [],
+        "hint": "I → myself：by myself 表示我独自修理，I 变为反身代词 myself。"
       },
       {
         "n": 4,
-        "answer": "to",
+        "word": "careful",
+        "answer": "carefully",
         "accepted_answers": [],
-        "hint": "offer to do 表示主动提出做某事。"
+        "hint": "careful → carefully：修饰 examined，用 careful 的副词 carefully。"
       },
       {
         "n": 5,
-        "answer": "for",
+        "word": "fix",
+        "answer": "fixed",
         "accepted_answers": [],
-        "hint": "thank somebody for something 表示因某事感谢。"
+        "hint": "fix → fixed：had 后接过去分词 fixed，表示几分钟内已经修好。"
       },
       {
         "n": 6,
-        "answer": "had",
+        "word": "kind",
+        "answer": "kindness",
         "accepted_answers": [],
-        "hint": "带三明治发生在过去吃饭之前，用过去完成时。"
+        "hint": "kind → kindness：his 后需要名词；kind 变为表示善意的 kindness。"
       },
       {
         "n": 7,
-        "answer": "but",
-        "accepted_answers": [
-          "yet",
-          "and"
-        ],
-        "hint": "but、yet 强调虽然累却自豪；and 也可并列描述疲惫与自豪两种感受。"
+        "word": "bench",
+        "answer": "bench",
+        "accepted_answers": [],
+        "hint": "bench → bench：a wooden 后接单数可数名词 bench，表示长椅。"
       },
       {
         "n": 8,
-        "answer": "with",
+        "word": "long",
+        "answer": "longer",
         "accepted_answers": [],
-        "hint": "take something with somebody 表示随身带着。"
+        "hint": "long → longer：than the outward journey 明确比较两段路程的感受，用 longer。"
       },
       {
         "n": 9,
-        "answer": "a",
+        "word": "teach",
+        "answer": "taught",
         "accepted_answers": [],
-        "hint": "useful 发音以辅音音素开头，用 a。"
+        "hint": "teach → taught：Since then 表示从那时到现在，用现在完成时；has 后接 teach 的过去分词 taught。"
       },
       {
         "n": 10,
-        "answer": "myself",
+        "word": "take",
+        "answer": "take",
         "accepted_answers": [],
-        "hint": "by myself 表示独自，与主语 I 对应。"
+        "hint": "take → take：will 后接动词原形 take，表示将带上。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "A Bicycle Ride in the Countryside",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "kind",
+      "I",
+      "careful",
+      "long",
+      "teach",
+      "bench",
+      "come",
+      "fix",
+      "leaf",
+      "take"
     ]
   },
   {
@@ -878,85 +1051,106 @@
     "grade": "L2",
     "difficulty": "hard",
     "title": "The Science Club Challenge",
-    "passage": "Our science club was asked (1)____ build a car that could move without electricity. None (2)____ us knew where to begin. Our teacher advised us to divide the task (3)____ smaller parts. We decided to use a balloon. When air came (4)____ of it, it pushed the car forward. Our first model travelled only a few centimetres, (5)____ we made another one. We changed the wheels before giving (6)____ another try. The second model travelled three metres. At the competition, the judges praised the way (7)____ which we had solved the problem. Although we did not win, we learned (8)____ failure could help us improve. Since then, I (9)____ become more interested in science. I am looking forward to (10)____ part in another competition next year.",
+    "passage": "Last term, our science club entered a competition to build a car without a motor. Our teacher (1)____ us to divide the task into smaller parts. We used a balloon to push the car forward as air (2)____. Our first model moved only a few (3)____. Its wheels rubbed against the body, so we made the body (4)____ than before. Before (5)____ the second model, we checked every wheel. This time, the car travelled three metres in a straight (6)____. The judges asked us to explain our design (7)____. We told (8)____ how the first failure had helped us. Although we did not win, we were proud of our (9)____. Since then, I have (10)____ more interested in solving practical problems.",
     "blanks": [
       {
         "n": 1,
-        "answer": "to",
+        "word": "advise",
+        "answer": "advised",
         "accepted_answers": [],
-        "hint": "ask somebody to do 的被动结构是 be asked to do。"
+        "hint": "advise → advised：Last term 明确过去时间，advise 用过去式 advised。"
       },
       {
         "n": 2,
-        "answer": "of",
+        "word": "escape",
+        "answer": "escaped",
         "accepted_answers": [],
-        "hint": "none of us 表示我们中没有人。"
+        "hint": "escape → escaped：as 从句叙述当时空气逸出的动作，用过去式 escaped。"
       },
       {
         "n": 3,
-        "answer": "into",
-        "accepted_answers": [],
-        "hint": "divide into 表示分成。"
+        "word": "centimetre",
+        "answer": "centimetres",
+        "accepted_answers": [
+          "centimeters"
+        ],
+        "hint": "centimetre → centimetres：a few 后接可数名词复数，centimetre 变为 centimetres；美式拼写为 centimeters。"
       },
       {
         "n": 4,
-        "answer": "out",
+        "word": "narrow",
+        "answer": "narrower",
         "accepted_answers": [],
-        "hint": "come out of 表示从内部出来。"
+        "hint": "narrow → narrower：than before 提供比较依据，narrow 用比较级 narrower。"
       },
       {
         "n": 5,
-        "answer": "so",
-        "accepted_answers": [
-          "and",
-          "but",
-          "yet"
-        ],
-        "hint": "so 表示首个模型表现不足因此重做；and 可并列叙述，but、yet 可强调不因首次失败而停止。"
+        "word": "test",
+        "answer": "testing",
+        "accepted_answers": [],
+        "hint": "test → testing：before 在这里后接动名词，test 变为 testing。"
       },
       {
         "n": 6,
-        "answer": "it",
+        "word": "line",
+        "answer": "line",
         "accepted_answers": [],
-        "hint": "give it another try 表示再试一次，it 指代模型车。"
+        "hint": "line → line：a straight line 表示一条直线，line 保留单数原形。"
       },
       {
         "n": 7,
-        "answer": "in",
+        "word": "clear",
+        "answer": "clearly",
         "accepted_answers": [],
-        "hint": "the way in which 表示以某种方式。"
+        "hint": "clear → clearly：修饰 explain，用 clear 的副词 clearly。"
       },
       {
         "n": 8,
-        "answer": "that",
-        "accepted_answers": [
-          "how"
-        ],
-        "hint": "learned that 后接所学到的完整内容。 how 强调失败如何帮助改进，也可接受。"
+        "word": "they",
+        "answer": "them",
+        "accepted_answers": [],
+        "hint": "they → them：told 后接人称代词宾格，they 变为 them。"
       },
       {
         "n": 9,
-        "answer": "have",
-        "accepted_answers": [],
-        "hint": "since then 配合现在完成时，I 后用 have。"
+        "word": "improve",
+        "answer": "improvement",
+        "accepted_answers": [
+          "improvements"
+        ],
+        "hint": "improve → improvement：our 后需要名词，improvement 表示整体改进；也可用复数 improvements 表示多项改进。"
       },
       {
         "n": 10,
-        "answer": "taking",
+        "word": "become",
+        "answer": "become",
         "accepted_answers": [],
-        "hint": "look forward to 后接动名词，take part in 表示参加。"
+        "hint": "become → become：have 后需要过去分词；become 的过去分词与原形相同。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "The Science Club Challenge",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "escape",
+      "test",
+      "line",
+      "they",
+      "centimetre",
+      "clear",
+      "become",
+      "advise",
+      "improve",
+      "narrow"
     ]
   },
   {
@@ -965,85 +1159,102 @@
     "grade": "L2",
     "difficulty": "hard",
     "title": "The School Choir",
-    "passage": "Our school choir had a competition last month. I was afraid (1)____ joining because I lacked confidence. Our teacher said that each (2)____ us could improve through practice. We met twice (3)____ week and listened to one another. Two weeks before the competition, a student became ill, (4)____ we changed our song. On the day, I felt nervous as I stepped (5)____ the stage from the floor below. I reminded (6)____ that I was not singing alone. We did not win first prize, but we were proud (7)____ what we had done. Our teacher said, '(8)____ you win or lose, you can learn from the experience.' I have become more confident since I (9)____ the choir last September. Next term, I hope (10)____ help new members feel welcome.",
+    "passage": "Our school choir entered a competition last month. I had (1)____ the group in September, but I still felt nervous about singing on stage. Our teacher encouraged (2)____ to listen to one another. During rehearsals, we stood in two (3)____ and practised breathing together. At first, I sang too (4)____ for anyone at the back to hear. After several weeks, my voice became (5)____ than it had been. Two weeks before the event, one singer became ill, so we (6)____ our song. On competition day, I reminded (7)____ that I was part of a team. We did not win first prize, but the audience (8)____ for a long time. Our teacher said that regular practice had made a real (9)____. Next term, I hope to (10)____ new members and help them feel at home.",
     "blanks": [
       {
         "n": 1,
-        "answer": "of",
+        "word": "join",
+        "answer": "joined",
         "accepted_answers": [],
-        "hint": "be afraid of doing 表示害怕做某事。"
+        "hint": "join → joined：had 后接过去分词 joined，说明加入合唱团发生在比赛之前。"
       },
       {
         "n": 2,
-        "answer": "of",
+        "word": "we",
+        "answer": "us",
         "accepted_answers": [],
-        "hint": "each of us 表示我们每个人。"
+        "hint": "we → us：encouraged 后接宾语，we 变为 us。"
       },
       {
         "n": 3,
-        "answer": "a",
-        "accepted_answers": [
-          "per"
-        ],
-        "hint": "twice a week 或 twice per week 表示每周两次。"
+        "word": "row",
+        "answer": "rows",
+        "accepted_answers": [],
+        "hint": "row → rows：two 后接可数名词复数 rows。"
       },
       {
         "n": 4,
-        "answer": "so",
-        "accepted_answers": [
-          "and"
-        ],
-        "hint": "有人生病，因此换歌。 and 也可连接相关的两件事。"
+        "word": "quiet",
+        "answer": "quietly",
+        "accepted_answers": [],
+        "hint": "quiet → quietly：修饰 sang，用 quiet 的副词 quietly。"
       },
       {
         "n": 5,
-        "answer": "onto",
-        "accepted_answers": [
-          "on"
-        ],
-        "hint": "从下方地面走上舞台，用 stepped onto 强调移动到舞台上；stepped on 也可表示踏上舞台。"
+        "word": "strong",
+        "answer": "stronger",
+        "accepted_answers": [],
+        "hint": "strong → stronger：than it had been 明确比较练习前后的声音，用 stronger。"
       },
       {
         "n": 6,
-        "answer": "myself",
+        "word": "change",
+        "answer": "changed",
         "accepted_answers": [],
-        "hint": "remind myself 表示提醒我自己。"
+        "hint": "change → changed：叙述赛前两周的过去动作，用 changed。"
       },
       {
         "n": 7,
-        "answer": "of",
+        "word": "I",
+        "answer": "myself",
         "accepted_answers": [],
-        "hint": "be proud of 表示为某事自豪。"
+        "hint": "I → myself：主语和被提醒的人都是 I，用反身代词 myself。"
       },
       {
         "n": 8,
-        "answer": "Whether",
+        "word": "clap",
+        "answer": "clapped",
         "accepted_answers": [],
-        "hint": "whether ... or ... 表示不论两者中的哪种情况。"
+        "hint": "clap → clapped：比赛当天的过去动作，clap 双写 p 加 ed，得 clapped。"
       },
       {
         "n": 9,
-        "answer": "joined",
+        "word": "different",
+        "answer": "difference",
         "accepted_answers": [],
-        "hint": "since 从句中的具体过去事件用一般过去时 joined。"
+        "hint": "different → difference：a real 后需要单数名词，different 变为 difference；make a difference 表示产生影响。"
       },
       {
         "n": 10,
-        "answer": "to",
+        "word": "welcome",
+        "answer": "welcome",
         "accepted_answers": [],
-        "hint": "hope to do 表示希望做某事。"
+        "hint": "welcome → welcome：hope to 后接动词原形 welcome。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "The School Choir",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "clap",
+      "quiet",
+      "we",
+      "change",
+      "welcome",
+      "join",
+      "different",
+      "row",
+      "strong",
+      "I"
     ]
   },
   {
@@ -1052,79 +1263,102 @@
     "grade": "L2",
     "difficulty": "hard",
     "title": "The Tree-Planting Day",
-    "passage": "Last spring, our class took part (1)____ a tree-planting activity. A farmer showed us how (2)____ plant a young tree. First, we dug a hole large enough (3)____ the roots. Then we placed the tree in it and covered the roots (4)____ soil. By noon, we (5)____ planted more than fifty trees. Our teacher asked us to put our names on signs beside the trees so (6)____ we could find them again. I chose an apple tree and wondered (7)____ it would produce fruit. The farmer replied, 'In a few years, if it grows well.' Trees provide shade and help prevent soil (8)____ being washed away. (9)____ everyone planted a tree, our town would become greener. Our teacher says that my tree (10)____ already grown several centimetres since we planted it.",
+    "passage": "Last spring, our class took part in a tree-planting day. A farmer (1)____ us how to plant a young apple tree. First, we (2)____ a hole that was wide enough for its roots. We lowered the tree (3)____ into the hole and covered the roots with soil. By noon, we had (4)____ more than fifty trees. We wrote our (5)____ on wooden signs so that each of us could find our own tree again. I carried a full (6)____ of water to mine. The farmer thanked (7)____ for helping the village. Since that day, my tree has (8)____ several centimetres. Its leaves are (9)____ than they were when we planted it. We plan to return next month to check its (10)____ and water it again.",
     "blanks": [
       {
         "n": 1,
-        "answer": "in",
+        "word": "show",
+        "answer": "showed",
         "accepted_answers": [],
-        "hint": "take part in 表示参加。"
+        "hint": "show → showed：Last spring 明确过去时间，show 用过去式 showed。"
       },
       {
         "n": 2,
-        "answer": "to",
+        "word": "dig",
+        "answer": "dug",
         "accepted_answers": [],
-        "hint": "how to do 表示怎样做。"
+        "hint": "dig → dug：First 引出过去的第一步动作，dig 的过去式是 dug。"
       },
       {
         "n": 3,
-        "answer": "for",
+        "word": "gentle",
+        "answer": "gently",
         "accepted_answers": [],
-        "hint": "enough for 表示足以容纳或满足。"
+        "hint": "gentle → gently：修饰 lowered，用 gentle 的副词 gently，表示轻轻放下。"
       },
       {
         "n": 4,
-        "answer": "with",
+        "word": "plant",
+        "answer": "planted",
         "accepted_answers": [],
-        "hint": "cover something with something 表示用某物覆盖。"
+        "hint": "plant → planted：By noon 配合 had，要求过去分词 planted，表示中午前已经种好。"
       },
       {
         "n": 5,
-        "answer": "had",
+        "word": "name",
+        "answer": "names",
         "accepted_answers": [],
-        "hint": "by noon 回顾过去中午前完成的动作，用过去完成时。"
+        "hint": "name → names：our 指全班多人，后文 each of us 说明各自署名，用复数 names。"
       },
       {
         "n": 6,
-        "answer": "that",
+        "word": "bucket",
+        "answer": "bucket",
         "accepted_answers": [],
-        "hint": "so that 引导目的从句。"
+        "hint": "bucket → bucket：a full 后接单数可数名词 bucket，表示一桶水。"
       },
       {
         "n": 7,
-        "answer": "when",
+        "word": "we",
+        "answer": "us",
         "accepted_answers": [],
-        "hint": "回答是几年后，问题应询问结果发生的时间。"
+        "hint": "we → us：thanked 后需要宾格，we 变为 us。"
       },
       {
         "n": 8,
-        "answer": "from",
+        "word": "grow",
+        "answer": "grown",
         "accepted_answers": [],
-        "hint": "prevent something from being done 表示防止某事发生。"
+        "hint": "grow → grown：has 后接过去分词；grow 的过去分词是 grown。"
       },
       {
         "n": 9,
-        "answer": "If",
+        "word": "green",
+        "answer": "greener",
         "accepted_answers": [],
-        "hint": "与 would become 构成假设条件句。"
+        "hint": "green → greener：than they were 明确比较现在与栽种时的叶色，用 greener。"
       },
       {
         "n": 10,
-        "answer": "has",
+        "word": "high",
+        "answer": "height",
         "accepted_answers": [],
-        "hint": "since 引出过去起点，单数主语 tree 用 has grown。"
+        "hint": "high → height：its 后需要名词，high 对应表示高度的名词 height。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_11.json",
     "source_title": "The Tree-Planting Day",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "grow",
+      "high",
+      "bucket",
+      "dig",
+      "gentle",
+      "we",
+      "plant",
+      "green",
+      "show",
+      "name"
     ]
   },
   {
@@ -1133,86 +1367,102 @@
     "grade": "L2",
     "difficulty": "hard",
     "title": "A different summer",
-    "passage": "Last summer, my family visited a mountain village. It was (1)____ unforgettable trip. The village was (2)____ far from the city that the bus journey took three hours. An old teacher invited us (3)____ his classroom. He had been teaching there (4)____ forty years. He was over seventy, (5)____ he still worked every day. He said, 'Teaching children has always been one (6)____ the most important things in my life.' I helped him clean the room, and he taught me how (7)____ write a poem. Before we left, he gave me a book (8)____ cover was blue. I still keep it on my desk. Whenever I open it, I think (9)____ the village. I will never forget (10)____ kindly the teacher treated us.",
+    "passage": "Last summer, my family visited a mountain village. An old teacher (1)____ us into his classroom. He had been (2)____ there for forty years. Several (3)____ were reading at wooden desks. The teacher greeted each of them (4)____, and they smiled back. I offered to help him clean the room. The shelves were covered in dust, but after an hour they looked much (5)____. He thanked (6)____ and offered to teach me how to write a poem. I had never (7)____ one before. He said that careful observation was more important than difficult words. Before we left, he gave me a poetry (8)____. Its blue cover reminds me of the village sky. Since that trip, I have (9)____ it on my desk. Whenever I open it, I remember his (10)____ and the pleasure of learning something new.",
     "blanks": [
       {
         "n": 1,
-        "answer": "an",
+        "word": "invite",
+        "answer": "invited",
         "accepted_answers": [],
-        "hint": "unforgettable 以元音音素开头，用 an。"
+        "hint": "invite → invited：Last summer 明确过去时间，invite 用过去式 invited。"
       },
       {
         "n": 2,
-        "answer": "so",
+        "word": "teach",
+        "answer": "teaching",
         "accepted_answers": [],
-        "hint": "so ... that ... 表示如此以至于。"
+        "hint": "teach → teaching：had been 后接现在分词 teaching，构成过去完成进行时，表示此前持续任教。"
       },
       {
         "n": 3,
-        "answer": "into",
-        "accepted_answers": [
-          "to"
-        ],
-        "hint": "invite into 强调进到室内；invite to 表示邀请到某地。"
+        "word": "child",
+        "answer": "children",
+        "accepted_answers": [],
+        "hint": "child → children：Several 后接复数，child 的不规则复数为 children。"
       },
       {
         "n": 4,
-        "answer": "for",
+        "word": "kind",
+        "answer": "kindly",
         "accepted_answers": [],
-        "hint": "for 后接持续时长。"
+        "hint": "kind → kindly：修饰 greeted，用 kind 的副词 kindly。"
       },
       {
         "n": 5,
-        "answer": "but",
-        "accepted_answers": [
-          "yet",
-          "and"
-        ],
-        "hint": "but、yet 强调年逾七十仍每天工作的转折；and 也可连接年龄与工作状态两个事实。"
+        "word": "clean",
+        "answer": "cleaner",
+        "accepted_answers": [],
+        "hint": "clean → cleaner：much 修饰比较级，结合清理前后对比，clean 变为 cleaner。"
       },
       {
         "n": 6,
-        "answer": "of",
+        "word": "I",
+        "answer": "me",
         "accepted_answers": [],
-        "hint": "one of the most important things 表示最重要的事情之一，of 连接部分与整体。"
+        "hint": "I → me：thanked 后需要宾语，I 变为 me。"
       },
       {
         "n": 7,
-        "answer": "to",
+        "word": "write",
+        "answer": "written",
         "accepted_answers": [],
-        "hint": "how to write 表示怎样写。"
+        "hint": "write → written：had never 后接过去分词，write 的过去分词为 written。"
       },
       {
         "n": 8,
-        "answer": "whose",
+        "word": "book",
+        "answer": "book",
         "accepted_answers": [],
-        "hint": "whose cover 表示这本书的封面。"
+        "hint": "book → book：a poetry 后接单数可数名词 book，表示一本诗集。"
       },
       {
         "n": 9,
-        "answer": "of",
-        "accepted_answers": [
-          "about"
-        ],
-        "hint": "think of 或 think about 都可表示想到、想起。"
+        "word": "keep",
+        "answer": "kept",
+        "accepted_answers": [],
+        "hint": "keep → kept：have 后需要过去分词，keep 变为 kept。"
       },
       {
         "n": 10,
-        "answer": "how",
+        "word": "wise",
+        "answer": "wisdom",
         "accepted_answers": [],
-        "hint": "how 修饰副词 kindly，引导所记得的内容。"
+        "hint": "wise → wisdom：his 后需要名词，wise 变为表示智慧的 wisdom。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_10.json",
     "source_title": "A different summer",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "write",
+      "kind",
+      "teach",
+      "child",
+      "book",
+      "invite",
+      "wise",
+      "I",
+      "keep",
+      "clean"
     ]
   },
   {
@@ -1221,81 +1471,106 @@
     "grade": "L2",
     "difficulty": "hard",
     "title": "How to use your phone wisely",
-    "passage": "A phone can help us learn, but we need to use it wisely. We can look (1)____ new words in a dictionary app. We can listen (2)____ English songs too. However, students (3)____ spend hours playing games may have little time for homework. To avoid this, set a daily screen-time limit instead (4)____ using your phone whenever you feel bored. Put it away while you (5)____ doing your homework, so that messages do not interrupt you. Remember (6)____ turn off the screen before bed. If you find (7)____ difficult to stop playing, ask an adult for help. A phone should be a tool rather (8)____ something that controls your day. You do not have to give (9)____ using it completely. What matters is (10)____ you use it: make time for learning, sleep and friends.",
+    "passage": "A phone can be a useful tool, but good habits matter. Last month, Amy (1)____ that games were taking up her evenings. She had (2)____ hours staring at the screen instead of sleeping. She asked her parents for (3)____. Together, they made a simple (4)____. Now Amy (5)____ her phone outside the bedroom every night. During homework, she turns off messages to avoid (6)____. She can still use a dictionary app to (7)____ unfamiliar words. She also reminds (8)____ to take breaks. Since changing her habits, she has slept (9)____ than before and felt less tired in class. Using a phone (10)____ means making room for study, sleep and time with friends.",
     "blanks": [
       {
         "n": 1,
-        "answer": "up",
-        "accepted_answers": [],
-        "hint": "look up new words 表示查生词。"
+        "word": "realise",
+        "answer": "realised",
+        "accepted_answers": [
+          "realized"
+        ],
+        "hint": "realise → realised：Last month 明确过去时间，realise 用过去式 realised；美式拼写为 realized。"
       },
       {
         "n": 2,
-        "answer": "to",
+        "word": "spend",
+        "answer": "spent",
         "accepted_answers": [],
-        "hint": "listen to 表示听。"
+        "hint": "spend → spent：had 后接过去分词 spent，说明在意识到问题之前已花了时间。"
       },
       {
         "n": 3,
-        "answer": "who",
-        "accepted_answers": [
-          "that"
-        ],
-        "hint": "指人的限制性定语从句主语可用 who 或 that。"
+        "word": "suggest",
+        "answer": "suggestions",
+        "accepted_answers": [],
+        "hint": "suggest → suggestions：for 后需要名词；后文给出多条建议，suggest 变为复数名词 suggestions。"
       },
       {
         "n": 4,
-        "answer": "of",
+        "word": "plan",
+        "answer": "plan",
         "accepted_answers": [],
-        "hint": "instead of 后接动名词 using，表示用设置每日屏幕时间上限代替一无聊就用手机。"
+        "hint": "plan → plan：a simple 后接单数名词 plan，表示一份计划。"
       },
       {
         "n": 5,
-        "answer": "are",
+        "word": "leave",
+        "answer": "leaves",
         "accepted_answers": [],
-        "hint": "you 后用 are 与 doing 构成现在进行时。"
+        "hint": "leave → leaves：Now 表示现在的习惯，单数主语 Amy 后用 leaves。"
       },
       {
         "n": 6,
-        "answer": "to",
-        "accepted_answers": [],
-        "hint": "remember to do 表示记得去做。"
+        "word": "interrupt",
+        "answer": "interruptions",
+        "accepted_answers": [
+          "interruption"
+        ],
+        "hint": "interrupt → interruptions：avoid 后接名词，关闭消息是为了避免打扰，可用复数 interruptions，也可用单数名词 interruption 表示打扰这一情况。"
       },
       {
         "n": 7,
-        "answer": "it",
+        "word": "check",
+        "answer": "check",
         "accepted_answers": [],
-        "hint": "find it difficult to do 中 it 为形式宾语。"
+        "hint": "check → check：to 表示目的，后接动词原形 check。"
       },
       {
         "n": 8,
-        "answer": "than",
+        "word": "she",
+        "answer": "herself",
         "accepted_answers": [],
-        "hint": "rather than 表示而不是。"
+        "hint": "she → herself：主语和被提醒的人都是 Amy，用 she 的反身代词 herself。"
       },
       {
         "n": 9,
-        "answer": "up",
+        "word": "well",
+        "answer": "better",
         "accepted_answers": [],
-        "hint": "give up doing 表示放弃做某事。"
+        "hint": "well → better：than before 明确比较睡眠改善情况，well 的比较级是 better。"
       },
       {
         "n": 10,
-        "answer": "how",
+        "word": "wise",
+        "answer": "wisely",
         "accepted_answers": [],
-        "hint": "后文强调使用方式，用 how 引导表语从句。"
+        "hint": "wise → wisely：修饰 Using，说明使用手机的方式，wise 变为副词 wisely。"
       }
     ],
     "source_file": "data/drill_bank_cloze_2026_10.json",
     "source_title": "How to use your phone wisely",
-    "adaptation_note": "保留原篇人物、主题与主要情节，改写部分句子以提供语法和指代依据；将开放词汇及多词空改为单词语法空。难度按改编后句法与衔接要求标注，年级沿用来源。",
+    "adaptation_note": "保留来源主题与主要情节，自然改编为词库选词与词形变化练习；每个候选原词仅用一次，依据语境、时态和句法填写一个单词，解析仅供交卷后查看。",
     "knowledge_points": [
       "短文填空",
-      "语篇衔接",
-      "介词",
-      "代词",
-      "冠词",
-      "动词结构"
+      "语境选词",
+      "动词时态与形式",
+      "名词单复数",
+      "代词形式",
+      "形容词比较等级",
+      "词性转换"
+    ],
+    "word_bank": [
+      "she",
+      "suggest",
+      "check",
+      "leave",
+      "wise",
+      "realise",
+      "spend",
+      "interrupt",
+      "well",
+      "plan"
     ]
   }
 ]

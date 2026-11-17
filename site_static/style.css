@@ -163,6 +163,11 @@ body {
 .card.cloze-paper .passage-fill-input.is-right { border-style: double; border-width: 3px; }
 .card.cloze-paper .passage-fill-input.is-wrong { border-style: dashed; border-width: 2px; }
 #passage-fill-status { color: var(--text-1); margin-bottom: 12px; }
+.passage-word-bank { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--text-2); color: var(--text-1); }
+.passage-word-bank h2 { font-size: 15px; color: var(--text-1); }
+.passage-word-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 10px 0; }
+.passage-word-list li { padding: 5px 10px; border: 1px solid var(--text-2); border-radius: 6px; background: var(--bg-card); color: var(--text-1); font-size: 16px; }
+.passage-word-bank p { font-size: 13px; color: var(--text-2); }
 .cloze-slot {
   display: inline-block;
   margin: 0 1px;
