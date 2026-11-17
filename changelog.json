@@ -370,6 +370,19 @@
         "已加防回归测试 test_tower_has_config_level_and_polish"
       ],
       "verified": "282 tests passed (281 + 1 防回归); node --check OK; build.py OK"
+    },
+    {
+      "date": "2026-11-17",
+      "version": "makeup-checkin",
+      "action": "add",
+      "what": "学习统计热力图支持点击日期查看记录、为漏打日期进入补打流程",
+      "why": "允许孩子完成练习后补打 11 月 6 日，保留当天已有打卡",
+      "by": "codex",
+      "files": [
+        "site_static/app.js",
+        "tests/test_site_static.py"
+      ],
+      "verified": "405 tests passed; node --check; static build passed"
     }
   ],
   "release_summaries": [
