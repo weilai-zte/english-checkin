@@ -1453,3 +1453,28 @@ def test_drill_pool_restricts_grade_before_difficulty():
     assert 'const gradeBank = schoolGradePool(bank)' in block
     assert 'gradeBank.filter(q => q.difficulty === difficulty)' in block
     assert "gradeBank.filter(q => q.difficulty === 'medium')" in block
+
+
+def test_makeup_checkin_records_selected_date_without_changing_today():
+    helpers = '\n'.join(_function_block(n) for n in ('finishMixedCheckin', 'advanceCheckinPlan'))
+    script = helpers + """
+const today = () => '2026-11-17';
+const checkinTypeLabel = t => t;
+const refreshCheckinStats = () => {};
+const clearDraft = () => {};
+const saveProgress = () => {};
+let progress = {checkins: [{date: today()}], daily_checkin_plan: {
+  date: today(), target_date: '2026-11-06', queue: ['vocab'], completed: []
+}};
+if (advanceCheckinPlan('vocab') !== 'finish') throw Error('makeup plan did not advance');
+finishMixedCheckin(['vocab']);
+if (progress.checkins.length !== 2 || progress.checkins[1].date !== '2026-11-06'
+    || !progress.checkins[1].makeup || !progress.checkins[1].created_at) throw Error('wrong makeup record');
+progress.daily_checkin_plan = {date: today(), target_date: '2026-11-06'};
+finishMixedCheckin(['vocab']);
+if (progress.checkins.length !== 2) throw Error('duplicate makeup');
+progress.daily_checkin_plan = {date: today(), target_date: '2026-11-18'};
+finishMixedCheckin(['vocab']);
+if (progress.checkins.length !== 2) throw Error('future checkin');
+"""
+    subprocess.run(['node', '-e', script], check=True, capture_output=True, text=True)

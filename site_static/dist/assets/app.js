@@ -1346,7 +1346,7 @@ document.addEventListener('input', function(e) {
       const plan = progress.daily_checkin_plan || { queue: [] };
       card.innerHTML = `
         <div style="font-size:14px;color:var(--text-2);">✅ 本题型完成</div>
-        <div style="font-size:18px;font-weight:bold;color:var(--accent);margin:6px 0 12px;">今日打卡全部完成 🎉</div>
+        <div style="font-size:18px;font-weight:bold;color:var(--accent);margin:6px 0 12px;">${plan.target_date || plan.date || today()} 打卡全部完成 🎉</div>
         <div class="btn-row">
           <a class="btn btn-secondary" href="#/home">返回首页</a>
           <button class="btn btn-primary" id="checkin-finish-btn">完成打卡 ✓</button>
@@ -1398,18 +1398,20 @@ document.addEventListener('input', function(e) {
 
   // 完成整日打卡（所有勾选题型都完成后调用一次）
   function finishMixedCheckin(types) {
-    if (checkedInToday()) return;
+    const targetDate = (progress.daily_checkin_plan || {}).target_date || today();
+    if (targetDate > today() || progress.checkins.some(c => c.date === targetDate)) return;
     // 撤销后重新打卡：清除当天的 checkins 删除标记，避免新记录被误删
     progress._deleted = progress._deleted || {};
     if (progress._deleted.checkins) {
-      const todayPrefix = today() + '|';
+      const todayPrefix = targetDate + '|';
       Object.keys(progress._deleted.checkins).forEach(k => {
         if (k.indexOf(todayPrefix) === 0) delete progress._deleted.checkins[k];
       });
     }
     progress._deleted.plan = new Date().toISOString(); // 完成打卡：plan 删除标记（时间戳），防幽灵复活
     progress.checkins.push({
-      date: today(),
+      date: targetDate,
+      makeup: targetDate !== today(),
       created_at: new Date().toISOString(),
       vocab: [],
       grammar_id: 'mixed',
@@ -1792,12 +1794,30 @@ document.addEventListener('input', function(e) {
   }
 
   // ─── 视图：CheckinConfig（每日打卡 · 选题型）─────
-  function renderCheckinConfig(app) {
-    if (checkedInToday()) {
-      app.innerHTML = `${topBar('每日打卡')}<div class="container">
+  function renderCheckinConfig(app, selectedDate) {
+    const routeDate = parseRoute().params[0];
+    const targetDate = typeof selectedDate === 'string' ? selectedDate : (/^\d{4}-\d{2}-\d{2}$/.test(routeDate || '') && routeDate <= today() ? routeDate : today());
+    const datePicker = `<div class="card">
+      <label for="checkin-date">打卡日期（可选择漏打的日期补打）</label>
+      <input id="checkin-date" type="date" max="${today()}" value="${targetDate}" style="display:block;margin-top:8px;max-width:100%;">
+      <p style="color:var(--text-2);font-size:13px;">完成所选题型后，记录到所选日期。</p>
+    </div>`;
+    const bindDatePicker = () => {
+      app.querySelector('#checkin-date').onchange = e => {
+        const value = e.target.value;
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || value > today()) {
+          toast('请选择今天或之前的日期');
+          e.target.value = targetDate;
+          return;
+        }
+        renderCheckinConfig(app, value);
+      };
+    };
+    if (progress.checkins.some(c => c.date === targetDate)) {
+      app.innerHTML = `${topBar('每日打卡')}<div class="container">${datePicker}
         <div class="card" style="text-align:center;background:linear-gradient(135deg,#eafaf1,#d4f5e2);">
           <div style="font-size:40px;">🎉</div>
-          <div style="color:var(--success);font-size:18px;font-weight:bold;margin-top:4px;">今日已完成打卡！</div>
+          <div style="color:var(--success);font-size:18px;font-weight:bold;margin-top:4px;">${targetDate} 已完成打卡！</div>
           <p style="color:var(--text-2);margin-top:8px;">如要继续练习，可直接进入下方题型。</p>
           <div class="btn-row" style="margin-top:12px;">
             <a class="btn btn-secondary" href="#/learn">📖 继续练习（不计打卡）</a>
@@ -1807,7 +1827,9 @@ document.addEventListener('input', function(e) {
         </div>
       </div>`;
       const undoBtn = app.querySelector('#checkin-undo');
-      if (undoBtn) undoBtn.onclick = () => {
+      if (targetDate !== today()) undoBtn.remove();
+      bindDatePicker();
+      if (targetDate === today() && undoBtn) undoBtn.onclick = () => {
         if (!confirm('撤销今日打卡？已记录的成绩会被删除，可重新打卡。')) return;
         if (undoTodayCheckin()) { toast('已撤销，可重新打卡'); render(); }
       };
@@ -1826,9 +1848,9 @@ document.addEventListener('input', function(e) {
 
     app.innerHTML = `
       ${topBar('每日打卡 · 选题型')}
-      <div class="container">
+      <div class="container">${datePicker}
         <div class="card" style="text-align:center;">
-          <div class="card-title">📋 今日打卡</div>
+          <div class="card-title">📋 ${targetDate === today() ? '今日打卡' : targetDate + ' 补打卡'}</div>
           <div style="font-size:13px;color:var(--text-2);">每天练单词、英译中和从句理解；周末默认加入失分点专项，可自行调整。</div>
         </div>
         <div class="card">
@@ -1851,11 +1873,12 @@ document.addEventListener('input', function(e) {
         </div>
         <div class="btn-row">
           <a class="btn btn-secondary" href="#/home">取消</a>
-          <button class="btn btn-primary" id="checkin-start">🚀 开始今日打卡</button>
+          <button class="btn btn-primary" id="checkin-start">🚀 ${targetDate === today() ? '开始今日打卡' : '开始补打卡'}</button>
         </div>
       </div>
     `;
 
+    bindDatePicker();
     const refreshSummary = () => {
       const arr = activeList();
       app.querySelector('#checkin-summary').textContent = arr.length;
@@ -1884,7 +1907,7 @@ document.addEventListener('input', function(e) {
       clearDraft(); // 重新开始今日打卡
       progress._deleted = progress._deleted || {};
       delete progress._deleted.plan; // 重新开始打卡：清除 plan 删除标记
-      progress.daily_checkin_plan = { date: today(), created_at: new Date().toISOString(), queue: arr, completed: [] };
+      progress.daily_checkin_plan = { date: today(), target_date: targetDate, created_at: new Date().toISOString(), queue: arr, completed: [] };
       saveProgress();
       currentVocabIdx = 0;
       // vocab/grammar 依赖 currentTask；若队列含这俩先生成
@@ -3294,6 +3317,8 @@ document.addEventListener('input', function(e) {
         <div class="card">
           <div class="card-title">📅 打卡热力图</div>
           ${renderHeatmap()}
+          <p style="font-size:13px;color:var(--text-2);">点击日期方格，查看记录或补打卡。</p>
+          <div id="heatmap-day-detail" aria-live="polite"></div>
         </div>
 
         <div class="card">
@@ -3332,6 +3357,16 @@ document.addEventListener('input', function(e) {
       </div>
     `;
 
+    app.querySelectorAll('[data-checkin-date]').forEach(button => {
+      button.onclick = () => {
+        const date = button.dataset.checkinDate;
+        const entries = progress.checkins.filter(c => c.date === date);
+        const detail = app.querySelector('#heatmap-day-detail');
+        detail.innerHTML = `<p>${date} · ${entries.length ? '已打卡' : '未打卡'}</p>` +
+          (entries.length ? entries.map(c => `<p>${escapeHtml(c.grammar_title || '打卡记录')} · ${escapeHtml(c.score || '')}</p>`).join('') :
+            `<a class="btn btn-primary" href="#/checkin-config/${date}">补打卡</a>`);
+      };
+    });
     const eb = app.querySelector('#export-progress-btn');
     if (eb) eb.onclick = () => exportProgressJson();
     const ib = app.querySelector('#import-progress-input');
@@ -4134,7 +4169,7 @@ document.addEventListener('input', function(e) {
     let html = '<div style="overflow-x:auto;padding:4px 0;"><div style="display:grid;grid-template-columns:repeat(' + cols + ',12px);gap:2px;">';
     for (let i = 0; i < cells.length; i++) {
       const c = cells[i];
-      html += '<div title="' + c.date + ' · ' + c.count + ' 次" style="width:12px;height:12px;border-radius:2px;background:' + palette[c.level] + ';"></div>';
+      html += '<button type="button" data-checkin-date="' + c.date + '" aria-label="' + c.date + ' · ' + (c.count ? '已打卡' : '未打卡，可补打卡') + '" title="' + c.date + ' · ' + c.count + ' 次" style="width:12px;height:12px;padding:0;border:0;cursor:pointer;border-radius:2px;background:' + palette[c.level] + ';"></button>';
     }
     html += '</div></div><div style="display:flex;justify-content:flex-end;align-items:center;gap:4px;font-size:10px;color:#4a5568;margin-top:6px;">少 ';
     for (const p of palette) html += '<span style="display:inline-block;width:10px;height:10px;background:' + p + ';border-radius:2px;margin:0 1px;"></span>';
