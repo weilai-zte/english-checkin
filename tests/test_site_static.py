@@ -949,7 +949,7 @@ def test_drill_mcq_types_reuse_render_mcq():
     assert 'progress.wrong_grammar.push' in drill, "失分点专项错题要进错题本"
 
 
-def test_passage_fill_uses_inline_text_inputs_without_options_or_hints():
+def test_passage_fill_uses_shared_word_bank_and_inline_text_inputs():
     block = _function_block('renderCloze')
     assert 'buildClozeStem(passage.passage, questions)' in block
     assert "makeSeed('cloze')" in block
@@ -964,6 +964,9 @@ def test_passage_fill_uses_inline_text_inputs_without_options_or_hints():
     assert 'type="radio"' not in block and 'clozeQuestionHtml' not in APP_JS_SRC
     assert 'q.a' not in slot and 'q.hint' not in slot and 'placeholder=' not in slot
     assert 'D.passage_fill_questions' in _function_block('clozePool')
+    assert 'passageWordBank(passage)' in block
+    assert block.index('buildClozeStem(passage.passage, questions)') < block.index('passage-word-bank-title')
+    assert 'wordBank.map' in block
 
 
 def test_passage_fill_is_a_locked_default_every_day():
@@ -1488,11 +1491,11 @@ def test_passage_fill_accepts_reviewed_alternatives_but_rejects_wrong_forms():
     assert _function_block('passageAnswerMatches'), '缺少语境填空判分'
     script = '\n'.join(_function_block(n) for n in ('normalizePassageAnswer', 'passageAnswerMatches')) + """
 const assert = require('assert');
-const q = {a: 'because', accepted_answers: ['since', 'as']};
-for (const value of ['because', ' Since ', 'AS', 'ＢＥＣＡＵＳＥ']) {
+const q = {word: 'travel', a: 'travelling', accepted_answers: ['traveling']};
+for (const value of ['travelling', ' Traveling ', 'TRAVELLING', 'ＴＲＡＶＥＬＩＮＧ']) {
   assert(passageAnswerMatches(q, value), value);
 }
-for (const value of ['', '   ', 'although', 'because of']) {
+for (const value of ['', '   ', 'travel', 'travels', 'was travelling']) {
   assert(!passageAnswerMatches(q, value), value);
 }
 assert(!passageAnswerMatches({a:'waters'}, 'water'));
@@ -1507,3 +1510,42 @@ def test_built_site_contains_current_passage_fill_bank():
     deployed_bank = json.loads(src[src.index('=') + 1:src.rindex(';')])
     assert source_bank
     assert deployed_bank['passage_fill_questions'] == source_bank
+
+
+def test_passage_word_bank_is_shuffled_without_losing_or_revealing_words():
+    helper = _function_block('passageWordBank')
+    assert helper, '缺少候选词打乱逻辑'
+    script = helper + """
+const assert = require('assert');
+const passage = {word_bank:['study','happy','book'],blanks:[{word:'study'},{word:'happy'},{word:'book'}]};
+let shuffle = items => items; // Even a random identity permutation cannot reveal blank order.
+const result = passageWordBank(passage);
+assert.notDeepStrictEqual(result, passage.word_bank);
+assert.deepStrictEqual([...result].sort(), [...passage.word_bank].sort());
+assert.deepStrictEqual(passage.word_bank, ['study','happy','book']);
+shuffle = items => items.reverse();
+assert.deepStrictEqual(passageWordBank(passage), ['book','happy','study']);
+"""
+    subprocess.run(['node', '-e', script], check=True, capture_output=True, text=True)
+
+
+def test_passage_drafts_only_restore_for_the_same_question_set():
+    script = _function_block('restoreAnswers') + """
+const assert = require('assert');
+let draft = {route:'cloze',answers:['wrong-old-answer']};
+let currentQuestions = [{_seenKey:'word-bank-fill::pf_001::1'}];
+const loadDraft = () => draft;
+const parseRoute = () => ({name:'cloze'});
+const input = {type:'text',value:''};
+const app = {querySelectorAll: () => [input]};
+restoreAnswers(app);
+assert.strictEqual(input.value, ''); // Legacy unprompted draft must not overwrite new questions.
+draft.passage = 'word-bank-fill::pf_002::1';
+restoreAnswers(app);
+assert.strictEqual(input.value, '');
+draft.passage = 'word-bank-fill::pf_001::1';
+draft.answers = ['studied'];
+restoreAnswers(app);
+assert.strictEqual(input.value, 'studied');
+"""
+    subprocess.run(['node', '-e', script], check=True, capture_output=True, text=True)

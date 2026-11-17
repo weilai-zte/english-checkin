@@ -316,12 +316,15 @@ document.addEventListener('input', function(e) {
       const answers = (prev && prev.route === route) ? collectAnswers() : [];
       localStorage.setItem(DRAFT_KEY, JSON.stringify({
         date: today(), route, idx: currentVocabIdx, answers, updated: Date.now(),
+        passage: route === 'cloze' ? (currentQuestions || []).map(q => q._seenKey).join('|') : undefined,
       }));
     } catch (e) { /* 隐私模式/配额超限静默 */ }
   }
   function restoreAnswers(app) {
     const d = loadDraft();
     if (!d || !app || d.route !== parseRoute().name) return;
+    // 题目改版或抽到不同短文时，不把旧答案按题号错填到新短文。
+    if (d.route === 'cloze' && d.passage !== (currentQuestions || []).map(q => q._seenKey).join('|')) return;
     const inputs = app.querySelectorAll('input');
     inputs.forEach((inp, i) => {
       const v = d.answers && d.answers[i];
@@ -2535,6 +2538,14 @@ document.addEventListener('input', function(e) {
     const answer = normalizePassageAnswer(value);
     return !!answer && [q.a, ...(q.accepted_answers || [])].some(a => normalizePassageAnswer(a) === answer);
   }
+  function passageWordBank(passage) {
+    const words = shuffle((passage.word_bank || []).slice());
+    // 即使随机恰好排回题号顺序，也不按空格顺序展示候选词。
+    if (words.length > 1 && words.every((word, i) => word === passage.blanks[i].word)) {
+      words.push(words.shift());
+    }
+    return words;
+  }
   function renderCloze(app) {
     _rng = seededRandom(makeSeed('cloze'));
     const pool = clozePool();
@@ -2545,8 +2556,9 @@ document.addEventListener('input', function(e) {
       return;
     }
     const recent = recentSeenKeys(7, true);
-    const fresh = pool.filter(p => !p.blanks.some(b => recent.has('passage-fill::' + p.id + '::' + b.n)));
+    const fresh = pool.filter(p => !p.blanks.some(b => recent.has('word-bank-fill::' + p.id + '::' + b.n)));
     const passage = sample(fresh.length ? fresh : pool, 1)[0];
+    const wordBank = passageWordBank(passage);
     const sentences = splitSentences(passage.passage);
     const questions = passage.blanks.map(b => {
       const marker = `(${b.n})____`;
@@ -2554,8 +2566,8 @@ document.addEventListener('input', function(e) {
       return {
         n: b.n,
         q: context.replace(/\((\d+)\)_+/g, (match, n) => Number(n) === b.n ? marker : (passage.blanks.find(blank => blank.n === Number(n)) || {}).answer || match),
-        a: String(b.answer), accepted_answers: b.accepted_answers || [], hint: b.hint,
-        _seenKey: 'passage-fill::' + passage.id + '::' + b.n,
+        word: b.word, a: String(b.answer), accepted_answers: b.accepted_answers || [], hint: b.hint,
+        _seenKey: 'word-bank-fill::' + passage.id + '::' + b.n,
       };
     });
     currentQuestions = questions;
@@ -2564,8 +2576,13 @@ document.addEventListener('input', function(e) {
       <div class="container">
         <div class="card cloze-paper">
           <h1 class="cloze-paper-title">${escapeHtml(passage.title)}</h1>
-          <p class="cloze-instruction" id="passage-fill-instruction">通读短文，根据上下文在每个空格填入一个恰当的单词。没有选项或提示，注意时态和词形。</p>
+          <p class="cloze-instruction" id="passage-fill-instruction">从下方词库中选择单词，并根据上下文用适当形式填空。每空一词，每词限用一次，注意时态和词形变化。</p>
           <div class="cloze-passage" lang="en">${buildClozeStem(passage.passage, questions)}</div>
+          <section class="passage-word-bank" aria-labelledby="passage-word-bank-title">
+            <h2 id="passage-word-bank-title">候选单词</h2>
+            <ul class="passage-word-list" lang="en">${wordBank.map(word => `<li>${escapeHtml(word)}</li>`).join('')}</ul>
+            <p>单词顺序已打乱，请选词并按需要变形后填入上方空格。</p>
+          </section>
         </div>
         <p id="passage-fill-status" role="status"></p>
         <div class="cloze-review" id="cloze-review" hidden></div>
@@ -2601,7 +2618,7 @@ document.addEventListener('input', function(e) {
         <h2 class="card-title" id="passage-fill-score" tabindex="-1">答案与解析 · 得分 ${correct}/${questions.length}</h2>
         ${questions.map((q, i) => `<div class="cloze-miss" id="passage-result-${q.n}">
           <div>第 ${q.n} 空 · ${results[i].ok ? '✓ 正确' : '✗ 需订正'}　你填：<strong>${escapeHtml(picks[i])}</strong></div>
-          <div>参考答案：<strong>${escapeHtml(q.a)}</strong>${q.accepted_answers.length ? `；也接受：${q.accepted_answers.map(escapeHtml).join(' / ')}` : ''}</div>
+          <div>候选词：${escapeHtml(q.word)} → 参考答案：<strong>${escapeHtml(q.a)}</strong>${q.accepted_answers.length ? `；也接受：${q.accepted_answers.map(escapeHtml).join(' / ')}` : ''}</div>
           <div class="cloze-miss-hint">${escapeHtml(q.hint || '')}</div>
         </div>`).join('')}
       </div>`;
@@ -2609,7 +2626,7 @@ document.addEventListener('input', function(e) {
         if (!results[i].ok) {
           progress.wrong_grammar.push({
             type: 'cloze', format: 'passage-fill', passage_id: passage.id, passage_title: passage.title,
-            question: q.q, answer: q.a, accepted_answers: q.accepted_answers,
+            question: q.q, word: q.word, answer: q.a, accepted_answers: q.accepted_answers,
             user: picks[i], hint: q.hint, date: today(),
           });
         }
