@@ -141,6 +141,28 @@ body {
   text-align: left;
   white-space: pre-wrap;
 }
+.passage-fill-slot {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  white-space: nowrap;
+}
+.passage-fill-slot .cloze-num { font-size: 12px; }
+.card.cloze-paper .passage-fill-input {
+  width: 104px;
+  min-height: 36px;
+  padding: 4px 6px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: var(--bg-card);
+  color: var(--text-1);
+  font: inherit;
+  text-align: center;
+}
+.card.cloze-paper .passage-fill-input:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
+.card.cloze-paper .passage-fill-input.is-right { border-style: double; border-width: 3px; }
+.card.cloze-paper .passage-fill-input.is-wrong { border-style: dashed; border-width: 2px; }
+#passage-fill-status { color: var(--text-1); margin-bottom: 12px; }
 .cloze-slot {
   display: inline-block;
   margin: 0 1px;

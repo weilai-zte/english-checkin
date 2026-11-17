@@ -252,6 +252,7 @@ def export_data():
         "tense_questions": tense_questions,
         "drill_questions": drill_questions,
         "cloze_questions": cloze_questions,
+        "passage_fill_questions": _try_load("passage_fill_questions.json") or [],
         # 三级词库已分级, 不再需要屏蔽"小学基础词"
         "simple_words": [],
         # 孩子初始"不熟悉"词(家长与孩子共同标记), App 首次加载时播种到 progress.unfamiliar_words

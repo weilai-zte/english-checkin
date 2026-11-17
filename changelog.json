@@ -383,6 +383,23 @@
         "tests/test_site_static.py"
       ],
       "verified": "405 tests passed; node --check; static build passed"
+    },
+    {
+      "date": "2026-11-17",
+      "version": "context-passage-fill",
+      "action": "change",
+      "what": "用无提示语境短文填空替换完形选择题；改编15篇150空，每天必选",
+      "why": "用户确认短文填空失分最多，要求无词库、无首字母、无选项，默认选中且不可取消",
+      "by": "codex",
+      "files": [
+        "data/passage_fill_questions.json",
+        "site_static/app.js",
+        "site_static/build.py",
+        "site_static/style.css",
+        "tests/test_passage_fill_bank.py",
+        "tests/test_site_static.py"
+      ],
+      "verified": "454项测试通过；本地浏览器验证漏填与多词拦截、刷新恢复、备选答案判分、错题保存、完成打卡、键盘顺序；390px容器无横向溢出；浅深色与强制颜色检查。题库经两轮代理审校，未经过独立教师复核。"
     }
   ],
   "release_summaries": [
